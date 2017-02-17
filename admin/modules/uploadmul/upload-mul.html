@@ -1,0 +1,17 @@
+<div class="goods-pics-box fix">
+    <div class="goods-img f" ng-repeat="item in url track by $index">
+        <i class="fa fa-minus-circle" ng-click="delPic($index)"></i>
+        <img ng-if="item" ng-src="{{item}}">
+    </div>
+
+    <div class="upload-icon f">
+        <div class="upload-goods-form">
+            <i class="ti-plus"></i>
+            <form id="file-form">
+            	<input type="file" name="file" multiple="multiple" onchange="angular.element(this).scope().imgUpload(this.files)">
+            </form>
+        </div>
+      
+    </div>
+</div>
+

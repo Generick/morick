@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app="addAddressApp">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+        <title>添加新地址</title>
+        <link rel="stylesheet" href="../css/ui.base.css" />
+        <link rel="stylesheet" href="../css/selected.css" />
+        <link rel="stylesheet" href="../css/person_center.css" />
+        <link rel="stylesheet" href="../popUpModal/popUp.css" />
+        <link href="../plugin/layerMobile/need/layer.css">
+	</head>
+	<body ng-controller="addAddressController">
+		<div class="container" style="opacity: 1;">
+			<div class="mid-top line_temp">
+				<span>收货人:</span>
+				<input ng-model="addAddressModel.acceptName" class="person-input" type="text" placeholder="输入联系人姓名" />
+			</div>
+			<div class="mid-top line_temp">
+				<span>联系方式:</span>
+				<input ng-model="addAddressModel.mobile" class="person-input" type="tel" maxlength="11" placeholder="输入联系电话" />
+			</div>
+			<div class="mid-top line_temp" ng-click="onClickToChooseAddress()">
+				<span>所在地区:</span>
+				<img class="to_right" src="../img/personCenter/right_icon.png" />
+				<span id="addTotalAddress" style="float: right;"></span>
+			</div>
+			<div class="address-div clear">
+				<span>详细地址:</span>
+				<textarea id="addAddressText" ng-model="addAddressModel.address" placeholder="街道、楼牌号等，不少于5个字"></textarea>
+			</div>
+		</div>
+		<div class="clear" style="display: inline-block;" ng-click="onClickSetDefaultAddress()">
+			<!--<i class="default-address" style="background-image: url({{addAddressModel.defaultAddressIcon}});"></i>-->
+			<i class="default-address">
+				<img id="addno" src="../img/personCenter/no.png">
+				<img id="addyes" src="../img/personCenter/yes.png">
+			</i>
+			
+			<span class="default-text">设为默认地址</span>
+		</div>
+		<div class="submit-btn ripple" ng-click="onClickSubmitAddAddress()">保存</div>
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="../js/zepto.min.js" ></script>
+	<script type="text/javascript" src="../js/angular.min.js" ></script>
+	<script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
+    <script src="../plugin/layerMobile/layer.js"></script>
+    <script src="../module/dialog/dialog.js"></script>
+	<script type="text/javascript" src="../popUpModal/confirmTip.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="../controller/personCenter/addAddressController.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="../js/fastclick.js" ></script>
+	<script>
+		$(function(){
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;  
+	        setTimeout(function(){  
+	            bool=true;  
+	        },1500);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{
+		    		if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			        {
+                        var addType = commonFu.getQueryStringByKey("addType");
+                        if (addType == 1)
+                        {
+                            location.href = pageUrl.PERSON_INFO;
+                        }
+                        else
+                        {
+                            location.href = pageUrl.MY_ADDRESS_LIST + "?userId=" + localStorage.getItem(localStorageKey.userId);
+                        }
+
+                        localStorage.setItem(localStorageKey.TOTALADDRESS,"");
+                        localStorage.setItem(localStorageKey.acceptName,"");
+                        localStorage.setItem(localStorageKey.mobile,"");
+                        localStorage.setItem(localStorageKey.address,"");
+			        }
+		    	}
+		    	pushHistory();
+		        
+		    }, false); 
+		    function pushHistory() { 
+		        var state = { 
+		            title: "title", 
+		            url: "#"
+		        }; 
+		        window.history.pushState(state, "title", "#"); 
+		    }
+		})
+	</script>
+	
+</html>

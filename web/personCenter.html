@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+        <title>雅玩之家</title>
+        <link rel="stylesheet" href="css/ui.base.css" />
+        <link rel="stylesheet" href="css/selected.css" />
+        <link rel="stylesheet" href="css/person_center.css" />
+        <link rel="stylesheet" href="css/ui.mine.css" />
+        <link rel="stylesheet" href="plugin/layerMobile/need/layer.css">
+        <link rel="stylesheet" href="popUpModal/popUp.css" />
+	</head>
+	<body ng-controller="ctrl">
+		<!--加载动画-->
+		<div class="animation">
+			<img src="img/loading.gif"/>
+		</div>
+
+		<div class="container scroll" style="position:absolute; overflow:auto;-webkit-overflow-scrolling: touch; top:0; left:0; bottom:54px; right:0">
+			<div class="person-head">
+				<p class="person-title">我的</p>
+				<img class="head-icon" ng-src="{{personCenterModel.userInfo.smallIcon}}" ng-click="onClickToPersonInfo()" />
+				<div class="user-info">
+					<span ng-bind="personCenterModel.userInfo.name"></span><img ng-src="{{personCenterModel.userInfo.genderIcon}}" />
+				</div>
+			</div>
+
+			<div class="person-mid">
+				<div class="mid-top" ng-click="onClickToAllOrderList()">
+					<span>我的订单</span>
+					<img src="img/personCenter/right_icon.png" />
+				</div>
+			</div>
+			<div class="order-content clear">
+				<div class="order-li" ng-click="onClickToWaitForPay()">
+					<div><img src="img/personCenter/pay.png" /></div>
+					<span>待付款</span>
+				</div>
+				<div class="order-li" ng-click="onClickToWaitForDelivery()">
+					<div><img src="img/personCenter/deliver.png" /></div>
+					<span>待收货</span>
+				</div>
+				<div class="order-li" ng-click="onClickToHasDone()">
+					<div><img src="img/personCenter/done.png" /></div>
+					<span>已完成</span>
+				</div>
+			</div>
+
+			<ul class="mgt-10 list list-up-down-line">
+				<li class="ub line" ng-click="onClickToMyAccount()">
+					<div class="ub-f1 list-icon"><img src="img/personCenter/account.png"/></div>
+					<div class="ub-f1 list-text mgt-16">我的账户</div>
+					<div class="ub-f1 mgt-16"></div>
+					<div class="ub-f1 list-right mgt-13"></div>
+				</li>
+				<li class="ub line" ng-click="onClickToMyBidding()">
+					<div class="ub-f1 list-icon"><img src="img/personCenter/mybidding.png"/></div>
+					<div class="ub-f1 list-text mgt-16">我的参与</div>
+					<div class="ub-f1 mgt-16"></div>
+					<div class="ub-f1 list-right mgt-13"></div>
+				</li>
+				<li class="ub line" ng-click="onClickToMyPayService()">
+					<div class="ub-f1 list-icon"><img src="img/personCenter/pay_service.png"/></div>
+					<div class="ub-f1 list-text mgt-16">付费服务</div>
+					<div class="ub-f1 mgt-16"></div>
+					<div class="ub-f1 list-right mgt-13"></div>
+				</li>
+				<li class="ub line" ng-click="onClickToMyAddress()">
+					<div class="ub-f1 list-icon"><img src="img/personCenter/address.png"/></div>
+					<div class="ub-f1 list-text mgt-16">收货地址</div>
+					<div class="ub-f1 mgt-16"></div>
+					<div class="ub-f1 list-right mgt-13"></div>
+				</li>
+				<li class="ub line" ng-click="onClickToMyScanRecords()">
+					<div class="ub-f1 list-icon"><img src="img/personCenter/scan_records.png"/></div>
+					<div class="ub-f1 list-text mgt-16">我的浏览</div>
+					<div class="ub-f1 mgt-16"></div>
+					<div class="ub-f1 list-right mgt-13"></div>
+				</li>
+			</ul>
+		</div>
+
+        <div ng-include="'module/tab/tab.html'"></div>
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
+    <script src="plugin/layerMobile/layer.js"></script>
+    <script src="module/dialog/dialog.js"></script>
+    <script src="controller/app.js"></script>
+    <script src="js/commonArr.js"></script>
+    <script src="module/tab/tab.js"></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/personCenterController.js" ></script>
+	<script type="text/javascript" src="controller/auctionHistoryController.js" ></script>
+	<script type="text/javascript" src="controller/personCenterController.js" ></script>
+
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<script type="text/javascript" src="js/htmlNoScroll.js" ></script>
+	
+</html>

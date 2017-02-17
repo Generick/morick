@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="email=no">
+        <title>雅玩之家</title>
+        <link rel="stylesheet" href="css/ui.base.css" />
+        <link rel="stylesheet" href="css/selected.css" />
+        <link rel="stylesheet" href="popUpModal/popUp.css" />
+	</head>
+	<body ng-controller="ctrl">
+		<!--加载动画-->
+		<div class="animation" style="position:absolute;top:50%">
+			<img src="img/loading.gif"/>
+		</div>
+        <div id="container" class="container" style="transform: translate3d(0px, -18px, 0px);transition: all 0.2s;">
+            <div class="xzlDown"></div>
+            <div class="list" id="list-empty" style="background-color: #fff;">
+				<ul>
+					<li ng-repeat = "item in auctionItems" id="sel_{{item.id}}" ng-click = "onClickToGoodsDetail(item.id)" on-finish-render-filters>
+                        <div class="item-img">
+                            <img ng-src="{{item.goodsInfo.goodsPicsShow}}">
+                        </div>
+						<div class="price">
+							<div ng-bind="item.goodsInfo.goods_name"></div>
+							<div style="float: right;" class="clear">
+								<span style="margin-top: 4px;"  ng-show = 'item.isShowPrice || item.initialPrice != 0'>当前出价</span>
+								<span ng-show = 'item.isShowPrice || item.initialPrice != 0'>￥{{item.isShowPrice?item.currentPrice: item.initialPrice}}</span>
+								<span ng-show = '!item.isShowPrice && item.initialPrice == 0'>零起拍</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+			<!--暂无数据-->
+			<div class="no-data">暂无数据！</div>
+		</div>
+
+        <div ng-include="'module/tab/tab.html'"></div>
+	</body>
+
+	<!--系统js-->
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/commonArr.js"></script>
+    <script src="module/tab/tab.js"></script>
+	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
+    <script src="controller/app.js"></script>
+
+	<!--controller-->
+	<script type="text/javascript" src="controller/selectedGoodsController.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+<!--	<script type="text/javascript" src="js/htmlNoScroll.js" ></script>-->
+	<script type="text/javascript" src="js/xzl-down-refresh.js" ></script>
+	
+	<!--<script>
+	 
+	$(function(){  
+	    pushHistory();  
+	    window.addEventListener("popstate", function(e) {  
+	        alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能  
+	}, false);  
+	    function pushHistory() {  
+	        var state = {  
+	            title: "title",  
+	            url: "#"  
+	        };  
+	        window.history.pushState(state, "title", "#");  
+	      
+	    }  
+	      
+	});   
+	</script>-->
+</html>

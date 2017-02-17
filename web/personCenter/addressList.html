@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+        <title>收货地址</title>
+        <link rel="stylesheet" href="../css/ui.base.css" />
+        <link rel="stylesheet" href="../css/selected.css" />
+        <link rel="stylesheet" href="../css/person_center.css" />
+        <link rel="stylesheet" href="../popUpModal/popUp.css" />
+	</head>
+	<body ng-controller="ctrl">
+		<!--加载动画-->
+		<div class="animation">
+			<img src="../img/loading.gif" />
+		</div>
+		<div class="container">
+			<ul>
+				<li class="address-li" ng-repeat="item in addressModel.addressArr track by $index">
+                    <div ng-click="selAddress(item.id)">
+                        <div class="address-accept">
+                            <span ng-bind="item.acceptName"></span><span ng-bind="item.mobile"></span>
+                        </div>
+                        <div class="address-addr">
+                            收货地址: <span ng-bind="item.allAddress"></span>
+                        </div>
+                    </div>
+					<div class="address-operate fix">
+						<div class="clear" style="display: inline-block;" ng-click="onClickListSetDefaultAddress(item.id)">
+							
+							<!--<i class="default-address" style="background-image: url({{item.defaultAddressIcon}});"></i>-->
+							<i class="default-address">
+								<img ng-show="(item.isCommon == 1)" src="../img/personCenter/yes.png">
+								<img   ng-show="(item.isCommon != 1)" src="../img/personCenter/no.png">
+							</i>
+							<span class="default-text">默认地址</span>
+						</div>
+						<span class="address-op" ng-click="onClickDelAddress(item.id)" style="margin-right: 15px;">
+							<img src="../img/personCenter/del.png" />删除
+						</span>
+						<span class="address-op" ng-click="onClickEditAddress(item.id)">
+							<img src="../img/personCenter/edit.png" />编辑
+						</span>
+					</div>
+				</li>
+			</ul>
+			<div class="add-address ripple" ng-click="onClickAddAddress()">添加新地址</div>
+			<!--暂无数据-->
+			<div class="no-data">暂无数据！</div>
+		</div>
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/zepto.min.js" ></script>
+    <script type="text/javascript" src="../js/angular.min.js" ></script>
+    <script type="text/javascript" src="../js/fastclick.js" ></script>
+    <script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
+    <script type="text/javascript" src="../js/common.js" ></script>
+    <script type="text/javascript" src="../js/config.js" ></script>
+    <script type="text/javascript" src="../popUpModal/confirmTip.js" ></script>
+    <script type="text/javascript" src="../popUpModal/confirmDialog.js" ></script>
+    <script src="../controller/app.js"></script>
+    <!--controller-->
+    <script type="text/javascript" src="../controller/personCenter/addressListController.js" ></script>
+
+    <!--插件-->
+	<script>
+		$(function(){
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;  
+            setTimeout(function(){  
+                bool=true;  
+            },1500);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{
+		    		if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			        {
+                        var tt = localStorage.getItem(localStorageKey.TO_ADDRESS_TYPE);
+                        
+			        	if (tt == "1")
+			        	{
+                            localStorage.removeItem(localStorageKey.TO_ADDRESS_TYPE);
+				        	location.href = pageUrl.ORDER_DETAIL;
+			        	}
+			        	else
+			        	{
+                            location.href = pageUrl.PERSON_CENTER;
+			        	}
+			        }
+		    	}
+		    	pushHistory();
+		    }, false); 
+		    function pushHistory() { 
+		        var state = { 
+		            title: "title", 
+		            url: "#"
+		        }; 
+		        window.history.pushState(state, "title", "#"); 
+		    }
+		})
+	</script>
+</html>

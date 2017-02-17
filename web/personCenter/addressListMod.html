@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html ng-app="addressListModApp">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+        <title>修改地址</title>
+        <link rel="stylesheet" href="../css/ui.base.css" />
+        <link rel="stylesheet" href="../css/selected.css" />
+        <link rel="stylesheet" href="../css/person_center.css" />
+        <link rel="stylesheet" href="../popUpModal/popUp.css" />
+	</head>
+	<body ng-controller="addressListModController">
+		<div class="container" style="opacity: 1;">
+			<div class="mid-top line_temp">
+				<span>收货人:</span>
+				<input ng-model="addressListModModel.acceptName" class="person-input" type="text" placeholder="输入联系人姓名" />
+			</div>
+			<div class="mid-top line_temp">
+				<span>联系方式:</span>
+				<input ng-model="addressListModModel.mobile" class="person-input" type="tel" placeholder="输入联系电话" />
+			</div>
+			<div class="mid-top line_temp" ng-click="onClickToChooseAddress()">
+				<span>所在地区:</span>
+				<img class="to_right" src="../img/personCenter/right_icon.png" />
+				<span id="listTotalAddress" style="float: right;width: 56vw;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"></span>
+			</div>
+			<div class="address-div clear">
+				<span>详细地址:</span>
+				<textarea ng-model="addressListModModel.address" placeholder="街道、楼牌号等，不少于5个字"></textarea>
+			</div>
+		</div>
+		<div class="clear" style="display: inline-block;" ng-click="onClickSetDefaultAddress()">
+			<!--<i class="default-address" style="background-image: url({{addressListModModel.defaultAddressIcon}});"></i>-->
+			<i class="default-address">
+				<img id="adList-yes" src="../img/personCenter/yes.png">
+				<img id="adList-no" src="../img/personCenter/no.png">
+			</i>
+			
+			<span class="default-text">设为默认地址</span>
+		</div>
+		<div class="submit-btn ripple" ng-click="onClickSubmitModAddress()">保存</div>
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="../js/zepto.min.js" ></script>
+	<script type="text/javascript" src="../js/angular.min.js" ></script>
+	<script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
+	<script type="text/javascript" src="../popUpModal/confirmTip.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="../controller/personCenter/addressListModController.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="../js/fastclick.js" ></script>
+	<script>
+		$(function(){
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;  
+	        setTimeout(function(){  
+	            bool=true;  
+	        },1500);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{
+		    		if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			        {
+			        	location.href = pageUrl.MY_ADDRESS_LIST + "?userId=" + localStorage.getItem(localStorageKey.userId);
+			        	localStorage.setItem(localStorageKey.TOTALADDRESS,"");
+			        }
+		    	}
+		    	pushHistory();
+		        
+		    }, false); 
+		    function pushHistory() { 
+		        var state = { 
+		            title: "title", 
+		            url: "#"
+		        }; 
+		        window.history.pushState(state, "title", "#"); 
+		    }
+		})
+	</script>
+	
+</html>

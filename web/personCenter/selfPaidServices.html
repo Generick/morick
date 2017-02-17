@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+        <title>付费服务</title>
+        <link rel="stylesheet" href="../css/ui.base.css" />
+        <link rel="stylesheet" href="../css/selected.css" />
+        <link rel="stylesheet" href="../css/person_center.css" />
+        <link rel="stylesheet" href="../popUpModal/popUp.css" />
+        <link href="../plugin/layerMobile/need/layer.css">
+	</head>
+	<body ng-controller="ctrl">
+		<!--加载动画-->
+		<div class="animation">
+			<img src="../img/loading.gif" />
+		</div>
+		<div class="container">
+			<div class="services-container">
+				<img src="../img/personCenter/message.png" />
+				<div class="services-price">
+					短信通知服务<span>(<span ng-bind="configData.cfg_sms"></span>元/月)</span>
+				</div>
+				<div class="services-content">
+                    <p>1、出价金额被超越时，如有多次超越，24小时内只提醒一次；</p>
+                    <p>2、截拍前一小时内提醒一次；</p>
+                    <p>3、竞拍成功后通知。</p>
+				</div>
+				<div class="services-date" ng-show="selfPaidServicesModel.hasOpen1">
+					已经开通 (有效期<span ng-bind="selfPaidServicesModel.msgStartTime"></span>至<span ng-bind="selfPaidServicesModel.msgEndTime"></span>)
+				</div>
+				<div class="submit-btn ripple" ng-show="!selfPaidServicesModel.hasOpen1" ng-click="onClickToOpenService(0)">开通服务</div>
+                <p class="protocol" ng-show="!selfPaidServicesModel.hasOpen1">开通本服务表示已阅读并同意<span style="color: #759FE3" ng-click="agreeProtocol()">《雅玩之家服务协议》</span></p>
+			</div>
+			
+			<div class="services-container">
+				<img src="../img/personCenter/paid_service.png" />
+				<div class="services-price">
+					委托出价服务<span>(<span ng-bind="configData.cfg_bids"></span>元/月)</span>
+				</div>
+				<div class="services-content">
+                    <p>1、当出价达到预设金额时，自动按设定的价格出价；</p>
+                    <p>2、每件拍品最多可设定三次委托出价；</p>
+                    <p>3、本服务需要首先开通短信通知服务，当自动执行委托出价后，将有短信通知。</p>
+				</div>
+				<div class="services-date" ng-show="selfPaidServicesModel.hasOpen2">
+					已经开通 (有效期<span ng-bind="selfPaidServicesModel.selfPaidStartTime"></span>至<span ng-bind="selfPaidServicesModel.selfPaidEndTime"></span>)
+				</div>
+				<div class="submit-btn ripple" ng-show="!selfPaidServicesModel.hasOpen2 && selfPaidServicesModel.hasOpen1" ng-click="onClickToOpenService(1)">开通服务</div>
+				<div class="submit-btn-un ripple" ng-show="!selfPaidServicesModel.hasOpen2 && !selfPaidServicesModel.hasOpen1">开通服务</div>
+                <p class="protocol" ng-show="!selfPaidServicesModel.hasOpen2 && selfPaidServicesModel.hasOpen1">开通本服务表示已阅读并同意<span style="color: #759FE3" ng-click="agreeProtocol()">《雅玩之家服务协议》</span></p>
+			</div>
+		</div>
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/zepto.min.js" ></script>
+	<script type="text/javascript" src="../js/angular.min.js" ></script>
+	<script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
+	<script type="text/javascript" src="../popUpModal/confirmTip.js" ></script>
+	<script type="text/javascript" src="../popUpModal/confirmDialog.js" ></script>
+    <script src="../plugin/layerMobile/layer.js"></script>
+    <script src="../module/dialog/dialog.js"></script>
+    <script src="../controller/app.js"></script>
+	<!--controller-->
+	<script type="text/javascript" src="../controller/personCenter/selfPaidServicesController.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="../js/fastclick.js" ></script>
+</html>

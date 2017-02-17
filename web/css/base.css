@@ -1,0 +1,140 @@
+@charset "utf-8";
+
+html,body {
+	-webkit-touch-callout:none;
+	-webkit-text-size-adjust:none;
+	-webkit-tap-highlight-color:transparent;
+	-webkit-user-select:none;
+	-webkit-overflow-scrolling: touch;
+    height: 100% !important;
+}
+
+body{
+	margin:0;
+	border:0;
+	padding:0;
+	font-size: 14px;
+	color: #888;
+	background-color: #efefef;
+	font-family:"microsoft yahei",sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6,p,a,ol,ul,li{
+	margin: 0;
+	padding: 0;
+}
+
+a,button,em,del,strong,var,label,cite,small,time,mark,code,textarea{
+	display:block;
+}
+
+a{
+	text-decoration: none;
+	cursor: pointer;
+}
+
+a:hover{
+	text-decoration: none;
+}
+
+a:active{
+	text-decoration: none;
+}
+
+ul,li{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+a img {
+	border: 0
+}
+
+img {
+    width: 100%;
+}
+
+a,button:focus {
+	outline: 0;
+}
+
+input,textarea{
+	-webkit-tap-highlight-color:transparent;
+	-webkit-appearance: none;
+}
+
+input,textarea:focus{
+	outline: none;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+li{
+	list-style: none;
+}
+button{
+	border: none;
+}
+.clear:after{
+	clear: both;
+	content: '';
+	display: block;
+}
+.f{
+    float: left;
+}
+
+.r{
+    float: right;
+}
+
+.fix {
+    zoom: 1;
+}
+
+.fix:after {
+    content: " ";
+    display: block;
+    clear: both;
+    line-height: 0;
+    visibility: hidden;
+}
+
+/*��ť���*/
+.ripple {
+    position: relative;
+    overflow: hidden
+}
+
+.ripple:after {
+    content: "";
+    background: rgba(255,255,255,0.6);
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    padding-top: 240%;
+    padding-left: 240%;
+    margin-top: -120%;
+    margin-left: -120%;
+    opacity: 0;
+    transition: all 1s
+}
+
+.ripple:active:after {
+    padding-top: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-left: 0;
+    opacity: 1;
+    transition: 0s
+}

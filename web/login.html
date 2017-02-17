@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>登录 - 雅玩之家</title>
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="popUpModal/popUp.css" />
+        <link href="plugin/layerMobile/need/layer.css">
+	</head>
+
+	<body ng-controller="ctrl" style="background-color: #fff;">
+		<div class="container">
+			<div class="log">
+				<img src="img/logo.png" />
+				<br />
+				<img src="img/titles.png" />
+			</div>
+			<div class="user-input">
+				<div class="login-input">
+					<input type="tel" ng-model="loginModel.platformId" placeholder="请输入手机号"
+                    onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11" />
+				</div>
+				<div class="code-input clear">
+					<div class="code-wrap fix">
+						<input type="number" ng-model="loginModel.password" placeholder="请输入验证码"
+                        onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="4"/>
+						<div class="mobile-code" ng-bind="loginModel.codeCount" ng-click="onClickGetCode()"></div>
+					</div>
+				</div>
+				<button ng-click="onClickLogin()">登 录</button>
+			</div>
+		</div>
+	</body>
+
+	<!--系统js-->
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="plugin/layerMobile/layer.js"></script>
+    <script src="module/dialog/dialog.js"></script>
+	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
+    <script src="controller/app.js"></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/loginController.js" ></script>
+	<script>
+		if(window.screen.width < 375){
+			$('.user-input').css('margin-top','5vh');
+		}
+	</script>
+</html>

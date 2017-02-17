@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="transactionApp">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+        <title>明细</title>
+        <link rel="stylesheet" href="../css/ui.base.css" />
+        <link rel="stylesheet" href="../css/selected.css" />
+        <link rel="stylesheet" href="../css/ui.mine.css" />
+        <link rel="stylesheet" href="../popUpModal/popUp.css" />
+	</head>
+	<body ng-controller="transactionController">
+		<div class="animation">
+			<img src="../img/loading.gif" />
+		</div>
+		<div class="container">
+			<ul class="list list-up-down-line">
+				<li class="ub line list-detail" ng-repeat="item in transactionModel.transactionList track by $index">
+					<div class="ub-f1 mgt-10">
+						<div class="list-head" ng-bind="item.transactionText"></div>
+						<div class="list-time" ng-bind="item.transactionTime * 1000 | date : 'yyyy-MM-dd HH:mm:ss'"></div>
+					</div>
+					<div class="ub-f1 text-right mgt-16" ng-class="item.moneyStyle" ng-bind="item.transactionSymbol + item.money"></div>
+				</li>
+			</ul>
+			<!--暂无数据-->
+			<div class="no-data">
+				暂无数据！
+			</div>
+		</div>
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="../js/zepto.min.js" ></script>
+	<script type="text/javascript" src="../js/angular.min.js" ></script>
+	<script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
+	<script type="text/javascript" src="../popUpModal/confirmTip.js" ></script>
+    <script src="../js/commonArr.js"></script>
+
+	<!--controller-->
+	<script type="text/javascript" src="../controller/personCenter/transactionDetailController.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="../js/fastclick.js" ></script>
+
+</html>

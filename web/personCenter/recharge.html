@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+		<meta name="format-detection" content="telephone=no">
+        <title>充值</title>
+        <link rel="stylesheet" href="../css/ui.base.css"/>
+        <link rel="stylesheet" href="../css/selected.css"/>
+        <link rel="stylesheet" href="../css/person_center.css"/>
+        <link rel="stylesheet" href="../popUpModal/popUp.css"/>
+        <link href="../plugin/layerMobile/need/layer.css">
+	</head>
+	<body ng-controller="ctrl">
+		<div class="container" style="opacity: 1;">
+
+            <div class="recharge-offline">人工充值</div>
+            <div class="fix recharge-offline-wx">
+                <div class="f">
+                    <span class="wx"></span>
+                    <span>客服微信号</span>
+                </div>
+                <div class="r wx-account user-sel-all">tldwzhg(陶兰都吴掌柜)</div>
+            </div>
+            <div class="qrCode">
+                <div class="qrCode-img"><img src="../img/wzg.jpg"></div>
+                <p>长按识别图中二维码</p>
+            </div>
+
+            <div class="recharge-offline" style="padding-top: 0; line-height: 40px">自助充值</div>
+			<div class="mid-top clear">
+				<span>金额</span>
+				<input class="person-input" type="tel" placeholder="请输入充值金额" ng-model="rechargeModel.money" />
+			</div>
+		</div>
+		<div class="submit-btn ripple" style="margin-bottom: 10px" ng-click="onClickRechargeAccount()">确定</div>
+	</body>
+
+	<!--系统js-->
+	<script type="text/javascript" src="../js/zepto.min.js"></script>
+	<script type="text/javascript" src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="../js/jqAjaxRequest.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/config.js"></script>
+	<script type="text/javascript" src="../popUpModal/confirmTip.js"></script>
+    <script src="../plugin/layerMobile/layer.js"></script>
+    <script src="../module/dialog/dialog.js"></script>
+    <script src="../controller/app.js"></script>
+	<!--controller-->
+	<script type="text/javascript" src="../controller/personCenter/rechargeController.js"></script>
+	<!--插件-->
+	<script type="text/javascript" src="../js/fastclick.js"></script>
+</html>

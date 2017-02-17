@@ -1,0 +1,31 @@
+
+<!--模态框-->
+<div class="modal" id="modPwdModal">
+    <!--主体-->
+    <div class="modal-main">
+        <!--模态框头部-->
+        <div class="modal-header">
+            <span>修改密码</span><i class="modal-close ti-close"></i>
+        </div>
+
+        <!-- 模态框内容 -->
+        <div class="modal-body">
+
+            <div class="modal-item fix">
+                <div class="f modal-title">新密码：</div>
+                <div class="f modal-input-full"><input type="text" class="form-control" ng-model="contentModel.newPwd"></div>
+            </div>
+
+            <div class="modal-item fix">
+                <div class="f modal-title">确认密码：</div>
+                <div class="f modal-input-full"><input type="text" class="form-control" ng-model="contentModel.newPwd2"></div>
+            </div>
+        </div>
+
+        <!--模态框底部-->
+        <div class="modal-bottom fix">
+            <a class="btn btn-white modal-cancel r">取消</a>
+            <a class="btn btn-default ripple r" ng-click="submit1()">确定</a>
+        </div>
+    </div>
+</div>

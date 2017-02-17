@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="bindAccountApp">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+        <title>账号绑定</title>
+        <link rel="stylesheet" href="../css/ui.base.css" />
+        <link rel="stylesheet" href="../css/selected.css" />
+        <link rel="stylesheet" href="../css/person_center.css" />
+        <link rel="stylesheet" href="../popUpModal/popUp.css" />
+	</head>
+	<body ng-controller="bindAccountController">
+		<div class="container" style="opacity: 1;">
+			<!--邮箱-->
+			<div class="mid-top clear" ng-show="bindModel.mailBind">
+				<img class="bind_img" src="../img/personCenter/mail.png" />
+				<span>邮箱</span>
+				<input class="person-input" type="text" placeholder="请输入邮箱号" ng-model="bindModel.mail" />
+			</div>
+			<!--QQ-->
+			<div class="mid-top clear" ng-show="bindModel.QQBind">
+				<img class="bind_img" src="../img/personCenter/QQ.png" />
+				<span>QQ</span>
+				<input class="person-input" type="number" placeholder="请输入QQ号" ng-model="bindModel.QQ" />
+			</div>
+			<!--微信-->
+			<div class="mid-top clear" ng-show="bindModel.weChatBind">
+				<img class="bind_img" src="../img/personCenter/weChat.png" />
+				<span>微信</span>
+				<input class="person-input" type="text" placeholder="请输入微信号" ng-model="bindModel.weChat" />
+			</div>
+		</div>
+		<div class="submit-btn ripple" ng-click="onClickSubmitBind()">确定</div>
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="../js/zepto.min.js" ></script>
+	<script type="text/javascript" src="../js/angular.min.js" ></script>
+	<script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
+	<script type="text/javascript" src="../popUpModal/confirmTip.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="../controller/personCenter/bindAccountController.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="../js/fastclick.js" ></script>
+	
+</html>

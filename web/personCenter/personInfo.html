@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html ng-app="personInfoApp">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="email=no">
+        <title>个人信息</title>
+        <link rel="stylesheet" href="../css/ui.base.css" />
+        <link rel="stylesheet" href="../css/selected.css" />
+        <link rel="stylesheet" href="../css/person_center.css" />
+        <link rel="stylesheet" href="../css/ui.mine.css" />
+        <link rel="stylesheet" href="../popUpModal/popUp.css" />
+	</head>
+	<body ng-controller="personInfoController">
+		<div class="animation">
+			<img src="../img/loading.gif" />
+		</div>
+		<div class="container">
+			<ul class="header list-up-down-line">
+				<li class="ub">
+					<div class="ub-f1 list-text mgt-33">头像</div>
+					<div class="ub-f1 list-user-icon">
+						<i class="list-value" style="background-image: url({{personInfoModel.userInfo.smallIcon}});"></i>
+					</div>
+					<div class="ub-f1 list-right mgt-30"></div>
+				</li>
+				<input id="chooseHeadIcon" type="file" style="position: absolute;width: 100%;height: 100%;top: 0;opacity: 0;" /> 
+			</ul>
+			
+			<ul class="mgt-10 list list-up-down-line">
+				<li class="ub line" ng-click="onClickModName()">
+					<div class="ub-f1 list-text mgt-16">昵称</div>
+					<div class="ub-f1 list-value mgt-16" ng-bind="personInfoModel.userInfo.name"></div>
+					<div class="ub-f1 list-right mgt-13"></div>
+				</li>
+				<li class="ub line" ng-click="onClickModGender()">
+					<div class="ub-f1 list-text mgt-16">性别</div>
+					<div class="ub-f1 list-value mgt-16"  ng-bind="personInfoModel.userInfo.genderText"></div>
+					<div class="ub-f1 list-right mgt-13"></div>
+				</li>
+				<li class="ub line">
+					<div class="ub-f1 list-text mgt-16">手机号</div>
+					<div class="ub-f1 list-value mgt-16" ng-bind="personInfoModel.userInfo.telephone"></div>
+					<div class="ub-f1 list-right mgt-13"></div>
+				</li>
+				<li class="ub line" ng-click="onClickModAddress()">
+					<div class="ub-f1 list-text mgt-16">地址</div>
+					<div class="ub-f1 list-value mgt-16" ng-class="personInfoModel.userInfo.addressStyle" ng-bind="personInfoModel.userInfo.address"></div>
+					<div class="ub-f1 list-right mgt-13"></div>
+				</li>
+			</ul>
+			
+			<ul class="mgt-10 list list-up-down-line">
+				<li class="ub line" ng-click="onClickAccountBind(0)">
+					<div class="ub-f1 list-icon"><img src="../img/personCenter/weChat.png"/></div>
+					<div class="ub-f1 list-text mgt-16">微信绑定</div>
+					<div class="ub-f1 list-value mgt-16" ng-bind="personInfoModel.weChatBindText"></div>
+					<div class="ub-f1 list-right mgt-13"></div>
+				</li>
+				<li class="ub line" ng-click="onClickAccountBind(1)">
+					<div class="ub-f1 list-icon"><img src="../img/personCenter/QQ.png"/></div>
+					<div class="ub-f1 list-text mgt-16">QQ绑定</div>
+					<div class="ub-f1 list-value mgt-16" ng-bind="personInfoModel.QQBindText"></div>
+					<div class="ub-f1 list-right mgt-13"></div>
+				</li>
+				<li class="ub line" ng-click="onClickAccountBind(2)">
+					<div class="ub-f1 list-icon"><img src="../img/personCenter/mail.png"/></div>
+					<div class="ub-f1 list-text mgt-16">邮箱绑定</div>
+					<div class="ub-f1 list-value mgt-16" ng-bind="personInfoModel.mailBindText"></div>
+					<div class="ub-f1 list-right mgt-13"></div>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="choose-gender-bg">
+			<div class="choose-gender">
+				<li value="1">男</li>
+				<li value="0">女</li>
+				<div id="cancelGender">取消</div>
+			</div>
+		</div>
+		
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/angular.min.js" ></script>
+	<script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
+	<script type="text/javascript" src="../popUpModal/confirmTip.js" ></script>
+	<script type="text/javascript" src="../js/lrz.bundle.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="../controller/personCenter/personInfoController.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="../js/upload.js" ></script>
+	<script type="text/javascript" src="../js/fastclick.js" ></script>
+	<script>
+		$(function(){
+			$('.choose-gender-bg').click(function(){
+				$('.choose-gender-bg').css('display','none');
+			});
+			
+			$('.choose-gender').click(function(e){
+				e.stopPropagation();
+			});
+			
+			$('#cancelGender').click(function(){
+				$('.choose-gender-bg').css('display','none');
+			});
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;  
+            setTimeout(function(){  
+                bool=true;  
+            },1500);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{
+		    		if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			        {
+			        	location.href = pageUrl.PERSON_CENTER;
+			        }
+		    	}
+		    	pushHistory();
+		        
+		    }, false); 
+		    function pushHistory() { 
+		        var state = { 
+		            title: "title", 
+		            url: "#"
+		        }; 
+		        window.history.pushState(state, "title", "#"); 
+		    }
+		})
+	</script>
+	
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="format-detection" content="email=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>订单详情</title>
+        <link rel="stylesheet" href="../css/ui.base.css" />
+        <link rel="stylesheet" href="../css/selected.css" />
+        <link rel="stylesheet" href="../css/person_center.css" />
+        <link rel="stylesheet" href="../popUpModal/popUp.css" />
+        <link href="../plugin/layerMobile/need/layer.css">
+	</head>
+	<body ng-controller="ctrl">
+		<!--加载动画-->
+		<div class="animation">
+			<img src="../img/loading.gif" />
+		</div>
+		<div class="container">
+			<div class="order-detail-title">
+				<div ng-bind="orderDetailModel.orderInfo.orderTypeText"></div>
+				<p ng-show="orderDetailModel.unPay">付款时间剩余<span ng-bind="orderDetailModel.lastTime"></span>小时自动关闭</p>
+			</div>
+			<div class="accept-detail clear" ng-click="selAddress()">
+				<div class="accept-lf"><img src="../img/personCenter/address-icon.png" /></div>
+				<div class="accept-mid">
+					<div>收货人: <span ng-bind="orderDetailModel.orderInfo.acceptName"></span><span ng-bind="orderDetailModel.orderInfo.mobile" style="margin-left: 10px;"></span></div>
+					<div>收货地址: <span ng-bind="orderDetailModel.orderInfo.addressAll"></span></div>
+				</div>
+                <div class="accept-rg"><img src="../img/personCenter/right_icon.png"></div>
+			</div>
+			<div class="order-mid fix">
+                <div class="f bidding-img">
+                    <img ng-src="{{orderDetailModel.orderInfo.orderGoods[0].goods_pics[0]}}">
+                </div>
+                <div class="bidding-txt f">
+                    <h4 style="color: #555; font-weight: 500;">{{orderDetailModel.orderInfo.orderGoods[0].goods_name}}</h4>
+                    <div class="price-init" style="color: #FF4506;">¥{{orderDetailModel.orderInfo.goodsPrice}}</div>
+                    <div class="price-tag"><span style="margin-left: 3px;" class="order-item-num">x</span><span class="order-item-num" ng-bind="orderDetailModel.orderInfo.orderGoods[0].goodsNum"></span></div>
+                </div>
+			</div>
+
+			<div class="order-bottom" style="background-color: #fff;margin-top: 0;padding-top: 8px;">
+                <div>保证金抵扣¥ <span>{{orderDetailModel.orderInfo.prepaidPrice}}</span>元</div>
+				<ul class="clear">
+					<li class="pay-li">实付¥<span ng-bind="orderDetailModel.orderInfo.payPrice"></span></li>
+					<li style="font-size: 12px;margin: 0 10px;color: #4a4a4a;">小计(免运费) : </li>
+					<li style="font-size: 12px;color: #4a4a4a;">共<span ng-bind="orderDetailModel.orderInfo.orderGoods[0].goodsNum"></span>件商品</li>
+				</ul>
+			</div>
+			<div class="other-detail">
+				<li>订单编号: <span ng-bind="orderDetailModel.orderInfo.order_no"></span></li>
+				<li>创建时间: <span ng-bind="orderDetailModel.orderInfo.orderGoods[0].create_time*1000|date:'yyyy-MM-dd HH:mm:ss'"></span></li>
+				<li class="clear" ng-show="orderDetailModel.unPay">
+					<button class="other-detail-btn" class="btn-active" ng-click="onClickToPayOrder()">去付款</button>
+				</li>
+			</div>
+			
+			<!--物流信息-->
+			<ul class="logistics-container" ng-show="orderDetailModel.showLogistics">
+				<span style="font-size: 16px;color: #656565;">物流信息</span>
+				<div style="padding: 6px 0;color: #656565;">承运来源: <span>顺丰快递</span></div>
+				<div style="padding-bottom: 10px;color: #656565;">运单编号: <span ng-bind="orderDetailModel.orderInfo.logistics_no"></span></div>
+				<li class="clear" ng-repeat="item in traces track by $index">
+					<div class="logistics-line"></div>
+					<div class="logistics-left">
+						<img ng-src="{{item.logisticsPic}}" />
+					</div>
+					<div class="logistics-rg">
+						<span class="{{item.lastLogStyle}}" ng-bind="item.AcceptStation"></span>
+						<p class="{{item.lastLogStyle}}" ng-bind="item.AcceptTime"></p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="../js/zepto.min.js" ></script>
+	<script type="text/javascript" src="../js/angular.min.js" ></script>
+	<script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
+	<script type="text/javascript" src="../popUpModal/confirmTip.js" ></script>
+    <script src="../plugin/layerMobile/layer.js"></script>
+    <script src="../module/dialog/dialog.js"></script>
+    <script src="../controller/app.js"></script>
+	<!--controller-->
+	<script type="text/javascript" src="../controller/personCenter/orderDetailController.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="../js/fastclick.js" ></script>
+    <script>
+        $(function(){
+            //监听微信返回按钮
+            pushHistory();
+            var bool=false;
+            setTimeout(function(){
+                bool=true;
+            },1500);
+            window.addEventListener("popstate", function(e) {
+                if(bool)
+                {
+                    if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+                    {
+                        location.href = pageUrl.MY_ORDER_LIST + "?orderType=" + 1;
+                    }
+                }
+                pushHistory();
+            }, false);
+
+            function pushHistory() {
+                var state = {
+                    title: "title",
+                    url: "#"
+                };
+                window.history.pushState(state, "title", "#");
+            }
+        })
+    </script>
+</html>

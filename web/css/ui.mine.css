@@ -1,0 +1,162 @@
+@charset "utf-8";
+
+/***
+ * 我的页面
+ */
+
+.header{
+	position: relative;
+	background-color: #fff;
+}
+
+.header:active{
+	background-color: #efefef;
+}
+
+.header li{
+	padding: 0 12px;
+	height: 80px;
+}
+
+.list-text{
+	height: 14px;
+	line-height: 14px;
+	color: #333;
+	max-width: 80px;
+	min-width: 80px;
+	font-size: 15px;
+}
+
+.list-user-icon{
+	height: 80px;
+	padding-right: 10px;
+}
+
+.list-user-icon i{
+	display: block;
+	float: right;
+	width: 60px;
+	height: 60px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-top: 10px;
+	border-radius: 50%;
+	line-height: 60px;
+}
+
+.list-right{
+	max-width: 20px;
+	min-width: 20px;
+	height: 20px;
+	background-image: url(../img/personCenter/right_icon.png);
+	background-position: center;
+	background-size: cover;
+}
+
+.mgt-33{
+	margin-top: 33px;
+}
+
+.mgt-30{
+	margin-top: 30px;
+}
+
+.mgt-16{
+	margin-top: 16px;
+}
+
+.mgt-10{
+	margin-top: 10px;
+}
+
+.mgt-13{
+	margin-top: 13px;
+}
+
+.list{
+	position: relative;
+	background-color: #fff;
+}
+
+.list li{
+	position: relative;
+	padding: 0 12px;
+	height: 46px;
+}
+
+.list li:active{
+	background-color: #efefef;
+}
+
+.list-value{
+	line-height: 14px;
+	color: #999;
+	font-size: 15px;
+	padding-right: 10px;
+	text-align: right;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.list-icon{
+	max-width: 30px;
+	min-width: 30px;
+	margin-top: 8px;
+	margin-right: 10px;
+}
+
+.list-icon img{
+	display: block;
+	width: 100%;
+}
+
+.line:first-child:before {
+    display: none;
+}
+
+.line:before{
+	content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #D9D9D9;
+    color: #D9D9D9;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+}
+
+.text-right{
+	text-align: right;
+	font-size: 17px;
+}
+
+.list-head{
+	width: 100%;
+	max-height: 25px;
+	min-height: 25px;
+	font-size: 16px;
+	color: #484848;
+}
+
+.list-time{
+	color: #9b9b9b;
+	font-size: 12px;
+}
+
+.money-add{
+	color: #e73942;
+}
+
+.money-reduce{
+	color: #2ab07d;
+}
+
+.list-detail{
+	height: 60px !important;
+}

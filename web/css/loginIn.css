@@ -1,0 +1,107 @@
+.container {
+	width: 100%;
+	min-height: 100vh;
+	background-color: #fff;
+}
+
+.login-input, .code-input {
+	width: 100%;
+	height: 47px;
+	padding: 3px 10%;
+}
+
+.login-input input{
+	background: url(../img/btn2.png) center no-repeat;
+	background-size: 100% 100%;
+	width: 100%;
+	height: 100%;
+	color: #fff;
+	padding-left: 10px;
+	font-size: 16px;
+    outline: none;
+    border: none;
+}
+
+input::-webkit-input-placeholder { /* WebKit browsers */ 
+    color: white;
+} 
+input:-moz-placewwwholder { /* Mozilla Firefox 4 to 18 */ 
+    color: white;
+} 
+input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+    color: white;
+} 
+input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+    color: white;
+} 
+
+
+
+button{
+	background: url(../img/btn3.png) no-repeat center;
+	background-size: 100% 100%;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	line-height: 40px;
+	font-size: 16px;
+	color: #fff;
+	margin-top: 3px;
+	border-radius: 5px;
+}
+
+.code-input input{
+	padding: 10px 0 10px 10px;
+	float: left;
+	width: 50%;
+	color: white;
+	border-radius: 5px;
+	font-size: 16px;
+	background: none;
+	border: none;
+	
+}
+
+.mobile-code{
+	float: right;
+	width: 32%;
+	height: 24px;
+	line-height: 24px;
+	position: relative;
+	margin-top: 8px;
+	margin-right: 10px;
+	color: white;
+	text-align: center;
+	border: 1px solid #E8E8E8;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+
+.log
+{
+	width: 100%;
+	padding-top: 7%;
+	text-align: center;
+}
+
+.log img:first-child{
+	width: 50%;
+}
+
+.log img:last-child{
+	width: 7%;
+	margin-top: 10px;
+}
+
+.user-input{
+	width: 100%;
+	height: auto;
+	margin-top: 10%;
+}
+
+.code-wrap{ 
+	background: url(../img/btn2.png) center no-repeat;
+	background-size: 100% 100%;
+}

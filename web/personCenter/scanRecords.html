@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="email=no">
+        <title>我的浏览</title>
+        <link rel="stylesheet" href="../css/ui.base.css"/>
+        <link rel="stylesheet" href="../css/selected.css"/>
+        <link rel="stylesheet" href="../popUpModal/popUp.css"/>
+	</head>
+	<body ng-controller="ctrl">
+		<!--加载动画-->
+		<div class="animation">
+			<img src="../img/loading.gif" />
+		</div>
+		<div class="container scroll" style="background-color: #fff;position:absolute; overflow:auto;-webkit-overflow-scrolling: touch; top:0; left:0; bottom:0; right:0;">
+			<div class="list">
+				<ul>
+					<li ng-repeat = "item in readObjList track by $index" ng-click="onClickToScanRecordDetail(item.id)">
+                        <div ng-if="item.goodsInfo.goods_pics[0]">
+                            <div class="item-img">
+                               <!-- <b style="background-image: url({{item.aucted}})"></b>-->
+                                <b>
+                                	<img ng-show="(item.isEnd == true)" src="../img/aucted0.png">
+                                	<img ng-show="!(item.isEnd)" src="../img/aucting.png">
+                                </b>
+                                
+                                <img ng-src="{{item.goodsInfo.goods_pics[0]}}">
+                            </div>
+                            <div class="price">
+                                <div ng-bind="item.goodsInfo.goods_name"></div>
+                                <div class="price-record-txt" ng-show="!(item.isEnd && !item.isShowPrice)">
+                                    <span style="margin-top: 4px;">{{item.isEnd?"成交价": "当前价格"}}</span>
+                                    ￥<span ng-bind="item.showPrice"></span>
+                                </div>
+                                <div class="price-record-txt" ng-show="item.isEnd && !item.isShowPrice">
+                                    <span>流拍</span>
+                                </div>
+                            </div>
+                        </div>
+					</li>
+				</ul>
+			</div>
+			
+			<!--暂无数据-->
+			<div class="no-data">
+				暂无数据！
+			</div>
+		</div>
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="../js/zepto.min.js" ></script>
+	<script type="text/javascript" src="../js/angular.min.js" ></script>
+	<script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
+    <script src="../controller/app.js"></script>
+	<!--controller-->
+	<script type="text/javascript" src="../controller/personCenter/scanRecordsController.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="../js/fastclick.js" ></script>
+	<script type="text/javascript" src="../js/htmlNoScroll.js" ></script>
+	<script>
+		$(function(){
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;  
+            setTimeout(function(){  
+                bool=true;  
+            },1500);
+
+		    window.addEventListener("popstate", function(e) {
+		    	if(bool)
+		    	{
+		    		if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			        {
+			        	location.href = pageUrl.PERSON_CENTER;
+			        }
+		    	}
+		    	pushHistory();
+		        
+		    }, false);
+
+		    function pushHistory() { 
+		        var state = { 
+		            title: "title", 
+		            url: "#"
+		        }; 
+		        window.history.pushState(state, "title", "#"); 
+		    }
+		})
+	</script>
+</html>

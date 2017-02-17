@@ -1,0 +1,91 @@
+<div class="mn-header fix">
+    <div class="f"><i class="fa fa-th m-color-0"></i><span>订单详情</span></div>
+    <div class="r"><a class="btn btn-white" ng-click="back2OrderList()"><i class="ti-back-left"></i>返回</a></div>
+</div>
+
+<div class="order-container">
+    <div class="order-item">
+        <h3>订单信息</h3>
+        <div class="fix">
+            <div class="f order-info-box">订单编号：<span>{{orderInfoModel.info.order_no}}</span></div>
+            <div class="f order-info-box">订单状态：<span>{{orderInfoModel.info.orderStatusCopy}}</span></div>
+        </div>
+        <div class="fix">
+            <div class="f order-info-box">下单用户：<span>{{orderInfoModel.info.name}}</span></div>
+            <div class="f order-info-box">支付方式：<span>余额</span></div>
+            <div class="f order-info-box">付款时间：<span>{{orderInfoModel.info.orderTime*1000|date: 'yyyy-MM-dd HH:mm:ss'}}</span></div>
+        </div>
+
+        <!-- 发货状态不显示-->
+        <div class="fix" ng-show="orderModel.curOrderType != '2'">
+            <div class="f order-info-box">配送方式：<span>顺丰快递</span></div>
+            <div class="f order-info-box">运单号：<span>{{orderInfoModel.info.logistics_no}}</span></div>
+        </div>
+    </div>
+
+    <div class="order-item" ng-show="orderInfoModel.info.acceptName">
+        <h3>收货人信息</h3>
+        <div class="fix">
+            <div class="f order-info-box">收货人：<span>{{orderInfoModel.info.acceptName}}</span></div>
+            <div class="f order-info-box">手机号：<span>{{orderInfoModel.info.mobile}}</span></div>
+        </div>
+        <div class="fix">
+            <div class="f order-info-box">收货地址：<span>{{orderInfoModel.info.province + orderInfoModel.info.city + orderInfoModel.info.district + orderInfoModel.info.address}}</span></div>
+        </div>
+    </div>
+
+    <div class="order-item">
+        <h3>商品信息</h3>
+        <div>
+            <table class="table">
+                <thead><tr>
+                    <td>商品图片</td>
+                    <td>商品名</td>
+                    <td>数量</td>
+                    <td>商品总价</td>
+                </tr></thead>
+                <tbody>
+                <tr ng-repeat="item in orderInfoModel.goodsArr">
+                    <td><img ng-if="item.pic" ng-src="{{item.pic}}"></td>
+                    <td>{{item.goods_name}}</td>
+                    <td>{{item.goodsNum}}</td>
+                    <td>{{"￥"+orderInfoModel.info.goodsPrice}}</td>
+                </tr>
+                </tbody>
+            </table>
+             <div class="pay-money-box" style="margin-right:23%;padding-bottom: 10px;">
+             	<div class="order-total" style="float:right;margin-left:140px">实付：<span style="color: #FF5E28;">{{"￥"+orderInfoModel.info.payPrice}}</span></div> 
+            	<div class="order-prepay" style="float:right;padding-right:30px">保证金抵扣：<span style="color: #777777;">{{"￥"+orderInfoModel.info.prepaidPrice}}</span></div>
+               
+            </div>
+        </div>
+    </div>
+
+    <div class="order-item">
+        <h3>订单流程</h3>
+        <ul class="log">
+            <li ng-repeat="item in orderInfoModel.orderLog">
+                <span>{{item.statusCopy}}</span>：<span>{{item.statusTime*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="order-item" ng-show="orderModel.curOrderType != '2' || orderModel.curOrderType != '0'">
+        <h3>物流信息</h3>
+        <ul class="logistics-log">
+            <li ng-repeat="item in orderInfoModel.logisticsLog">
+            	<span class="time">{{item.AcceptTime}}</span><span>{{item.AcceptStation}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <!--<div class="order-item" ng-show="(orderModel.curOrderType == '2' || orderModel.curOrderType == '') && orderModel.isRelease">-->
+    <div class="order-item" ng-show="orderModel.isRelease">
+        <h3>物流(顺丰快递)</h3>
+        <div class="fix sf">
+            <div class="f sf-title">运单号：</div>
+            <div class="f"><input class="form-control" type="text" placeholder="请输入运单号" ng-model="orderInfoModel.logisticsNum"></div>
+        </div>
+        <div style="margin: 20px"><a class="btn btn-default" ng-click="deliverOrder()">发货</a></div>
+    </div>
+</div>

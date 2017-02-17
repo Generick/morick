@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="modNameApp">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+        <title>修改昵称</title>
+        <link rel="stylesheet" href="../css/ui.base.css" />
+        <link rel="stylesheet" href="../css/selected.css" />
+        <link rel="stylesheet" href="../css/person_center.css" />
+        <link rel="stylesheet" href="../popUpModal/popUp.css" />
+	</head>
+	<body ng-controller="modNameController">
+		<div class="container" style="opacity: 1;">
+			<div class="mid-top-name clear">
+				<span>输入昵称</span>
+				<span>昵称：</span><input class="person-input-name" type="text" placeholder="请输入昵称" ng-model="modNameModel.name" />
+			</div>
+		</div>
+		<div class="submit-btn" ng-click="onClickSubmitModName()">确定</div>
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="../js/zepto.min.js" ></script>
+	<script type="text/javascript" src="../js/angular.min.js" ></script>
+	<script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
+	<script type="text/javascript" src="../popUpModal/confirmTip.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="../controller/personCenter/modNameController.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="../js/fastclick.js" ></script>
+	
+</html>
