@@ -7,7 +7,8 @@
 //var BASE_URL = "http://meeno.f3322.net:8082/auction/index.php/"; //测试
 //var BASE_URL = "http://auction.yawan365.com/index.php/"; //正式
 //var BASE_URL = "http://192.168.2.23:8082/auction/index.php/"; //内网Url
-var BASE_URL = "http://mc.meeno.net:8082/auction/index.php/"; //内网Url
+//var BASE_URL = "http://mc.meeno.net:8082/auction/index.php/"; //内网Url
+var BASE_URL = "http://localhost/auction/index.php/"; //内网Url
 
 var BASE_JUMP_URL = "../admin/index.html#/";
 

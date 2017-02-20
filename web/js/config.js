@@ -4,14 +4,15 @@
 
 /**************服务器基地址*******************/
 //const API_BASE_URL = "http://meeno.f3322.net:8082/auction_dev/index.php/";//开发
-const API_BASE_URL = "http://meeno.f3322.net:8082/auction/index.php/";//测试
+//const API_BASE_URL = "http://meeno.f3322.net:8082/auction/index.php/";//测试
+const API_BASE_URL = "http://localhost/auction/index.php/";//测试
 //const API_BASE_URL = "http://auction.yawan365.com/index.php/";//正式
 //const BASE_PAGE_URL = "http://auction.yawan365.com/";//正式
 //const BASE_PAGE_URL = "http://meeno.f3322.net:8082/auction/web/";//测试
 //const BASE_PAGE_URL = "http://www.yawan365.com:8080/";//测试
 // const API_BASE_URL = "http://auction.yawan365.com:8080/index.php/";//测试
 //const BASE_PAGE_URL = "http://192.168.2.107/web/";
-const BASE_PAGE_URL = "http://127.0.0.1:8020/paimai-web/";
+const BASE_PAGE_URL = "http://localhost/auction/web/";
 /***************API 配置接口****************/
 
 var apiUrl = 

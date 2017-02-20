@@ -27,10 +27,11 @@ class M_proxyBid extends My_Model
         }
 
         //判断用户委托出价包月服务是否开通
-        if(!$this->m_common->get_one("paid_services", array("userId" => $userId, "serviceType" => SERVICE_ENTRUST_MONTHLY, "endTime >=" => now())))
-        {
-            return ERROR_NO_PAID_SERVICES;
-        }
+        //委托出价不收费
+//        if(!$this->m_common->get_one("paid_services", array("userId" => $userId, "serviceType" => SERVICE_ENTRUST_MONTHLY, "endTime >=" => now())))
+//        {
+//            return ERROR_NO_PAID_SERVICES;
+//        }
 
         //判断是否已达委托上限
         $this->db->where(array("auctionId" => $auctionId, "userId" => $userId));

@@ -86,7 +86,7 @@ class TimedTask extends My_Controller
                         $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $one->currentUser);
                         if($userObj)
                         {
-                            $this->m_smsCode->sendMsg($userObj->telephone, $content);
+                            //$this->m_smsCode->sendMsg($userObj->telephone, $content);
                             $this->m_common->insert("sms_remind", array("remindType" => 1, "userId" => $one->currentUser, "auctionId" => $one->id, "remindTime" => now()));
                         }
                     }
@@ -133,7 +133,7 @@ class TimedTask extends My_Controller
                         $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $user["userId"]);
                         if($userObj)
                         {
-                            $this->m_smsCode-> sendMsg($userObj->telephone, $content);
+                            //$this->m_smsCode-> sendMsg($userObj->telephone, $content);//
                             $this->m_common->insert("sms_remind", array("remindType" => 2, "userId" => $one->currentUser, "auctionId" => $one->id, "remindTime" => now()));
                         }
                     }
