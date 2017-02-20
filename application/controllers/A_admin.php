@@ -13,6 +13,7 @@ class A_admin extends Admin_Controller
         parent::__construct();
 
         $this->load->model('m_admin');
+        $this->load->model('m_smsCode');
     }
 
     function getSelfInfo()
@@ -261,4 +262,42 @@ class A_admin extends Admin_Controller
     }
     /////////////////////////////////////////////////////////////
     // end region 管理员管理
+    // backend sms send
+    function smsSend(){
+        if (!$this->checkParam(array("type","phoneNum","goods_name","price"))) {
+            $this->responseError(ERROR_PARAM);
+            exit;
+        }
+        //get params
+        $type = intval($this->input->post('type'));
+        $goods_name = $this->input->post('goods_name');
+        $phoneNum = $this->input->post('phoneNum');
+        $price = $this->input->post('price');
+
+        switch ($type) {
+            case 1:
+                //超价提醒
+                $content = $this->m_common->format(SMS_BEYOND_PRICE,$goods_name,$price);
+                break;
+            case 2:
+                //竞拍成功
+                $content = $this->m_common->format(SMS_OBTAIN,$goods_name,$price);
+                break;
+            case 3:
+                //截拍提醒
+                $content = $this->m_common->format(SMS_NEAR_END,$goods_name,$price);
+            default:
+                # code...
+                break;
+        }
+                
+        $this->m_smsCode->sendMsg($phoneNum,$content);
+        if ($this->m_smsCode) {
+            echo "ok";
+        }else{
+            echo "fail";
+        }
+    }
+
+
 }

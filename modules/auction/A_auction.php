@@ -189,7 +189,7 @@ class A_auction extends Admin_Controller
         }
 
         $itemIds = trim($this->input->post("itemIds"));
-        $itemIdArr = json_decode($itemIds, true) ? json_decode($itemIds, true) : array();
+        $itemIdArr = json_decode($itemIds, true) ? json_decode($itemIds, true) :array();
         if(empty($itemIdArr))
         {
             $this->responseError(ERROR_PARAM);

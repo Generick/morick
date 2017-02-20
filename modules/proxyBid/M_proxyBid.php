@@ -27,7 +27,7 @@ class M_proxyBid extends My_Model
         }
 
         //判断用户委托出价包月服务是否开通
-        //委托出价不收费
+        //no fee to authorize price
 //        if(!$this->m_common->get_one("paid_services", array("userId" => $userId, "serviceType" => SERVICE_ENTRUST_MONTHLY, "endTime >=" => now())))
 //        {
 //            return ERROR_NO_PAID_SERVICES;

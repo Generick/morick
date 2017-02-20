@@ -391,6 +391,7 @@ class M_auction extends My_Model
                 if($userObj)
                 {
                     $this->load->model("m_smsCode");
+                    //close message notification
                     //$this->m_smsCode->sendMsg($userObj->telephone, $content);
                     $this->m_common->insert("sms_remind", array("remindType" => 0, "userId" => $userId, "auctionId" => $auctionId, "remindTime" => now()));
                 }
