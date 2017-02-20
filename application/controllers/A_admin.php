@@ -292,11 +292,7 @@ class A_admin extends Admin_Controller
         }
                 
         $this->m_smsCode->sendMsg($phoneNum,$content);
-        if ($this->m_smsCode) {
-            echo "ok";
-        }else{
-            echo "fail";
-        }
+        
     }
 
 

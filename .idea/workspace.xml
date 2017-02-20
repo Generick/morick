@@ -73,9 +73,9 @@
         <entry file="file://$PROJECT_DIR$/application/controllers/A_admin.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="298">
-              <caret line="279" column="0" lean-forward="false" selection-start-line="279" selection-start-column="0" selection-end-line="279" selection-end-column="0" />
+              <caret line="295" column="0" lean-forward="false" selection-start-line="295" selection-start-column="0" selection-end-line="295" selection-end-column="0" />
               <folding>
-                <marker date="1487578926743" expanded="true" signature="7419:7622" ph="..." />
+                <marker date="1487579524444" expanded="true" signature="7921:8086" ph="..." />
               </folding>
             </state>
           </provider>
@@ -114,8 +114,8 @@
       <file leaf-file-name="TimedTask.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/timedTask/TimedTask.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="137" column="87" lean-forward="false" selection-start-line="137" selection-start-column="87" selection-end-line="137" selection-end-column="87" />
+            <state relative-caret-position="159">
+              <caret line="136" column="54" lean-forward="false" selection-start-line="136" selection-start-column="54" selection-end-line="136" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -360,12 +360,12 @@
       <workItem from="1487231577460" duration="1496000" />
       <workItem from="1487330792789" duration="595000" />
       <workItem from="1487556202307" duration="3564000" />
-      <workItem from="1487572241989" duration="4646000" />
+      <workItem from="1487572241989" duration="4654000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10301000" />
+    <option name="totallyTimeSpent" value="10309000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -377,7 +377,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20572917" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -770,9 +770,9 @@
     <entry file="file://$PROJECT_DIR$/application/controllers/A_admin.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="298">
-          <caret line="279" column="0" lean-forward="false" selection-start-line="279" selection-start-column="0" selection-end-line="279" selection-end-column="0" />
+          <caret line="295" column="0" lean-forward="false" selection-start-line="295" selection-start-column="0" selection-end-line="295" selection-end-column="0" />
           <folding>
-            <marker date="1487578926743" expanded="true" signature="7419:7622" ph="..." />
+            <marker date="1487579524444" expanded="true" signature="7921:8086" ph="..." />
           </folding>
         </state>
       </provider>
@@ -795,8 +795,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/timedTask/TimedTask.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="137" column="87" lean-forward="false" selection-start-line="137" selection-start-column="87" selection-end-line="137" selection-end-column="87" />
+        <state relative-caret-position="159">
+          <caret line="136" column="54" lean-forward="false" selection-start-line="136" selection-start-column="54" selection-end-line="136" selection-end-column="54" />
           <folding />
         </state>
       </provider>
