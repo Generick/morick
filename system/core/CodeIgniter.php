@@ -405,7 +405,6 @@ if ( ! is_php('5.4'))
 	$method = $RTR->method;
     // 是否模块的controller，用于在post_controller_construct中传参数
     $isModuleController = false;
-
 	if (empty($class))
 	{
 		$e404 = TRUE;

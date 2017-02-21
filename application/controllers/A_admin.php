@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: humphrey
+ * User: mxl
  * Date: 2016/10/25
  * Time: 9:21
  */
@@ -262,6 +262,7 @@ class A_admin extends Admin_Controller
     }
     /////////////////////////////////////////////////////////////
     // end region 管理员管理
+    // 
     // *********
     // backend sms send
     function smsSend(){
@@ -294,7 +295,7 @@ class A_admin extends Admin_Controller
                 
         $this->m_smsCode->sendMsg($phoneNum,$content);
         //return result to font-end
-        echo json_encode(array('resultCode'=>0));
+        $this->responseSuccess('ok');
         
     }
 

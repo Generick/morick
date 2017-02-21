@@ -22,3 +22,5 @@ ERROR - 2017-02-20 16:21:23 --> Severity: Notice --> Undefined variable: one F:\
 ERROR - 2017-02-20 16:21:23 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\application\controllers\A_admin.php 276
 ERROR - 2017-02-20 16:28:30 --> Lack of param: type
 ERROR - 2017-02-20 16:28:30 --> [methodError]:[参数错误！]:F:\work\program\server\application\controllers/a_admin.php:smsSend:[]
+ERROR - 2017-02-20 18:50:30 --> 404 Page Not Found: Resources/bootstrap.css
+ERROR - 2017-02-20 18:50:30 --> 404 Page Not Found: Resources/jquery.js
