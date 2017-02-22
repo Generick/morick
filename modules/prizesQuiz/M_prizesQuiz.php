@@ -8,6 +8,7 @@
 * 1:prizesquiz
 * 2:admin quit it, cnum<3
 * 3:admin quit it, auction fail,
+* 4: normal over
 */
 class M_prizesQuiz extends My_Model{
 	static $itemInfo = array();
@@ -126,11 +127,39 @@ class M_prizesQuiz extends My_Model{
 
 	}
 
+	//quiz normal over
 	function quizOver($itemId){
 		//get quiz goods purchase
 		$purchasePrice_Sum = $this->db->select('purchasePrice,sum')->from('prizesquiz')->where('goods_id',$itemId)->get()->result_array();
 		$userId_quizPrice = $this->db->select('user_id,quiz_price')->from('quizuser')->where('goods_id',$itemId)->get()->result_array();
-		$userNum = count($userId_quizPrice);
+		$awardUser = $this->getFTUserId($purchasePrice_Sum['purchasePrice'],$userId_quizPrice);
+
+		//award every award-user money
+		for ($i=0; $i <count($awardUser) ; $i++) { 
+			switch ($i) {
+				case 0:
+					$awardMoney = $purchasePrice_Sum['sum'] / count($awardUser[$i]) * 6 / 10;
+					break;
+				case 1:
+					$awardMoney = $purchasePrice_Sum['sum'] / count($awardUser[$i]) * 3 / 10;
+					break;
+				case 2:
+					$awardMoney = $purchasePrice_Sum['sum'] / count($awardUser[$i]) * 1 / 10;
+					break;
+				default:
+					# code...
+					break;
+			}
+			
+			for ($j=0; $j <count($awardUser[$i]) ; $j++) { 
+				$cuserid = $awardUser[$i][$j];
+				$balance = $this->db->select('balance')->from('user')->where('userId',$cuserid)->get();
+				$balance += $awardMoney;
+				$this->db->where('userId',$cuserid)->update('user',array('balance'=>$balance));
+			}
+		}
+		$this->db->where('goods_id',$itemId)->update('prizesquiz',array('status'=>4));
+		
 	}
 
 	//get first three userid
