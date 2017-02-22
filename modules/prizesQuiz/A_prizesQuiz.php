@@ -18,6 +18,11 @@ class A_prizesQuiz extends Admin_Controller{
 		}
 
 		$quizItemId = $this->input->post('quizItemId');
-		$this->m_prizesQuiz->quitQuiz($quizItemId);
+		$res = $this->m_prizesQuiz->quitQuiz($quizItemId);
+		return $this->responseError($res);
+	}
+
+	function test(){
+		$this->m_prizesQuiz->test();
 	}
 }
