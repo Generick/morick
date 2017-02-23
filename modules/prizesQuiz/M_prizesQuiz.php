@@ -30,7 +30,7 @@ class M_prizesQuiz extends My_Model{
 		$itemInfo = $this->m_common->get_one('prizesquiz',array('goods_id'=>$itemId,'status'=>0));
 		if (!empty($itemInfo)) {
 			//the goods is auction, can't be quiz
-			$this->responseError('1');
+			return "此商品正在拍卖，不能参与竞猜";
 			exit;
 		}
 		$sql = "select count from mn_prizesuser where user_id = ? and goods_id = ?";
@@ -38,7 +38,7 @@ class M_prizesQuiz extends My_Model{
 		$count = $query->row_array();
 		if (!empty($count) && $count['count'] == 1) {
 			//judge count, if count = 1, forbidden user to partake quiz
-			$this->responseError('2');
+			return "不能重复参与";
 			exit;
 		}
 		//judge user balance
@@ -46,18 +46,18 @@ class M_prizesQuiz extends My_Model{
 		$userObj = $this->m_user->getSelfUserObj();
 		//$userObj = $this->db->where('userId',$userId)->from('user')->get()->row();
 		if ($userObj->balance < 5) {
-			$this->responseError(ERROR_BALANCE_NOT_ENOUGH);
+			return "账户余额不足";
 			exit;
 		}
 		//jugde user nums
 		$prizesQuizObj = $this->db->where('goods_id',$itemId)->from('prizesquiz')->get()->row();
 		if ($prizesQuizObj->currentNum >= $prizesQuizObj->limitNum) {
 			//user over limit
-			$this->responseError('4');
+			return "人数已满";
 			exit;
 		}
 
-		$data = array('goods_id'=>$itemId,'user_id'=>$userId,'quiz_price'=>$quizPrice,'count'=>1);
+		$data = array('goods_id'=>$itemId,'user_id'=>$userId,'quiz_price'=>$quizPrice,'count'=>1,'part_time'=>date("y-m-d h:i:s"));
 		$res = $this->db->insert('quizuser',$data);
 		if ($res) {
 			//success
@@ -71,7 +71,7 @@ class M_prizesQuiz extends My_Model{
 			
 		}else{
 			//fail
-			$this->responseError('3');
+			return "参与失败";
 			exit;
 		}
 		
@@ -84,7 +84,7 @@ class M_prizesQuiz extends My_Model{
 		$prizesQuizObj = $this->db->where('goods_id',$itemId)->from('prizesquiz')->get()->row();
 		$currentNum = $prizesQuizObj->currentNum;
 		if ($currentNum >= 3) {
-			return $this->responseError('参与人数大于3，不能停止');
+			return '参与人数大于3，不能停止';
 			exit;
 		}
 		if ($currentNum != 0) {
@@ -138,16 +138,22 @@ class M_prizesQuiz extends My_Model{
 		for ($i=0; $i <count($awardUser) ; $i++) { 
 			switch ($i) {
 				case 0:
+					//first prize users obtain award
 					$awardMoney = $purchasePrice_Sum['sum'] / count($awardUser[$i]) * 6 / 10;
+					$award = 1;
 					break;
 				case 1:
+					//second prize users obtain award
 					$awardMoney = $purchasePrice_Sum['sum'] / count($awardUser[$i]) * 3 / 10;
+					$award = 2;
 					break;
 				case 2:
+					//third prize users obtain award
 					$awardMoney = $purchasePrice_Sum['sum'] / count($awardUser[$i]) * 1 / 10;
+					$award = 3;
 					break;
 				default:
-					# code...
+					$awardMoney = 0;
 					break;
 			}
 			
@@ -155,7 +161,9 @@ class M_prizesQuiz extends My_Model{
 				$cuserid = $awardUser[$i][$j];
 				$balance = $this->db->select('balance')->from('user')->where('userId',$cuserid)->get();
 				$balance += $awardMoney;
+				//update award-user balance and award level
 				$this->db->where('userId',$cuserid)->update('user',array('balance'=>$balance));
+				$this->db->where('user_id',$cuserid)->update('quizuser',array('award'=>$award));
 			}
 		}
 		$this->db->where('goods_id',$itemId)->update('prizesquiz',array('status'=>4));
@@ -192,7 +200,21 @@ class M_prizesQuiz extends My_Model{
 		return $awardUser;
 	}
 
+	//get prizes quiz lists
+	function getQuizList(){
+		$data = $this->db->get('prizesquiz')->result_array();
+		return $data;
+	}
+
+	//get quiz user list
+	//contain user icon,telphone,part_time,quiz_price,award
+	function getQuizUserList($itemId){
+		$data = $this->db->from('quizuser')->where('goods_id',$itemId)->join('user',"quizuser.user_id = user.userId")->select('icon,telephone,part_time,quiz_price,award')->get()->result_array();
+		return $data;
+	}
+
 	function test(){
+		return array(1,array(1,5));
 		$price = 25;
 		$testdata = array(array('user_id'=>1,'quiz_price'=>20),array('user_id'=>2,'quiz_price'=>15),array('user_id'=>3,'quiz_price'=>50),array('user_id'=>4,'quiz_price'=>15),array('user_id'=>5,'quiz_price'=>18));
 		$res = $this->getFTUserId($price,$testdata);

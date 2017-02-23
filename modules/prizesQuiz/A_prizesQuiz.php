@@ -22,7 +22,22 @@ class A_prizesQuiz extends Admin_Controller{
 		return $this->responseError($res);
 	}
 
+	//get prizes quiz lists
+	function getQuizList(){
+		$quizList = $this->m_prizesQuiz->getQuizList();
+		return $this->returnJson($quizList);
+	}
+
+	function getQuizUserList(){
+		$quizUserList = $this->m_prizesQuiz->getQuizUserList();
+		return $this->returnJson($quizUserList);
+	}
+
 	function test(){
-		$this->m_prizesQuiz->test();
+		$data = $this->m_prizesQuiz->getQuizUserList(1);
+		return $this->returnJson($data);
+		//echo date("y-m-d h:i:s");die;
+		// $data = $this->m_prizesQuiz->test();
+		// echo $this->returnJson($data);
 	}
 }

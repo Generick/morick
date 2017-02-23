@@ -33,7 +33,7 @@
             // 管理员的操作
             'a_admin/getSelfInfo' : {"说明":"获取自己的数据"},
             "a_admin/addAdminAccount" : {"platformId":"111", "password":"111", "adminType":1, "pageEntries":'[1,2,3,4,5,6,101,102,301,302,303,501,502,601]', "说明":"增加管理员账号"},
-            "a_admin/modAdmin" : {"userId":"10001", modInfo:'{"adminType":1}', "pageEntries":'[1,2,3,4,5,6,201,202,301,302,303,501,502,601]', "说明":"修改管理员账号"},
+            "a_admin/modAdmin" : {"userId":"10001", "modInfo":'{"adminType":1}', "pageEntries":'[1,2,3,4,5,6,201,202,301,302,303,501,502,601]', "说明":"修改管理员账号"},
             "a_admin/modAdminPassword" : {"userId":"10001", "password":"111", "说明":"修改管理员密码"},
             "a_admin/deleteAdmin" : {"userIds":'["10001"]', "说明":"删除管理员账号"},
             "a_admin/getAdminList" : {"startIndex":0, "num":10, "说明":"获取管理员账号列表"},
@@ -42,6 +42,7 @@
             "a_admin/searchUserList" : {"userType" : 1, "startIndex":0, "num":10, "likeStr" : "", "说明":"分类型搜索用户"},
             "a_admin/modUserInfo" : {"userId" : "", "modInfo" : '{"note": "备注信息"}', "说明":"修改个人数据"},
             "a_admin/opBalance" : {"userId" : "", "opType" : "", "balance" : "", "说明" : "管理员操作用户余额 opType 0增加 1减少"},
+            "a_admin/smsSend" :{"type" :"1","phoneNum":"xxx-xxxx-xxxx","goods_name":"test","price":"25","说明":"type为类型 1超价提醒 2竞拍成功 3截拍提醒"},
 
             //region 商品
             "goods/Goods/getGoods" : {"startIndex":0, "num":10, "说明":"获取商品列表"},

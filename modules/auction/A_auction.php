@@ -100,7 +100,7 @@ class A_auction extends Admin_Controller
             "initialPrice" => floatval($this->input->post("initialPrice")),
             "currentPrice" => floatval($this->input->post("initialPrice")),
             "lowestPremium" => floatval($this->input->post("lowestPremium")),
-            "referencePrice" => floatval($this->input->post("referencePrice")),
+            //"referencePrice" => floatval($this->input->post("referencePrice")),
             "margin" => floatval($this->input->post("margin")),
             "startTime" => strtotime(trim($this->input->post("startTime"))),
             "endTime" => strtotime(trim($this->input->post("endTime"))),

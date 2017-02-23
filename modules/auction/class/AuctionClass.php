@@ -52,12 +52,13 @@ class CAuctionBaseInfo extends IExtractInfo {
             "bidsNum",
             "initialPrice",
             "lowestPremium",
-            "referencePrice",
+            //"referencePrice",
             "postponeTime",
             "margin",
             "status",
             "startTime",
             "endTime",
+            "cappedPrice"
         );
     }
 
@@ -89,7 +90,7 @@ class CAuctionAllInfo extends IExtractInfo {
             "bidsNum",
             "initialPrice",
             "lowestPremium",
-            "referencePrice",
+            //"referencePrice",
             "postponeTime",
             "margin",
             "isFreeShipment",
@@ -140,7 +141,7 @@ class CAuction extends CDataClassBase {
             "bidsNum" => new CField(FIELD_TYPE_NORMAL),
             "initialPrice" => new CField(FIELD_TYPE_NORMAL),
             "lowestPremium" => new CField(FIELD_TYPE_NORMAL),
-            "referencePrice" => new CField(FIELD_TYPE_NORMAL),
+            //"referencePrice" => new CField(FIELD_TYPE_NORMAL),
             "postponeTime" => new CField(FIELD_TYPE_NORMAL),
             "margin" => new CField(FIELD_TYPE_NORMAL),
             "isFreeShipment" => new CField(FIELD_TYPE_NORMAL),
@@ -163,7 +164,7 @@ class CAuction extends CDataClassBase {
             "bidsNum",
             "initialPrice",
             "lowestPremium",
-            "referencePrice",
+            //"referencePrice",
             "postponeTime",
             "margin",
             "isFreeShipment",
@@ -172,7 +173,8 @@ class CAuction extends CDataClassBase {
             "startTime",
             "endTime",
             "isCreateOrder",
-            "isRemind"
+            "isRemind",
+            "cappedPrice"
         );
 
         self::$staticConstructed = true;
