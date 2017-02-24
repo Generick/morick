@@ -63,7 +63,7 @@
                 "goodsId" : 1,
                 "initialPrice" : 50,
                 "lowestPremium" : 5,
-                "referencePrice" : 500,
+                //"referencePrice" : 500,
                 "margin" : 100,
                 "startTime" : "2016-11-17 17:19:47",
                 "endTime" : "2016-11-17 17:19:54",

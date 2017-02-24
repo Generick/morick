@@ -170,7 +170,7 @@ class M_prizesQuiz extends My_Model{
 		
 	}
 
-	//get first three userid
+	//get first three userids
 	function getFTUserId($purchasePrice,$UID_Price_array){
 		$UID_Price_diff = $UID_Price_array;
 		$diff_arr = array();
