@@ -11,7 +11,7 @@ class A_prizesQuiz extends Admin_Controller{
 		$this->load->model('m_prizesQuiz');
 	}
 
-	//qiut quiz
+	//adminisstration qiut the quiz
 	function quitQuiz(){
 		if (!$this->checkParam(array('quizItemId'))) {
 		$this->responseError(ERROR_PARAM);
@@ -34,9 +34,18 @@ class A_prizesQuiz extends Admin_Controller{
 	}
 
 	function test(){
-		$data = $this->m_prizesQuiz->getQuizUserList(1);
-		return $this->returnJson($data);
-		//echo date("y-m-d h:i:s");die;
+		echo date("Y-m-d h:i:s");echo "<br>";
+		echo date("Y-m-d h:i:s","4686464844");
+		if (date("Y-m-d") < date("Y-m-d","546465464")) {
+			echo "ok";
+		}else{
+			echo "string";
+		}
+		
+		$arr = $this->m_prizesQuiz->test();
+		var_dump($arr) ;die;
+		//$data = $this->m_prizesQuiz->getQuizUserList(1);
+		//return $this->returnJson($data);
 		// $data = $this->m_prizesQuiz->test();
 		// echo $this->returnJson($data);
 	}

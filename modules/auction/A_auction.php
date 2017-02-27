@@ -246,4 +246,18 @@ class A_auction extends Admin_Controller
         $this->responseSuccess(array("count" => $count, "auctionList" => $auctionList));
         return;
     }
+
+    //get users bids record list
+    function getBidList(){
+        if (isset($_POST['offset'])) {
+            $offset = intval($_POST['offset']);
+        }else{
+            $offset = 0;
+        }
+        $data = $this->m_auction->getBidList($offset);
+        for ($i=0; $i < count($data); $i++) { 
+            $data[$i]['createTime'] = date("Y-m-d h:i:s",$data[$i]['createTime']);
+        }
+        $this->returnJson($data);
+    }
 }

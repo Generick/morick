@@ -5,23 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="2bb3ad55-6976-41c6-974a-c70f240f3bd8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/core/errors.php" afterPath="$PROJECT_DIR$/application/core/errors.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/class/configdataclass.php" afterPath="$PROJECT_DIR$/application/models/class/configdataclass.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/M_account.php" afterPath="$PROJECT_DIR$/application/models/M_account.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/class/userclass.php" afterPath="$PROJECT_DIR$/application/models/class/userclass.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/A_admin.php" afterPath="$PROJECT_DIR$/application/controllers/A_admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/core/defines.php" afterPath="$PROJECT_DIR$/application/core/defines.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/db_main.sql" afterPath="$PROJECT_DIR$/database/db_main.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/M_admin.php" afterPath="$PROJECT_DIR$/application/models/M_admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/M_user.php" afterPath="$PROJECT_DIR$/application/models/M_user.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/test.php" afterPath="$PROJECT_DIR$/application/views/test.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/Account.php" afterPath="$PROJECT_DIR$/application/controllers/Account.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/auction/M_auction.php" afterPath="$PROJECT_DIR$/modules/auction/M_auction.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/config.php" afterPath="$PROJECT_DIR$/application/config/config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/class/adminclass.php" afterPath="$PROJECT_DIR$/application/models/class/adminclass.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/class/userclass.php" afterPath="$PROJECT_DIR$/application/models/class/userclass.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/M_admin.php" afterPath="$PROJECT_DIR$/application/models/M_admin.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/core/errors.php" afterPath="$PROJECT_DIR$/application/core/errors.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/auction/class/AuctionClass.php" afterPath="$PROJECT_DIR$/modules/auction/class/AuctionClass.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/A_admin.php" afterPath="$PROJECT_DIR$/application/controllers/A_admin.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/Account.php" afterPath="$PROJECT_DIR$/application/controllers/Account.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/db_main.sql" afterPath="$PROJECT_DIR$/database/db_main.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/M_account.php" afterPath="$PROJECT_DIR$/application/models/M_account.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/auction/M_auction.php" afterPath="$PROJECT_DIR$/modules/auction/M_auction.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/class/configdataclass.php" afterPath="$PROJECT_DIR$/application/models/class/configdataclass.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/M_user.php" afterPath="$PROJECT_DIR$/application/models/M_user.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/core/defines.php" afterPath="$PROJECT_DIR$/application/core/defines.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/class/adminclass.php" afterPath="$PROJECT_DIR$/application/models/class/adminclass.php" />
     </list>
     <ignored path="server.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -92,8 +92,8 @@
       <file leaf-file-name="TimedTask.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/timedTask/TimedTask.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="78" column="63" lean-forward="false" selection-start-line="78" selection-start-column="63" selection-end-line="78" selection-end-column="63" />
+            <state relative-caret-position="406">
+              <caret line="89" column="82" lean-forward="false" selection-start-line="89" selection-start-column="82" selection-end-line="89" selection-end-column="82" />
               <folding />
             </state>
           </provider>
@@ -204,7 +204,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -333,6 +332,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -435,12 +435,13 @@
       <workItem from="1487640960330" duration="6472000" />
       <workItem from="1487726986908" duration="4234000" />
       <workItem from="1487813139444" duration="1806000" />
-      <workItem from="1487900223377" duration="1084000" />
+      <workItem from="1487900223377" duration="1669000" />
+      <workItem from="1488158916577" duration="771000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26937000" />
+    <option name="totallyTimeSpent" value="28293000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -868,8 +869,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/timedTask/TimedTask.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="78" column="63" lean-forward="false" selection-start-line="78" selection-start-column="63" selection-end-line="78" selection-end-column="63" />
+        <state relative-caret-position="406">
+          <caret line="89" column="82" lean-forward="false" selection-start-line="89" selection-start-column="82" selection-end-line="89" selection-end-column="82" />
           <folding />
         </state>
       </provider>

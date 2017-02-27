@@ -571,4 +571,17 @@ class M_auction extends My_Model
 
         return $auctionGoodArr;
     }
+
+    //get user bid records list
+    function getBidList($offset = 0){
+        $data = $this->db->from('biddinglogs')->join('goods',"biddingLogs.auctionItemId = goods.goods_id")->join('user',"biddinglogs.userId = user.userId")->select("biddinglogs.userId,biddinglogs.auctionItemId,icon,goods_name,name,nowPrice,createTime,telephone")->limit(30,$offset)->get()->result_array();//limit(1,2)=>sql limit 2,1
+        for ($i=0; $i < count($data); $i++) { 
+            $itemid = $data[$i]['auctionItemId'];
+            $hightPrice = $this->db->select('nowPrice')->from('biddinglogs')->where('auctionItemId',$itemid)->order_by('nowPrice','DESC')->limit(1)->get()->row_array();
+            if ($data[$i]['nowPrice'] == $hightPrice['nowPrice']) {
+                $data[$i]['isHigh'] = 1;
+            }
+        }
+        return $data;
+    }
 }

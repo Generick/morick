@@ -24,6 +24,19 @@ class M_prizesQuiz extends My_Model{
         $this->cache->redis->retain();
 	}
 
+	//create prizes quiz info
+	function createQuiz($itemId,$tickets,$limitNum){
+		$goodsInfo = $this->db->select('goods_name,goods_pics')->from('goods')->where('goods_id',$itemId)->get()->row_array();
+		$data = array();
+		$data['goods_id'] = $itemId;
+		$data['goods_name'] = $goodsInfo['goods_name'];
+		$data['goods_icon'] = $goodsInfo['goods_pics'];
+		$data['tickets'] = $tickets;
+		$data['limitNum'] = $limitNum;
+		$data['status'] = 1;
+		$this->db->insert('prizesquiz',$data);
+	}
+
 	// user takes part in prizes quiz
 	function partakeQuiz($itemId,$quizPrice,$userId){
 		//$itemInfo = $this->getItemInfo($itemId);
@@ -33,9 +46,9 @@ class M_prizesQuiz extends My_Model{
 			return "此商品正在拍卖，不能参与竞猜";
 			exit;
 		}
-		$sql = "select count from mn_prizesuser where user_id = ? and goods_id = ?";
-		$query = $this->db->query($sql,array($userId,$itemId));
-		$count = $query->row_array();
+		
+		$arr = array('user_id'=>$userId,'goods_id'=>$itemId);
+		$count = $this->db->select('count')->from('prizesuser')->where($arr)->get()->row_array();
 		if (!empty($count) && $count['count'] == 1) {
 			//judge count, if count = 1, forbidden user to partake quiz
 			return "不能重复参与";
@@ -44,30 +57,31 @@ class M_prizesQuiz extends My_Model{
 		//judge user balance
 		$this->load->model('m_user');
 		$userObj = $this->m_user->getSelfUserObj();
+		$tickets = $this->db->select('tickets')->from('prizesquiz')->where('goods_id',$itemId)->get()->row_array();
 		//$userObj = $this->db->where('userId',$userId)->from('user')->get()->row();
-		if ($userObj->balance < 5) {
+		if ($userObj->balance < $tickets['tickets']) {
 			return "账户余额不足";
 			exit;
 		}
 		//jugde user nums
-		$prizesQuizObj = $this->db->where('goods_id',$itemId)->from('prizesquiz')->get()->row();
+		$prizesQuizObj = $this->db->select('currentNum,limitNum,sum')->where('goods_id',$itemId)->from('prizesquiz')->get()->row();
 		if ($prizesQuizObj->currentNum >= $prizesQuizObj->limitNum) {
 			//user over limit
 			return "人数已满";
 			exit;
 		}
 
-		$data = array('goods_id'=>$itemId,'user_id'=>$userId,'quiz_price'=>$quizPrice,'count'=>1,'part_time'=>date("y-m-d h:i:s"));
+		$data = array('goods_id'=>$itemId,'user_id'=>$userId,'quiz_price'=>$quizPrice,'count'=>1,'part_time'=>date("Y-m-d h:i:s"));
 		$res = $this->db->insert('quizuser',$data);
 		if ($res) {
 			//success
-			//user cost 5 yuan
-			$balance = $userObj->balance - 5;
+			//user cost tickets
+			$balance = $userObj->balance - $tickets;
 			$this->db->where('userId',$userId)->update('user',array('balance'=>$balance));
-			//prize goods sum add 5
-			$sum = $prizQuizObj->sum + 5;
-			$currentNum = $prizesQuizObj->currentNum + 1;
-			$this->db->where('goods_id',$itemId)->update('prizesquiz',array('sum'=>$sum,'currentNum'=>$currentNum));
+			//prize goods sum add tickets, people nums add 1
+			$prizesQuizObj->sum += $tickets;
+			$prizesQuizObj->currentNum += 1;
+			$this->db->where('goods_id',$itemId)->update('prizesquiz',array('sum'=>$prizesQuizObj->sum,'currentNum'=>$prizesQuizObj->currentNum));
 			
 		}else{
 			//fail
@@ -82,18 +96,17 @@ class M_prizesQuiz extends My_Model{
 	function quitQuiz($itemId){
 		//quiz user nums < 3
 		$prizesQuizObj = $this->db->where('goods_id',$itemId)->from('prizesquiz')->get()->row();
-		$currentNum = $prizesQuizObj->currentNum;
-		if ($currentNum >= 3) {
+		if ($prizesQuizObj->currentNum >= 3) {
 			return '参与人数大于3，不能停止';
 			exit;
 		}
-		if ($currentNum != 0) {
+		if ($prizesQuizObj->currentNum != 0) {
 			$partUser = $this->where('goods_id',$itemId)->from('quizuser')->select('user_id')->get()->result_array();
-			for ($i=0; $i <$currentNum ; $i++) { 
-				$cuserid = $partUser[$i];
-				$balance = $this->db->select('balance')->from('user')->where('userId',$cuserid)->get();
-				$balance += 5;
-				$this->db->where('userId',$cuserid)->update('user',array('balance'=>$balance));
+			for ($i=0; $i <$prizesQuizObj->currentNum ; $i++) { 
+				$cuserid = $partUser[$i]['user_id'];
+				$balance = $this->db->select('balance')->from('user')->where('userId',$cuserid)->get()->row_array();
+				$balance['balance'] += 5;
+				$this->db->where('userId',$cuserid)->update('user',array('balance'=>$balance['balance']));
 			}
 		}
 		//set this quiz status 2
@@ -130,7 +143,7 @@ class M_prizesQuiz extends My_Model{
 	//quiz normal over
 	function quizOver($itemId){
 		//get quiz goods purchase
-		$purchasePrice_Sum = $this->db->select('purchasePrice,sum')->from('prizesquiz')->where('goods_id',$itemId)->get()->result_array();
+		$purchasePrice_Sum = $this->db->select('purchasePrice,sum')->from('prizesquiz')->where('goods_id',$itemId)->get()->row_array();
 		$userId_quizPrice = $this->db->select('user_id,quiz_price')->from('quizuser')->where('goods_id',$itemId)->get()->result_array();
 		$awardUser = $this->getFTUserId($purchasePrice_Sum['purchasePrice'],$userId_quizPrice);
 
@@ -159,10 +172,10 @@ class M_prizesQuiz extends My_Model{
 			
 			for ($j=0; $j <count($awardUser[$i]) ; $j++) { 
 				$cuserid = $awardUser[$i][$j];
-				$balance = $this->db->select('balance')->from('user')->where('userId',$cuserid)->get();
-				$balance += $awardMoney;
+				$balance = $this->db->select('balance')->from('user')->where('userId',$cuserid)->get()->row_array();
+				$balance['balance'] += $awardMoney;
 				//update award-user balance and award level
-				$this->db->where('userId',$cuserid)->update('user',array('balance'=>$balance));
+				$this->db->where('userId',$cuserid)->update('user',array('balance'=>$balance['balance']));
 				$this->db->where('user_id',$cuserid)->update('quizuser',array('award'=>$award));
 			}
 		}
@@ -202,7 +215,7 @@ class M_prizesQuiz extends My_Model{
 
 	//get prizes quiz lists
 	function getQuizList(){
-		$data = $this->db->get('prizesquiz')->result_array();
+		$data = $this->db->get('prizesquiz',0,20)->result_array();
 		return $data;
 	}
 
@@ -214,6 +227,7 @@ class M_prizesQuiz extends My_Model{
 	}
 
 	function test(){
+		return $this->db->select('user_id')->from('quizuser')->where('count',1)->get()->result_array();
 		return array(1,array(1,5));
 		$price = 25;
 		$testdata = array(array('user_id'=>1,'quiz_price'=>20),array('user_id'=>2,'quiz_price'=>15),array('user_id'=>3,'quiz_price'=>50),array('user_id'=>4,'quiz_price'=>15),array('user_id'=>5,'quiz_price'=>18));
