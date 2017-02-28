@@ -28,10 +28,11 @@ class Auction extends My_Controller
         $whereArr = array();
         if(isset($_POST["type"]))
         {
+            $whereArr["status"] = AUCTION_ON;
             $type = intval($this->input->post("type"));
             if($type == AUCTION_ING)
             {
-                $whereArr["status"] = AUCTION_ON;
+                //$whereArr["status"] = AUCTION_ON;
                 $whereArr["startTime <="] = now();
                 $whereArr["endTime >="] = now();
             }

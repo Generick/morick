@@ -63,6 +63,7 @@ class TimedTask extends My_Controller
             }
 
             $retCode = $this->m_order->createOrder($orderInfo, $one->goodsInfo->goods_id);
+
             if($retCode == ERROR_OK)
             {
                 if($orderInfo["payPrice"] == 0)

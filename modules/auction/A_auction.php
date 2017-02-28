@@ -258,6 +258,6 @@ class A_auction extends Admin_Controller
         for ($i=0; $i < count($data); $i++) { 
             $data[$i]['createTime'] = date("Y-m-d h:i:s",$data[$i]['createTime']);
         }
-        $this->returnJson($data);
+        $this->responseSuccess($data);
     }
 }

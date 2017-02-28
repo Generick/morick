@@ -24,7 +24,6 @@ class U_auction extends User_Controller
             $this->responseError(ERROR_PARAM);
             return;
         }
-
         $itemId = intval($this->input->post("itemId"));
         $price = floatval(str_replace(',', '', $this->input->post("price")));
         $retCode = $this->m_auction->biddingAuctionItem($itemId, $this->m_user->getSelfUserId(), $price);

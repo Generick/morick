@@ -75,6 +75,7 @@
             "auction/A_auction/delAuctionItems" : {"itemIds" : '[]', "说明" : "删除展品"},
             "auction/A_auction/setAuctionItemOff" : {"itemId" : 0, "说明" : "下架展品"},
             "auction/A_auction/auctionStatistical" :  {"startTime" : "", "endTime" : "", "startIndex" : 0, "num" : 10, "说明" : "拍品统计"},
+            "auction/A_auction/getBidList" :{"offset":"0","说明":"获取出价列表 offset获取位置"},
             //endregion
 
             //region 阅读模块

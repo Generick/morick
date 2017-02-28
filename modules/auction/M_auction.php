@@ -106,6 +106,7 @@ class M_auction extends My_Model
      */
     function getAuctionBase($itemId)
     {
+        var_dump("the itemId:" . $itemId);
         $auctionItemObj = $this->getAuctionItemObj($itemId);
         if(!$auctionItemObj)
         {
@@ -300,6 +301,12 @@ class M_auction extends My_Model
             return ERROR_BIDDING_TIME_ILLEGAL;
         }
 
+        //user price must over current high price
+        $maxPrice = $this->db->select_max('nowPrice')->from('biddinglogs')->where('auctionItemId',$itemId)->get()->row_array();
+        if ($price < $maxPrice['nowPrice']) {
+            return ERROR_PRICE_IS_ILLEGAL;
+        }
+
         if($auctionItemObj->currentPrice == $auctionItemObj->initialPrice && $auctionItemObj->initialPrice != 0)
         {
             if($price < $auctionItemObj->initialPrice)
@@ -337,7 +344,11 @@ class M_auction extends My_Model
         }
 
         $modInfo = array("currentUser" => $userId, "currentPrice" => $price, "bidsNum" => ($auctionItemObj->bidsNum + 1));
-        if(($auctionItemObj->endTime - time()) <= $auctionItemObj->postponeTime * 60)
+        //mxl modify logic
+        //user price over current auction price
+        if ($auctionItemObj->cappedPrice > 0 && $price >= $auctionItemObj->cappedPrice) {
+            $modInfo['endTime'] = time();
+        }else if(($auctionItemObj->endTime - time()) <= $auctionItemObj->postponeTime * 60)
         {
             $modInfo["endTime"] =  (time() + $auctionItemObj->postponeTime * 60);
         }
@@ -365,7 +376,8 @@ class M_auction extends My_Model
         //处理委托出价
         $this->load->model("m_proxyBid");
         $this->m_proxyBid->startProxyBid($itemId, $userId, $price, $auctionItemObj->lowestPremium);
-        return ERROR_OK;
+        //return ERROR_OK;
+        return $modInfo['endTime'];
     }
 
     /**
@@ -573,15 +585,22 @@ class M_auction extends My_Model
     }
 
     //get user bid records list
-    function getBidList($offset = 0){
-        $data = $this->db->from('biddinglogs')->join('goods',"biddingLogs.auctionItemId = goods.goods_id")->join('user',"biddinglogs.userId = user.userId")->select("biddinglogs.userId,biddinglogs.auctionItemId,icon,goods_name,name,nowPrice,createTime,telephone")->limit(30,$offset)->get()->result_array();//limit(1,2)=>sql limit 2,1
+    function getBidList($offset){
+        $data = $this->db->from('biddinglogs')->join('goods',"biddingLogs.auctionItemId = goods.goods_id")->join('user',"biddinglogs.userId = user.userId")->select("biddinglogs.userId,biddinglogs.auctionItemId,icon,goods_name,name,nowPrice,createTime,telephone")->limit(20,$offset)->get()->result_array();//limit(1,2)=>sql limit 2,1
         for ($i=0; $i < count($data); $i++) { 
             $itemid = $data[$i]['auctionItemId'];
+            $auctionObj = $this->db->select('endTime,bidsNum')->from('auctionitems')->where('goods_bak_id',$itemid)->get()->row();
             $hightPrice = $this->db->select('nowPrice')->from('biddinglogs')->where('auctionItemId',$itemid)->order_by('nowPrice','DESC')->limit(1)->get()->row_array();
             if ($data[$i]['nowPrice'] == $hightPrice['nowPrice']) {
-                $data[$i]['isHigh'] = 1;
+                if ($auctionObj->endTime < time() && $auctionObj->bidsNum > 0) {
+                    $data[$i]['isSale'] = 1;
+                }else{
+                    $data[$i]['isHigh'] = 1;
+                }
+                //code
             }
         }
+
         return $data;
     }
 }
