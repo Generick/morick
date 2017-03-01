@@ -266,15 +266,18 @@ class A_admin extends Admin_Controller
     // *********
     // backend sms send
     function smsSend(){
-        if (!$this->checkParam(array("type","phoneNum","goods_name","price"))) {
+        //check params
+        if (!$this->checkParam(array("params"))) {
             $this->responseError(ERROR_PARAM);
             exit;
         }
         //get params
-        $type = intval($this->input->post('type'));
-        $goods_name = $this->input->post('goods_name');
-        $phoneNum = $this->input->post('phoneNum');
-        $price = $this->input->post('price');
+        $param = json_decode($this->input->post('params'),true);
+        
+        $type = intval($param['type']);
+        $goods_name = $param['goods_name'];
+        $phoneNum = $param['phoneNum'];
+        $price = $param['price'];
 
         switch ($type) {
             case 1:

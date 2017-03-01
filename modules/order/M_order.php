@@ -287,4 +287,10 @@ class M_order extends My_Model
         $this->getOrderList($startIndex, $num, $whereArr, "", $orderList, $count, ORDER_TYPE_SMALL);
         return ERROR_OK;
     }
+
+    //modify order delivery type
+    function modifyType($order_no){
+        $res = $this->db->where('order_no',$order_no)->update('order',array('deliveryType'=>1));
+        return $res;
+    }
 }

@@ -935,3 +935,14 @@ ORDER BY `readTime` desc
  LIMIT 10
 ERROR - 2017-02-28 19:03:42 --> DBField is not found in fields: isVIP
 ERROR - 2017-02-28 19:03:42 --> DBField is not found in fields: isVIP
+ERROR - 2017-02-28 21:00:55 --> DBField is not found in fields: isVIP
+ERROR - 2017-02-28 21:00:55 --> DBField is not found in fields: isVIP
+ERROR - 2017-02-28 21:00:55 --> DBField is not found in fields: isVIP
+ERROR - 2017-02-28 21:00:55 --> DBField is not found in fields: isVIP
+ERROR - 2017-02-28 21:01:14 --> Query error: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'auction.mn_biddingLogs.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by - Invalid query: SELECT `id`, `auctionItemId`, `userId`, `createTime`, max(nowPrice) as nowPrice
+FROM `mn_biddingLogs`
+WHERE `userId` = 34
+GROUP BY `auctionItemId`
+ORDER BY `createTime` desc
+ERROR - 2017-02-28 21:37:24 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"125"}
+ERROR - 2017-02-28 21:37:25 --> [methodError]:[展品不存在！]:F:\work\program\server\application\controllers/auction/Auction.php:getAuctionAllInfo:{"itemId":"125"}

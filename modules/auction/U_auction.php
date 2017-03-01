@@ -27,7 +27,13 @@ class U_auction extends User_Controller
         $itemId = intval($this->input->post("itemId"));
         $price = floatval(str_replace(',', '', $this->input->post("price")));
         $retCode = $this->m_auction->biddingAuctionItem($itemId, $this->m_user->getSelfUserId(), $price);
-        $this->responseError($retCode);
+        //var_dump($retCode);
+        if (isset($retCode['endTime'])) {
+            $this->responseSuccess($retCode['endTime']);
+        }else{
+            $this->responseError($retCode);
+        }
+        
         return;
     }
 }

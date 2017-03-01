@@ -249,15 +249,22 @@ class A_auction extends Admin_Controller
 
     //get users bids record list
     function getBidList(){
-        if (isset($_POST['offset'])) {
-            $offset = intval($_POST['offset']);
+        //echo json_encode($_POST);die;
+        if (isset($_POST['startIndex'])) {
+            $startIndex = intval($_POST['startIndex']);
         }else{
-            $offset = 0;
+            $startIndex = 0;
         }
-        $data = $this->m_auction->getBidList($offset);
-        for ($i=0; $i < count($data); $i++) { 
-            $data[$i]['createTime'] = date("Y-m-d h:i:s",$data[$i]['createTime']);
+
+        if (isset($_POST['num'])) {
+            $num = $_POST['num'];
+        }else{
+            $num = 10;
         }
-        $this->responseSuccess($data);
+        $retdata = $this->m_auction->getBidList($startIndex,$num);
+        for ($i=0; $i < count($retdata['data']); $i++) { 
+            $retdata['data'][$i]['createTime'] = date("Y-m-d h:i:s",$retdata['data'][$i]['createTime']);
+        }
+        $this->responseSuccess($retdata);
     }
 }

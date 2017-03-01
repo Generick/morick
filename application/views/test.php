@@ -42,7 +42,8 @@
             "a_admin/searchUserList" : {"userType" : 1, "startIndex":0, "num":10, "likeStr" : "", "说明":"分类型搜索用户"},
             "a_admin/modUserInfo" : {"userId" : "", "modInfo" : '{"note": "备注信息"}', "说明":"修改个人数据"},
             "a_admin/opBalance" : {"userId" : "", "opType" : "", "balance" : "", "说明" : "管理员操作用户余额 opType 0增加 1减少"},
-            "a_admin/smsSend" :{"type" :"1","phoneNum":"xxx-xxxx-xxxx","goods_name":"test","price":"25","说明":"type为类型 1超价提醒 2竞拍成功 3截拍提醒"},
+            //"a_admin/smsSend" :{"type" :"1","phoneNum":"xxx-xxxx-xxxx","goods_name":"test","price":"25","说明":"type为类型 1超价提醒 2竞拍成功 3截拍提醒"},
+            "a_admin/smsSend" :{"params" :'{"type":1,"phoneNum":"18255001881","goods_name":"test","price":20}',"说明":"type为类型 1超价提醒 2竞拍成功 3截拍提醒"},
 
             //region 商品
             "goods/Goods/getGoods" : {"startIndex":0, "num":10, "说明":"获取商品列表"},

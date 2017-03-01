@@ -106,7 +106,7 @@ class M_auction extends My_Model
      */
     function getAuctionBase($itemId)
     {
-        var_dump("the itemId:" . $itemId);
+        //var_dump("the itemId:" . $itemId);
         $auctionItemObj = $this->getAuctionItemObj($itemId);
         if(!$auctionItemObj)
         {
@@ -235,51 +235,90 @@ class M_auction extends My_Model
      */
     function getPersonalBiddingList($userId, $startIndex, $num, &$biddingList, &$count)
     {
-        $this->db->start_cache();
-        $this->db->select("id, auctionItemId, userId, createTime, max(nowPrice) as nowPrice")->from("biddingLogs");
-        $this->db->where(array("userId" => $userId));
-        $this->db->group_by("auctionItemId");
-        $this->db->stop_cache();
-        $count = $this->db->count_all_results();
-        if($num > 0)
-        {
-            $this->db->limit($num, $startIndex);
+        // $this->db->start_cache();
+        // $this->db->select("id, auctionItemId, userId, createTime, max(nowPrice) as nowPrice")->from("biddingLogs");
+        // $this->db->where(array("userId" => $userId));
+        // $this->db->group_by("auctionItemId");
+        // $this->db->stop_cache();
+        // $count = $this->db->count_all_results();
+        // if($num > 0)
+        // {
+        //     $this->db->limit($num, $startIndex);
+        // }
+        // $this->db->order_by("createTime desc");
+        // $biddingArr = $this->db->get()->result_array();
+        // $this->db->flush_cache();
+        //mxl add
+        $count = 0;
+        $userauctionlist = array();
+        if ($num > 0) {
+            $userAuction = $this->db->select('id,userId,auctionItemId,userId,createTime,nowPrice')->where('userId',$userId)->from('biddinglogs')->limit($num,$startIndex)->order_by("createTime","DESC")->get()->result_array();
+        }else{
+            $userAuction = $this->db->select('id,userId,auctionItemId,userId,createTime,nowPrice')->where('userId',$userId)->from('biddinglogs')->order_by("createTime","DESC")->get()->result_array();
         }
-        $this->db->order_by("createTime desc");
-        $biddingArr = $this->db->get()->result_array();
-        $this->db->flush_cache();
-
-        foreach($biddingArr as $one)
-        {
-            $baseData = $this->getAuctionBase($one["auctionItemId"]);
-            if($baseData)
-            {
-                if($baseData->startTime <= now() && $baseData->endTime > now())
-                {
-                    //进行中
-                    $one["status"] = AUCTION_STATUS_GOING;
+        
+        foreach ($userAuction as $v) {
+            //$auctioninfo = $this->select("currentPrice,initialPrice")->from('auctionitems')->where('goods_bak_id',$v['auctionItemId'])->get()->result_array();
+            $baseInfo = $this->getAuctionBase($v['auctionItemId']);
+            if ($baseInfo) {
+                if ($baseInfo->startTime <= time() && $baseInfo->endTime > time()) {
+                    $v['status'] = AUCTION_STATUS_GOING;
+                    $count += 1;
                 }
-
-                if($baseData->endTime <= now())
-                {
-                    //已结束
-                    if($baseData->currentUser == $userId)
-                    {
-                        $one["status"] = AUCTION_STATUS_SELF;
-                    }
-                    else
-                    {
-                        $one["status"] = AUCTION_STATUS_ANNOUNCED;
+                if ($baseInfo->endTime <= time()) {
+                    if ($baseInfo->currentUser == $userId) {
+                        $v['status'] = AUCTION_STATUS_SELF;
+                    }else{
+                        $v['status'] = AUCTION_STATUS_ANNOUNCED;
                     }
                 }
 
-                $one["initialPrice"] = $baseData->initialPrice;
-                $one["currentPrice"] = $baseData->currentPrice;
-                $one["goodsInfo"] = $baseData->goodsInfo;
-
-                $biddingList[] = $one;
+                $v['currentPrice'] = $baseInfo->currentPrice;
+                $v['initialPrice'] = $baseInfo->initialPrice;
+                $v['goodsInfo']['goods_id'] = $baseInfo->goodsInfo->goods_id;
+                $v['goodsInfo']['goods_name'] = $baseInfo->goodsInfo->goods_name;
+                $v['goodsInfo']['goods_detail'] = $baseInfo->goodsInfo->goods_detail;
+                $v['goodsInfo']['goods_pics'] = $baseInfo->goodsInfo->goods_pics;
+                $v['goodsInfo']['goods_bid'] = $baseInfo->goodsInfo->goods_bid;
             }
+            //$userauctionlist[] = array_merge($v,$auctioninfo);
+            $userauctionlist[] = $v;
         }
+        $biddingList = $userauctionlist;
+        //var_dump($userauctionlist);die;
+        //end
+
+        // foreach($biddingArr as $one)
+        // {
+        //     $baseData = $this->getAuctionBase($one["auctionItemId"]);
+        //     if($baseData)
+        //     {
+        //         if($baseData->startTime <= now() && $baseData->endTime > now())
+        //         {
+        //             //进行中
+        //             $one["status"] = AUCTION_STATUS_GOING;
+        //         }
+
+        //         if($baseData->endTime <= now())
+        //         {
+        //             //已结束
+        //             if($baseData->currentUser == $userId)
+        //             {
+        //                 $one["status"] = AUCTION_STATUS_SELF;
+        //             }
+        //             else
+        //             {
+        //                 $one["status"] = AUCTION_STATUS_ANNOUNCED;
+        //             }
+        //         }
+
+        //         $one["initialPrice"] = $baseData->initialPrice;
+        //         $one["currentPrice"] = $baseData->currentPrice;
+        //         $one["goodsInfo"] = $baseData->goodsInfo;
+
+        //         $biddingList[] = $one;
+        //     }
+        // }
     }
 
     /**
@@ -300,6 +339,7 @@ class M_auction extends My_Model
         {
             return ERROR_BIDDING_TIME_ILLEGAL;
         }
+
 
         //user price must over current high price
         $maxPrice = $this->db->select_max('nowPrice')->from('biddinglogs')->where('auctionItemId',$itemId)->get()->row_array();
@@ -327,6 +367,7 @@ class M_auction extends My_Model
             return ERROR_BIDDING_HAS_TALLEST;
         }
 
+
         //冻结资金
         if($auctionItemObj->margin > 0)
         {
@@ -351,6 +392,8 @@ class M_auction extends My_Model
         }else if(($auctionItemObj->endTime - time()) <= $auctionItemObj->postponeTime * 60)
         {
             $modInfo["endTime"] =  (time() + $auctionItemObj->postponeTime * 60);
+        }else{
+            $modInfo['endTime'] = $auctionItemObj->endTime;
         }
 
         //超越提醒
@@ -377,7 +420,7 @@ class M_auction extends My_Model
         $this->load->model("m_proxyBid");
         $this->m_proxyBid->startProxyBid($itemId, $userId, $price, $auctionItemObj->lowestPremium);
         //return ERROR_OK;
-        return $modInfo['endTime'];
+        return $modInfo;
     }
 
     /**
@@ -585,8 +628,8 @@ class M_auction extends My_Model
     }
 
     //get user bid records list
-    function getBidList($offset){
-        $data = $this->db->from('biddinglogs')->join('goods',"biddingLogs.auctionItemId = goods.goods_id")->join('user',"biddinglogs.userId = user.userId")->select("biddinglogs.userId,biddinglogs.auctionItemId,icon,goods_name,name,nowPrice,createTime,telephone")->limit(20,$offset)->get()->result_array();//limit(1,2)=>sql limit 2,1
+    function getBidList($startIndex,$num){
+        $data = $this->db->from('biddinglogs')->join('goods',"biddingLogs.auctionItemId = goods.goods_id")->join('user',"biddinglogs.userId = user.userId")->select("biddinglogs.userId,biddinglogs.auctionItemId,icon,goods_name,name,nowPrice,createTime,telephone")->limit($num,$startIndex)->get()->result_array();//limit(1,2)=>sql limit 2,1
         for ($i=0; $i < count($data); $i++) { 
             $itemid = $data[$i]['auctionItemId'];
             $auctionObj = $this->db->select('endTime,bidsNum')->from('auctionitems')->where('goods_bak_id',$itemid)->get()->row();
@@ -601,6 +644,9 @@ class M_auction extends My_Model
             }
         }
 
-        return $data;
+        $count = $this->db->count_all_results('biddinglogs');
+        $retData = array('data'=>$data,'count'=>$count);
+
+        return $retData;
     }
 }
