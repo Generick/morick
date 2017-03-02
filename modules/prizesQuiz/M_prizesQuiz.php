@@ -82,6 +82,7 @@ class M_prizesQuiz extends My_Model{
 			$prizesQuizObj->sum += $tickets;
 			$prizesQuizObj->currentNum += 1;
 			$this->db->where('goods_id',$itemId)->update('prizesquiz',array('sum'=>$prizesQuizObj->sum,'currentNum'=>$prizesQuizObj->currentNum));
+			return ERROR_OK;
 			
 		}else{
 			//fail

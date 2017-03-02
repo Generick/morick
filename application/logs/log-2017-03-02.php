@@ -891,3 +891,124 @@ ERROR - 2017-03-02 16:46:43 --> DBField is not found in fields: isVIP
 ERROR - 2017-03-02 16:46:43 --> DBField is not found in fields: isVIP
 ERROR - 2017-03-02 16:50:03 --> Lack of param: startIndex
 ERROR - 2017-03-02 16:50:03 --> [methodError]:[参数错误！]:F:\work\program\server\application\controllers/order/A_order.php:getOrderList:[]
+ERROR - 2017-03-02 17:22:59 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"26"}
+ERROR - 2017-03-02 17:24:21 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"45","initialPrice":"0","lowestPremium":"3","margin":"1","startTime":"2017-03-02 17:23:57","endTime":"2017-03-09 17:23:57","cappedPrice":"22","isVIP":"0"}
+ERROR - 2017-03-02 17:24:22 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:24:33 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"44","initialPrice":"0","lowestPremium":"1","margin":"0","startTime":"2017-03-02 17:24:10","endTime":"2017-03-09 17:24:10","cappedPrice":"21","isVIP":"0"}
+ERROR - 2017-03-02 17:24:33 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:24:46 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"43","initialPrice":"0","lowestPremium":"2","margin":"0","startTime":"2017-03-02 17:24:21","endTime":"2017-03-09 17:24:21","cappedPrice":"23","isVIP":"0"}
+ERROR - 2017-03-02 17:24:46 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:25:00 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"42","initialPrice":"0","lowestPremium":"2","margin":"0","startTime":"2017-03-02 17:24:33","endTime":"2017-03-09 17:24:33","cappedPrice":"13","isVIP":"0"}
+ERROR - 2017-03-02 17:25:00 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:25:11 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"41","initialPrice":"0","lowestPremium":"8","margin":"0","startTime":"2017-03-02 17:24:47","endTime":"2017-03-09 17:24:47","cappedPrice":"35","isVIP":"0"}
+ERROR - 2017-03-02 17:25:11 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:25:32 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"40","initialPrice":"0","lowestPremium":"2","margin":"0","startTime":"2017-03-02 17:24:58","endTime":"2017-03-09 17:24:58","cappedPrice":"25","isVIP":"0"}
+ERROR - 2017-03-02 17:25:33 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:25:48 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"39","initialPrice":"0","lowestPremium":"2","margin":"0","startTime":"2017-03-02 17:25:20","endTime":"2017-03-09 17:25:20","cappedPrice":"33","isVIP":"1"}
+ERROR - 2017-03-02 17:25:48 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:26:11 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:26:20 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:26:50 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"48","price":"6.00"}
+ERROR - 2017-03-02 17:26:54 --> [methodError]:[本次竞拍出价不在合理区间！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"48","price":"4.00"}
+ERROR - 2017-03-02 17:26:55 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:27:09 --> [methodError]:[本次竞拍出价不在合理区间！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"48","price":"6.00"}
+ERROR - 2017-03-02 17:27:11 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:34:15 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"45"}
+ERROR - 2017-03-02 17:34:29 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"42"}
+ERROR - 2017-03-02 17:35:03 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:35:12 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:35:15 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"48","price":"14.00"}
+ERROR - 2017-03-02 17:35:24 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:35:28 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"48","price":"14.00"}
+ERROR - 2017-03-02 17:35:31 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:35:46 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:35:49 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:35:52 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:35:58 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:36:02 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:36:12 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"43"}
+ERROR - 2017-03-02 17:39:34 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"44"}
+ERROR - 2017-03-02 17:39:52 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:40:01 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:40:17 --> [methodError]:[当前时间不可竞拍该藏品！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"48","price":"34.00"}
+ERROR - 2017-03-02 17:40:25 --> [methodError]:[当前时间不可竞拍该藏品！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"48","price":"33.00"}
+ERROR - 2017-03-02 17:40:28 --> [methodError]:[当前时间不可竞拍该藏品！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"48","price":"33.00"}
+ERROR - 2017-03-02 17:40:42 --> [methodError]:[当前时间不可竞拍该藏品！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"48","price":"40.00"}
+ERROR - 2017-03-02 17:40:56 --> [methodError]:[]:F:\work\program\server\application\controllers/proxyBid/U_proxyBid.php:setProxyBid:{"auctionId":"48","bids":"[{\"triggerPrice\":\"22\",\"offerPrice\":\"33\"}]"}
+ERROR - 2017-03-02 17:40:57 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:40:57 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:41:59 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"47"}
+ERROR - 2017-03-02 17:42:09 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:42:10 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:42:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"47"}
+ERROR - 2017-03-02 17:42:26 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"47"}
+ERROR - 2017-03-02 17:42:37 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"47"}
+ERROR - 2017-03-02 17:42:39 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:42:39 --> [methodError]:[重登录失败：令牌错误!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":"cdf99068ed2d38ee5156dc3e5ad221cd"}
+ERROR - 2017-03-02 17:42:41 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:43:57 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:44:09 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"41"}
+ERROR - 2017-03-02 17:44:30 --> Query error: Unknown column 'goods_name' in 'field list' - Invalid query: SELECT `mn_biddinglogs`.`userId`, `mn_biddinglogs`.`auctionItemId`, `isHigh`, `icon`, `goods_name`, `name`, `nowPrice`, `createTime`, `telephone`
+FROM `mn_biddinglogs`
+JOIN `mn_user` ON `mn_biddinglogs`.`userId` = `mn_user`.`userId`
+ORDER BY `createTime` DESC
+ LIMIT 10
+ERROR - 2017-03-02 17:45:08 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"41"}
+ERROR - 2017-03-02 17:45:25 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"41"}
+ERROR - 2017-03-02 17:46:08 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"41"}
+ERROR - 2017-03-02 17:47:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"41"}
+ERROR - 2017-03-02 17:48:26 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"41"}
+ERROR - 2017-03-02 17:48:34 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"37"}
+ERROR - 2017-03-02 17:49:04 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"37"}
+ERROR - 2017-03-02 17:49:08 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"35"}
+ERROR - 2017-03-02 17:49:11 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"32"}
+ERROR - 2017-03-02 17:49:15 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"29"}
+ERROR - 2017-03-02 17:49:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"25"}
+ERROR - 2017-03-02 17:49:20 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:49:20 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:49:20 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:49:20 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:49:20 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:49:21 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"28"}
+ERROR - 2017-03-02 17:49:25 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"30"}
+ERROR - 2017-03-02 17:49:27 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"32"}
+ERROR - 2017-03-02 17:49:30 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"34"}
+ERROR - 2017-03-02 17:49:33 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"36"}
+ERROR - 2017-03-02 17:49:36 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"39"}
+ERROR - 2017-03-02 17:49:39 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"41"}
+ERROR - 2017-03-02 17:49:43 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-02 17:49:45 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"39"}
+ERROR - 2017-03-02 17:49:48 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"35"}
+ERROR - 2017-03-02 17:49:50 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"37"}
+ERROR - 2017-03-02 17:49:58 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"37"}
+ERROR - 2017-03-02 17:50:40 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"37"}
+ERROR - 2017-03-02 17:50:42 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"37"}
+ERROR - 2017-03-02 17:50:55 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"36"}
+ERROR - 2017-03-02 17:52:32 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"46","initialPrice":"0","lowestPremium":"1","margin":"0","startTime":"2017-03-02 17:51:48","endTime":"2017-03-02 17:55:51","cappedPrice":"0","isVIP":"0"}
+ERROR - 2017-03-02 17:52:32 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:52:39 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"49"}
+ERROR - 2017-03-02 17:52:49 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"49"}
+ERROR - 2017-03-02 17:53:29 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"47","initialPrice":"0","lowestPremium":"2","margin":"0","startTime":"2017-03-02 17:53:06","endTime":"2017-03-09 17:53:06","cappedPrice":"23","isVIP":"0"}
+ERROR - 2017-03-02 17:53:29 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 17:53:38 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"50"}
+ERROR - 2017-03-02 17:53:44 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"50"}
+ERROR - 2017-03-02 17:53:58 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"50"}
+ERROR - 2017-03-02 17:54:03 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"50"}
+ERROR - 2017-03-02 17:54:04 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"50"}
+ERROR - 2017-03-02 17:54:08 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"49"}
+ERROR - 2017-03-02 17:57:50 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"50"}
+ERROR - 2017-03-02 17:57:58 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"49"}
+ERROR - 2017-03-02 17:58:01 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"50"}
+ERROR - 2017-03-02 17:58:23 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"50"}
+ERROR - 2017-03-02 17:58:27 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"49"}
+ERROR - 2017-03-02 17:58:37 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"37"}
+ERROR - 2017-03-02 17:58:40 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"45"}
+ERROR - 2017-03-02 17:58:43 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"36"}
+ERROR - 2017-03-02 17:58:48 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"47"}
+ERROR - 2017-03-02 17:58:52 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"47","price":"6.00"}
+ERROR - 2017-03-02 17:58:56 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"46"}
+ERROR - 2017-03-02 17:59:19 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"46"}
+ERROR - 2017-03-02 17:59:47 --> [methodError]:[本次竞拍出价不在合理区间！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"46","price":"19.00"}
+ERROR - 2017-03-02 17:59:49 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"46"}
+ERROR - 2017-03-02 18:01:27 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"44"}
+ERROR - 2017-03-02 18:01:46 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"44"}

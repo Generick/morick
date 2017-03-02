@@ -95,15 +95,6 @@ class My_Controller extends CI_Controller
         return $this->errMsg;
     }
 
-    //return json to font-end
-    function returnJson($data){
-        if (is_array($data)) {
-            echo json_encode($data);
-        }else{
-            $data = (array)$data;
-            echo json_encode($data);
-        }
-    }
 
     /**
      * 设置当前的返回数据，此数值会被直接放到返回json的data中

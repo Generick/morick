@@ -22,7 +22,13 @@ class U_prizesQuiz extends User_Controller{
 		$quizPrice = $this->input->post('quizPrice');
 		$userId = $this->m_user->getSelfUserId();
 		$res = $this->m_prizesQuiz->partakeQuiz($quizItemId,$quizPrice,$userId);
-		$this->responseError($res);
+		if ($res != ERROR_OK) {
+			$this->responseError($res);
+			exit;
+		}
+
+		$this->responseSuccess($res);
+		
 	}
 
 
