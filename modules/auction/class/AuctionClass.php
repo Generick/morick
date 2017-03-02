@@ -21,6 +21,8 @@ class CAuctionSmallInfo extends IExtractInfo
             "goods_bak_id",
             "currentPrice",
             "createTime",
+            "endTime",
+            "bidsNum"
         );
     }
 

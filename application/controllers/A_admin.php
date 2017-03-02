@@ -262,45 +262,6 @@ class A_admin extends Admin_Controller
     }
     /////////////////////////////////////////////////////////////
     // end region 管理员管理
-    // 
-    // *********
-    // backend sms send
-    function smsSend(){
-        //check params
-        if (!$this->checkParam(array("params"))) {
-            $this->responseError(ERROR_PARAM);
-            exit;
-        }
-        //get params
-        $param = json_decode($this->input->post('params'),true);
-        
-        $type = intval($param['type']);
-        $goods_name = $param['goods_name'];
-        $phoneNum = $param['phoneNum'];
-        $price = $param['price'];
-
-        switch ($type) {
-            case 1:
-                //超价提醒
-                $content = $this->m_common->format(SMS_BEYOND_PRICE,$goods_name,$price);
-                break;
-            case 2:
-                //竞拍成功
-                $content = $this->m_common->format(SMS_OBTAIN,$goods_name,$price);
-                break;
-            case 3:
-                //截拍提醒
-                $content = $this->m_common->format(SMS_NEAR_END,$goods_name,$price);
-            default:
-                # code...
-                break;
-        }
-                
-        $this->m_smsCode->sendMsg($phoneNum,$content);
-        //return result to font-end
-        $this->responseSuccess('ok');
-        
-    }
 
 
 

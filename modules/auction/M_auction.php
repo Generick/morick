@@ -94,6 +94,8 @@ class M_auction extends My_Model
         $this->load->model("m_user");
         $userObj = $this->m_user->getBaseUserObj(USER_TYPE_ADMIN, $auctionItemObj->owner_id);
         $goodsInfo->ownerInfo = $userObj->name;
+        $goodsInfo->endTime = $smallData->endTime;
+        $goodsInfo->bidsNum = $smallData->bidsNum;
 
         $goodsInfo->createTime = $smallData->createTime;
         return $goodsInfo;
@@ -379,9 +381,15 @@ class M_auction extends My_Model
             }
         }
 
-        if(!$this->m_common->insert("biddingLogs", array("auctionItemId" => $itemId, "userId" => $userId, "nowPrice" => $price, "createTime" => now())))
+        //is high 1, is not high 0
+        //write to bid logs
+        $bidLogData = array('auctionItemId'=>$itemId,'userId'=>$userId,"nowPrice"=>$price,"createTime"=>time(),'isHigh'=>1);
+
+        if(!$this->m_common->insert("biddingLogs",$bidLogData))
         {
             return ERROR_SYSTEM;
+        }else{
+            $this->db->where('auctionItemId',$itemId)->where("nowPrice !=",$price)->update('biddinglogs',array('isHigh'=>0));
         }
 
         $modInfo = array("currentUser" => $userId, "currentPrice" => $price, "bidsNum" => ($auctionItemObj->bidsNum + 1));
@@ -627,26 +635,5 @@ class M_auction extends My_Model
         return $auctionGoodArr;
     }
 
-    //get user bid records list
-    function getBidList($startIndex,$num){
-        $data = $this->db->from('biddinglogs')->join('goods',"biddingLogs.auctionItemId = goods.goods_id")->join('user',"biddinglogs.userId = user.userId")->select("biddinglogs.userId,biddinglogs.auctionItemId,icon,goods_name,name,nowPrice,createTime,telephone")->limit($num,$startIndex)->get()->result_array();//limit(1,2)=>sql limit 2,1
-        for ($i=0; $i < count($data); $i++) { 
-            $itemid = $data[$i]['auctionItemId'];
-            $auctionObj = $this->db->select('endTime,bidsNum')->from('auctionitems')->where('goods_bak_id',$itemid)->get()->row();
-            $hightPrice = $this->db->select('nowPrice')->from('biddinglogs')->where('auctionItemId',$itemid)->order_by('nowPrice','DESC')->limit(1)->get()->row_array();
-            if ($data[$i]['nowPrice'] == $hightPrice['nowPrice']) {
-                if ($auctionObj->endTime < time() && $auctionObj->bidsNum > 0) {
-                    $data[$i]['isSale'] = 1;
-                }else{
-                    $data[$i]['isHigh'] = 1;
-                }
-                //code
-            }
-        }
-
-        $count = $this->db->count_all_results('biddinglogs');
-        $retData = array('data'=>$data,'count'=>$count);
-
-        return $retData;
-    }
+    
 }

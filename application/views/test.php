@@ -76,8 +76,13 @@
             "auction/A_auction/delAuctionItems" : {"itemIds" : '[]', "说明" : "删除展品"},
             "auction/A_auction/setAuctionItemOff" : {"itemId" : 0, "说明" : "下架展品"},
             "auction/A_auction/auctionStatistical" :  {"startTime" : "", "endTime" : "", "startIndex" : 0, "num" : 10, "说明" : "拍品统计"},
-            "auction/A_auction/getBidList" :{"offset":"0","说明":"获取出价列表 offset获取位置"},
+            "auction/A_auction/getBidList" :{"startIndex":"0", "num" : 10, "说明":"获取出价列表 offset获取位置"},
             //endregion
+
+            //bids interface start
+            "bids/A_bids/getBidList":{"startIndex":"0","num":10,"说明":"获取出价列表 startIndex获取位置，num获取数量"},
+            "bids/A_bids/smsSend":{"params" :'{"type":1,"phoneNum":"18255001881","goods_name":"test","price":20}',"说明":"type为类型 1超价提醒 2竞拍成功 3截拍提醒"},
+            //bids end
 
             //region 阅读模块
             "readLog/ReadLog/readWithType" : {"readType" : 1, "readId" : 1, "说明" : "阅读指定对象", "备注" : "readType 1为阅读展品"},
@@ -121,7 +126,7 @@
 
             //region 订单列表
             "order/A_order/getPersonalOrderList" :  {"startIndex" : 0, "num" : 10, "userId" : "", "说明" : "分页获取个人购买记录"},
-            "order/A_order/getOrderList" : {"startIndex" : 0, "num" : 10, "orderType" : 0, "likeStr" : "", "说明" : "获取订单列表"},
+            "order/A_order/getOrderList" : {"startIndex" : 0, "num" : 10, "orderType" : 0, "deliveryType" : 0 , "likeStr" : "", "说明" : "获取订单列表"},
             "order/A_order/deliverOrder" : {"order_no" : "", "logistics_no" : "", "说明" : "发货"},
             "order/A_order/orderStatistical" : {"startTime" : "", "endTime" : "", "startIndex" : 0, "num" : 10, "说明" : "销售统计"},
             "order/A_order/getLogisticsInfo" : {"order_no" : "", "说明" : "获取物流信息"},
@@ -129,7 +134,7 @@
             "order/U_order/getOrderInfo" : {"order_no" : "", "说明" : "获取订单信息"},
             "order/U_order/getLogisticsInfo" : {"order_no" : "", "说明" : "获取物流信息"},
             "order/U_order/confirmReceipt" : {"order_no" : "", "说明" : "确认收货"},
-            "order/U_order/payOrder" :{"order_no" : "", "address" : 0, "说明" : "支付订单"},
+            "order/U_order/payOrder" :{"order_no" : "", "deliveryType" : "0", "说明" : "支付订单"},
             //endregion
 
             //region 充值

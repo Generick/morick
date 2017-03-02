@@ -65,6 +65,11 @@ class A_order extends Admin_Controller
             $likeStr = trim($this->input->post("likeStr"));
         }
 
+        if(isset($_POST["deliveryType"]))
+        {
+            $whereArr["deliveryType"] = intval($this->input->post("deliveryType"));
+        }
+
         $orderList = array();
         $count = 0;
 

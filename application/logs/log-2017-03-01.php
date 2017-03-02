@@ -22855,3 +22855,381 @@ ERROR - 2017-03-01 19:22:20 --> [methodError]:[]:F:\work\program\server\applicat
 ERROR - 2017-03-01 19:29:12 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"23"}
 ERROR - 2017-03-01 19:29:31 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"23"}
 ERROR - 2017-03-01 19:29:45 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"24"}
+ERROR - 2017-03-01 19:42:06 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"19"}
+ERROR - 2017-03-01 19:42:15 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"26"}
+ERROR - 2017-03-01 19:42:22 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"23"}
+ERROR - 2017-03-01 19:42:29 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"25"}
+ERROR - 2017-03-01 19:42:48 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"16"}
+ERROR - 2017-03-01 19:45:25 --> Lack of param: order_no
+ERROR - 2017-03-01 19:45:25 --> [methodError]:[参数错误！]:F:\work\program\server\application\controllers/order/U_order.php:getLogisticsInfo:{"20170301960256":""}
+ERROR - 2017-03-01 19:45:26 --> Lack of param: order_no
+ERROR - 2017-03-01 19:45:26 --> [methodError]:[参数错误！]:F:\work\program\server\application\controllers/order/U_order.php:getLogisticsInfo:{"20170301960256":""}
+ERROR - 2017-03-01 19:46:49 --> Lack of param: order_no
+ERROR - 2017-03-01 19:46:49 --> [methodError]:[参数错误！]:F:\work\program\server\application\controllers/order/U_order.php:getLogisticsInfo:{"20170301960256":""}
+ERROR - 2017-03-01 19:46:50 --> Lack of param: order_no
+ERROR - 2017-03-01 19:46:50 --> [methodError]:[参数错误！]:F:\work\program\server\application\controllers/order/U_order.php:getLogisticsInfo:{"20170301960256":""}
+ERROR - 2017-03-01 19:46:51 --> Lack of param: order_no
+ERROR - 2017-03-01 19:46:51 --> [methodError]:[参数错误！]:F:\work\program\server\application\controllers/order/U_order.php:getLogisticsInfo:{"20170301960256":""}
+ERROR - 2017-03-01 19:46:57 --> user:34balance change. the transactionType:5before:5129.00 after:5127
+ERROR - 2017-03-01 19:46:57 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:payOrder:{"order_no":"20170301960256"}
+ERROR - 2017-03-01 19:54:54 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"26"}
+ERROR - 2017-03-01 19:55:03 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"26"}
+ERROR - 2017-03-01 19:55:10 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"25"}
+ERROR - 2017-03-01 19:55:40 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"26"}
+ERROR - 2017-03-01 19:55:51 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"25"}
+ERROR - 2017-03-01 19:56:02 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"25"}
+ERROR - 2017-03-01 19:56:44 --> [methodError]:[]:F:\work\program\server\application\controllers/order/A_order.php:deliverOrder:{"order_no":"20170301960256","logistics_no":"23213"}
+ERROR - 2017-03-01 20:01:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"24"}
+ERROR - 2017-03-01 20:01:38 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"25"}
+ERROR - 2017-03-01 20:01:51 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"24"}
+ERROR - 2017-03-01 20:02:25 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"24"}
+ERROR - 2017-03-01 20:33:45 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"16"}
+ERROR - 2017-03-01 20:34:00 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"16"}
+ERROR - 2017-03-01 20:34:47 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"24","initialPrice":"0","lowestPremium":"1","margin":"0","startTime":"2017-03-01 20:34:24","endTime":"2017-03-08 20:34:24","cappedPrice":"25","isVIP":"1"}
+ERROR - 2017-03-01 20:34:47 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 20:35:01 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"27"}
+ERROR - 2017-03-01 20:35:05 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"27"}
+ERROR - 2017-03-01 20:35:16 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"27"}
+ERROR - 2017-03-01 20:35:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"27"}
+ERROR - 2017-03-01 20:35:19 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"27"}
+ERROR - 2017-03-01 20:35:24 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"27"}
+ERROR - 2017-03-01 20:37:35 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"26"}
+ERROR - 2017-03-01 20:38:37 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"25","initialPrice":"0","lowestPremium":"2","margin":"0","startTime":"2017-03-01 20:38:16","endTime":"2017-03-08 20:38:16","cappedPrice":"15","isVIP":"0"}
+ERROR - 2017-03-01 20:38:38 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 20:38:55 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"28"}
+ERROR - 2017-03-01 20:39:25 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"16"}
+ERROR - 2017-03-01 20:58:31 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"16"}
+ERROR - 2017-03-01 21:06:03 --> Query error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'auction.mn_readLog.readTime' which is not in SELECT list; this is incompatible with DISTINCT - Invalid query: SELECT DISTINCT `readId`
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:10:55 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"26"}
+ERROR - 2017-03-01 21:11:21 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"26"}
+ERROR - 2017-03-01 21:11:48 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"23"}
+ERROR - 2017-03-01 21:12:01 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"16"}
+ERROR - 2017-03-01 21:12:08 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"28"}
+ERROR - 2017-03-01 21:12:19 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"28"}
+ERROR - 2017-03-01 21:12:27 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"28"}
+ERROR - 2017-03-01 21:12:35 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"26"}
+ERROR - 2017-03-01 21:12:45 --> Query error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'auction.mn_readLog.readTime' which is not in SELECT list; this is incompatible with DISTINCT - Invalid query: SELECT DISTINCT `readId`
+FROM `mn_readLog`
+WHERE `userId` = 34
+AND `readType` = 1
+AND `readId` NOT IN('16', '17', '23', '24', '25', '26', '27')
+ORDER BY `readTime` desc
+ERROR - 2017-03-01 21:12:48 --> Query error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'auction.mn_readLog.readTime' which is not in SELECT list; this is incompatible with DISTINCT - Invalid query: SELECT DISTINCT `readId`
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:12:49 --> Query error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'auction.mn_readLog.readTime' which is not in SELECT list; this is incompatible with DISTINCT - Invalid query: SELECT DISTINCT `readId`
+FROM `mn_readLog`
+WHERE `userId` = 34
+AND `readType` = 1
+AND `readId` NOT IN('16', '17', '23', '24', '25', '26', '27')
+ORDER BY `readTime` desc
+ERROR - 2017-03-01 21:21:36 --> Query error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'auction.mn_readLog.readTime' which is not in SELECT list; this is incompatible with DISTINCT - Invalid query: SELECT distinct(readId)
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:23:01 --> Query error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'auction.mn_readLog.readTime' which is not in SELECT list; this is incompatible with DISTINCT - Invalid query: SELECT DISTINCT distinct(readId)
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:23:20 --> Query error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'auction.mn_readLog.readTime' which is not in SELECT list; this is incompatible with DISTINCT - Invalid query: SELECT DISTINCT distinct(readId)
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+ORDER BY `mn_readLog`.`readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:23:22 --> Query error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'auction.mn_readLog.readTime' which is not in SELECT list; this is incompatible with DISTINCT - Invalid query: SELECT DISTINCT distinct(readId)
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+ORDER BY `mn_readLog`.`readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:23:58 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:23:58 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:24:10 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:24:10 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:24:18 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:18 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:18 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:18 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:18 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:18 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:18 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:18 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:18 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:18 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:19 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:19 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:19 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:19 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:19 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:19 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:19 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:19 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:19 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:19 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:24:30 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:24:30 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:24:45 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:24:45 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:25:21 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:25:21 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:26:20 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:26:20 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:26:31 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:26:31 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:26:48 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:26:48 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:27:13 --> Query error: Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'auction.mn_readLog.readTime' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by - Invalid query: SELECT `readId`, `readTime`
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+GROUP BY `readId`
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:28:06 --> Query error: Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'auction.mn_readLog.readTime' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by - Invalid query: SELECT `readId`, `readTime`
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+GROUP BY `readId`
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:33:14 --> Severity: Parsing Error --> syntax error, unexpected '->' (T_OBJECT_OPERATOR) F:\work\program\server\modules\readLog\U_readLog.php 46
+ERROR - 2017-03-01 21:33:52 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:33:52 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:34:42 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:34:42 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 21:35:21 --> Query error: In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'auction.mn_readLog.readId'; this is incompatible with sql_mode=only_full_group_by - Invalid query: SELECT `readId`, `readTime`, count(distinct readId)
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:35:43 --> Query error: In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'auction.mn_readLog.readId'; this is incompatible with sql_mode=only_full_group_by - Invalid query: SELECT `readId`, `readTime`, count(distinct `readId`)
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:39:16 --> Severity: Error --> Call to undefined method CI_DB_mysql_driver::group() F:\work\program\server\modules\readLog\M_readLog.php 37
+ERROR - 2017-03-01 21:39:26 --> Query error: Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'auction.mn_readLog.readTime' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by - Invalid query: SELECT `readId`, `readTime`
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+GROUP BY `readId`
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:39:51 --> Query error: Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'auction.mn_readLog.readTime' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by - Invalid query: SELECT `readId`, `readTime`
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+GROUP BY `readId`
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:40:19 --> Query error: Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'auction.mn_readLog.readTime' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by - Invalid query: SELECT `readId`, `readTime`
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+GROUP BY `readId`
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:40:20 --> Query error: Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'auction.mn_readLog.readTime' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by - Invalid query: SELECT `readId`, `readTime`
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+GROUP BY `readId`
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:43:28 --> Query error: Expression #1 of ORDER BY clause is not in SELECT list, references column 'auction.mn_readLog.readTime' which is not in SELECT list; this is incompatible with DISTINCT - Invalid query: SELECT distinct(readId)
+FROM `mn_readLog`
+WHERE `userId` = 2
+AND `readType` = 1
+AND `readId` NOT IN('3', '6', '26')
+ORDER BY `readTime` desc
+ LIMIT 10
+ERROR - 2017-03-01 21:53:41 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 21:54:11 --> [methodError]:[]:F:\work\program\server\application\controllers/shippingAddress/U_ShippingAddress.php:addShippingAddress:{"acceptName":"jukjhj","mobile":"13945859658","province":"\u5185\u8499\u53e4","city":"\u901a\u8fbd\u5e02","district":"\u5f00\u9c81\u53bf","address":"555545454564564","isCommon":"0"}
+ERROR - 2017-03-01 21:54:13 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170301960256","address":"28"}
+ERROR - 2017-03-01 21:54:30 --> user:34balance change. the transactionType:5before:5127.00 after:5125
+ERROR - 2017-03-01 21:54:30 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:payOrder:{"order_no":"20170301960256"}
+ERROR - 2017-03-01 21:55:41 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:01:24 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:01:24 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:01:24 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:01:24 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:01:24 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:01:24 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:01:24 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:01:24 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:01:24 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:03:45 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 22:03:45 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 22:04:29 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 22:04:29 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 22:13:21 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 645
+ERROR - 2017-03-01 22:13:21 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 645
+ERROR - 2017-03-01 22:15:59 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 22:15:59 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 22:16:35 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 22:16:35 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\auction\M_auction.php 638
+ERROR - 2017-03-01 22:26:14 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:26:15 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:26:15 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:26:15 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:26:34 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:26:34 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:26:34 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:26:44 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:26:44 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:26:44 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:29:02 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:29:02 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:29:02 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:33:55 --> IP:::1	NOT ADMIN using this method! 	UserId:2	UserType:1	Method:A_auction/getBidList	Params:{"offset":"0"}
+ERROR - 2017-03-01 22:33:55 --> [methodError]:[权限不正确！]:F:\work\program\server\application\controllers/auction/A_auction.php:getBidList:{"offset":"0"}
+ERROR - 2017-03-01 22:34:03 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:34:03 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:34:03 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:35:00 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:35:00 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:35:00 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:35:00 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:35:00 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:35:00 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:35:00 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-01 22:35:55 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:35:55 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:35:55 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:36:06 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:36:06 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:36:06 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:38:50 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:38:50 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:38:50 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:39:35 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:39:35 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:39:35 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:40:03 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:40:03 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:40:03 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:40:11 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:40:11 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:40:11 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:41:15 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:41:16 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:41:16 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:41:30 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:41:30 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:41:30 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:42:34 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:42:35 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:42:35 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:42:49 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:42:49 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:42:49 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:43:00 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:43:00 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:43:00 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:43:24 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:43:24 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:43:24 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:43:50 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:43:51 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:43:51 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:44:05 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:44:05 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:44:05 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:44:29 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:44:29 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:44:29 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:44:40 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:44:40 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:44:40 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:44:55 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:44:55 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:44:55 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:45:18 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:45:18 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:45:18 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:45:32 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:45:32 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:45:32 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:49:24 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:49:25 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:49:25 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:49:53 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:49:53 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:50:16 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:50:16 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:50:16 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:51:50 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:51:50 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:51:50 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:51:59 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:51:59 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:52:29 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:52:29 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:52:29 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:52:49 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:52:49 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:53:18 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:53:18 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:53:18 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:53:29 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:53:29 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:54:30 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:setShippingAddress:{"order_no":"20170228551208","address":"28"}
+ERROR - 2017-03-01 22:54:30 --> Update order failed: 20170228551208
+ERROR - 2017-03-01 22:54:30 --> Save order failed: 20170228551208
+ERROR - 2017-03-01 22:56:54 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as maxPrice)), 0, 1) as high
+FROM `mn_biddingLogs`
+ORDER BY `id` desc
+ LIMIT 10' at line 1 - Invalid query: SELECT `id`, `auctionItemId`, `userId`, `nowPrice`, `createTime`, (if(nowPrice = ((SELECT MAX(nowPrice) FROM `mn_biddinglogs` GROUP BY auctionItemId) as maxPrice)), 0, 1) as high
+FROM `mn_biddingLogs`
+ORDER BY `id` desc
+ LIMIT 10
+ERROR - 2017-03-01 22:58:26 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as maxPrice), 0, 1) as ssva)
+FROM `mn_biddingLogs`
+ORDER BY `id` desc
+ LIMIT 10' at line 1 - Invalid query: SELECT `id`, `auctionItemId`, `userId`, `nowPrice`, `createTime`, (if(nowPrice=((SELECT MAX(nowPrice) FROM `mn_biddinglogs` GROUP BY auctionItemId) as maxPrice), 0, 1) as ssva)
+FROM `mn_biddingLogs`
+ORDER BY `id` desc
+ LIMIT 10
+ERROR - 2017-03-01 23:05:55 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as maxPrice), 0, 1) as ssva
+FROM `mn_biddingLogs`
+ORDER BY `id` desc
+ LIMIT 10' at line 1 - Invalid query: SELECT `id`, `auctionItemId`, `userId`, `nowPrice`, `createTime`, if(nowPrice=((SELECT MAX(nowPrice) FROM `mn_biddinglogs` GROUP BY auctionItemId) as maxPrice), 0, 1) as ssva
+FROM `mn_biddingLogs`
+ORDER BY `id` desc
+ LIMIT 10
+ERROR - 2017-03-01 23:08:40 --> Severity: Warning --> mysql_query(): Unable to save result set F:\work\program\server\system\database\drivers\mysql\mysql_driver.php 262
+ERROR - 2017-03-01 23:08:40 --> Query error: Subquery returns more than 1 row - Invalid query: SELECT `id`, `auctionItemId`, `userId`, `nowPrice`, `createTime`, if(nowPrice=((SELECT MAX(nowPrice) as maxPrice FROM `mn_biddinglogs` GROUP BY auctionItemId) ), 0, 1) as ssva
+FROM `mn_biddingLogs`
+ORDER BY `id` desc
+ LIMIT 10
+ERROR - 2017-03-01 23:39:14 --> Severity: Warning --> Missing argument 3 for M_auction::getBidList(), called in F:\work\program\server\modules\auction\A_auction.php on line 269 and defined F:\work\program\server\modules\auction\M_auction.php 631
+ERROR - 2017-03-01 23:39:14 --> Severity: Warning --> Missing argument 4 for M_auction::getBidList(), called in F:\work\program\server\modules\auction\A_auction.php on line 269 and defined F:\work\program\server\modules\auction\M_auction.php 631

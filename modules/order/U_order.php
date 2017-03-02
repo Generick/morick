@@ -149,7 +149,7 @@ class U_order extends User_Controller
      */
     function payOrder()
     {
-        if(!$this->checkParam(array("order_no")))
+        if(!$this->checkParam(array("order_no", "deliveryType")))
         {
             $this->responseError(ERROR_PARAM);
             return;
@@ -158,6 +158,7 @@ class U_order extends User_Controller
         $modOrderInfo = array();
         //判断订单是否存在
         $order_no = trim($this->input->post("order_no"));
+        $deliveryType = intval($this->input->post("deliveryType"));
         $orderInfo = $this->m_order->getOrderAll($order_no);
         if(!$orderInfo)
         {
@@ -165,24 +166,29 @@ class U_order extends User_Controller
             return;
         }
 
-        if(empty($orderInfo->acceptName))
+        $modOrderInfo["deliveryType"] = $deliveryType;
+        if($deliveryType == 0)
         {
-            $this->responseError(ERROR_ADDRESS_NOT_EXIST);
-            return;
+            if(empty($orderInfo->acceptName))
+            {
+                $this->responseError(ERROR_ADDRESS_NOT_EXIST);
+                return;
+            }
+
+            //判断余额是否足够
+            $this->load->model("m_user");
+            $userObj = $this->m_user->getSelfUserObj();
+            if($userObj->balance < $orderInfo->payPrice)
+            {
+                $this->responseError(ERROR_BALANCE_NOT_ENOUGH);
+                return;
+            }
+            $modOrderInfo["payTime"] = now();
+            $modOrderInfo["orderStatus"] = ORDER_STATUS_PAY;
         }
 
-        //判断余额是否足够
-        $this->load->model("m_user");
-        $userObj = $this->m_user->getSelfUserObj();
-        if($userObj->balance < $orderInfo->payPrice)
-        {
-            $this->responseError(ERROR_BALANCE_NOT_ENOUGH);
-            return;
-        }
 
         //修改订单信息
-        $modOrderInfo["payTime"] = now();
-        $modOrderInfo["orderStatus"] = ORDER_STATUS_PAY;
         $retCode = $this->m_order->modOrderInfo($order_no, $modOrderInfo);
         if($retCode != ERROR_OK)
         {
@@ -190,10 +196,13 @@ class U_order extends User_Controller
             return;
         }
 
-        //新增交易明细
-        $this->load->model("m_transaction");
-        $retCode = $this->m_transaction->addTransaction($userObj->userId, TRANSACTION_PAY, $orderInfo->payPrice);
-        $this->responseError($retCode);
+        if($deliveryType == 0)
+        {
+            //新增交易明细
+            $this->load->model("m_transaction");
+            $retCode = $this->m_transaction->addTransaction($userObj->userId, TRANSACTION_PAY, $orderInfo->payPrice);
+            $this->responseError($retCode);
+        }
     }
 
     //face to face pay
