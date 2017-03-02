@@ -34,6 +34,7 @@ class A_prizesQuiz extends Admin_Controller{
 	}
 
 	function test(){
+		
 		echo date("Y-m-d h:i:s");echo "<br>";
 		echo date("Y-m-d h:i:s","4686464844");
 		if (date("Y-m-d") < date("Y-m-d","546465464")) {

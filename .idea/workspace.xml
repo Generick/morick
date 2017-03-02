@@ -49,7 +49,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="M_readLog.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="M_readLog.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/readLog/M_readLog.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="380">
@@ -139,7 +139,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/views/test.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="456">
@@ -468,12 +468,12 @@
       <workItem from="1487813139444" duration="1806000" />
       <workItem from="1487900223377" duration="1669000" />
       <workItem from="1488158916577" duration="1365000" />
-      <workItem from="1488249246792" duration="30930000" />
+      <workItem from="1488249246792" duration="31024000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59817000" />
+    <option name="totallyTimeSpent" value="59911000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -899,14 +899,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="81" column="34" lean-forward="false" selection-start-line="81" selection-start-column="34" selection-end-line="81" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/bids/A_bids.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
@@ -919,6 +911,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="81" column="34" lean-forward="false" selection-start-line="81" selection-start-column="34" selection-end-line="81" selection-end-column="34" />
           <folding />
         </state>
       </provider>

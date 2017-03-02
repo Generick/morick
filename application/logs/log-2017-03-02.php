@@ -882,3 +882,12 @@ ERROR - 2017-03-02 15:34:35 --> DBField is not found in fields: isVIP
 ERROR - 2017-03-02 15:34:35 --> DBField is not found in fields: isVIP
 ERROR - 2017-03-02 15:34:50 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"26"}
 ERROR - 2017-03-02 15:34:50 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 16:45:04 --> 404 Page Not Found: Quizprizes/A_qiuzprizes
+ERROR - 2017-03-02 16:46:43 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 16:46:43 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 16:46:43 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 16:46:43 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 16:46:43 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 16:46:43 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 16:50:03 --> Lack of param: startIndex
+ERROR - 2017-03-02 16:50:03 --> [methodError]:[参数错误！]:F:\work\program\server\application\controllers/order/A_order.php:getOrderList:[]

@@ -25,15 +25,15 @@ class M_prizesQuiz extends My_Model{
 	}
 
 	//create prizes quiz info
-	function createQuiz($itemId,$tickets,$limitNum){
-		$goodsInfo = $this->db->select('goods_name,goods_pics')->from('goods')->where('goods_id',$itemId)->get()->row_array();
+	function createQuiz($goodsId,$tickets,$limitNum){
+		$goodsInfo = $this->db->select('goods_name,goods_pics')->from('goods')->where('goods_id',$goodsId)->get()->row_array();
 		$data = array();
-		$data['goods_id'] = $itemId;
+		$data['goods_id'] = $goodsId;
 		$data['goods_name'] = $goodsInfo['goods_name'];
 		$data['goods_icon'] = $goodsInfo['goods_pics'];
 		$data['tickets'] = $tickets;
 		$data['limitNum'] = $limitNum;
-		$data['status'] = 1;
+		$data['status'] = 1;//quiz status
 		$this->db->insert('prizesquiz',$data);
 	}
 
@@ -71,7 +71,7 @@ class M_prizesQuiz extends My_Model{
 			exit;
 		}
 
-		$data = array('goods_id'=>$itemId,'user_id'=>$userId,'quiz_price'=>$quizPrice,'count'=>1,'part_time'=>date("Y-m-d h:i:s"));
+		$data = array('goods_id'=>$itemId,'user_id'=>$userId,'quiz_price'=>$quizPrice,'count'=>1,'part_time'=>date("Y-m-d H:i:s"));
 		$res = $this->db->insert('quizuser',$data);
 		if ($res) {
 			//success

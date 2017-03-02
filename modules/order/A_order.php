@@ -45,14 +45,16 @@ class A_order extends Admin_Controller
      */
     function getOrderList()
     {
-        if(!$this->checkParam(array("startIndex", "num")))
-        {
-            $this->responseError(ERROR_PARAM);
-            return;
-        }
+        $startIndex = $this->input->post('startIndex')?$this->input->post('startIndex') : 0;
+        $num = $this->input->post('num')?$this->input->post('num') : 10;
+        // if(!$this->checkParam(array("startIndex", "num")))
+        // {
+        //     $this->responseError(ERROR_PARAM);
+        //     return;
+        // }
 
-        $startIndex = intval($this->input->post("startIndex"));
-        $num = intval($this->input->post("num"));
+        // $startIndex = intval($this->input->post("startIndex"));
+        // $num = intval($this->input->post("num"));
         $whereArr = array();
         $likeStr = "";
         if(isset($_POST["orderType"]))
