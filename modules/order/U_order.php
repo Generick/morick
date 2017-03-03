@@ -204,22 +204,4 @@ class U_order extends User_Controller
             $this->responseError($retCode);
         }
     }
-
-    //face to face pay
-    //need order num
-    //deliverytype 0=>express 1=>face to face
-    function FTFpay(){
-        if (!$this->checkParam(array("order_no"))) {
-            $this->responseError(ERROR_PARAM);
-            exit;
-        }
-        $order_no = $this->input->post('order_no');
-        $orderInfo = $this->m_order->getOrderAll($order_no);
-        if (!$orderInfo) {
-            $this->responseError(ERROR_ORDER_NOT_FOUND);
-            exit;
-        }
-        $res = $this->m_order->modifyType($order_no);
-        return $this->responseSuccess($res);
-    }
 }

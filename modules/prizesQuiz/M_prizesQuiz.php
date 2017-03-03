@@ -38,12 +38,14 @@ class M_prizesQuiz extends My_Model{
 	}
 
 	// user takes part in prizes quiz
+	// @param: goods_id
+	// @param: quizPrice
+	// @param: userId
 	function partakeQuiz($itemId,$quizPrice,$userId){
-		//$itemInfo = $this->getItemInfo($itemId);
-		$itemInfo = $this->m_common->get_one('prizesquiz',array('goods_id'=>$itemId,'status'=>0));
-		if (!empty($itemInfo)) {
+		$auctionInfo = $this->getAuctionObj($itemId);
+		if (!empty($auctionInfo)) {
 			//the goods is auction, can't be quiz
-			return "此商品正在拍卖，不能参与竞猜";
+			return PQ_AUCTION_ON;
 			exit;
 		}
 		
@@ -51,7 +53,7 @@ class M_prizesQuiz extends My_Model{
 		$count = $this->db->select('count')->from('prizesuser')->where($arr)->get()->row_array();
 		if (!empty($count) && $count['count'] == 1) {
 			//judge count, if count = 1, forbidden user to partake quiz
-			return "不能重复参与";
+			return PQ_REPEAT;
 			exit;
 		}
 		//judge user balance
@@ -60,18 +62,18 @@ class M_prizesQuiz extends My_Model{
 		$tickets = $this->db->select('tickets')->from('prizesquiz')->where('goods_id',$itemId)->get()->row_array();
 		//$userObj = $this->db->where('userId',$userId)->from('user')->get()->row();
 		if ($userObj->balance < $tickets['tickets']) {
-			return "账户余额不足";
+			return PQ_BALANCE_NOT_ENOUGH;
 			exit;
 		}
 		//jugde user nums
 		$prizesQuizObj = $this->db->select('currentNum,limitNum,sum')->where('goods_id',$itemId)->from('prizesquiz')->get()->row();
-		if ($prizesQuizObj->currentNum >= $prizesQuizObj->limitNum) {
-			//user over limit
-			return "人数已满";
+		if ($prizesQuizObj && $prizesQuizObj->currentNum >= $prizesQuizObj->limitNum) {
+			//user over limit num
+			return PQ_NUM_FULL;
 			exit;
 		}
 
-		$data = array('goods_id'=>$itemId,'user_id'=>$userId,'quiz_price'=>$quizPrice,'count'=>1,'part_time'=>date("Y-m-d H:i:s"));
+		$data = array('goods_id'=>$itemId,'user_id'=>$userId,'quiz_price'=>$quizPrice,'count'=>1,'part_time'=>time());
 		$res = $this->db->insert('quizuser',$data);
 		if ($res) {
 			//success
@@ -86,7 +88,7 @@ class M_prizesQuiz extends My_Model{
 			
 		}else{
 			//fail
-			return "参与失败";
+			return PQ_FAIL;
 			exit;
 		}
 		
@@ -94,15 +96,16 @@ class M_prizesQuiz extends My_Model{
 	}
 
 	// administrator quit the quiz
-	function quitQuiz($itemId){
+	// param goods_bak_id
+	function quitQuiz($goods_bak_id){
 		//quiz user nums < 3
-		$prizesQuizObj = $this->db->where('goods_id',$itemId)->from('prizesquiz')->get()->row();
+		$prizesQuizObj = $this->db->where('goods_id',$goods_bak_id)->from('prizesquiz')->get()->row();
 		if ($prizesQuizObj->currentNum >= 3) {
 			return '参与人数大于3，不能停止';
 			exit;
 		}
 		if ($prizesQuizObj->currentNum != 0) {
-			$partUser = $this->where('goods_id',$itemId)->from('quizuser')->select('user_id')->get()->result_array();
+			$partUser = $this->where('goods_id',$goods_bak_id)->from('quizuser')->select('user_id')->get()->result_array();
 			for ($i=0; $i <$prizesQuizObj->currentNum ; $i++) { 
 				$cuserid = $partUser[$i]['user_id'];
 				$balance = $this->db->select('balance')->from('user')->where('userId',$cuserid)->get()->row_array();
@@ -111,7 +114,7 @@ class M_prizesQuiz extends My_Model{
 			}
 		}
 		//set this quiz status 2
-		$this->db->where('goods_id',$itemId)->update('prizesquiz',array('status'=>2));
+		$this->db->where('goods_id',$goods_bak_id)->update('prizesquiz',array('status'=>2));
 	}
 
 	//get auction object
@@ -225,6 +228,14 @@ class M_prizesQuiz extends My_Model{
 	function getQuizUserList($itemId){
 		$data = $this->db->from('quizuser')->where('goods_id',$itemId)->join('user',"quizuser.user_id = user.userId")->select('icon,telephone,part_time,quiz_price,award')->get()->result_array();
 		return $data;
+	}
+
+	//get auction info by goods_id
+	function getAuctionObj($goods_id){
+		$goods_bak_id = $this->db->select('goods_bak_id')->from('goods_bak')->where('goods_id',$goods_id)->get()->row_array();
+		$goods_bak_id = $goods_bak_id['goods_bak_id'];
+		$auctionObj = $this->db->from('auctionitems')->where('goods_bak_id',$goods_bak_id)->get()->row();
+		return $auctionObj;
 	}
 
 	function test(){

@@ -3,11 +3,22 @@
  */
 
 app.controller("ctrl", function($scope) {
+	
+	sessionStorage.setItem("itIsSelectPage",1)
     GoodsInfoCtrl.init($scope);
+   
 });
 
 var GoodsInfoCtrl = {
 	scope : null,
+    
+    isSure : 0,
+    
+    isListLengthZero : 1,
+    
+    thisDetailPage : null,
+    
+    thisDataId : null,
     
     goodsDetailModel : 
     {
@@ -65,11 +76,15 @@ var GoodsInfoCtrl = {
     {
     	this.scope = $scope; 
     	
+    	this.getUrlAndIds();
+    	
+    	this.showOrHide(1);
+    	
+    	this.initData();
+    	
     	this.bindClick();
     	
     	this.dataModelInit();
-    	
-    	this.initData();
     	
     	this.getSelfInfo();
     	
@@ -80,7 +95,37 @@ var GoodsInfoCtrl = {
     	initTab.start(this.scope, -1); //底部导航
 	    
     },
-
+    getUrlAndIds :function(){
+    	
+    	var self = this;
+    	if(location.href.indexOf("&") != -1)
+		{   
+			
+			self.thisDetailPage = location.href.split("&")[1].split("=")[1];
+			self.thisDataId = location.href.split("&")[0].split("=")[1];
+			
+            if(String(self.thisDetailPage).indexOf("#") != -1)
+			{
+				 self.thisDetailPage = parseInt(self.thisDetailPage.split("#")[0]);
+				    	    	
+			}
+			else
+			{
+				self.thisDetailPage = parseInt(self.thisDetailPage);
+			}
+			if(String(self.thisDataId).indexOf("#") != -1)
+			{
+				self.thisDataId = parseInt(self.thisDataId.split("#")[0]);
+				    	    	
+			}
+			else
+			{
+				self.thisDataId = parseInt(self.thisDataId);
+			}
+				    	
+		}
+    },
+    
     //三次出价委托初始化
     dataModelInit: function() {
     	this.scope.priceArr = this.priceArr;
@@ -88,21 +133,24 @@ var GoodsInfoCtrl = {
     
     initData: function() {
     	var self = this;
-    	
+
     	$('.animation').css('display','block'); //加载动画
     	
     	var params = {};
     	
     	if(location.href.indexOf("?") > 0)
-    	{
+    	{   
+    		
     		params.itemId = commonFu.getQueryStringByKey("id"); //当前藏品ID
     		
     		self.goodsDetailModel.id = params.itemId;
+    		
     	}
     	
     	self.getProxyBid();
     	
     	self.setReadLog();
+    	
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_AUCTION_INFO, params,
             /**
@@ -112,55 +160,73 @@ var GoodsInfoCtrl = {
              * @param data.allInfo.lowestPremium
              */
             function(data) {
-                self.goodsDetailModel.allInfo = [];
-                self.goodsDetailModel.allInfo = data.allInfo;
-               
-                if(self.goodsDetailModel.isTimeChange)
-                {
-                    self.goodsDetailModel.allInfo.goodsInfo.goods_pics = JSON.parse(data.allInfo.goodsInfo.goods_pics);
+                    
+//                  if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)) && data.allInfo.isVIP == 1)
+//  				{
+//  		
+//		   				location.href = pageUrl.SELECTED_GOODS +"?backPage=" + self.thisDetailPage + "&thisDataId=" + self.thisDataId;
+//					}
 
-                    $('#goodsContent').html(self.goodsDetailModel.allInfo.goodsInfo.goods_detail);
+            		self.goodsDetailModel.allInfo = [];
+            		self.goodsDetailModel.allInfo = data.allInfo;
+            		if(commonFu.isEmpty(self.goodsDetailModel.allInfo.cappedPrice))
+            		{   
+            			$("#capped-box").addClass("capped-hide");
+            			$("#capped-box").removeClass("capped-show");
+            		}
+            		else
+            		{   
+            			$("#capped-box").removeClass("capped-hide");
+            			$("#capped-box").addClass("capped-show");
+            		}
+	                
+//	                alert(JSON.stringify(data))
+	                if(self.goodsDetailModel.isTimeChange)
+	                {
+	                    self.goodsDetailModel.allInfo.goodsInfo.goods_pics = JSON.parse(data.allInfo.goodsInfo.goods_pics);
+	
+	                    $('#goodsContent').html(self.goodsDetailModel.allInfo.goodsInfo.goods_detail);
+	
+	                    if (parseFloat(self.goodsDetailModel.allInfo.referencePrice) == 0)
+	                    {
+	                        self.goodsDetailModel.showReference = false;
+	                    }
+	
+	                    setTitle(self.goodsDetailModel.allInfo.goodsInfo.goods_name);
+	
+	                    self.goodsDetailModel.isTimeChange = false;
+	                }
+	                
+	                //倒计时初始化
+	                var currentDate = new Date().getTime();
+	                var second1 = Math.ceil(currentDate/1000);
+	                var time = (parseFloat(self.goodsDetailModel.allInfo.endTime) - second1);
+	                if (time <= 0)
+	                {
+	                    $('#endTime').hide();
+	                    $('.endtime-text').html("");
+	                    $('.endtime-time').html("竞拍已结束");
+	                    $('#goodsBtn').attr({"disabled": "disabled", "class": "goods-btn-un"});
+	                    $("#selfGoodsBtn").attr({"disabled":"disabled", "class": "goods-btn-un"});
+	                }
+	                var day = Math.floor(time/(3600*24));
+	                var hour = Math.floor((time/3600)%24);
+	                var min = Math.floor((time%3600)/60) +1;
+	                var sec =  Math.floor(time%60);
+	                $('#day').html(day);
+	                $('#hour').html(hour);
+	                $('#minute').html(min);
+	                $('#second').html(sec);
+	
+	                self.countDown(self.goodsDetailModel.allInfo.endTime);
+	            
+	                self.scope.goodsDetailModel = self.goodsDetailModel;
+	
+	                $('.animation').css('display','none');
+	                $('.container').css('opacity','1');
+	                self.scope.$apply();
 
-                    if (parseFloat(self.goodsDetailModel.allInfo.referencePrice) == 0)
-                    {
-                        self.goodsDetailModel.showReference = false;
-                    }
-
-                    setTitle(self.goodsDetailModel.allInfo.goodsInfo.goods_name);
-
-                    self.goodsDetailModel.isTimeChange = false;
-                }
-                
-                //倒计时初始化
-                var currentDate = new Date().getTime();
-                var second1 = Math.ceil(currentDate/1000);
-                var time = (parseFloat(self.goodsDetailModel.allInfo.endTime) - second1);
-                if (time <= 0)
-                {
-                    $('#endTime').hide();
-                    $('.endtime-text').html("");
-                    $('.endtime-time').html("竞拍已结束");
-                    $('#goodsBtn').attr({"disabled": "disabled", "class": "goods-btn-un"});
-                    $("#selfGoodsBtn").attr({"disabled":"disabled", "class": "goods-btn-un"});
-                }
-                var day = Math.floor(time/(3600*24));
-                var hour = Math.floor((time/3600)%24);
-                var min = Math.floor((time%3600)/60);
-                var sec =  Math.floor(time%60);
-                $('#day').html(day);
-                $('#hour').html(hour);
-                $('#minute').html(min);
-                $('#second').html(sec);
-
-                self.countDown(self.goodsDetailModel.allInfo.endTime);
-            
-                self.scope.goodsDetailModel = self.goodsDetailModel;
-
-                $('.animation').css('display','none');
-                $('.container').css('opacity','1');
-                self.scope.$apply();
-            }
-        );
+            });
     	
     	//设置title
     	function setTitle(title)
@@ -193,7 +259,7 @@ var GoodsInfoCtrl = {
 			
 			var day = Math.floor(time/(3600*24));
             var hour = Math.floor((time/3600)%24);
-            var min = Math.floor((time%3600)/60);
+            var min = Math.floor((time%3600)/60)+1;
             var sec =  Math.floor(time%60);
             $('#day').html(day);
 			$('#hour').html(hour);
@@ -202,12 +268,32 @@ var GoodsInfoCtrl = {
 		},1000);
     },
     
+    //显示或隐藏提示框
+    showOrHide : function(type){
+    	var self = this;
+    	
+    	if(type ==0)
+    	{   
+    		$("#reminding").css("display","block");
+    		$("html,body").css("overflow","hidden");
+    		$('#reminding').bind("touchmove",function(e){
+              		 e.preventDefault();
+			});
+    	}
+    	else
+    	{
+    		$("#reminding").css("display","none");
+    	}
+    	
+    },
+    
     //获取个人账户信息
     getSelfInfo: function()
     {
     	var self = this;
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
+    		
     		self.balance = data.userInfo.balance;
     		self.scope.$apply();
     	})
@@ -233,65 +319,73 @@ var GoodsInfoCtrl = {
     getSelfServices : function()
     {
     	var self = this;
-    	
     	if (!self.hasSelfPaid)
-    	{
-    		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_SELF_PAID_SERVICES, {}, function(data)
-	    	{
-	    		var timestamp = commonFu.getTimeStamp();
-	    		self.services = data.services;
-	    		if (self.services.length == 0)
-	    		{
-	    			self.type = 0;
-	    			self.selfPaidText = "开通委托出价";
-	    		}
-	    		else if (self.services.length == 1)
-	    		{
-	    			if (self.services[0].serviceType == 0)
-	    			{
-	    				self.type = 0;
-	    				self.selfPaidText = "开通委托出价";
-	    			}
-	    			else
-	    			{
-	    				if (self.services[0].endTime > timestamp)
-	    				{
-		    				self.type = 1;
-		    				self.selfPaidText = "委托出价";
-	    				}
-	    				else
-	    				{
-	    					self.type = 0;
-	    					self.selfPaidText = "开通委托出价";
-	    				}
-	    			}
-	    		}
-	    		else
-	    		{
-	    			for (var i = 0;i < self.services.length;i ++)
-	    			{
-	    				if (self.services[i].serviceType == 1)
-	    				{
-	    					if (self.services[i].endTime > timestamp)
-	    					{
-	    						self.type = 1;
-	    						self.selfPaidText = "委托出价";
-	    					}
-	    					else
-	    					{
-	    						self.type = 0;
-	    						self.selfPaidText = "开通委托出价";
-	    					}
-	    				}
-	    			}
-	    		}
-
-	    		self.scope.selfPaidText = self.selfPaidText;
-	    		self.scope.$apply();
-	    	})
+    	{   
+//             alert("获取包月服务信息")
+//              self.type = 1;
+//	    		self.selfPaidText = "委托出价";
+//		    	self.scope.selfPaidText = self.selfPaidText;
+		    
+   			jqAjaxRequest.asyncAjaxRequest(apiUrl.API_SELF_PAID_SERVICES, {}, function(data)
+		    	{   
+//		    		alert(4444)
+//		    		alert(JSON.stringify(data))
+		    		var timestamp = commonFu.getTimeStamp();
+		    		self.services = data.services;
+		    		if (self.services.length == 0)
+		    		{
+		    			self.type = 0;
+		    			self.selfPaidText = "开通委托出价";
+		    		}
+		    		else if (self.services.length == 1)
+		    		{
+		    			if (self.services[0].serviceType == 0)
+		    			{
+		    				self.type = 0;
+		    				self.selfPaidText = "开通委托出价";
+		    			}
+		    			else
+		    			{
+		    				if (self.services[0].endTime > timestamp)
+		    				{
+			    				self.type = 1;
+			    				self.selfPaidText = "委托出价";
+		    				}
+		    				else
+		    				{
+		    					self.type = 0;
+		    					self.selfPaidText = "开通委托出价";
+		    				}
+		    			}
+		    		}
+		    		else
+		    		{
+		    			for (var i = 0;i < self.services.length;i ++)
+		    			{
+		    				if (self.services[i].serviceType == 1)
+		    				{
+		    					if (self.services[i].endTime > timestamp)
+		    					{
+		    						self.type = 1;
+		    						self.selfPaidText = "委托出价";
+		    					}
+		    					else
+		    					{
+		    						self.type = 0;
+		    						self.selfPaidText = "开通委托出价";
+		    					}
+		    				}
+		    			}
+		    		}
+//
+//                  self.type = 1;
+//	    			self.selfPaidText = "委托出价";
+		    		self.scope.selfPaidText = self.selfPaidText;
+		    		self.scope.$apply();
+		    	})
     	}
     	else
-    	{
+    	{   
     		self.selfPaidText = "已委托出价";
     		self.scope.selfPaidText = self.selfPaidText;
     		self.scope.$apply();
@@ -300,16 +394,25 @@ var GoodsInfoCtrl = {
     
     //获取委托出价
     getProxyBid : function()
-    {
+    {   
     	var self = this;
     	
     	var param =
     	{
     		auctionId : self.goodsDetailModel.id
     	};
-    	
+    	if(!commonFu.isEmpty(sessionStorage.getItem("reloginFail")) || !commonFu.isEmpty(sessionStorage.getItem("itIsSelectPage")))
+    	{   
+
+    		self.selfPaidText = "委托出价";
+		    self.scope.selfPaidText = self.selfPaidText;
+    	}
+    	else
+    	{
+    	}
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_PROXYBID, param, function(data)
     	{
+    		
     		self.bids = data.bids;
             var len = self.bids.length;
     		
@@ -325,9 +428,9 @@ var GoodsInfoCtrl = {
 
     		self.scope.hasSelfPaid = self.hasSelfPaid;
     		self.scope.bids = self.bids;
-    		
-    		self.getSelfServices();
+     		self.getSelfServices();//可以提前到了前面
     	})
+    	
     },
 
     //初始化竞拍记录
@@ -375,11 +478,13 @@ var GoodsInfoCtrl = {
                         }
                     }
                 }
-
+                self.isListLengthZero = self.biddingModel.biddingList.length
                 self.scope.biddingModel = self.biddingModel;
                 self.biddingModel.checkMore = "查看更多";
                 self.scope.checkMore = self.biddingModel.checkMore;
                 self.scope.$apply();
+              
+                
             }
         )
     },
@@ -448,22 +553,59 @@ var GoodsInfoCtrl = {
     		self.biddingModel.isCheckOver = true;
     		self.initBiddingData();
     	};
+    	self.scope.imSure = function()
+    	{
+    		
+    		$("#reminding").css("display","none");
+    		$("html,body").css("overflow","auto");
+    	};
     	
     	//委托出价弹窗
     	self.scope.onClickSelfPay = function()
-    	{
-    		if (self.type == 0)
-    		{
-    			location.href = pageUrl.SELF_PAID_SERVICES;
-    		}
-    		else if (self.type == 1)
-    		{
-    			$('.self-pay-block-bg').css('display','block');
-    		}
-    		else
-    		{
-    			$dialog.msg("您已委托出价，再次竞拍需手动出价");
-    		}
+    	{   
+    		
+//  		 alert("dadadada"+self.goodsDetailModel.allInfo.hasLogin)
+  		     if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+  		     {
+  		     	if (self.type == 0)
+    			{  
+    				location.href = pageUrl.SELF_PAID_SERVICES;
+    			}
+    			else if (self.type == 1)
+    			{
+    				$('.self-pay-block-bg').css('display','block');
+    			}
+    			else
+    			{   
+    				if(!commonFu.isEmpty(sessionStorage.getItem("reloginFail")))
+    				{
+    					$dialog.msg("您还未登录，请登录后再委托出价");
+    					setTimeout(function(){
+             		
+				    		location.href = "login.html";
+             	
+             			},1500);
+             			return;
+    				}
+    				else
+    				{
+    					$dialog.msg("您已委托出价，再次竞拍需手动出价");
+    				}
+    				
+    			}
+  		     }
+             else
+             {
+             	$dialog.msg("您还未登录，请先登录");
+             	
+             	setTimeout(function(){
+             		
+				    location.href = "login.html";
+             	
+             	},1200);
+             	return;
+             }
+    	
     	};
     	
     	//确认委托
@@ -525,11 +667,10 @@ var GoodsInfoCtrl = {
     	//出价弹窗
     	self.scope.onClickPay = function()
     	{
-            //var userId = localStorage.getItem(localStorageKey.userId);
-
+//          var userId = localStorage.getItem(localStorageKey.userId);
+	
             if (self.goodsDetailModel.allInfo.hasLogin)
             {
-
                 self.biddingModel.numDel = true;
                 $('.pay-block-bg').show();
 
@@ -560,7 +701,12 @@ var GoodsInfoCtrl = {
 			else
 			{
 				localStorage.setItem(localStorageKey.DEFAULT, location.href);
-				location.href = "login.html";
+                $dialog.msg("您还未登录，请先登录");
+				setTimeout(function(){
+             		
+				    location.href = "login.html";
+             	
+             	},1200);
 			}
     	};
     	
@@ -630,7 +776,7 @@ var GoodsInfoCtrl = {
     		if ($payPrice.length != 0)
     		{
     			if (parseFloat($payPrice)  >= parseFloat(self.biddingModel.initialPrice))
-    			{
+    			{  
     				self.getIfFreeze();
     				
     				//$('.goods-btn').attr("disabled", "disabled").html('<b></b>').addClass("pay-btn");
@@ -644,7 +790,7 @@ var GoodsInfoCtrl = {
 	    			
 	    			jqAjaxRequest.asyncAjaxRequest(apiUrl.API_BIDDING_AUCTION_ITEM, params,
                         function()
-                        {
+                        {   
                             var currentDate = new Date().getTime();
                             var second1 = Math.ceil(currentDate/1000);
                             var time = (parseFloat(self.goodsDetailModel.allInfo.endTime) - second1);
@@ -711,6 +857,7 @@ var GoodsInfoCtrl = {
 //              autoplay: 3000,
                 autoplayDisableOnInteraction: false
             });
+            self.showOrHide(self.isListLengthZero);
 		});
     }
 };

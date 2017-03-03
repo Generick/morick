@@ -93,7 +93,16 @@
                     <span class="reference-price">参考价</span>￥<span ng-bind="goodsDetailModel.allInfo.referencePrice"></span>
                 </button>
             </div>
+          
+            <!--<div id="capped-box" class="capped-hide">
+	            <div id="capped-price-box">
+	                <button id="capped-price-btn">
+	                    <span id="capped-price">封顶价</span>￥<span ng-bind="goodsDetailModel.allInfo.cappedPrice"></span>
+	                </button>
+	            </div>
+            </div>-->
 			<div class="goods-buyer">
+				
 				<div class="goods-buyer-block clear">
 					<li class="clear" ng-repeat="item in biddingModel.biddingList">
 						<img class="buyer-icon" ng-src="{{item.userData.smallIcon}}" />
@@ -105,7 +114,9 @@
 				</div>
 			</div>
         </div>
-      
+        <div id="reminding" class="reminding" ng-click="imSure()">
+        	<img ng-show="biddingModel.biddingList.length == 0" src="img/remainLogin.png"/>
+        </div>
         
         <!--出价弹窗-->
         <div class="pay-block-bg">
@@ -246,28 +257,22 @@
     	<!--底部tab-->
 	    <div ng-include="'module/tab/tab.html'"></div>
 	</body>
+	
 	<!--系统js-->
 	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	
 	<script type="text/javascript" src="js/angular.min.js" ></script>
 	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	
 	<script type="text/javascript" src="js/common.js" ></script>
 	<script type="text/javascript" src="js/config.js" ></script>
+	
     <script src="plugin/layerMobile/layer.js"></script>
     <script src="module/dialog/dialog.js"></script>
     <script src="controller/app.js"></script>
     
  	<script src="js/commonArr.js"></script>
-	<script src="module/tab/tab.js"></script>     
-	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
-	<script type="text/javascript" src="popUpModal/confirmDialog.js" ></script>
-	
-	<!--插件-->
-	<script type="text/javascript" src="js/fastclick.js" ></script>
-	<script type="text/javascript" src="swiper/swiper.min.js" ></script>
-    <!--<script type="text/javascript" src="../js/htmlNoScroll.js" ></script>-->
-	<!--controller-->
-	<script type="text/javascript" src="controller/goodsDetailController.js" ></script>
-	<script>
+ 	<script>
 		$(function() {
 			//出价弹窗
 			$('.pay-block-bg').click(function(){
@@ -297,25 +302,40 @@
 
             setTimeout(function(){
                 bool=true;
-            },1500);
+            },1000);
 		    window.addEventListener("popstate", function(e) {
 		    	if (bool)
-		    	{
-		    		if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
-			        {
-			        	if (localStorage.getItem(localStorageKey.FROM_LOCATION) == 0)
-			        	{
-			        		location.href = pageUrl.SELECTED_GOODS;
-			        	}
-			        	else if (localStorage.getItem(localStorageKey.FROM_LOCATION) == 1)
-			        	{
-			        		location.href = pageUrl.MY_BIDDING + "?userId=" + localStorage.getItem(localStorageKey.userId);
-			        	}
-			        	else
-			        	{
-			        		location.href = pageUrl.SCAN_RECORDS;
-			        	}
-			        }
+		    	{   
+		    		if(commonFu.isEmpty(localStorageKey.FROM_LOCATION))
+		    		{   
+		    			sessionStorage.setItem("needPage",1)
+		    			location.href = pageUrl.SELECTED_GOODS +"?backPage=" + GoodsInfoCtrl.thisDetailPage + "&thisDataId=" + GoodsInfoCtrl.thisDataId;
+
+		    		}
+		    		else if(localStorage.getItem(localStorageKey.FROM_LOCATION) == 0)
+		    		{    
+		    			
+		    			location.href = pageUrl.SELECTED_GOODS;
+
+		    		}
+		    		else
+		    		{
+		    			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+		    			{
+		    				if(localStorage.getItem(localStorageKey.FROM_LOCATION) == 1)
+		    				{   
+		    					location.href = pageUrl.MY_BIDDING + "?userId=" + localStorage.getItem(localStorageKey.userId);
+		    				}
+		    				else if(localStorage.getItem(localStorageKey.FROM_LOCATION) == 2)
+			        	    {
+			        			location.href = pageUrl.SCAN_RECORDS;
+			        	    }
+			        	    else
+			        	    {
+			        	    	
+			        	    }
+		    			}
+		    		}
 		    	}
 		    	pushHistory();
 
@@ -329,4 +349,16 @@
 		    }
 		})
 	</script>
+	<script src="module/tab/tab.js"></script>     
+	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
+	<script type="text/javascript" src="popUpModal/confirmDialog.js" ></script>
+	
+	
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<script type="text/javascript" src="swiper/swiper.min.js" ></script>
+    <!--<script type="text/javascript" src="../js/htmlNoScroll.js" ></script>-->
+	<!--controller-->
+	<script type="text/javascript" src="controller/goodsDetailController.js" ></script>
+	
 </html>

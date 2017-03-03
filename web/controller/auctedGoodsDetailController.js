@@ -4,7 +4,10 @@
 
 app.controller("ctrl", function ($scope)
 {
+	
     auctedGoodsDetailController.init($scope); 
+    sessionStorage.setItem("itIsAuctionPage",1)
+	
 });
 
 var auctedGoodsDetailController =
@@ -20,6 +23,10 @@ var auctedGoodsDetailController =
     	currentPrice : null,
     	auctionSuccess : false
     },
+    
+    thisDetailPage :null,
+    
+    thisDataId : null,
     
     biddingModel:
     {
@@ -37,6 +44,8 @@ var auctedGoodsDetailController =
     {
     	this.scope = $scope; 
     	
+    	this.getUrlAndIds();
+    	
     	this.bindClick();
     	
     	this.initData();
@@ -46,6 +55,35 @@ var auctedGoodsDetailController =
         this.ngRepeatFinish();
         
         initTab.start(this.scope, -1); //底部导航
+    },
+    
+    getUrlAndIds : function(){
+    	
+    	var self = this;
+    	if(location.href.indexOf("&") != -1)
+		{
+			
+			auctedGoodsDetailController.thisDetailPage = location.href.split("&")[1].split("=")[1];
+			auctedGoodsDetailController.thisDataId = location.href.split("&")[0].split("=")[1];
+		    if(String(self.thisDetailPage).indexOf("#") != -1)
+			{
+				 self.thisDetailPage = parseInt(self.thisDetailPage.split("#")[0]);
+				    	    	
+			}
+			else
+			{
+				self.thisDetailPage = parseInt(self.thisDetailPage);
+			}
+			if(String(self.thisDataId).indexOf("#") != -1)
+			{
+				self.thisDataId = parseInt(self.thisDataId.split("#")[0]);
+				    	    	
+			}
+			else
+			{
+				self.thisDataId = parseInt(self.thisDataId);
+			}
+		}
     },
     
     initData : function ()
@@ -68,33 +106,39 @@ var auctedGoodsDetailController =
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_AUCTION_INFO, params, function(data)
     	{  
-    		self.auctedGoodsDetailModel.allInfo = [];
-    		self.auctedGoodsDetailModel.allInfo = data.allInfo;
-    		self.auctedGoodsDetailModel.auctionSuccess = false;
-    		
-			self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_pics = JSON.parse(data.allInfo.goodsInfo.goods_pics);
-		    self.auctedGoodsDetailModel.allInfo.currentPrice = self.toDecimals(self.auctedGoodsDetailModel.allInfo.currentPrice);
-			$('#goodsContent2').html(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_detail);
-
-            //竞拍的人数
-            var userNum = parseInt(self.auctedGoodsDetailModel.allInfo.currentUser);
-			if( userNum > 0) //人数大于0竞拍成功
-			{
-				self.auctedGoodsDetailModel.auctionSuccess = true;
-			}
-
-			if (parseInt(self.auctedGoodsDetailModel.allInfo.referencePrice) == 0)
-			{
-				self.auctedGoodsDetailModel.showReference = false;
-			}
-			
-			setTitle(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_name);
-
-            $('.animation').css('display','none');
-            $('.container').css('opacity','1');
-
-            self.scope.auctedGoodsDetailModel = self.auctedGoodsDetailModel;
-            self.scope.$apply();
+//              if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)) && data.allInfo.isVIP == 1)
+//  			{
+//  		
+//		   			location.href = pageUrl.AUCTION_HISTORY +"?backPage=" + self.thisDetailPage + "&thisDataId=" + self.thisDataId;
+//				}
+    			self.auctedGoodsDetailModel.allInfo = [];
+	    		self.auctedGoodsDetailModel.allInfo = data.allInfo;
+	    		self.auctedGoodsDetailModel.auctionSuccess = false;
+	    		
+				self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_pics = JSON.parse(data.allInfo.goodsInfo.goods_pics);
+			    self.auctedGoodsDetailModel.allInfo.currentPrice = self.toDecimals(self.auctedGoodsDetailModel.allInfo.currentPrice);
+				$('#goodsContent2').html(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_detail);
+	
+	            //竞拍的人数
+	            var userNum = parseInt(self.auctedGoodsDetailModel.allInfo.currentUser);
+				if( userNum > 0) //人数大于0竞拍成功
+				{
+					self.auctedGoodsDetailModel.auctionSuccess = true;
+				}
+	
+				if (parseInt(self.auctedGoodsDetailModel.allInfo.referencePrice) == 0)
+				{
+					self.auctedGoodsDetailModel.showReference = false;
+				}
+				
+				setTitle(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_name);
+	
+	            $('.animation').css('display','none');
+	            $('.container').css('opacity','1');
+	
+	            self.scope.auctedGoodsDetailModel = self.auctedGoodsDetailModel;
+	            self.scope.$apply();
+ 
     	});
 
     	//设置title

@@ -87,7 +87,7 @@
 		<!--底部tab-->
 	    <div ng-include="'module/tab/tab.html'"></div>
 	</body>
-
+    
 	<!--系统js-->
 	<script type="text/javascript" src="js/jquery.min.js" ></script>
 	<script type="text/javascript" src="js/angular.min.js" ></script>
@@ -102,11 +102,7 @@
 	
 	<script src="js/commonArr.js"></script>
 	<script src="module/tab/tab.js"></script>   
-	<!--插件-->
-	<script type="text/javascript" src="js/fastclick.js" ></script>
-	<script type="text/javascript" src="swiper/swiper.min.js" ></script>
-	<!--controller-->
-	<script src="controller/auctedGoodsDetailController.js" ></script>
+	
 	<script>
 		$(function(){
 			
@@ -115,14 +111,23 @@
 			var bool=false;  
             setTimeout(function(){  
                 bool=true;  
-            },1500);
+            },1000);
 		    window.addEventListener("popstate", function(e) {
+
 		    	if (bool)
-		    	{
-		    		if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
-			        {
-			        	location.href = pageUrl.AUCTION_HISTORY;
-			        }
+		    	{    
+		    		if(commonFu.isEmpty(sessionStorage.getItem("hasGetData")))
+		    		{   
+		    			
+		    			sessionStorage.setItem("needPageId",1)
+		    		    location.href = pageUrl.AUCTION_HISTORY + "?backPage=" + auctedGoodsDetailController.thisDetailPage + "&thisDataId=" + auctedGoodsDetailController.thisDataId;
+		    		}
+		    		else
+		    		{   
+		    			
+		    			location.href = pageUrl.AUCTION_HISTORY;
+		    		}
+		    		
 		    	}
 		    	pushHistory();
 		        
@@ -136,4 +141,10 @@
 		    }
 		})
 	</script>
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<script type="text/javascript" src="swiper/swiper.min.js" ></script>
+	<!--controller-->
+	<script src="controller/auctedGoodsDetailController.js" ></script>
+	
 </html>

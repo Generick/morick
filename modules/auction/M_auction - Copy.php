@@ -151,7 +151,7 @@ class M_auction extends My_Model
      * @param $count
      * @return mixed
      */
-    function getAuctionItems($startIndex, $num, $whereArr = array(), $orWhereArr = array(), $orderBy = "", &$auctionItems, &$count, $itemInfoType = AUCTION_TYPE_BASE)
+    function getAuctionItems($startIndex, $num, $whereArr = array(), $orWhereArr = array(), &$auctionItems, &$count, $itemInfoType = AUCTION_TYPE_BASE)
     {
         $this->db->start_cache();
         $this->db->select("id, FROM_UNIXTIME(startTime), FROM_UNIXTIME(endTime), (if((endTime - unix_timestamp(now())) > 0, 1, 0)) as isOverdue")->from("auctionItems");
@@ -169,11 +169,7 @@ class M_auction extends My_Model
         {
             $this->db->limit($num, $startIndex);
         }
-        if(empty($orderBy))
-        {
-            $orderBy = "isOverdue desc, startTime desc";
-        }
-        $this->db->order_by($orderBy);
+        $this->db->order_by("isOverdue desc, startTime desc");
         $itemArr = $this->db->get()->result_array();
         $this->db->flush_cache();
         foreach($itemArr as $one)
@@ -241,51 +237,90 @@ class M_auction extends My_Model
      */
     function getPersonalBiddingList($userId, $startIndex, $num, &$biddingList, &$count)
     {
-        $this->db->start_cache();
-        $this->db->select("id, auctionItemId, userId, createTime, max(nowPrice) as nowPrice")->from("biddingLogs");
-        $this->db->where(array("userId" => $userId));
-        $this->db->group_by("auctionItemId");
-        $this->db->stop_cache();
-        $count = $this->db->count_all_results();
-        if($num > 0)
-        {
-            $this->db->limit($num, $startIndex);
+        // $this->db->start_cache();
+        // $this->db->select("id, auctionItemId, userId, createTime, max(nowPrice) as nowPrice")->from("biddingLogs");
+        // $this->db->where(array("userId" => $userId));
+        // $this->db->group_by("auctionItemId");
+        // $this->db->stop_cache();
+        // $count = $this->db->count_all_results();
+        // if($num > 0)
+        // {
+        //     $this->db->limit($num, $startIndex);
+        // }
+        // $this->db->order_by("createTime desc");
+        // $biddingArr = $this->db->get()->result_array();
+        // $this->db->flush_cache();
+        //mxl add
+        $count = 0;
+        $userauctionlist = array();
+        if ($num > 0) {
+            $userAuction = $this->db->select('id,userId,auctionItemId,userId,createTime,nowPrice')->where('userId',$userId)->from('biddinglogs')->limit($num,$startIndex)->order_by("createTime","DESC")->get()->result_array();
+        }else{
+            $userAuction = $this->db->select('id,userId,auctionItemId,userId,createTime,nowPrice')->where('userId',$userId)->from('biddinglogs')->order_by("createTime","DESC")->get()->result_array();
         }
-        $this->db->order_by("createTime desc");
-        $biddingArr = $this->db->get()->result_array();
-        $this->db->flush_cache();
-
-        foreach($biddingArr as $one)
-        {
-            $baseData = $this->getAuctionBase($one["auctionItemId"]);
-            if($baseData)
-            {
-                if($baseData->startTime <= now() && $baseData->endTime > now())
-                {
-                    //进行中
-                    $one["status"] = AUCTION_STATUS_GOING;
+        
+        foreach ($userAuction as $v) {
+            //$auctioninfo = $this->select("currentPrice,initialPrice")->from('auctionitems')->where('goods_bak_id',$v['auctionItemId'])->get()->result_array();
+            $baseInfo = $this->getAuctionBase($v['auctionItemId']);
+            if ($baseInfo) {
+                if ($baseInfo->startTime <= time() && $baseInfo->endTime > time()) {
+                    $v['status'] = AUCTION_STATUS_GOING;
+                    $count += 1;
                 }
-
-                if($baseData->endTime <= now())
-                {
-                    //已结束
-                    if($baseData->currentUser == $userId)
-                    {
-                        $one["status"] = AUCTION_STATUS_SELF;
-                    }
-                    else
-                    {
-                        $one["status"] = AUCTION_STATUS_ANNOUNCED;
+                if ($baseInfo->endTime <= time()) {
+                    if ($baseInfo->currentUser == $userId) {
+                        $v['status'] = AUCTION_STATUS_SELF;
+                    }else{
+                        $v['status'] = AUCTION_STATUS_ANNOUNCED;
                     }
                 }
 
-                $one["initialPrice"] = $baseData->initialPrice;
-                $one["currentPrice"] = $baseData->currentPrice;
-                $one["goodsInfo"] = $baseData->goodsInfo;
-
-                $biddingList[] = $one;
+                $v['currentPrice'] = $baseInfo->currentPrice;
+                $v['initialPrice'] = $baseInfo->initialPrice;
+                $v['goodsInfo']['goods_id'] = $baseInfo->goodsInfo->goods_id;
+                $v['goodsInfo']['goods_name'] = $baseInfo->goodsInfo->goods_name;
+                $v['goodsInfo']['goods_detail'] = $baseInfo->goodsInfo->goods_detail;
+                $v['goodsInfo']['goods_pics'] = $baseInfo->goodsInfo->goods_pics;
+                $v['goodsInfo']['goods_bid'] = $baseInfo->goodsInfo->goods_bid;
             }
+            //$userauctionlist[] = array_merge($v,$auctioninfo);
+            $userauctionlist[] = $v;
         }
+        $biddingList = $userauctionlist;
+        //var_dump($userauctionlist);die;
+        //end
+
+        // foreach($biddingArr as $one)
+        // {
+        //     $baseData = $this->getAuctionBase($one["auctionItemId"]);
+        //     if($baseData)
+        //     {
+        //         if($baseData->startTime <= now() && $baseData->endTime > now())
+        //         {
+        //             //进行中
+        //             $one["status"] = AUCTION_STATUS_GOING;
+        //         }
+
+        //         if($baseData->endTime <= now())
+        //         {
+        //             //已结束
+        //             if($baseData->currentUser == $userId)
+        //             {
+        //                 $one["status"] = AUCTION_STATUS_SELF;
+        //             }
+        //             else
+        //             {
+        //                 $one["status"] = AUCTION_STATUS_ANNOUNCED;
+        //             }
+        //         }
+
+        //         $one["initialPrice"] = $baseData->initialPrice;
+        //         $one["currentPrice"] = $baseData->currentPrice;
+        //         $one["goodsInfo"] = $baseData->goodsInfo;
+
+        //         $biddingList[] = $one;
+        //     }
+        // }
     }
 
     /**
@@ -294,7 +329,7 @@ class M_auction extends My_Model
      * @param $price
      * @return mixed
      */
-    function biddingAuctionItem($itemId, $userId, $price,&$modInfo)
+    function biddingAuctionItem($itemId, $userId, $price)
     {
         $auctionItemObj = $this->getAuctionItemObj($itemId);
         if(!$auctionItemObj)
@@ -305,6 +340,13 @@ class M_auction extends My_Model
         if($auctionItemObj->endTime < now() || $auctionItemObj->startTime > now())
         {
             return ERROR_BIDDING_TIME_ILLEGAL;
+        }
+
+
+        //user price must over current high price
+        $maxPrice = $this->db->select_max('nowPrice')->from('biddinglogs')->where('auctionItemId',$itemId)->get()->row_array();
+        if ($price < $maxPrice['nowPrice']) {
+            return ERROR_PRICE_IS_ILLEGAL;
         }
 
         if($auctionItemObj->currentPrice == $auctionItemObj->initialPrice && $auctionItemObj->initialPrice != 0)
@@ -385,8 +427,8 @@ class M_auction extends My_Model
         //处理委托出价
         $this->load->model("m_proxyBid");
         $this->m_proxyBid->startProxyBid($itemId, $userId, $price, $auctionItemObj->lowestPremium);
-        return ERROR_OK;
-        //return $modInfo;
+        //return ERROR_OK;
+        return $modInfo;
     }
 
     /**

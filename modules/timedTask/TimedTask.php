@@ -35,7 +35,7 @@ class TimedTask extends My_Controller
             "status" => AUCTION_ON
         );
 
-        $this->m_auction->getAuctionItems(0, 0, $whereArr, array(), $auctionItems, $count);
+        $this->m_auction->getAuctionItems(0, 0, $whereArr, array(), "", $auctionItems, $count);
         foreach($auctionItems as $one)
         {
             $orderInfo = array();
@@ -113,7 +113,7 @@ class TimedTask extends My_Controller
             "status" => AUCTION_ON
         );
 
-        $this->m_auction->getAuctionItems(0, 0, $whereArr, array(), $auctionItems, $count);
+        $this->m_auction->getAuctionItems(0, 0, $whereArr, array(), "", $auctionItems, $count);
         foreach($auctionItems as $one)
         {
             $auctionId = $one->id;

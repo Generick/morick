@@ -166,4 +166,21 @@ class A_order extends Admin_Controller
         $this->responseSuccess(array("traces" => $traces));
         return;
     }
+
+    //operate order status
+    function operateOrder(){
+        if (!$this->checkParam(array('order_no','type'))) {
+            $this->responseError(ERROR_PARAM);
+            exit;
+        }
+        $order_no = $this->input->post('order_no');
+        $type = $this->input->post('type');
+        $res = $this->m_order->sure_cancel_order($order_no,$type);
+        if ($res != ERROR_OK) {
+            $this->responseError($res);
+            exit;
+        }
+        $this->responseSuccess($res);
+    }
+
 }

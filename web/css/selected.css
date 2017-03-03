@@ -2,7 +2,6 @@
  * 
  * 精选
  */
-
 .animation{
 	height: 100%;
 	width: 100%;
@@ -19,6 +18,77 @@
 	top: 45%;
 }
 
+.chrysanthemums{
+	display: none;
+	position: fixed;
+	z-index: 98;
+	bottom: 51px;
+	left:0;
+	width:100%;
+	height:25px;
+	background: #fefefe;
+}
+.chrysanthemums img{
+	position: absolute;
+	width:23px;
+	height:23px;
+	margin:0 auto;
+	top: 0;
+	left:47%;
+}
+
+.acu-chrysanthemums{
+	display: none;
+	position: fixed;
+	z-index: 98;
+	bottom: 50px;
+	left:0;
+	/*width:100%;*/
+	width:97.6vw;
+	margin:0 1.2vw;
+	height:28px;
+	background: #FFFFFF;
+}
+
+.acu-chrysanthemums img{
+	position: absolute;
+	display: block;
+	margin-top: 2px;
+	width:23px;
+	height:23px;
+	margin:0 auto;
+	top: 0;
+	left:47%;
+}
+
+.no-more-data{
+	display: none;
+	position: absolute;
+	z-index: 96;
+	bottom: 5px;
+	left:0;
+	width:100%;
+	height:23px;
+	line-height: 23px;
+	text-align: center;
+	background: #FFFFFF;
+	padding: 0;
+}
+
+.ac-no-more-data{
+	display: none;
+	position: absolute;
+	z-index: 96;
+	bottom: 42px;
+	left:0;
+	width:100%;
+	height:26px;
+	line-height: 26px;
+	text-align: center;
+	background: #FFFFFF;
+	padding: 0;
+	font-size: 12px;
+}
 .container{
 	background-color: #EEEEEE;
 	width: 100%;
@@ -199,7 +269,7 @@
 	width: 100%;
 	text-align: center;
 	color: #7e7346;
-	line-height: 45px;
+	line-height: 40px;
 }
 
 .endtime-fresh img{
@@ -263,6 +333,49 @@
     margin-left: 10%;
     margin-top: 8px;
     letter-spacing: 1px;
+}
+
+#capped-box{
+	position: relative;
+	width:100%;
+	height:56px;
+	background: #FFFFFF;
+	padding-top: 7px;
+}
+
+#capped-price-box{
+	position: relative;
+	width: 76%;
+    height: 40px;
+    line-height: 40px;
+    color: #eee;
+    background: url(../img/reference_bg.png) no-repeat center;
+    background-size: 100% 100%;
+    margin-left: 12%;
+    letter-spacing: 1px;
+}
+#capped-price-btn{
+	position: absolute;
+	text-align: center;
+	height:24px;
+	width:48%;
+	left: 26%;
+	margin-top: 9px;
+	background: #FFFFFF;
+	color:#C79F76;
+	font-size: 11px;
+	padding:0px;
+	overflow: hidden;
+}
+#capped-price{
+	margin-right: 4px;
+}
+.capped-hide{
+	display: none;
+}
+
+.capped-show{
+	display: block;
 }
 
 .goods-operate{
@@ -388,11 +501,32 @@
 }
 
 .goods-buyer{
+	position: relative;
 	background-color: #fff;
-	padding-top: 5px;
-	padding-bottom: 25px;
+	padding-top: 8px;
+	padding-bottom: 30px;
 }
-
+#reminding{
+	display: none;
+	position: fixed;
+	z-index: 1112;
+	top:0;
+	left:0;
+	bottom: 0;
+	right:0;
+	width:100%;
+	height:100%;
+	background: rgba(0,0,0,0.6);
+	color:red
+}
+#reminding img{
+	position: absolute;
+	width:60%;
+	height:26%;
+	top:49%;
+	left:20%;
+	z-index: 1113;
+}
 .goods-buyer-block{
 	width: 90%;
 	margin-left: auto;
@@ -678,6 +812,170 @@
 }
 
 /*
+ * 显示VIP标志
+ */
+/*.smallvippic{
+	position: absolute;
+	top:0;
+	left:0px;
+	margin-left:85vw;
+	float:right;
+	z-index: 1111;
+	width:12vw;
+	height:14vw;
+}*/
+
+#fixed-shade{
+	display: none;
+	width:100%;
+	height:100%;
+	position:fixed;
+	z-index: 1008;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	background: rgba(0,0,0,0.5);
+	
+}
+#sure-remark{
+	position: absolute;
+	width:66vw;
+	height:200px;
+	left:17vw;
+	top:50%;
+	margin-top:-120px;
+	background: #FFFFFF;
+	border-radius: 8px;
+}
+.vipMark-box{
+	height:40px;
+	
+}
+.vipMark-box img{
+	position: absolute;
+	display: block;
+	top:-13vw;
+	left:21vw;
+	width:24vw;
+	height:23vw;
+	max-height: 145px;
+
+}
+.contents-box{
+	text-align: justify;
+	word-break:break-all;
+	word-break:normal;
+	height:121px;
+	padding:14px 16px 16px 16px;
+	font-size: 12px;
+	color:#313131;
+	line-height:19px;
+}
+
+/*.contents-box p{
+	width:100%;
+	height:19px;
+	line-height: 19px;
+	text-align: center;
+}*/
+.sure-to-do{
+	position: absolute;
+	bottom:-1px;
+	width:100%;
+	background: #33261E;
+	height:38px;
+	border-radius: 0 0 8px 8px;
+	line-height:38px;
+	text-align: center;
+	color:#fdfdfd;
+	letter-spacing: 2px;
+	font-size:16px;
+}
+
+#acfixed-shade{
+	position:fixed;
+	z-index: 1008;
+	display: none;
+	width:100%;
+	height:100%;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	background: rgba(0,0,0,0.5);
+	
+}
+#acsure-remark{
+	position: absolute;
+	width:66vw;
+	height:200px;
+	left:17vw;
+	top:50%;
+	margin-top:-120px;
+	background: #FFFFFF;
+	border-radius: 11px;
+}
+.acvipMark-box{
+	height:40px;
+	
+}
+.acvipMark-box img{
+	position: absolute;
+	display: block;
+	top:-13vw;
+	left:21vw;
+	width:24vw;
+	height:23vw;
+	max-height: 145px;
+}
+.accontents-box{
+	text-align: justify;
+	word-break:break-all;
+	word-break:normal;
+	height:121px;
+	padding:14px 16px 16px 16px;
+	font-size: 12px;
+	color:#313131;
+	line-height:19px;
+}
+/*.accontents-box p{
+	width:100%;
+	height:19px;
+	line-height: 19px;
+	text-align: center;
+}*/
+.acsure-to-do{
+	position: absolute;
+	bottom:-1px;
+	width:100%;
+	background: #33261E;
+	height:38px;
+	border-radius: 0 0 8px 8px;
+	line-height:38px;
+	text-align: center;
+	color:#fdfdfd;
+	letter-spacing: 2px;
+	font-size:16px;
+}
+
+
+#auction-ul{
+	position: relative;
+	padding-bottom: 58px;
+	top:0;
+	left: 0;;
+	bottom: 0;
+	right: 0;
+}
+#auction-ul li:last-child{
+	margin-bottom: 50px;
+}
+
+#selected-ul{
+	padding-bottom: 10px;
+}
+/*
  * 委托出价
  */
 .self-paid-container{
@@ -722,3 +1020,4 @@
 		font-size: 12px;
 	}
 }
+

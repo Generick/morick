@@ -20,10 +20,11 @@ var slide = function(option)
         offset = loading.clientHeight,
         objparent = obj.parentElement,
         ulObj = $(".xzlDown");
-    
+       
     var ulHeight = ulObj[0].clientHeight;
+   
 //  document.body.style.height = ulHeight - 30 + "px";
-    
+   
     /**
      *具体操作方法 
      */
@@ -34,7 +35,7 @@ var slide = function(option)
         translate: function (diff) {
             obj.style.webkitTransform ='translate3d(0,'+diff+'px,0)';
             obj.style.transform='translate3d(0,'+diff+'px,0)';
-        },
+        }, 
         //设置效果时间
         setTransition: function (time) {
             obj.style.webkitTransition='all '+time+'s';
@@ -136,7 +137,7 @@ slide({container:"#container",next: function (e) {
     var that = this;
     
     //执行加载数据方法（数据请求等）
-    SelectCtrl.initData();
+    SelectCtrl.initData(2);
     
     setTimeout(function() {
         that.back.call();

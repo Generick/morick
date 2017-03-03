@@ -58,10 +58,16 @@ class A_auction extends Admin_Controller
         $startIndex = intval($this->input->post("startIndex"));
         $num = intval($this->input->post("num"));
 
+        $whereArr = array();
+        if(isset($_POST["isVIP"]))
+        {
+            $whereArr["isVIP"] = intval($this->input->post("isVIP"));
+        }
+
         $auctionItems = array();
         $count = 0;
 
-        $retCode = $this->m_auction->getAuctionItems($startIndex, $num, array(), array(), $auctionItems, $count);
+        $retCode = $this->m_auction->getAuctionItems($startIndex, $num, $whereArr, array(), "", $auctionItems, $count);
         if($retCode != ERROR_OK)
         {
             $this->responseError($retCode);
@@ -78,8 +84,7 @@ class A_auction extends Admin_Controller
     function releaseAuctionItem()
     {
         //其中isFreeShipment  isFreeExchange 后续确认具体类型 来设定单独字段来处理  单独一个类型表格
-        //add cappedPrice to AuctionItem info
-        if(!$this->checkParam(array("goodsId", "initialPrice", "lowestPremium", "margin","startTime", "endTime","cappedPrice" )))
+        if(!$this->checkParam(array("goodsId", "initialPrice", "lowestPremium", "margin", "isVIP", "startTime", "endTime", "cappedPrice" )))
         {
             $this->responseError(ERROR_PARAM);
             return;
@@ -100,12 +105,12 @@ class A_auction extends Admin_Controller
             "initialPrice" => floatval($this->input->post("initialPrice")),
             "currentPrice" => floatval($this->input->post("initialPrice")),
             "lowestPremium" => floatval($this->input->post("lowestPremium")),
-            //"referencePrice" => floatval($this->input->post("referencePrice")),
+            "cappedPrice" => intval($this->input->post("cappedPrice")),
             "margin" => floatval($this->input->post("margin")),
+            "isVIP" => intval($this->input->post("isVIP")),
             "startTime" => strtotime(trim($this->input->post("startTime"))),
             "endTime" => strtotime(trim($this->input->post("endTime"))),
             "createTime" => now(),
-            "cappedPrice" => floatval($this->input->post("cappedPrice")),
         );
 
         $retCode = $this->m_auction->releaseAuctionItem($goodsId, $insertData);
@@ -189,7 +194,7 @@ class A_auction extends Admin_Controller
         }
 
         $itemIds = trim($this->input->post("itemIds"));
-        $itemIdArr = json_decode($itemIds, true) ? json_decode($itemIds, true) :array();
+        $itemIdArr = json_decode($itemIds, true) ? json_decode($itemIds, true) : array();
         if(empty($itemIdArr))
         {
             $this->responseError(ERROR_PARAM);
@@ -236,7 +241,7 @@ class A_auction extends Admin_Controller
         $count = 0;
         $auctionList = array();
 
-        $retCode = $this->m_auction->getAuctionItems($startIndex, $num, $whereArr, array(), $auctionList, $count, AUCTION_TYPE_SMALL);
+        $retCode = $this->m_auction->getAuctionItems($startIndex, $num, $whereArr, array(), "", $auctionList, $count, AUCTION_TYPE_SMALL);
         if($retCode != ERROR_OK)
         {
             $this->responseError($retCode);
@@ -246,6 +251,4 @@ class A_auction extends Admin_Controller
         $this->responseSuccess(array("count" => $count, "auctionList" => $auctionList));
         return;
     }
-
-    
 }

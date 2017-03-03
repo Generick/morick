@@ -1,11 +1,16 @@
 <div ng-show="!userModel.isShowInfo">
-    <div class="mn-header fix">
-        <div class="f"><i class="fa fa-th m-color-0"></i><span>用户列表</span></div>
-    </div>
-
+    
     <div class="table-search fix">
         <div class="f input"><input type="text" class="form-control" placeholder="输入用户ID、手机号、昵称查询" ng-model="userModel.keywords"></div>
         <div class="f m-g-l-10"><a class="btn btn-white" ng-click="searchUser()">查询</a></div>
+    </div>
+    <div class="mn-header fix">
+        <div class="f"><i class="fa fa-th m-color-0"></i><span>用户列表</span></div>
+        <div class="f" id="father-checeking">
+        <div class="f checking" ng-click="getPeople(-1)"><span>全部</span></div>
+        <div class="f checking" ng-click="getPeople(0)"><span>普通会员</span></div>
+        <div class="f checking" ng-click="getPeople(1)"><span>VIP会员</span></div>
+        </div>
     </div>
 
     <div class="table-container" style="margin-top: 0">
@@ -19,7 +24,14 @@
                 <td style="text-align: center">账户余额</td>
                 <td style="text-align: center">注册时间</td>
                 <td style="text-align: center">备注信息</td>
-                <td style="text-align: center">操作</td>
+                <td style="text-align: center"></td>
+                <td style="text-align: center"></td>
+                <td style="text-align: center"></td>
+                <td style="text-align: center"></td>
+                <td style="text-align: center"></td>
+                <td style="text-align: center"></td>
+               
+                <td style="text-align: center;margin-left:20px">操作</td>
             </tr></thead>
             <tbody id="user-tbody"><tr ng-repeat="item in userModel.modelArr">
                 <!--<td>{{$index + 1 + (page.currentPage - 1)*page.selectPageNum}}</td>-->
@@ -31,7 +43,15 @@
                 <td style="text-align: center">{{item.registerTime*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td style="text-align: center"><a class="btn-default" ng-click="reMark(item)" style="margin:0 auto;display:block;height:31px;margin-top:9px;padding:6px 10px;max-width: 94px;"><i class="ti-pencil-alt"></i> 备注</a></td>
               <!-- <i class="ti-pencil-alt"></i>-->
-                <td style="text-align: center"><a class="btn btn-white" ng-click="checkInfo(item)">查看</a></td>
+                <td style="text-align: center"></td>
+                <td style="text-align: center"></td>
+                <td style="text-align: center"></td>
+                <td style="text-align: center"></td>
+                <td style="text-align: center"></td>
+                
+                <td class="dtSmall" style="text-align: center"><a class="btn btn-white btnSmall" ng-click="checkInfo(item)">查看</a></td>
+                <td class="dtSmall" style="text-align: center"><a class="btn btn-white btnSmall" ng-class="{true:'isVipShow',false:'notVipShow'}[item.isVIP==1]" ng-click="dredge(item)">开通VIP会员</a></td>
+                <td class="dtSmall" style="text-align: center"><a class="btn btn-white btnSmall" ng-click="abolish(item)">取消VIP会员</a></td>
             </tr></tbody>
         </table>
     </div>
@@ -44,21 +64,21 @@
 
 
 <div id="big-box">
-<div class="modify-box" id="mode-remark">
-	<div class="delete-it" ng-click="hideShadow()">X</div>
-    <div class="note-box">
-        <div class="note-box-title">备注信息：</div>
-        <!--<div class="note-box-con" ng-bind="modify.note"></div>-->
-    </div>
-    <div class="input-box">
-        <textarea  ng-model="modify.note">
-        </textarea>
-    </div>
-    <div class="cancle-ok">
-    	<div class="ok" ng-click="submitData()">确定</div>
-    	<div class="cancle" ng-click="hideShadow()">取消</div>
-    </div> 
-</div>
+	<div class="modify-box" id="mode-remark">
+		<div class="delete-it" ng-click="hideShadow()">X</div>
+	    <div class="note-box">
+	        <div class="note-box-title">备注信息：</div>
+	        <!--<div class="note-box-con" ng-bind="modify.note"></div>-->
+	    </div>
+	    <div class="input-box">
+	        <textarea  ng-model="modify.note">
+	        </textarea>
+	    </div>
+	    <div class="cancle-ok">
+	    	<div class="ok" ng-click="submitData()">确定</div>
+	    	<div class="cancle" ng-click="hideShadow()">取消</div>
+	    </div> 
+	</div>
 </div>
 <script src="view/user/mn.userCtrl.js"></script>
 <script src="plugIn/floatBug/floatBug.js"></script>

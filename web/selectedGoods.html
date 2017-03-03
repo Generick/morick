@@ -2,6 +2,11 @@
 <html ng-app="app">
 	<head>
 		<meta charset="UTF-8">
+<!--		
+		<meta  http-equivV="pragma" content="no-cache"> 
+        <meta  http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+        <meta  http-equiv="expires" content="0">-->
+	
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<meta name="format-detection" content="telephone=no">
 		<meta name="format-detection" content="email=no">
@@ -12,15 +17,18 @@
 	</head>
 	<body ng-controller="ctrl">
 		<!--加载动画-->
-		<div class="animation" style="position:absolute;top:50%">
+		<div class="animation" style="position:absolute;">
 			<img src="img/loading.gif"/>
 		</div>
-        <div id="container" class="container" style="transform: translate3d(0px, -18px, 0px);transition: all 0.2s;">
+		
+		<!--style="position:absolute; overflow:auto;-webkit-overflow-scrolling: touch; margin-bottom:52px;top:0;left:0;right:0"-->
+        <div id="container" class="container scroll">
             <div class="xzlDown"></div>
             <div class="list" id="list-empty" style="background-color: #fff;">
-				<ul>
-					<li ng-repeat = "item in auctionItems" id="sel_{{item.id}}" ng-click = "onClickToGoodsDetail(item.id)" on-finish-render-filters>
+				<ul id="selected-ul">
+					<li class="oneList" ng-repeat = "item in auctionItems" id="sel_{{item.id}}" ng-click = "onClickToGoodsDetail(item)" on-finish-render-filters>
                         <div class="item-img">
+                        	<img style="position: absolute;top:1vw;left:0px;z-index: 5;width:14vw;height:14vw;" class="smallvippic" ng-show="(item.isVIP == 1)" src="img/newVip.png">
                             <img ng-src="{{item.goodsInfo.goodsPicsShow}}">
                         </div>
 						<div class="price">
@@ -33,13 +41,36 @@
 						</div>
 					</li>
 				</ul>
+				<div class="no-more-data">
+					没有更多数据了！
+				</div>
 			</div>
 			
 			<!--暂无数据-->
 			<div class="no-data">暂无数据！</div>
 		</div>
-
-        <div ng-include="'module/tab/tab.html'"></div>
+      
+        
+        
+        <div id="fixed-shade" ng-click="okToShut()">
+        	<div class="modied-box" id="sure-remark">
+			    <div class="vipMark-box">
+			        <img src="img/newBigVip.png">
+			    </div>
+			    <div class="contents-box">
+			                        本件拍品为 “VIP专享”，只有VIP才能查看详情和参与竞价。 申请成为VIP，请联系VIP客服专员, 微信号：tldwzhg(陶兰都吴掌柜)
+			    </div>
+			    <div class="sure-to-do" ng-click="okToShut()">
+			    	确定
+			    </div> 
+			</div>
+        </div>
+        
+        <div class="chrysanthemums">
+			<img src="img/loading.gif"/>
+		</div>
+		
+		<div ng-include="'module/tab/tab.html'"></div>
 	</body>
 
 	<!--系统js-->
@@ -52,15 +83,14 @@
     <script src="module/tab/tab.js"></script>
 	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
     <script src="controller/app.js"></script>
-
+    
 	<!--controller-->
 	<script type="text/javascript" src="controller/selectedGoodsController.js" ></script>
 	
 	<!--插件-->
-	<script type="text/javascript" src="js/fastclick.js" ></script>
-<!--	<script type="text/javascript" src="js/htmlNoScroll.js" ></script>-->
+	<script type="text/javascript" src="js/fastclick.js"></script>
+	<!--<script type="text/javascript" src="js/htmlNoScroll.js"></script>-->
 	<script type="text/javascript" src="js/xzl-down-refresh.js" ></script>
-	
 	<!--<script>
 	 
 	$(function(){  
@@ -79,4 +109,106 @@
 	      
 	});   
 	</script>-->
+   <!--<script>
+            var t,p;
+            p = $(window).scrollTop()
+            //当前窗口的高度
+            var totalHeight = $(window).height();
+			//当前文档的高度 - 当前滚动条到窗口顶部的距离
+			var currnetHright = $(document).height() - document.body.scrollTop;
+			
+			//获取到本地缓存
+			var dataArr = JSON.parse(sessionStorage.getItem("alreadyGet"));
+			
+			var selfData = SelectCtrl.selectedModel.auctionItems;
+		    
+		    
+		    var body = document.getElementsByTagName("body")[0];
+		    body.addEventListener("touchstart", function(event) {
+			    //event.preventDefault();
+			    startX = event.changedTouches[0].pageX,
+			    startY = event.changedTouches[0].pageY;
+			    touch = event.targetTouches[0];
+		        setTimeout(function(){t = p;},0);   
+		    });
+		   
+		    body.addEventListener("touchmove", function(event) {
+				
+			    //event.preventDefault();
+			    moveEndX = event.changedTouches[0].pageX,
+			    moveEndY = event.changedTouches[0].pageY,
+			    X = moveEndX - startX,
+			    Y = moveEndY - startY;
+			    touch = event.targetTouches[0];//一个手指触碰
+			    
+			    if ( Math.abs(X) > Math.abs(Y) && X > 0 ) 
+			    {
+			    	
+			    }
+			    else if ( Math.abs(X) > Math.abs(Y) && X < 0 ) 
+			    {
+			    	
+			    }
+			    else if ( Math.abs(Y) > Math.abs(X) && Y > 0) 
+			    {
+			    	
+			    }
+			    else if ( Math.abs(Y) > Math.abs(X) && Y < 0 ) 
+			    {  
+			    	if(t < p)
+			    	{
+			    		if(currnetHright - totalHeight <13)
+			    		{
+			    			alert($(window).scrollTop()+"move")
+			    		}
+			    	}
+			        
+			    }
+			    else
+			    {
+			    	
+			    }
+			    setTimeout(function(){t = p;},0);   
+			}) ;
+			
+			    body.addEventListener("touchend", function(event) {
+			    event.preventDefault();
+			   
+			    moveEndX = event.changedTouches[0].pageX,
+			    moveEndY = event.changedTouches[0].pageY,
+			    X = moveEndX - startX,
+			    Y = moveEndY - startY;
+			    touch = event.targetTouches[0];
+			    
+			    if ( Math.abs(X) > Math.abs(Y) && X > 0 ) 
+			    {
+			    	
+			    }
+			    else if ( Math.abs(X) > Math.abs(Y) && X < 0 ) 
+			    {
+			    	
+			    }
+			    else if ( Math.abs(Y) > Math.abs(X) && Y > 0) 
+			    {
+			    	
+			    }
+			    else if ( Math.abs(Y) > Math.abs(X) && Y < 0 ) 
+			    {  
+			    	
+			    	if(t < p)
+			    	{
+			    		if(currnetHright - totalHeight <13)
+			    		{
+			    			alert($(window).scrollTop()+"end")
+			    		}
+			    	}
+			    }
+			    else
+			    {
+			    	
+			    }
+			    setTimeout(function(){t = p;},0);   
+			    });
+    </script>-->
+
 </html>

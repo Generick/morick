@@ -26,6 +26,7 @@ class Auction extends My_Controller
         }
 
         $whereArr = array();
+        $orderBy = "";
         if(isset($_POST["type"]))
         {
             $whereArr["status"] = AUCTION_ON;
@@ -35,6 +36,7 @@ class Auction extends My_Controller
                 //$whereArr["status"] = AUCTION_ON;
                 $whereArr["startTime <="] = now();
                 $whereArr["endTime >="] = now();
+                $orderBy = "endTime asc";
             }
             elseif($type == AUCTION_END)
             {
@@ -47,7 +49,7 @@ class Auction extends My_Controller
         $auctionItems = array();
         $count = 0;
 
-        $retCode = $this->m_auction->getAuctionItems($startIndex, $num, $whereArr, array(), $auctionItems, $count);
+        $retCode = $this->m_auction->getAuctionItems($startIndex, $num, $whereArr, array(), $orderBy, $auctionItems, $count);
         if($retCode != ERROR_OK)
         {
             $this->responseError($retCode);
@@ -83,6 +85,27 @@ class Auction extends My_Controller
         if($this->m_account->getSessionData("userType") != USER_TYPE_USER)
         {
             $hasLogin = false;
+        }
+
+        if($allInfo->isVIP == 1)
+        {
+            if(!$hasLogin)
+            {
+                //未登录
+                $this->responseError(ERROR_ONLY_FOR_VIP);
+                return;
+            }
+            else
+            {
+                //登录则判断当前用户是否是VIP
+                $this->load->model("m_user");
+                $userObj = $this->m_user->getSelfUserObj();
+                if(!$userObj || $userObj->isVIP == 0)
+                {
+                    $this->responseError(ERROR_ONLY_FOR_VIP);
+                    return;
+                }
+            }
         }
         $allInfo->hasLogin = $hasLogin;
 

@@ -22,6 +22,7 @@
                         <div ng-if="item.goodsInfo.goods_pics[0]">
                             <div class="item-img">
                                <!-- <b style="background-image: url({{item.aucted}})"></b>-->
+                                <img style="position: absolute;top:1vw;left:0px;z-index: 5;width:14vw;height:14vw;" class="smallvippic" ng-show="(item.isVIP == 0)" src="../img/newVip.png">
                                 <b>
                                 	<img ng-show="(item.isEnd == true)" src="../img/aucted0.png">
                                 	<img ng-show="!(item.isEnd)" src="../img/aucting.png">

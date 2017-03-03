@@ -1,7 +1,7 @@
 
 var UserCtrl = {
     scope: null,
-
+    
     userModel: {
         modelArr: [],
         selectAll: false,
@@ -11,7 +11,8 @@ var UserCtrl = {
         curId: null, //当前点击用户ID
         name: null, //用户备注
         note: "", //用户备注,
-        modelLayerIdx :null//修改备注层
+        modelLayerIdx :null,//修改备注层
+        isVip : -1
     },
     
     modify :{
@@ -27,18 +28,32 @@ var UserCtrl = {
         
         this.scope.modify = this.modify;
         
-        this.getUserList("");
-
+        this.getUserList("",-1);
+     
+        this.changeColor(-1);
+        
         this.onEvent();
     },
 
-    getUserList: function(keywords){
-        var self = this,
-            params = {
+    getUserList: function(keywords,type){
+        var self = this;
+       
+        if(type == -1)
+        {
+            var params = {
                 userType: 1,
-                likeStr: keywords
+                likeStr: keywords,
             };
-
+        }
+        else
+        {
+        	var params = {
+                userType: 1,
+                likeStr: keywords,
+                isVIP : type
+           };
+        }
+        
         pageController.pageInit(self.scope, api.API_GET_USER_LIST, params,
 
             /**
@@ -58,7 +73,7 @@ var UserCtrl = {
                     var totalPage = Math.ceil(data.count / self.scope.page.selectPageNum);
                     pageController.pageNum(totalPage);
                 }
-
+              
                 self.userModel.modelArr = data.userList;
                 for(var i = 0;i < self.userModel.modelArr.length;i++)
                 { 
@@ -92,18 +107,71 @@ var UserCtrl = {
         var self = this;
 
         self.scope.searchUser = function(){
-            self.getUserList(self.userModel.keywords);
+        	
+            self.getUserList(self.userModel.keywords,self.userModel.isVIP);
         };
 
         self.scope.checkInfo = function(item){ //查看详情
             self.userModel.isShowInfo = true;
             userInfoCtrl.init(self.scope, item);
         };
-
+        self.scope.dredge = function(item){
+        	//开通VIP
+        	var item = item;
+        	if(parseInt(item.isVIP) == 1)
+        	{
+        	}
+        	else
+        	{   
+				var userId = parseInt(item.userId);
+				var userIdArr = [];
+				userIdArr.push(userId);
+				userIdArr = JSON.stringify(userIdArr); 
+				var params = {};
+				params.userIds = userIdArr;
+				params.type = 1;  
+				pageController.pageInit(self.scope,api.API_ADMIN_SET_VIP, params,function(data){
+					item.isVIP = 1;
+					self.scope.$apply();
+				});
+        	}	
+        };
+        
+        self.scope.abolish = function(item){
+        	//取消VIP
+        	var item = item;
+			if(parseInt(item.isVIP) == 0)
+        	{
+        	}
+        	else
+        	{   
+				var userId = parseInt(item.userId);
+				var userIdArr = [];
+				userIdArr.push(userId);
+				userIdArr = JSON.stringify(userIdArr); 
+				var params = {};
+				params.userIds = userIdArr;
+				params.type = 0;
+   
+				pageController.pageInit(self.scope,api.API_ADMIN_SET_VIP, params,function(data){
+					item.isVIP = 0;
+					self.scope.$apply();
+				});
+        	}	
+        	
+        };
         self.scope.back2UserList = function(){ //返回列表
             self.userModel.isShowInfo = false;
         };
         //查看大图
+    
+        self.scope.getPeople = function(type){
+        	//分类获取会员
+        
+            self.userModel.isVip = type;
+        	self.getUserList(self.userModel.keywords,self.userModel.isVip);
+        	self.changeColor(type);
+        };
     
         self.scope.showBigImg = function(){
            $dialog.photos('#user-tbody');
@@ -123,7 +191,7 @@ var UserCtrl = {
 
         };
     },
-  
+    
     //修改用户备注
 
     modRemark : function(){
@@ -141,7 +209,18 @@ var UserCtrl = {
         	self.scope.$apply();
         })
     },
-   
+    
+  
+    //点击筛选改变颜色
+    changeColor : function(type){
+    	var index = type + 2; 
+    	$("#father-checeking").children().eq(0).css("background","#cdcdcd");
+    	$("#father-checeking").off("click");
+    	$("#father-checeking").on("click",".checking",function(index){
+    		$(this).css("background","#cdcdcd").siblings().css("background","#FFFFFF");
+    	})
+    },
+    
     //遮罩层的展示和隐藏
     
     showBox : function(){

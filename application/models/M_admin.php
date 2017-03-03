@@ -212,16 +212,22 @@ class M_admin extends My_Model{
      * @param $count
      * @return mixed
      */
-    function getUserList ($userType, $startIndex, $num, $likeStr = "", &$userList, &$count)
+    function getUserList ($userType, $startIndex, $num, $whereArr = array(), $likeStr = "", &$userList, &$count)
     {
         $this->load->model("m_user");
         $this->db->start_cache();
         $this->db->select("userId")->from( M_user::$userTypeConfig[$userType]["tableName"]);
+        if(!empty($whereArr))
+        {
+            $this->db->where($whereArr);
+        }
         if(!empty($likeStr))
         {
+            $this->db->group_start();
             $this->db->like("userId", $likeStr);
             $this->db->or_like("name", $likeStr);
             $this->db->or_like("telephone", $likeStr);
+            $this->db->group_end();
         }
         $this->db->stop_cache();
         $count = $this->db->count_all_results();

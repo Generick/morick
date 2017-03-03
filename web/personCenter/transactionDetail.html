@@ -21,7 +21,7 @@
 						<div class="list-head" ng-bind="item.transactionText"></div>
 						<div class="list-time" ng-bind="item.transactionTime * 1000 | date : 'yyyy-MM-dd HH:mm:ss'"></div>
 					</div>
-					<div class="ub-f1 text-right mgt-16" ng-class="item.moneyStyle" ng-bind="item.transactionSymbol + item.money"></div>
+					<div class="ub-f1 text-right mgt-16" ng-class="item.moneyStyle" ng-bind="item.transactionSymbol + '￥'+item.money"></div>
 				</li>
 			</ul>
 			<!--暂无数据-->

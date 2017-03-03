@@ -3,7 +3,9 @@
  */
 var AuctionCtrl = {
     scope: null,
-
+    
+    isVipJudge : -1,
+    
     auctionModel: {
         modelArr: [],
         selectAll: false,
@@ -22,7 +24,9 @@ var AuctionCtrl = {
         lowPrice: null, //最低加价
         referencePrice: 0, //参考价
         marginPrice: 0, //保证金
-
+//      highestPrice : 0,//最高价格
+        isVip :0,
+        
         keyWords: null, //搜索藏品关键字
         startIndex: 0, //从第几页搜索
         curPage: 1, //当前页
@@ -59,10 +63,12 @@ var AuctionCtrl = {
         this.scope.auctionModel = this.auctionModel;
         this.scope.goodsDetailModel = this.goodsDetailModel;
 
-        this.getAuctionList();
+        this.getAuctionList("",self.isVipJudge);
 
         this.onEvent();
-
+         
+        this.changeColor(-1); 
+         
         this.getAllGoods();
     },
 
@@ -82,12 +88,21 @@ var AuctionCtrl = {
     },
 
     //竞拍列表
-    getAuctionList: function(type){
+    getAuctionList: function(type,isVipJudge){
         var self = this;
-
-        pageController.pageInit(self.scope, api.API_GET_AUCTION_LIST, {},
+        if(isVipJudge == -1)
+        {
+        	var params = {};
+        }
+        else
+        {
+        	var params = {};
+            params.isVIP = isVipJudge;
+        }
+        pageController.pageInit(self.scope, api.API_GET_AUCTION_LIST, params,
 
             function(data){
+            	
                 self.getData(data);
             });
 
@@ -123,7 +138,7 @@ var AuctionCtrl = {
             var totalNum = Math.ceil(data.count / self.scope.page.selectPageNum);
             pageController.pageNum(totalNum);
         }
-
+         console.log(JSON.stringify(data))
         self.auctionModel.modelArr = data.auctionItems;
         for(var j = 0;j < self.auctionModel.modelArr.length; j++)
         {
@@ -199,7 +214,7 @@ var AuctionCtrl = {
     
    
 
-    //获取藏品
+    //获取拍品
     getAllGoods: function(keywords){
         var self = this,
             params = {
@@ -215,7 +230,7 @@ var AuctionCtrl = {
              */
             function(data){
                 var goods = data.goods;
-
+               
                 self.auctionModel.allGoodsArr = [];
                 for(var i = 0, len = goods.length; i < len; i++)
                 {
@@ -377,9 +392,27 @@ var AuctionCtrl = {
 		return true;
     },
     
+    
+      //点击筛选改变颜色
+    changeColor : function(type){
+    	var index = type + 2; 
+    	$("#auction-checeking").children().eq(0).css("background","#cdcdcd");
+    	$("#auction-checeking").off("click");
+    	$("#auction-checeking").on("click",".checking",function(index){
+    		$(this).css("background","#cdcdcd").siblings().css("background","#FFFFFF");
+    	})
+    },
     onEvent: function(){
         var self = this;
-        
+     
+        //分类获取拍品
+         
+        self.scope.getDifGoods = function(type){
+        	self.isVipJudge = type;
+        	self.getAuctionList("",self.isVipJudge);
+        	
+        	self.changeColor(type);
+        }
         //预览
         self.scope.preview = function() {
         	if(self.auctionModel.isAdd) //判断是添加同时检查填写参数，然后根据id调参数
@@ -394,7 +427,22 @@ var AuctionCtrl = {
     			self.getPreviewInfo();
     		}
         };
-
+        
+        //选择是普通商品还是VIP商品
+        self.scope.setPredicable = function(type){
+        	self.auctionModel.isVip = type;
+        	if(type == 0)
+        	{
+        		$("#very-important").removeClass("radio-checked");
+        		$("#not-important").addClass("radio-checked");
+        		
+        	}
+        	else
+        	{
+        		$("#very-important").addClass("radio-checked");
+         		$("#not-important").removeClass("radio-checked");
+        	}
+        },
         //查看图片大图
         self.scope.checkImg = function(){
             $dialog.photos('#tBodyAuction');
@@ -450,7 +498,7 @@ var AuctionCtrl = {
 
                     if(self.auctionModel.selectAll)
                     {
-                        self.getAuctionList(1);
+                        self.getAuctionList(1,self.isVipJudge);
                         self.auctionModel.selectAll = false;
                     }
                     else
@@ -529,7 +577,7 @@ var AuctionCtrl = {
         self.scope.submitAuction = function(){
             self.auctionModel.startTime = $("#startTime").val();
             self.auctionModel.endTime = $("#endTime").val();
-
+           
             if(self.auctionModel.isAdd)
             {   
             	
@@ -537,6 +585,7 @@ var AuctionCtrl = {
             	{
             		self.auctionModel.initPrice = 0;
             	}
+
             	if(self.auctionModel.initPrice < 0)
             	{   
             		$dialog.msg(CN_TIPS.PRICE_MUSTTHAN_ZERO, 1.6);
@@ -566,6 +615,7 @@ var AuctionCtrl = {
             {
                 self.modAuctionItem();
             }
+           
         };
 
         //跳页查看竞拍记录
@@ -588,6 +638,7 @@ var AuctionCtrl = {
             }
            
         };
+       
     },
     
     //初始化swiper
@@ -599,7 +650,7 @@ var AuctionCtrl = {
         });
     },
 
-    //发布藏品
+    //发布拍品
     publishGoods: function(){
         var self = this,
             params = {
@@ -609,14 +660,15 @@ var AuctionCtrl = {
                 referencePrice: self.auctionModel.referencePrice,
                 margin: self.auctionModel.marginPrice,
                 startTime: self.auctionModel.startTime,
-                endTime: self.auctionModel.endTime
+                endTime: self.auctionModel.endTime,
+                isVIP:self.auctionModel.isVip
             };
-
+        
         if(self.checkParams(params))
         {
             $data.httpRequest("post", api.API_RELEASE_AUCTION_ITEM, params, function(){
 				$dialog.msg(CN_TIPS.PUBLISH_OK, 1.6);
-                self.getAuctionList(1);
+                self.getAuctionList(1,self.isVipJudge);
             })
         }
     },
@@ -650,7 +702,7 @@ var AuctionCtrl = {
             params.modInfo = JSON.stringify(modInfo);
             $data.httpRequest("post", api.API_MOD_AUCTION_ITEM, params, function(){
 				$dialog.msg(CN_TIPS.MOD_OK, 1.6);
-                self.getAuctionList(1);
+                self.getAuctionList(1,self.isVipJudge);
             })
         }
     },

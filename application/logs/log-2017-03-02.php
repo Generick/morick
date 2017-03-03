@@ -1012,3 +1012,323 @@ ERROR - 2017-03-02 17:59:47 --> [methodError]:[本次竞拍出价不在合理区
 ERROR - 2017-03-02 17:59:49 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"46"}
 ERROR - 2017-03-02 18:01:27 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"44"}
 ERROR - 2017-03-02 18:01:46 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"44"}
+ERROR - 2017-03-02 18:05:46 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"44","price":"6.00"}
+ERROR - 2017-03-02 18:06:04 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"44"}
+ERROR - 2017-03-02 18:09:33 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"44"}
+ERROR - 2017-03-02 18:09:33 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"44"}
+ERROR - 2017-03-02 18:09:33 --> Update auctionItem failed: 44
+ERROR - 2017-03-02 18:09:33 --> Save auctionItems failed: 44
+ERROR - 2017-03-02 18:09:40 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"44"}
+ERROR - 2017-03-02 18:09:40 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"44"}
+ERROR - 2017-03-02 18:09:46 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"43"}
+ERROR - 2017-03-02 18:09:53 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"43"}
+ERROR - 2017-03-02 18:10:00 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"47"}
+ERROR - 2017-03-02 18:32:10 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"48","initialPrice":"0","lowestPremium":"1","margin":"0","startTime":"2017-03-02 18:30:23","endTime":"2017-03-09 18:30:23","cappedPrice":"0","isVIP":"0"}
+ERROR - 2017-03-02 18:32:10 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 18:32:54 --> [My_Controller] A_admin does not have this method: setVIP
+ERROR - 2017-03-02 18:32:54 --> Severity: error --> Exception: [My_Controller] A_admin does not have this method: setVIP F:\work\program\server\application\core\My_Controller.php 60
+ERROR - 2017-03-02 18:32:55 --> [My_Controller] A_admin does not have this method: setVIP
+ERROR - 2017-03-02 18:32:55 --> Severity: error --> Exception: [My_Controller] A_admin does not have this method: setVIP F:\work\program\server\application\core\My_Controller.php 60
+ERROR - 2017-03-02 18:32:56 --> [My_Controller] A_admin does not have this method: setVIP
+ERROR - 2017-03-02 18:32:56 --> Severity: error --> Exception: [My_Controller] A_admin does not have this method: setVIP F:\work\program\server\application\core\My_Controller.php 60
+ERROR - 2017-03-02 18:35:43 --> user:34balance change. the transactionType:6before:5119.00 after:126452
+ERROR - 2017-03-02 18:35:43 --> [methodError]:[]:F:\work\program\server\application\controllers/a_admin.php:opBalance:{"userId":"34","opType":"0","balance":"121333"}
+ERROR - 2017-03-02 18:47:15 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"49","initialPrice":"0","lowestPremium":"3","margin":"0","startTime":"2017-03-02 18:46:46","endTime":"2017-03-09 18:46:46","cappedPrice":"0","isVIP":"0"}
+ERROR - 2017-03-02 18:47:16 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 18:58:00 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 18:58:09 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 19:04:53 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 19:07:43 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 19:08:19 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 19:08:20 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 19:08:59 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 19:09:01 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 19:09:22 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 19:09:33 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 19:09:34 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 19:13:36 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 19:30:11 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"46"}
+ERROR - 2017-03-02 19:31:07 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"50","initialPrice":"0","lowestPremium":"3","margin":"0","startTime":"2017-03-02 19:30:44","endTime":"2017-03-09 19:30:44","cappedPrice":"0","isVIP":"0"}
+ERROR - 2017-03-02 19:31:07 --> DBField is not found in fields: isVIP
+ERROR - 2017-03-02 19:31:11 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:35:23 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:39:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:40:20 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:40:35 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:40:41 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:40:47 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:40:52 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:42:06 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:43:16 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:43:17 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:43:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:43:46 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:44:02 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:44:45 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:46:12 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:46:37 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:46:53 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:47:37 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:48:10 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:48:21 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:50:49 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:50:56 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:51:29 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:52:30 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:53:30 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:54:25 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:54:33 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:55:14 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:55:44 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:55:52 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:56:11 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:57:02 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:57:44 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:58:38 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:58:48 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:58:54 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"53"}
+ERROR - 2017-03-02 19:59:14 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 19:59:32 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 20:02:44 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"52"}
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:41 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:55 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:41:58 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:42:33 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:43:39 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:44:18 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:54:57 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:55:08 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:56:04 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 20:56:17 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:28:36 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:29:54 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:31:37 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:31:59 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:32:59 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:49 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:49 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:49 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:49 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:49 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:49 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:49 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:49 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:49 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:49 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:56 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:56 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:56 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:56 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:56 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:56 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:56 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:33:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:36:33 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:36:33 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:36:33 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:36:33 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:36:33 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:36:33 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:36:33 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:36:33 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:36:33 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:36:33 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:37:53 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:37:53 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:37:53 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:37:53 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:37:53 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:37:53 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:37:53 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:37:53 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:37:53 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:37:53 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:36 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:36 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:36 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:36 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:36 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:36 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:36 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:36 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:36 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:36 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:52 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:52 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:52 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:52 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:52 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:52 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:52 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:52 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:52 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:52 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:38:57 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:30 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:30 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:30 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:30 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:30 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:30 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:30 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:30 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:30 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:30 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:55 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:55 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:55 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:55 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:55 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:55 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:55 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:55 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:55 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:39:55 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:11 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:11 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:11 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:11 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:11 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:11 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:11 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:11 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:11 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:11 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:25 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:25 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:25 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:25 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:25 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:25 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:25 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:25 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:25 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:25 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:34 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:34 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:34 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:34 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:34 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:34 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:34 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:34 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:34 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:34 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:40:38 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:31 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:31 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:31 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:31 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:31 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:31 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:31 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:31 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:31 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:31 --> Severity: Notice --> Undefined property: CAuction::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:40 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:40 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:40 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:40 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:40 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:40 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:40 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:40 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:40 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:42:40 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:19 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:19 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:19 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:19 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:19 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:19 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:19 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:19 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:19 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:19 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:30 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:30 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:30 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:30 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:30 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:30 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:30 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:30 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:30 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229
+ERROR - 2017-03-02 21:43:30 --> Severity: Notice --> Undefined property: CUser::$isVIP F:\work\program\server\application\core\classbase.php 229

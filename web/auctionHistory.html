@@ -17,15 +17,15 @@
 			<img src="img/loading.gif" />
 		</div>
 		
-		
 		<!--style="background-color: #fff;margin-bottom: 40px;position:absolute; overflow:auto;-webkit-overflow-scrolling: touch; top:0; left:0; bottom:0; right:0;"-->
 		
 		<div class="container scroll">
 			<div class="list">
-				<ul>
-					<li ng-repeat="item in auctionItems" id="test_{{item.id}}" ng-click="onClickToAuctionHistoryDetail(item.id)" on-finish-render-filters>
+				<ul id="auction-ul">
+					<li ng-repeat="item in auctionItems" id="test_{{item.id}}" ng-click="onClickToAuctionHistoryDetail(item)" on-finish-render-filters>
 						<div class="item-img">
                             <!--<b style="background-image: url({{item.aucted}})"></b>-->
+                            <img style="position: absolute;top:1vw;left:0px;z-index: 5;width:14vw;height:14vw;" class="smallvippic" ng-show="(item.isVIP == 1)" src="img/newVip.png">
                             <b>
                             	<img src="img/aucted0.png"> 
                             </b>
@@ -34,18 +34,40 @@
 						<div class="price">
 							<div ng-bind="item.goodsInfo.goods_name"></div>
 							<div class="aucted-content">
-								<span>{{item.status==1?"流拍":item.isAucted?"成交价":"流拍"}}</span>
-								<span ng-show="item.status==0 && item.isAucted" ng-bind="item.currentPrice"></span>
+								<span>{{item.status==1?"流拍":item.isAucted?"成交价￥":"流拍"}}</span>
+								 <span ng-show="item.status==0 && item.isAucted" ng-bind="item.currentPrice"></span>
 							</div>
 						</div>
 					</li>
+					<div class="ac-no-more-data">
+					        没有更多数据了！
+				    </div>
 				</ul>
+				
 			</div>
 			
 			<!--暂无数据-->
 			<div class="no-data">暂无数据！</div>
 		</div>
-        <div ng-include="'module/tab/tab.html'"></div>
+        
+        <div id="acfixed-shade"  ng-click="acOkToShut()">
+        	<div class="acmodied-box" id="acsure-remark">
+			    <div class="acvipMark-box">
+			        <img src="img/newBigVip.png">
+			    </div>
+			    <div class="accontents-box">
+			                        本件拍品为 “VIP专享”，只有VIP才能查看详情和参与竞价。 申请成为VIP，请联系VIP客服专员, 微信号：tldwzhg(陶兰都吴掌柜)
+			    </div>
+			    <div class="acsure-to-do">
+			    	确定
+			    </div> 
+			</div>
+        </div>
+        
+        <div class="acu-chrysanthemums">
+			<img src="img/loading.gif"/>
+		</div>
+		<div ng-include="'module/tab/tab.html'"></div>
 	</body>
 
 	<!--系统js-->

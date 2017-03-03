@@ -114,15 +114,26 @@ var LoginCtrl =
                      * @param data.configData
                      */
                     function(data){
+//                      alert(JSON.stringify(data))
                         localStorage.setItem(localStorageKey.TOKEN,data.token);
                         localStorage.setItem(localStorageKey.SESSIONID,data.sessionId);
                         localStorage.setItem(localStorageKey.userId, data.userInfo.userId);
                         localStorage.setItem(localStorageKey.configData, JSON.stringify(data.configData));
-
+                        
+                        localStorage.setItem(localStorageKey.vipOrNot, data.userInfo.isVIP);
+                        
+                        
+                        //登陆的回调里，在本地缓存一个从登录页面进入的标志，在列表页判断，如果它存在，就不用掉用重登陆接口，否则再进行下一步判断
+                        sessionStorage.setItem("formLoginCome",1);
+                        
+                        //不管是重登陆还是登录界面登录的，登录成功的标志，关闭浏览器后自动失效
+                        sessionStorage.setItem("loginSucess",1)
+                        sessionStorage.removeItem("reloginFail")
                         //跳到精选
                         if(commonFu.isEmpty(localStorage.getItem(localStorageKey.DEFAULT)))
                         {
                             location.href = pageUrl.SELECTED_GOODS;
+                            
                         }
                         else
                         {

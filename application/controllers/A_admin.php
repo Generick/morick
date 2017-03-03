@@ -13,7 +13,6 @@ class A_admin extends Admin_Controller
         parent::__construct();
 
         $this->load->model('m_admin');
-        $this->load->model('m_smsCode');
     }
 
     function getSelfInfo()
@@ -228,7 +227,7 @@ class A_admin extends Admin_Controller
         $userList = array();
         $count = 0;
 
-        $errCode = $this->m_admin->getUserList($userType, $startIndex, $num, "", $userList, $count);
+        $errCode = $this->m_admin->getUserList($userType, $startIndex, $num, array(), "", $userList, $count);
         if ($errCode != ERROR_OK)
         {
             $this->responseError($errCode);

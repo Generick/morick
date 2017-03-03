@@ -55,7 +55,7 @@ var api = {
     API_GET_SINGLE_ORDER : BASE_URL + "order/A_order/getPersonalOrderList", //获取个人交易记录
     API_GET_SINGLE_SERVICES : BASE_URL + "paidServices/A_paidServices/getPersonalPaidServices", //获取个人购买服务
     API_ADMIN_OP_BALANCE : BASE_URL + "a_admin/opBalance", //管理员修改余额
-    
+    API_ADMIN_SET_VIP : BASE_URL +  "a_admin/setVIP",//设置用户为VIP用户
     //订单管理
     API_GET_ORDER_LIST : BASE_URL + "order/A_order/getOrderList", //订单列表
     API_DELIVER_ORDER : BASE_URL + "order/A_order/deliverOrder", //发货

@@ -37,6 +37,7 @@ class A_prizesQuiz extends Admin_Controller{
 
 		echo date("Y-m-d h:i:s");echo "<br>";
 		echo date("Y-m-d h:i:s","4686464844");
+		echo PQ_AUCTION_ON;
 		if (date("Y-m-d") < date("Y-m-d","546465464")) {
 			echo "ok";
 		}else{

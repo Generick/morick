@@ -42,7 +42,6 @@
             "a_admin/searchUserList" : {"userType" : 1, "startIndex":0, "num":10, "likeStr" : "", "说明":"分类型搜索用户"},
             "a_admin/modUserInfo" : {"userId" : "", "modInfo" : '{"note": "备注信息"}', "说明":"修改个人数据"},
             "a_admin/opBalance" : {"userId" : "", "opType" : "", "balance" : "", "说明" : "管理员操作用户余额 opType 0增加 1减少"},
-            //"a_admin/smsSend" :{"type" :"1","phoneNum":"xxx-xxxx-xxxx","goods_name":"test","price":"25","说明":"type为类型 1超价提醒 2竞拍成功 3截拍提醒"},
             "a_admin/smsSend" :{"params" :'{"type":1,"phoneNum":"18255001881","goods_name":"test","price":20}',"说明":"type为类型 1超价提醒 2竞拍成功 3截拍提醒"},
 
             //region 商品
@@ -76,7 +75,6 @@
             "auction/A_auction/delAuctionItems" : {"itemIds" : '[]', "说明" : "删除展品"},
             "auction/A_auction/setAuctionItemOff" : {"itemId" : 0, "说明" : "下架展品"},
             "auction/A_auction/auctionStatistical" :  {"startTime" : "", "endTime" : "", "startIndex" : 0, "num" : 10, "说明" : "拍品统计"},
-            "auction/A_auction/getBidList" :{"startIndex":"0", "num" : 10, "说明":"获取出价列表 offset获取位置"},
             //endregion
 
             //bids interface start
@@ -130,6 +128,7 @@
             "order/A_order/deliverOrder" : {"order_no" : "", "logistics_no" : "", "说明" : "发货"},
             "order/A_order/orderStatistical" : {"startTime" : "", "endTime" : "", "startIndex" : 0, "num" : 10, "说明" : "销售统计"},
             "order/A_order/getLogisticsInfo" : {"order_no" : "", "说明" : "获取物流信息"},
+            "order/A_order/operateOrder":{"order_no":"","type":'',"说明":'type操作类型0确认完成 1取消订单'},
             "order/U_order/getOrderList" :  {"startIndex" : 0, "num" : 10, "orderType" : 0, "说明" : "获取订单列表"},
             "order/U_order/getOrderInfo" : {"order_no" : "", "说明" : "获取订单信息"},
             "order/U_order/getLogisticsInfo" : {"order_no" : "", "说明" : "获取物流信息"},

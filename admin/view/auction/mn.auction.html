@@ -1,6 +1,12 @@
 <div ng-show="!auctionModel.isShowInfo">
     <div class="mn-header fix">
-        <div class="f"><i class="fa fa-th m-color-0"></i><span>竞拍拍品列表</span></div>
+    	<div class="f"><i class="fa fa-th m-color-0"></i><span>竞拍拍品列表</span></div>
+    	<div class="f" id="auction-checeking">
+        <div class="f checking" ng-click="getDifGoods(-1)"><span>全部</span></div>
+        <div class="f checking" ng-click="getDifGoods(0)"><span>普通拍品</span></div>
+        <div class="f checking" ng-click="getDifGoods(1)"><span>VIP拍品</span></div>
+        </div>
+     
         <div class="r m-g-l-10"><a class="btn btn-danger" ng-click="delAuctions()"><i class="ti-trash"></i>删除</a></div>
         <div class="r"><a class="btn btn-default" ng-click="addAuction()"><i class="ti-plus"></i>发布上拍</a></div>
     </div>
@@ -11,6 +17,7 @@
             <tr>
                 <td style="text-align: center">序号</td>
                 <td style="text-align: center">拍品图片</td>
+                <td style="text-align: center"></td>
                 <td style="text-align: center">拍品名</td>
                 <td style="text-align: center">拍品进价</td>
                 <td style="text-align: center">当前价格</td>
@@ -31,6 +38,11 @@
             <tr ng-repeat="item in auctionModel.modelArr">
                 <td style="text-align: center">{{$index + 1 + (page.currentPage - 1)*page.selectPageNum}}</td>
                 <td><img style="width: 105px;" ng-if="item.pic" ng-src="{{item.pic}}" ng-click="checkImg()"></td>
+                <td style="min-width:75px;padding-left:6px;padding-right:7px;">
+                	<div ng-class="{true:'actu-vip',false:''}[item.isVIP == '1']" style="font-size:14px; height:25px;line-height:25px;padding:0 4px;text-align: center;">
+                	<span ng-show = "item.isVIP == '1'">VIP专享</span>
+                	</div>
+                </td>
                 <td style="text-align: center">{{item.goodsInfo.goods_name}}</td>
                 <td style="text-align: center">{{"￥"+item.goodsInfo.goods_bid}}</td>
                 <td style="text-align: center">{{"￥"+item.currentPrice}}</td>

@@ -12,6 +12,7 @@ CUser::registerFields(array(
     "note" =>       new CField(FIELD_TYPE_NORMAL),
     "balance" =>  new CField(FIELD_TYPE_NORMAL),
     "frozen" =>  new CField(FIELD_TYPE_NORMAL),
+    "isVIP" => new CField(FIELD_TYPE_NORMAL),
 ));
 
 // 扩展user的方法
@@ -26,7 +27,8 @@ CUser::registerExtFunction('test', function($obj, $a, $b)
 CUserInfo::registerFields(array(
     'note',
     'balance',
-    'frozen'
+    'frozen',
+    "isVIP",
 ));
 
 CUserBaseInfo::registerFields(array(

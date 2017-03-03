@@ -15,4 +15,5 @@ Error::registerErrors(array(
     array('errDefine' => 'ERROR_CAN_NOT_RELEASE', 'errMsg' => '该商品正在上架无法再次发布！'),
     array('errDefine' => 'ERROR_AUCTION_ON', 'errMsg' => '该拍品正在上架无法修改，请先下架后修改！'),
     array('errDefine' => 'ERROR_HAS_BID', 'errMsg' => '该拍品已经有人竞拍，无法修改！'),
+    array('errDefine' => 'ERROR_ONLY_FOR_VIP', 'errMsg' => '该拍品为VIP专享，非VIP用户无法查看！'),
 ));

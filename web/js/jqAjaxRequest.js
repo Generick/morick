@@ -19,34 +19,62 @@ var jqAjaxRequest =
 			url: s_url,
 			async: true,
 			data: params,
+			cache:false,
 			dataType: 'json',
 			success: function(data){
+//				alert("page"+sessionStorage.getItem("itIsSelectPage"));
+//				alert("token"+localStorage.getItem(localStorageKey.TOKEN))
+//				alert(JSON.stringify(data))
+				
 				var err = data.err;
 				var errMsg = data.errMsg;
 				
 				if(commonFu.equal(err,errCode.SUCCESS))
-				{
+				{ 
 					callback(data.data);
 				}
 				else if(commonFu.equal(err, errCode.TOKEN_FAILED) || commonFu.equal(err, errCode.TOKEN_WRONG)) //token过期跳或出错跳登录页
-				{
+				{   
+					
                     localStorage.setItem(localStorageKey.DEFAULT, location.href); //存储当前页面地址
-                    location.href = pageUrl.LOGIN_PAGE;
+                    // alert("token已经失效了 ")
+                    sessionStorage.setItem("reloginFail",1)
+//                  location.href = pageUrl.LOGIN_PAGE;
 				}
 				else if(commonFu.equal(err, errCode.SESSION_FAILED)) //session失效重登陆
-				{
+				{   
 					jqAjaxRequest.reLogin();
 				}
+				else if(commonFu.equal(err, errCode.VIP_LIMIT)) //非vip进入了vip
+				{
+					//请求拍品详情页 回调
+					//获取当前url  截取url参数  然后根据参数来跳转到指定页面
+					if(!commonFu.isEmpty(sessionStorage.getItem("itIsSelectPage")))
+					{
+//						alert("xianzaidepage"+ GoodsInfoCtrl.thisDetailPage)
+//						alert("xianzaideid"+ GoodsInfoCtrl.thisDataId)
+						sessionStorage.setItem("needPage",1)
+				    	location.href = pageUrl.SELECTED_GOODS +"?backPage=" + GoodsInfoCtrl.thisDetailPage + "&thisDataId=" + GoodsInfoCtrl.thisDataId;
+
+					}
+					else if(!commonFu.isEmpty(sessionStorage.getItem("itIsAuctionPage")))
+					{
+						sessionStorage.setItem("needPageId",1)
+				    	location.href = pageUrl.AUCTION_HISTORY +"?backPage=" + auctedGoodsDetailController.thisDetailPage + "&thisDataId=" + auctedGoodsDetailController.thisDataId;
+					}
+				}
                 else
-                {
-                    $dialog.msg(errMsg);
+                {   
+//              	alert("4token"+localStorage.getItem(localStorageKey.TOKEN))
+                	//alert(errMsg)
+                  	$dialog.msg(errMsg);
                     if(!commonFu.isEmpty(fail)){
                         fail(err); //返回错误码
                     }
                 }
 			},
 			error: function() {
-                //alert("请求数据失败");
+                $dialog.msg("请求数据失败");
                 //location.href = pageUrl.LOGIN_PAGE;
             }
 		});
@@ -58,8 +86,10 @@ var jqAjaxRequest =
             userType : 1,
             token : localStorage.getItem(localStorageKey.TOKEN)
         };
-
+          
         jqAjaxRequest.asyncAjaxRequest(apiUrl.API_USER_RELOGIN, params, function(data){
+            sessionStorage.setItem("loginSucess",1);
+            sessionStorage.removeItem("reloginFail")
             localStorage.setItem(localStorageKey.TOKEN, data.token);
         })
     }

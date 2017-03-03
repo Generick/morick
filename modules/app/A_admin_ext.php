@@ -18,10 +18,15 @@ $CI->searchUserList = function($ctrl){
     $startIndex = intval($ctrl->input->post("startIndex"));
     $num = intval($ctrl->input->post("num"));
     $likeStr = trim($ctrl->input->post("likeStr"));
+    $whereArr = array();
+    if(isset($_POST["isVIP"]))
+    {
+        $whereArr["isVIP"] = intval($ctrl->input->post("isVIP"));
+    }
     $userList = array();
     $count = 0;
 
-    $errCode = $ctrl->m_admin->getUserList($userType, $startIndex, $num, $likeStr, $userList, $count);
+    $errCode = $ctrl->m_admin->getUserList($userType, $startIndex, $num, $whereArr, $likeStr, $userList, $count);
     if ($errCode != ERROR_OK)
     {
         $ctrl->responseError($errCode);
@@ -80,5 +85,39 @@ $CI->getStatistics = function($ctrl){
     $statistics["totalTurnover"] = $turnoverInfo[0]->goodsPrice;
 
     $ctrl->responseSuccess(array("statistics" => $statistics));
+    return;
+};
+
+/**
+ * 设置or取消设置VIP
+ * @param $ctrl
+ */
+$CI->setVIP = function($ctrl){
+    if(!$ctrl->checkParam(array("userIds", "type")))
+    {
+        $ctrl->responseError(ERROR_PARAM);
+        return;
+    }
+
+    $userIdArr = json_decode(trim($ctrl->input->post("userIds")), true) ? json_decode(trim($ctrl->input->post("userIds")), true) : array();
+    $type = intval($ctrl->input->post("type"));
+
+    $ctrl->load->model("m_user");
+    $isVIP = 1;
+    if($type == 0)
+    {
+        $isVIP = 0;
+    }
+
+    foreach($userIdArr as $userId)
+    {
+        $userObj = $ctrl->m_user->getUserObj(USER_TYPE_USER, $userId);
+        if($userObj)
+        {
+            $userObj->modInfoWithPrivilege(array("isVIP" => $isVIP));
+        }
+    }
+
+    $ctrl->responseError(ERROR_OK);
     return;
 };

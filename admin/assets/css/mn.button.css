@@ -45,6 +45,9 @@
 	background-color: #eee;
 }
 
+.btnSmall{
+	padding: 6px 12px;
+}
 .btn-danger{
 	background-color: #B07B67;
     color: #ddd;
