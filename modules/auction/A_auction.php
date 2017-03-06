@@ -90,6 +90,14 @@ class A_auction extends Admin_Controller
             return;
         }
 
+        //judge if the auction is a quiz
+        $isQuiz = $this->input->post('isQuiz');
+        $tickets = $limitNum = null;
+        if ($isQuiz == 1) {
+            $tickets = intval($this->input->post('tickets'));
+            $limitNum = intval($this->input->post('limitNum'));
+        }
+
         $goodsId = intval($this->input->post("goodsId"));
         $this->load->model("m_goods_bak");
         $bak_id = 0;
@@ -113,7 +121,7 @@ class A_auction extends Admin_Controller
             "createTime" => now(),
         );
 
-        $retCode = $this->m_auction->releaseAuctionItem($goodsId, $insertData);
+        $retCode = $this->m_auction->releaseAuctionItem($goodsId, $insertData, $tickets, $limitNum);
         $this->responseError($retCode);
         return;
     }

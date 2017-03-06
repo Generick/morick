@@ -3,16 +3,19 @@
 * create by mxl
 * time 2017-2-21
 */
-class A_prizesQuiz extends Admin_Controller{
+class A_prizesQuiz extends Admin_Controller
+{
 	
-	function __construct(){
+	function __construct()
+	{
 		# code...
 		parent::__construct();
 		$this->load->model('m_prizesQuiz');
 	}
 
 	//adminisstration qiut the quiz
-	function quitQuiz(){
+	function quitQuiz()
+	{
 		if (!$this->checkParam(array('quizItemId'))) {
 		$this->responseError(ERROR_PARAM);
 		}
@@ -22,18 +25,51 @@ class A_prizesQuiz extends Admin_Controller{
 		return $this->responseError($res);
 	}
 
-	//get prizes quiz lists
-	function getQuizList(){
-		$quizList = $this->m_prizesQuiz->getQuizList();
-		return $this->responseSuccess($quizList);
+
+	// get quiz list
+	function getQuizList()
+	{
+		$data = null;
+		$this->m_prizesQuiz->getQuizList($data);
+		return $this->responseSuccess($data);
 	}
 
-	function getQuizUserList(){
+	//get quiz user list
+	function getQuizUserList()
+	{
 		$quizUserList = $this->m_prizesQuiz->getQuizUserList();
 		return $this->responseSuccess($quizUserList);
 	}
 
-	function test(){
+	// search quiz user by id or telephone or name
+	function searchQuizList()
+	{
+		if (!$this->checkParam(array('fields'))) 
+		{
+			$this->responseError(ERROR_PARAM);
+			return;
+		}
+
+		$data = null;
+		$this->m_prizesQuiz->searchQuizList($fields,$data);
+		return $this->responseSuccess($data);
+	}
+
+	// view quiz
+	function viewQuiz()
+	{
+		if (!$this->checkParam(array('auctionId'))) {
+			$this->responseError(ERROR_PARAM);
+			return;
+		}
+		$auctionId = $this->input->post('auctionId');
+		$data = null;
+		$this->m_prizesQuiz->viewQuiz($auctionId,$data);
+		return $this->responseSuccess($data);
+	}
+
+	function test()
+	{
 
 		echo date("Y-m-d h:i:s");echo "<br>";
 		echo date("Y-m-d h:i:s","4686464844");

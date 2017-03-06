@@ -289,7 +289,8 @@ class M_order extends My_Model
     }
 
     //operate order status
-    function sure_cancel_order($order_no,$type){
+    function sure_cancel_order($order_no, $type)
+    {
         $orderObj = $this->getOrderObj($order_no);
         if (!$orderObj) {
             return ERROR_ORDER_NOT_FOUND;
@@ -299,11 +300,11 @@ class M_order extends My_Model
         switch ($type) {
             case 0:
                 //sure complete order
-                $status = 4;
+                $status = ORDER_STATUS_RECEIVE;
                 break;
             case 1:
                 //cancel order
-                $status = 0;
+                $status = ORDER_STATUS_CANCEL;
                 break;
             
             default:
@@ -311,7 +312,8 @@ class M_order extends My_Model
                 break;
         }
 
-        $this->db->where('order_no',$orderObj->order_no)->update('order',array('orderStatus'=>$status));
+        //$this->db->where('order_no',$orderObj->order_no)->update('order',array('orderStatus'=>$status));
+        $this->modOrderInfo($order_no,array('orderStatus'=>$status));
         return ERROR_OK;
     }
 

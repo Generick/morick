@@ -497,7 +497,7 @@ class M_auction extends My_Model
      * @param $insertData
      * @return mixed
      */
-    function releaseAuctionItem($goodsId, $insertData)
+    function releaseAuctionItem($goodsId, $insertData, $tickets, $limitNum)
     {
         $this->load->model("m_account");
         $userType = $this->m_account->getSessionData("userType");
@@ -518,6 +518,14 @@ class M_auction extends My_Model
         {
             return ERROR_SYSTEM;
         }
+        //mxl add
+        if (!empty($tickets) && !empty($limitNum) && $limitNum >= 3 && $insertData['startTime'] > time()) 
+        {
+            # code...
+            $this->load->model('m_prizesQuiz');
+            $this->m_prizesQuiz->createQuiz($this->db->insert_id(), $insertData['goods_bak_id'],$tickets, $limitNum);
+        }
+        
         return ERROR_OK;
     }
 
