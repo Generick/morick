@@ -52,11 +52,21 @@
       <file leaf-file-name="defines.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/prizesQuiz/define/defines.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="266">
+              <caret line="14" column="39" lean-forward="false" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
               <folding>
                 <element signature="e#6#86#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/views/test.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="419">
+              <caret line="89" column="74" lean-forward="false" selection-start-line="89" selection-start-column="74" selection-end-line="89" selection-end-column="74" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -85,16 +95,31 @@
         <entry file="file://$PROJECT_DIR$/modules/auction/M_auction.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-915">
-              <caret line="398" column="19" lean-forward="true" selection-start-line="398" selection-start-column="19" selection-end-line="398" selection-end-column="19" />
-              <folding />
+              <caret line="398" column="19" lean-forward="false" selection-start-line="398" selection-start-column="19" selection-end-line="398" selection-end-column="19" />
+              <folding>
+                <marker date="1488797415021" expanded="true" signature="15187:16210" ph="{...}" />
+                <marker date="1488797415021" expanded="true" signature="15961:16170" ph="{...}" />
+                <marker date="1488797415021" expanded="true" signature="16219:16305" ph=" 修改展品信息 ..." />
+                <marker date="1488797415021" expanded="true" signature="16353:16903" ph="{...}" />
+                <marker date="1488797415021" expanded="true" signature="16449:16513" ph="{...}" />
+                <marker date="1488797415021" expanded="true" signature="16525:16737" ph="..." />
+                <marker date="1488797415021" expanded="true" signature="16788:16872" ph="{...}" />
+                <marker date="1488797415021" expanded="true" signature="16912:16973" ph=" 删除展品 ..." />
+                <marker date="1488797415021" expanded="true" signature="17012:17382" ph="{...}" />
+                <marker date="1488797415021" expanded="true" signature="17108:17172" ph="{...}" />
+                <marker date="1488797415021" expanded="true" signature="17254:17347" ph="{...}" />
+                <marker date="1488797415021" expanded="true" signature="17391:17441" ph=" 获取当前上架拍卖的商品ID数组 ..." />
+                <marker date="1488797415021" expanded="true" signature="17474:17904" ph="{...}" />
+                <marker date="1488797415021" expanded="true" signature="17795:17865" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TimedTask.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TimedTask.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/timedTask/TimedTask.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
+            <state relative-caret-position="287">
               <caret line="127" column="13" lean-forward="true" selection-start-line="127" selection-start-column="13" selection-end-line="127" selection-end-column="13" />
               <folding />
             </state>
@@ -163,6 +188,7 @@
       <find>payorder</find>
       <find>sendMsg</find>
       <find>出价提醒</find>
+      <find>bids</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -183,7 +209,6 @@
         <option value="$PROJECT_DIR$/modules/readLog/M_readLog.php" />
         <option value="$PROJECT_DIR$/modules/readLog/U_readLog.php" />
         <option value="$PROJECT_DIR$/modules/auction/M_auction.php" />
-        <option value="$PROJECT_DIR$/application/views/test.php" />
         <option value="$PROJECT_DIR$/modules/bids/A_bids.php" />
         <option value="$PROJECT_DIR$/modules/bids/M_bids.php" />
         <option value="$PROJECT_DIR$/modules/order/U_order.php" />
@@ -194,8 +219,9 @@
         <option value="$PROJECT_DIR$/modules/order/A_order.php" />
         <option value="$PROJECT_DIR$/database/alter_20170302.sql" />
         <option value="$PROJECT_DIR$/modules/order/define/defines.php" />
-        <option value="$PROJECT_DIR$/modules/prizesQuiz/define/defines.php" />
         <option value="$PROJECT_DIR$/modules/timedTask/TimedTask.php" />
+        <option value="$PROJECT_DIR$/modules/prizesQuiz/define/defines.php" />
+        <option value="$PROJECT_DIR$/application/views/test.php" />
       </list>
     </option>
   </component>
@@ -509,6 +535,24 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auction" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -622,12 +666,12 @@
       <workItem from="1488249246792" duration="48080000" />
       <workItem from="1488541331183" duration="724000" />
       <workItem from="1488764048801" duration="1539000" />
-      <workItem from="1488766844862" duration="7560000" />
+      <workItem from="1488766844862" duration="16930000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86790000" />
+    <option name="totallyTimeSpent" value="96160000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -646,7 +690,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14166667" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22914466" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22914466" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -867,13 +911,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="79" column="34" lean-forward="false" selection-start-line="79" selection-start-column="34" selection-end-line="79" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/bids/M_bids.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="627">
@@ -1004,24 +1041,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/order/define/defines.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="29" column="11" lean-forward="true" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/prizesQuiz/define/defines.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding>
-            <element signature="e#6#86#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/models/M_smsCode.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
@@ -1065,15 +1084,56 @@
     <entry file="file://$PROJECT_DIR$/modules/auction/M_auction.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-915">
-          <caret line="398" column="19" lean-forward="true" selection-start-line="398" selection-start-column="19" selection-end-line="398" selection-end-column="19" />
-          <folding />
+          <caret line="398" column="19" lean-forward="false" selection-start-line="398" selection-start-column="19" selection-end-line="398" selection-end-column="19" />
+          <folding>
+            <marker date="1488797415021" expanded="true" signature="15187:16210" ph="{...}" />
+            <marker date="1488797415021" expanded="true" signature="15961:16170" ph="{...}" />
+            <marker date="1488797415021" expanded="true" signature="16219:16305" ph=" 修改展品信息 ..." />
+            <marker date="1488797415021" expanded="true" signature="16353:16903" ph="{...}" />
+            <marker date="1488797415021" expanded="true" signature="16449:16513" ph="{...}" />
+            <marker date="1488797415021" expanded="true" signature="16525:16737" ph="..." />
+            <marker date="1488797415021" expanded="true" signature="16788:16872" ph="{...}" />
+            <marker date="1488797415021" expanded="true" signature="16912:16973" ph=" 删除展品 ..." />
+            <marker date="1488797415021" expanded="true" signature="17012:17382" ph="{...}" />
+            <marker date="1488797415021" expanded="true" signature="17108:17172" ph="{...}" />
+            <marker date="1488797415021" expanded="true" signature="17254:17347" ph="{...}" />
+            <marker date="1488797415021" expanded="true" signature="17391:17441" ph=" 获取当前上架拍卖的商品ID数组 ..." />
+            <marker date="1488797415021" expanded="true" signature="17474:17904" ph="{...}" />
+            <marker date="1488797415021" expanded="true" signature="17795:17865" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/timedTask/TimedTask.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
+        <state relative-caret-position="287">
           <caret line="127" column="13" lean-forward="true" selection-start-line="127" selection-start-column="13" selection-end-line="127" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/order/define/defines.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="29" column="11" lean-forward="true" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/prizesQuiz/define/defines.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="39" lean-forward="false" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
+          <folding>
+            <element signature="e#6#86#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="89" column="74" lean-forward="false" selection-start-line="89" selection-start-column="74" selection-end-line="89" selection-end-column="74" />
           <folding />
         </state>
       </provider>

@@ -17,14 +17,14 @@ class U_prizesQuiz extends User_Controller
 	function partakeQuiz()
 	{
 		//some code here
-		if (!$this->checkParam(array('auctionItemId','quizPrice'))) {
+		if (!$this->checkParam(array('auctionId','quizPrice'))) {
 			$this->responseError(ERROR_PARAM);
 			exit;
 		}
-		$quizItemId = $this->input->post('auctionItemId');
+		$auctionId = $this->input->post('auctionId');
 		$quizPrice = $this->input->post('quizPrice');
 		$userId = $this->m_user->getSelfUserId();
-		$res = $this->m_prizesQuiz->partakeQuiz($auctionItemId, $quizPrice, $userId);
+		$res = $this->m_prizesQuiz->partakeQuiz($auctionId, $quizPrice, $userId);
 		if ($res != ERROR_OK) {
 			$this->responseError($res);
 			exit;
@@ -32,6 +32,19 @@ class U_prizesQuiz extends User_Controller
 
 		$this->responseSuccess($res);
 		
+	}
+
+	// get quiz user list
+	function getQuizUserList()
+	{
+		if (!$this->checkParam(array('auctionId'))) {
+			$this->responseError(ERROR_PARAM);
+			return;
+		}
+		$auctionId = $this->input->post('auctionId');
+		$data = null;
+		$res = $this->m_prizesQuiz->getQuizUserList($auctionId, $data);
+		$this->responseSuccess($data);
 	}
 
 

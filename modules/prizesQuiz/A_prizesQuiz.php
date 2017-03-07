@@ -37,7 +37,8 @@ class A_prizesQuiz extends Admin_Controller
 	//get quiz user list
 	function getQuizUserList()
 	{
-		$quizUserList = $this->m_prizesQuiz->getQuizUserList();
+		$data = null;
+		$quizUserList = $this->m_prizesQuiz->getQuizUserList($auctionId, $data);
 		return $this->responseSuccess($quizUserList);
 	}
 
@@ -50,6 +51,7 @@ class A_prizesQuiz extends Admin_Controller
 			return;
 		}
 
+		$fields = $this->input->post('fields');
 		$data = null;
 		$this->m_prizesQuiz->searchQuizList($fields,$data);
 		return $this->responseSuccess($data);
@@ -66,6 +68,18 @@ class A_prizesQuiz extends Admin_Controller
 		$data = null;
 		$this->m_prizesQuiz->viewQuiz($auctionId,$data);
 		return $this->responseSuccess($data);
+	}
+
+	// update limit num
+	function updateLimitNum(){
+		if (!$this->checkParam(array('auctionId','limitNum'))) {
+			$this->responseError(ERROR_PARAM);
+			return;
+		}
+		$auctionId = $this->input->post('auctionId');
+		$limitNum = $this->input->post('limitNum');
+		$this->m_prizesQuiz->updateLimitNum($auctionId,$limitNum);
+		$this->responseSuccess(ERROR_OK);
 	}
 
 	function test()

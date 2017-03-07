@@ -82,6 +82,19 @@
             "bids/A_bids/smsSend":{"params" :'{"type":1,"phoneNum":"18255001881","goods_name":"test","price":20}',"说明":"type为类型 1超价提醒 2竞拍成功 3截拍提醒"},
             //bids end
 
+            //prizes quiz interface start
+            "prizesQuiz/prizesQuiz/getPrizesList":{"status":1,"startIndex":0,"num":10,"说明":"前端获取竞猜列表"},
+            "prizesQuiz/prizesQuiz/getQuizInfo":{"auctionId":1,"说明":"前端获取竞猜页面"},
+            "prizesQuiz/prizesQuiz/getQuizUserList":{"auctionId":1,"说明":"获取某一拍品的参与有奖竞猜的用户"},
+            "prizesQuiz/A_prizesQuiz/getQuizList":{"说明":"管理后台获取竞猜列表"},
+            "prizesQuiz/A_prizesQuiz/viewQuiz":{"auctionId":"2","说明":"管理后台查看竞猜详情"},
+            "prizesQuiz/A_prizesQuiz/searchQuizList":{"fields":2,"说明":"管理后台搜索竞猜列表"},
+            "prizesQuiz/A_prizesQuiz/quitQuiz":{"auctionId":2,"说明":"管理后台结束竞猜"},
+            "prizesQuiz/A_prizesQuiz/updateLimitNum":{"auctionId":2,"limitNum":50,"说明":"管理员设置人数限制"},
+            "prizesQuiz/U_prizesQuiz/partakeQuiz":{"auctionId":2,"quizPrice":50,"说明":"用户参与有奖竞猜"},
+
+            //prizes quiz end
+
             //region 阅读模块
             "readLog/ReadLog/readWithType" : {"readType" : 1, "readId" : 1, "说明" : "阅读指定对象", "备注" : "readType 1为阅读展品"},
             "readLog/U_readLog/getReadObjList" : {"readType" : 1, "startIndex" : 0, "num" : 10, "说明" : "获取个人阅读对象列表", "备注" : ""},
