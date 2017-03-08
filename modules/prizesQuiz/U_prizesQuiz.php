@@ -19,33 +19,22 @@ class U_prizesQuiz extends User_Controller
 		//some code here
 		if (!$this->checkParam(array('auctionId','quizPrice'))) {
 			$this->responseError(ERROR_PARAM);
-			exit;
+			return;
 		}
 		$auctionId = $this->input->post('auctionId');
 		$quizPrice = $this->input->post('quizPrice');
 		$userId = $this->m_user->getSelfUserId();
 		$res = $this->m_prizesQuiz->partakeQuiz($auctionId, $quizPrice, $userId);
-		if ($res != ERROR_OK) {
+		if ($res !== ERROR_OK) {
 			$this->responseError($res);
-			exit;
+			return;
 		}
 
 		$this->responseSuccess($res);
 		
 	}
 
-	// get quiz user list
-	function getQuizUserList()
-	{
-		if (!$this->checkParam(array('auctionId'))) {
-			$this->responseError(ERROR_PARAM);
-			return;
-		}
-		$auctionId = $this->input->post('auctionId');
-		$data = null;
-		$res = $this->m_prizesQuiz->getQuizUserList($auctionId, $data);
-		$this->responseSuccess($data);
-	}
+	
 
 
 }

@@ -105,7 +105,8 @@ class CAuctionAllInfo extends IExtractInfo {
             "createTime",
             "isCreateOrder",
             "isRemind",
-            "cappedPrice"
+            "cappedPrice",
+            "isQuiz"
         );
     }
 
@@ -158,6 +159,7 @@ class CAuction extends CDataClassBase {
             "isCreateOrder" => new CField(FIELD_TYPE_NORMAL),
             "isRemind" => new CField(FIELD_TYPE_NORMAL),
             "cappedPrice" => new CField(FIELD_TYPE_NORMAL),
+            "isQuiz" => new CField(FIELD_TYPE_NORMAL),
         );
 
         self::$modInfo = array(
@@ -180,7 +182,8 @@ class CAuction extends CDataClassBase {
             "endTime",
             "isCreateOrder",
             "isRemind",
-            "cappedPrice"
+            "cappedPrice",
+            "isQuiz",
         );
 
         self::$staticConstructed = true;

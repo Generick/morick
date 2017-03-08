@@ -273,3 +273,6 @@ WHERE `auction_id` = '1'
 ERROR - 2017-03-07 18:53:51 --> Lack of param: itemId
 ERROR - 2017-03-07 18:53:51 --> [methodError]:[参数错误！]:F:\work\program\server\application\controllers/auction/Auction.php:getBiddingList:{"auctionId":"48","startIndex":"0","num":"5"}
 ERROR - 2017-03-07 18:53:51 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-07 18:58:07 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-07 18:58:47 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-07 18:59:09 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}

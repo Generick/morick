@@ -84,7 +84,7 @@ class A_auction extends Admin_Controller
     function releaseAuctionItem()
     {
         //其中isFreeShipment  isFreeExchange 后续确认具体类型 来设定单独字段来处理  单独一个类型表格
-        if(!$this->checkParam(array("goodsId", "initialPrice", "lowestPremium", "margin", "isVIP", "startTime", "endTime", "cappedPrice" )))
+        if(!$this->checkParam(array("goodsId", "initialPrice", "lowestPremium", "margin", "isVIP", "startTime", "endTime", "cappedPrice", 'isQuiz')))
         {
             $this->responseError(ERROR_PARAM);
             return;
@@ -119,6 +119,7 @@ class A_auction extends Admin_Controller
             "startTime" => strtotime(trim($this->input->post("startTime"))),
             "endTime" => strtotime(trim($this->input->post("endTime"))),
             "createTime" => now(),
+            'isQuiz'=>intval($isQuiz)
         );
 
         $retCode = $this->m_auction->releaseAuctionItem($goodsId, $insertData, $tickets, $limitNum);

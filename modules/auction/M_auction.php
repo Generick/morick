@@ -45,20 +45,20 @@ class M_auction extends My_Model
     function getAuctionItemObj($itemId)
     {
         $auctionItemObj = null;
-        if(isset(self::$loadedItems[$itemId]))
-        {
-            $auctionItemObj = self::$loadedItems[$itemId];
-            return $auctionItemObj;
-        }
+        // if(isset(self::$loadedItems[$itemId]))
+        // {
+        //     $auctionItemObj = self::$loadedItems[$itemId];
+        //     return $auctionItemObj;
+        // }
 
-        $key = CACHE_PREFIX_AUCTION . $itemId;
+        // $key = CACHE_PREFIX_AUCTION . $itemId;
 
-        $auctionItemObj = unserialize($this->cache->redis->get($key));
-        if($auctionItemObj)
-        {
-            self::$loadedItems[$itemId] = $auctionItemObj;
-            return $auctionItemObj;
-        }
+        // $auctionItemObj = unserialize($this->cache->redis->get($key));
+        // if($auctionItemObj)
+        // {
+        //     self::$loadedItems[$itemId] = $auctionItemObj;
+        //     return $auctionItemObj;
+        // }
 
         $result = $this->m_common->get_one("auctionItems", array("id" => $itemId));
         if(!empty($result))
@@ -363,15 +363,15 @@ class M_auction extends My_Model
         }
 
         //超越提醒
-        if($auctionItemObj->currentUser != 0)
-        {
-            //判断是否在指定时间内提醒过
-            if(!$this->m_common->get_one("sms_remind", array("remindType" => 0, "userId" => $auctionItemObj->currentUser, "auctionId" => $auctionItemObj->id, "remindTime >" => (now() - SMS_REMIND_INTERVAL))))
-            {
-                $this->beyondPrice($auctionItemObj, $price);
-               // $this->beyondPrice($auctionItemObj->goods_bak_id, $auctionItemObj->currentUser, $price);
-            }
-        }
+        // if($auctionItemObj->currentUser != 0)
+        // {
+        //     //判断是否在指定时间内提醒过
+        //     if(!$this->m_common->get_one("sms_remind", array("remindType" => 0, "userId" => $auctionItemObj->currentUser, "auctionId" => $auctionItemObj->id, "remindTime >" => (now() - SMS_REMIND_INTERVAL))))
+        //     {
+        //         $this->beyondPrice($auctionItemObj, $price);
+        //        // $this->beyondPrice($auctionItemObj->goods_bak_id, $auctionItemObj->currentUser, $price);
+        //     }
+        // }
 
         //修改展品表对应数据
         if(!$auctionItemObj->modInfo($modInfo))
@@ -519,12 +519,16 @@ class M_auction extends My_Model
             return ERROR_SYSTEM;
         }
         //mxl add
-        if (!empty($tickets) && !empty($limitNum) && $limitNum >= 3 && $insertData['startTime'] > time()) 
-        {
+        if ($insertData['isQuiz'] == 1) {
             # code...
-            $this->load->model('m_prizesQuiz');
-            $this->m_prizesQuiz->createQuiz($this->db->insert_id(), $insertData['goods_bak_id'],$tickets, $limitNum);
+            if (!empty($tickets) && !empty($limitNum) && $limitNum >= 3 && $insertData['startTime'] > time()) 
+            {
+                # code...
+                $this->load->model('m_prizesQuiz');
+                $this->m_prizesQuiz->createQuiz($this->db->insert_id(), $insertData['goods_bak_id'],$tickets, $limitNum);
+            }
         }
+        
         
         return ERROR_OK;
     }

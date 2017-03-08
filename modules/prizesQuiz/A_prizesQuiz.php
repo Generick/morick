@@ -16,22 +16,24 @@ class A_prizesQuiz extends Admin_Controller
 	//adminisstration qiut the quiz
 	function quitQuiz()
 	{
-		if (!$this->checkParam(array('quizItemId'))) {
+		if (!$this->checkParam(array('auctionId'))) {
 		$this->responseError(ERROR_PARAM);
 		}
 
-		$quizItemId = $this->input->post('quizItemId');
-		$res = $this->m_prizesQuiz->quitQuiz($quizItemId);
-		return $this->responseError($res);
+		$auctionId = $this->input->post('auctionId');
+		$res = $this->m_prizesQuiz->quitQuiz($auctionId);
+		$this->responseError($res);
 	}
 
 
 	// get quiz list
 	function getQuizList()
 	{
-		$data = null;
-		$this->m_prizesQuiz->getQuizList($data);
-		return $this->responseSuccess($data);
+		$startIndex = $this->input->post('startIndex');
+		$num = $this->input->post('num');
+		$data = $count = null;
+		$this->m_prizesQuiz->getQuizList($startIndex, $num, $data, $count);
+		return $this->responseSuccess(array('data'=>$data,'count'=>$count));
 	}
 
 	//get quiz user list
@@ -84,6 +86,19 @@ class A_prizesQuiz extends Admin_Controller
 
 	function test()
 	{
+		if ('啊啊啊' === ERROR_OK) {
+			$this->responseError('dasdaff');
+			return;
+		}
+
+		$hasLogin = true;
+        $this->load->model("m_account");
+        if($this->m_account->getSessionData("userType") != USER_TYPE_USER)
+        {
+            $hasLogin = false;
+        }
+        var_dump($this->m_account->getSessionData('userType'));
+		$this->responseSuccess(PQ_REPEAT);die;
 
 		echo date("Y-m-d h:i:s");echo "<br>";
 		echo date("Y-m-d h:i:s","4686464844");

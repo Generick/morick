@@ -39,6 +39,14 @@ class prizesQuiz extends My_Controller
 		$auctionId = $this->input->post('auctionId');
 		$data = null;
 		$this->m_prizesQuiz->getQuizInfo($auctionId, $data);
+		//judge has login
+		$data['hasLogin'] = true;
+        $this->load->model("m_account");
+        if($this->m_account->getSessionData("userType") != USER_TYPE_USER)
+        {
+            $data['hasLogin'] = false;
+        }
+
 		$this->responseSuccess($data);
 	}
 
@@ -49,10 +57,13 @@ class prizesQuiz extends My_Controller
 			$this->responseError(ERROR_PARAM);
 			return;
 		}
+
+		$startIndex = $this->input->post('startIndex');
+		$num = $this->input->post('num');
 		$auctionId = $this->input->post('auctionId');
-		$data = $sum = null;
-		$res = $this->m_prizesQuiz->getQuizUserList($auctionId, $data, $sum);
-		$this->responseSuccess(array('data'=>$data,'sum'=>$sum['sum']));
+		$data = $sum = $count = null;
+		$res = $this->m_prizesQuiz->getQuizUserList($auctionId, $startIndex, $num, $data, $sum, $count);
+		$this->responseSuccess(array('data'=>$data,'sum'=>$sum['sum'],'count'=>$count));
 	}
 
 }

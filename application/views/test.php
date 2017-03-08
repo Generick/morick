@@ -85,8 +85,8 @@
             //prizes quiz interface start
             "prizesQuiz/prizesQuiz/getPrizesList":{"status":1,"startIndex":0,"num":10,"说明":"前端获取竞猜列表"},
             "prizesQuiz/prizesQuiz/getQuizInfo":{"auctionId":1,"说明":"前端获取竞猜页面"},
-            "prizesQuiz/prizesQuiz/getQuizUserList":{"auctionId":1,"说明":"获取某一拍品的参与有奖竞猜的用户"},
-            "prizesQuiz/A_prizesQuiz/getQuizList":{"说明":"管理后台获取竞猜列表"},
+            "prizesQuiz/prizesQuiz/getQuizUserList":{"auctionId":1,"startIndex":"0","num":10,"说明":"获取某一拍品的参与有奖竞猜的用户"},
+            "prizesQuiz/A_prizesQuiz/getQuizList":{"startIndex":0,"num":10,"说明":"管理后台获取竞猜列表"},
             "prizesQuiz/A_prizesQuiz/viewQuiz":{"auctionId":"2","说明":"管理后台查看竞猜详情"},
             "prizesQuiz/A_prizesQuiz/searchQuizList":{"fields":2,"说明":"管理后台搜索竞猜列表"},
             "prizesQuiz/A_prizesQuiz/quitQuiz":{"auctionId":2,"说明":"管理后台结束竞猜"},

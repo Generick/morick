@@ -34,7 +34,7 @@ class M_prizesQuiz extends My_Model
 		$data = array();
 		$data['auction_id'] = $auctionId;
 		$data['goods_name'] = $goodsInfo->goods_name;
-		$data['goods_icon'] = $goodsInfo->goods_icon;
+		$data['goods_icon'] = $goodsInfo->goods_pics;
 		$data['tickets'] = $tickets;
 		$data['limitNum'] = $limitNum;
 		$data['status'] = PQ_STATUS_QUIZ;//quiz status
@@ -47,18 +47,16 @@ class M_prizesQuiz extends My_Model
 	// @param: userId
 	function partakeQuiz($auctionId, $quizPrice, $userId){
 		$auctionStartTime = $this->db->select('startTime')->from('auctionitems')->where('id',$auctionId)->get()->row_array();
-		if ($auctionInfo['startTime'] <= time()) {
+		if ($auctionStartTime['startTime'] <= time()) {
 			//the goods is auction, can't be quiz
 			return PQ_AUCTION_ON;
-			exit;
 		}
 		
 		$arr = array('user_id'=>$userId,'auction_id'=>$auctionId);
-		$count = $this->db->select('count')->from('prizesuser')->where($arr)->get()->row_array();
+		$count = $this->db->select('count')->from('quizuser')->where($arr)->get()->row_array();
 		if (!empty($count) && $count['count'] == 1) {
 			//judge count, if count = 1, forbidden user to partake quiz
 			return PQ_REPEAT;
-			exit;
 		}
 		//judge user balance
 		$this->load->model('m_user');
@@ -66,14 +64,12 @@ class M_prizesQuiz extends My_Model
 		$tickets = $this->db->select('tickets')->from('prizesquiz')->where('auction_id',$auctionId)->get()->row_array();
 		if ($userObj->balance < $tickets['tickets']) {
 			return PQ_BALANCE_NOT_ENOUGH;
-			exit;
 		}
 		//jugde user nums
 		$prizesQuizObj = $this->db->select('currentNum,limitNum,sum')->where('auction_id',$auctionId)->from('prizesquiz')->get()->row();
 		if ($prizesQuizObj && $prizesQuizObj->currentNum >= $prizesQuizObj->limitNum) {
 			//user over limit num
 			return PQ_NUM_FULL;
-			exit;
 		}
 
 		$data = array('auction_id'=>$auctionId,'user_id'=>$userId,'quiz_price'=>$quizPrice,'count'=>1,'part_time'=>time());
@@ -81,10 +77,10 @@ class M_prizesQuiz extends My_Model
 		if ($res) {
 			//success
 			//user cost tickets
-			$balance = $userObj->balance - $tickets;
+			$balance = $userObj->balance - $tickets['tickets'];
 			$this->db->where('userId',$userId)->update('user',array('balance'=>$balance));
 			//prize goods sum add tickets, people nums add 1
-			$prizesQuizObj->sum += $tickets;
+			$prizesQuizObj->sum += $tickets['tickets'];
 			$prizesQuizObj->currentNum += 1;
 			$this->db->where('auction_id',$auctionId)->update('prizesquiz',array('sum'=>$prizesQuizObj->sum,'currentNum'=>$prizesQuizObj->currentNum));
 			return ERROR_OK;
@@ -92,7 +88,6 @@ class M_prizesQuiz extends My_Model
 		}else{
 			//fail
 			return PQ_FAIL;
-			exit;
 		}
 		
 		//
@@ -206,9 +201,9 @@ class M_prizesQuiz extends My_Model
 	}
 
 	//get prizes quiz lists
-	function getQuizList(&$data)
+	function getQuizList($startIndex, $num, &$data, &$count)
 	{
-		$data = $this->db->from('prizesquiz')->join('auctionitems',"prizesquiz.auction_id = auctionitems.id")->select("auction_id,startTime,goods_icon,goods_name,limitNum,currentNum,sum,prizesquiz.status")->limit(20)->get()->result_array();
+		$data = $this->db->from('prizesquiz')->join('auctionitems',"prizesquiz.auction_id = auctionitems.id")->select("auction_id,startTime,goods_icon,goods_name,limitNum,currentNum,sum,prizesquiz.status,isQuiz")->order_by('auctionitems.createTime')->limit($num,$startIndex)->get()->result_array();
 		foreach ($data as &$v) {
 			$auction = $this->db->select('endTime,currentPrice')->from('auctionitems')->where('id',$v['auction_id'])->get()->row_array();
 			if ($auction['endTime'] <= time()) {
@@ -217,6 +212,7 @@ class M_prizesQuiz extends My_Model
 				$v['purchasePrice'] = null;
 			}
 		}
+		$count = $this->db->count_all_results('prizesquiz');
 		return ERROR_OK;
 	}
 
@@ -224,9 +220,6 @@ class M_prizesQuiz extends My_Model
 	function getPrizesList($status,$startIndex, $num, &$data)
 	{
 		$data = $this->db->from('prizesquiz')->where('prizesquiz.status',$status)->join('auctionitems','prizesquiz.auction_id = auctionitems.id')->order_by('auctionitems.createTime')->limit($num, $startIndex)->get()->result_array();
-		// echo $this->db->last_query();
-		// echo $status;
-		// var_dump($data);
 
 		foreach ($data as &$v) {
 			$auction = $this->db->select('endTime,currentPrice')->from('auctionitems')->where('id',$v['auction_id'])->get()->row_array();
@@ -239,7 +232,7 @@ class M_prizesQuiz extends My_Model
 		return ERROR_OK;
 	}
 
-	//get quiz info
+	//font-end get quiz info
 	function getQuizInfo($auctionId, &$data)
 	{
 		$data = $this->db->from('prizesquiz')->where('auction_id',$auctionId)->join('auctionitems','prizesquiz.auction_id = auctionitems.id')->get()->row_array();
@@ -248,16 +241,16 @@ class M_prizesQuiz extends My_Model
 		return ERROR_OK;
 	}
 
-	//view single quiz
+	//manager view single quiz
 	function viewQuiz($auctionId, &$data)
 	{
-		$data = $this->db->from('quizuser')->where('auction_id',$auctionId)->join('user',"quizuser.user_id = user.userId")->select('part_time,name,telephone,quiz_price')->order_by('part_time desc')->get()->result_array();
+		$data = $this->db->from('quizuser')->where('auction_id',$auctionId)->join('user',"quizuser.user_id = user.userId")->select('part_time,name,telephone,quiz_price,auction_id')->order_by('part_time desc')->get()->result_array();
 		foreach ($data as &$v) {
 			$auction = $this->db->select('endTime,currentPrice')->from('auctionitems')->where('id',$v['auction_id'])->get()->row_array();
 			if ($auction['endTime'] > time()) {
-				$v['currentPrice'] = $auction['currentPrice'];
+				$v['purchasePrice'] = null;
 			}else{
-				$v['currentPrice'] = null;
+				$v['purchasePrice'] = $auction['currentPrice'];
 			}
 		}
 
@@ -273,10 +266,11 @@ class M_prizesQuiz extends My_Model
 
 	//get quiz user list
 	//contain user icon,telphone,part_time,quiz_price,award
-	function getQuizUserList($auctionId, &$data, &$sum)
+	function getQuizUserList($auctionId, $startIndex, $num, &$data, &$sum, &$count)
 	{
-		$data = $this->db->from('quizuser')->where('auction_id',$auctionId)->join('user',"quizuser.user_id = user.userId")->select('icon,telephone,part_time,quiz_price,award')->order_by('part_time desc')->get()->result_array();
+		$data = $this->db->from('quizuser')->where('auction_id',$auctionId)->join('user',"quizuser.user_id = user.userId")->select('icon,telephone,part_time,quiz_price,award')->order_by('part_time desc')->limit($num,$startIndex)->get()->result_array();
 		$sum = $this->db->select('sum')->from('prizesquiz')->where('auction_id',$auctionId)->get()->row_array();
+		$count = $this->db->from('quizuser')->where('auction_id',$auctionId)->count_all_results();
 		return ERROR_OK;
 	}
 
@@ -285,8 +279,18 @@ class M_prizesQuiz extends My_Model
 	{
 		// code
 
-		$userId = $this->db->select('userId')->from('user')->where('userId',$fields)->or_where('telephone',$fields)->or_where('name',$fields)->get()->row_array();
-		$data = $this->db->from('quizuser')->where('user_id',$userId['userId'])->get()->result_array();
+		$data = $this->db->from('prizesquiz')->like('auction_id',$fields)->or_like('goods_name',$fields)->get()->result_array();
+
+		foreach ($data as &$v) {
+			$auction = $this->db->select('endTime,currentPrice')->from('auctionitems')->where('id',$v['auction_id'])->get()->row_array();
+			if ($auction['endTime'] <= time()) {
+				$v['purchasePrice'] = $auction['currentPrice'];
+			}else{
+				$v['purchasePrice'] = null;
+			}
+		}
+
+		return ERROR_OK;
 	}
 
 
