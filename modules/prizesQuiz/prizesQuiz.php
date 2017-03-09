@@ -66,4 +66,17 @@ class prizesQuiz extends My_Controller
 		$this->responseSuccess(array('data'=>$data,'sum'=>$sum['sum'],'count'=>$count));
 	}
 
+	//get award user list
+	function getAwardUserList()
+	{
+		if (!$this->checkParam(array('auctionId'))) {
+			$this->responseError(ERROR_PARAM);
+			return;
+		}
+		$auctionId = $this->input->post('auctionId');
+		$data = null;
+		$this->m_prizesQuiz->getAwardUserList($auctionId, $data);
+		$this->responseSuccess($data);
+	}
+
 }

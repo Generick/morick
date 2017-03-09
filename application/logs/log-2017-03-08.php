@@ -859,3 +859,18 @@ ERROR - 2017-03-08 19:02:43 --> Severity: Warning --> Illegal string offset 'auc
 ERROR - 2017-03-08 19:02:43 --> Severity: Warning --> Illegal string offset 'purchasePrice' F:\work\program\server\modules\prizesQuiz\M_prizesQuiz.php 288
 ERROR - 2017-03-08 19:02:43 --> Severity: Warning --> Illegal string offset 'auction_id' F:\work\program\server\modules\prizesQuiz\M_prizesQuiz.php 286
 ERROR - 2017-03-08 19:02:43 --> Severity: Warning --> Illegal string offset 'purchasePrice' F:\work\program\server\modules\prizesQuiz\M_prizesQuiz.php 288
+ERROR - 2017-03-08 19:30:56 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-08 19:31:26 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-08 19:31:37 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-08 19:38:19 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-08 19:38:27 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-08 19:38:36 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-08 19:38:50 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"42"}
+ERROR - 2017-03-08 19:39:14 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-08 19:39:33 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"11"}
+ERROR - 2017-03-08 19:39:36 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"11"}
+ERROR - 2017-03-08 19:50:53 --> Query error: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'auction.mn_biddingLogs.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by - Invalid query: SELECT `id`, `auctionItemId`, `userId`, `createTime`, max(nowPrice) as nowPrice
+FROM `mn_biddingLogs`
+WHERE `userId` = 34
+GROUP BY `auctionItemId`
+ORDER BY `createTime` desc

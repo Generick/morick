@@ -1,0 +1,62 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: MXL
+ * Date: 3/9/2017
+ * Time: 12:00 PM
+ */
+
+class A_messagePush extends Admin_Controller
+{
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('m_messagePush');
+    }
+
+    function pushMessage()
+    {
+        //$whr = array();
+        //$userIds = $this->db->select('userId,isVIP')->from('user')->where($whr)->get()->result_array();
+        //var_dump($userIds);die;
+        if (!$this->chackParam(array('pushType')))
+        {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
+
+        $pushType = intval($this->input->post('pushType'));
+        $msg_title = $this->input->post('msg_title');
+        $msg_content = $this->input->post('msg_content');
+        $phoneNum = $this->input->post('phoneNum');
+
+        switch ($pushType) {
+            //push all
+            case 2:
+                $whr = array();
+                break;
+            //push vip
+            case 1:
+                $whr = array('isVIP'=>1);
+                break;
+            //push not vip
+            case 0:
+                $whr = array('isVIP'=>0);
+            
+            default:
+                $this->sendMsg($phoneNum,$msg_content);
+                return;
+                break;
+        }
+
+        $res = $this->m_messagePush->pushMessage($whr, $msg_title, $msg_title);
+        $this->responseSuccess($res);
+    }
+
+    function sendMsg($phoneNum,$msg_content)
+    {
+        $this->load->model('m_smsCode');
+        $this->m_smsCode->sendMsg($phoneNum,$msg_content);
+    }
+
+}

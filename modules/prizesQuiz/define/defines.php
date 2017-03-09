@@ -23,3 +23,5 @@ define("PQ_NOT_QUIT","参数与人数大于3，不能结束");
 define("FIRST_PRIZE",1);
 define("SECOND_PRIZE",2);
 define("THIRD_PRIZE",3);
+
+define("PQ_LIMITNUM_ERROR","人数上限必须大于当前参与人数");

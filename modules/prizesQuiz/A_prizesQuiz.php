@@ -67,9 +67,11 @@ class A_prizesQuiz extends Admin_Controller
 			return;
 		}
 		$auctionId = $this->input->post('auctionId');
-		$data = null;
-		$this->m_prizesQuiz->viewQuiz($auctionId,$data);
-		return $this->responseSuccess($data);
+		$startIndex = $this->input->post('startIndex');
+		$num = $this->input->post('num');
+		$data = $count = null;
+		$this->m_prizesQuiz->viewQuiz($auctionId, $startIndex, $num, $data, $count);
+		return $this->responseSuccess(array('data'=>$data,'count'=>$count));
 	}
 
 	// update limit num
