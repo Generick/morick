@@ -28,28 +28,28 @@ class A_messagePush extends Admin_Controller
         $pushType = intval($this->input->post('pushType'));
         $msg_title = $this->input->post('msg_title');
         $msg_content = $this->input->post('msg_content');
-        $phoneNum = $this->input->post('phoneNum');
+        //$phoneNum = $this->input->post('phoneNum');
 
-        switch ($pushType) {
-            //push all
-            case 2:
-                $whr = array();
-                break;
-            //push vip
-            case 1:
-                $whr = array('isVIP'=>1);
-                break;
-            //push not vip
-            case 0:
-                $whr = array('isVIP'=>0);
+        // switch ($pushType) {
+        //     //push all
+        //     case 2:
+        //         $whr = array();
+        //         break;
+        //     //push vip
+        //     case 1:
+        //         $whr = array('isVIP'=>1);
+        //         break;
+        //     //push not vip
+        //     case 0:
+        //         $whr = array('isVIP'=>0);
             
-            default:
-                $this->sendMsg($phoneNum,$msg_content);
-                return;
-                break;
-        }
+        //     default:
+        //         $this->sendMsg($phoneNum,$msg_content);
+        //         return;
+        //         break;
+        // }
 
-        $res = $this->m_messagePush->pushMessage($whr, $msg_title, $msg_title);
+        $res = $this->m_messagePush->pushMessage($pushType, $msg_title, $msg_title);
         $this->responseSuccess($res);
     }
 

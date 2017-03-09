@@ -311,11 +311,21 @@ class M_prizesQuiz extends My_Model
 	//get user quiz logs
 	function getUserQuiz($userId, &$data)
 	{
-		$user_auction = $this->db->select('auction_id')->from('quizuser')->where('user_id',$userId)->order_by('part_time desc')->get()->result_array();
+		$user_auction = $this->db->from('quizuser')->where('user_id',$userId)->order_by('part_time desc')->get()->result_array();
 		$data = array();
 		foreach ($$user_auction as $v) {
-			$data[] = $this->db->from('auctionitems')->where('id',$v['auction_id'])->get()->row_array();
+			$item = $this->db->from('auctionitems')->where('id',$v['auction_id'])->get()->row_array();
+			if ($item['endTime'] <= time()) {
+				$item['isOver'] = 1;
+			}else{
+				$item['isOver'] = 0;
+			}
+
+			$auctionInfo = $this->db->select('goods_name,goods_pics')->from('goods_bak')->where('goods_bak_id',$item['goods_bak_id'])->get()->row_array();
+			$item = array_merge($item,$auctionInfo);
+			$data[] = array_merge($item,$v);
 		}
+		return ERROR_OK;
 	}
 
 
