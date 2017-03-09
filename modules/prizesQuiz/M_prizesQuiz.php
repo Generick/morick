@@ -308,6 +308,16 @@ class M_prizesQuiz extends My_Model
 		return ERROR_OK;
 	}
 
+	//get user quiz logs
+	function getUserQuiz($userId, &$data)
+	{
+		$user_auction = $this->db->select('auction_id')->from('quizuser')->where('user_id',$userId)->order_by('part_time desc')->get()->result_array();
+		$data = array();
+		foreach ($$user_auction as $v) {
+			$data[] = $this->db->from('auctionitems')->where('id',$v['auction_id'])->get()->row_array();
+		}
+	}
+
 
 	function test(){
 		return $this->db->select('user_id')->from('quizuser')->where('count',1)->get()->result_array();

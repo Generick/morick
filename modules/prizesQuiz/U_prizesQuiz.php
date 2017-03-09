@@ -34,6 +34,19 @@ class U_prizesQuiz extends User_Controller
 		
 	}
 
+	//get user quiz logs
+	function getUserQuiz()
+	{
+		if (!$this->checkParam(array('userId'))) {
+			$this->responseError(ERROR_PARAM);
+			return;
+		}
+
+		$data = null;
+		$this->m_prizesQuiz->getUserQuiz($userId, $data);
+		$this->responseSuccess($data);
+	}
+
 	
 
 

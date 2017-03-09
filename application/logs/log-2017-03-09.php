@@ -201,3 +201,10 @@ ERROR - 2017-03-09 18:12:15 --> [methodError]:[权限不正确！]:F:\work\progr
 ERROR - 2017-03-09 18:23:17 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
 ERROR - 2017-03-09 18:27:06 --> user:34balance change. the transactionType:2before:125497 after:125496
 ERROR - 2017-03-09 18:40:11 --> user:34balance change. the transactionType:2before:125496 after:125385
+ERROR - 2017-03-09 18:59:34 --> Query error: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'auction.mn_biddingLogs.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by - Invalid query: SELECT `id`, `auctionItemId`, `userId`, `createTime`, max(nowPrice) as nowPrice
+FROM `mn_biddingLogs`
+WHERE `userId` = 34
+GROUP BY `auctionItemId`
+ORDER BY `createTime` desc
+ERROR - 2017-03-09 19:36:29 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 19:36:42 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
