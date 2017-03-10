@@ -240,3 +240,52 @@ ERROR - 2017-03-10 18:26:56 --> [methodError]:[]:F:\work\program\server\applicat
 ERROR - 2017-03-10 18:27:00 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
 ERROR - 2017-03-10 18:27:06 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
 ERROR - 2017-03-10 18:27:09 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"48"}
+ERROR - 2017-03-10 18:28:10 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-10 18:37:28 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"1"}
+ERROR - 2017-03-10 18:39:46 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"11"}
+ERROR - 2017-03-10 18:39:51 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"1"}
+ERROR - 2017-03-10 18:39:55 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:23 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:24 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:24 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:24 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:24 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:24 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:33 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79
+ERROR - 2017-03-10 18:55:34 --> Severity: Notice --> Undefined index: user_id F:\work\program\server\modules\withdrawCash\M_withdrawCash.php 79

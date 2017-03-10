@@ -70,4 +70,18 @@ class  M_withdrawCash extends My_Model
     	$data = $this->db->from('withdrawcash')->where('user_id',$userId)->get()->result_array();
     }
 
+    //search user withdraw list
+    function searchWithDrawUserList($fields, &$data)
+    {
+    	$userIds = $this->db->select('userId')->from('user')->like('userId',$fields)->or_like('name',$fields)->or_like('telephone',$fields)->get()->result_array();
+    	//var_dump($userIds);
+
+    	foreach ($userIds as $v) {
+    		$records = $this->db->from('withdrawcash')->where('user_id',$v['userId'])->order_by('apply_time desc')->get()->result_array();
+    		if (!empty($records)) {
+    			$data[] = $records;
+    		}
+    	}
+    }
+
 }

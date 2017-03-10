@@ -103,6 +103,7 @@
             "withdrawCash/A_withdrawCash/refuseWithDraw":{"id":1,"reason":"不让你提现","说明":"管理后台拒绝提现"},
             "withdrawCash/A_withdrawCash/acceptWithDraw":{"id":1,"说明":"管理后台同意提现"},
             "withdrawCash/A_withdrawCash/getWithDrawList":{"startIndex":0,"num":10,"status":0,"说明":"管理后台获取提现列表"},
+            "withdrawCash/A_withdrawCash/searchWithDrawUserList":{"fields":2,"说明":"管理后台搜索提现列表"},
             //withdraw cash end
 
             //message push start

@@ -51,4 +51,17 @@ class A_withdrawCash extends Admin_Controller
     	$this->responseSuccess($res);
     }
 
+    //search withdraw list
+    function searchWithDrawUserList()
+    {
+    	if (!$this->checkParam(array('fields'))) {
+    		$this->responseError(ERROR_PARAM);
+    		return;
+    	}
+    	$fields = $this->input->post('fields');
+    	$data = null;
+    	$this->m_withdrawCash->searchWithDrawUserList($fields, $data);
+    	$this->responseSuccess($data);
+    }
+
 }
