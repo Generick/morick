@@ -25,7 +25,7 @@ class A_messagePush extends Admin_Controller
         $pushType = intval($this->input->post('pushType'));
         $msg_title = $this->input->post('msg_title');
         $msg_content = $this->input->post('msg_content');
-        $userId = $this->input->post('phoneNum');
+        $phoneNum = $this->input->post('phoneNum');
 
         $res = $this->m_messagePush->pushMessage($pushType, $msg_title, $msg_content, $phoneNum);
         if ($res != ERROR_OK) {

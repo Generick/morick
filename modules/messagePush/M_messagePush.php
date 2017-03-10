@@ -82,9 +82,9 @@ class M_messagePush extends My_Model
     {
         $isVIP = $this->db->select('isVIP')->from('user')->where('userId',$userId)->get()->row_array();
         if ($isVIP['isVIP'] == 1) {
-             $whr = array('push_type !='=>0,'user_id'=>0);
+             $whr = array('push_type !='=>0,'user_id'=> 0);
          }else{
-             $whr = array('push_type !='=>1,'user_id'=>0);
+             $whr = array('push_type !='=>1,'user_id'=> 0);
          }
 
          $data = $this->db->from('message')->where($whr)->or_where('user_id',$userId)->order_by('create_time desc')->limit($num,$startIndex)->get()->result_array();
