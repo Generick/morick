@@ -93,6 +93,7 @@
             "prizesQuiz/A_prizesQuiz/quitQuiz":{"auctionId":2,"说明":"管理后台结束竞猜"},
             "prizesQuiz/A_prizesQuiz/updateLimitNum":{"auctionId":2,"limitNum":50,"说明":"管理员设置人数限制"},
             "prizesQuiz/U_prizesQuiz/partakeQuiz":{"auctionId":2,"quizPrice":50,"说明":"用户参与有奖竞猜"},
+            "prizesQuiz/U_prizesQuiz/getUserQuiz":{"userId":2,"说明":"获取用户参与的有奖竞猜"},
 
             //prizes quiz end
 
@@ -106,9 +107,8 @@
 
             //message push start
             "messagePush/U_messagePush/getUserMsgList":{"userId":1,"startIndex":0,"num":10,"说明":"用户获取消息"},
-            "messagePush/U_messagePush/getThreeMsg":{"userId":1,"说明":"用户获取三条未读消息"},
-            "messagePush/U_messagePush/viewMsg":{"userId":1,"msg_type":0,"msg_id":1,"href_id":1,"说明":"用户查看消息","备注":"msg_type消息类型0系统消息1有奖竞猜2拍卖获拍3订单发货 href_id跳转id"},
-            "messagePush/A_messagePush/pushMessage":{"pushType":1,"msg_title":"title","msg_content":"content","phoneNum":11111,"说明":"后台推送消息pushType推送类型0非vip 1:vip 2:全部 3:个人"},
+            "messagePush/U_messagePush/viewMsg":{"userId":1,"msg_id":1,"msg_type":0,"href_id":1,"说明":"用户查看消息","备注":"msg_type消息类型0系统消息1有奖竞猜2拍卖获拍3订单发货 href_id跳转id"},
+            "messagePush/A_messagePush/pushMessage":{"pushType":0,"msg_title":"title","msg_content":"content","userId":0,"说明":"后台推送消息pushType推送类型0非vip 1:vip 2:全部 3:个人"},
             //message push end
 
             //region 阅读模块

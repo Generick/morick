@@ -25,14 +25,6 @@ class U_messagePush extends User_Controller
     	$this->responseSuccess(array('data'=>$data,'count'=>$count));
     }
 
-    //get three unread message
-    function getThreeMsg()
-    {
-    	$userId = $this->input->post('userId');
-    	$data = null;
-    	$this->m_messagePush->getThreeMsg($userId, $data);
-    	$this->responseSuccess($data);
-    }
 
     //user view message
     function viewMsg()

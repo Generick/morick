@@ -208,3 +208,20 @@ GROUP BY `auctionItemId`
 ORDER BY `createTime` desc
 ERROR - 2017-03-09 19:36:29 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
 ERROR - 2017-03-09 19:36:42 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 19:42:47 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 19:49:25 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 19:55:10 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 19:55:44 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 19:56:31 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 19:56:48 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 19:57:44 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 19:58:00 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 19:59:44 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 20:00:03 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 20:01:25 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 20:02:09 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 20:02:19 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 20:03:54 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 20:04:10 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 20:05:10 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-09 20:05:48 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}

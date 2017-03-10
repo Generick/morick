@@ -19,7 +19,7 @@ class A_messagePush extends Admin_Controller
         //$whr = array();
         //$userIds = $this->db->select('userId,isVIP')->from('user')->where($whr)->get()->result_array();
         //var_dump($userIds);die;
-        if (!$this->chackParam(array('pushType')))
+        if (!$this->checkParam(array('pushType')))
         {
             $this->responseError(ERROR_PARAM);
             return;
@@ -28,6 +28,7 @@ class A_messagePush extends Admin_Controller
         $pushType = intval($this->input->post('pushType'));
         $msg_title = $this->input->post('msg_title');
         $msg_content = $this->input->post('msg_content');
+        $userId = $this->input->post('userId');
         //$phoneNum = $this->input->post('phoneNum');
 
         // switch ($pushType) {
@@ -49,14 +50,9 @@ class A_messagePush extends Admin_Controller
         //         break;
         // }
 
-        $res = $this->m_messagePush->pushMessage($pushType, $msg_title, $msg_title);
+        $res = $this->m_messagePush->pushMessage($pushType, $msg_title, $msg_content, $userId);
         $this->responseSuccess($res);
     }
 
-    function sendMsg($phoneNum,$msg_content)
-    {
-        $this->load->model('m_smsCode');
-        $this->m_smsCode->sendMsg($phoneNum,$msg_content);
-    }
 
 }

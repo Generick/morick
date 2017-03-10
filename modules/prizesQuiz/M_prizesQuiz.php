@@ -18,6 +18,7 @@ class M_prizesQuiz extends My_Model
 	{
 		# code...
 		parent::__construct();
+		$this->load->model('m_messagePush');
 		$this->load->driver('cache');
 		if(!$this->cache->redis->is_supported())
 		{
@@ -164,7 +165,7 @@ class M_prizesQuiz extends My_Model
 				$this->db->where('userId',$cuserid)->update('user',array('balance'=>$balance['balance']));
 				$this->db->where('user_id',$cuserid)->update('quizuser',array('award'=>$award,'awardMoney'=>$awardMoney));
 				//create award message to user
-				$this->load->model('m_messagePush');
+				//user id, msg type, href id=>auction id
 				$this->m_messagePush->createUserMsg($cuserid,1,$auction_id);
 			}
 		}

@@ -101,12 +101,11 @@ class A_order extends Admin_Controller
 
         $retCode = $this->m_order->modOrderInfo($order_no, array("logistics_no" => $logistics_no, "orderStatus" => ORDER_STATUS_WAIT_RECEIVE));
         //create order status message
-        $this->load->model('m_user');
+        //user id ,msg type, href id=> order id
         $this->load->model('m_messagePush');
-        $userId = $this->m_user->getSelfUserId();
-        $order_id = $this->db->select('id')->from('order')->where('order_no',$order_no)->get()->row_array();
-        $this->m_messagePush->createUserMsg($userId,3,$order_id['id']);
-        //
+        $order_user_id = $this->db->select('id,userId')->from('order')->where('order_no',$order_no)->get()->row_array();
+        $this->m_messagePush->createUserMsg($order_user_id['userId'],3,$order_user_id['id']);
+        //over
         $this->responseError($retCode);
         return;
     }

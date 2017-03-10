@@ -17,6 +17,7 @@ class TimedTask extends My_Controller
         $this->load->model("m_user");
         $this->load->model("m_smsCode");
         $this->load->model("m_shippingAddress");
+        $this->load->model('m_messagePush');
     }
 
     /**
@@ -76,23 +77,28 @@ class TimedTask extends My_Controller
                 //返还冻结保证金
                 $this->m_freeze->unfreeze(FREEZE_AUCTION, $one->id, $one);
 
-                //竞拍成功 短信提醒
-                if($this->m_common->get_one("paid_services", array("userId" =>$one->currentUser, "serviceType" => SERVICE_SMS_MONTHLY, "startTime <=" => now(), "endTime >=" => now())))
-                {
-                    $goodsInfo = $this->m_goods_bak->getGoodsBakBase($one->goods_bak_id);
-                    if($goodsInfo)
-                    {
-                        $content = $this->m_common->format(SMS_OBTAIN, $goodsInfo->goods_name, $one->currentPrice);
+                //mxl add, create order message
+                //userid , msg type,href id=>auction id
+                $order_id = $this->db->select('id')->from('order')->where('order_no',$orderInfo['order_no'])->get()->row_array();
+                $this->m_messagePush->createUserMsg($one->currentUser,2,$one->id);
 
-                        $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $one->currentUser);
-                        if($userObj)
-                        {
-                            //close message notification
-                            //$this->m_smsCode->sendMsg($userObj->telephone, $content);
-                            $this->m_common->insert("sms_remind", array("remindType" => 1, "userId" => $one->currentUser, "auctionId" => $one->id, "remindTime" => now()));
-                        }
-                    }
-                }
+                //竞拍成功 短信提醒
+                // if($this->m_common->get_one("paid_services", array("userId" =>$one->currentUser, "serviceType" => SERVICE_SMS_MONTHLY, "startTime <=" => now(), "endTime >=" => now())))
+                // {
+                //     $goodsInfo = $this->m_goods_bak->getGoodsBakBase($one->goods_bak_id);
+                //     if($goodsInfo)
+                //     {
+                //         $content = $this->m_common->format(SMS_OBTAIN, $goodsInfo->goods_name, $one->currentPrice);
+
+                //         $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $one->currentUser);
+                //         if($userObj)
+                //         {
+                //             //close message notification
+                //             //$this->m_smsCode->sendMsg($userObj->telephone, $content);
+                //             $this->m_common->insert("sms_remind", array("remindType" => 1, "userId" => $one->currentUser, "auctionId" => $one->id, "remindTime" => now()));
+                //         }
+                //     }
+                // }
                 //code
             }
         }
