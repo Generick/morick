@@ -14,6 +14,11 @@ class M_messagePush extends My_Model
     }
 
     //create message
+    //msg_type value:
+    //0: sys msg
+    //1: quiz award
+    //2: auction obtain
+    //3: order deliver status
     function createMessage($pushType, $title, $content, $msg_type, $userId = 0, $href_id = 0)
     {
     	$data = array(
@@ -29,18 +34,39 @@ class M_messagePush extends My_Model
     }
 
     //admin push message
-    function pushMessage($pushType, $msg_title, $msg_content, $userId)
+    // push_type value:
+    // 0: not vip 
+    // 1: vip 
+    // 2: all 
+    // 3: single user
+    function pushMessage($pushType, $msg_title, $msg_content, $phoneNum)
     {
     	//create message
+    	
     	//0 means system msg
     	$msg_type = 0;
-    	if ($userId != 0) {
+    	if (!empty($phoneNum) && $pushType == 3) {
+    		$userId = $this->getUserIdByPhone($phoneNum);
+    		if ($userId == 0) {
+    			return USER_NOT_FOUND;
+    		}
     		$msg_id = $this->createMessage($pushType, $msg_title, $msg_content,$msg_type, $userId);
     	}else{
     		$msg_id = $this->createMessage($pushType, $msg_title, $msg_content,$msg_type);
     	}
 
     	return ERROR_OK;
+    }
+
+    //get user id by phone number
+    function getUserIdByPhone($phoneNum)
+    {
+    	$userId = $this->select('userId')->from('user')->where('telephone',$phoneNum)->get()->row_array();
+    	if (is_array($userId)) {
+    		return $userId['userId'];
+    	}else{
+    		return 0;
+    	}
     }
 
     //create user-msg read log
@@ -51,13 +77,14 @@ class M_messagePush extends My_Model
     }
 
     //get user msg list
+    
     function getUserMsgList($startIndex, $num, $userId, &$data, &$count)
     {
         $isVIP = $this->db->select('isVIP')->from('user')->where('userId',$userId)->get()->row_array();
         if ($isVIP['isVIP'] == 1) {
              $whr = array('push_type !='=>0,'user_id'=>0);
          }else{
-            $whr = array('push_type !='=>1,'user_id'=>0);
+             $whr = array('push_type !='=>1,'user_id'=>0);
          }
 
          $data = $this->db->from('message')->where($whr)->or_where('user_id',$userId)->order_by('create_time desc')->limit($num,$startIndex)->get()->result_array();
@@ -67,6 +94,7 @@ class M_messagePush extends My_Model
          	$hasRead[] = $v['msg_id'];
          }
          
+         //handle msg unread or read
          foreach ($data as $v) {
          	if (is_array($user_msg)) {
          		if (in_array($v['msg_id'],$hasRead)) {

@@ -17,6 +17,10 @@ class U_messagePush extends User_Controller
     //user get message
     function getUserMsgList()
     {
+    	if (!$this->checkParam(array('userId','startIndex','num'))) {
+    		$this->responseError(ERROR_PARAM);
+    		return;
+    	}
     	$userId = $this->input->post('userId');
     	$startIndex = $this->input->post('startIndex');
     	$num = $this->input->post('num');
@@ -29,6 +33,10 @@ class U_messagePush extends User_Controller
     //user view message
     function viewMsg()
     {
+    	if (!$this->checkParam(array('userId','msg_id','msg_type','href_id'))) {
+    		$this->responseError(ERROR_PARAM);
+    		return;
+    	}
     	$msg_type = $this->input->post('msg_type');
     	$msg_id = $this->input->post('msg_id');
     	$href_id = $this->input->post('href_id');

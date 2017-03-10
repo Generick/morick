@@ -42,6 +42,7 @@ class U_prizesQuiz extends User_Controller
 			return;
 		}
 
+		$userId = $this->input->post('userId');
 		$data = null;
 		$this->m_prizesQuiz->getUserQuiz($userId, $data);
 		$this->responseSuccess($data);

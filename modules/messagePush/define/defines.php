@@ -12,3 +12,5 @@ define("MP_AUCTIONOBTAIN","恭喜您，您参与竞拍获拍了。");
 define("MP_AUCTIONOBTAIN_TITLE","竞拍获拍");
 define("MP_ORDERSTATUS","您好，您的拍品已经发货了。");
 define("MP_ORDERSTATUS_TITLE","发货通知");
+
+define("USER_NOT_FOUND",'没有找到此用户');

@@ -244,7 +244,7 @@ class M_auction extends My_Model
         $this->db->start_cache();
         $this->db->select("id, auctionItemId, userId, createTime, max(nowPrice) as nowPrice")->from("biddingLogs");
         $this->db->where(array("userId" => $userId));
-        $this->db->group_by("auctionItemId");
+        $this->db->group_by("userId,id,auctionItemId");
         $this->db->stop_cache();
         $count = $this->db->count_all_results();
         if($num > 0)

@@ -108,7 +108,7 @@
             //message push start
             "messagePush/U_messagePush/getUserMsgList":{"userId":1,"startIndex":0,"num":10,"说明":"用户获取消息"},
             "messagePush/U_messagePush/viewMsg":{"userId":1,"msg_id":1,"msg_type":0,"href_id":1,"说明":"用户查看消息","备注":"msg_type消息类型0系统消息1有奖竞猜2拍卖获拍3订单发货 href_id跳转id"},
-            "messagePush/A_messagePush/pushMessage":{"pushType":0,"msg_title":"title","msg_content":"content","userId":0,"说明":"后台推送消息pushType推送类型0非vip 1:vip 2:全部 3:个人"},
+            "messagePush/A_messagePush/pushMessage":{"pushType":0,"msg_title":"title","msg_content":"content","phoneNum":0,"说明":"后台推送消息pushType推送类型0非vip 1:vip 2:全部 3:个人"},
             //message push end
 
             //region 阅读模块
