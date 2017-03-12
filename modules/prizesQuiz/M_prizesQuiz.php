@@ -173,6 +173,14 @@ class M_prizesQuiz extends My_Model
 		
 	}
 
+	//auto over quiz
+	function autoQuizOver(){
+		$auctionIds = $this->db->select('id')->from('auctionitems')->where('endTime <=',time())->get()->result_array();
+		foreach ($auctionIds as $v) {
+			$this->quizOver($v['id']);
+		}
+	}
+
 	//get first three userids
 	function getFTUserId($purchasePrice,$UID_Price_array)
 	{

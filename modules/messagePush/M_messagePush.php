@@ -48,7 +48,7 @@ class M_messagePush extends My_Model
     	if (!empty($phoneNum) && $pushType == 3) {
     		$userId = $this->getUserIdByPhone($phoneNum);
     		if ($userId == 0) {
-    			return USER_NOT_FOUND;
+    			return ERROR_USER_NOT_FOUND;
     		}
     		$msg_id = $this->createMessage($pushType, $msg_title, $msg_content,$msg_type, $userId);
     	}else{
@@ -98,16 +98,15 @@ class M_messagePush extends My_Model
          foreach ($data as $v) {
          	if (is_array($user_msg)) {
          		if (in_array($v['msg_id'],$hasRead)) {
+         			//read +1
 	                 $v['isRead'] = 1;
 	                 $readMsg[] = $v;
-	             }else{
-	                $v['isRead'] = 0;
-	                $unreadMsg[] = $v;
+	                 continue;
 	             }
-         	}else{
-         		$v['isRead'] = 0;
-	            $unreadMsg[] = $v;
          	}
+         	// unread +1
+         	$v['isRead'] = 0;
+	        $unreadMsg[] = $v;
              
          }
          $data = array_merge($unreadMsg,$readMsg);
@@ -119,12 +118,14 @@ class M_messagePush extends My_Model
     //user view message
     function viewMsg($userId, $msg_id, $msg_type, $href_id, &$data)
     {
-    	if ($msg_type == 0) {
-    		$data = $this->db->select('msg_title,msg_content')->from('message')->where('msg_id',$msg_id)->get()->row_array();
-    	}else{
-    		$data = array('userId'=>$userId,'msg_type'=>$msg_type,'href_id'=>$href_id);
-    		$this->createReadLog($userId,$msg_id);
-    	}
+    	$this->createMessage($userId,$msg_id);
+    	return ERROR_OK;
+    	// if ($msg_type == 0) {
+    	// 	$data = $this->db->select('msg_title,msg_content')->from('message')->where('msg_id',$msg_id)->get()->row_array();
+    	// }else{
+    	// 	$data = array('userId'=>$userId,'msg_type'=>$msg_type,'href_id'=>$href_id);
+    	// 	$this->createReadLog($userId,$msg_id);
+    	// }
 
     	
     }

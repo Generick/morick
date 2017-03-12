@@ -72,6 +72,7 @@ class M_transaction extends My_Model
             case TRANSACTION_RECHARGE:
             case TRANSACTION_RETURN_MARGIN:
             case TRANSACTION_SYSTEM_ADD:
+            case TRANSACTION_REFUSEWITHDRAW:
                 $afterBalance = $userObj->balance + $money;
                 break;
             //减少

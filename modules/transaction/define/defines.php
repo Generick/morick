@@ -13,3 +13,4 @@ define('TRANSACTION_SERVICE',  4);//购买服务
 define('TRANSACTION_PAY',  5);//订单支付
 define('TRANSACTION_SYSTEM_ADD', 6);//管理员充值
 define('TRANSACTION_SYSTEM_REDUCE',  7);//管理员扣除
+define('TRANSACTION_REFUSEWITHDRAW',8);//管理员拒绝提现，返还提现金额

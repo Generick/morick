@@ -17,7 +17,8 @@ class A_withdrawCash extends Admin_Controller
     //get user withdraw list
     function getWithDrawList()
     {
-    	$data = $count = null;
+    	$data = array();
+    	$count = null;
     	$startIndex = $this->input->post('startIndex');
     	$num = $this->input->post('num');
     	$status = $this->input->post('status');
@@ -28,15 +29,17 @@ class A_withdrawCash extends Admin_Controller
     //refuse withdraw
     function refuseWithDraw()
     {
-    	if (!$this->checkParam(array('id'))) {
+    	if (!$this->checkParam(array('id','userId','withdrawCash'))) {
     		$this->responseError(ERROR_PARAM);
     		return;
     	}
     	$id = $this->input->post('id');
+    	$userId = $this->input->post('userId');
     	$reason = $this->input->post('reason');
-    	$res = $this->m_withdrawCash->refuseWithDraw($id, $reason);
+    	$withdrawCash = $this->input->post('withdrawCash');
+    	$res = $this->m_withdrawCash->refuseWithDraw($id, $userId, $withdrawCash, $reason);
     	$this->responseSuccess($res);
-    }
+	  }
 
     //accept withdraw
     function acceptWithDraw()

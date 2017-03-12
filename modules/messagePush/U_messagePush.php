@@ -24,7 +24,8 @@ class U_messagePush extends User_Controller
     	$userId = $this->input->post('userId');
     	$startIndex = $this->input->post('startIndex');
     	$num = $this->input->post('num');
-    	$data = $count = null;
+    	$data = array();
+    	$count = null;
     	$this->m_messagePush->getUserMsgList($startIndex, $num, $userId, $data, $count);
     	$this->responseSuccess(array('data'=>$data,'count'=>$count));
     }

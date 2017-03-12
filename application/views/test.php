@@ -100,7 +100,7 @@
             //withdraw cash start
             "withdrawCash/U_withdrawCash/withdrawCash":{"userId":1,"withdrawCash":100,"wx_account":"weixin","说明":"用户提现withdrawCash提现金额wx_account微信账号"},
             "withdrawCash/U_withdrawCash/getUserWithDrawList":{"userId":1,"说明":"用户提现记录"},
-            "withdrawCash/A_withdrawCash/refuseWithDraw":{"id":1,"reason":"不让你提现","说明":"管理后台拒绝提现"},
+            "withdrawCash/A_withdrawCash/refuseWithDraw":{"id":1,"userId":1,"withdrawCash":100,"reason":"不让你提现","说明":"管理后台拒绝提现"},
             "withdrawCash/A_withdrawCash/acceptWithDraw":{"id":1,"说明":"管理后台同意提现"},
             "withdrawCash/A_withdrawCash/getWithDrawList":{"startIndex":0,"num":10,"status":0,"说明":"管理后台获取提现列表"},
             "withdrawCash/A_withdrawCash/searchWithDrawUserList":{"fields":2,"说明":"管理后台搜索提现列表"},
