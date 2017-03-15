@@ -72,7 +72,7 @@ var addressChooseController =
 		var self = this;
 		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_AREAS, params, function(data){
 			
-			console.log(data)
+//			console.log(data)
 			if(type == 1)
 			{
 				self.addressModel.province = data.areas;

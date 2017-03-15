@@ -22,10 +22,10 @@ class WxPayConfig
 	 * 获取地址：https://mp.weixin.qq.com/advanced/advanced?action=dev&t=advanced/dev&token=2005451881&lang=zh_CN
 	 * @var string
 	 */
-	const APPID = 'wx24b6a4c5ad0c31a9';
-	const MCHID = '1320843201';//确定
-	const KEY = 'msq339vip58j1qefpkt0u10a3b8njn9n';//确定
-	const APPSECRET = 'c23efe66c7759ae97a5791b8fa93eb72';
+	const APPID = 'wx8aa4883c737caaaa';
+	const MCHID = '1272388901';//确定
+	const KEY = 'dbb9062df2fd9a7650fc5961da05129f';//确定
+	const APPSECRET = '620937dd20bdecf9e84f369d2ef64305';
 	
 	//=======【证书路径设置】=====================================
 	/**
@@ -36,15 +36,19 @@ class WxPayConfig
 	 */
 
     //内网证书
-    const SSLCERT_PATH = 'E:\Saturn\work\auction\program\server\application\libraries\wxpay\cert\apiclient_cert.pem';
-    const SSLKEY_PATH = 'E:\Saturn\work\auction\program\server\application\libraries\wxpay\cert\apiclient_key.pem';
+    //const SSLCERT_PATH = 'E:\Saturn\work\auction\program\server\application\libraries\wxpay\cert\apiclient_cert.pem';
+    //const SSLKEY_PATH = 'E:\Saturn\work\auction\program\server\application\libraries\wxpay\cert\apiclient_key.pem';
+
+    //本机证书
+    const SSLCERT_PATH = 'F:\work\program\server\application\libraries\wxpay\cert\apiclient_cert.pem';
+    const SSLKEY_PATH = 'F:\work\program\server\application\libraries\wxpay\cert\apiclient_key.pem';
 
     //外网证书
     //const SSLCERT_PATH = '/mnt/data/www/wzq/application/libraries/wxpay/cert/apiclient_cert.pem';
     //const SSLKEY_PATH = '/mnt/data/www/wzq/application/libraries/wxpay/cert/apiclient_key.pem';
 
     //内网回调
-    const PROJECT_ADDRESS = "http://meeno.f3322.net:8082/auction/index.php/app/WxPay/notify";
+    const PROJECT_ADDRESS = "http://meeno.f3322.net:8082/auction/index.php/wx/WxCallback/notify";
     //外网回调
     //const PROJECT_ADDRESS = "http://meeno.f3322.net:8082/auction/index.php/wxpay/notify";
 

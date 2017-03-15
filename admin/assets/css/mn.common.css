@@ -332,7 +332,7 @@ body .layer-ex-skin .layui-layer-content .price {
 }
 
 body .layer-ex-skin .layui-layer-content .price div {
-	min-width: 44%;
+	/*min-width: 44%;*/
 	margin-top: 6px;
 }
 

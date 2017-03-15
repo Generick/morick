@@ -245,3 +245,73 @@ th {
     border-radius: 1px;
     vertical-align: middle;
 }
+
+#pay-way{
+	height:35px;
+	margin-bottom: 12px;
+}
+#online-pay{
+	float: left;
+	line-height: 23px;
+	border: 1px solid #666666;
+	padding:3px 8px;
+	-webkit-user-select: none; /* for Chrome */
+	-moz-user-select: none; /* for Firefox */
+}
+#face-pay{
+	float: left;
+	line-height: 23px;
+	border: 1px solid #666666;
+	padding:3px 8px;
+	margin-left:10px;
+	-webkit-user-select: none; /* for Chrome */
+	-moz-user-select: none; /* for Firefox */
+}
+#all-pay{
+	float: left;
+	line-height: 23px;
+	border: 1px solid #666666;
+	padding:3px 12px;
+	margin-right: 10px;
+	-webkit-user-select: none; /* for Chrome */
+	-moz-user-select: none; /* for Firefox */
+}
+
+#pay-way .pay-active{
+	background: #0099FF;
+	color:#FFFFFF;
+	border: none;
+}
+
+#vip-td{
+	position: relative;
+	height:84px;
+	padding-top: 12px;
+	width:114px !important;
+	padding:7px;
+	min-width:114px
+	
+}
+.bace-photo{
+	position: absolute;
+	top:7px;
+	left:7px;
+	width:100px;
+	height:70px;
+
+}
+.vip-sign{
+	position: absolute;
+	width:42px;
+	height:40px;
+	right:0;
+	top:0;
+}
+.vip-sign img{
+	display: block;
+	position: absolute;
+	width:42px;
+	height:40px;
+	right:7px;
+	top:7px;
+}

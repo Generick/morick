@@ -4,7 +4,6 @@
 
 app.controller("ctrl", function ($scope)
 {   
-	
     AuctionHistoryCtrl.init($scope);
    
 });
@@ -36,7 +35,7 @@ var AuctionHistoryCtrl =
     
     init : function ($scope)
     {
-
+       
     	this.scope = $scope; 
     	
     	this.judjeIsFirstCome();

@@ -18,12 +18,19 @@ class A_withdrawCash extends Admin_Controller
     function getWithDrawList()
     {
     	$data = array();
-    	$count = null;
+    	//$count = null;
     	$startIndex = $this->input->post('startIndex');
     	$num = $this->input->post('num');
     	$status = $this->input->post('status');
-    	$this->m_withdrawCash->getWithDrawList($startIndex, $num, $data, $count, $status);
-    	return $this->responseSuccess(array('data'=>$data,'count'=>$count));
+    	$fields = $this->input->post('fields');
+
+    	$whr = array();
+    	if ($status != WC_STATUS_ALL) {
+    		$whr = array('status'=>$status);
+    	}
+
+    	$this->m_withdrawCash->getWithDrawList($startIndex, $num, $data, $status, $fields, $whr);
+    	return $this->responseSuccess($data);
     }
 
     //refuse withdraw
@@ -38,6 +45,10 @@ class A_withdrawCash extends Admin_Controller
     	$reason = $this->input->post('reason');
     	$withdrawCash = $this->input->post('withdrawCash');
     	$res = $this->m_withdrawCash->refuseWithDraw($id, $userId, $withdrawCash, $reason);
+    	if ($res !== ERROR_OK) {
+    		$this->responseError($res);
+    		return;
+    	}
     	$this->responseSuccess($res);
 	  }
 
@@ -49,8 +60,11 @@ class A_withdrawCash extends Admin_Controller
     		return;
     	}
     	$id = $this->input->post('id');
-    	$reason = $this->input->post('reason');
-    	$res = $this->m_withdrawCash->acceptWithDraw($id, $reason);
+    	$res = $this->m_withdrawCash->acceptWithDraw($id);
+    	if ($res !== ERROR_OK) {
+    		$this->responseError($res);
+    		return;
+    	}
     	$this->responseSuccess($res);
     }
 

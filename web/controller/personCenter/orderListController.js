@@ -47,7 +47,7 @@ var OrderListCtrl = {
     	}
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_ORDER_LIST, params, function(data){
-
+//          console.log(JSON.stringify(data))
     		self.orderListModel.orderList = [];
     		self.orderListModel.orderList = data.orderList;
     		
@@ -63,6 +63,13 @@ var OrderListCtrl = {
 	    				self.orderListModel.orderList[i].orderIsPay = true;
 	    				self.orderListModel.orderList[i].orderIsReceive = false;
 	    			}
+	    			else if(self.orderListModel.orderList[i].orderStatus == 2)
+	    			{
+	    				self.orderListModel.orderList[i].orderTypeText = "待发货";
+	    				self.orderListModel.orderList[i].orderTypeStyle = true;
+	    				self.orderListModel.orderList[i].orderIsPay = false;
+	    				self.orderListModel.orderList[i].orderIsReceive = true;
+	    			}
 	    			else if(self.orderListModel.orderList[i].orderStatus == 3)
 	    			{
 	    				self.orderListModel.orderList[i].orderTypeText = "待收货";
@@ -77,11 +84,24 @@ var OrderListCtrl = {
 	    				self.orderListModel.orderList[i].orderIsPay = false;
 	    				self.orderListModel.orderList[i].orderIsReceive = false;
 	    			}
+	    			else if(self.orderListModel.orderList[i].orderStatus == 0)
+		    		{   
+		    			
+		    			self.orderListModel.orderList[i].orderTypeText = "已取消";
+	    				self.orderListModel.orderList[i].orderTypeStyle = false;
+	    				self.orderListModel.orderList[i].orderIsPay = false;
+	    				self.orderListModel.orderList[i].orderIsReceive = false;
+		    		}
 	    			if(self.orderListModel.orderList[i].orderGoods[0])
 	    			{
 	    				self.orderListModel.orderList[i].orderGoods[0].goods_pics = JSON.parse(self.orderListModel.orderList[i].orderGoods[0].goods_pics);
-	    		
-	    			}	
+	    		       
+	    			}
+	    			if(self.orderListModel.orderList[i].deliveryType == 1)
+	    			{
+	    				self.orderListModel.orderList[i].orderIsPay = false;
+	    			   
+	    			}
 	    		}
     		}
     		else

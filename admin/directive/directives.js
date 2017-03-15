@@ -93,7 +93,7 @@ app.directive('uiKindeditor', function ($timeout) {
 						allowPreviewEmoticons : false,
 						allowImageUpload : false,
 						width: '100%',
-						height : "600px",
+						height : "360px",
 						items : [
 							'fontname',
 							'fontsize', 

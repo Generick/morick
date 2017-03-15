@@ -58,19 +58,23 @@
         <span class="f">最低加价：</span>
         <div class="f"><input type="number" class="form-control" ng-model="auctionModel.lowPrice"></div>
     </div>
-    <div class="con-item fix">
+    <!--<div class="con-item fix">
         <span class="f">参考价：</span>
         <div class="f"><input type="number" class="form-control" ng-model="auctionModel.referencePrice"></div>
-    </div>
+    </div>-->
     <div class="con-item fix">
         <span class="f">保证金：</span>
         <div class="f"><input type="number" class="form-control" ng-model="auctionModel.marginPrice"></div>
     </div>
-<!--    
+  
     <div class="con-item fix">
         <span class="f">封顶价：</span>
-        <div class="f"><input type="number" class="form-control" ng-model="auctionModel.highestPrice"></div>
-    </div>-->
+        <div class="height-price-box f">
+        	<p class="turn-on-word">是</p><p class="not-checking" id="to-turn-on" ng-click="toShowInput(1)"></p>
+        	<p class="turn-off-word">否</p><p class="not-checking  is-checking" id="to-turn-off" ng-click="toShowInput(0)"></p>
+        </div>
+        <div  id="height-price-hide"><input id="height-price-inp" type="number" class="form-control" ng-model="auctionModel.cappedPrice"></div>
+    </div>
     <div class="con-item fix">
     	<span class="f">拍品属性：</span>
     	<div class="f" style="line-height:32px">
@@ -79,6 +83,26 @@
 			<div class="fle-radio" id="very-important" ng-click="setPredicable(1)"></div>
 			<div class="wordMark" for="very-important">VIP专享拍品</div>
     	</div>
+    </div>
+    <div class="con-item fix">
+    	<span class="f">是否参与有奖竞猜：</span>
+    	<div class="height-price-box f">
+        	<p class="turn-on-word">是</p><p class="not-checking is-checking" id="to-turn-on-quiz" ng-click="toShowJoin(1)"></p>
+        	<p class="turn-off-word">否</p><p class="not-checking  " id="to-turn-off-quiz" ng-click="toShowJoin(0)"></p>
+        </div>
+        <div id="quiz-hide" class="f m-g-l-10">
+        	<div class="height-price-box f">
+	        	<span class="f" style="line-height: 34px;">参与人数：</span>
+	        	<div class="f"><input type="number" class="form-control" style="width: 100px;" ng-model="auctionModel.limitNum"></div>
+	        	<span class="f m-g-l-10" style="line-height: 34px;">人</span>
+	        	<span id="tips" class="f m-g-l-10" style="line-height: 34px; color: #CC3333;display: none;">参与人数最少有3个人</span>
+	        </div>
+	        <div class="height-price-box f m-g-l-20">
+	        	<span class="f" style="line-height: 34px;">奖金：</span>
+	        	<div class="f"><input type="number" class="form-control" style="width: 100px;" ng-model="auctionModel.tickets"></div>
+	        	<span class="f m-g-l-10" style="line-height: 34px;">元</span>
+	        </div>
+        </div> 
     </div>
     <div class="con-item fix">
         <span class="f"></span>
@@ -115,15 +139,15 @@
     </div>
     
     <div class="button">出价</div>
-    <div class="button">开通委托出价</div>
+    <div class="button">委托出价</div>
     
     <div class="price fix">
-    	<div class="f"><span class="ticket">起</span> ¥<span>{{goodsDetailModel.initialPrice?goodsDetailModel.initialPrice:"0"}}</span></div>
-    	<div class="f"><span class="ticket">加</span> ¥<span>{{goodsDetailModel.lowestPremium?goodsDetailModel.lowestPremium:"0"}}</span></div>
-    	<div class="f"><span class="ticket">保</span> ¥<span>{{goodsDetailModel.margin?goodsDetailModel.margin:"0"}}</span></div>
+    	<div style="width:31%;float:left"><span class="ticket">起</span> ¥<span>{{goodsDetailModel.initialPrice?goodsDetailModel.initialPrice:"0"}}</span></div>
+    	<div style="width:31%;float:left"><span class="ticket">加</span> ¥<span>{{goodsDetailModel.lowestPremium?goodsDetailModel.lowestPremium:"0"}}</span></div>
+    	<div  style="width:31%;float:left"><span class="ticket">保</span> ¥<span>{{goodsDetailModel.margin?goodsDetailModel.margin:"0"}}</span></div>
     </div>
     
-    <div class="button2">
-    	参考价 ¥<span>{{goodsDetailModel.referencePrice}}</span>
+    <div class="button2" ng-show="goodsDetailModel.cappedPrice > 0">
+    	封顶价 ¥<span>{{goodsDetailModel.cappedPrice}}</span>
     </div>
 </div>

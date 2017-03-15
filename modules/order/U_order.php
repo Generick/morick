@@ -187,7 +187,6 @@ class U_order extends User_Controller
             $modOrderInfo["orderStatus"] = ORDER_STATUS_PAY;
         }
 
-
         //修改订单信息
         $retCode = $this->m_order->modOrderInfo($order_no, $modOrderInfo);
         if($retCode != ERROR_OK)
@@ -196,12 +195,14 @@ class U_order extends User_Controller
             return;
         }
 
+        $retCode = ERROR_OK;
         if($deliveryType == 0)
         {
             //新增交易明细
             $this->load->model("m_transaction");
             $retCode = $this->m_transaction->addTransaction($userObj->userId, TRANSACTION_PAY, $orderInfo->payPrice);
-            $this->responseError($retCode);
         }
+
+        $this->responseError($retCode);
     }
 }

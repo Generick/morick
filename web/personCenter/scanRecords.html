@@ -18,11 +18,11 @@
 		<div class="container scroll" style="background-color: #fff;position:absolute; overflow:auto;-webkit-overflow-scrolling: touch; top:0; left:0; bottom:0; right:0;">
 			<div class="list">
 				<ul>
-					<li ng-repeat = "item in readObjList track by $index" ng-click="onClickToScanRecordDetail(item.id)">
+					<li ng-repeat = "item in readObjList track by $index" ng-click="onClickToScanRecordDetail(item)">
                         <div ng-if="item.goodsInfo.goods_pics[0]">
                             <div class="item-img">
                                <!-- <b style="background-image: url({{item.aucted}})"></b>-->
-                                <img style="position: absolute;top:1vw;left:0px;z-index: 5;width:14vw;height:14vw;" class="smallvippic" ng-show="(item.isVIP == 0)" src="../img/newVip.png">
+                                <img style="position: absolute;top:1vw;left:0px;z-index: 5;width:14vw;height:14vw;" class="smallvippic" ng-show="(item.isVIP == 1)" src="../img/newVip.png">
                                 <b>
                                 	<img ng-show="(item.isEnd == true)" src="../img/aucted0.png">
                                 	<img ng-show="!(item.isEnd)" src="../img/aucting.png">
@@ -60,7 +60,8 @@
     <script src="../controller/app.js"></script>
 	<!--controller-->
 	<script type="text/javascript" src="../controller/personCenter/scanRecordsController.js" ></script>
-	
+	<script src="../plugin/layerMobile/layer.js"></script>
+	<script src="../module/dialog/dialog.js"></script>
 	<!--插件-->
 	<script type="text/javascript" src="../js/fastclick.js" ></script>
 	<script type="text/javascript" src="../js/htmlNoScroll.js" ></script>

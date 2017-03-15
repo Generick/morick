@@ -17,13 +17,13 @@
             <tr>
                 <td style="text-align: center">序号</td>
                 <td style="text-align: center">拍品图片</td>
-                <td style="text-align: center"></td>
+              <!--  <td style="text-align: center"></td>-->
                 <td style="text-align: center">拍品名</td>
                 <td style="text-align: center">拍品进价</td>
                 <td style="text-align: center">当前价格</td>
                 <td style="text-align: center">初始价格</td>
                 <td style="text-align: center">最低加价</td>
-                <td style="text-align: center">参考价</td>
+                <td style="text-align: center">封顶价</td>
                 <td style="text-align: center">保证金</td>
                 <td style="text-align: center">上拍时间</td>
                 <td style="text-align: center">截拍时间</td>
@@ -37,18 +37,25 @@
             <tbody id="tBodyAuction">
             <tr ng-repeat="item in auctionModel.modelArr">
                 <td style="text-align: center">{{$index + 1 + (page.currentPage - 1)*page.selectPageNum}}</td>
-                <td><img style="width: 105px;" ng-if="item.pic" ng-src="{{item.pic}}" ng-click="checkImg()"></td>
-                <td style="min-width:75px;padding-left:6px;padding-right:7px;">
+                <td  id="vip-td">
+                	<img  class="bace-photo" ng-if="item.pic" ng-src="{{item.pic}}" ng-click="checkImg()">
+	                <div class="vip-sign">
+	                	<img ng-show="item.isVIP == 1" src="assets/images/public/paipinVip.png">
+	                </div>
+                	
+            
+                </td>
+                <!--<td style="min-width:75px;padding-left:6px;padding-right:7px;">
                 	<div ng-class="{true:'actu-vip',false:''}[item.isVIP == '1']" style="font-size:14px; height:25px;line-height:25px;padding:0 4px;text-align: center;">
                 	<span ng-show = "item.isVIP == '1'">VIP专享</span>
                 	</div>
-                </td>
+                </td>-->
                 <td style="text-align: center">{{item.goodsInfo.goods_name}}</td>
                 <td style="text-align: center">{{"￥"+item.goodsInfo.goods_bid}}</td>
                 <td style="text-align: center">{{"￥"+item.currentPrice}}</td>
                 <td style="text-align: center">{{"￥"+item.initialPrice}}</td>
                 <td style="text-align: center">{{"￥"+item.lowestPremium}}</td>
-                <td style="text-align: center">{{"￥"+item.referencePrice}}</td>
+                <td style="text-align: center"><div  ng-show="item.cappedPrice != 0">{{"￥"+item.cappedPrice}}</div ><div ng-show="item.cappedPrice == 0">无</div></td>
                 <td style="text-align: center">{{"￥"+item.margin}}</td>
                 <td style="text-align: center">{{item.startTime*1000 | date: 'yyyy-MM-dd HH:mm'}}</td>
                 <td style="text-align: center">{{item.endTime*1000 | date: 'yyyy-MM-dd HH:mm'}}</td>

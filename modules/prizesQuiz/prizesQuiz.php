@@ -37,7 +37,7 @@ class prizesQuiz extends My_Controller
 		}
 
 		$auctionId = $this->input->post('auctionId');
-		$data = null;
+		$data = array();
 		$this->m_prizesQuiz->getQuizInfo($auctionId, $data);
 		//judge has login
 		$data['hasLogin'] = true;
@@ -77,6 +77,11 @@ class prizesQuiz extends My_Controller
 		$data = null;
 		$this->m_prizesQuiz->getAwardUserList($auctionId, $data);
 		$this->responseSuccess($data);
+	}
+
+	function autoQuizOver()
+	{
+		$this->m_prizesQuiz->autoQuizOver();
 	}
 
 }

@@ -6,6 +6,10 @@ var AuctionCtrl = {
     
     isVipJudge : -1,
     
+    showTheInput : 0,
+    
+    isShowTop : false,
+    
     auctionModel: {
         modelArr: [],
         selectAll: false,
@@ -22,10 +26,12 @@ var AuctionCtrl = {
         endTime: "", //结束时间
         initPrice: 0, //初始价格
         lowPrice: null, //最低加价
-        referencePrice: 0, //参考价
         marginPrice: 0, //保证金
-//      highestPrice : 0,//最高价格
+        cappedPrice : null,//封顶价
         isVip :0,
+        isQuiz: 1, //参加竞猜
+        limitNum: 100,//参加竞拍人数
+        tickets: 50,//奖金
         
         keyWords: null, //搜索藏品关键字
         startIndex: 0, //从第几页搜索
@@ -46,7 +52,7 @@ var AuctionCtrl = {
     	initPrice: null, //初始价
     	lowestPremium: null, //最低价
     	margin: null, //保价
-    	referencePrice: null, //参考价
+    	cappedPrice: null, //封顶价
     	day: null,    //天
     	hour: null,   //小时
     	min: null     //分钟
@@ -81,10 +87,13 @@ var AuctionCtrl = {
         self.auctionModel.initPrice = 0;
         self.auctionModel.lowPrice = null;
         self.auctionModel.marginPrice = 0;
-        self.auctionModel.referencePrice = 0;
         self.auctionModel.keyWords = null;
         self.auctionModel.startIndex = 0;
         self.auctionModel.goodsBid = null;
+        self.auctionModel.cappedPrice = null;
+        self.showTheInput = 0;
+        self.auctionModel.isVip = 0;  	
+       
     },
 
     //竞拍列表
@@ -99,10 +108,11 @@ var AuctionCtrl = {
         	var params = {};
             params.isVIP = isVipJudge;
         }
+       
         pageController.pageInit(self.scope, api.API_GET_AUCTION_LIST, params,
 
             function(data){
-            	
+            
                 self.getData(data);
             });
 
@@ -126,22 +136,24 @@ var AuctionCtrl = {
      * @param data.auctionItems.bidsNum 竞拍次数
      * @param data.auctionItems.initialPrice 初始价格
      * @param data.auctionItems.lowestPremium 最低加价
-     * @param data.auctionItems.referencePrice 参考价
+     * @param data.auctionItems.cappedPrice 封顶价
      * @param data.auctionItems.margin 保价
      */
     getData: function(data){
+    	
         var self = this,
             nowTimestamp = Math.round(new Date() / 1000);
-
+//      console.log(JSON.stringify(data));
         if(self.scope.page.selectPageNum)
         {
             var totalNum = Math.ceil(data.count / self.scope.page.selectPageNum);
             pageController.pageNum(totalNum);
         }
-         console.log(JSON.stringify(data))
+      
         self.auctionModel.modelArr = data.auctionItems;
         for(var j = 0;j < self.auctionModel.modelArr.length; j++)
-        {
+        {   
+        	
         	self.auctionModel.modelArr[j].goodsInfo.goods_bid = _utility.toDecimalTwo(parseFloat(self.auctionModel.modelArr[j].goodsInfo.goods_bid));
         	self.auctionModel.modelArr[j].currentPrice = _utility.toDecimalTwo(parseFloat(self.auctionModel.modelArr[j].currentPrice));
         	if(self.auctionModel.modelArr[j].initialPrice < 0)
@@ -155,7 +167,7 @@ var AuctionCtrl = {
         	self.auctionModel.modelArr[j].initialPrice = _utility.toDecimalTwo(parseFloat(self.auctionModel.modelArr[j].initialPrice));
         	
         	self.auctionModel.modelArr[j].lowestPremium = _utility.toDecimalTwo(parseFloat(self.auctionModel.modelArr[j].lowestPremium));
-        	self.auctionModel.modelArr[j].referencePrice = _utility.toDecimalTwo(parseFloat(self.auctionModel.modelArr[j].referencePrice));
+         	self.auctionModel.modelArr[j].cappedPrice = _utility.toDecimalTwo(parseFloat(self.auctionModel.modelArr[j].cappedPrice));
         	self.auctionModel.modelArr[j].margin = _utility.toDecimalTwo(parseFloat(self.auctionModel.modelArr[j].margin));
            
         }
@@ -222,7 +234,7 @@ var AuctionCtrl = {
                 num: 0, //默认显示全部
                 likeStr: keywords
             };
-
+          
         $data.httpRequest("post", api.API_GET_AUCTION_GOODS, params,
 
             /**
@@ -230,7 +242,7 @@ var AuctionCtrl = {
              */
             function(data){
                 var goods = data.goods;
-               
+             
                 self.auctionModel.allGoodsArr = [];
                 for(var i = 0, len = goods.length; i < len; i++)
                 {
@@ -270,7 +282,7 @@ var AuctionCtrl = {
                 $("#endTime").val(_utility.formatDate(goodsInfo.endTime));
                 self.auctionModel.initPrice = parseFloat(goodsInfo.initialPrice);
                 self.auctionModel.lowPrice = parseFloat(goodsInfo.lowestPremium);
-                self.auctionModel.referencePrice = parseFloat(goodsInfo.referencePrice);
+                self.auctionModel.cappedPrice = parseFloat(goodsInfo.cappedPrice);
                 self.auctionModel.marginPrice = parseFloat(goodsInfo.margin);
 
                 self.auctionModel.isShowInfo = true;
@@ -290,7 +302,7 @@ var AuctionCtrl = {
         $data.httpRequest("post", api.API_GET_AUCTION_INFO, params,
 
              /**
-             * @param data.allInfo.referencePrice 参考价
+             * @param data.allInfo.cappedPrice 封顶价
              * @param data.allInfo.hasLogin
              * @param data.allInfo.currentUser
              * @param data.allInfo.lowestPremium
@@ -301,7 +313,7 @@ var AuctionCtrl = {
             		self.goodsDetailModel.initPrice = self.auctionModel.initPrice;
 	            	self.goodsDetailModel.lowestPremium = self.auctionModel.lowPrice;
 	            	self.goodsDetailModel.margin = self.auctionModel.marginPrice;
-	            	self.goodsDetailModel.referencePrice = self.auctionModel.referencePrice;
+	            	self.goodsDetailModel.cappedPrice = self.auctionModel.cappedPrice;
 	            	
 	            	var eTime = $("#endTime").val();
                     var eTimeStamp = commonFn.toTime(eTime);
@@ -313,7 +325,7 @@ var AuctionCtrl = {
             		self.goodsDetailModel.initPrice = data.allInfo.initialPrice;
 	            	self.goodsDetailModel.lowestPremium = data.allInfo.lowestPremium;
 	            	self.goodsDetailModel.margin = data.allInfo.margin;
-	            	self.goodsDetailModel.referencePrice = data.allInfo.referencePrice;
+	            	self.goodsDetailModel.cappedPrice = data.allInfo.cappedPrice;
 	            	self.countDown(data.allInfo.endTime);
             	}
             	
@@ -392,8 +404,7 @@ var AuctionCtrl = {
 		return true;
     },
     
-    
-      //点击筛选改变颜色
+    //点击筛选改变颜色
     changeColor : function(type){
     	var index = type + 2; 
     	$("#auction-checeking").children().eq(0).css("background","#cdcdcd");
@@ -404,6 +415,24 @@ var AuctionCtrl = {
     },
     onEvent: function(){
         var self = this;
+        
+        //是否设置封顶价
+        self.scope.toShowInput = function(type){
+        	
+        	if(type == 1)
+        	{   
+        		$("#to-turn-off").removeClass("is-checking");
+        		$("#to-turn-on").addClass("is-checking");
+        		$("#height-price-hide").css("display","block")
+        	}
+        	else
+        	{   
+        		$("#to-turn-on").removeClass("is-checking");
+        		$("#to-turn-off").addClass("is-checking");
+        		$("#height-price-hide").css("display","none")
+        	}
+        	self.showTheInput = type;
+        },
      
         //分类获取拍品
          
@@ -412,7 +441,25 @@ var AuctionCtrl = {
         	self.getAuctionList("",self.isVipJudge);
         	
         	self.changeColor(type);
-        }
+        };
+        
+        //是否参与有奖竞猜
+        
+        self.scope.toShowJoin = function(type){
+        	self.auctionModel.isQuiz = type;
+        	if(type == 1)
+        	{
+        		$("#to-turn-off-quiz").removeClass("is-checking");
+        		$("#to-turn-on-quiz").addClass("is-checking");
+        		$("#quiz-hide").css("display","block")
+        	}
+        	else
+        	{
+        		$("#to-turn-on-quiz").removeClass("is-checking");
+        		$("#to-turn-off-quiz").addClass("is-checking");
+        		$("#quiz-hide").css("display","none")
+        	}
+        };
         //预览
         self.scope.preview = function() {
         	if(self.auctionModel.isAdd) //判断是添加同时检查填写参数，然后根据id调参数
@@ -442,7 +489,8 @@ var AuctionCtrl = {
         		$("#very-important").addClass("radio-checked");
          		$("#not-important").removeClass("radio-checked");
         	}
-        },
+        	
+        };
         //查看图片大图
         self.scope.checkImg = function(){
             $dialog.photos('#tBodyAuction');
@@ -471,6 +519,7 @@ var AuctionCtrl = {
         //显示添加藏品盒子
         self.scope.checkGoodsBox = function(){
             $(".sel-goods-box").addClass("ctrl-goods-show");
+            
         };
 
         //关闭藏品盒子
@@ -533,11 +582,19 @@ var AuctionCtrl = {
 
         //发布藏品
         self.scope.addAuction = function(){
+        	$("#to-turn-on").removeClass("is-checking");
+        	$("#to-turn-off").addClass("is-checking");
+        	$("#height-price-hide").css("display","none");
+        	$("#very-important").removeClass("radio-checked");
+        	$("#not-important").addClass("radio-checked");
             self.auctionModel.isShowInfo = true;
             self.auctionModel.modalTitle = CN_TIPS.PUBLISH_GOODS;
             self.auctionModel.isAdd = true;
+
             self.reFresh();
+//          self.auctionModel.isVip = 0;
             self.initSwiper();
+            self.getAllGoods();
 
             var $startTime = $("#startTime"),
                 $endTime = $("#endTime"),
@@ -571,6 +628,10 @@ var AuctionCtrl = {
         self.scope.back2main = function(){
             self.auctionModel.isShowInfo = false;
             $(".sel-goods-box").removeClass("ctrl-goods-show");
+            $("#to-turn-on").removeClass("is-checking");
+        	$("#to-turn-off").addClass("is-checking");
+        	$("#height-price-hide").css("display","none");
+   
         };
 
         //提交数据
@@ -580,12 +641,46 @@ var AuctionCtrl = {
            
             if(self.auctionModel.isAdd)
             {   
+            	if(self.auctionModel.isQuiz == 0){
+            		self.auctionModel.limitNum = null;
+            		self.auctionModel.tickets = null;
+            	}else{
+            		if(self.auctionModel.limitNum >= 3){
+            			self.auctionModel.limitNum = self.auctionModel.limitNum;
+            			self.auctionModel.tickets = self.auctionModel.tickets;
+            		}else{
+            			$('#tips').css("display","block");
+            			return;
+						
+            		}
+            	}
             	
             	if(self.auctionModel.initPrice == "" || self.auctionModel.initPrice == null)
             	{
             		self.auctionModel.initPrice = 0;
             	}
-
+            	if(self.showTheInput == 1)
+            	{   
+            		
+            		if(self.auctionModel.cappedPrice == null || self.auctionModel.cappedPrice =="" || self.auctionModel.cappedPrice < 0)
+            		{
+            			$dialog.msg(CN_TIPS.NEED_MORE_THAN_ZERO, 1.6);
+            			return;
+            		}
+            		else if(self.auctionModel.initPrice >= self.auctionModel.cappedPrice)
+                	{
+                		$dialog.msg(CN_TIPS.NEED_MORE_THAN_INITPRICE, 1.6);
+                		return;
+                	}
+                	self.showTheInput = 0;
+                	
+            	}
+            	else
+            	{   
+            		self.auctionModel.cappedPrice = 0;
+            	
+            	}
+               
             	if(self.auctionModel.initPrice < 0)
             	{   
             		$dialog.msg(CN_TIPS.PRICE_MUSTTHAN_ZERO, 1.6);
@@ -605,7 +700,8 @@ var AuctionCtrl = {
             		    return;
             		}
             		else
-            		{
+            		{	
+            			
             			self.publishGoods();
             		}
             	}
@@ -615,7 +711,7 @@ var AuctionCtrl = {
             {
                 self.modAuctionItem();
             }
-           
+           	
         };
 
         //跳页查看竞拍记录
@@ -635,6 +731,7 @@ var AuctionCtrl = {
                 location.href = JUMP_URL.BIDDING_LIST + "?biddingID=" + id
                     + "&selNum=" + selNum + "&nowPage=" + nowPage
                     + "&totalPage=" + totalPage + "&inputPage=" + inputPage;
+                 
             }
            
         };
@@ -657,20 +754,25 @@ var AuctionCtrl = {
                 goodsId: self.auctionModel.curID,
                 initialPrice: self.auctionModel.initPrice,
                 lowestPremium: self.auctionModel.lowPrice,
-                referencePrice: self.auctionModel.referencePrice,
                 margin: self.auctionModel.marginPrice,
                 startTime: self.auctionModel.startTime,
                 endTime: self.auctionModel.endTime,
-                isVIP:self.auctionModel.isVip
+                cappedPrice : self.auctionModel.cappedPrice,
+                isVIP:self.auctionModel.isVip,
+                isQuiz: self.auctionModel.isQuiz,
+                limitNum: self.auctionModel.limitNum,
+                tickets: self.auctionModel.tickets,
             };
-        
+// 		console.log(params);
         if(self.checkParams(params))
         {
             $data.httpRequest("post", api.API_RELEASE_AUCTION_ITEM, params, function(){
 				$dialog.msg(CN_TIPS.PUBLISH_OK, 1.6);
                 self.getAuctionList(1,self.isVipJudge);
+               
             })
         }
+    
     },
 
     //修改藏品
@@ -692,7 +794,7 @@ var AuctionCtrl = {
             }
         modInfo.initialPrice = self.auctionModel.initPrice;
         modInfo.lowestPremium = self.auctionModel.lowPrice;
-        modInfo.referencePrice = self.auctionModel.referencePrice;
+        modInfo.cappedPrice = self.auctionModel.cappedPrice;
         modInfo.margin = self.auctionModel.marginPrice;
         modInfo.startTime = self.auctionModel.startTime;
         modInfo.endTime = self.auctionModel.endTime;
@@ -701,6 +803,7 @@ var AuctionCtrl = {
         {
             params.modInfo = JSON.stringify(modInfo);
             $data.httpRequest("post", api.API_MOD_AUCTION_ITEM, params, function(){
+            	
 				$dialog.msg(CN_TIPS.MOD_OK, 1.6);
                 self.getAuctionList(1,self.isVipJudge);
             })

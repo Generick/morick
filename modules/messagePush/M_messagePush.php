@@ -44,16 +44,16 @@ class M_messagePush extends My_Model
     	//create message
     	
     	//0 means system msg
-    	$msg_type = 0;
-    	if (!empty($phoneNum) && $pushType == 3) {
+    	$msg_type = MP_MSG_TYPE_SYS;
+    	$userId = 0;
+    	if (!empty($phoneNum) && $pushType == MP_PUSH_TYPE_SINGLE) {
     		$userId = $this->getUserIdByPhone($phoneNum);
     		if ($userId == 0) {
     			return ERROR_USER_NOT_FOUND;
     		}
-    		$msg_id = $this->createMessage($pushType, $msg_title, $msg_content,$msg_type, $userId);
-    	}else{
-    		$msg_id = $this->createMessage($pushType, $msg_title, $msg_content,$msg_type);
     	}
+
+    	$msg_id = $this->createMessage($pushType, $msg_title, $msg_content, $msg_type, $userId);
 
     	return ERROR_OK;
     }
@@ -61,7 +61,7 @@ class M_messagePush extends My_Model
     //get user id by phone number
     function getUserIdByPhone($phoneNum)
     {
-    	$userId = $this->select('userId')->from('user')->where('telephone',$phoneNum)->get()->row_array();
+    	$userId = $this->db->select('userId')->from('user')->where('telephone',$phoneNum)->get()->row_array();
     	if (is_array($userId)) {
     		return $userId['userId'];
     	}else{
@@ -72,23 +72,26 @@ class M_messagePush extends My_Model
     //create user-msg read log
     function createReadLog($user_id, $msg_id)
     {
+    	$isRead = $this->db->from('usermsglog')->where(array('user_id'=>$user_id,'msg_id'=>$msg_id))->get()->row_array();
+    	if (is_array($isRead)) {
+    		return 0;
+    	}
     	$data = array('user_id'=>$user_id,'msg_id'=>$msg_id);
     	$this->db->insert('usermsglog',$data);
     }
 
     //get user msg list
     
-    function getUserMsgList($startIndex, $num, $userId, &$data, &$count)
+    function getUserMsgList($startIndex, $num, $userId, &$data, &$count, $whr)
     {
-        $isVIP = $this->db->select('isVIP')->from('user')->where('userId',$userId)->get()->row_array();
-        if ($isVIP['isVIP'] == 1) {
-             $whr = array('push_type !='=>0,'user_id'=> 0);
-         }else{
-             $whr = array('push_type !='=>1,'user_id'=> 0);
-         }
-
+        
          $data = $this->db->from('message')->where($whr)->or_where('user_id',$userId)->order_by('create_time desc')->limit($num,$startIndex)->get()->result_array();
-         $user_msg = $this->db->select('msg_id')->from('usermsglog')->where('user_id',$userId)->get()->result_array();
+         //get msg_id
+         foreach ($data as $v) {
+         	$sRead[] = $v['msg_id'];
+         }
+         //get read msg_id
+         $user_msg = $this->db->select('msg_id')->from('usermsglog')->where('user_id',$userId)->where_in('msg_id',$sRead)->get()->result_array();
          $readMsg = $unreadMsg = $hasRead = array();
          foreach ($user_msg as $v) {
          	$hasRead[] = $v['msg_id'];
@@ -110,7 +113,7 @@ class M_messagePush extends My_Model
              
          }
          $data = array_merge($unreadMsg,$readMsg);
-         $count = count($data);
+         $count = $this->db->from('message')->where($whr)->or_where('user_id',$userId)->count_all_results();
          return ERROR_OK;
     }
 
@@ -118,7 +121,7 @@ class M_messagePush extends My_Model
     //user view message
     function viewMsg($userId, $msg_id, $msg_type, $href_id, &$data)
     {
-    	$this->createMessage($userId,$msg_id);
+    	$this->createReadLog($userId,$msg_id);
     	return ERROR_OK;
     	// if ($msg_type == 0) {
     	// 	$data = $this->db->select('msg_title,msg_content')->from('message')->where('msg_id',$msg_id)->get()->row_array();
@@ -134,15 +137,15 @@ class M_messagePush extends My_Model
     function createUserMsg($userId,$msg_type,$href_id)
     {
     	switch ($msg_type) {
-    		case 1:
+    		case MP_MSG_TYPE_QUIZ:
     			$msg_content = MP_QUIZAWARD;
     			$msg_title = MP_QUIZAWARD_TITLE;
     			break;
-    		case 2:
+    		case MP_MSG_TYPE_AUCTION:
     			$msg_content = MP_AUCTIONOBTAIN;
     			$msg_title = MP_AUCTIONOBTAIN_TITLE;
     			break;
-    		case 3:
+    		case MP_MSG_TYPE_ORDER:
     			$msg_content = MP_ORDERSTATUS;
     			$msg_title = MP_ORDERSTATUS_TITLE;
     			break;
@@ -151,7 +154,7 @@ class M_messagePush extends My_Model
     			break;
     	}
 
-    	$msg_id = $this->createMessage(3,$msg_title, $msg_content, $msg_type, $user_id, $href_id);
+    	$msg_id = $this->createMessage(MP_PUSH_TYPE_SINGLE, $msg_title, $msg_content, $msg_type, $user_id, $href_id);
     }
 
 }

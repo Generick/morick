@@ -1,18 +1,23 @@
-/**
- * Created by Administrator on 2016/12/12.
- */
+//提现
 
 var WithdrawCtrl = {
+	//作用域
     scope: null,
-
+	
+	//数据模型
     withdrawModel: {
-
+		listArr: [],
+		status: 3,
+		keywords: null
     },
-
+	
+	//初始化
     init: function($scope){
         this.scope = $scope;
-
+		this.scope.withdrawModel = this.withdrawModel;
         this.initData();
+        
+        this.getWithdrawList(this.withdrawModel.status, this.withdrawModel.keywords);
 
         this.onEvent();
 
@@ -22,65 +27,121 @@ var WithdrawCtrl = {
     initData: function(){
         var self = this;
 
-        //初始化时间设置
-        var start = {
-            format: 'YYYY-MM-DD',
-            minDate: $.nowDate(0),
-            maxDate: '2099-06-16 23:59:59',
-            isToday: false,
-            choosefun: function(elem,datas){
-                end.minDate = datas;
-            }
-        };
-        var end = {
-            format: 'YYYY-MM-DD',
-            minDate: $.nowDate(0),
-            maxDate: '2099-06-16 23:59:59',
-            isToday: false,
-            choosefun: function(elem, datas){
-                start.maxDate = datas;
-            }
-        };
-
-        $("#startTime").jeDate(start);
-        $("#endTime").jeDate(end);
-
         //tab
         self.scope.tabs = [
+        	{
+        		title: '全部',
+                url: 'allList',
+                status: 3
+        	},
             {
-                title: '待审核列表',
-                url: 'reviewList'
+                title: '待处理',
+                url: 'reviewList',
+                status: 1
             },
             {
-                title: '已同意列表',
-                url: 'yesList'
+                title: '已拒绝',
+                url: 'noList',
+                status: 2
             },
             {
-                title: '已拒绝列表',
-                url: 'noList'
+                title: '已完成',
+                url: 'yesList',
+                status: 0
             }
         ];
 
         //默认项
-        self.scope.currentTab = 'reviewList';
+        self.scope.currentTab = 'allList';
 
         self.scope.onClickTab = function(tab){
             self.scope.currentTab = tab.url;
+            self.withdrawModel.status = tab.status;
+            self.getWithdrawList(self.withdrawModel.status);
         };
 
         self.scope.isActiveTab = function(tabUrl){
             return tabUrl == self.scope.currentTab;
         };
     },
-
+	
+	//获取列表数据
+	getWithdrawList: function(status, fields){
+		var self = this;
+		
+		var params = {
+			status: null,
+			fields: null,
+		};
+		
+		params.status = status;
+		params.fields = fields;
+		
+		pageController.pageInit(self.scope, api.API_GET_WITHDRAW_LIST, params, function(data){
+			//分页
+			var totalPage = Math.ceil(data.count / self.scope.page.selectPageNum);
+            
+            pageController.pageNum(totalPage);
+            
+            for(var i = 0; i < data.data.length; i++){
+            	data.data[i].type = self.turnStatus(data.data[i].status);
+            }
+            self.withdrawModel.listArr = data.data;
+            self.scope.$apply();
+		})
+	},
+	
+	//状态转换
+	turnStatus: function(status){
+		var params = {
+			0: '已完成',
+			1: '待处理',
+			2: '已拒绝'
+		}
+		
+		return params[status];
+	},
+	
     //绑定事件
     onEvent: function(){
         var self = this;
-
-        //导出excel
-        self.scope.exportData = function () {
-            var bb = new Blob([document.getElementById('table1').innerHTML], {type: 'text/plain;charset=utf-8'});
-            saveAs(bb, '提现列表.xls')
-        }
+        
+		//通过
+		self.scope.acceptBtn = function(id){
+			layer.prompt({title: '通过提现申请', value: '您好，恭喜您的提现申请已通过，请耐心等待7个工作日，如有疑问请联系客服！', formType: 2}, function(text, index){
+			    layer.close(index);
+			    
+			    var params = {
+			    	id: id
+			    };
+			    
+			    $data.httpRequest("post", api.API_ACCEPT_WITHDRAW, params, function(data){
+			    	self.getWithdrawList(self.withdrawModel.status);
+			    })
+			});
+		};
+		
+		//拒绝
+		self.scope.refuseBtn = function(id, userId, withdrawCash){
+			layer.prompt({title: '拒绝提现申请', formType: 2}, function(text, index){
+			    layer.close(index);
+			    
+			    var params = {
+			    	id: id,
+			    	userId: userId,
+			    	withdrawCash: withdrawCash,
+			    	reason: text
+			    };
+			    
+			    $data.httpRequest("post", api.API_REFUSE_WITHDRAW, params, function(data){
+			    	self.getWithdrawList(self.withdrawModel.status);
+			    })
+			});
+		};
+		
+		//搜索
+		self.scope.search = function(){
+			self.getWithdrawList(self.withdrawModel.status, self.withdrawModel.keywords);
+		}
     }
 };

@@ -4,11 +4,17 @@
         <div class="r m-g-l-10"><a class="btn btn-white" ng-click="search()">查询</a></div>
         <div class="r"><input type="text" class="form-control" ng-model="orderModel.keywords" placeholder="输入订单号、用户名查询"></div>
     </div>
-
+   
     <div class="table-tab">
+    	<div id="pay-way">
+    		<div id="all-pay" class="pay-active" ng-click="onlinePay(0)">全部订单</div>
+    		<div id="online-pay" ng-click="onlinePay(1)">线上支付订单</div>
+    		<div id="face-pay" ng-click="onlinePay(2)">当面付订单</div>
+    	</div>
+    	
         <ul class="fix" id="orderTab">
             <li class="f" ng-repeat="tab in tabs">
-                <a ng-click="onClickTab(tab, $index)" ng-class="{true: 'btn btn-default', false: 'btn btn-white'}[tab.isActive]">{{tab.title}}</a>
+                <a ng-click="onClickTab(tab, $index)" ng-class="{true: 'btn btn-default', false: 'btn btn-white'}[tab.isActive]" ng-show="tab.isShowTitle">{{tab.title}}</a>
             </li>
         </ul>
     </div>
@@ -24,7 +30,11 @@
                 <td style="text-align: center">收货信息</td>
                 <td style="text-align: center">支付金额</td>
                 <td style="text-align: center">订单状态</td>
-                <td style="padding-left: 20px">操作</td>
+                <td style="text-align: center">支付方式</td>
+                <td style="padding-left: 20px">
+                	<div ng-show="orderModel.isShowBtn" style ="width:40%;display: inline-block;"></div>
+                		操作
+                    </td>
             </tr></thead>
             <tbody>
             <tr ng-repeat="item in orderModel.modelArr">
@@ -42,10 +52,22 @@
                 </td>
                 <td style="text-align: center">{{"￥"+item.payPrice}}</td>
                 <td style="text-align: center">{{item.orderStatusCopy}}</td>
+                <td style="text-align: center">
+                	<div ng-show="item.deliveryType == '0'">线上支付</div>
+                	<div ng-show="item.deliveryType == '1'">当面付</div>
+                </td>
                 <td>
                     <a class="btn btn-white" ng-click="checkInfo(item)">查看</a>
                     <!--<span ng-show="orderModel.curOrderType == '2' && !item.isRelease" class="m-g-l-10"><a class="btn btn-default" ng-click="deliverGoods(item, $index)">发货</a></span>-->
-                    <span ng-show="item.isRelease" class="m-g-l-10"><a class="btn btn-default" ng-click="deliverGoods(item, $index)">发货</a></span>
+                    <span ng-show="item.isRelease && item.deliveryType == '0'" class="m-g-l-10"><a class="btn btn-default" ng-click="deliverGoods(item, $index)">发货</a></span>
+                    <span id="click-make-sure" ng-show="item.deliveryType == '1' &&(item.orderStatus == '1' || item.orderStatus == '4')" class="m-g-l-10">
+                    	<button class="btn" ng-show="item.deliveryType == '1' && item.orderStatus == '1'" ng-class="{true:'orderChange',false:'btn-white'}[item.orderStatus == '4']" ng-click="toAgreeOrCancle(item, 0)">确认完成</button>
+                    	<button class="btn orderChange" class="orderChange" ng-show="item.deliveryType == '1' && item.orderStatus == '4'">已完成 </button>
+                    </span>
+                    <span id="click-make-cancle" ng-show="item.deliveryType == '1' &&(item.orderStatus == '0' || item.orderStatus == '1')" class="m-g-l-10">
+                    	<button class="btn" ng-show="item.deliveryType == '1' && item.orderStatus == '1'" ng-class="{true:'orderChange',false:'btn-white'}[item.orderStatus == '0']"  ng-click="toAgreeOrCancle(item, 1)">取消订单</button>
+                        <button class="btn orderChange" ng-show="item.deliveryType == '1' && item.orderStatus == '0'">已取消 </button>
+                    </span>
                 </td>
             </tr>
             </tbody>

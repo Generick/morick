@@ -88,19 +88,19 @@
 					<span>{{$index+1}}、当金额达到</span><span ng-bind="item.triggerPrice"></span>时，自动出价到<span ng-bind="item.offerPrice"></span>
 				</div>
 			</div>
-            <div class="goods-operate-box">
+            <!--<div class="goods-operate-box">
                 <button class="goods-operate-block2" ng-show="goodsDetailModel.showReference">
                     <span class="reference-price">参考价</span>￥<span ng-bind="goodsDetailModel.allInfo.referencePrice"></span>
                 </button>
-            </div>
+            </div>-->
           
-            <!--<div id="capped-box" class="capped-hide">
+            <div id="capped-box" class="capped-hide">
 	            <div id="capped-price-box">
 	                <button id="capped-price-btn">
 	                    <span id="capped-price">封顶价</span>￥<span ng-bind="goodsDetailModel.allInfo.cappedPrice"></span>
 	                </button>
 	            </div>
-            </div>-->
+            </div>
 			<div class="goods-buyer">
 				
 				<div class="goods-buyer-block clear">
@@ -245,8 +245,8 @@
                         </div>
                     </div>-->
                 </div>
-                <button class="goods-operate-block2" ng-show="goodsDetailModel.showReference">
-                    <span class="reference-price">参考价</span>￥<span ng-bind="goodsDetailModel.allInfo.referencePrice"></span>
+                <button class="goods-operate-block2" ng-show="goodsDetailModel.allInfo.cappedPrice > 0">
+                    <span class="reference-price">封顶价</span>￥<span ng-bind="goodsDetailModel.allInfo.cappedPrice"></span>
                 </button>
 
                 <button class="goods-btn-2" ng-click="onClickToSelfPaid()">确&nbsp;定</button>
@@ -306,18 +306,20 @@
 		    window.addEventListener("popstate", function(e) {
 		    	if (bool)
 		    	{   
-		    		if(commonFu.isEmpty(localStorageKey.FROM_LOCATION))
+		    		if(commonFu.isEmpty(localStorageKey.FROM_LOCATION) || (localStorage.getItem(localStorageKey.FROM_LOCATION) == 0))
 		    		{   
 		    			sessionStorage.setItem("needPage",1)
 		    			location.href = pageUrl.SELECTED_GOODS +"?backPage=" + GoodsInfoCtrl.thisDetailPage + "&thisDataId=" + GoodsInfoCtrl.thisDataId;
 
 		    		}
-		    		else if(localStorage.getItem(localStorageKey.FROM_LOCATION) == 0)
-		    		{    
-		    			
-		    			location.href = pageUrl.SELECTED_GOODS;
-
-		    		}
+//		    		else if(localStorage.getItem(localStorageKey.FROM_LOCATION) == 0)
+//		    		{    
+//		    			
+//		    		//	location.href = pageUrl.SELECTED_GOODS;
+//                      sessionStorage.setItem("needPage",1)
+//		    			location.href = pageUrl.SELECTED_GOODS +"?backPage=" + GoodsInfoCtrl.thisDetailPage + "&thisDataId=" + GoodsInfoCtrl.thisDataId;
+//
+//		    		}
 		    		else
 		    		{
 		    			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))

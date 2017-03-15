@@ -185,15 +185,14 @@ var SelectCtrl =
 
 	    	$('.animation').css('display','block');
 	    	
-//	    	console.log('params:' + JSON.stringify(params));
+	    	console.log('params:' + JSON.stringify(params));
 	    	    
 	    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_AUCTION_ITEMS, params, function(data){
 	    	
-
 	    	    self.totalCount = data.count;
 	    	    //设置总页数
 	    	    self.setTotalPage(self.totalCount);
-
+               
                 if(commonFu.isEmpty(sessionStorage.getItem("alreadyGet")))
 	    	    {  
 	    	    	
@@ -481,7 +480,7 @@ var SelectCtrl =
 				setTimeout(function(){
 						$('.animation').css("display","none");
 						$('.container').css({'opacity':'1'});
-				},100);
+				},200);
 				
 				sessionStorage.removeItem("selDisId");
 		    }
@@ -497,7 +496,7 @@ var SelectCtrl =
 					setTimeout(function(){
 						$('.animation').css("display","none");
 						$('.container').css({'opacity':'1'});
-					},100);
+					},200);
 					
 					sessionStorage.removeItem("selDisId");
 				}
@@ -516,8 +515,9 @@ var SelectCtrl =
 //          alert("jumpPage"+self.thisJumpPage)
         	if(!commonFu.isEmpty(self.thisJumpPage) && !commonFu.isEmpty(self.thisJumpId))
         	{  
+        		
         		if(!commonFu.isEmpty(sessionStorage.getItem("needPage")))
-		        {
+		        { 
 //		        	alert(self.selectedModel.auctionItems.length)
 		        	var dealTop = $("#sel_"+ self.thisJumpId).offset().top;
 		        	
@@ -525,7 +525,7 @@ var SelectCtrl =
 		        }
 		        else
 		        {   
-		        	
+//		        	alert(sessionStorage.getItem("needPage"))
 		        	var dealTop = $("#sel_"+ self.selectedModel.auctionItems[0].id).offset().top;
 		        }
 				self.thisJumpPage = null;

@@ -44,6 +44,8 @@ var ScanRecordsCtrl = {
              * @param data.readObjList.currentUserInfo 竞拍人信息
              */
             function(data) {
+            	
+//          	console.log(JSON.stringify(data))
                 self.scanRecordsModel.readObjList = [];
                 self.scanRecordsModel.readObjList = data.readObjList;
                 if (self.scanRecordsModel.readObjList.length > 0)
@@ -98,11 +100,27 @@ var ScanRecordsCtrl = {
     bindClick: function() {
     	var self = this;
     	
-    	self.scope.onClickToScanRecordDetail = function(id)
-    	{
-    		localStorage.setItem(localStorageKey.FROM_LOCATION, 2);
-    		location.href = pageUrl.GOODS_DETAIL + "?id=" + id;
+    	self.scope.onClickToScanRecordDetail = function(item)
+    	{   
+    		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
+			    localStorage.setItem(localStorageKey.vipOrNot,data.userInfo.isVIP)
+			    var isMySelfVip = data.userInfo.isVIP;
+				if((data.userInfo.isVIP == 0) && (item.isVIP == 1))
+    			{
+    				$dialog.msg("该拍品为VIP专享，您还不是VIP，请开通！")
+    				return;
+    			}
+    			else
+    			{
+    				localStorage.setItem(localStorageKey.FROM_LOCATION, 2);
+		    		location.href = pageUrl.GOODS_DETAIL + "?id=" + item.id;
+    			}
+    				
+		    
+    		})
     	}
+    		
+    		
     },
     
     ngRepeatFinish: function() {

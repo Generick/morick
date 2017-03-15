@@ -1,0 +1,1 @@
+alter table mn_recharge change payChanel payChannel tinyint(4) DEFAULT '0';

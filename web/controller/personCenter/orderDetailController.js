@@ -18,8 +18,12 @@ var OrderDetailCtrl = {
     	showLogistics: true, //显示物流
     	lastTime: null, //剩余付款时间
     	noReceipt: true,
-        orderIsDone: true
+        orderIsDone: true,
+        deliveryType :0
     },
+    
+   
+    faceOrFast : false,
     
     traces: [],//物流信息
     
@@ -64,6 +68,8 @@ var OrderDetailCtrl = {
         };
 
         jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_ORDER_INFO, param, function(data) {
+            
+//          console.log(JSON.stringify(data))
             self.orderDetailModel.orderInfo = {};
             self.orderDetailModel.orderInfo = data.orderInfo;
             if(self.orderDetailModel.orderInfo.acceptName == "")
@@ -94,6 +100,12 @@ var OrderDetailCtrl = {
                 var lastTime = parseInt(endTime) - parseInt(self.orderDetailModel.orderInfo.orderGoods[0].create_time);
                 self.orderDetailModel.lastTime = self.countDown(lastTime);
             }
+            else if (self.orderDetailModel.orderInfo.orderStatus == 2)
+            {
+                self.orderDetailModel.orderInfo.orderTypeText = "等待发货";
+                self.orderDetailModel.showLogistics = true;
+                self.orderDetailModel.orderIsDone = false;
+            }
             else if (self.orderDetailModel.orderInfo.orderStatus == 3)
             {
                 self.orderDetailModel.orderInfo.orderTypeText = "等待收货";
@@ -102,7 +114,7 @@ var OrderDetailCtrl = {
             }
             else if (self.orderDetailModel.orderInfo.orderStatus == 4)
             {
-                self.orderDetailModel.orderInfo.orderTypeText = "交易成功";
+                self.orderDetailModel.orderInfo.orderTypeText = "在线交易成功";
                 self.orderDetailModel.showLogistics = true;
                 self.orderDetailModel.orderIsDone = false;
             }
@@ -111,7 +123,24 @@ var OrderDetailCtrl = {
                 self.orderDetailModel.unPay = false;
                 self.orderDetailModel.showLogistics = false;
             }
-
+            if(self.orderDetailModel.orderInfo.deliveryType == 1 && self.orderDetailModel.orderInfo.orderStatus == 1)
+            {   
+            	self.orderDetailModel.orderInfo.orderTypeText = "申请已提交，待交易";
+            	self.orderDetailModel.unPay = false;
+            	self.orderDetailModel.showLogistics = false;
+            }
+            else if(self.orderDetailModel.orderInfo.deliveryType == 1 && self.orderDetailModel.orderInfo.orderStatus == 4)
+            {
+            	self.orderDetailModel.orderInfo.orderTypeText = "当面付交易已完成";
+            	self.orderDetailModel.unPay = false;
+            	self.orderDetailModel.showLogistics = false;
+            }
+            else if(self.orderDetailModel.orderInfo.deliveryType == 1 && self.orderDetailModel.orderInfo.orderStatus == 0)
+            {
+            	self.orderDetailModel.orderInfo.orderTypeText = "当面付交易已取消";
+            	self.orderDetailModel.unPay = false;
+            	self.orderDetailModel.showLogistics = false;
+            }
             self.orderDetailModel.orderInfo.orderGoods[0].goods_pics = JSON.parse(self.orderDetailModel.orderInfo.orderGoods[0].goods_pics);
 
             self.getTraceList();
@@ -188,9 +217,48 @@ var OrderDetailCtrl = {
     	})
     },
     
+    
     bindClick: function() {
     	var self = this;
+        
+        //选择付款方式
+        self.scope.fastOrFace= function(type){
+        	
+        	if(type == 0)
+        	{
+        		$("#fastSend").addClass("sen-check");
+        		$("#faceSend").removeClass("sen-check");
+        		self.faceOrFast = false;
+        		if(!self.faceOrFast)
+        		{
+        			$("#go-to-pay").css({"display":"block"})
+        			$("#up-data").css({"display":"none"})
+        		}
+        	}
+        	else
+        	{
+        		$("#fastSend").removeClass("sen-check");
+        		$("#faceSend").addClass("sen-check");
+        		self.faceOrFast = true;
+        		if(self.faceOrFast)
+        		{
+        			$("#go-to-pay").css({"display":"none"})
+        			$("#up-data").css({"display":"block"})
+        		}
+        	}
+        
+        };
 
+        
+        self.scope.hideIt = function(){
+        	
+        	
+        	$("#shenqing").css({"display":"none"});
+        	
+	        self.initData();
+	        
+        };
+        
         //选择地址
         self.scope.selAddress = function(){
             if (self.orderDetailModel.orderIsDone) //订单已生成并且未发货之前都可以修改地址
@@ -202,37 +270,62 @@ var OrderDetailCtrl = {
         };
 
         //支付订单
-    	self.scope.onClickToPayOrder = function()
+    	self.scope.onClickToPayOrder = function(type)
     	{
-    		if (!self.orderDetailModel.noReceipt)
+    		var params = {};
+	        params.order_no = self.orderDetailModel.order_no;
+	        params.deliveryType  = JSON.stringify(type);
+	
+    		if(type == 1)
     		{
-    			$dialog.msg("请先完善收货地址再付款");
+    			self.sendMessage(params,type);
     		}
-            else
-            {
-                if(parseFloat(self.orderDetailModel.balance)  >= parseFloat(self.orderDetailModel.orderInfo.payPrice)) //余额大于实付金额直接掉接口否则取充值界面
-                {
-                    var params = {
-                        order_no: self.orderDetailModel.order_no
-                    };
-
-                    jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PAY_ORDER, params, function(){
-                        //付款成功后操作
-                        $dialog.msg("付款成功", 1);
-                        setTimeout(function(){
-                            location.href = pageUrl.MY_ORDER_LIST + "?orderType=" + ""; //付款成功后跳到全部订单
-                        },1000);
-                    })
-                }
-                else
-                {
-                    location.href = pageUrl.ACCOUNT_RECHARGE;
-                }
-            }
-        }
+    		else
+    		{
+    			if (!self.orderDetailModel.noReceipt)
+    			{
+    				$dialog.msg("请先完善收货地址再付款");
+    			}
+    			else
+	            {
+	                if(parseFloat(self.orderDetailModel.balance)  >= parseFloat(self.orderDetailModel.orderInfo.payPrice)) //余额大于实付金额直接掉接口否则取充值界面
+	                {
+	                    self.sendMessage(params,type);
+	                }
+	                else
+	                {
+	                    location.href = pageUrl.ACCOUNT_RECHARGE;
+	                }
+	            }
+    		}
+       };
     },
-
+    
+    sendMessage : function(params,type){
+    	
+    	var self = this;
+    	
+    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PAY_ORDER, params, function(){
+	        
+	        if(type == 1)
+	        { 
+	        	self.orderDetailModel.unPay = false;
+	        	$("#shenqing").css({"display":"block"})
+	        }
+	        else
+	        {   
+	        	//付款成功后操作
+	            $dialog.msg("付款成功", 1);          	
+	            setTimeout(function(){
+	                location.href = pageUrl.MY_ORDER_LIST + "?orderType=" + ""; //付款成功后跳到全部订单
+	            },1000);
+	        }
+	
+	    })
+    },
+    
     ngRepeatFinish: function() {
+    	
 		this.scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent){});
     }
 };

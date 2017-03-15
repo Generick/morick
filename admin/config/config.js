@@ -9,8 +9,11 @@
 //var BASE_URL = "http://192.168.2.23:8082/auction/index.php/"; //内网Url
 //var BASE_URL = "http://mc.meeno.net:8082/auction/index.php/"; //内网Url
 var BASE_URL = "http://localhost/auction/index.php/"; //内网Url
-
 var BASE_JUMP_URL = "../admin/index.html#/";
+
+//var BASE_URL = "http://192.168.2.128/auction/index.php/"
+
+
 
 //api
 var api = {
@@ -39,6 +42,10 @@ var api = {
     API_GET_AUCTION_GOODS : BASE_URL + "auction/A_auction/getAuctionGoods", //获取藏品列表
     API_SET_AUCTION_OFF : BASE_URL + "auction/A_auction/setAuctionItemOff", //下架展品
     
+    //出价管理
+    API_SEND_MESSAGE : BASE_URL + "bids/A_bids/smsSend",//发送短信
+    API_GET_BIDLIST : BASE_URL +"bids/A_bids/getBidList",//获取数据
+    
     //获取基础数据
     API_GET_STATISTICS : BASE_URL + "a_admin/getStatistics",//获取藏品数和总金额
     //管理员
@@ -59,6 +66,7 @@ var api = {
     //订单管理
     API_GET_ORDER_LIST : BASE_URL + "order/A_order/getOrderList", //订单列表
     API_DELIVER_ORDER : BASE_URL + "order/A_order/deliverOrder", //发货
+    API_CANCLE_OR_SURE_ORDER : BASE_URL + "order/A_order/operateOrder",//设置完成或者取消订单
     
     //统计
     API_GET_LOGISTICS_INFO : BASE_URL + "order/A_order/getLogisticsInfo", //物流信息
@@ -66,7 +74,22 @@ var api = {
     API_RECHARGE_STATISTICAL : BASE_URL + "recharge/A_recharge/rechargeStatistical", //充值
     API_AUCTION_STATISTICAL : BASE_URL + "auction/A_auction/auctionStatistical", //商品录入
     API_GET_BALANCE_LIST : BASE_URL + "transaction/A_transaction/getTransactionList", //余额修改记录
-
+	
+	//有奖竞猜
+	API_GET_QUIZ_LIST : BASE_URL + "prizesQuiz/A_prizesQuiz/getQuizList", //获取竞猜列表
+	API_VIEW_QUIZ : BASE_URL + "prizesQuiz/A_prizesQuiz/viewQuiz", //查看竞猜详情
+	API_SEARCH_QUIZ_LIST : BASE_URL + "prizesQuiz/A_prizesQuiz/searchQuizList", //搜索竞猜列表
+	API_QUIT_QUIZ : BASE_URL + "prizesQuiz/A_prizesQuiz/quitQuiz", //结束竞猜
+	API_UPDATE_LIMIT_NUM : BASE_URL + "prizesQuiz/A_prizesQuiz/updateLimitNum", //设置竞猜人数限制
+	
+	//提现管理
+	API_GET_WITHDRAW_LIST : BASE_URL + "withdrawCash/A_withdrawCash/getWithDrawList", //获取提现列表
+	API_ACCEPT_WITHDRAW : BASE_URL + "withdrawCash/A_withdrawCash/acceptWithDraw", //同意提现
+	API_REFUSE_WITHDRAW : BASE_URL + "withdrawCash/A_withdrawCash/refuseWithDraw", //拒绝提现
+	
+	//推送
+	API_PUSH_MESSAGE : BASE_URL + "messagePush/A_messagePush/pushMessage", //后台推送消息pushType推送类型0非vip 1:vip 2:全部 3:个人
+	
     //上传文件
     API_UP_FILE : BASE_URL + "upload/uploadImages"
 };
@@ -128,7 +151,9 @@ var CN_TIPS = {
     UP_LOAD_PIC: "上传图片",
     UP_LOAD_VIDEO: "上传视频",
     PRICE_MUSTTHAN_ZERO : "初始价不能低于 0",
-    MOD_USER: "用户备注"
+    MOD_USER: "用户备注",
+    NEED_MORE_THAN_INITPRICE:"封顶价应大于起拍价",
+    NEED_MORE_THAN_ZERO :"封顶价不能为空，不能小于0"
 };
 
 //跳转页面

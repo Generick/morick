@@ -30,6 +30,7 @@ var $data = {
             async: async,
             type: type,
             data: params,
+            cache:false,
             dataType: 'json',
 
             /**
@@ -38,34 +39,39 @@ var $data = {
              * @param data.errMsg 错误信息
              */
             success: function(data)
-            {
+            { 
                 var err = data.err,
                     errMsg = data.errMsg;
+                    
+                if(err != ''){
+                	$dialog.msg(err);
+                }
 
                 if(err != errCode.success)
                 {
                     if(errMsg != '')
-                    {
-                        alert(errMsg);
+                    {   
+                        $dialog.msg(errMsg);
                     }
 
                     if(err == errCode.tokenFail || err == errCode.sayFail) //token失效或者回话不存在就跳登录页
-                    {
+                    {    
                         location.href = "login.html";
                     }
 
                     if(!_utility.isEmpty(onFail))
-                    {
+                    {  
                         onFail(err);
                     }
                 }
                 else
-                {
+                {   
                     callback(data.data);
                 }
             },
             error: function() {
-//              alert("请求数据失败");
+               	$dialog.msg("请求数据失败");
+             
                 setTimeout(function(){
                 	location.href = "login.html";
                 },500)

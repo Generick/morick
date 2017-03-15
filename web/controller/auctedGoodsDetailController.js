@@ -14,6 +14,7 @@ var auctedGoodsDetailController =
 {
 	scope : null,
     
+   
     auctedGoodsDetailModel:
     {
     	id : null,//商品id
@@ -21,7 +22,8 @@ var auctedGoodsDetailController =
     	showReference : true,
     	auctionDetailText : null,
     	currentPrice : null,
-    	auctionSuccess : false
+    	auctionSuccess : false,
+    	isShowHighest : false
     },
     
     thisDetailPage :null,
@@ -106,11 +108,7 @@ var auctedGoodsDetailController =
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_AUCTION_INFO, params, function(data)
     	{  
-//              if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)) && data.allInfo.isVIP == 1)
-//  			{
-//  		
-//		   			location.href = pageUrl.AUCTION_HISTORY +"?backPage=" + self.thisDetailPage + "&thisDataId=" + self.thisDataId;
-//				}
+             
     			self.auctedGoodsDetailModel.allInfo = [];
 	    		self.auctedGoodsDetailModel.allInfo = data.allInfo;
 	    		self.auctedGoodsDetailModel.auctionSuccess = false;
@@ -118,7 +116,14 @@ var auctedGoodsDetailController =
 				self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_pics = JSON.parse(data.allInfo.goodsInfo.goods_pics);
 			    self.auctedGoodsDetailModel.allInfo.currentPrice = self.toDecimals(self.auctedGoodsDetailModel.allInfo.currentPrice);
 				$('#goodsContent2').html(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_detail);
-	
+	            
+	            if(parseFloat(self.auctedGoodsDetailModel.allInfo.cappedPrice) > 0)
+	            {
+	            	self.auctedGoodsDetailModel.isShowHighest = true;
+	            }
+	            else{
+	            	self.auctedGoodsDetailModel.isShowHighest = false;
+	            }
 	            //竞拍的人数
 	            var userNum = parseInt(self.auctedGoodsDetailModel.allInfo.currentUser);
 				if( userNum > 0) //人数大于0竞拍成功

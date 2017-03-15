@@ -22,19 +22,21 @@ class M_recharge extends My_Model
     function recharge($rechargeData, &$rechargeInfo)
     {
         $rechargeData["rechargeId"] =  "cz". date('Ymd') .rand(100000, 999999);
+        /*
         $rechargeData['prepayInfo'] = $this->wxpay->getPrepayInfo($rechargeData["rechargeId"], $rechargeData['price'] * 100);//微信是1分，支付宝是1块 （获取微信预支付信息）
         if(empty($rechargeData['prepayInfo']))
         {
             return ERROR_GET_WEIXI_PREPAYINFO_FAILED;
         }
+        */
 
         //订单信息插入数据库
         $this->m_common->insert("recharge", $rechargeData);
 
         //返回微信预支付信息
-        $rechargeInfo['prepayInfo'] = $rechargeData['prepayInfo'];//微信预支付信息
+        //$rechargeInfo['prepayInfo'] = $rechargeData['prepayInfo'];//微信预支付信息
         $rechargeInfo['rechargeId'] = $rechargeData['rechargeId'];//订单id
-        $rechargeInfo['payChannel']  = $rechargeData['payChannel'];//支付渠道
+        $rechargeInfo["price"] = $rechargeData["price"];
 
         return ERROR_OK;
     }

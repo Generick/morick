@@ -41,7 +41,12 @@
                 <td style="text-align: center">{{item.telephone}}</td>
                 <td style="text-align: center">{{"￥"+item.balance}}</td>
                 <td style="text-align: center">{{item.registerTime*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
-                <td style="text-align: center"><a class="btn-default" ng-click="reMark(item)" style="margin:0 auto;display:block;height:31px;margin-top:9px;padding:6px 10px;max-width: 94px;"><i class="ti-pencil-alt"></i> 备注</a></td>
+                <td style="width: 180px;">
+                	<div class="overFlow" style="float: left; width: 150px;">{{item.note}}</div>
+                	<div style="float: right;">
+                		<i class="ti-pencil-alt" ng-click="reMark(item)"></i>
+                	</div>
+                </td>
               <!-- <i class="ti-pencil-alt"></i>-->
                 <td style="text-align: center"></td>
                 <td style="text-align: center"></td>

@@ -37,8 +37,9 @@ app.config(function($stateProvider, $urlRouterProvider){
             templateUrl: 'view/user/mn.user.html',
             controller: 'UserCtrl'
         })
+        //提现
         .state('withdraw', {
-            url: '/withdrew',
+            url: '/withdraw',
             templateUrl: 'view/withdraw/mn.withdraw.html',
             controller: 'WithdrawCtrl'
         })
@@ -66,5 +67,22 @@ app.config(function($stateProvider, $urlRouterProvider){
         	url: '/balanceData',
         	templateUrl: 'view/data/mn.data.balance.html',
         	controller: 'BalanceDataCtrl'
+        })
+        .state('offerPriceCtrl', {
+        	url: '/offerPriceCtrl',
+        	templateUrl: 'view/offerPrice/offerPricePage.html',
+        	controller: 'OfferPriceCtrl'
+        })
+        //竞猜
+        .state('quiz', {
+        	url: '/quiz',
+        	templateUrl: 'view/quiz/mn.quiz.html',
+        	controller: 'QuizCtrl'
+        })
+        //推送
+        .state('push', {
+        	url: '/push',
+        	templateUrl: 'view/push/mn.push.html',
+        	controller: 'PushCtrl'
         })
 });

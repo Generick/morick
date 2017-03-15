@@ -31,7 +31,6 @@ class A_bids extends Admin_Controller{
             $num = 10;
         }
 
-
         $count = 0;
         $bidList = array();
         $retCode = $this->m_bids->getBidList($startIndex,$num,$count,$bidList);
@@ -40,7 +39,7 @@ class A_bids extends Admin_Controller{
             $auctionInfo = $this->m_auction->getAuctionSmall($v['auctionItemId']);
             if ($v['isHigh']) {
 
-                if ($auctionInfo->endTime < time() && $auctionInfo->bidsNum > 0) {
+                if ($auctionInfo->endTime < time()) {
                     $v['isSale'] = 1;
                 }
                 # code

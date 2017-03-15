@@ -31,7 +31,8 @@ class A_prizesQuiz extends Admin_Controller
 	{
 		$startIndex = $this->input->post('startIndex');
 		$num = $this->input->post('num');
-		$data = $count = null;
+		$data = array();
+		$count = null;
 		$this->m_prizesQuiz->getQuizList($startIndex, $num, $data, $count);
 		return $this->responseSuccess(array('data'=>$data,'count'=>$count));
 	}
@@ -39,7 +40,7 @@ class A_prizesQuiz extends Admin_Controller
 	//get quiz user list
 	function getQuizUserList()
 	{
-		$data = null;
+		$data = array();
 		$quizUserList = $this->m_prizesQuiz->getQuizUserList($auctionId, $data);
 		return $this->responseSuccess($quizUserList);
 	}
@@ -54,7 +55,7 @@ class A_prizesQuiz extends Admin_Controller
 		}
 
 		$fields = $this->input->post('fields');
-		$data = null;
+		$data = array();
 		$this->m_prizesQuiz->searchQuizList($fields,$data);
 		return $this->responseSuccess($data);
 	}
@@ -69,9 +70,10 @@ class A_prizesQuiz extends Admin_Controller
 		$auctionId = $this->input->post('auctionId');
 		$startIndex = $this->input->post('startIndex');
 		$num = $this->input->post('num');
-		$data = $count = null;
-		$this->m_prizesQuiz->viewQuiz($auctionId, $startIndex, $num, $data, $count);
-		return $this->responseSuccess(array('data'=>$data,'count'=>$count));
+		$data = array();
+		$limitNum = $count = null;
+		$this->m_prizesQuiz->viewQuiz($auctionId, $startIndex, $num, $data, $count, $limitNum);
+		return $this->responseSuccess(array('data'=>$data,'count'=>$count,'limitNum'=>$limitNum['limitNum']));
 	}
 
 	// update limit num
@@ -88,7 +90,7 @@ class A_prizesQuiz extends Admin_Controller
 
 	function test()
 	{
-		// if ('啊啊啊' === ERROR_OK) {
+		// if ('哈哈哈' === ERROR_OK) {
 		// 	$this->responseError('dasdaff');
 		// 	return;
 		// }

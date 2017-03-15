@@ -1,0 +1,58 @@
+<div ng-show="!quizModel.isShowInfo">
+	<div class="mn-header fix">
+		<div class="f"><i class="fa fa-th m-color-0"></i><span>有奖竞猜</span></div>
+		<div class="f m-g-l-10"><input type="text" class="form-control" ng-model="quizModel.fields" placeholder="输入拍品ID、拍品名称查询"></div>
+		<div class="f m-g-l-10">
+			<a class="btn btn-white" ng-click="search()">查询</a>
+		</div>
+	</div>
+
+	<div class="table-container">
+		<table class="table">
+			<thead>
+				<tr>
+					<!--<td><div class="all-sel-txt">全选</div><span ng-click="onClickSelectAll()" ng-class="{true: 'has-sel', false: 'un-sel'}[isSelected]"></span></td>-->
+					<td style="text-align: center">序号</td>
+					<td style="text-align: center">ID</td>
+					<td style="text-align: center">拍卖icon</td>
+					<td style="text-align: center">拍卖名称</td>
+					<td style="text-align: center">参加人数上限</td>
+					<td style="text-align: center">当前参加人数</td>
+					<td style="text-align: center">竞猜奖金</td>
+					<td style="text-align: center">状态</td>
+					<td style="text-align: center">成交价</td>
+					<td style="padding-left: 20px">
+						<div style="width:40%; display: inline-block;"></div>
+						操作
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in quizModel.listData">
+					<!--<td><span ng-click="onClickItemSelected()" ng-class="{true: 'has-sel', false: 'un-sel'}[item.selected]"></span></td>-->
+					<td style="text-align: center">{{$index + 1 + (page.currentPage - 1) * page.selectPageNum}}</td>
+					<td style="text-align: center">{{item.auction_id}}</td>
+					<td style="text-align: center"><img class="img" style="margin:0 auto" width="35px" ng-src="{{item.goods_icon}}"></td>
+					<td style="text-align: center">{{item.goods_name}}</td>
+					<td style="text-align: center">{{item.limitNum}}</td>
+					<td style="text-align: center">{{item.currentNum}}</td>
+					<td style="text-align: center">{{item.sum}}</td>
+					<td style="text-align: center">{{item.type}}</td>
+					<td style="text-align: center">
+						{{item.purchasePrice}}
+					</td>
+					<td style="text-align: center">
+						<a class="btn btn-white" ng-click="onClickCheckInfo(item.auction_id)">查看</a>
+						<a class="btn btn-default" ng-click="onClickQuizFinish(item.auction_id)" ng-if="item.status == 1">结束竞猜</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div ng-include="'modules/page/page.html'"></div>
+</div>
+
+<div ng-include="'view/quiz/quizInfo.html'" ng-show="quizModel.isShowInfo"></div>
+
+<script type="text/javascript" src="view/quiz/mn.quizController.js"></script>

@@ -23,6 +23,8 @@
 .checking{
 	height:30px;
 	margin:8px 0px 8px 10px;
+	-webkit-user-select: none; /* for Chrome */
+	-moz-user-select: none; /* for Firefox */
 }
 .checking span{
 	display: block;
@@ -541,6 +543,8 @@
 .logistics-log li .time {
 	margin-right: 10px;
 }
+
+
 .isVipShow{
 	background:#996633;
 	color:#F1F1F1;
@@ -577,18 +581,86 @@
 	box-shadow: inset 0 0 3px 3px #FFFFFF; 
 }
 
+#to-turn-on{
+	
+}
+#to-turn-off{
+	
+}
+.height-price-box{
+	height:34px;
+	
+}
+.turn-on-word{
+	float:left;
+	margin-top:8px;
+}
+.turn-off-word{
+	float:left;
+	margin-top:8px;
+}
+.not-checking{
+	float:left;
+	width:16px;
+	height:16px;
+	border: 1px solid #BBBBBB;
+	border-radius: 50%;
+	margin:10px 8px 0px 8px;
+}
+.is-checking{
+    float:left;
+	width:16px;
+	height:16px;
+	border-radius: 50%;
+	margin:10px 8px 0px 8px;
+	border:1px solid #BBBBBB;
+	background: #999999; 
+	box-shadow: inset 0 0 3px 3px #FFFFFF; 
+}
 
+#height-price-hide{
+	display: none;
+	width:196px;
+	margin-left: 150px;
+}
+#height-price-inp{
+	margin-top:12px;
+}
 
+.forth-width{
+	height:33px;
+	line-height:33px;
+	margin:7px 0px 7px 50px;
+	background: #EDEDED;
+	padding:0 10px;
+	border: 1px solid #E3E3E3;
+	-webkit-user-select: none; /* for Chrome */
+	-moz-user-select: none; /* for Firefox */
+}
+.forth-width:active{
+	background: #cecece;
+}
+.message-style{
+	height:33px;
+	line-height:33px;
+	margin:7px 0px 7px 5px;
+	background: #FFFFFF;
+	border: 1px solid #999999;
+	padding:0 5px;
+	-webkit-user-select: none; /* for Chrome */
+	-moz-user-select: none; /* for Firefox */
+}
+.message-style:active{
+	height:33px;
+	line-height:33px;
+	margin:7px 0px 7px 5px;
+	background: #CDCDCD;
+	padding:0 5px;
+	-webkit-user-select: none; /* for Chrome */
+	-moz-user-select: none; /* for Firefox */
+}
 
-
-
-
-
-
-
-
-
-
-
-
+.orderChange{
+	background: #FF6633;
+}
 

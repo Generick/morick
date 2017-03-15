@@ -1,0 +1,43 @@
+<div class="mn-header fix">
+    <div class="f"><i class="fa fa-th m-color-0"></i><span>xxx拍品竞猜详情</span></div>
+    <div class="r"><a class="btn btn-white" ng-click="backQuizList()"><i class="ti-back-left"></i>返回</a></div>
+</div>
+
+<div class="user-info">
+	<h4 style="font-weight: bold; margin-bottom: 10px;">设置竞猜人数上限</h4>
+	<div>
+		<input type="number" class="form-control" style="width: 200px;" ng-model="quizInfoModel.limitNum"/>
+		<span>
+			<div class="btn btn-white" ng-click="Determine()">确定</div>
+		</span>
+	</div>
+	<p>竞猜人数上限为100，可以修改</p>
+</div>
+
+<div class="user-info">
+    <h4 style="font-weight: bold;">竞猜记录</h4>
+    <div class="detail">
+        <table class="table">
+            <thead>
+            	<tr>
+	                <td style="text-align: center;">时间</td>
+	                <td style="text-align: center;">用户名称</td>
+	                <td style="text-align: center;">注册手机号</td>
+	                <td style="text-align: center;">竞猜金额</td>
+	                <td style="text-align: center;">奖金</td>
+            	</tr>
+            </thead>
+            <tbody>
+	            <tr ng-repeat="item in quizInfoModel.list.data">
+	                <td style="text-align: center;">{{item.part_time*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+	                <td style="text-align: center;">{{item.name}}</td>
+	                <td style="text-align: center;">{{item.telephone}}</td>
+	                <td style="text-align: center;">{{item.quiz_price}}</td>
+	                <td style="text-align: center;">{{item.purchasePrice}}</td>
+	            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="simplePage" class="simplePage user-sel-none" style="text-align: right; margin: 0 12px;"></div>
+</div>

@@ -79,8 +79,7 @@ class TimedTask extends My_Controller
 
                 //mxl add, create order message
                 //userid , msg type,href id=>auction id
-                $order_id = $this->db->select('id')->from('order')->where('order_no',$orderInfo['order_no'])->get()->row_array();
-                $this->m_messagePush->createUserMsg($one->currentUser,2,$one->id);
+                $this->m_messagePush->createUserMsg($one->currentUser, MP_MSG_TYPE_AUCTION, $orderInfo['order_no']);
 
                 //竞拍成功 短信提醒
                 // if($this->m_common->get_one("paid_services", array("userId" =>$one->currentUser, "serviceType" => SERVICE_SMS_MONTHLY, "startTime <=" => now(), "endTime >=" => now())))

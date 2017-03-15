@@ -42,6 +42,10 @@ app.controller('SaleDataCtrl', function($scope){
     SaleDataCtrl.init($scope);
 });
 
+app.controller('OfferPriceCtrl',function($scope){
+	OfferPriceCtrl.init($scope);
+});
+
 app.controller('RechargeDataCtrl', function($scope){
     RechargeDataCtrl.init($scope);
 });
@@ -52,4 +56,12 @@ app.controller('GoodsDataCtrl', function($scope){
 
 app.controller('BalanceDataCtrl', function($scope){
 	BalanceDataCtrl.init($scope);
+})
+
+app.controller('QuizCtrl', function($scope){ //竞猜
+	QuizController.init($scope);
+})
+
+app.controller('PushCtrl', function($scope){ //推送
+	PushController.init($scope);
 })

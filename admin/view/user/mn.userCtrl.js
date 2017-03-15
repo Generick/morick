@@ -67,7 +67,6 @@ var UserCtrl = {
              * @param data.userList.gender 性别
              */
             function(data){
-            
                 if(self.scope.page.selectPageNum)
                 {
                     var totalPage = Math.ceil(data.count / self.scope.page.selectPageNum);

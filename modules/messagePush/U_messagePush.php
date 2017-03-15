@@ -17,16 +17,29 @@ class U_messagePush extends User_Controller
     //user get message
     function getUserMsgList()
     {
-    	if (!$this->checkParam(array('userId','startIndex','num'))) {
+    	if (!$this->checkParam(array('userId','startIndex','num'))) 
+    	{
     		$this->responseError(ERROR_PARAM);
     		return;
     	}
+
     	$userId = $this->input->post('userId');
     	$startIndex = $this->input->post('startIndex');
     	$num = $this->input->post('num');
     	$data = array();
-    	$count = null;
-    	$this->m_messagePush->getUserMsgList($startIndex, $num, $userId, $data, $count);
+    	$count = 0;
+
+    	$isVIP = $this->db->select('isVIP')->from('user')->where('userId',$userId)->get()->row_array();//$isVIP['isVIP']
+    	// $this->load->model('m_user');
+    	// $userObj = $this->m_user->getSelfUserObj();
+    	//var_dump($userObj);die;
+        if ($isVIP['isVIP'] == 1) {
+             $whr = array('push_type !='=>0,'user_id'=> 0);
+         }else{
+             $whr = array('push_type !='=>1,'user_id'=> 0);
+         }
+
+    	$this->m_messagePush->getUserMsgList($startIndex, $num, $userId, $data, $count, $whr);
     	$this->responseSuccess(array('data'=>$data,'count'=>$count));
     }
 

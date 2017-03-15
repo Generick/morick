@@ -12,14 +12,20 @@ var OrderCtrl = {
         isShowInfo: false, //是否显示info
         isRelease: false, //是否发货
         curOrderIdx: null, //当前发货订单index
-        keywords: null //搜索关键字
+        keywords: null, //搜索关键字
+        deliveryType : null,
+        isShowBtn : true,
     },
-
+    
+//    allPayWays : null,//支付方式
+    
     init: function($scope){
         this.scope = $scope;
 
         this.initData();
-
+        
+        this.changeBtColor(0);
+        
         this.scope.orderModel = this.orderModel;
 
         this.onEvent();
@@ -34,12 +40,12 @@ var OrderCtrl = {
         self.scope.orderStatusArr = ['已取消','待付款','待发货','已发货','已完成'];
 
         self.scope.tabs = [
-            {title: '全部', isActive: true, id: ''},
-            {title: '待付款', isActive: false, id: 1},
-            {title: '待发货', isActive: false, id: 2},
-            {title: '已发货', isActive: false, id: 3},
-            {title: '已完成', isActive: false, id: 4},
-            {title: '已取消', isActive: false, id: 0}
+            {title: '全部', isActive: true, id: '',isShowTitle:true},
+            {title: '待付款', isActive: false, id: 1,isShowTitle:true},
+            {title: '待发货', isActive: false, id: 2,isShowTitle:true},
+            {title: '已发货', isActive: false, id: 3,isShowTitle:true},
+            {title: '已完成', isActive: false, id: 4,isShowTitle:true},
+            {title: '已取消', isActive: false, id: 0,isShowTitle:true}
         ];
 
         self.scope.onClickTab = function(tab, index){ //切换tab
@@ -59,7 +65,8 @@ var OrderCtrl = {
     getOrders: function(){
         var self = this,
             params = {};
-
+        
+       
         if(self.orderModel.curOrderType !== ""){
             params.orderType = self.orderModel.curOrderType
         }
@@ -67,7 +74,12 @@ var OrderCtrl = {
         if(!_utility.isEmpty(self.orderModel.keywords)){
             params.likeStr = self.orderModel.keywords
         }
-
+        if(self.orderModel.deliveryType != null){
+        	
+        	params.deliveryType = self.orderModel.deliveryType;
+        }
+       
+//      alert(JSON.stringify(params))
         pageController.pageInit(self.scope, api.API_GET_ORDER_LIST, params,
             /**
              * 订单
@@ -83,18 +95,21 @@ var OrderCtrl = {
              * @param data.orderList.orderLogs 订单流程
              */
             function(data){
-            	
             
+//                console.log(JSON.stringify(data))
+                
                 if(self.scope.page.selectPageNum)
                 {
                     var totalPage = Math.ceil(data.count / self.scope.page.selectPageNum);
                     pageController.pageNum(totalPage);
                 }
-
+                self.orderModel.modelArr = [];
                 self.orderModel.modelArr = data.orderList;
                 for(var i = 0, len = self.orderModel.modelArr.length; i < len; i++)
-                {
+                {   
+                	
                     self.orderModel.modelArr[i].orderStatusCopy = self.scope.orderStatusArr[self.orderModel.modelArr[i].orderStatus];
+
                     self.orderModel.modelArr[i].isRelease = (self.orderModel.modelArr[i].orderStatus == "2"); //是否待发货
                 }
 
@@ -107,11 +122,63 @@ var OrderCtrl = {
     //绑定事件
     onEvent: function(){
         var self = this;
+        
+        self.scope.onlinePay = function(type){
 
+            if(type == 0)
+            {
+            	self.orderModel.isShowBtn = true;
+            	self.orderModel.deliveryType = null;
+            	self.scope.tabs[2].isShowTitle = true;
+            	self.scope.tabs[3].isShowTitle = true;
+            }
+        	else if(type == 1)
+        	{   
+        		self.orderModel.isShowBtn = false;
+        		self.scope.tabs[2].isShowTitle = true;
+            	self.scope.tabs[3].isShowTitle = true;
+        		self.orderModel.deliveryType = type - 1;
+        	}	
+        	else
+        	{   
+        		self.orderModel.isShowBtn = true;
+        		self.scope.tabs[2].isShowTitle = false;
+            	self.scope.tabs[3].isShowTitle = false;
+        		self.orderModel.deliveryType = type - 1;
+        	}
+	        self.changeBtColor(type);
+	        self.getOrders();
+
+        };
+       
         self.scope.search = function(){ //搜索
             self.getOrders();
         };
-
+        
+        
+        //确定或取消订单
+        
+        self.scope.toAgreeOrCancle = function(item,type){
+        	
+        	var params = {};
+        	params.order_no = item.order_no;
+        	params.type = type;
+        	if(type == 0 && item.orderStatus != 4)
+        	{   
+        		
+        		self.sentTocheangOrder(params,type,item);
+        		
+        	}
+        	else if(type == 1 && item.orderStatus != 0)
+        	{   
+        		self.sentTocheangOrder(params,type,item);
+        	}
+        	
+        };
+        
+        
+        
+       
         //查看详情
         self.scope.checkInfo = function(item){
         	
@@ -134,6 +201,39 @@ var OrderCtrl = {
             self.getOrders();
 
         }
+    },
+    
+    
+    sentTocheangOrder : function(params,type,item){
+    	
+    	var self = this;
+    	
+    	$data.httpRequest("post", api.API_CANCLE_OR_SURE_ORDER, params, function(data){
+        		
+        	if(type ==0)
+        	{
+        		item.orderStatus = 4;
+        		item.orderStatusCopy = self.scope.orderStatusArr[4];
+        	}
+        	else
+        	{
+        		item.orderStatus = 0;
+        		item.orderStatusCopy = self.scope.orderStatusArr[0];
+        	}	
+        	
+        	self.scope.$apply();
+        	$dialog.msg("操作成功！")
+       
+    	})
+	    
+	    
+    },
+    
+    
+    changeBtColor : function(types){
+    	
+    	var self = this;
+    	$("#pay-way").find("div").eq(types).addClass("pay-active").siblings().removeClass("pay-active")
     }
 };
 
@@ -151,12 +251,14 @@ var orderInfoCtrl = {
 
     init: function($scope, data){
         var self = this;
-        
+//      console.log(JSON.stringify(data))
+       
         self.scope = $scope;
-       // alert(JSON.stringify(data))
+     
         self.orderInfoModel.info = data;
-       // alert(JSON.stringify(self.orderInfoModel.info.payPrice))
+        
         self.orderInfoModel.info.payPrice = _utility.toDecimalTwo(parseFloat(self.orderInfoModel.info.payPrice));
+        
         self.orderInfoModel.info.goodsPrice = _utility.toDecimalTwo(parseFloat(self.orderInfoModel.info.goodsPrice));
         self.orderInfoModel.info.prepaidPrice = _utility.toDecimalTwo(parseFloat(self.orderInfoModel.info.prepaidPrice));
         self.orderInfoModel.goodsArr = data.orderGoods;
@@ -179,8 +281,7 @@ var orderInfoCtrl = {
         
         self.getLogistics();
     },
-    
-   
+  
     //获得物流信息
     getLogistics: function(){
     	var self = this,
@@ -227,10 +328,11 @@ var orderInfoCtrl = {
                   
                      
                     $dialog.msg(CN_TIPS.DELIVER_GOODS_OK, 2);
-                    self.init();
+                    self.init(self.scope, self.orderInfoModel.info);
                     self.getLogistics();
                     OrderCtrl.scope.back2OrderList();
                     self.scope.$apply();
+                    
                 })
             }
             

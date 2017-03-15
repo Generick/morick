@@ -44,7 +44,7 @@ var myAccountController =
     	$('.animation').css('display','block');
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data){
     		
-    		console.log(data)
+//  		console.log(data)
     		
     		self.myAccountModel.userInfo = data.userInfo;
     		

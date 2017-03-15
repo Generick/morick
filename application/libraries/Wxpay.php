@@ -70,4 +70,5 @@ class Wxpay extends WxPayNotify{
         log_message('error',"$$$$$$$$$$$$$$$$$$$$$$$$$$$".json_encode($prepayInfo));
         return json_encode($prepayInfo);
     }
+
 }

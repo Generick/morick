@@ -13,13 +13,13 @@
         <div class="fix">
             <div class="f order-info-box">下单用户：<span>{{orderInfoModel.info.name}}</span></div>
             <div class="f order-info-box">支付方式：<span>余额</span></div>
-            <div class="f order-info-box">付款时间：<span>{{orderInfoModel.info.orderTime*1000|date: 'yyyy-MM-dd HH:mm:ss'}}</span></div>
+            <div class="f order-info-box" ng-show="orderInfoModel.info.deliveryType == '0'">付款时间：<span>{{orderInfoModel.info.orderTime*1000|date: 'yyyy-MM-dd HH:mm:ss'}}</span></div>
         </div>
 
         <!-- 发货状态不显示-->
         <div class="fix" ng-show="orderModel.curOrderType != '2'">
-            <div class="f order-info-box">配送方式：<span>顺丰快递</span></div>
-            <div class="f order-info-box">运单号：<span>{{orderInfoModel.info.logistics_no}}</span></div>
+            <div class="f order-info-box">配送方式：<span ng-show="orderInfoModel.info.deliveryType == '0'">顺丰快递</span><span ng-show="orderInfoModel.info.deliveryType == '1'">————</span></div>
+            <div class="f order-info-box">运单号：<span ng-show="orderInfoModel.info.deliveryType == '0'">{{orderInfoModel.info.logistics_no}}</span><span ng-show="orderInfoModel.info.deliveryType == '1'">————</span></div>
         </div>
     </div>
 
@@ -60,7 +60,7 @@
             </div>
         </div>
     </div>
-
+    
     <div class="order-item">
         <h3>订单流程</h3>
         <ul class="log">
@@ -70,7 +70,7 @@
         </ul>
     </div>
 
-    <div class="order-item" ng-show="orderModel.curOrderType != '2' || orderModel.curOrderType != '0'">
+    <div class="order-item" ng-show="(orderModel.curOrderType != '2' || orderModel.curOrderType != '0') && (orderInfoModel.info.deliveryType == '0')">
         <h3>物流信息</h3>
         <ul class="logistics-log">
             <li ng-repeat="item in orderInfoModel.logisticsLog">
@@ -80,7 +80,7 @@
     </div>
 
     <!--<div class="order-item" ng-show="(orderModel.curOrderType == '2' || orderModel.curOrderType == '') && orderModel.isRelease">-->
-    <div class="order-item" ng-show="orderModel.isRelease">
+    <div class="order-item" ng-show="orderModel.isRelease && orderInfoModel.info.deliveryType == '0'">
         <h3>物流(顺丰快递)</h3>
         <div class="fix sf">
             <div class="f sf-title">运单号：</div>

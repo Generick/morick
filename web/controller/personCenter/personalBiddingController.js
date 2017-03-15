@@ -71,7 +71,8 @@ var personalBiddingController =
     	};
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_PERSONAL_BIDDING_LIST, params, function(data)
-    	{
+    	{   
+//  		console.log(JSON.stringify(data))
     		self.personalBiddingModel.biddingList = [];
     		self.personalBiddingModel.biddingList = data.biddingList;
     		

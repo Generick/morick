@@ -103,8 +103,9 @@ class A_order extends Admin_Controller
         //create order status message
         //user id ,msg type, href id=> order id
         $this->load->model('m_messagePush');
-        $order_user_id = $this->db->select('id,userId')->from('order')->where('order_no',$order_no)->get()->row_array();
-        $this->m_messagePush->createUserMsg($order_user_id['userId'],3,$order_user_id['id']);
+        //user id
+        $user_id = $this->db->select('userId')->from('order')->where('order_no',$order_no)->get()->row_array();
+        $this->m_messagePush->createUserMsg($user_id['userId'], MP_MSG_TYPE_ORDER, $order_no);
         //over
         $this->responseError($retCode);
         return;

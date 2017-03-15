@@ -41,7 +41,7 @@ var modNameController =
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_PERSONALDATA, {}, function(data){
     		
-    		console.log(data)
+//  		console.log(data)
     		
     		self.modNameModel.name = data.name;
     		

@@ -1,75 +1,189 @@
 <div class="mn-header fix ">
-    <div class="f"><i class="fa fa-th m-color-0"></i><span>提现管理</span></div>
-    <div class="r"><a class="btn btn-danger"><i class="ti-trash"></i>删除</a></div>
-</div>
-
-<div class="table-search-l fix">
-    <div class="f">开始时间：</div>
-    <div class="f"><input class="form-control wicon" type="text" id="startTime" placeholder="选择开始时间" readonly/></div>
-    <div class="f m-g-l-10">结束时间：</div>
-    <div class="f"><input class="form-control wicon" type="text" id="endTime" placeholder="选择结束时间" readonly/></div>
-    <div class="f m-g-l-20"><input type="text" class="form-control" placeholder="输入关键字查询"></div>
-    <div class="f m-g-l-10"><a class="btn btn-white">查询</a></div>
-    <div class="r"><a class="btn btn-default" ng-click="exportData()">导出Excel</a></div>
+	<div class="f"><i class="fa fa-th m-color-0"></i><span>提现管理</span></div>
+	<div class="f m-g-l-40"><input type="text" class="form-control" ng-model="withdrawModel.keywords" placeholder="输入用户昵称、电话号码进行快速查询"></div>
+	<div class="f m-g-l-10">
+		<a class="btn btn-white" ng-click="search()">查询</a>
+	</div>
 </div>
 
 <div class="table-tab">
-    <ul class="fix">
-        <li class="f" ng-repeat="tab in tabs">
-            <a ng-click="onClickTab(tab)" ng-class="{true: 'btn btn-default', false: 'btn btn-white'}[isActiveTab(tab.url)]">{{tab.title}}</a>
-        </li>
-    </ul>
+	<ul class="fix">
+		<li class="f" ng-repeat="tab in tabs">
+			<a ng-click="onClickTab(tab)" ng-class="{true: 'btn btn-default', false: 'btn btn-white'}[isActiveTab(tab.url)]">{{tab.title}}</a>
+		</li>
+	</ul>
 </div>
 
 <div class="common-container-s" style="margin-top: 0">
-    <div ng-include="currentTab"></div>
+	<div ng-include="currentTab"></div>
 </div>
 
+<!--全部-->
+<script type="text/ng-template" id="allList">
+	<div id="table">
+		<table class="table">
+			<thead>
+				<tr>
+					<td style="text-align: center;">序号</td>
+					<td style="text-align: center;">用户昵称</td>
+					<td style="text-align: center;">电话号码</td>
+					<td style="text-align: center;">账户余额</td>
+					<td style="text-align: center;">提现金额</td>
+					<td style="text-align: center;">微信号</td>
+					<td style="text-align: center;">申请时间</td>
+					<td style="text-align: center;">状态</td>
+					<td style="text-align: center;">操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in withdrawModel.listArr">
+					<td style="text-align: center;">{{$index + 1 + (page.currentPage - 1) * page.selectPageNum}}</td>
+					<td style="text-align: center;">{{item.name}}</td>
+					<td style="text-align: center;">{{item.telephone}}</td>
+					<td style="text-align: center;">{{item.balance}}</td>
+					<td style="text-align: center;">{{item.withdraw_cash}}</td>
+					<td style="text-align: center;">{{item.wx_account}}</td>
+					<td style="text-align: center;">{{item.apply_time * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td style="text-align: center;">{{item.type}}</td>
+					<td style="text-align: center;">
+						<a class="btn btn-white" ng-click="acceptBtn(item.id)" ng-if="item.status == 1">通过</a>
+						<a class="btn btn-white" ng-click="refuseBtn(item.id, item.user_id, item.withdraw_cash)" ng-if="item.status == 1">拒绝</a>
+						<a class="btn btn-deffer" ng-if="item.status == 0">已通过</a>
+						<a class="btn btn-warning" ng-if="item.status == 2">已拒绝</a>
+						<a class="btn btn-inverse" ng-if="item.status == 2">通过</a>
+						<a class="btn btn-inverse" ng-if="item.status == 0">拒绝</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div ng-include="'modules/page/page.html'"></div>
+</script>
+
+<!--待处理-->
 <script type="text/ng-template" id="reviewList">
-    <div id="table1">
-        <table class="table">
-            <thead><tr>
-                <td>序号</td>
-                <td>名称</td>
-                <td>时间</td>
-                <td>操作</td>
-            </tr></thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>Mike</td>
-                <td>2016-17-15 12:12:36</td>
-                <td><a class="btn btn-default">添加</a></td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Mike</td>
-                <td>2016-17-15 12:12:36</td>
-                <td><a class="btn btn-default">添加</a></td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Mike</td>
-                <td>2016-17-15 12:12:36</td>
-                <td><a class="btn btn-default">添加</a></td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Mike</td>
-                <td>2016-17-15 12:12:36</td>
-                <td><a class="btn btn-default">添加</a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+	<div id="table">
+		<table class="table">
+			<thead>
+				<tr>
+					<td style="text-align: center;">序号</td>
+					<td style="text-align: center;">用户昵称</td>
+					<td style="text-align: center;">电话号码</td>
+					<td style="text-align: center;">账户余额</td>
+					<td style="text-align: center;">提现金额</td>
+					<td style="text-align: center;">微信号</td>
+					<td style="text-align: center;">申请时间</td>
+					<td style="text-align: center;">状态</td>
+					<td style="text-align: center;">操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in withdrawModel.listArr">
+					<td style="text-align: center;">{{$index + 1 + (page.currentPage - 1) * page.selectPageNum}}</td>
+					<td style="text-align: center;">{{item.name}}</td>
+					<td style="text-align: center;">{{item.telephone}}</td>
+					<td style="text-align: center;">{{item.balance}}</td>
+					<td style="text-align: center;">{{item.withdraw_cash}}</td>
+					<td style="text-align: center;">{{item.wx_account}}</td>
+					<td style="text-align: center;">{{item.apply_time * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td style="text-align: center;">{{item.type}}</td>
+					<td style="text-align: center;">
+						<a class="btn btn-white" ng-click="acceptBtn(item.id)" ng-if="item.status == 1">通过</a>
+						<a class="btn btn-white" ng-click="refuseBtn(item.id, item.user_id, item.withdraw_cash)" ng-if="item.status == 1">拒绝</a>
+						<a class="btn btn-deffer" ng-if="item.status == 0">已通过</a>
+						<a class="btn btn-warning" ng-if="item.status == 2">已拒绝</a>
+						<a class="btn btn-inverse" ng-if="item.status == 2">通过</a>
+						<a class="btn btn-inverse" ng-if="item.status == 0">拒绝</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div ng-include="'modules/page/page.html'"></div>
 </script>
 
+<!--已完成-->
 <script type="text/ng-template" id="yesList">
-    222
+	<div id="table">
+		<table class="table">
+			<thead>
+				<tr>
+					<td style="text-align: center;">序号</td>
+					<td style="text-align: center;">用户昵称</td>
+					<td style="text-align: center;">电话号码</td>
+					<td style="text-align: center;">账户余额</td>
+					<td style="text-align: center;">提现金额</td>
+					<td style="text-align: center;">微信号</td>
+					<td style="text-align: center;">申请时间</td>
+					<td style="text-align: center;">状态</td>
+					<td style="text-align: center;">操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in withdrawModel.listArr">
+					<td style="text-align: center;">{{$index + 1 + (page.currentPage - 1) * page.selectPageNum}}</td>
+					<td style="text-align: center;">{{item.name}}</td>
+					<td style="text-align: center;">{{item.telephone}}</td>
+					<td style="text-align: center;">{{item.balance}}</td>
+					<td style="text-align: center;">{{item.withdraw_cash}}</td>
+					<td style="text-align: center;">{{item.wx_account}}</td>
+					<td style="text-align: center;">{{item.apply_time * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td style="text-align: center;">{{item.type}}</td>
+					<td style="text-align: center;">
+						<a class="btn btn-white" ng-click="acceptBtn(item.id)" ng-if="item.status == 1">通过</a>
+						<a class="btn btn-white" ng-click="refuseBtn(item.id)" ng-if="item.status == 1">拒绝</a>
+						<a class="btn btn-deffer" ng-if="item.status == 0">已通过</a>
+						<a class="btn btn-warning" ng-if="item.status == 2">已拒绝</a>
+						<a class="btn btn-inverse" ng-if="item.status == 2">通过</a>
+						<a class="btn btn-inverse" ng-if="item.status == 0">拒绝</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div ng-include="'modules/page/page.html'"></div>
 </script>
 
+<!--已拒绝-->
 <script type="text/ng-template" id="noList">
-    333
+	<div id="table">
+		<table class="table">
+			<thead>
+				<tr>
+					<td style="text-align: center;">序号</td>
+					<td style="text-align: center;">用户昵称</td>
+					<td style="text-align: center;">电话号码</td>
+					<td style="text-align: center;">账户余额</td>
+					<td style="text-align: center;">提现金额</td>
+					<td style="text-align: center;">微信号</td>
+					<td style="text-align: center;">申请时间</td>
+					<td style="text-align: center;">状态</td>
+					<td style="text-align: center;">操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in withdrawModel.listArr">
+					<td style="text-align: center;">{{$index + 1 + (page.currentPage - 1) * page.selectPageNum}}</td>
+					<td style="text-align: center;">{{item.name}}</td>
+					<td style="text-align: center;">{{item.telephone}}</td>
+					<td style="text-align: center;">{{item.balance}}</td>
+					<td style="text-align: center;">{{item.withdraw_cash}}</td>
+					<td style="text-align: center;">{{item.wx_account}}</td>
+					<td style="text-align: center;">{{item.apply_time * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td style="text-align: center;">{{item.type}}</td>
+					<td style="text-align: center;">
+						<a class="btn btn-white" ng-click="acceptBtn(item.id)" ng-if="item.status == 1">通过</a>
+						<a class="btn btn-white" ng-click="refuseBtn(item.id)" ng-if="item.status == 1">拒绝</a>
+						<a class="btn btn-deffer" ng-if="item.status == 0">已通过</a>
+						<a class="btn btn-warning" ng-if="item.status == 2">已拒绝</a>
+						<a class="btn btn-inverse" ng-if="item.status == 2">通过</a>
+						<a class="btn btn-inverse" ng-if="item.status == 0">拒绝</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div ng-include="'modules/page/page.html'"></div>
 </script>
 
 <script src="view/withdraw/mn.withdrawCtrl.js"></script>

@@ -66,11 +66,12 @@
 					</div>
 				</div>-->
 			</div>
-            <div class="goods-operate-box">
-                <button class="goods-operate-block2" ng-show="auctedGoodsDetailModel.showReference">
-                    <span class="reference-price">参考价</span>￥<span ng-bind="auctedGoodsDetailModel.allInfo.referencePrice"></span>
+            <div class="goods-operate-box"  ng-show="auctedGoodsDetailModel.isShowHighest">
+                <button class="goods-operate-block2">
+                    <span class="reference-price">封顶价</span>￥<span ng-bind="auctedGoodsDetailModel.allInfo.cappedPrice"></span>
                 </button>
             </div>
+            
 			<div class="goods-buyer">
 				<div class="goods-buyer-block clear">
 					<li class="clear" ng-repeat="item in biddingModel.biddingList">
