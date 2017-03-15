@@ -61,7 +61,7 @@ class M_messagePush extends My_Model
     //get user id by phone number
     function getUserIdByPhone($phoneNum)
     {
-    	$userId = $this->db->select('userId')->from('user')->where('telephone',$phoneNum)->get()->row_array();
+    	$userId = $this->db->select('userId')->from('user')->where('telephone', $phoneNum)->get()->row_array();
     	if (is_array($userId)) {
     		return $userId['userId'];
     	}else{
@@ -77,7 +77,7 @@ class M_messagePush extends My_Model
     		return 0;
     	}
     	$data = array('user_id'=>$user_id,'msg_id'=>$msg_id);
-    	$this->db->insert('usermsglog',$data);
+    	$this->db->insert('usermsglog', $data);
     }
 
     //get user msg list

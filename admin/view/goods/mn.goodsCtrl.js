@@ -17,7 +17,7 @@ var GoodsController = {
 		modelArr : [],
 		selectAll: false,
 		goods_id : null,
-		isAdd : false,
+		isAdd : 0,
 		modalTitle: null,  //添加or修改标题
         goodsTitle: null,  //藏品标题
         goodsTitle : "",  //藏品标题
@@ -146,9 +146,10 @@ var GoodsController = {
 			
 			self.checkSelectAll();
     	};
+    	
         //点击删除藏品
-    	self.scope.onClickToDeleteGoods = function(){
-    		
+    	self.scope.onClickToDeleteGoods = function()
+    	{
             var ids = commonFn.findSelIds(self.goodsModel, 'goods_id');
           
             if(!_utility.isEmpty(ids))
@@ -173,19 +174,34 @@ var GoodsController = {
     	self.scope.onClickToAddGoods = function()
     	{   
     		self.showView(1);
-     		self.goodsModel.isAdd = true;
+     		self.goodsModel.isAdd = 0;
     		self.scope.title = "添加藏品";
     		self.reSetModel();
     	};
     	
     	//点击修改藏品
-    	self.scope.modified = function(goods_id){
-    		
+    	self.scope.modified = function(goods_id)
+    	{
             self.goodsModel.goods_id = goods_id;
-            self.goodsModel.isAdd = false;
+            self.goodsModel.isAdd = 1;
             self.scope.title = CN_TIPS.MOD_INFO;
             self.getSingleGoods(goods_id);
             self.showView(1);
+    	};
+    	
+    	//点击复制信息
+    	self.scope.copyGood = function(goods_id)
+    	{
+    		self.goodsModel.goods_id = goods_id;
+    		self.scope.title = CN_TIPS.COPY_INFO;
+    		self.getSingleGoods(goods_id);
+    		self.showView(2);
+    	};
+    	
+    	//点击提交复制信息
+    	self.scope.onClickSubmitCopy = function(){
+    		self.copyGoods();
+    		self.showView(0);
     	};
     	
     	//返回按钮点击事件
@@ -197,7 +213,7 @@ var GoodsController = {
     	//提交
     	self.scope.onClickSubmit = function()
     	{
-    		if(self.goodsModel.isAdd)
+    		if(self.goodsModel.isAdd == 0)
     		{
     			self.addGoods();
     		}
@@ -268,6 +284,42 @@ var GoodsController = {
                 layer.msg(CN_TIPS.ADD_OK, {time: 1600, anim: 5});
                 pageController.callApi();
                 self.showView(0);
+            })
+        }
+    },
+    
+    //复制藏品
+    copyGoods: function(){
+    	var self = this,
+            params = {},
+            goodsInfo = {};
+        
+        goodsInfo.goods_name = self.goodsModel.goodsTitle;
+        
+        if(self.goodsModel.goods_bid == "" || self.goodsModel.goods_bid == null)
+        {
+            self.goodsModel.goods_bid = 0;
+        }
+        if(self.goodsModel.goods_bid < 0)
+        {   
+            layer.msg(CN_TIPS.BLANK_BID, {time: 1600, anim: 5});
+            self.goodsModel.goods_bid = 0;
+            return;
+        }
+        goodsInfo.goods_bid = self.goodsModel.goods_bid;
+        goodsInfo.goods_pics = JSON.stringify(self.goodsModel.goodsPic);
+        goodsInfo.goods_bid = _utility.toDecimalTwo(goodsInfo.goods_bid);
+      
+        
+		goodsInfo.goods_detail = self.goodsModel.editor;
+       
+        if(self.checkParams()){
+            params.goodsInfo = JSON.stringify(goodsInfo);
+            $data.httpRequest("post", api.API_ADD_GOODS, params, function(){
+
+                layer.msg(CN_TIPS.ADD_OK, {time: 1600, anim: 5});
+                pageController.callApi();
+//              self.showView(0);
             })
         }
     },

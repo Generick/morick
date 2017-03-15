@@ -641,3 +641,99 @@ ERROR - 2017-03-15 16:54:48 --> [methodError]:[]:F:\work\program\server\applicat
 ERROR - 2017-03-15 16:54:51 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
 ERROR - 2017-03-15 16:55:22 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
 ERROR - 2017-03-15 17:25:37 --> [methodError]:[充值金额必须大于0!]:F:\work\program\server\application\controllers/recharge/U_recharge.php:recharge:{"money":"0.00"}
+ERROR - 2017-03-15 17:55:55 --> user:34balance change. the transactionType:2before:124945 after:124945
+ERROR - 2017-03-15 17:55:55 --> Update user failed: 34
+ERROR - 2017-03-15 17:55:55 --> Save user failed: 34
+ERROR - 2017-03-15 17:56:38 --> user:34balance change. the transactionType:2before:124945 after:124945
+ERROR - 2017-03-15 17:56:38 --> Update user failed: 34
+ERROR - 2017-03-15 17:56:38 --> Save user failed: 34
+ERROR - 2017-03-15 17:56:47 --> user:34balance change. the transactionType:2before:124945 after:124945
+ERROR - 2017-03-15 17:56:47 --> Update user failed: 34
+ERROR - 2017-03-15 17:56:47 --> Save user failed: 34
+ERROR - 2017-03-15 17:57:08 --> user:34balance change. the transactionType:2before:124945 after:124945
+ERROR - 2017-03-15 17:57:08 --> Update user failed: 34
+ERROR - 2017-03-15 17:57:08 --> Save user failed: 34
+ERROR - 2017-03-15 17:57:19 --> user:34balance change. the transactionType:2before:124945 after:124945
+ERROR - 2017-03-15 17:57:20 --> Update user failed: 34
+ERROR - 2017-03-15 17:57:20 --> Save user failed: 34
+ERROR - 2017-03-15 18:08:11 --> [methodError]:[重登录失败：令牌错误!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":"e5390f6df1f64d20545f9e90c7005757"}
+ERROR - 2017-03-15 18:08:12 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-15 18:08:14 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-15 18:08:16 --> [methodError]:[重登录失败：令牌错误!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":"e5390f6df1f64d20545f9e90c7005757"}
+ERROR - 2017-03-15 18:08:17 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"63"}
+ERROR - 2017-03-15 18:08:21 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"60"}
+ERROR - 2017-03-15 18:08:25 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"54"}
+ERROR - 2017-03-15 18:09:56 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"62"}
+ERROR - 2017-03-15 18:10:35 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 18:10:38 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"68"}
+ERROR - 2017-03-15 18:10:42 --> [methodError]:[不能重复参与]:F:\work\program\server\application\controllers/prizesQuiz/U_prizesQuiz.php:partakeQuiz:{"auctionId":"68","quizPrice":"2.00"}
+ERROR - 2017-03-15 18:10:43 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"68"}
+ERROR - 2017-03-15 18:13:33 --> [methodError]:[]:F:\work\program\server\application\controllers/shippingAddress/U_ShippingAddress.php:modShippingAddress:{"addressId":"28","modInfo":"{\"acceptName\":\"jukjhj\",\"mobile\":\"139****9658\",\"province\":\"\u5185\u8499\u53e4\",\"city\":\"\u901a\u8fbd\u5e02\",\"district\":\"\u5f00\u9c81\u53bf\",\"address\":\"555545454564564\",\"isCommon\":1}"}
+ERROR - 2017-03-15 18:13:33 --> [methodError]:[]:F:\work\program\server\application\controllers/shippingAddress/U_ShippingAddress.php:modShippingAddress:{"addressId":"27","modInfo":"{\"acceptName\":\"\u540c\u4ec1\u5802\",\"mobile\":\"135****2345\",\"province\":\"\u5c71\u897f\u7701\",\"city\":\"\u957f\u6cbb\u5e02\",\"district\":\"\u957f\u6cbb\u53bf\",\"address\":\"\u4eba\u5934\u8d39\u4ed6\u4eba\u70ed\u70ed\u4ed6\",\"isCommon\":\"1\"}"}
+ERROR - 2017-03-15 18:13:33 --> Update shipping_address failed: 27
+ERROR - 2017-03-15 18:13:33 --> Save shipping_address failed: 27
+ERROR - 2017-03-15 18:13:36 --> [methodError]:[]:F:\work\program\server\application\controllers/shippingAddress/U_ShippingAddress.php:modShippingAddress:{"addressId":"28","modInfo":"{\"acceptName\":\"jukjhj\",\"mobile\":\"139****9658\",\"province\":\"\u5185\u8499\u53e4\",\"city\":\"\u901a\u8fbd\u5e02\",\"district\":\"\u5f00\u9c81\u53bf\",\"address\":\"555545454564564\",\"isCommon\":1}"}
+ERROR - 2017-03-15 18:13:36 --> [methodError]:[]:F:\work\program\server\application\controllers/shippingAddress/U_ShippingAddress.php:modShippingAddress:{"addressId":"27","modInfo":"{\"acceptName\":\"\u540c\u4ec1\u5802\",\"mobile\":\"135****2345\",\"province\":\"\u5c71\u897f\u7701\",\"city\":\"\u957f\u6cbb\u5e02\",\"district\":\"\u957f\u6cbb\u53bf\",\"address\":\"\u4eba\u5934\u8d39\u4ed6\u4eba\u70ed\u70ed\u4ed6\",\"isCommon\":1}"}
+ERROR - 2017-03-15 18:13:36 --> Update shipping_address failed: 28
+ERROR - 2017-03-15 18:13:36 --> Save shipping_address failed: 28
+ERROR - 2017-03-15 18:13:38 --> [methodError]:[]:F:\work\program\server\application\controllers/shippingAddress/U_ShippingAddress.php:modShippingAddress:{"addressId":"27","modInfo":"{\"acceptName\":\"\u540c\u4ec1\u5802\",\"mobile\":\"135****2345\",\"province\":\"\u5c71\u897f\u7701\",\"city\":\"\u957f\u6cbb\u5e02\",\"district\":\"\u957f\u6cbb\u53bf\",\"address\":\"\u4eba\u5934\u8d39\u4ed6\u4eba\u70ed\u70ed\u4ed6\",\"isCommon\":0}"}
+ERROR - 2017-03-15 18:13:38 --> [methodError]:[]:F:\work\program\server\application\controllers/shippingAddress/U_ShippingAddress.php:modShippingAddress:{"addressId":"28","modInfo":"{\"acceptName\":\"jukjhj\",\"mobile\":\"139****9658\",\"province\":\"\u5185\u8499\u53e4\",\"city\":\"\u901a\u8fbd\u5e02\",\"district\":\"\u5f00\u9c81\u53bf\",\"address\":\"555545454564564\",\"isCommon\":0}"}
+ERROR - 2017-03-15 18:13:38 --> Update shipping_address failed: 28
+ERROR - 2017-03-15 18:13:38 --> Save shipping_address failed: 28
+ERROR - 2017-03-15 18:16:04 --> [methodError]:[]:F:\work\program\server\application\controllers/shippingAddress/U_ShippingAddress.php:modShippingAddress:{"addressId":"28","modInfo":"{\"acceptName\":\"jukjhj\",\"mobile\":\"139****9658\",\"province\":\"\u5185\u8499\u53e4\",\"city\":\"\u901a\u8fbd\u5e02\",\"district\":\"\u5f00\u9c81\u53bf\",\"address\":\"555545454564564\",\"isCommon\":0}"}
+ERROR - 2017-03-15 18:16:04 --> [methodError]:[]:F:\work\program\server\application\controllers/shippingAddress/U_ShippingAddress.php:modShippingAddress:{"addressId":"27","modInfo":"{\"acceptName\":\"\u540c\u4ec1\u5802\",\"mobile\":\"135****2345\",\"province\":\"\u5c71\u897f\u7701\",\"city\":\"\u957f\u6cbb\u5e02\",\"district\":\"\u957f\u6cbb\u53bf\",\"address\":\"\u4eba\u5934\u8d39\u4ed6\u4eba\u70ed\u70ed\u4ed6\",\"isCommon\":1}"}
+ERROR - 2017-03-15 18:16:04 --> Update shipping_address failed: 28
+ERROR - 2017-03-15 18:16:04 --> Save shipping_address failed: 28
+ERROR - 2017-03-15 18:16:14 --> [methodError]:[]:F:\work\program\server\application\controllers/shippingAddress/U_ShippingAddress.php:modShippingAddress:{"addressId":"27","modInfo":"{\"acceptName\":\"\u540c\u4ec1\u5802\",\"mobile\":\"135****2345\",\"province\":\"\u5c71\u897f\u7701\",\"city\":\"\u957f\u6cbb\u5e02\",\"district\":\"\u957f\u6cbb\u53bf\",\"address\":\"\u4eba\u5934\u8d39\u4ed6\u4eba\u70ed\u70ed\u4ed6\",\"isCommon\":0}"}
+ERROR - 2017-03-15 18:29:25 --> user:31balance change. the transactionType:8before:333420.00 after:333421
+ERROR - 2017-03-15 18:30:22 --> user:34balance change. the transactionType:8before:124945 after:125056
+ERROR - 2017-03-15 18:36:06 --> user:34balance change. the transactionType:8before:125056 after:125056
+ERROR - 2017-03-15 18:36:06 --> Update user failed: 34
+ERROR - 2017-03-15 18:36:06 --> Save user failed: 34
+ERROR - 2017-03-15 18:36:32 --> user:34balance change. the transactionType:8before:125056 after:125056
+ERROR - 2017-03-15 18:36:32 --> Update user failed: 34
+ERROR - 2017-03-15 18:36:32 --> Save user failed: 34
+ERROR - 2017-03-15 18:54:43 --> user:20balance change. the transactionType:6before:0.00 after:11111111
+ERROR - 2017-03-15 18:54:43 --> [methodError]:[]:F:\work\program\server\application\controllers/a_admin.php:opBalance:{"userId":"20","opType":"0","balance":"11111111"}
+ERROR - 2017-03-15 18:55:05 --> [methodError]:[]:F:\work\program\server\application\controllers/a_admin.php:modUserInfo:{"userId":"48","modInfo":"{\"note\":\"1111\"}"}
+ERROR - 2017-03-15 18:55:36 --> user:20balance change. the transactionType:2before:11111111 after:11110889
+ERROR - 2017-03-15 18:55:43 --> user:20balance change. the transactionType:2before:11110889 after:11110856
+ERROR - 2017-03-15 18:55:47 --> user:20balance change. the transactionType:2before:11110856 after:11110524
+ERROR - 2017-03-15 18:55:50 --> user:20balance change. the transactionType:2before:11110524 after:11110191
+ERROR - 2017-03-15 18:55:54 --> user:20balance change. the transactionType:2before:11110191 after:11109747
+ERROR - 2017-03-15 18:55:58 --> user:20balance change. the transactionType:2before:11109747 after:11109192
+ERROR - 2017-03-15 18:56:12 --> user:20balance change. the transactionType:8before:11109192 after:11109747
+ERROR - 2017-03-15 18:56:43 --> user:20balance change. the transactionType:8before:11109747 after:11110080
+ERROR - 2017-03-15 18:58:33 --> user:20balance change. the transactionType:8before:11110080 after:11110113
+ERROR - 2017-03-15 18:59:41 --> user:20balance change. the transactionType:2before:11110113 after:11110091
+ERROR - 2017-03-15 18:59:44 --> user:20balance change. the transactionType:2before:11110091 after:11110058
+ERROR - 2017-03-15 18:59:47 --> user:20balance change. the transactionType:2before:11110058 after:11110014
+ERROR - 2017-03-15 18:59:50 --> user:20balance change. the transactionType:2before:11110014 after:11109959
+ERROR - 2017-03-15 18:59:53 --> user:20balance change. the transactionType:2before:11109959 after:11109893
+ERROR - 2017-03-15 19:00:04 --> user:20balance change. the transactionType:8before:11109893 after:11109948
+ERROR - 2017-03-15 19:00:14 --> user:20balance change. the transactionType:8before:11109948 after:11109981
+ERROR - 2017-03-15 19:10:19 --> [methodError]:[参数与人数大于3，不能结束！]:F:\work\program\server\application\controllers/prizesQuiz/A_prizesQuiz.php:quitQuiz:{"auctionId":"57"}
+ERROR - 2017-03-15 19:10:22 --> [My_Model] M_prizesQuiz does not have this method: where
+ERROR - 2017-03-15 19:10:22 --> Severity: error --> Exception: [My_Model] M_prizesQuiz does not have this method: where F:\work\program\server\application\core\My_Model.php 36
+ERROR - 2017-03-15 19:10:36 --> [My_Model] M_prizesQuiz does not have this method: where
+ERROR - 2017-03-15 19:10:36 --> Severity: error --> Exception: [My_Model] M_prizesQuiz does not have this method: where F:\work\program\server\application\core\My_Model.php 36
+ERROR - 2017-03-15 19:11:27 --> [My_Model] M_prizesQuiz does not have this method: where
+ERROR - 2017-03-15 19:11:27 --> Severity: error --> Exception: [My_Model] M_prizesQuiz does not have this method: where F:\work\program\server\application\core\My_Model.php 36
+ERROR - 2017-03-15 19:11:38 --> [My_Model] M_prizesQuiz does not have this method: where
+ERROR - 2017-03-15 19:11:38 --> Severity: error --> Exception: [My_Model] M_prizesQuiz does not have this method: where F:\work\program\server\application\core\My_Model.php 36
+ERROR - 2017-03-15 19:11:59 --> [My_Model] M_prizesQuiz does not have this method: where
+ERROR - 2017-03-15 19:11:59 --> Severity: error --> Exception: [My_Model] M_prizesQuiz does not have this method: where F:\work\program\server\application\core\My_Model.php 36
+ERROR - 2017-03-15 19:13:04 --> Query error: Unknown column 'auctionId' in 'where clause' - Invalid query: SELECT `user_id`
+FROM `mn_quizuser`
+WHERE `auctionId` = '67'
+ERROR - 2017-03-15 19:13:10 --> Query error: Unknown column 'auctionId' in 'where clause' - Invalid query: SELECT `user_id`
+FROM `mn_quizuser`
+WHERE `auctionId` = '67'
+ERROR - 2017-03-15 19:13:15 --> Query error: Unknown column 'auctionId' in 'where clause' - Invalid query: SELECT `user_id`
+FROM `mn_quizuser`
+WHERE `auctionId` = '67'
+ERROR - 2017-03-15 19:14:01 --> [methodError]:[]:F:\work\program\server\application\controllers/prizesQuiz/A_prizesQuiz.php:quitQuiz:{"auctionId":"67"}
+ERROR - 2017-03-15 19:14:04 --> [methodError]:[]:F:\work\program\server\application\controllers/prizesQuiz/A_prizesQuiz.php:quitQuiz:{"auctionId":"67"}
+ERROR - 2017-03-15 19:22:04 --> [methodError]:[]:F:\work\program\server\application\controllers/prizesQuiz/A_prizesQuiz.php:quitQuiz:{"auctionId":"57"}
+ERROR - 2017-03-15 19:22:23 --> [methodError]:[]:F:\work\program\server\application\controllers/prizesQuiz/A_prizesQuiz.php:quitQuiz:{"auctionId":"1"}
+ERROR - 2017-03-15 19:23:05 --> [methodError]:[]:F:\work\program\server\application\controllers/prizesQuiz/A_prizesQuiz.php:quitQuiz:{"auctionId":"68"}

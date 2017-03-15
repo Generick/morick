@@ -105,7 +105,7 @@ class M_prizesQuiz extends My_Model
 			exit;
 		}else if ($prizesQuizObj->currentNum != 0) {
 			//current num = 1,2
-			$partUser = $this->where('auctionId',$auctionId)->from('quizuser')->select('user_id')->get()->result_array();
+			$partUser = $this->db->where('auction_id',$auctionId)->from('quizuser')->select('user_id')->get()->result_array();
 			$tickets = $this->db->select('tickets')->from('prizesquiz')->where('auction_id',$auctionId)->get()->row();
 			for ($i=0; $i < $prizesQuizObj->currentNum ; $i++) { 
 				$cuserid = $partUser[$i]['user_id'];

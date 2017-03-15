@@ -133,6 +133,7 @@ var CN_TIPS = {
     MOD_GOODS: "修改展品",
     MOD_ADMIN: "修改管理员",
     MOD_OK: "修改成功",
+    COPY_INFO: "复制藏品信息",
     MOD_INFO: "修改藏品",
     NO_DATA: "暂无数据",
     NO_BALANCE: "修改金额不能为空",

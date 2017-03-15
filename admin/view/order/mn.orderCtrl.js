@@ -31,6 +31,7 @@ var OrderCtrl = {
         this.onEvent();
 
         this.getOrders();
+        
     },
 
     //初始化数据
@@ -67,7 +68,7 @@ var OrderCtrl = {
             params = {};
         
        
-        if(self.orderModel.curOrderType !== ""){
+        if(self.orderModel.curOrderType !== ""){    
             params.orderType = self.orderModel.curOrderType
         }
 
