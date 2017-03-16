@@ -17,7 +17,7 @@ class U_messagePush extends User_Controller
     //user get message
     function getUserMsgList()
     {
-    	if (!$this->checkParam(array('userId','startIndex','num'))) 
+    	if (!$this->checkParam(array('userId', 'startIndex', 'num'))) 
     	{
     		$this->responseError(ERROR_PARAM);
     		return;
@@ -29,11 +29,10 @@ class U_messagePush extends User_Controller
     	$data = array();
     	$count = 0;
 
-    	$isVIP = $this->db->select('isVIP')->from('user')->where('userId',$userId)->get()->row_array();//$isVIP['isVIP']
-    	// $this->load->model('m_user');
-    	// $userObj = $this->m_user->getSelfUserObj();
-    	//var_dump($userObj);die;
-        if ($isVIP['isVIP'] == 1) {
+    	$isVIP = $this->db->select('isVIP')->from('user')->where('userId', $userId)->get()->row_array();//$isVIP['isVIP']
+    	
+        if ($isVIP['isVIP'] == 1) 
+        {
              $whr = array('push_type !='=>0,'user_id'=> 0);
          }else{
              $whr = array('push_type !='=>1,'user_id'=> 0);
@@ -47,7 +46,7 @@ class U_messagePush extends User_Controller
     //user view message
     function viewMsg()
     {
-    	if (!$this->checkParam(array('userId','msg_id','msg_type','href_id'))) {
+    	if (!$this->checkParam(array('userId', 'msg_id', 'msg_type', 'href_id'))) {
     		$this->responseError(ERROR_PARAM);
     		return;
     	}

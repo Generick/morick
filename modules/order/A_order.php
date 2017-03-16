@@ -105,7 +105,7 @@ class A_order extends Admin_Controller
         if ($retCode == ERROR_OK) {
             $this->load->model('m_messagePush');
             //user id 
-            $user_id = $this->db->select('userId')->from('order')->where('order_no',$order_no)->get()->row_array();
+            $user_id = $this->db->select('userId')->from('order')->where('order_no', $order_no)->get()->row_array();
             $res = $this->m_messagePush->createUserMsg($user_id['userId'], MP_MSG_TYPE_ORDER, $order_no);
             if (empty($rse)) {
                 return MP_MSG_CREATE_FAIL;

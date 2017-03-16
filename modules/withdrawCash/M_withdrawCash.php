@@ -17,15 +17,16 @@ class  M_withdrawCash extends My_Model
     // withdraw cash
     function withdrawCash($userId, $withdrawCash, $wx_account)
     {
-    	$balance = $this->db->select('balance')->from('user')->where('userId',$userId)->get()->row_array();
-    	if ($balance['balance'] < $withdrawCash) {
+    	$balance = $this->db->select('balance')->from('user')->where('userId', $userId)->get()->row_array();
+    	if ($balance['balance'] < $withdrawCash) 
+    	{
     		return ERROR_WC_BALANCE_NOT_ENOUGH;
     	}
 
-    	$data = array('user_id'=>$userId,'withdraw_cash'=>$withdrawCash,'wx_account'=>$wx_account,'apply_time'=>time(),'status'=>1);
-    	$this->db->insert('withdrawcash',$data);
+    	$data = array('user_id' => $userId, 'withdraw_cash' => $withdrawCash, 'wx_account' => $wx_account, 'apply_time' => time(),'status' => 1);
+    	$this->db->insert('withdrawcash', $data);
     	// add transaction about user withdraw
-    	$this->m_transaction->addTransaction($userId,TRANSACTION_WITHDRAWAL, $withdrawCash);
+    	$this->m_transaction->addTransaction($userId, TRANSACTION_WITHDRAWAL, $withdrawCash);
     	return ERROR_OK;
     }
 
@@ -38,7 +39,8 @@ class  M_withdrawCash extends My_Model
     	//2: refuse
     	//3: all
     	
-    	if (!empty($fields)) {
+    	if (!empty($fields)) 
+    	{
     		$data = $this->searchWithDrawUserList($fields, $startIndex, $num, $whr);
     		// $data = $res['data'];
     		// $count = $res['count'];
@@ -54,15 +56,17 @@ class  M_withdrawCash extends My_Model
     {
     	$userIds = $this->db->select('userId')->from('user')->like('userId', $fields)->or_like('name', $fields)->or_like('telephone', $fields)->get()->result_array();
     	$uids = array();
-    	foreach ($userIds as $v) {
+    	foreach ($userIds as $v) 
+    	{
     		$uids[] = $v['userId'];
     	}
-    	if (empty($uids)) {
+    	if (empty($uids)) 
+    	{
     	return array('data'=>array(),'count'=>0);
     	}
     	$data = $this->db->from('withdrawcash')->where($whr)->where_in('user_id', $uids)->join('user','withdrawcash.user_id = user.userId')->order_by('apply_time desc')->limit($num, $startIndex)->get()->result_array();
     	$count = $this->db->from('withdrawcash')->where($whr)->where_in('user_id', $uids)->count_all_results();
-    	return array('data'=>$data,'count'=>$count);
+    	return array('data' => $data, 'count' => $count);
     	
     }
 
@@ -70,7 +74,8 @@ class  M_withdrawCash extends My_Model
     function refuseWithDraw($id, $userId, $withdrawCash, $reason)
     {
     	$withdrawobj = $this->getWithDrawObj($id);
-    	if (empty($withdrawobj)) {
+    	if (empty($withdrawobj)) 
+    	{
     		return ERROR_WITHDRAW_NOT_FOUND;
     	}
     	//add transaction about refuse withdraw
@@ -83,7 +88,8 @@ class  M_withdrawCash extends My_Model
     function acceptWithDraw($id)
     {
     	$withdrawobj = $this->getWithDrawObj($id);
-    	if (empty($withdrawobj)) {
+    	if (empty($withdrawobj)) 
+    	{
     		return ERROR_WITHDRAW_NOT_FOUND;
     	}
     	$this->db->where('id',$id)->update('withdrawcash',array('status' => WC_STATUS_COMPLETED));

@@ -16,7 +16,8 @@ class A_prizesQuiz extends Admin_Controller
 	//adminisstration qiut the quiz
 	function quitQuiz()
 	{
-		if (!$this->checkParam(array('auctionId'))) {
+		if (!$this->checkParam(array('auctionId'))) 
+		{
 		$this->responseError(ERROR_PARAM);
 		}
 
@@ -63,7 +64,8 @@ class A_prizesQuiz extends Admin_Controller
 	// view quiz
 	function viewQuiz()
 	{
-		if (!$this->checkParam(array('auctionId'))) {
+		if (!$this->checkParam(array('auctionId'))) 
+		{
 			$this->responseError(ERROR_PARAM);
 			return;
 		}
@@ -77,8 +79,10 @@ class A_prizesQuiz extends Admin_Controller
 	}
 
 	// update limit num
-	function updateLimitNum(){
-		if (!$this->checkParam(array('auctionId','limitNum'))) {
+	function updateLimitNum()
+	{
+		if (!$this->checkParam(array('auctionId','limitNum'))) 
+		{
 			$this->responseError(ERROR_PARAM);
 			return;
 		}

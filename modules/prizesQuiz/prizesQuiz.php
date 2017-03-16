@@ -53,7 +53,8 @@ class prizesQuiz extends My_Controller
 	// get quiz user list
 	function getQuizUserList()
 	{
-		if (!$this->checkParam(array('auctionId'))) {
+		if (!$this->checkParam(array('auctionId'))) 
+		{
 			$this->responseError(ERROR_PARAM);
 			return;
 		}
@@ -61,7 +62,8 @@ class prizesQuiz extends My_Controller
 		$startIndex = $this->input->post('startIndex');
 		$num = $this->input->post('num');
 		$auctionId = $this->input->post('auctionId');
-		$data = $sum = $count = null;
+		$data = array();
+		$sum = $count = null;
 		$res = $this->m_prizesQuiz->getQuizUserList($auctionId, $startIndex, $num, $data, $sum, $count);
 		$this->responseSuccess(array('data'=>$data,'sum'=>$sum['sum'],'count'=>$count));
 	}
@@ -69,12 +71,13 @@ class prizesQuiz extends My_Controller
 	//get award user list
 	function getAwardUserList()
 	{
-		if (!$this->checkParam(array('auctionId'))) {
+		if (!$this->checkParam(array('auctionId'))) 
+		{
 			$this->responseError(ERROR_PARAM);
 			return;
 		}
 		$auctionId = $this->input->post('auctionId');
-		$data = null;
+		$data = array();
 		$this->m_prizesQuiz->getAwardUserList($auctionId, $data);
 		$this->responseSuccess($data);
 	}

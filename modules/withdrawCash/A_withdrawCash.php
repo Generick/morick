@@ -25,7 +25,8 @@ class A_withdrawCash extends Admin_Controller
     	$fields = $this->input->post('fields');
 
     	$whr = array();
-    	if ($status != WC_STATUS_ALL) {
+    	if ($status != WC_STATUS_ALL) 
+    	{
     		$whr = array('status'=>$status);
     	}
 
@@ -36,7 +37,8 @@ class A_withdrawCash extends Admin_Controller
     //refuse withdraw
     function refuseWithDraw()
     {
-    	if (!$this->checkParam(array('id','userId','withdrawCash'))) {
+    	if (!$this->checkParam(array('id','userId','withdrawCash'))) 
+    	{
     		$this->responseError(ERROR_PARAM);
     		return;
     	}
@@ -45,7 +47,8 @@ class A_withdrawCash extends Admin_Controller
     	$reason = $this->input->post('reason');
     	$withdrawCash = $this->input->post('withdrawCash');
     	$res = $this->m_withdrawCash->refuseWithDraw($id, $userId, $withdrawCash, $reason);
-    	if ($res !== ERROR_OK) {
+    	if ($res !== ERROR_OK) 
+    	{
     		$this->responseError($res);
     		return;
     	}
@@ -55,13 +58,15 @@ class A_withdrawCash extends Admin_Controller
     //accept withdraw
     function acceptWithDraw()
     {
-    	if (!$this->checkParam(array('id'))) {
+    	if (!$this->checkParam(array('id'))) 
+    	{
     		$this->responseError(ERROR_PARAM);
     		return;
     	}
     	$id = $this->input->post('id');
     	$res = $this->m_withdrawCash->acceptWithDraw($id);
-    	if ($res !== ERROR_OK) {
+    	if ($res !== ERROR_OK) 
+    	{
     		$this->responseError($res);
     		return;
     	}
@@ -71,7 +76,8 @@ class A_withdrawCash extends Admin_Controller
     //search withdraw list
     function searchWithDrawUserList()
     {
-    	if (!$this->checkParam(array('fields'))) {
+    	if (!$this->checkParam(array('fields'))) 
+    	{
     		$this->responseError(ERROR_PARAM);
     		return;
     	}

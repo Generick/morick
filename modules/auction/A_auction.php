@@ -91,7 +91,7 @@ class A_auction extends Admin_Controller
         }
 
         //judge if the auction is a quiz
-        $isQuiz = $this->input->post('isQuiz');
+        $isQuiz = intval($this->input->post('isQuiz'));
         $tickets = $limitNum = null;
         if ($isQuiz == 1) {
             $tickets = intval($this->input->post('tickets'));
@@ -119,7 +119,7 @@ class A_auction extends Admin_Controller
             "startTime" => strtotime(trim($this->input->post("startTime"))),
             "endTime" => strtotime(trim($this->input->post("endTime"))),
             "createTime" => now(),
-            'isQuiz'=>intval($isQuiz)
+            'isQuiz' => $isQuiz
         );
 
         $retCode = $this->m_auction->releaseAuctionItem($goodsId, $insertData, $tickets, $limitNum);

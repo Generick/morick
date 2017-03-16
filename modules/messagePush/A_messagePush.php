@@ -22,13 +22,14 @@ class A_messagePush extends Admin_Controller
             return;
         }
 
-        $pushType = intval($this->input->post('pushType','msg_title','msg_content'));
+        $pushType = intval($this->input->post('pushType', 'msg_title', 'msg_content'));
         $msg_title = $this->input->post('msg_title');
         $msg_content = $this->input->post('msg_content');
         $phoneNum = $this->input->post('phoneNum');
 
         $res = $this->m_messagePush->pushMessage($pushType, $msg_title, $msg_content, $phoneNum);
-        if ($res != ERROR_OK) {
+        if ($res != ERROR_OK) 
+        {
             $this->responseError($res);
         }
         $this->responseSuccess($res);
