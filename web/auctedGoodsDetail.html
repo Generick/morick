@@ -39,6 +39,7 @@
 				<div style="text-align: center;color: #7E7346;font-size: 16px;padding: 12px 0;" ng-show="!auctedGoodsDetailModel.auctionSuccess">
 					已流拍
 				</div>
+				<button id="selfGoodsBtn" class="goods-btn-2" ng-show="auctedGoodsDetailModel.allInfo.isQuiz == '1'" ng-click="jumpToGuess(item)" >我要竞猜</button>
 			</div>
 			<div class="goods-operate groble-operate-thrity-h clear">
 				<div class="goods-operate-block groble-thrity-h clear">
@@ -117,18 +118,33 @@
 
 		    	if (bool)
 		    	{    
-		    		if(commonFu.isEmpty(sessionStorage.getItem("hasGetData")))
-		    		{   
-		    			
-		    			sessionStorage.setItem("needPageId",1)
-		    		    location.href = pageUrl.AUCTION_HISTORY + "?backPage=" + auctedGoodsDetailController.thisDetailPage + "&thisDataId=" + auctedGoodsDetailController.thisDataId;
-		    		}
+		    		if(sessionStorage.getItem("comeWithGuess") == 4)
+			        {   
+			        
+			        	location.href = pageUrl.PERSON_CENTER;
+			        }
+			        else if(sessionStorage.getItem("comeWithGuess") == 5)
+			        {   
+			        	
+			        	location.href = pageUrl.MY_MESSAGE;
+			        }
 		    		else
-		    		{   
-		    			
-		    			location.href = pageUrl.AUCTION_HISTORY;
+		    		{       
+		    			    
+		    			    sessionStorage.setItem("needPageId",1)
+		    			    if(sessionStorage.getItem("messlistOrauction") == 0)
+			        	    {   
+			        	    	location.href = pageUrl.AUCTION_HISTORY + "?backPage=" + auctedGoodsDetailController.thisDetailPage + "&thisDataId=" + auctedGoodsDetailController.thisDataId;
+
+			        	    }
+			        	    else if(sessionStorage.getItem("messlistOrauction") == 1)
+			        	    {
+			        	    	
+			        	    	location.href = pageUrl.MY_MESSAGE;
+			        	    }
+			    			
+			    		   
 		    		}
-		    		
 		    	}
 		    	pushHistory();
 		        

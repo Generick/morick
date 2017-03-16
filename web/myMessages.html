@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="email=no">
+        <title>雅玩之家</title>
+        <link rel="stylesheet" href="css/ui.base.css" />
+        <link rel="stylesheet" href="css/selected.css" />
+        <link rel="stylesheet" href="popUpModal/popUp.css" />
+		<title></title>
+	</head>
+	<body ng-controller="ctrl">
+		<div class="animation">
+			<img src="img/loading.gif" />
+		</div>
+		<div class="container" id="message-box" style="padding-bottom:25px">
+			
+			<div id="sale-message" ng-repeat="item in messListModel.messlistArr">
+				<div class="messages-title" ng-class="item.titleStyle" ng-bind="item.msg_title"></div>
+				<div class="messages-time" ng-bind="item.create_time*1000 | date:'yy-MM-dd HH:mm:ss'"></div>
+				<div class="message-had-unread" ng-class="item.bgStyle"  ng-bind="item.msg_content" ng-click="jumpTOatherPage(item)"></div>
+				
+				<a class="go-to-see" ng-show="item.msg_type != 0" style="text-align: center;" ng-click="jumpTOatherPage(item)">去看看</a>
+				<a class="go-to-see" ng-class="item.titleStyle" style="text-decoration: none;text-align: center;" ng-show="item.msg_type == 0" ng-click="jumpTOatherPage(item)" ng-bind="item.word"></a>
+			</div>
+			<div id="no-datas">暂无消息</div>
+			<div id="check-more-data" style="text-align: center;border:1px solid #CEA985;color:#CEA985;line-height:25px;border-top: none;border-radius:0 0 5px 5px" ng-click="onClickCheckMore()"  ng-bind="messListModel.seeMoreWord"></div>
+		    
+		</div>		
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/commonArr.js"></script>
+    <script src="module/tab/tab.js"></script>
+	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
+    <script src="controller/app.js"></script>
+    <script src="plugin/layerMobile/layer.js"></script>
+    <script src="module/dialog/dialog.js"></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/myMessageController.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js"></script>
+    <script>
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		
+		    		if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+		    		{   
+		    				
+			        	location.href = pageUrl.PERSON_CENTER;
+			        
+		    		}
+		    	
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+	</script>
+	
+</html>

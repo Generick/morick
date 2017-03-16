@@ -72,10 +72,10 @@ var personalBiddingController =
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_PERSONAL_BIDDING_LIST, params, function(data)
     	{   
-//  		console.log(JSON.stringify(data))
+  			//alert(JSON.stringify(data))
     		self.personalBiddingModel.biddingList = [];
     		self.personalBiddingModel.biddingList = data.biddingList;
-    		
+    	
     		if (self.personalBiddingModel.biddingList.length > 0)
     		{
     			$(".no-data").css('display','none');
@@ -110,6 +110,7 @@ var personalBiddingController =
     		self.scope.$apply();
     		
     	});
+    	
     },
     
     
@@ -118,9 +119,9 @@ var personalBiddingController =
     	var self = this;
     	
     	self.scope.onClickToMyBiddingDetail = function(id)
-    	{
+    	{   
     		localStorage.setItem(localStorageKey.FROM_LOCATION, 1);
-    		location.href = pageUrl.GOODS_DETAIL + "?id=" + id;
+    		location.href = pageUrl.GOODS_DETAIL + "?id=" + id + "&page=" + 1;
     	}
     },
     

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="format-detection" content="email=no">
+        <meta name="format-detection" content="telephone=no">
+        <title></title>
+        <link rel="stylesheet" href="swiper/swiper.css" />
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/selected.css" />
+        <link rel="stylesheet" href="popUpModal/popUp.css" />
+        <link href="plugin/layerMobile/need/layer.css">
+	</head>
+	<body ng-controller="ctrl">
+
+		<!--加载动画-->
+		<div class="animation">
+			<img src="img/loading.gif" />
+		</div>
+
+        <div class="container noScroll" style="overflow-y: scroll;padding-bottom: 65px;">
+			<!-- Swiper -->
+		    <div class="swiper-container">
+		        <div class="swiper-wrapper">
+		            <div class="swiper-slide item-img" ng-repeat="item in goodsDetailModel.allInfo.goods_icon" on-Finish-Render-Filters>
+		            	<img ng-src="item"/>
+		            </div>
+		        </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+		    </div>
+
+			<div class="goods-content">
+				<p id="goodsContent"></p>
+			</div>
+			<div class="time-operate">
+				<div class="end-time">
+					<div class="endtime-fresh" ng-click="onClickUpdateTime()">
+						<img src="img/fresh.png" />更&nbsp;新<span id="updateTime" ></span>
+					</div>
+					<div class="endtime-realtime clear">
+						<div class="endtime-text">距离结束:</div>
+						<div class="endtime-time">
+							<div id="endTime">
+								<span id="day"></span>天
+								<span id="hour"></span>时
+								<span id="minute"></span>分
+								<!--<span id="second"></span>-->
+							</div>
+						</div>
+					</div>
+				</div>
+				<button id="goodsBtn" class="goods-btn-un" ng-click="onClickPay()">出&nbsp;价</button>
+				<button id="selfGoodsBtn" class="goods-btn-un" ng-click="onClickSelfPay()">委托出价</button>
+				<button id="selfGoodsBtn" class="goods-btn-2"  ng-click="jumpToGuess(item)" >我要竞猜</button>
+			</div>
+
+			<div class="goods-operate groble-operate-thrity clear">
+				<div class="goods-operate-block groble-thrity clear">
+					<span class="operate-type">起</span>
+					<div>
+						￥<span id="initialPrice" ng-bind="goodsDetailModel.allInfo.initialPrice"></span>
+					</div>
+				</div>
+				<div class="goods-operate-block groble-thrity">
+					<span class="operate-type">加</span>
+					<div>
+						￥<span id="lowestPremium" ng-bind="goodsDetailModel.allInfo.lowestPremium"></span>
+					</div>
+				</div>
+				<div class="goods-operate-block groble-thrity">
+					<span class="operate-type">保</span>
+					<div>
+						￥<span ng-bind="goodsDetailModel.allInfo.margin"></span>
+					</div>
+				</div>
+				<!--<div class="goods-operate-block" style="padding-left: 12%;">
+					<span class="operate-type">延</span>
+					<div>
+						<span ng-bind="goodsDetailModel.allInfo.postponeTime"></span>分钟
+					</div>
+				</div>-->
+			</div>           
+   
+          
+            <div id="capped-box" class="capped-hide" style="display: block;">
+	            <div id="capped-price-box">
+	                <button id="capped-price-btn">
+	                    <span id="capped-price">奖金</span>￥<span ng-bind="goodsDetailModel.allInfo.sum"></span>
+	                </button>
+	            </div>
+            </div>
+			<!--<div class="goods-buyer">
+				
+				<div class="goods-buyer-block clear">
+					<li class="clear" ng-repeat="item in biddingModel.biddingList">
+						<img class="buyer-icon" ng-src="{{item.userData.smallIcon}}" />
+						<div class="buyer-tel" ng-bind="item.userData.telephone"></div>
+						<div class="buyer-money">￥<span ng-bind="item.nowPrice"></span></div>
+						<div class="pay-time" ng-bind="item.createTime*1000 | date:'yy-MM-dd HH:mm:ss'"></div>
+					</li>
+					<div class="check-more" ng-click="onClickCheckMore()" ng-show="biddingModel.isCheckOver" ng-bind="checkMore">查看更多</div>
+				</div>
+			</div>-->
+        </div>
+        <!--<div id="reminding" class="reminding" ng-click="imSure()">
+        	<img ng-show="biddingModel.biddingList.length == 0" src="img/remainLogin.png"/>
+        </div>-->
+        
+       
+        
+    
+    	<!--底部tab-->
+	    <div ng-include="'module/tab/tab.html'"></div>
+	</body>
+	
+	<!--系统js-->
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+	
+    <script src="plugin/layerMobile/layer.js"></script>
+    <script src="module/dialog/dialog.js"></script>
+    <script src="controller/app.js"></script>
+    
+ 	<script src="js/commonArr.js"></script>
+ 	<script>
+		$(function() {
+			//出价弹窗
+			$('.pay-block-bg').click(function(){
+				$('.pay-block-bg').css('display','none');
+			});
+			
+			$('.pay-block').click(function(e){
+				e.stopPropagation();
+			});
+			
+			$('#closePayBlock').click(function(){
+				$('.pay-block-bg').css('display','none');
+			});
+			
+			//委托出价弹窗
+			$('.self-pay-block-bg').click(function(){
+				$('.self-pay-block-bg').css('display','none');
+			});
+			
+			$('#closeSelfBlock').click(function(){
+				$('.self-pay-block-bg').css('display','none');
+			});
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		if(commonFu.isEmpty(localStorageKey.FROM_LOCATION))
+		    		{   
+		    			sessionStorage.setItem("needGuessPage",1)
+		    			location.href = pageUrl.GUESS_PAGE +"?backPage=" + GuessInfoCtrl.thisDetailPage + "&thisDataId=" + GuessInfoCtrl.thisDataId;
+
+		    		}
+		    		else
+		    		{
+		    			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+		    			{
+		    				if(!commonFu.isEmpty(localStorageKey.FROM_LOCATION))
+		    				{  
+		    					sessionStorage.setItem("needGuessPage",1)
+		    					location.href = pageUrl.GUESS_PAGE +"?backPage=" + GuessInfoCtrl.thisDetailPage + "&thisDataId=" + GuessInfoCtrl.thisDataId;
+		    					
+		    				}
+		   
+		    			}
+		    		}
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+	</script>
+	<script src="module/tab/tab.js"></script>     
+	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
+	<script type="text/javascript" src="popUpModal/confirmDialog.js" ></script>
+	
+	
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<script type="text/javascript" src="swiper/swiper.min.js" ></script>
+    <!--<script type="text/javascript" src="../js/htmlNoScroll.js" ></script>-->
+	<!--controller-->
+	<script type="text/javascript" src="controller/guessDetailController.js" ></script>
+	
+</html>

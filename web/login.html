@@ -33,7 +33,7 @@
 			</div>
 		</div>
 	</body>
-
+    
 	<!--系统js-->
 	<script type="text/javascript" src="js/zepto.min.js" ></script>
 	<script type="text/javascript" src="js/angular.min.js" ></script>
@@ -53,5 +53,34 @@
 		if(window.screen.width < 375){
 			$('.user-input').css('margin-top','5vh');
 		}
+		
+		
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		location.href = pageUrl.LOGIN_PAGE;
+		    		
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+		
 	</script>
 </html>

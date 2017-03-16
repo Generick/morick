@@ -4,15 +4,27 @@
 
 /**************服务器基地址*******************/
 //const API_BASE_URL = "http://meeno.f3322.net:8082/auction_dev/index.php/";//开发
+
+
 //const API_BASE_URL = "http://meeno.f3322.net:8082/auction/index.php/";//测试
-const API_BASE_URL = "http://localhost/auction/index.php/";//测试
+
+
+const API_BASE_URL = "http://192.168.2.128/auction/index.php/";//测试
+
 //const API_BASE_URL = "http://auction.yawan365.com/index.php/";//正式
 //const BASE_PAGE_URL = "http://auction.yawan365.com/";//正式
 //const BASE_PAGE_URL = "http://meeno.f3322.net:8082/auction/web/";//测试
 //const BASE_PAGE_URL = "http://www.yawan365.com:8080/";//测试
 // const API_BASE_URL = "http://auction.yawan365.com:8080/index.php/";//测试
 //const BASE_PAGE_URL = "http://192.168.2.107/web/";
-const BASE_PAGE_URL = "http://localhost/auction/web/";
+//const BASE_PAGE_URL = "http://127.0.0.1:8020/paimai-web/";
+
+//const BASE_PAGE_URL = "http://mc.meeno.net/aution/";
+
+
+//const BASE_PAGE_URL = "http://127.0.0.1:8020/web/";
+const BASE_PAGE_URL = "http://192.168.2.107:8020/web/";
+
 /***************API 配置接口****************/
 
 var apiUrl = 
@@ -57,10 +69,28 @@ var apiUrl =
 	API_SET_PROXYBID : API_BASE_URL + "proxyBid/U_proxyBid/setProxyBid",//设置委托出价
 	API_GET_PROXYBID : API_BASE_URL + "proxyBid/U_proxyBid/getProxyBid",//获取委托出价
 	API_GET_IFFREEZE : API_BASE_URL + "freeze/U_freeze/isFreeze", //获取是否已经扣除过保证金
-
+    
+    //提现
+    API_WITHDRAWCRASH : API_BASE_URL + "withdrawCash/U_withdrawCash/withdrawCash",
+    
+    //我的消息
+    API_GET_MY_MESSAGELIST : API_BASE_URL + "messagePush/U_messagePush/getUserMsgList",
+   
     //订单
     API_SET_SHIPPING_ADDRESS : API_BASE_URL + "order/U_order/setShippingAddress", //修改用户地址
-    API_PAY_ORDER : API_BASE_URL + "order/U_order/payOrder" //支付
+    API_PAY_ORDER : API_BASE_URL + "order/U_order/payOrder", //支付
+    
+    //充值
+    API_RECHARGE : API_BASE_URL + "recharge/U_recharge/recharge",//充值
+    
+    //获取竞猜
+    API_HAS_READ_MESSAGE :  API_BASE_URL +  "messagePush/U_messagePush/viewMsg",//提醒用户已阅读
+    API_GET_GUESSLIST : API_BASE_URL + "prizesQuiz/prizesQuiz/getPrizesList",//列表
+    API_GET_GUESSDETAIL : API_BASE_URL + "prizesQuiz/prizesQuiz/getQuizInfo",//详情页
+    API_GET_GUESSUSERLIST : API_BASE_URL + "prizesQuiz/prizesQuiz/getQuizUserList",//获取竞猜用户
+    API_JOIN_GUESS : API_BASE_URL + "prizesQuiz/U_prizesQuiz/partakeQuiz",//参加竞猜
+    API_MY_GUESS_LIST : API_BASE_URL + "prizesQuiz/U_prizesQuiz/getUserQuiz",
+    API_GETAWARD_USERS : API_BASE_URL + "prizesQuiz/prizesQuiz/getAwardUserList"//获取中奖的用户
 };
 
 var localStorageKey =
@@ -80,7 +110,8 @@ var localStorageKey =
 	mobile : "mobile",//联系方式
 	address : "address",//详细地址
 	addressId : "addressId",//地址id
-    addType : "addType"//添加地址入口
+    addType : "addType",//添加地址入口
+    vipOrNot: "vipOrNot"
 };
 
 /***************数据请求配置参数****************/
@@ -89,13 +120,18 @@ var errCode  =
 	SUCCESS : 0 ,
 	TOKEN_WRONG : 102, //102token错误，103token超时
 	TOKEN_FAILED : 103, //102token错误，103token超时
-    SESSION_FAILED : 5 //会话不存在
+    SESSION_FAILED : 5, //会话不存在
+    VIP_LIMIT : 1108 //VIP专享 
 };
 
 var pageUrl = 
 {
 	LOGIN_PAGE : BASE_PAGE_URL + "login.html",//登录
+	GUESS_PAGE : BASE_PAGE_URL + "guessList.html",//竞猜列表
+	GUESS_DETAIL : BASE_PAGE_URL + "guessDetailPage.html",//竞猜页
+	GUESS_INNER : BASE_PAGE_URL + "guessInner.html",//竞猜详情
 	SELECTED_GOODS : BASE_PAGE_URL + "selectedGoods.html",//精选
+	MY_GUESS_LIST : BASE_PAGE_URL + "myselfGuessList.html",//我的竞猜列表
 	GOODS_DETAIL : BASE_PAGE_URL + "goodsDetail.html",//详情
 	AUCTION_HISTORY : BASE_PAGE_URL + "auctionHistory.html",//拍卖历史
 	AUCTION_HISTORY_INFO : BASE_PAGE_URL + "auctedGoodsDetail.html",//拍卖历史拍品详情
@@ -106,10 +142,16 @@ var pageUrl =
 	MOD_ADDRESS : BASE_PAGE_URL + "personCenter/modAddress.html",//修改地址
 	ADDRESS_CHOOSE : BASE_PAGE_URL + "personCenter/addressChoose.html",//地址选择界面
 	BIND_ACCOUNT : BASE_PAGE_URL + "personCenter/bindAccount.html",//绑定账号
+	MY_CUSTOMER : BASE_PAGE_URL + "myCustom.html",//我的客服
+	MY_DRAWCASH : BASE_PAGE_URL + "personCenter/widthDrawCash.html",//我的提现
 	
 	MY_ACCOUNT : BASE_PAGE_URL + "personCenter/myAccount.html",//我的账户
 	ACCOUNT_RECHARGE : BASE_PAGE_URL + "personCenter/recharge.html",//充值界面
 	TRANSACTION_DETAIL : BASE_PAGE_URL + "personCenter/transactionDetail.html",//账户明细
+	
+	MY_MESSAGE : BASE_PAGE_URL + "myMessages.html",//我的消息
+	
+	MY_MESSAGE_LIST : BASE_PAGE_URL + "",//消息列表
 	
 	MY_BIDDING : BASE_PAGE_URL + "personCenter/personalBiddingList.html",//我的竞拍
 	
@@ -122,5 +164,9 @@ var pageUrl =
 	
 	SCAN_RECORDS : BASE_PAGE_URL + "personCenter/scanRecords.html",//浏览记录
 	
-	SELF_PAID_SERVICES : BASE_PAGE_URL + "personCenter/selfPaidServices.html"//个人付费服务
+	SELF_PAID_SERVICES : BASE_PAGE_URL + "personCenter/selfPaidServices.html",//个人付费服务
+	
+	TO_WX_LOGIN : BASE_PAGE_URL + "wxlogin/Wx.Login.php",//跳到微信授权页面
+	
+	WX_PAY : BASE_PAGE_URL + "wxpay/src/jsapi.php"
 };

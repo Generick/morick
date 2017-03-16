@@ -80,7 +80,7 @@ var WithdrawCtrl = {
 		pageController.pageInit(self.scope, api.API_GET_WITHDRAW_LIST, params, function(data){
 			//分页
 			var totalPage = Math.ceil(data.count / self.scope.page.selectPageNum);
-            
+            console.log(JSON.stringify(data))
             pageController.pageNum(totalPage);
             
             for(var i = 0; i < data.data.length; i++){
@@ -93,10 +93,12 @@ var WithdrawCtrl = {
 	
 	//状态转换
 	turnStatus: function(status){
+		
 		var params = {
-			0: '已完成',
+			0: '已通过',
 			1: '待处理',
-			2: '已拒绝'
+			2: '已拒绝',
+			3: '已拒绝'
 		}
 		
 		return params[status];

@@ -19,14 +19,41 @@
 		</div>
 
 		<div class="container scroll" style="position:absolute; overflow:auto;-webkit-overflow-scrolling: touch; top:0; left:0; bottom:54px; right:0">
-			<div class="person-head">
-				<p class="person-title">我的</p>
-				<img class="head-icon" ng-src="{{personCenterModel.userInfo.smallIcon}}" ng-click="onClickToPersonInfo()" />
-				<div class="user-info">
-					<span ng-bind="personCenterModel.userInfo.name"></span><img ng-src="{{personCenterModel.userInfo.genderIcon}}" />
+			<!--<div class="mine-title">
+			      我的
+			</div>-->
+            <div class="users-title" style="height:56px">
+            	<div class="users-name" ng-click="showMyHead()">
+            		<img src="img/personal-icon.png" /> 
+            	</div>
+            	<div class="users-name-word" ng-bind="personCenterModel.userInfo.name"></div>
+            	<div class="users-message" ng-click="jumpToMessage()">
+            		<img src= "img/my-message.png" />
+            		<span>消息</span>
+            	</div>
+            </div>
+            
+            
+            <div class="person-mid" ng-show="messageCenterModel.messageList[0].isRead == '0'">
+				<div class="mid-top" style="height:35px;line-height:35px">
+					<span>待处理信息</span>
 				</div>
 			</div>
-
+            <div class="person-mess" style="overflow-y: hidden;border-top:2px solid #EEEEEE;border-bottom: 2px solid #EEEEEE;" ng-show="messageCenterModel.messageList[0].isRead == '0'">
+				<div class="mid-mess" >
+					<div class="item-boxes">
+						<a class="detail-item" ng-show="messageCenterModel.messageList.length > '0' &&  messageCenterModel.messageList[0].isRead == '0'" ng-bind="messageCenterModel.messageList[0].msg_title" ng-click="jumpToPage(messageCenterModel.messageList[0])"></a>
+						<a class="detail-item"  ng-show="messageCenterModel.messageList.length > '1' &&  messageCenterModel.messageList[1].isRead == '0'" ng-bind="messageCenterModel.messageList[1].msg_title" ng-click="jumpToPage(messageCenterModel.messageList[1])"></a>
+						<a class="detail-item"  ng-show="messageCenterModel.messageList.length > '2' &&  messageCenterModel.messageList[2].isRead == '0'"  ng-bind="messageCenterModel.messageList[2].msg_title" ng-click="jumpToPage(messageCenterModel.messageList[2])"></a>
+					</div>
+					
+					<div class="enter-to-see" ng-click="jumpToMessage()">
+						<span id="to-see-word">去看看</span>
+						<img src="img/personCenter/right_icon.png"/>
+					</div>
+				</div>
+			</div>
+            
 			<div class="person-mid">
 				<div class="mid-top" ng-click="onClickToAllOrderList()">
 					<span>我的订单</span>
@@ -49,15 +76,15 @@
 			</div>
 
 			<ul class="mgt-10 list list-up-down-line">
-				<li class="ub line" ng-click="onClickToMyAccount()">
-					<div class="ub-f1 list-icon"><img src="img/personCenter/account.png"/></div>
-					<div class="ub-f1 list-text mgt-16">我的账户</div>
+				<li class="ub line" ng-click="onClickToMyGuessList()">
+					<div class="ub-f1 list-icon"><img src="img/guess-icon.png"/></div>
+					<div class="ub-f1 list-text mgt-16">我的竞猜</div>
 					<div class="ub-f1 mgt-16"></div>
 					<div class="ub-f1 list-right mgt-13"></div>
 				</li>
 				<li class="ub line" ng-click="onClickToMyBidding()">
 					<div class="ub-f1 list-icon"><img src="img/personCenter/mybidding.png"/></div>
-					<div class="ub-f1 list-text mgt-16">我的参与</div>
+					<div class="ub-f1 list-text mgt-16">我的出价</div>
 					<div class="ub-f1 mgt-16"></div>
 					<div class="ub-f1 list-right mgt-13"></div>
 				</li>
@@ -67,22 +94,69 @@
 					<div class="ub-f1 mgt-16"></div>
 					<div class="ub-f1 list-right mgt-13"></div>
 				</li>-->
-				<li class="ub line" ng-click="onClickToMyAddress()">
-					<div class="ub-f1 list-icon"><img src="img/personCenter/address.png"/></div>
-					<div class="ub-f1 list-text mgt-16">收货地址</div>
+				
+				<li class="ub line" ng-click="onClickToMyScanRecords()">
+					<div class="ub-f1 list-icon"><img src="img/personCenter/scan_records.png"/></div>
+					<div class="ub-f1 list-text mgt-16">浏览记录</div>
 					<div class="ub-f1 mgt-16"></div>
 					<div class="ub-f1 list-right mgt-13"></div>
 				</li>
-				<li class="ub line" ng-click="onClickToMyScanRecords()">
-					<div class="ub-f1 list-icon"><img src="img/personCenter/scan_records.png"/></div>
-					<div class="ub-f1 list-text mgt-16">我的浏览</div>
+				<li class="ub line" ng-click="onClickToMyAddress()">
+					<div class="ub-f1 list-icon"><img src="img/personCenter/address.png"/></div>
+					<div class="ub-f1 list-text mgt-16" style="min-width:100px">收货地址管理</div>
 					<div class="ub-f1 mgt-16"></div>
 					<div class="ub-f1 list-right mgt-13"></div>
 				</li>
 			</ul>
 		</div>
-
+		
         <div ng-include="'module/tab/tab.html'"></div>
+        
+        
+        <div id="fixed-myOwn" ng-click="hideMyHead(0)"></div>
+		
+		<div id="suspend-head">
+            <div class="fixed-box-head">
+            
+	            <div class="my-head-icon" ng-click="onClickToPersonInfo()">
+	            	<img style="width:100%;height:100%" class="head-icon" ng-src="{{personCenterModel.userInfo.smallIcon}}" />
+	            </div>
+	            <div class="vip-name-sexual">
+	            	<div class="vip-icon" ng-show="personCenterModel.userInfo.isVIP == '1'">
+	            		<img src="img/newVip.png" /> 
+	            	</div>
+		            <div class="suspend-name" ng-bind="personCenterModel.userInfo.name" >
+		            				
+		            </div>
+		            <div class="sexual-icon">
+		            	<img ng-show="personCenterModel.userInfo.gender =='0'" src="img/personCenter/female.png" /> 
+		            	<img ng-show="personCenterModel.userInfo.gender == '1'" src="img/personCenter/male.png" /> 
+		            </div>
+	            </div>
+            	
+            </div>
+           
+            <div class="myself-info" ng-click="onClickToPersonInfo()">
+            	<img src="img/my-icon.png" /> 
+            	<span>个人信息</span>
+            </div>
+            <div class="myself-price" ng-click="onClickToMyAccount()">
+            	<img src="img/my-account.png" /> 
+            			
+            	<span>我的账户</span>
+            </div>
+            <div class="myself-custom" ng-click="onClickToMyCustomer()">
+            	<img src="img/my-custom.png" /> 
+            			
+            	<span>我的客服</span>
+            </div>
+            <div class="myself-custom">
+            	<img src="img/my-exit.png" /> 
+            			
+            	<span ng-click="hideMyHead(1)">退出</span>
+            </div>
+    	</div>
+        
 	</body>
 	<!--系统js-->
 	<script type="text/javascript" src="js/zepto.min.js" ></script>
@@ -93,16 +167,54 @@
 	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
     <script src="plugin/layerMobile/layer.js"></script>
     <script src="module/dialog/dialog.js"></script>
+    
+    <!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<script type="text/javascript" src="js/htmlNoScroll.js" ></script>
+    
+    
     <script src="controller/app.js"></script>
     <script src="js/commonArr.js"></script>
     <script src="module/tab/tab.js"></script>
+    
 	<!--controller-->
-	<script type="text/javascript" src="controller/personCenterController.js" ></script>
-	<script type="text/javascript" src="controller/auctionHistoryController.js" ></script>
-	<script type="text/javascript" src="controller/personCenterController.js" ></script>
+	<script src="controller/personCenterController.js"></script>
+	<!--<script type="text/javascript" src="controller/auctionHistoryController.js" ></script>-->
 
-	<!--插件-->
-	<script type="text/javascript" src="js/fastclick.js" ></script>
-	<script type="text/javascript" src="js/htmlNoScroll.js" ></script>
+	
+	 <script>
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		
+		    			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+		    			{   
+		    				
+			        	    location.href = pageUrl.PERSON_CENTER;
+			        
+		    			}
+		    	
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+	</script>
 	
 </html>

@@ -12,6 +12,9 @@
         <link rel="stylesheet" href="plugin/layerMobile/need/layer.css" />
 	</head>
 	<body ng-controller="ctrl">
+		<div id="myself-head"  ng-click="jumpToSelfZone()" style="position: fixed;top:10px;left:10px;width:50px;height:50px;display: block;z-index: 99999;">
+			<img src="img/personal-enter.png"> 
+		</div>
 		<!--加载动画-->
 		<div class="animation">
 			<img src="img/loading.gif" />
@@ -89,4 +92,34 @@
 	<!--插件-->
 	<script type="text/javascript" src="js/fastclick.js" ></script>
 	<!--<script type="text/javascript" src="js/htmlNoScroll.js" ></script>-->
+	
+	<script>
+		
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		location.href = pageUrl.AUCTION_HISTORY;
+		    		
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+	</script>
 </html>

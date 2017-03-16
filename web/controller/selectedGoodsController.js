@@ -8,8 +8,6 @@ app.controller("ctrl", function ($scope)
 {  
 	
 	SelectCtrl.init($scope);
-	
-	
 
 });
 
@@ -50,7 +48,7 @@ var SelectCtrl =
     	
         this.ngRepeatFinish();
         
-        initTab.start(this.scope, 0); //底部导航
+        initTab.start(this.scope, 1); //底部导航
     },
    
     getUrlAndId : function(){
@@ -142,7 +140,7 @@ var SelectCtrl =
 	    	    var selfData = self.selectedModel.auctionItems;
 	    		
 	    	    if(type == 1){
-	    	    
+	    	   
 	    	    	$('.chrysanthemums').css("display","block");
 		    		/*
 		    		 * 如果是取下一页，则满足触发事件的条件（即，只要滚轮距离底部的距离小于10px时）
@@ -166,12 +164,12 @@ var SelectCtrl =
 		    			{   
 		    				var enterPage = parseInt(sessionStorage.getItem("interPage"));
 		    				//返回列表页且获取该页数据，即是用点击前存储的页数减 1
-		    				params.startIndex = (enterPage - 1) * self.page.timeNum;
-	                         
-	                        
+//		    				params.startIndex = (enterPage - 1) * self.page.timeNum;
+	                        params.startIndex = 0;
+	                        params.num = enterPage * self.page.timeNum;
 		    			}
 		    			else
-		    			{   
+		    			{  
 		    				/*
 		    				 * 如果是在列表页点击tab栏，则
 		    				 */
@@ -185,10 +183,11 @@ var SelectCtrl =
 
 	    	$('.animation').css('display','block');
 	    	
-	    	console.log('params:' + JSON.stringify(params));
-	    	    
-	    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_AUCTION_ITEMS, params, function(data){
+//	    	console.log('params:' + JSON.stringify(params));
 	    	
+
+	    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_AUCTION_ITEMS, params, function(data){
+//	    	   console.log('data:' + JSON.stringify(data));
 	    	    self.totalCount = data.count;
 	    	    //设置总页数
 	    	    self.setTotalPage(self.totalCount);
@@ -261,10 +260,16 @@ var SelectCtrl =
 			    	    	 */
 			    	    	if(!commonFu.isEmpty(sessionStorage.getItem("interPage")))
 			    	    	{   
-	    	    		        
+	    	    		      
 			    	    		self.selectedModel.auctionItems = [];
-			    	    		self.selectedModel.auctionItems = JSON.parse(sessionStorage.getItem("alreadyGet")); 
-			    	    	//  self.page.currentPage = parseInt(sessionStorage.getItem("interPage"));    	    		
+//			    	    		self.selectedModel.auctionItems = JSON.parse(sessionStorage.getItem("alreadyGet"));
+                              
+                                self.selectedModel.auctionItems = data.auctionItems;
+                                sessionStorage.setItem("alreadyGet",JSON.stringify(data.auctionItems));
+			    	    	
+			    	    	
+			    	    	
+			    	    	//  self.page.currentPage = parseInt(sessionStorage.getItem("interPage"));
 			    	    		self.page.currentPage = Math.ceil(JSON.parse(sessionStorage.getItem("alreadyGet")).length/self.page.timeNum);
 			    	    		sessionStorage.removeItem("interPage");
 			    	    	}
@@ -305,7 +310,9 @@ var SelectCtrl =
 	                    
 	                    
 	                    goods[i].currentPrice = self.toDecimals(goods[i].currentPrice);
+//	                    alert(goods[i].currentPrice)
 		    		}
+		    		
 	    		}
 	    		else
 	    		{
@@ -397,6 +404,26 @@ var SelectCtrl =
     bindClick: function ()
     {
     	var self = this;
+    	
+    	
+    	//跳转到个人中心
+    	self.scope.jumpToSelfZone = function(){
+    		
+    		if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			{   
+					
+                location.href = pageUrl.LOGIN_PAGE;
+			}
+            else
+            {   
+            	
+            	if(!commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
+            	{
+            		location.href = pageUrl.PERSON_CENTER;
+            	}
+            }
+    		
+    	};
     	
     	
     	self.scope.onClickToGoodsDetail = function(item)
@@ -505,27 +532,49 @@ var SelectCtrl =
 		});
     },
     
-    
+  
+     //判断当前ID是否存在，不存在则跳到页面元素的第一个
+    judgeExist : function(id){
+    	var self = this;
+    	var judje = false;
+    	for(var n = 0; n < self.selectedModel.auctionItems.length; n++)
+    	{   
+    	    console.log(JSON.stringify(self.selectedModel.auctionItems))
+    	   
+    		if(self.selectedModel.auctionItems[n].id == id)
+    		{   
+    			judje = true;
+    		}
+    	}
+        return judje;
+       
+    },
     //跳转到指定位置
     getDisToTop : function(id){
         var self = this;
         var id = id;
-        
-//          alert("wodeshijie"+sessionStorage.getItem("needPage"))
-//          alert("jumpPage"+self.thisJumpPage)
+ 
         	if(!commonFu.isEmpty(self.thisJumpPage) && !commonFu.isEmpty(self.thisJumpId))
         	{  
         		
         		if(!commonFu.isEmpty(sessionStorage.getItem("needPage")))
 		        { 
-//		        	alert(self.selectedModel.auctionItems.length)
-		        	var dealTop = $("#sel_"+ self.thisJumpId).offset().top;
-		        	
+
+		        	var dealTop = null;
+		        	if(self.judgeExist(self.thisJumpId))
+		        	{
+		        		dealTop = $("#sel_"+ self.thisJumpId).offset().top ;
+		        	}
+		        	else
+		        	{
+		        		dealTop = $("#sel_"+ self.selectedModel.auctionItems[0].id).offset().top ;
+		        	}
+		     
 				    sessionStorage.removeItem("needPage")
 		        }
 		        else
 		        {   
-//		        	alert(sessionStorage.getItem("needPage"))
+
 		        	var dealTop = $("#sel_"+ self.selectedModel.auctionItems[0].id).offset().top;
 		        }
 				self.thisJumpPage = null;
@@ -533,8 +582,17 @@ var SelectCtrl =
        		}	
 	        else
 	        {  
-//	            alert("wwwwodeshijie"+sessionStorage.getItem("needPage"))
-	            var dealTop = $("#" + id).offset().top;
+                var dealTop = null;
+	        	var idStr = id.split('_')[1];
+	
+	        	if(self.judgeExist(idStr))
+			    {
+			        dealTop = $("#"+ id).offset().top ;
+			    }
+			    else
+			    {
+			        dealTop = $("#sel_"+ self.selectedModel.auctionItems[0].id).offset().top ;
+			    }
 	        }
 	      	$("html,body").scrollTo({toT:dealTop});
  

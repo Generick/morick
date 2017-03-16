@@ -520,10 +520,8 @@ class M_auction extends My_Model
         }
         //mxl add
         if ($insertData['isQuiz'] == 1) {
-            # code...
-            if (!empty($tickets) && !empty($limitNum) && $limitNum >= 3 && $insertData['startTime'] > time()) 
+            if (!empty($tickets) && !empty($limitNum) && $limitNum >= 3 && $insertData['startTime'] > time())
             {
-                # code...
                 $this->load->model('m_prizesQuiz');
                 $this->m_prizesQuiz->createQuiz($this->db->insert_id(), $insertData['goods_bak_id'],$tickets, $limitNum);
             }

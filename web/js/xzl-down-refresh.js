@@ -137,8 +137,9 @@ slide({container:"#container",next: function (e) {
     var that = this;
     
     //执行加载数据方法（数据请求等）
+   
     SelectCtrl.initData(2);
-    
+   
     setTimeout(function() {
         that.back.call();
     }, 1500);

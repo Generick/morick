@@ -104,6 +104,7 @@ var LoginCtrl =
 
             if(self.checkParams(1))
             {
+            
                 jqAjaxRequest.asyncAjaxRequest(apiUrl.API_USER_LOGIN, param,
 
                     /**
@@ -132,8 +133,8 @@ var LoginCtrl =
                         //跳到精选
                         if(commonFu.isEmpty(localStorage.getItem(localStorageKey.DEFAULT)))
                         {
-                            location.href = pageUrl.SELECTED_GOODS;
-                            
+//                          location.href = pageUrl.SELECTED_GOODS;
+                            location.href = pageUrl.GUESS_PAGE;
                         }
                         else
                         {

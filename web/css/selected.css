@@ -535,6 +535,24 @@
 	border-radius: 5px;
 }
 
+.guess-list-title{
+	width:90%;
+	height:25px;
+	margin:0 auto;
+}
+.guess-list{
+	width:70px;
+	display: inline-block;
+	float:left;
+	text-align: center;
+}
+.guess-money{
+	width:80px;
+	display: inline-block;
+	float:right;
+	text-align: center;
+}
+
 .goods-buyer li{
 	margin-left: auto;
 	margin-right: auto;
@@ -1021,3 +1039,28 @@
 	}
 }
 
+.award-ranking{
+	display:inline-block;
+	float:left;
+	width:22px;
+	height:22px;
+	border-radius:50%;
+	line-height:22px;
+	margin-left:3px;
+	text-align: center;
+	margin-top: 6px;
+	margin-right:3px;
+	/*background:#FFCC00;*/
+	color:#FFFFFF
+}
+
+
+.first-user{
+	background: #FAE56E;
+}
+.second-user{
+	background: #DAE2E4;
+}
+.third-user{
+	background: #D9BFC2;
+}

@@ -48,7 +48,7 @@ var AuctionHistoryCtrl =
         
         this.ngRepeatFinish();
         
-        initTab.start(this.scope, 1); //底部导航
+        initTab.start(this.scope, 2); //底部导航
     },
     
     getUrlAndId : function(){
@@ -158,8 +158,13 @@ var AuctionHistoryCtrl =
 	    		{ 
 	    			var enterPage = parseInt(sessionStorage.getItem("intoPage"));
 	    			//返回列表页且获取该页数据，即是用点击前存储的页数减 1
-	    			params.startIndex = (enterPage - 1) * self.page.timeNum;
-                      
+	 //   			params.startIndex = (enterPage - 1) * self.page.timeNum;
+                    
+                    
+                    params.startIndex = 0;
+	                params.num = enterPage * self.page.timeNum;
+	                
+	                
 	    		}
 	    		else
 	    		{   
@@ -178,7 +183,7 @@ var AuctionHistoryCtrl =
     	$('.animation').css('display','block');
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_AUCTION_ITEMS, params, function(data){
-    	
+    	    console.log(JSON.stringify(data))
     		//在回调里拿到总数据条数，给全局变量
 	    	self.totalCount = data.count;
 	    	//设置总页数
@@ -230,7 +235,11 @@ var AuctionHistoryCtrl =
 
 		    	    for(var s = 0;s < self.auctionHistoryModel.auctionItems.length;s++)
 		    	    {   
-		    	    	self.auctionHistoryModel.auctionItems[s].goodsInfo.goods_pics = JSON.stringify(self.auctionHistoryModel.auctionItems[s].goodsInfo.goods_pics)
+		    	    	if(!commonFu.isEmpty(self.auctionHistoryModel.auctionItems[s].goodsInfo))
+	                    {
+	                    	self.auctionHistoryModel.auctionItems[s].goodsInfo.goods_pics = JSON.stringify(self.auctionHistoryModel.auctionItems[s].goodsInfo.goods_pics)
+	                    }
+		    	    	
 		    	    }
 
 		    	    self.auctionHistoryModel.auctionItems = self.auctionHistoryModel.auctionItems.concat(dataNxt);
@@ -258,11 +267,19 @@ var AuctionHistoryCtrl =
 		    	    {   
     	    		        
 		    	    	self.auctionHistoryModel.auctionItems = [];
-		    	    	self.auctionHistoryModel.auctionItems = JSON.parse(sessionStorage.getItem("hasGetData"));
+		    	    
+		    	    
+		    	    
+		    	        self.auctionHistoryModel.auctionItems = data.auctionItems;
+                        sessionStorage.setItem("hasGetData",JSON.stringify(data.auctionItems));
+		    	    	
+		    	    	
+		    	    	
+//		    	    	self.auctionHistoryModel.auctionItems = JSON.parse(sessionStorage.getItem("hasGetData"));
 		    	    	self.page.currentPage = Math.ceil(JSON.parse(sessionStorage.getItem("hasGetData")).length/self.page.timeNum)
 		    	    	//self.page.currentPage = parseInt(sessionStorage.getItem("intoPage"));
 		    	    	//把本地存储的点击进入的那个interPage置空    	    		
-		    	    	
+		    	
 		    	    	sessionStorage.removeItem("intoPage");
 		    	    	
 		    	    }
@@ -289,11 +306,13 @@ var AuctionHistoryCtrl =
     		{
     			$(".no-data").css('display','none');
     			var goods = self.auctionHistoryModel.auctionItems;
-
+                
 	    		for (var i = 0;i < goods.length; i++)
 	    		{    
-                      
-		    		goods[i].goodsInfo.goods_pics = JSON.parse(goods[i].goodsInfo.goods_pics);
+                    if(!commonFu.isEmpty(goods[i].goodsInfo))
+                    {
+                    	goods[i].goodsInfo.goods_pics = JSON.parse(goods[i].goodsInfo.goods_pics);
+                    }
 		    		goods[i].isAucted = false;
                     
 		    		if (!commonFu.isEmpty(goods[i].currentUserInfo))
@@ -415,6 +434,7 @@ var AuctionHistoryCtrl =
     },
     
   
+    
     ngRepeatFinish : function()
     {
     	var self = this;
@@ -423,7 +443,7 @@ var AuctionHistoryCtrl =
     		
     		if(!commonFu.isEmpty(self.thisJumpPage) && !commonFu.isEmpty(self.thisJumpId))
     		{   
-                 
+               
 				$('.container').css({'opacity':'0'});
 				$('.animation').css("display","block");
 				self.getDisToTop(self.thisJumpId);
@@ -443,6 +463,7 @@ var AuctionHistoryCtrl =
 					var acuId = sessionStorage.getItem("aucDisId");
 					$('.container').css({'opacity':'0'});
 					$('.animation').css("display","block");
+					
 					self.getDisToTop(acuId);
 					setTimeout(function(){
 						$('.animation').css("display","none");
@@ -457,20 +478,47 @@ var AuctionHistoryCtrl =
     	});
     },
    
+      //判断当前ID是否存在，不存在则跳到页面元素的第一个
+    judgeExist : function(id){
+    	var self = this;
+    	var judje = false;
+    	for(var n = 0; n < self.auctionHistoryModel.auctionItems.length; n++)
+    	{   
+    	    console.log(JSON.stringify(self.auctionHistoryModel.auctionItems))
+    	   
+    		if(self.auctionHistoryModel.auctionItems[n].id == id)
+    		{   
+    			judje = true;
+    		}
+    	}
+        return judje;
+       
+    },
+   
+    
     //跳转到指定位置
      
     getDisToTop : function(id){
   		var self = this;
         var id = id;
-//      alert("nedd"+sessionStorage.getItem("needPageId"))
+
         if(!commonFu.isEmpty(self.thisJumpPage) && !commonFu.isEmpty(self.thisJumpId))
         {  
         	
-        	
+        
         	if(!commonFu.isEmpty(sessionStorage.getItem("needPageId")))
 		    {
-		        	
-		        var dealTop = $("#test_"+ self.thisJumpId).offset().top;	
+		       
+		        var dealTop = null;
+		        if(self.judgeExist(self.thisJumpId))
+		        {
+		        	dealTop = $("#test_"+ self.thisJumpId).offset().top ;
+		        }
+		        else
+		        {
+		        	dealTop = $("#test_"+ self.auctionHistoryModel.auctionItems[0].id).offset().top ;
+		        }
+		       
 				sessionStorage.removeItem("needPageId")
 		    }
 		    else
@@ -482,8 +530,20 @@ var AuctionHistoryCtrl =
 		    self.thisJumpId = null;
         }
         else
-        {
-        	var dealTop = $("#" + id).offset().top;
+        {   
+
+        	var dealTop = null;
+        	var idStr = id.split('_')[1];
+
+        	if(self.judgeExist(idStr))
+		    {
+		        dealTop = $("#"+ id).offset().top ;
+		    }
+		    else
+		    {
+		        dealTop = $("#test_"+ self.auctionHistoryModel.auctionItems[0].id).offset().top ;
+		    }
+		
         }
       	
       	$("html,body").scrollTo({toT:dealTop});
@@ -498,15 +558,37 @@ var AuctionHistoryCtrl =
     	var self = this;
     	
     	
+    	//跳转到个人中心
+    	self.scope.jumpToSelfZone = function(){
+    		
+    		if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			{   
+					
+                location.href = pageUrl.LOGIN_PAGE;
+			}
+            else
+            {   
+                if(!commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
+            	{
+            		location.href = pageUrl.PERSON_CENTER;
+            	}
+			
+            }
+    		
+    	};
+    	
     	self.scope.acOkToShut = function(){
     		
     		$("#acfixed-shade").css("display","none");
     		$("html,body").css("overflow","auto");
     	};
+    	
+    	
     	self.scope.onClickToAuctionHistoryDetail = function(item)
     	{   
     		var id = item.id;
-    	
+    	    sessionStorage.setItem("comeWithGuess",2);
+    	    sessionStorage.setItem("messlistOrauction",0)
     		if(!commonFu.isEmpty(sessionStorage.getItem("reloginFail")))
     		{
     			if((parseInt(item.isVIP) == 1) && (commonFu.isEmpty(localStorage.getItem(localStorageKey.vipOrNot))))
@@ -520,16 +602,20 @@ var AuctionHistoryCtrl =
 	            	}
 	            	else
 	            	{
+	            		
 	            		self.auctionHistoryModel.id = id;
 		    			sessionStorage.setItem("aucDisId","test_"+id);
 		    			self.getInterPage(id);
 		    			var thisAcPage = sessionStorage.getItem("intoPage");
 		    			location.href = pageUrl.AUCTION_HISTORY_INFO + "?id=" + id  + "&thisAcPage=" + thisAcPage;
+	            	
 	            	}
     		}
     		else
     		{
+    			
     			jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
+		    		
 		    		localStorage.setItem(localStorageKey.vipOrNot,data.userInfo.isVIP)
 		    		var isMySelfVip = data.userInfo.isVIP;
 		    		
@@ -544,12 +630,13 @@ var AuctionHistoryCtrl =
 	 				}
 	    			else
 	    			{
+		    			
 		    			self.auctionHistoryModel.id = id;
 		    			sessionStorage.setItem("aucDisId","test_"+id);
 		    			self.getInterPage(id);
-		    			
 		    			var thisAcPage = sessionStorage.getItem("intoPage");
 		    			location.href = pageUrl.AUCTION_HISTORY_INFO + "?id=" + id  + "&thisAcPage=" + thisAcPage;
+	    			
 	    			}
 	    	
 	            })

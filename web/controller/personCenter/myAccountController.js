@@ -91,13 +91,19 @@ var myAccountController =
     	self.scope.onClickRechargeAccount = function()
     	{
     		location.href = pageUrl.ACCOUNT_RECHARGE;
-    	}
+    	};
     	
     	//账户明细
     	self.scope.onClickToAccountDetail = function()
     	{
     		location.href = pageUrl.TRANSACTION_DETAIL;
-    	}
+    	};
+    	
+    	//提现
+    	self.scope.onClickWidthDrawCash = function(){
+    		
+    		location.href = pageUrl.MY_DRAWCASH;
+    	};
     	
     	
     },

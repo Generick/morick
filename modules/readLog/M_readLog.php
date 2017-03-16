@@ -16,7 +16,7 @@ class M_readLog extends My_Model
     {
         $this->db->start_cache();
 
-        $this->db->select("distinct(readId)")->from("readLog");
+        $this->db->distinct()->select("readId")->from("readLog");
         if(!empty($whereArr))
         {
             $this->db->where($whereArr);
@@ -28,11 +28,12 @@ class M_readLog extends My_Model
         }
         $this->db->stop_cache();
         $count = $this->db->count_all_results();
+        $this->db->distinct();
         if($num > 0)
         {
             $this->db->limit($num, $startIndex);
         }
-
+        $this->db->order_by("readTime desc");
         $readList = $this->db->get()->result_array();
         $this->db->flush_cache();
     }

@@ -136,8 +136,19 @@
                 if(bool)
                 {
                     if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
-                    {
-                        location.href = pageUrl.MY_ORDER_LIST + "?orderType=" + 1;
+                    {   
+                    	if(sessionStorage.getItem("comeIntoOrder") == 1)
+                    	{
+                    		location.href = pageUrl.PERSON_CENTER;
+                    	}
+                    	else if(sessionStorage.getItem("comeIntoOrder") == 2)
+                    	{
+                    		location.href = pageUrl.MY_MESSAGE;
+                    	}
+                    	else{
+                    		 location.href = pageUrl.MY_ORDER_LIST + "?orderType=" + 1;
+                    	}
+                       
                     }
                 }
                 pushHistory();

@@ -6,7 +6,8 @@ app.controller("ctrl", function ($scope)
 {
 	
     auctedGoodsDetailController.init($scope); 
-    sessionStorage.setItem("itIsAuctionPage",1)
+    sessionStorage.setItem("itIsAuctionPage",1);
+    
 	
 });
 
@@ -108,15 +109,21 @@ var auctedGoodsDetailController =
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_AUCTION_INFO, params, function(data)
     	{  
-             
+                console.log(JSON.stringify(data))
     			self.auctedGoodsDetailModel.allInfo = [];
 	    		self.auctedGoodsDetailModel.allInfo = data.allInfo;
 	    		self.auctedGoodsDetailModel.auctionSuccess = false;
-	    		
-				self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_pics = JSON.parse(data.allInfo.goodsInfo.goods_pics);
+	    		if(!commonFu.isEmpty(self.auctedGoodsDetailModel.allInfo.goodsInfo))
+	    		{
+	    			self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_pics = JSON.parse(data.allInfo.goodsInfo.goods_pics);
+	    		}
+				
 			    self.auctedGoodsDetailModel.allInfo.currentPrice = self.toDecimals(self.auctedGoodsDetailModel.allInfo.currentPrice);
-				$('#goodsContent2').html(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_detail);
-	            
+				if(!commonFu.isEmpty(self.auctedGoodsDetailModel.allInfo.goodsInfo))
+	    		{
+	    			$('#goodsContent2').html(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_detail);
+	    		}
+				
 	            if(parseFloat(self.auctedGoodsDetailModel.allInfo.cappedPrice) > 0)
 	            {
 	            	self.auctedGoodsDetailModel.isShowHighest = true;
@@ -135,9 +142,10 @@ var auctedGoodsDetailController =
 				{
 					self.auctedGoodsDetailModel.showReference = false;
 				}
-				
-				setTitle(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_name);
-	
+				if(!commonFu.isEmpty(self.auctedGoodsDetailModel.allInfo.goodsInfo))
+	    		{
+	    			setTitle(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_name);
+	    		}
 	            $('.animation').css('display','none');
 	            $('.container').css('opacity','1');
 	
@@ -237,6 +245,15 @@ var auctedGoodsDetailController =
     bindClick: function()
     {
     	var self = this;
+    	
+    	//我要竞猜
+    	
+    	self.scope.jumpToGuess = function(){
+    		
+     		sessionStorage.setItem("comeWithGuess",2)
+    		location.href = pageUrl.GUESS_INNER +"?id="+ self.thisDataId + "&page=" +self.thisDetailPage;
+    	};
+    	
     	
     	//更新
     	self.scope.onClickUpdateTime = function()

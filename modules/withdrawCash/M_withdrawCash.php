@@ -17,8 +17,8 @@ class  M_withdrawCash extends My_Model
     // withdraw cash
     function withdrawCash($userId, $withdrawCash, $wx_account)
     {
-    	$userObj = $this->m_user->getSelfUserObj();
-    	if ($userObj->balance < $withdrawCash) {
+    	$balance = $this->db->select('balance')->from('user')->where('userId',$userId)->get()->row_array();
+    	if ($balance['balance'] < $withdrawCash) {
     		return ERROR_WC_BALANCE_NOT_ENOUGH;
     	}
 

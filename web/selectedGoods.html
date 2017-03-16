@@ -16,6 +16,9 @@
         <link rel="stylesheet" href="popUpModal/popUp.css" />
 	</head>
 	<body ng-controller="ctrl">
+		<div id="myself-head" ng-click="jumpToSelfZone()" style="position: fixed;top:10px;left:10px;width:50px;height:50px;display: block;z-index: 99999;">
+			<img src="img/personal-enter.png"> 
+		</div>
 		<!--加载动画-->
 		<div class="animation" style="position:absolute;">
 			<img src="img/loading.gif"/>
@@ -83,7 +86,8 @@
     <script src="module/tab/tab.js"></script>
 	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
     <script src="controller/app.js"></script>
-    
+    <script src="plugin/layerMobile/layer.js"></script>
+    <script src="module/dialog/dialog.js"></script>
 	<!--controller-->
 	<script type="text/javascript" src="controller/selectedGoodsController.js" ></script>
 	
@@ -91,124 +95,34 @@
 	<script type="text/javascript" src="js/fastclick.js"></script>
 	<!--<script type="text/javascript" src="js/htmlNoScroll.js"></script>-->
 	<script type="text/javascript" src="js/xzl-down-refresh.js" ></script>
-	<!--<script>
-	 
-	$(function(){  
-	    pushHistory();  
-	    window.addEventListener("popstate", function(e) {  
-	        alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能  
-	}, false);  
-	    function pushHistory() {  
-	        var state = {  
-	            title: "title",  
-	            url: "#"  
-	        };  
-	        window.history.pushState(state, "title", "#");  
-	      
-	    }  
-	      
-	});   
-	</script>-->
-   <!--<script>
-            var t,p;
-            p = $(window).scrollTop()
-            //当前窗口的高度
-            var totalHeight = $(window).height();
-			//当前文档的高度 - 当前滚动条到窗口顶部的距离
-			var currnetHright = $(document).height() - document.body.scrollTop;
+	
+    <script>
+		
+		$(function() {
 			
-			//获取到本地缓存
-			var dataArr = JSON.parse(sessionStorage.getItem("alreadyGet"));
-			
-			var selfData = SelectCtrl.selectedModel.auctionItems;
-		    
-		    
-		    var body = document.getElementsByTagName("body")[0];
-		    body.addEventListener("touchstart", function(event) {
-			    //event.preventDefault();
-			    startX = event.changedTouches[0].pageX,
-			    startY = event.changedTouches[0].pageY;
-			    touch = event.targetTouches[0];
-		        setTimeout(function(){t = p;},0);   
-		    });
-		   
-		    body.addEventListener("touchmove", function(event) {
-				
-			    //event.preventDefault();
-			    moveEndX = event.changedTouches[0].pageX,
-			    moveEndY = event.changedTouches[0].pageY,
-			    X = moveEndX - startX,
-			    Y = moveEndY - startY;
-			    touch = event.targetTouches[0];//一个手指触碰
-			    
-			    if ( Math.abs(X) > Math.abs(Y) && X > 0 ) 
-			    {
-			    	
-			    }
-			    else if ( Math.abs(X) > Math.abs(Y) && X < 0 ) 
-			    {
-			    	
-			    }
-			    else if ( Math.abs(Y) > Math.abs(X) && Y > 0) 
-			    {
-			    	
-			    }
-			    else if ( Math.abs(Y) > Math.abs(X) && Y < 0 ) 
-			    {  
-			    	if(t < p)
-			    	{
-			    		if(currnetHright - totalHeight <13)
-			    		{
-			    			alert($(window).scrollTop()+"move")
-			    		}
-			    	}
-			        
-			    }
-			    else
-			    {
-			    	
-			    }
-			    setTimeout(function(){t = p;},0);   
-			}) ;
-			
-			    body.addEventListener("touchend", function(event) {
-			    event.preventDefault();
-			   
-			    moveEndX = event.changedTouches[0].pageX,
-			    moveEndY = event.changedTouches[0].pageY,
-			    X = moveEndX - startX,
-			    Y = moveEndY - startY;
-			    touch = event.targetTouches[0];
-			    
-			    if ( Math.abs(X) > Math.abs(Y) && X > 0 ) 
-			    {
-			    	
-			    }
-			    else if ( Math.abs(X) > Math.abs(Y) && X < 0 ) 
-			    {
-			    	
-			    }
-			    else if ( Math.abs(Y) > Math.abs(X) && Y > 0) 
-			    {
-			    	
-			    }
-			    else if ( Math.abs(Y) > Math.abs(X) && Y < 0 ) 
-			    {  
-			    	
-			    	if(t < p)
-			    	{
-			    		if(currnetHright - totalHeight <13)
-			    		{
-			    			alert($(window).scrollTop()+"end")
-			    		}
-			    	}
-			    }
-			    else
-			    {
-			    	
-			    }
-			    setTimeout(function(){t = p;},0);   
-			    });
-    </script>-->
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
 
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		location.href = pageUrl.SELECTED_GOODS;
+		    		
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+	</script>
 </html>

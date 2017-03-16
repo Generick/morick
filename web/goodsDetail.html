@@ -53,6 +53,7 @@
 				</div>
 				<button id="goodsBtn" class="goods-btn-2" ng-click="onClickPay()">出&nbsp;价</button>
 				<button id="selfGoodsBtn" class="goods-btn-2" ng-click="onClickSelfPay()" ng-bind="selfPaidText"></button>
+				<button id="selfGoodsBtn" class="goods-btn-2" ng-show="goodsDetailModel.allInfo.isQuiz == '1'" ng-click="jumpToGuess(item)" >我要竞猜</button>
 			</div>
 
 			<div class="goods-operate groble-operate-thrity clear">
@@ -312,14 +313,7 @@
 		    			location.href = pageUrl.SELECTED_GOODS +"?backPage=" + GoodsInfoCtrl.thisDetailPage + "&thisDataId=" + GoodsInfoCtrl.thisDataId;
 
 		    		}
-//		    		else if(localStorage.getItem(localStorageKey.FROM_LOCATION) == 0)
-//		    		{    
-//		    			
-//		    		//	location.href = pageUrl.SELECTED_GOODS;
-//                      sessionStorage.setItem("needPage",1)
-//		    			location.href = pageUrl.SELECTED_GOODS +"?backPage=" + GoodsInfoCtrl.thisDetailPage + "&thisDataId=" + GoodsInfoCtrl.thisDataId;
-//
-//		    		}
+
 		    		else
 		    		{
 		    			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))

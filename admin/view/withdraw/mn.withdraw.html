@@ -46,12 +46,14 @@
 					<td style="text-align: center;">{{item.apply_time * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
 					<td style="text-align: center;">{{item.type}}</td>
 					<td style="text-align: center;">
-						<a class="btn btn-white" ng-click="acceptBtn(item.id)" ng-if="item.status == 1">通过</a>
-						<a class="btn btn-white" ng-click="refuseBtn(item.id, item.user_id, item.withdraw_cash)" ng-if="item.status == 1">拒绝</a>
-						<a class="btn btn-deffer" ng-if="item.status == 0">已通过</a>
+						<a class="btn btn-white" ng-click="acceptBtn(item.id)"  ng-show="item.status == 1" >通过</a>
+						<a class="btn btn-white" ng-click="refuseBtn(item.id, item.user_id, item.withdraw_cash)" ng-show="item.status == 1" >拒绝</a>
+						<!--<a class="btn btn-deffer" ng-if="item.status == 0">已通过</a>
 						<a class="btn btn-warning" ng-if="item.status == 2">已拒绝</a>
 						<a class="btn btn-inverse" ng-if="item.status == 2">通过</a>
-						<a class="btn btn-inverse" ng-if="item.status == 0">拒绝</a>
+						<a class="btn btn-inverse" ng-if="item.status == 0">拒绝</a>-->
+						
+					
 					</td>
 				</tr>
 			</tbody>
@@ -88,12 +90,12 @@
 					<td style="text-align: center;">{{item.apply_time * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
 					<td style="text-align: center;">{{item.type}}</td>
 					<td style="text-align: center;">
-						<a class="btn btn-white" ng-click="acceptBtn(item.id)" ng-if="item.status == 1">通过</a>
-						<a class="btn btn-white" ng-click="refuseBtn(item.id, item.user_id, item.withdraw_cash)" ng-if="item.status == 1">拒绝</a>
-						<a class="btn btn-deffer" ng-if="item.status == 0">已通过</a>
+						<a class="btn btn-white" ng-click="acceptBtn(item.id)" ng-show="item.status == 1">通过</a>
+						<a class="btn btn-white" ng-click="refuseBtn(item.id, item.user_id, item.withdraw_cash)" ng-show="item.status == 1">拒绝</a>
+						<!--<a class="btn btn-deffer" ng-if="item.status == 0">已通过</a>
 						<a class="btn btn-warning" ng-if="item.status == 2">已拒绝</a>
 						<a class="btn btn-inverse" ng-if="item.status == 2">通过</a>
-						<a class="btn btn-inverse" ng-if="item.status == 0">拒绝</a>
+						<a class="btn btn-inverse" ng-if="item.status == 0">拒绝</a>-->
 					</td>
 				</tr>
 			</tbody>
@@ -130,12 +132,12 @@
 					<td style="text-align: center;">{{item.apply_time * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
 					<td style="text-align: center;">{{item.type}}</td>
 					<td style="text-align: center;">
-						<a class="btn btn-white" ng-click="acceptBtn(item.id)" ng-if="item.status == 1">通过</a>
-						<a class="btn btn-white" ng-click="refuseBtn(item.id)" ng-if="item.status == 1">拒绝</a>
-						<a class="btn btn-deffer" ng-if="item.status == 0">已通过</a>
+						<a class="btn btn-white" ng-click="acceptBtn(item.id)" ng-show="item.status == 1">通过</a>
+						<a class="btn btn-white" ng-click="refuseBtn(item.id)" ng-show="item.status == 1">拒绝</a>
+						<!--<a class="btn btn-deffer" ng-if="item.status == 0">已通过</a>
 						<a class="btn btn-warning" ng-if="item.status == 2">已拒绝</a>
 						<a class="btn btn-inverse" ng-if="item.status == 2">通过</a>
-						<a class="btn btn-inverse" ng-if="item.status == 0">拒绝</a>
+						<a class="btn btn-inverse" ng-if="item.status == 0">拒绝</a>-->
 					</td>
 				</tr>
 			</tbody>
@@ -172,12 +174,12 @@
 					<td style="text-align: center;">{{item.apply_time * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
 					<td style="text-align: center;">{{item.type}}</td>
 					<td style="text-align: center;">
-						<a class="btn btn-white" ng-click="acceptBtn(item.id)" ng-if="item.status == 1">通过</a>
-						<a class="btn btn-white" ng-click="refuseBtn(item.id)" ng-if="item.status == 1">拒绝</a>
-						<a class="btn btn-deffer" ng-if="item.status == 0">已通过</a>
+						<a class="btn btn-white" ng-click="acceptBtn(item.id)" ng-show="item.status == 1">通过</a>
+						<a class="btn btn-white" ng-click="refuseBtn(item.id)" ng-show="item.status == 1">拒绝</a>
+						<!--<a class="btn btn-deffer" ng-if="item.status == 0">已通过</a>
 						<a class="btn btn-warning" ng-if="item.status == 2">已拒绝</a>
 						<a class="btn btn-inverse" ng-if="item.status == 2">通过</a>
-						<a class="btn btn-inverse" ng-if="item.status == 0">拒绝</a>
+						<a class="btn btn-inverse" ng-if="item.status == 0">拒绝</a>-->
 					</td>
 				</tr>
 			</tbody>

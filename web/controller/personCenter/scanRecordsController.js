@@ -112,8 +112,9 @@ var ScanRecordsCtrl = {
     			}
     			else
     			{
+    				
     				localStorage.setItem(localStorageKey.FROM_LOCATION, 2);
-		    		location.href = pageUrl.GOODS_DETAIL + "?id=" + item.id;
+		    		location.href = pageUrl.GOODS_DETAIL + "?id=" + item.id + "&page=" + 1;
     			}
     				
 		    

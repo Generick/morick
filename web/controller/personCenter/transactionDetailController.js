@@ -47,8 +47,7 @@ var transactionController =
     	$('.animation').css('display','block');
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_TRANSACTION_LIST, params, function(data)
     	{
-    		console.log(data)
-    		
+     		
     		self.transactionModel.transactionList = data.transactionList;
     		if (self.transactionModel.transactionList.length > 0)
     		{
@@ -79,7 +78,7 @@ var transactionController =
     
     //明细类型转换
     transactionTypeTransform : function(transactionType)
-    {
+    {   
     	var obj = {};
     	var transactionArr = [];
     	for (var i = 0;i < TRANSACTION_TYPE_ARR.length;i ++)

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html ng-app="drawCashApp">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>提现</title>
+        <link rel="stylesheet" href="../css/ui.base.css"/>
+        <link rel="stylesheet" href="../css/selected.css"/>
+        <link rel="stylesheet" href="../css/person_center.css"/>
+        <link rel="stylesheet" href="../popUpModal/popUp.css"/>
+        <link href="../plugin/layerMobile/need/layer.css">
+	</head>
+	
+	<body ng-controller="ctrl">
+		<div id="draw-cash-box">
+			<div class="type-in-money">
+				<span class="type-money-word">金额</span>
+			    <div>
+			    	<!--<input id="type-money-count" maxlength="9"  placeholder="请输入提现金额" type="text" onkeyup="value=value.replace(/[^\d\.]/g,'')" onblur="value=value.replace(/[^\d\.]/g,'')"/>-->
+			    	<input id="type-money-count" maxlength="9"  placeholder="请输入提现金额" type="text" onkeyup="checkMoney(this)" onblur="checkMoney(this)"/>
+			    	<span id="delete-the-box" ng-click="clearInputBox()">x</span>
+			    </div>
+			    
+			</div>
+			<div class="draw-to">
+				<div class="draw-to-word">
+					<span class="draw-wx-title">提现至</span>	
+					<input id="type-wx-input" maxlength="22" placeholder="请输入微信号" type="text" oninput="replaceZh(this)"/>
+					<span id="delete-the-wx" ng-click="clearWxBox()">x</span>
+				</div>
+				<div class="draw-way">
+					<span class="draw-way-title">微信支付</span>
+					<span id="draw-way-wx" ng-click="cancleOrsure()">
+						<img id="draw-way-no" src="../img/personCenter/no.png">
+						<img id="draw-way-yes" src="../img/personCenter/yes.png">
+					</span>
+				</div>
+				
+				<div id="to-draw-btn" class="goods-btn-2"  ng-click="sureToDraw()">确定</div>
+				<!--<div id="infor-detail" style="color:#4284B2">提现说明>></div>-->
+				<div id="infor-detail" ng-click="toShowNotice()" style="color:#4284B2">提现说明>></div>  
+			</div>
+		</div>
+		
+		<div id="notice-mession" ng-click="closeNotice()">
+			<div id="content-boxes">
+				<div id="to-close-notice">X</div>
+				<div id="draw-information">提现说明</div>
+				<div class="notice-content">
+					<div>微信提现说明:</div>
+					<div>
+						当前支持微信提现，您可输入提现金额和微信号，提现金额不超过<span ng-bind="noticeModel.highestPrice"></span>元。请确保金额在合理范围内，以及微信号的正确无误之后再点击确定。
+					</div>
+				</div>
+			</div>		
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="../js/zepto.min.js"></script>
+	<script type="text/javascript" src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="../js/jqAjaxRequest.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/config.js"></script>
+	<script type="text/javascript" src="../popUpModal/confirmTip.js"></script>
+    <script src="../plugin/layerMobile/layer.js"></script>
+    <script src="../module/dialog/dialog.js"></script>
+    <script src="../controller/app.js"></script>
+	<!--controller-->
+	<script type="text/javascript" src="../controller/personCenter/widthDrawCash.js"></script>
+	<!--插件-->
+	<script type="text/javascript" src="../js/fastclick.js"></script>
+	<script language="javascript">
+	
+		function replaceZh(obj)
+		{
+		    var str=obj.value;
+		    var i=0;
+		    while(i<str.length)
+		    {
+		        if(str.charCodeAt(i)>127)//根据字符编码
+		        {
+		            str=str.replace(str[i],"");
+		            i=0;
+		        }
+		        else
+		        {
+		            ++i;
+		        }
+		    }
+		    obj.value = str;
+		}
+//		function replaceZh(obj){
+//			
+//			var str=obj.value;
+//			var reg=/^[a-zA-Z\d_]{20}$/;
+//		  
+//			if(reg.test(str))
+//			{
+//			   obj.value = '';
+//      	}
+//			else
+//			{
+//				obj.value = str;
+//			}
+//		}
+</script>
+</html>

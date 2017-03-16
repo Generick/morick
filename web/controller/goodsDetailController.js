@@ -161,7 +161,7 @@ var GoodsInfoCtrl = {
             function(data) {
                   
                    
-// 					console.log("chushi"+JSON.stringify(data))
+ 					console.log("chushi"+JSON.stringify(data))
             		self.goodsDetailModel.allInfo = [];
             		self.goodsDetailModel.allInfo = data.allInfo;
             		if(commonFu.isEmpty(self.goodsDetailModel.allInfo.cappedPrice) || (parseFloat(self.goodsDetailModel.allInfo.cappedPrice) == 0))
@@ -444,7 +444,7 @@ var GoodsInfoCtrl = {
     		startIndex : 0,
     		num : self.biddingModel.num
     	};
-    	
+    
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_BIDDING_LIST, params,
 
             /**
@@ -571,6 +571,14 @@ var GoodsInfoCtrl = {
     {
     	var self = this;
     	
+    	//我的竞猜
+    	
+    	self.scope.jumpToGuess = function(){
+    		sessionStorage.setItem("comeWithGuess",1);
+    		location.href = pageUrl.GUESS_INNER +"?id="+ self.thisDataId + "&page=" +self.thisDetailPage;
+    		
+    	};
+    	
     	//更新
     	self.scope.onClickUpdateTime = function()
     	{
@@ -609,7 +617,7 @@ var GoodsInfoCtrl = {
     			}
     			else
     			{   
-    				if(!commonFu.isEmpty(sessionStorage.getItem("reloginFail")))
+    				if(!self.goodsDetailModel.allInfo.hasLogin)
     				{
     					$dialog.msg("您还未登录，请登录后再委托出价");
     					setTimeout(function(){
@@ -617,7 +625,6 @@ var GoodsInfoCtrl = {
 				    		location.href = "login.html";
              	
              			},1200);
-             			return;
     				}
     				else
     				{
@@ -844,12 +851,14 @@ var GoodsInfoCtrl = {
                         },
                         function(err){
 
-                            if(err == 1101) {
+                            if(err == 1103) {
+                            	$dialog.msg("您已经是该藏品的最高出价者，无需再次竞拍")
                                 setTimeout(function(){ //如果提示“本次竞拍出价不在合理区间！”1.5s后刷新当前页面
+                                   
                                     self.initData();
                                     self.initBiddingData();
                                     $('.pay-block-bg').hide();
-                                },1000)
+                                },1200)
                             }
                            
                         }

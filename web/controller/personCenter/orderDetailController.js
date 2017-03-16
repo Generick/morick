@@ -141,7 +141,11 @@ var OrderDetailCtrl = {
             	self.orderDetailModel.unPay = false;
             	self.orderDetailModel.showLogistics = false;
             }
-            self.orderDetailModel.orderInfo.orderGoods[0].goods_pics = JSON.parse(self.orderDetailModel.orderInfo.orderGoods[0].goods_pics);
+            if(!commonFu.isEmpty(self.orderDetailModel.orderInfo) && !commonFu.isEmpty(self.orderDetailModel.orderInfo.orderGoods[0]))
+            {
+            	self.orderDetailModel.orderInfo.orderGoods[0].goods_pics = JSON.parse(self.orderDetailModel.orderInfo.orderGoods[0].goods_pics);
+            }
+           
 
             self.getTraceList();
 

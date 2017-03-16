@@ -737,3 +737,50 @@ ERROR - 2017-03-15 19:14:04 --> [methodError]:[]:F:\work\program\server\applicat
 ERROR - 2017-03-15 19:22:04 --> [methodError]:[]:F:\work\program\server\application\controllers/prizesQuiz/A_prizesQuiz.php:quitQuiz:{"auctionId":"57"}
 ERROR - 2017-03-15 19:22:23 --> [methodError]:[]:F:\work\program\server\application\controllers/prizesQuiz/A_prizesQuiz.php:quitQuiz:{"auctionId":"1"}
 ERROR - 2017-03-15 19:23:05 --> [methodError]:[]:F:\work\program\server\application\controllers/prizesQuiz/A_prizesQuiz.php:quitQuiz:{"auctionId":"68"}
+ERROR - 2017-03-15 19:55:37 --> user:20balance change. the transactionType:7before:11109981 after:9981
+ERROR - 2017-03-15 19:55:37 --> [methodError]:[]:F:\work\program\server\application\controllers/a_admin.php:opBalance:{"userId":"20","opType":"1","balance":"11100000"}
+ERROR - 2017-03-15 21:09:45 --> user:20balance change. the transactionType:2before:9981 after:9959
+ERROR - 2017-03-15 21:10:27 --> user:20balance change. the transactionType:2before:9959 after:9900
+ERROR - 2017-03-15 21:10:50 --> user:20balance change. the transactionType:8before:9900 after:9959
+ERROR - 2017-03-15 21:11:47 --> user:20balance change. the transactionType:2before:9959 after:9836
+ERROR - 2017-03-15 21:12:04 --> user:20balance change. the transactionType:2before:9836 after:9503
+ERROR - 2017-03-15 21:12:55 --> user:20balance change. the transactionType:8before:9503 after:9626
+ERROR - 2017-03-15 21:14:36 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"59"}
+ERROR - 2017-03-15 21:14:50 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"65"}
+ERROR - 2017-03-15 21:14:55 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"65"}
+ERROR - 2017-03-15 21:14:58 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"65"}
+ERROR - 2017-03-15 21:15:02 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"65"}
+ERROR - 2017-03-15 21:15:08 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"61"}
+ERROR - 2017-03-15 21:15:10 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"61"}
+ERROR - 2017-03-15 21:15:12 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"61"}
+ERROR - 2017-03-15 21:15:31 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"58"}
+ERROR - 2017-03-15 21:15:35 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"63"}
+ERROR - 2017-03-15 21:15:38 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"63"}
+ERROR - 2017-03-15 21:15:46 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"63"}
+ERROR - 2017-03-15 21:16:45 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"68"}
+ERROR - 2017-03-15 21:16:49 --> [methodError]:[不能重复参与]:F:\work\program\server\application\controllers/prizesQuiz/U_prizesQuiz.php:partakeQuiz:{"auctionId":"68","quizPrice":"5.00"}
+ERROR - 2017-03-15 21:16:50 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"68"}
+ERROR - 2017-03-15 21:16:55 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"68"}
+ERROR - 2017-03-15 21:17:00 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 21:17:06 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"1"}
+ERROR - 2017-03-15 21:17:10 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"57"}
+ERROR - 2017-03-15 21:17:14 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"1"}
+ERROR - 2017-03-15 21:17:21 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 21:17:27 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 21:17:31 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"68"}
+ERROR - 2017-03-15 21:17:36 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"1"}
+ERROR - 2017-03-15 21:17:52 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 21:18:13 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"61"}
+ERROR - 2017-03-15 21:18:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 21:18:20 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 21:18:23 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 21:18:28 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"65"}
+ERROR - 2017-03-15 21:18:30 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"65"}
+ERROR - 2017-03-15 21:18:33 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"65"}
+ERROR - 2017-03-15 21:18:52 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 21:18:55 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 21:19:24 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 21:19:27 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 21:19:30 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}
+ERROR - 2017-03-15 21:19:42 --> [methodError]:[]:F:\work\program\server\application\controllers/proxyBid/U_proxyBid.php:setProxyBid:{"auctionId":"67","bids":"[{\"triggerPrice\":\"22\",\"offerPrice\":\"66\"}]"}
+ERROR - 2017-03-15 21:19:44 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"67"}

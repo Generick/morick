@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="mySelfGuessListApp">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+        <title>我的竞猜</title>
+        <link rel="stylesheet" href="css/ui.base.css"/>
+        <link rel="stylesheet" href="css/selected.css"/>
+        <link rel="stylesheet" href="css/person_center.css"/>
+        <link rel="stylesheet" href="popUpModal/popUp.css"/>
+	</head>
+	<body ng-controller="mySelfGuessListController">
+		<!--加载动画-->
+		<div class="animation">
+			<img src="../img/loading.gif" />
+		</div>
+		<div class="container">
+			<ul style="background-color: #fff;">
+				<li style="border-bottom: 1px solid #D9D9D9;z-index: 2;"
+					ng-repeat="item in myGuessListModel.myGuessList track by $index" ng-click="onClickToMyBiddingDetail(item.auction_id)" on-Finish-Render-Filters>
+                    <div class="bidding-box fix">
+                        <div class="f bidding-img">
+                            <img ng-src="{{item.goods_pics[0]}}">
+                        </div>
+                        <div class="bidding-txt f">
+                        	<!--<b style="background: url({{item.aucted}}); background-size: 100% 100%;"></b>-->
+                            <b>
+                            	<img ng-show="(item.isOver == 0)" src= "img/aucting.png">
+                            	<img ng-show="(item.isOver == 1)" src= "img/auctionDone.png">
+                            </b>
+                            <h4 ng-bind="item.goods_name" style="white-space:nowrap;"></h4>
+
+                            <div class="price-init" ng-show="item.award == 1">
+                                <span class="bg">奖</span>
+                                	￥<span>{{item.awardMoney}}</span>
+                            </div>
+                            <div class="price-tag">
+                                <p>当前竞猜价:￥<span style="color: #e04145">{{item.currentQuizPrice}}</span></p>
+                                <p>我的竞猜:￥<span>{{item.quiz_price}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+				</li>
+			</ul>
+			<!--暂无数据-->
+			<div class="no-data">暂无数据！</div>
+		</div>
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="js/jquery.min.js" ></script>
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/myselfGuessListController.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<script>
+		$(function(){
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;  
+            setTimeout(function(){  
+                bool=true;  
+            },1500);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{
+		    		if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			        {
+			        	location.href = pageUrl.PERSON_CENTER;
+			        }
+		    	}
+		    	pushHistory();
+		    }, false); 
+		    function pushHistory() { 
+		        var state = { 
+		            title: "title", 
+		            url: "#"
+		        }; 
+		        window.history.pushState(state, "title", "#"); 
+		    }
+		})
+	</script>
+	
+</html>

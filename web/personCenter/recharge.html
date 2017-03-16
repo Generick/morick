@@ -31,7 +31,8 @@
             <div class="recharge-offline" style="padding-top: 0; line-height: 40px">自助充值</div>
 			<div class="mid-top clear">
 				<span>金额</span>
-				<input class="person-input" type="tel" placeholder="请输入充值金额" ng-model="rechargeModel.money" />
+				<input id="inputed-money" style="padding-right: 40px;" class="person-input inpMoney" type="tel" maxlength="8" placeholder="请输入充值金额" onkeyup="checkMoney(this)" onblur="checkMoney(this)" ng-model="rechargeModel.money" />
+			    <span id="delete-add-box" ng-click="clearTheBox()">X</span>
 			</div>
 		</div>
 		<div class="submit-btn ripple" style="margin-bottom: 10px" ng-click="onClickRechargeAccount()">确定</div>

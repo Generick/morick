@@ -87,11 +87,16 @@ class M_messagePush extends My_Model
         
          $data = $this->db->from('message')->where($whr)->or_where('user_id',$userId)->order_by('create_time desc')->limit($num,$startIndex)->get()->result_array();
          //get msg_id
+        $sRead = array();
          foreach ($data as $v) {
          	$sRead[] = $v['msg_id'];
          }
          //get read msg_id
-         $user_msg = $this->db->select('msg_id')->from('usermsglog')->where('user_id',$userId)->where_in('msg_id',$sRead)->get()->result_array();
+        if(!empty($sRead))
+        {
+            $this->db->where_in('msg_id', $sRead);
+        }
+         $user_msg = $this->db->select('msg_id')->from('usermsglog')->where('user_id',$userId)->get()->result_array();
          $readMsg = $unreadMsg = $hasRead = array();
          foreach ($user_msg as $v) {
          	$hasRead[] = $v['msg_id'];
@@ -155,6 +160,7 @@ class M_messagePush extends My_Model
     	}
 
     	$msg_id = $this->createMessage(MP_PUSH_TYPE_SINGLE, $msg_title, $msg_content, $msg_type, $user_id, $href_id);
+    	return $msg_id;
     }
 
 }
