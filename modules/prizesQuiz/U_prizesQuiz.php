@@ -13,10 +13,9 @@ class U_prizesQuiz extends User_Controller
 		$this->load->model('m_prizesQuiz');
 	}
 
-	// take part in prizes quiz
+	// 参与有奖竞猜
 	function partakeQuiz()
 	{
-		//some code here
 		if (!$this->checkParam(array('auctionId','quizPrice'))) {
 			$this->responseError(ERROR_PARAM);
 			return;
@@ -34,7 +33,7 @@ class U_prizesQuiz extends User_Controller
 		
 	}
 
-	//get user quiz logs
+	//获取用户参与有奖竞猜记录
 	function getUserQuiz()
 	{
 		if (!$this->checkParam(array('userId'))) {
@@ -43,7 +42,7 @@ class U_prizesQuiz extends User_Controller
 		}
 
 		$userId = $this->input->post('userId');
-		$data = null;
+		$data = array();
 		$this->m_prizesQuiz->getUserQuiz($userId, $data);
 		$this->responseSuccess($data);
 	}

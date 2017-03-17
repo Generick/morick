@@ -25,7 +25,9 @@
 				<a class="go-to-see" ng-show="item.msg_type != 0" style="text-align: center;" ng-click="jumpTOatherPage(item)">去看看</a>
 				<a class="go-to-see" ng-class="item.titleStyle" style="text-decoration: none;text-align: center;" ng-show="item.msg_type == 0" ng-click="jumpTOatherPage(item)" ng-bind="item.word"></a>
 			</div>
-			<div id="no-datas">暂无消息</div>
+			
+			<!--暂无数据-->
+			<div id="no-datas" style="background: #EEEEEE;line-height:100px" class="no-data">暂无数据！</div>
 			<div id="check-more-data" style="text-align: center;border:1px solid #CEA985;color:#CEA985;line-height:25px;border-top: none;border-radius:0 0 5px 5px" ng-click="onClickCheckMore()"  ng-bind="messListModel.seeMoreWord"></div>
 		    
 		</div>		

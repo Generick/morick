@@ -45,20 +45,20 @@ class M_auction extends My_Model
     function getAuctionItemObj($itemId)
     {
         $auctionItemObj = null;
-        // if(isset(self::$loadedItems[$itemId]))
-        // {
-        //     $auctionItemObj = self::$loadedItems[$itemId];
-        //     return $auctionItemObj;
-        // }
+        if(isset(self::$loadedItems[$itemId]))
+        {
+            $auctionItemObj = self::$loadedItems[$itemId];
+            return $auctionItemObj;
+        }
 
-        // $key = CACHE_PREFIX_AUCTION . $itemId;
+        $key = CACHE_PREFIX_AUCTION . $itemId;
 
-        // $auctionItemObj = unserialize($this->cache->redis->get($key));
-        // if($auctionItemObj)
-        // {
-        //     self::$loadedItems[$itemId] = $auctionItemObj;
-        //     return $auctionItemObj;
-        // }
+        $auctionItemObj = unserialize($this->cache->redis->get($key));
+        if($auctionItemObj)
+        {
+            self::$loadedItems[$itemId] = $auctionItemObj;
+            return $auctionItemObj;
+        }
 
         $result = $this->m_common->get_one("auctionItems", array("id" => $itemId));
         if(!empty($result))

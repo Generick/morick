@@ -20,15 +20,17 @@ class prizesQuiz extends My_Controller
 	function getPrizesList()
 	{
 		$status = $this->input->post('status');
+		//$status = PQ_STATUS_QUIZ;
 		$startIndex = $this->input->post('startIndex');
 		$num = $this->input->post('num');
-		$data = null;
-		$res = $this->m_prizesQuiz->getPrizesList($status, $startIndex, $num, $data);
+		$whr = array('prizesquiz.status' => $status, 'auctionitems.startTime >' => time());
+		$data = array();
+		$res = $this->m_prizesQuiz->getPrizesList($status, $startIndex, $num, $data, $whr);
 		$count = count($data);
 		return $this->responseSuccess(array('data'=>$data,'count'=>$count));
 	}
 
-	//get quiz info
+	//获取竞猜信息
 	function getQuizInfo()
 	{
 		if (!$this->checkParam(array('auctionId'))) {
@@ -50,7 +52,7 @@ class prizesQuiz extends My_Controller
 		$this->responseSuccess($data);
 	}
 
-	// get quiz user list
+	// 获取拍品参与的用户列表
 	function getQuizUserList()
 	{
 		if (!$this->checkParam(array('auctionId'))) 
@@ -68,7 +70,7 @@ class prizesQuiz extends My_Controller
 		$this->responseSuccess(array('data'=>$data,'sum'=>$sum['sum'],'count'=>$count));
 	}
 
-	//get award user list
+	//获取拍品竞猜中奖用户
 	function getAwardUserList()
 	{
 		if (!$this->checkParam(array('auctionId'))) 
@@ -85,6 +87,16 @@ class prizesQuiz extends My_Controller
 	function autoQuizOver()
 	{
 		$this->m_prizesQuiz->autoQuizOver();
+	}
+
+	//test
+	function createQuiz()
+	{
+		$auctionId = $this->input->post('auctionId');
+		$goods_bak_id = $this->input->post('goods_bak_id');
+		$tickets = $this->input->post('tickets');
+		$limitNum = $this->input->post('limitNum');
+		$this->m_prizesQuiz->createQuiz($auctionId, $goods_bak_id, $tickets, $limitNum);
 	}
 
 }

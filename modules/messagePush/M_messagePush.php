@@ -13,7 +13,7 @@ class M_messagePush extends My_Model
         parent::__construct();
     }
 
-    //create message
+    //创建消息
     //msg_type value:
     //0: sys msg
     //1: quiz award
@@ -33,17 +33,15 @@ class M_messagePush extends My_Model
     	return $this->db->insert_id();
     }
 
-    //admin push message
+    //后台推送消息
     // push_type value:
     // 0: not vip 
     // 1: vip 
     // 2: all 
     // 3: single user
     function pushMessage($pushType, $msg_title, $msg_content, $phoneNum)
-    {
-    	//create message
-    	
-    	//0 means system msg
+    {    	
+    	//0 系统消息
     	$msg_type = MP_MSG_TYPE_SYS;
     	$userId = 0;
     	if (!empty($phoneNum) && $pushType == MP_PUSH_TYPE_SINGLE) 
@@ -59,7 +57,6 @@ class M_messagePush extends My_Model
     	return ERROR_OK;
     }
 
-    //get user id by phone number
     function getUserIdByPhone($phoneNum)
     {
     	$userId = $this->db->select('userId')->from('user')->where('telephone', $phoneNum)->get()->row_array();
@@ -71,7 +68,7 @@ class M_messagePush extends My_Model
     	}
     }
 
-    //create user-msg read log
+    //创建消息记录
     function createReadLog($user_id, $msg_id)
     {
     	$isRead = $this->db->from('usermsglog')->where(array('user_id' => $user_id, 'msg_id' => $msg_id))->get()->row_array();
@@ -84,19 +81,19 @@ class M_messagePush extends My_Model
     	return ERROR_OK;
     }
 
-    //get user msg list
+    //用户获取消息
     
     function getUserMsgList($startIndex, $num, $userId, &$data, &$count, $whr)
     {
         
          $data = $this->db->from('message')->where($whr)->or_where('user_id', $userId)->order_by('create_time desc')->limit($num, $startIndex)->get()->result_array();
-         //get msg_id
+         //获取消息 
         $sRead = array();
          foreach ($data as $v) 
          {
          	$sRead[] = $v['msg_id'];
          }
-         //get read msg_id
+         //获取已读 
         if(!empty($sRead))
         {
             $this->db->where_in('msg_id', $sRead);
@@ -108,20 +105,20 @@ class M_messagePush extends My_Model
          	$hasRead[] = $v['msg_id'];
          }
          
-         //handle msg unread or read
+         //处理已读未读
          foreach ($data as $v) 
          {
          	if (is_array($user_msg)) 
          	{
          		if (in_array($v['msg_id'], $hasRead)) 
          		{
-         			//read +1
+         			//已读
 	                 $v['isRead'] = 1;
 	                 $readMsg[] = $v;
 	                 continue;
 	             }
          	}
-         	// unread +1
+         	// 未读
          	$v['isRead'] = 0;
 	        $unreadMsg[] = $v;
              
@@ -132,22 +129,14 @@ class M_messagePush extends My_Model
     }
 
 
-    //user view message
+    //用户查看消息
     function viewMsg($userId, $msg_id, $msg_type, $href_id, &$data)
     {
     	$this->createReadLog($userId, $msg_id);
     	return ERROR_OK;
-    	// if ($msg_type == 0) {
-    	// 	$data = $this->db->select('msg_title,msg_content')->from('message')->where('msg_id',$msg_id)->get()->row_array();
-    	// }else{
-    	// 	$data = array('userId'=>$userId,'msg_type'=>$msg_type,'href_id'=>$href_id);
-    	// 	$this->createReadLog($userId,$msg_id);
-    	// }
-
-    	
     }
 
-    //create user message
+    //创建用户消息
     function createUserMsg($userId, $msg_type, $href_id)
     {
     	switch ($msg_type) 
@@ -169,7 +158,7 @@ class M_messagePush extends My_Model
     			break;
     	}
 
-    	$msg_id = $this->createMessage(MP_PUSH_TYPE_SINGLE, $msg_title, $msg_content, $msg_type, $user_id, $href_id);
+    	$msg_id = $this->createMessage(MP_PUSH_TYPE_SINGLE, $msg_title, $msg_content, $msg_type, $userId, $href_id);
     	return $msg_id;
     }
 

@@ -14,7 +14,7 @@ class A_withdrawCash extends Admin_Controller
         $this->load->model('m_withdrawCash');
     }
 
-    //get user withdraw list
+    //获取提现列表
     function getWithDrawList()
     {
     	$data = array();
@@ -34,10 +34,10 @@ class A_withdrawCash extends Admin_Controller
     	return $this->responseSuccess($data);
     }
 
-    //refuse withdraw
+    //拒绝提现
     function refuseWithDraw()
     {
-    	if (!$this->checkParam(array('id','userId','withdrawCash'))) 
+    	if (!$this->checkParam(array('id', 'userId', 'withdrawCash'))) 
     	{
     		$this->responseError(ERROR_PARAM);
     		return;
@@ -55,7 +55,7 @@ class A_withdrawCash extends Admin_Controller
     	$this->responseSuccess($res);
 	  }
 
-    //accept withdraw
+    //完成提现
     function acceptWithDraw()
     {
     	if (!$this->checkParam(array('id'))) 
@@ -73,7 +73,7 @@ class A_withdrawCash extends Admin_Controller
     	$this->responseSuccess($res);
     }
 
-    //search withdraw list
+    //搜索提现列表
     function searchWithDrawUserList()
     {
     	if (!$this->checkParam(array('fields'))) 
@@ -82,7 +82,7 @@ class A_withdrawCash extends Admin_Controller
     		return;
     	}
     	$fields = $this->input->post('fields');
-    	$data = null;
+    	$data = array();
     	$this->m_withdrawCash->searchWithDrawUserList($fields, $data);
     	$this->responseSuccess($data);
     }

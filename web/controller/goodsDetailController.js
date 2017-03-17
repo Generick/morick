@@ -199,7 +199,8 @@ var GoodsInfoCtrl = {
 	                var currentDate = new Date().getTime();
 	                var second1 = Math.ceil(currentDate/1000);
 	                var time = (parseFloat(self.goodsDetailModel.allInfo.endTime) - second1);
-	                if (time <= 0)
+	                var time1 = (second1 - parseFloat(self.goodsDetailModel.allInfo.startTime));
+	                if (time <= 0 || time1 <= 0)
 	                {
 	                    $('#endTime').hide();
 	                    $('.endtime-text').html("");
@@ -216,7 +217,7 @@ var GoodsInfoCtrl = {
 	                $('#minute').html(min);
 	                $('#second').html(sec);
 	
-	                self.countDown(self.goodsDetailModel.allInfo.endTime);
+	                self.countDown(self.goodsDetailModel.allInfo.startTime,self.goodsDetailModel.allInfo.endTime);
 	            
 	                self.scope.goodsDetailModel = self.goodsDetailModel;
 	                $('.animation').css('display','none');
@@ -234,17 +235,18 @@ var GoodsInfoCtrl = {
     
   
     //jquery倒计时
-	countDown : function(timestamp)
+	countDown : function(timestamp,timestamp1)
 	{
         var self = this;
 		var currentDate = new Date().getTime();
 		var second1 = Math.ceil(currentDate/1000);
-		var time = (parseFloat(timestamp) - second1);
+		var time = (parseFloat(timestamp1) - second1);
+		var time1 = (second1 - parseFloat(timestamp));
 //		console.log("cur"+second1)
         clearInterval(self.timer);
 		self.timer = setInterval(function ()
 		{
-			if(time <= 0)
+			if(time <= 0 || time1 <= 0)
 			{
 				$('#endTime').hide();
 				$('.endtime-text').html("");

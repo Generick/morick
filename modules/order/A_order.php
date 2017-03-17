@@ -100,7 +100,7 @@ class A_order extends Admin_Controller
         $logistics_no = trim($this->input->post("logistics_no"));
 
         $retCode = $this->m_order->modOrderInfo($order_no, array("logistics_no" => $logistics_no, "orderStatus" => ORDER_STATUS_WAIT_RECEIVE));
-        //create order status message
+        //创建发货信息
         //user id ,msg type, href id=> order id
         if ($retCode == ERROR_OK) {
             $this->load->model('m_messagePush');

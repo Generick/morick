@@ -15,10 +15,9 @@ class A_bids extends Admin_Controller{
     }
 
 
-    //get user bids list [support search]
+    //获取出价列表 [support search]
 
     function getBidList(){
-        //get params
         if (isset($_POST['startIndex'])) {
             $startIndex = intval($_POST['startIndex']);
         }else{
@@ -33,43 +32,44 @@ class A_bids extends Admin_Controller{
 
         $count = 0;
         $bidList = array();
-        $retCode = $this->m_bids->getBidList($startIndex,$num,$count,$bidList);
+        $retCode = $this->m_bids->getBidList($startIndex, $num, $count, $bidList);
         //var_dump($bidList);die;
         foreach ($bidList as &$v) {
             $auctionInfo = $this->m_auction->getAuctionSmall($v['auctionItemId']);
-            if ($v['isHigh']) {
+            if (!$auctionInfo) {
+                continue;
+            }
+            if ($v['isHigh'] == 1) {
 
                 if ($auctionInfo->endTime < time()) {
                     $v['isSale'] = 1;
                 }
-                # code
+                
             }
         }
 
 
         for ($i=0; $i < count($bidList); $i++) {
-            $bidList[$i]['createTime'] = date("Y-m-d H:i:s",$bidList[$i]['createTime']);
+            $bidList[$i]['createTime'] = date("Y-m-d H:i:s", $bidList[$i]['createTime']);
         }
 
         if ($retCode != ERROR_OK) {
             $this->responseError($retCode);
-            exit;
+            return;
         }
         //var_dump($bidList);die;
-        $this->responseSuccess(array('bidList'=>$bidList,'count'=>$count));
+        $this->responseSuccess(array('bidList'=>$bidList, 'count' => $count));
 
     }
 
 
 
-    //send message to user
+    //发送短信
     function smsSend(){
-        //check params
         if (!$this->checkParam(array("params"))) {
             $this->responseError(ERROR_PARAM);
             exit;
         }
-        //get params
         $param = json_decode($this->input->post('params'),true);
 
         $type = intval($param['type']);
@@ -79,15 +79,15 @@ class A_bids extends Admin_Controller{
 
         switch ($type) {
             case 1:
-                //beyond price
+                //超价
                 $content = $this->m_common->format(SMS_BEYOND_PRICE,$goods_name,$price);
                 break;
             case 2:
-                //obtain
+                //获拍
                 $content = $this->m_common->format(SMS_OBTAIN,$goods_name,$price);
                 break;
             case 3:
-                //near end
+                //截拍
                 $content = $this->m_common->format(SMS_NEAR_END,$goods_name,$price);
             default:
                 # code...
@@ -95,7 +95,6 @@ class A_bids extends Admin_Controller{
         }
 
         $this->m_smsCode->sendMsg($phoneNum,$content);
-        //return result to font-end
         $this->responseSuccess('ok');
 
     }

@@ -18,15 +18,16 @@ class M_bids extends My_Model{
         $this->cache->redis->retain();
     }
 
-    //get user bids list
+    //获取用户出价列表
     function getBidList($startIndex,$num,&$count,&$bidList){
         //get the newest bids records
-        //$bidList = $this->db->from('biddinglogs')->join('goods',"biddingLogs.auctionItemId = goods.goods_id")->join('user',"biddinglogs.userId = user.userId")->select("biddinglogs.userId,biddinglogs.auctionItemId,isHigh,icon,goods_name,name,nowPrice,createTime,telephone")->order_by('createTime','DESC')->limit($num,$startIndex)->get()->result_array();//limit(1,2)=>sql limit 2,1
-        $bidList = $this->db->from('biddingLogs')->join('user',"biddingLogs.userId = user.userId")->select("biddingLogs.userId,biddingLogs.auctionItemId,isHigh,name,nowPrice,createTime,telephone")->order_by('createTime','DESC')->limit($num,$startIndex)->get()->result_array();//limit(1,2)=>sql limit 2,1
+        $bidList = $this->db->from('biddingLogs')->join('user',"biddingLogs.userId = user.userId")->select("biddingLogs.userId,biddingLogs.auctionItemId,isHigh,name,nowPrice,createTime,telephone")->order_by('createTime','DESC')->limit($num, $startIndex)->get()->result_array();//limit(1,2)=>sql limit 2,1
         foreach ($bidList as &$v){
-            $goods_bak_id = $this->db->select('goods_bak_id')->from('auctionItems')->where('id',$v['auctionItemId'])->get()->row_array();
-            $goodsInfo = $this->db->select('goods_name,goods_pics')->from('goods_bak')->where('goods_bak_id',$goods_bak_id['goods_bak_id'])->get()->row_array();
-            $v = array_merge($v,$goodsInfo);
+            $goods_bak_id = $this->db->select('goods_bak_id')->from('auctionItems')->where('id', $v['auctionItemId'])->get()->row_array();
+            $goodsInfo = $this->db->select('goods_name, goods_pics')->from('goods_bak')->where('goods_bak_id', $auctionObj->goods_bak_id)->get()->row_array();
+            $goodsInfo = is_array($goodsInfo) ? $goodsInfo : array();
+            $v = array_merge($v, $goodsInfo);
+            
         }
         $count = $this->db->count_all_results('biddingLogs');
 

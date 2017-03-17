@@ -125,11 +125,11 @@ var GuessInfoCtrl = {
             		self.goodsDetailModel.allInfo = [];
             		self.goodsDetailModel.allInfo = data;
 	                self.goodsDetailModel.allInfo.goods_icon = JSON.parse(data.goods_icon); 
-
+//                  alert(JSON.stringify(self.goodsDetailModel.allInfo.goods_icon))
 	                self.wasLogin = data.hasLogin;
-	                $('#goodsContent').html(self.goodsDetailModel.goods_detail);
+	                $('#goodsContent').html(self.goodsDetailModel.allInfo.goods_detail);
 	                
-	                 
+//	                alert(self.goodsDetailModel.allInfo.goods_icon[0])
 	                setTitle(self.goodsDetailModel.allInfo.goods_name);
 	
 	                //倒计时初始化

@@ -77,7 +77,7 @@ class TimedTask extends My_Controller
                 //返还冻结保证金
                 $this->m_freeze->unfreeze(FREEZE_AUCTION, $one->id, $one);
 
-                //mxl add, create order message
+                //创建获拍消息
                 //userid , msg type,href id=>auction id
                 $this->m_messagePush->createUserMsg($one->currentUser, MP_MSG_TYPE_AUCTION, $orderInfo['order_no']);
 

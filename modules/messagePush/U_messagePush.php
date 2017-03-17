@@ -14,7 +14,7 @@ class U_messagePush extends User_Controller
         $this->load->model('m_messagePush');
     }
 
-    //user get message
+    //用户获取消息
     function getUserMsgList()
     {
     	if (!$this->checkParam(array('userId', 'startIndex', 'num'))) 
@@ -39,11 +39,11 @@ class U_messagePush extends User_Controller
          }
 
     	$this->m_messagePush->getUserMsgList($startIndex, $num, $userId, $data, $count, $whr);
-    	$this->responseSuccess(array('data'=>$data,'count'=>$count));
+    	$this->responseSuccess(array('data' => $data, 'count' => $count));
     }
 
 
-    //user view message
+    //用户查看消息
     function viewMsg()
     {
     	if (!$this->checkParam(array('userId', 'msg_id', 'msg_type', 'href_id'))) {

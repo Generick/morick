@@ -83,6 +83,7 @@
             //bids end
 
             //prizes quiz interface start
+            "prizesQuiz/prizesQuiz/createQuiz":{'auctionId':1,'goods_bak_id':1,'tickets':10,'limitNum':10,"说明":"创建有奖竞猜列表"},
             "prizesQuiz/prizesQuiz/getPrizesList":{"status":1,"startIndex":0,"num":10,"说明":"前端获取竞猜列表"},
             "prizesQuiz/prizesQuiz/getQuizInfo":{"auctionId":1,"说明":"前端获取竞猜页面"},
             "prizesQuiz/prizesQuiz/getQuizUserList":{"auctionId":1,"startIndex":"0","num":10,"说明":"获取某一拍品的参与有奖竞猜的用户"},

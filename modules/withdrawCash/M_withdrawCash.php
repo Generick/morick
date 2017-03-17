@@ -14,23 +14,24 @@ class  M_withdrawCash extends My_Model
         $this->load->model('m_transaction');
         $this->load->model('m_user');
     }
-    // withdraw cash
+    // 提现
     function withdrawCash($userId, $withdrawCash, $wx_account)
     {
-    	$balance = $this->db->select('balance')->from('user')->where('userId', $userId)->get()->row_array();
-    	if ($balance['balance'] < $withdrawCash) 
+    	//$balance = $this->db->select('balance')->from('user')->where('userId', $userId)->get()->row_array();
+    	$userObj = $this->m_user->getAllUserObj(USER_TYPE_USER, $userId);
+    	if ($userObj->balance < $withdrawCash) 
     	{
     		return ERROR_WC_BALANCE_NOT_ENOUGH;
     	}
 
     	$data = array('user_id' => $userId, 'withdraw_cash' => $withdrawCash, 'wx_account' => $wx_account, 'apply_time' => time(),'status' => 1);
     	$this->db->insert('withdrawcash', $data);
-    	// add transaction about user withdraw
+    	// 增加明细
     	$this->m_transaction->addTransaction($userId, TRANSACTION_WITHDRAWAL, $withdrawCash);
     	return ERROR_OK;
     }
 
-    //get withdraw list
+    //获取提现列表
     function getWithDrawList($startIndex, $num, &$data, $status, $fields, $whr)
     {
     	//status 
@@ -51,7 +52,7 @@ class  M_withdrawCash extends My_Model
     	$data = array('data' => $res, 'count' => $count);
     }
 
-    //search user withdraw list
+    //搜索提现列表
     function searchWithDrawUserList($fields, $startIndex, $num, $whr)
     {
     	$userIds = $this->db->select('userId')->from('user')->like('userId', $fields)->or_like('name', $fields)->or_like('telephone', $fields)->get()->result_array();
@@ -70,7 +71,7 @@ class  M_withdrawCash extends My_Model
     	
     }
 
-    //refuse withdraw
+    //拒绝提现
     function refuseWithDraw($id, $userId, $withdrawCash, $reason)
     {
     	$withdrawobj = $this->getWithDrawObj($id);
@@ -78,13 +79,13 @@ class  M_withdrawCash extends My_Model
     	{
     		return ERROR_WITHDRAW_NOT_FOUND;
     	}
-    	//add transaction about refuse withdraw
+    	//增加明细
     	$this->m_transaction->addTransaction($userId, TRANSACTION_REFUSEWITHDRAW, $withdrawCash);
     	$this->db->where('id',$id)->update('withdrawcash',array('status' => WC_STATUS_ALL, 'refuse_reason' => $reason));
     	return ERROR_OK;
     }
 
-    //accept withdraw
+    //完成提现
     function acceptWithDraw($id)
     {
     	$withdrawobj = $this->getWithDrawObj($id);
@@ -92,11 +93,10 @@ class  M_withdrawCash extends My_Model
     	{
     		return ERROR_WITHDRAW_NOT_FOUND;
     	}
-    	$this->db->where('id',$id)->update('withdrawcash',array('status' => WC_STATUS_COMPLETED));
+    	$this->db->where('id', $id)->update('withdrawcash',array('status' => WC_STATUS_COMPLETED));
     	return ERROR_OK;
     }
 
-    //get withdraw obj by id
     function getWithDrawObj($id)
     {
     	$withdrawobj = $this->db->from('withdrawcash')->where('id', $id)->get()->row_array();

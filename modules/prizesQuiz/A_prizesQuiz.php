@@ -8,12 +8,11 @@ class A_prizesQuiz extends Admin_Controller
 	
 	function __construct()
 	{
-		# code...
 		parent::__construct();
 		$this->load->model('m_prizesQuiz');
 	}
 
-	//adminisstration qiut the quiz
+	//后台结束竞猜
 	function quitQuiz()
 	{
 		if (!$this->checkParam(array('auctionId'))) 
@@ -27,7 +26,7 @@ class A_prizesQuiz extends Admin_Controller
 	}
 
 
-	// get quiz list
+	// 获取竞猜列表
 	function getQuizList()
 	{
 		$startIndex = $this->input->post('startIndex');
@@ -38,7 +37,7 @@ class A_prizesQuiz extends Admin_Controller
 		return $this->responseSuccess(array('data'=>$data,'count'=>$count));
 	}
 
-	//get quiz user list
+	//获取竞猜拍品的用户列表
 	function getQuizUserList()
 	{
 		$data = array();
@@ -46,7 +45,7 @@ class A_prizesQuiz extends Admin_Controller
 		return $this->responseSuccess($quizUserList);
 	}
 
-	// search quiz user by id or telephone or name
+	//搜索竞猜用户 id,telephone, name
 	function searchQuizList()
 	{
 		if (!$this->checkParam(array('fields'))) 
@@ -61,7 +60,7 @@ class A_prizesQuiz extends Admin_Controller
 		return $this->responseSuccess($data);
 	}
 
-	// view quiz
+	// 查看竞猜详情
 	function viewQuiz()
 	{
 		if (!$this->checkParam(array('auctionId'))) 
@@ -78,7 +77,7 @@ class A_prizesQuiz extends Admin_Controller
 		return $this->responseSuccess(array('data'=>$data,'count'=>$count,'limitNum'=>$limitNum['limitNum']));
 	}
 
-	// update limit num
+	//设置限制人数
 	function updateLimitNum()
 	{
 		if (!$this->checkParam(array('auctionId','limitNum'))) 
