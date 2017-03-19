@@ -125,24 +125,24 @@ var GuessInfoCtrl = {
             		self.goodsDetailModel.allInfo = [];
             		self.goodsDetailModel.allInfo = data;
 	                self.goodsDetailModel.allInfo.goods_icon = JSON.parse(data.goods_icon); 
-//                  alert(JSON.stringify(self.goodsDetailModel.allInfo.goods_icon))
+
 	                self.wasLogin = data.hasLogin;
 	                $('#goodsContent').html(self.goodsDetailModel.allInfo.goods_detail);
 	                
-//	                alert(self.goodsDetailModel.allInfo.goods_icon[0])
+
 	                setTitle(self.goodsDetailModel.allInfo.goods_name);
 	
 	                //倒计时初始化
 	                var currentDate = new Date().getTime();
 	                var second1 = Math.ceil(currentDate/1000);
 	                var time = (parseFloat(self.goodsDetailModel.allInfo.startTime) - second1);
+
 	                if (time <= 0)
 	                {
 	                    $('#endTime').hide();
 	                    $('.endtime-text').html("");
 	                    $('.endtime-time').html("竞猜结束");
-	                    $('#goodsBtn').attr({"disabled": "disabled", "class": "goods-btn-un"});
-	                    $("#selfGoodsBtn").attr({"disabled":"disabled", "class": "goods-btn-un"});
+	                    
 	                }
 	                var day = Math.floor(time/(3600*24));
 	                var hour = Math.floor((time/3600)%24);
@@ -177,17 +177,17 @@ var GuessInfoCtrl = {
 		var currentDate = new Date().getTime();
 		var second1 = Math.ceil(currentDate/1000);
 		var time = (parseFloat(timestamp) - second1);
-//		console.log("cur"+second1)
+
         clearInterval(self.timer);
 		self.timer = setInterval(function ()
 		{
+
 			if(time <= 0)
 			{
 				$('#endTime').hide();
 				$('.endtime-text').html("");
 				$('.endtime-time').html("竞猜结束");
-                $('#goodsBtn').attr({"disabled": "disabled", "class": "goods-btn-un"});
-                $("#selfGoodsBtn").attr({"disabled":"disabled", "class": "goods-btn-un"});
+               
 				clearInterval(self.timer);
 			}
 			time--;

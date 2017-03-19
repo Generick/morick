@@ -80,7 +80,7 @@ class  M_withdrawCash extends My_Model
     		return ERROR_WITHDRAW_NOT_FOUND;
     	}
     	//增加明细
-    	$this->m_transaction->addTransaction($userId, TRANSACTION_REFUSEWITHDRAW, $withdrawCash);
+    	$this->m_transaction->addTransaction($userId, TRANSACTION_REFUSE_WITHDRAW, $withdrawCash);
     	$this->db->where('id',$id)->update('withdrawcash',array('status' => WC_STATUS_ALL, 'refuse_reason' => $reason));
     	return ERROR_OK;
     }

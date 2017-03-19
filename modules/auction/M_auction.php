@@ -347,12 +347,12 @@ class M_auction extends My_Model
         {
             return ERROR_SYSTEM;
         }else{
-            $this->db->where('auctionItemId',$itemId)->where("nowPrice !=",$price)->update('biddinglogs',array('isHigh'=>0));
+            $this->db->where('auctionItemId',$itemId)->where("nowPrice !=",$price)->update('biddingLogs',array('isHigh'=>0));
         }
 
         $modInfo = array("currentUser" => $userId, "currentPrice" => $price, "bidsNum" => ($auctionItemObj->bidsNum + 1));
         //mxl modify logic
-        //user price over current auction price
+        //用户出价超过封顶价
         if ($auctionItemObj->cappedPrice > 0 && $price >= $auctionItemObj->cappedPrice) {
             $modInfo['endTime'] = time();
         }else if(($auctionItemObj->endTime - time()) <= $auctionItemObj->postponeTime * 60)

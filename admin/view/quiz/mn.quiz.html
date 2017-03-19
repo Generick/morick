@@ -43,7 +43,7 @@
 					</td>
 					<td style="text-align: center">
 						<a class="btn btn-white" ng-click="onClickCheckInfo(item.auction_id)">查看</a>
-						<a class="btn btn-default" ng-click="onClickQuizFinish(item.auction_id)" ng-if="item.status == 1">结束竞猜</a>
+						<a class="btn btn-default" ng-click="onClickQuizFinish(item)" ng-show="item.status == 1">结束竞猜</a>
 					</td>
 				</tr>
 			</tbody>

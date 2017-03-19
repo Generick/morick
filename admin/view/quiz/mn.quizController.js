@@ -84,15 +84,17 @@ var QuizController = {
 		};
 		
 		//结束竞猜
-		self.scope.onClickQuizFinish = function(ID){
+		self.scope.onClickQuizFinish = function(item){
 			var params = {
 				auctionId: null
 			};
 			
-			params.auctionId = ID;
+			params.auctionId = item.auction_id;
 			$data.httpRequest('post', api.API_QUIT_QUIZ, params, function(data)
 			{
-				
+				item.status = 0;
+				self.scope.quizModel = self.quizModel;
+				self.scope.$apply();
 			});
 		};
 		

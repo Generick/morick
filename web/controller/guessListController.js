@@ -193,13 +193,13 @@ var GuessListCtrl =
 
 	    	$('.animation').css('display','block');
 	    	
-	    	console.log('params:' + JSON.stringify(params));
+//	    	console.log('params:' + JSON.stringify(params));
 	    	
 	     
 	    	
 	    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_GUESSLIST, params, function(data){
 	    		
-	    		console.log(JSON.stringify(data));
+//	    		console.log(JSON.stringify(data));
 	    	    self.totalCount = data.count;
 	    	    //设置总页数
 	    	    self.setTotalPage(self.totalCount);
@@ -422,20 +422,41 @@ var GuessListCtrl =
     	var self = this;
     	
     	//跳转到个人中心
-    	self.scope.jumpToSelfZone = function(){
-    		
+    	self.scope.jumpToSelfZone1 = function(){
+    	
     		if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
-			{   
-					
-                location.href = pageUrl.LOGIN_PAGE;
+			{   	
+				setTimeout(function(){
+	       		 	
+        			 location.href = pageUrl.LOGIN_PAGE;
+        				
+        		},250)		
+               
 			}
             else
             {   
-                if(!commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
-            	{
-            		location.href = pageUrl.PERSON_CENTER;
-            	}
-			
+            		
+            	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+    			   
+	    			if(JSON.stringify(data) == 'true' || !commonFu.isEmpty(sessionStorage.getItem("loginSucess"))){
+	    				
+	    			    setTimeout(function(){
+	       		 	
+        			 		location.href = pageUrl.PERSON_CENTER;
+        				
+        				},250)	
+	    			}
+    		
+    		    },
+    		    function(){
+            		 
+            		setTimeout(function(){
+	       		 	
+        			 	location.href = pageUrl.LOGIN_PAGE;
+        				
+        			},250)	
+            	});
+   
             }
     		
     	};
@@ -505,8 +526,8 @@ var GuessListCtrl =
     	};
     },
     
-    
-    
+   
+    	
       ngRepeatFinish : function()
     {
     	var self = this;
@@ -518,7 +539,11 @@ var GuessListCtrl =
 		    {   
 				$('.container').css({'opacity':'0'});
 				$('.animation').css("display","block");
-				self.getDisToTop(self.thisJumpId);
+				if(!commonFu.isEmpty(self.thisJumpId))
+				{  
+					self.getDisToTop(self.thisJumpId);
+				}
+				
 				setTimeout(function(){
 						$('.animation').css("display","none");
 						$('.container').css({'opacity':'1'});
@@ -534,7 +559,12 @@ var GuessListCtrl =
 					var selId = sessionStorage.getItem("guessId");
 					$('.container').css({'opacity':'0'});
 					$('.animation').css("display","block");
-					self.getDisToTop(selId);
+					
+					if(!commonFu.isEmpty(selId))
+					{  
+						self.getDisToTop(selId);
+						
+					}
 					setTimeout(function(){
 						$('.animation').css("display","none");
 						$('.container').css({'opacity':'1'});
@@ -584,7 +614,7 @@ var GuessListCtrl =
 		        	}
 		        	else
 		        	{
-		        		dealTop = $("#guess_"+ self.selectedModel.auctionItems[0].id).offset().top ;
+		        		dealTop = $("#guess_"+ self.selectedModel.auctionItems[0].id).offset().top;
 		        	}
 		        	
 				    sessionStorage.removeItem("needGuessPage")
@@ -607,8 +637,9 @@ var GuessListCtrl =
 			        dealTop = $("#"+ id).offset().top ;
 			    }
 			    else
-			    {
-			        dealTop = $("#sel_"+ self.selectedModel.auctionItems[0].id).offset().top ;
+			    {   
+			        dealTop = $("#guess_"+ self.selectedModel.auctionItems[0].id).offset().top;
+			      
 			    }
 	    
 	        }

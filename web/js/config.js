@@ -16,14 +16,8 @@ const API_BASE_URL = "http://192.168.2.128/auction/index.php/";//测试
 //const BASE_PAGE_URL = "http://meeno.f3322.net:8082/auction/web/";//测试
 //const BASE_PAGE_URL = "http://www.yawan365.com:8080/";//测试
 // const API_BASE_URL = "http://auction.yawan365.com:8080/index.php/";//测试
-//const BASE_PAGE_URL = "http://192.168.2.107/web/";
-//const BASE_PAGE_URL = "http://127.0.0.1:8020/paimai-web/";
-
-//const BASE_PAGE_URL = "http://mc.meeno.net/aution/";
-
-
-//const BASE_PAGE_URL = "http://127.0.0.1:8020/web/";
 const BASE_PAGE_URL = "http://192.168.2.107:8020/web/";
+//const BASE_PAGE_URL = "http://127.0.0.1:8020/paimai-web/";
 
 /***************API 配置接口****************/
 
@@ -79,6 +73,8 @@ var apiUrl =
     //订单
     API_SET_SHIPPING_ADDRESS : API_BASE_URL + "order/U_order/setShippingAddress", //修改用户地址
     API_PAY_ORDER : API_BASE_URL + "order/U_order/payOrder", //支付
+    
+    API_JUDGE_ISLOGIN : API_BASE_URL + "account/hasLogin",//判断用户是否登录了
     
     //充值
     API_RECHARGE : API_BASE_URL + "recharge/U_recharge/recharge",//充值

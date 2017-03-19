@@ -67,7 +67,7 @@ var MessagesController = {
         
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_MY_MESSAGELIST, params, function(data){
      		
-     		console.log(JSON.stringify(data))
+   		console.log(JSON.stringify(data))
  			self.messListModel.messlistArr = self.messListModel.messlistArr.concat(data.data);
   		    self.messListModel.count = data.count;
   		    
@@ -193,8 +193,13 @@ var MessagesController = {
         		}
         		sessionStorage.setItem("comeWithGuess",5);
         		item.isRead = 1;
-        		
-        	    location.href = pageUrl.GUESS_INNER +"?id="+ item.href_id;
+
+        		setTimeout(function(){
+        			
+        			location.href = pageUrl.GUESS_INNER +"?id="+ item.href_id + "&page=" + 1;
+        			
+        		},250)
+        	    
 
         	}
         	else if(item.msg_type == 2)
@@ -205,10 +210,22 @@ var MessagesController = {
         		}
         	
         		item.isRead = 1;
-        		sessionStorage.setItem("comeWithGuess",5);
-        		sessionStorage.setItem("messlistOrauction",1)
-        		location.href = pageUrl.AUCTION_HISTORY_INFO  +"?id="+ item.href_id +"&page=" + 1;
-//              location.href = pageUrl.AUCTION_HISTORY_INFO  +"?id="+ 63 +"&page=" + 1;
+//      		sessionStorage.setItem("comeWithGuess",5);
+//      		sessionStorage.setItem("messlistOrauction",1)
+//      	    
+//              setTimeout(function(){
+//              	
+//      				location.href = pageUrl.AUCTION_HISTORY_INFO  +"?id="+ item.href_id +"&page=" + 1;
+//      		},250)
+//      		
+        		sessionStorage.setItem("comeIntoOrder",2);
+	      		localStorage.setItem(localStorageKey.orderNo, item.href_id);
+	      		
+	       		setTimeout(function(){
+	       		 	
+        				location.href = pageUrl.ORDER_DETAIL;
+        				
+        		},250)
         		
         	}
         	else if(item.msg_type == 3)
@@ -222,8 +239,11 @@ var MessagesController = {
         		sessionStorage.setItem("comeIntoOrder",2)
 	      		localStorage.setItem(localStorageKey.orderNo, item.href_id);
 	      		
-	       		location.href = pageUrl.ORDER_DETAIL +"?id="+ item.href_id;
-	       		
+	       		setTimeout(function(){
+	       		 	
+        				location.href = pageUrl.ORDER_DETAIL;
+        				
+        		},250)
         	}
 		
 		};

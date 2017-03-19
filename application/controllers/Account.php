@@ -290,5 +290,18 @@ class Account extends My_Controller{
     }
     //////////////////////////////////////////////
     //endregion
+    
+    //判断用户是否登录
+    function hasLogin()
+    {
+        $hasLogin = false;
+        $this->load->model("m_account");
+        if($this->m_account->getSessionData("userType") == USER_TYPE_USER)
+        {
+            $hasLogin = true;
+        }
+         $this->responseSuccess($hasLogin);
+    }
+
 }
 

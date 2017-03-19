@@ -31,7 +31,7 @@ var AuctionCtrl = {
         isVip :0,
         isQuiz: 1, //参加竞猜
         limitNum: 100,//参加竞拍人数
-        tickets: 50,//奖金
+        tickets: 5,//奖金
         
         keyWords: null, //搜索藏品关键字
         startIndex: 0, //从第几页搜索
@@ -93,11 +93,13 @@ var AuctionCtrl = {
         self.auctionModel.cappedPrice = null;
         self.showTheInput = 0;
         self.auctionModel.isVip = 0;  	
-       
+        self.auctionModel.limitNum = 100;
+        self.auctionModel.tickets = 5;
     },
 
     //竞拍列表
     getAuctionList: function(type,isVipJudge){
+    	
         var self = this;
         if(isVipJudge == -1)
         {
@@ -437,6 +439,7 @@ var AuctionCtrl = {
         //分类获取拍品
          
         self.scope.getDifGoods = function(type){
+        	
         	self.isVipJudge = type;
         	self.getAuctionList("",self.isVipJudge);
         	
@@ -667,7 +670,7 @@ var AuctionCtrl = {
             			$dialog.msg(CN_TIPS.NEED_MORE_THAN_ZERO, 1.6);
             			return;
             		}
-            		else if(self.auctionModel.initPrice >= self.auctionModel.cappedPrice)
+            		else if(self.auctionModel.initPrice + self.auctionModel.lowPrice >= self.auctionModel.cappedPrice)
                 	{
                 		$dialog.msg(CN_TIPS.NEED_MORE_THAN_INITPRICE, 1.6);
                 		return;

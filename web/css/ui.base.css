@@ -433,9 +433,11 @@ input,textarea:focus{
 	width:66%;
 	overflow:hidden; 
 	text-overflow:ellipsis;
+	word-break:break-all;
 	font-size: 14px;
 	color:#CEA985;
 	letter-spacing: 1px;
+	
 	
 
 }

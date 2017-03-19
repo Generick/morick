@@ -22,6 +22,7 @@
 
             "account/changePassword" : {"verifyCode" : "8888", "platformId":"123", "password":"123", "说明":"修改密码", "备注" : ""},
             "account/getMobileCode" : {"mobile" : "", "type" : 1, "说明" : "获取短信验证码", "备注" : "type(1 注册 2 登录 3 修改密码)"},
+            "account/hasLogin" : { "说明" : "判断用户是否登录"},
 
             //user普通用户相关逻辑
             'u_user/getSelfInfo' : {"说明":"获取用户数据"},
@@ -83,11 +84,11 @@
             //bids end
 
             //prizes quiz interface start
-            "prizesQuiz/prizesQuiz/createQuiz":{'auctionId':1,'goods_bak_id':1,'tickets':10,'limitNum':10,"说明":"创建有奖竞猜列表"},
-            "prizesQuiz/prizesQuiz/getPrizesList":{"status":1,"startIndex":0,"num":10,"说明":"前端获取竞猜列表"},
-            "prizesQuiz/prizesQuiz/getQuizInfo":{"auctionId":1,"说明":"前端获取竞猜页面"},
-            "prizesQuiz/prizesQuiz/getQuizUserList":{"auctionId":1,"startIndex":"0","num":10,"说明":"获取某一拍品的参与有奖竞猜的用户"},
-            "prizesQuiz/prizesQuiz/getAwardUserList":{"auctionId":1,"说明":"获取某一拍品的有奖竞猜的获奖用户"},
+            "prizesQuiz/PrizesQuiz/createQuiz":{'auctionId':1,'goods_bak_id':1,'tickets':10,'limitNum':10,"说明":"创建有奖竞猜列表"},
+            "prizesQuiz/PrizesQuiz/getPrizesList":{"status":1,"startIndex":0,"num":10,"说明":"前端获取竞猜列表"},
+            "prizesQuiz/PrizesQuiz/getQuizInfo":{"auctionId":1,"说明":"前端获取竞猜页面"},
+            "prizesQuiz/PrizesQuiz/getQuizUserList":{"auctionId":1,"startIndex":"0","num":10,"说明":"获取某一拍品的参与有奖竞猜的用户"},
+            "prizesQuiz/PrizesQuiz/getAwardUserList":{"auctionId":1,"说明":"获取某一拍品的有奖竞猜的获奖用户"},
             "prizesQuiz/A_prizesQuiz/getQuizList":{"startIndex":0,"num":10,"说明":"管理后台获取竞猜列表"},
             "prizesQuiz/A_prizesQuiz/viewQuiz":{"auctionId":"1","说明":"管理后台查看竞猜详情"},
             "prizesQuiz/A_prizesQuiz/searchQuizList":{"fields":2,"说明":"管理后台搜索竞猜列表"},

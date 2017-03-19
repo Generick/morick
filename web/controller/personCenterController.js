@@ -86,14 +86,15 @@ var PersonCenterCtrl =
     	params.num = 0;
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_MY_MESSAGELIST, params, function(data){
+//  		alert(JSON.stringify(data))
             if(!commonFu.isEmpty(data.data))
             {   
-//          	alert(JSON.stringify(data))
+				
             	self.messageCenterModel.messageList = data.data;
-	    		self.scope.messageCenterModel = self.messageCenterModel;
-	    		self.scope.$apply();
+	    		
             }
-  		    
+  		    self.scope.messageCenterModel = self.messageCenterModel;
+	    	self.scope.$apply();
     	});
     
     },
@@ -127,8 +128,12 @@ var PersonCenterCtrl =
         	if(item.msg_type == 0)
         	{   
 
-        		location.href = pageUrl.MY_MESSAGE;
-        	
+        		
+        	    setTimeout(function(){
+	       		 	
+        			location.href = pageUrl.MY_MESSAGE;
+        				
+        		},250)
         	}
         	else if(item.msg_type == 1)
         	{    
@@ -138,7 +143,12 @@ var PersonCenterCtrl =
         			self.userHasReadMessage(params);
         		}
         		sessionStorage.setItem("comeWithGuess",4)
-        	    location.href = pageUrl.GUESS_INNER +"?id="+ item.href_id;
+        		setTimeout(function(){
+	       		 	
+        				location.href = pageUrl.GUESS_INNER +"?id="+ item.href_id + "&page=" + 1;
+        				
+        		},250)
+        	    
 					
         	}
         	else if(item.msg_type == 2)
@@ -148,9 +158,23 @@ var PersonCenterCtrl =
         		{
         			self.userHasReadMessage(params);
         		}
-        		sessionStorage.setItem("comeWithGuess",4)
-        		location.href = pageUrl.AUCTION_HISTORY_INFO  +"?id="+ item.href_id;
-        	
+//      		sessionStorage.setItem("comeWithGuess",4)
+//      		
+//      	    setTimeout(function(){
+//	       		 	
+//      			location.href = pageUrl.AUCTION_HISTORY_INFO  +"?id="+ item.href_id + "&page=" + 1;
+//      				
+//      		},250)
+        	    
+        	    
+        	    sessionStorage.setItem("comeIntoOrder",1)
+        		localStorage.setItem(localStorageKey.orderNo, item.href_id);
+         		
+                setTimeout(function(){
+	       		 	
+        			location.href = pageUrl.ORDER_DETAIL +"?id="+ item.href_id;
+        				
+        		},250)
         	}
         	else if(item.msg_type == 3)
         	{    
@@ -160,8 +184,12 @@ var PersonCenterCtrl =
         		}
         		sessionStorage.setItem("comeIntoOrder",1)
         		localStorage.setItem(localStorageKey.orderNo, item.href_id);
-         		location.href = pageUrl.ORDER_DETAIL +"?id="+ item.href_id;
-   
+         		
+                setTimeout(function(){
+	       		 	
+        			location.href = pageUrl.ORDER_DETAIL +"?id="+ item.href_id;
+        				
+        		},250)
         
         	}
         };

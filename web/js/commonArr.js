@@ -66,5 +66,23 @@ var TRANSACTION_TYPE_ARR =
             text : "拒绝提现",
             symbol : "+",
             style : "money-add"
+        },
+        {
+        	type : 9,
+            text : "扣除门票",
+            symbol : "-",
+            style : "money-reduce"
+        },
+        {
+        	type : 10,
+            text : "返还门票",
+            symbol : "+",
+            style : "money-add"
+        },
+        {
+        	type : 11,
+            text : "竞猜奖金",
+            symbol : "+",
+            style : "money-add"
         }
     ];

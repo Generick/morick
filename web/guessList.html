@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="popUpModal/popUp.css" />
 	</head>
 	<body ng-controller="ctrl">
-		<div id="myself-head"  ng-click="jumpToSelfZone()" style="position: fixed;top:10px;left:10px;width:50px;height:50px;display: block;z-index: 99999;">
+		<div id="myself-head"  ng-click="jumpToSelfZone1()" style="position: fixed;top:10px;left:10px;width:50px;height:50px;display: block;z-index: 99999;">
 			<img src="img/personal-enter.png"> 
 		</div>
 		<!--加载动画-->
@@ -27,9 +27,9 @@
 		<!--style="position:absolute; overflow:auto;-webkit-overflow-scrolling: touch; margin-bottom:52px;top:0;left:0;right:0"-->
         <div id="container" class="container scroll">
             <div class="xzlDown"></div>
-            <div class="list" id="list-empty" style="background-color: #fff;">
-				<ul id="selected-ul">
-					<li class="oneList" ng-repeat = "item in auctionItems" id="guess_{{item.id}}" ng-click = "onClickToGoodsDetail(item)" on-finish-render-filters>
+            <div class="list" id="list-empty" style="background-color: #fff;margin-bottom: 20px;">
+				<ul id="selected-ul" style="padding-bottom:0px">
+					<li class="oneList" style="padding-bottom:0px" ng-repeat = "item in auctionItems" id="guess_{{item.id}}" ng-click = "onClickToGoodsDetail(item)" on-finish-render-filters>
                         <div class="item-img">
                         	<img style="position: absolute;top:1vw;left:0px;z-index: 5;width:14vw;height:14vw;" class="smallvippic" ng-show="(item.isVIP == 1)" src="img/newVip.png">
                             <img ng-src="{{item.goodsPicsShow}}">
@@ -37,8 +37,9 @@
 						<div class="price">
 							<div ng-bind="item.goods_name"></div>
 							<div style="float: right;" class="clear">
-								<span style="margin-top: 4px;"  ng-show = 'item.isShowPrice || item.initialPrice != 0'>当前竞猜价</span>
-								<span ng-show = 'item.isShowPrice || item.initialPrice != 0'>￥{{item.isShowPrice?item.currentQuizPrice: item.currentQuizPrice}}</span>
+							
+								<span style="margin-top: 4px;"  ng-show = 'item.isShowPrice || item.initialPrice != 0'>起拍价</span>
+								<span ng-show = 'item.isShowPrice || item.initialPrice != 0'>￥{{item.isShowPrice?item.currentPrice: item.initialPrice}}</span>
 								<span ng-show = '!item.isShowPrice && item.initialPrice == 0'>零起拍</span>
 							</div>
 						</div>
@@ -88,13 +89,15 @@
     <script src="controller/app.js"></script>
     <script src="plugin/layerMobile/layer.js"></script>
     <script src="module/dialog/dialog.js"></script>
-	<!--controller-->
-	<script type="text/javascript" src="controller/guessListController.js" ></script>
-	
+
 	<!--插件-->
 	<script type="text/javascript" src="js/fastclick.js"></script>
 	<!--<script type="text/javascript" src="js/htmlNoScroll.js"></script>-->
 	<script type="text/javascript" src="js/xzl-down-rerfresh-guess.js" ></script>
+	
+	<!--controller-->
+	<script type="text/javascript" src="controller/guessListController.js" ></script>
+	
 	<script>
 		
 		$(function() {

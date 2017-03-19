@@ -72,7 +72,9 @@ class M_transaction extends My_Model
             case TRANSACTION_RECHARGE:
             case TRANSACTION_RETURN_MARGIN:
             case TRANSACTION_SYSTEM_ADD:
-            case TRANSACTION_REFUSEWITHDRAW:
+            case TRANSACTION_REFUSE_WITHDRAW:
+            case TRANSACTION_QUIZ_TICKETS_RETURN:
+            case TRANSACTION_AWARD:
                 $afterBalance = $userObj->balance + $money;
                 break;
             //减少
@@ -81,6 +83,7 @@ class M_transaction extends My_Model
             case TRANSACTION_SERVICE:
             case TRANSACTION_PAY:
             case TRANSACTION_SYSTEM_REDUCE:
+            case TRANSACTION_QUIZ_TICKETS:
                 if($userObj->balance < $money)
                 {
                     return ERROR_BALANCE_NOT_ENOUGH;

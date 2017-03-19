@@ -446,7 +446,10 @@ var AuctionHistoryCtrl =
                
 				$('.container').css({'opacity':'0'});
 				$('.animation').css("display","block");
-				self.getDisToTop(self.thisJumpId);
+				if(!commonFu.isEmpty(self.thisJumpId))
+				{
+					self.getDisToTop(self.thisJumpId);
+				}
 				
 				setTimeout(function(){
 					$('.animation').css("display","none");
@@ -463,8 +466,11 @@ var AuctionHistoryCtrl =
 					var acuId = sessionStorage.getItem("aucDisId");
 					$('.container').css({'opacity':'0'});
 					$('.animation').css("display","block");
+					if(!commonFu.isEmpty(acuId))
+					{
+						self.getDisToTop(acuId);
+					}
 					
-					self.getDisToTop(acuId);
 					setTimeout(function(){
 						$('.animation').css("display","none");
 						$('.container').css({'opacity':'1'});
@@ -559,19 +565,44 @@ var AuctionHistoryCtrl =
     	
     	
     	//跳转到个人中心
-    	self.scope.jumpToSelfZone = function(){
+    	self.scope.jumpToSelfZone3 = function(){
     		
     		if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
 			{   
-					
-                location.href = pageUrl.LOGIN_PAGE;
+				setTimeout(function(){
+	       		 	
+        			location.href = pageUrl.LOGIN_PAGE;
+        				
+        		},250)	
+                
 			}
             else
             {   
-                if(!commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
-            	{
-            		location.href = pageUrl.PERSON_CENTER;
-            	}
+            	
+            	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+    			   
+	    			if(JSON.stringify(data)  == 'true'  || !commonFu.isEmpty(sessionStorage.getItem("loginSucess"))){
+	    				
+	    			    setTimeout(function(){
+	       		 	
+        					location.href = pageUrl.PERSON_CENTER;
+        				
+        				},250)	
+	    			}
+    		
+    		    },
+            	function(){
+            		 setTimeout(function(){
+	       		 	
+        				location.href = pageUrl.LOGIN_PAGE;
+        				
+        			},250)	
+            		
+            	});
+//              if(!commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
+//          	{
+//          		location.href = pageUrl.PERSON_CENTER;
+//          	}
 			
             }
     		

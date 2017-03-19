@@ -13,4 +13,5 @@ Error::registerErrors(array(
     array('errDefine' => 'PQ_BALANCE_NOT_ENOUGH', 'errMsg' => '账户余额不足'),
     array('errDefine' => 'PQ_NUM_FULL', 'errMsg' => '人数已满'),
     array('errDefine' => 'PQ_FAIL', 'errMsg' => '参与失败'),
+    array('errDefine' => 'PQ_NO_QUIZ', 'errMsg' => '此件拍品没有参与有奖竞猜'),
 ));

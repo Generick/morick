@@ -18,6 +18,7 @@ class TimedTask extends My_Controller
         $this->load->model("m_smsCode");
         $this->load->model("m_shippingAddress");
         $this->load->model('m_messagePush');
+        $this->load->model('m_prizesQuiz');
     }
 
     /**
@@ -76,6 +77,9 @@ class TimedTask extends My_Controller
 
                 //返还冻结保证金
                 $this->m_freeze->unfreeze(FREEZE_AUCTION, $one->id, $one);
+
+                //有奖竞猜结束
+                $this->m_prizesQuiz->quizOver($one->id);
 
                 //创建获拍消息
                 //userid , msg type,href id=>auction id

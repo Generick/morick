@@ -10,7 +10,6 @@
 //var BASE_URL = "http://mc.meeno.net:8082/auction/index.php/"; //内网Url
 var BASE_URL = "http://localhost/auction/index.php/"; //内网Url
 var BASE_JUMP_URL = "../admin/index.html#/";
-
 //var BASE_URL = "http://192.168.2.128/auction/index.php/"
 
 
@@ -153,7 +152,7 @@ var CN_TIPS = {
     UP_LOAD_VIDEO: "上传视频",
     PRICE_MUSTTHAN_ZERO : "初始价不能低于 0",
     MOD_USER: "用户备注",
-    NEED_MORE_THAN_INITPRICE:"封顶价应大于起拍价",
+    NEED_MORE_THAN_INITPRICE:"封顶价应大于起拍价和最低加价之和",
     NEED_MORE_THAN_ZERO :"封顶价不能为空，不能小于0"
 };
 

@@ -23,13 +23,13 @@
 			<div id="guessDetailContent" style="background: #FFFFFF;padding: 5px 10px 5px 10px;line-height:21px;color;#000000">
 				<div style="width:100%;height:40px;line-height:40px;text-align: center;font-size: 17px;color:#8B4603;">竞猜活动说明</div>
 				<div style="margin-bottom:8px">
-					1，本次竞猜活动共设3个奖项，最接近成交价格的3个价格即为胜出者，人数不限。
+					1，本次竞猜活动共设<span style="color:#E38D2C"> 3 </span>个奖项，最接近成交价格的<span style="color:#E38D2C"> 3 </span>个价格即为胜出者，人数不限。
 				</div>
 				<div style="margin-bottom:5px">
-					2，本次活动门票数量限制<span ng-bind="goodsDetailModel.allInfo.limitNum"></span>张，每人只能买一张。
+					2，本次活动门票数量限制 <span style="color:#E38D2C" ng-bind="goodsDetailModel.allInfo.limitNum"></span> 张，每人只能买一张。
 				</div>
 				<div style="margin-bottom:5px">
-					3，竞猜门票为<span ng-bind="goodsDetailModel.allInfo.tickets"></span>元，点击参加活动即开始扣款，门票除特殊情况，一律不予退还。
+					3，竞猜门票为 <span style="color:#E38D2C" ng-bind="goodsDetailModel.allInfo.tickets"></span> 元，点击参加活动即开始扣款，门票除特殊情况，一律不予退还。
 				</div>
 				<div style="margin-bottom: 5px;">
 					4，本次活动最终解释权归雅玩之家所有。
@@ -66,18 +66,18 @@
 	                </button>
 	            </div>
             </div>
-            <div class="goods-buyer" style="padding-bottom:10px">
+            <div ng-show="isShoWaWard == true" class="goods-buyer" style="padding-bottom:10px">
 				<div class="guess-list-title">
 					<div class="guess-list">中奖列表</div>
 					<!--<div class="guess-money">中奖金额</div>-->
 				</div>
 				<div class="goods-buyer-block clear">
 					<li class="clear" ng-repeat="item in biddingModel.drawnList">
-						<span class="award-ranking" ng-class= "item.Bagcolor"  ng-bind="item.award"></span>
-						<img class="buyer-icon"  ng-src="{{item.icon}}" />
-						<div class="buyer-tel" style="margin-left:4px" ng-bind="item.telephone"></div>
+						<span style="margin-left:8px" class="award-ranking" ng-class= "item.Bagcolor"  ng-bind="item.award"></span>
+						<img class="buyer-icon"  style="margin-left: 10px;" ng-src="{{item.icon}}" />
+						<div class="buyer-tel" style="margin-left:10px" ng-bind="item.telephone"></div>
 						<div class="buyer-money" style="float:right;margin-right: 6px;">￥<span ng-bind="item.awardMoney"></span></div>
-						<div class="pay-time" style="float:left;margin-left: 8px;" ng-bind="item.part_time*1000 | date:'MM-dd HH:mm'"></div>
+						<!--<div class="pay-time" style="float:left;margin-left: 5px;" ng-bind="item.part_time*1000 | date:'MM-dd HH:mm'"></div>-->
 					</li>
 				</div>
 			</div>
@@ -90,8 +90,8 @@
 					<li class="clear" ng-repeat="item in biddingModel.biddingList">
 						<img class="buyer-icon" ng-src="{{item.icon}}" />
 						<div class="buyer-tel" ng-bind="item.telephone"></div>
-						<div class="buyer-money">￥<span ng-bind="item.quiz_price"></span></div>
-						<div class="pay-time" ng-bind="item.part_time*1000 | date:'yy-MM-dd HH:mm:ss'"></div>
+						<div style="float:right;margin-right:6px" class="buyer-money">￥<span ng-bind="item.quiz_price"></span></div>
+						<div style="float:left;margin-left:10px;" class="pay-time" ng-bind="item.part_time*1000 | date:'yy-MM-dd HH:mm:ss'"></div>
 					</li>
 					<div class="check-more" ng-click="onClickCheckMore()" ng-show="biddingModel.isCheckOver" ng-bind="biddingModel.checkMore">查看更多</div>
 				</div>

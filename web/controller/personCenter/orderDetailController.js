@@ -29,14 +29,14 @@ var OrderDetailCtrl = {
     
     init: function ($scope) {
     	this.scope = $scope;
-
+         
         this.scope.orderDetailModel = this.orderDetailModel;
-
+        
+        this.initData();
+        
         localStorage.removeItem(localStorageKey.IS_ADDRESS); //每次进来清除地址标志
     	
     	this.bindClick();
-    	
-    	this.initData();
 
         this.ngRepeatFinish();
 
@@ -66,10 +66,10 @@ var OrderDetailCtrl = {
         var param = {
             order_no : self.orderDetailModel.order_no
         };
-
+//      alert(JSON.stringify(param))
         jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_ORDER_INFO, param, function(data) {
             
-//          console.log(JSON.stringify(data))
+//            console.log(JSON.stringify(data))
             self.orderDetailModel.orderInfo = {};
             self.orderDetailModel.orderInfo = data.orderInfo;
             if(self.orderDetailModel.orderInfo.acceptName == "")
@@ -202,10 +202,10 @@ var OrderDetailCtrl = {
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_ORDER_LOGISTICS_INFO, param, function(data) {
     		self.traces = [];
-
+            console.log("gdfdgdfgdf"+JSON.stringify(data))
     		self.traces = data.traces;
     		
-    		if (self.traces && self.traces.length > 0)
+    		if (!commonFu.isEmpty(self.traces) && self.traces.length > 0)
     		{
     			self.traces[0].lastLogStyle = "logistics-active";
     			self.traces[0].logisticsPic = "../img/personCenter/logistics_active.png";
@@ -214,10 +214,11 @@ var OrderDetailCtrl = {
 	    			self.traces[i].lastLogStyle = '';
 	    			self.traces[i].logisticsPic = "../img/personCenter/logistics_noactive.png";
 	    		}
+	    		self.scope.traces = self.traces;
+    			self.scope.$apply();
     		}
     		
-    		self.scope.traces = self.traces;
-    		self.scope.$apply();
+    		
     	})
     },
     
