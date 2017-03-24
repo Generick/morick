@@ -294,7 +294,7 @@ class M_auction extends My_Model
      * @param $price
      * @return mixed
      */
-    function biddingAuctionItem($itemId, $userId, $price,&$modInfo)
+    function biddingAuctionItem($itemId, $userId, $price, &$modInfo)
     {
         $auctionItemObj = $this->getAuctionItemObj($itemId);
         if(!$auctionItemObj)
@@ -341,13 +341,13 @@ class M_auction extends My_Model
 
         //is high 1, is not high 0
         //write to bid logs
-        $bidLogData = array('auctionItemId'=>$itemId,'userId'=>$userId,"nowPrice"=>$price,"createTime"=>time(),'isHigh'=>1);
+        $bidLogData = array('auctionItemId' => $itemId, 'userId' => $userId, "nowPrice" => $price, "createTime" => time(), 'isHigh' => 1);
 
-        if(!$this->m_common->insert("biddingLogs",$bidLogData))
+        if(!$this->m_common->insert("biddingLogs", $bidLogData))
         {
             return ERROR_SYSTEM;
         }else{
-            $this->db->where('auctionItemId',$itemId)->where("nowPrice !=",$price)->update('biddingLogs',array('isHigh'=>0));
+            $this->db->where('auctionItemId', $itemId)->where("nowPrice !=", $price)->update('biddingLogs',array('isHigh' => 0));
         }
 
         $modInfo = array("currentUser" => $userId, "currentPrice" => $price, "bidsNum" => ($auctionItemObj->bidsNum + 1));

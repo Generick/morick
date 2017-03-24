@@ -1,0 +1,122 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2017-03-24 09:31:40 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"74"}
+ERROR - 2017-03-24 09:31:47 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"75"}
+ERROR - 2017-03-24 09:31:53 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"75","price":"9.00"}
+ERROR - 2017-03-24 09:31:55 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"75"}
+ERROR - 2017-03-24 09:31:58 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"75","price":"9.00"}
+ERROR - 2017-03-24 09:31:59 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"75"}
+ERROR - 2017-03-24 09:32:01 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"75"}
+ERROR - 2017-03-24 09:32:05 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"75"}
+ERROR - 2017-03-24 09:32:10 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"75","price":"9.00"}
+ERROR - 2017-03-24 09:32:11 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"75"}
+ERROR - 2017-03-24 09:38:59 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"75","price":"92.00"}
+ERROR - 2017-03-24 09:39:01 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"75"}
+ERROR - 2017-03-24 09:39:05 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"75","price":"99.00"}
+ERROR - 2017-03-24 09:39:07 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"75"}
+ERROR - 2017-03-24 11:17:29 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"106","initialPrice":"0","lowestPremium":"2","margin":"0","startTime":"2017-03-24 11:20:01","endTime":"2017-03-31 11:17:01","cappedPrice":"11","isVIP":"0","isQuiz":"1","limitNum":"100","tickets":"5"}
+ERROR - 2017-03-24 11:17:58 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"105","initialPrice":"0","lowestPremium":"2","margin":"3","startTime":"2017-03-24 11:23:29","endTime":"2017-03-31 11:17:29","cappedPrice":"44","isVIP":"0","isQuiz":"1","limitNum":"100","tickets":"5"}
+ERROR - 2017-03-24 11:18:26 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"104","initialPrice":"0","lowestPremium":"3","margin":"0","startTime":"2017-03-24 11:25:55","endTime":"2017-03-31 11:17:55","cappedPrice":"54","isVIP":"0","isQuiz":"1","limitNum":"100","tickets":"5"}
+ERROR - 2017-03-24 11:18:43 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"103","initialPrice":"0","lowestPremium":"3","margin":"0","startTime":"2017-03-24 11:18:24","endTime":"2017-03-31 11:18:24","cappedPrice":"22","isVIP":"0","isQuiz":"0","limitNum":"","tickets":""}
+ERROR - 2017-03-24 11:19:22 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"102","initialPrice":"0","lowestPremium":"3","margin":"0","startTime":"2017-03-24 11:28:41","endTime":"2017-03-31 11:18:41","cappedPrice":"41","isVIP":"0","isQuiz":"1","limitNum":"100","tickets":"7"}
+ERROR - 2017-03-24 11:19:44 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"108"}
+ERROR - 2017-03-24 11:23:00 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"108"}
+ERROR - 2017-03-24 11:23:05 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"105"}
+ERROR - 2017-03-24 11:23:08 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"105"}
+ERROR - 2017-03-24 11:23:15 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"105"}
+ERROR - 2017-03-24 11:23:21 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"105"}
+ERROR - 2017-03-24 11:23:27 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"105"}
+ERROR - 2017-03-24 11:23:30 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"105"}
+ERROR - 2017-03-24 11:23:40 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"105"}
+ERROR - 2017-03-24 11:23:48 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:23:49 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:23:57 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:23:58 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/u_user.php:getSelfInfo:[]
+ERROR - 2017-03-24 11:23:58 --> [methodError]:[重登录失败：令牌已超时!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":""}
+ERROR - 2017-03-24 11:24:02 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/u_user.php:getSelfInfo:[]
+ERROR - 2017-03-24 11:24:02 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/proxyBid/U_proxyBid.php:getProxyBid:{"auctionId":"97"}
+ERROR - 2017-03-24 11:24:02 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:24:02 --> [methodError]:[重登录失败：令牌已超时!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":""}
+ERROR - 2017-03-24 11:24:02 --> [methodError]:[重登录失败：令牌已超时!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":""}
+ERROR - 2017-03-24 11:24:12 --> user:49balance change. the transactionType:6before:0.00 after:1111
+ERROR - 2017-03-24 11:24:12 --> [methodError]:[]:F:\work\program\server\application\controllers/a_admin.php:opBalance:{"userId":"49","opType":"0","balance":"1111"}
+ERROR - 2017-03-24 11:24:19 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:24:26 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:24:28 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:24:39 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:24:52 --> user:16balance change. the transactionType:6before:1.00 after:11112
+ERROR - 2017-03-24 11:24:52 --> [methodError]:[]:F:\work\program\server\application\controllers/a_admin.php:opBalance:{"userId":"16","opType":"0","balance":"11111"}
+ERROR - 2017-03-24 11:24:58 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:25:08 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:25:09 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:25:14 --> [methodError]:[本次竞拍出价不在合理区间！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"4.00"}
+ERROR - 2017-03-24 11:25:38 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"8.00"}
+ERROR - 2017-03-24 11:25:39 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"8.00"}
+ERROR - 2017-03-24 11:25:39 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:25:40 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:25:56 --> user:34balance change. the transactionType:6before:1.50 after:33334.5
+ERROR - 2017-03-24 11:25:56 --> [methodError]:[]:F:\work\program\server\application\controllers/a_admin.php:opBalance:{"userId":"34","opType":"0","balance":"33333"}
+ERROR - 2017-03-24 11:25:59 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:26:03 --> user:34balance change. the transactionType:9before:33334.5 after:33327.5
+ERROR - 2017-03-24 11:26:03 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:26:15 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"8.00"}
+ERROR - 2017-03-24 11:26:15 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"8.00"}
+ERROR - 2017-03-24 11:26:16 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:26:16 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"8.00"}
+ERROR - 2017-03-24 11:26:16 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"8.00"}
+ERROR - 2017-03-24 11:26:16 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"8.00"}
+ERROR - 2017-03-24 11:26:16 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"8.00"}
+ERROR - 2017-03-24 11:26:16 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"8.00"}
+ERROR - 2017-03-24 11:26:17 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"8.00"}
+ERROR - 2017-03-24 11:26:17 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:26:17 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:26:17 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:26:17 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:26:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:26:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:26:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:26:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:26:18 --> [methodError]:[不能重复参与]:F:\work\program\server\application\controllers/prizesQuiz/U_prizesQuiz.php:partakeQuiz:{"auctionId":"109","quizPrice":"58.00"}
+ERROR - 2017-03-24 11:26:20 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:26:29 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:26:34 --> [methodError]:[本次竞拍出价不在合理区间！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"3.00"}
+ERROR - 2017-03-24 11:26:34 --> [methodError]:[本次竞拍出价不在合理区间！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"3.00"}
+ERROR - 2017-03-24 11:26:34 --> [methodError]:[本次竞拍出价不在合理区间！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"3.00"}
+ERROR - 2017-03-24 11:26:43 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:26:43 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:26:44 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:26:44 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:26:44 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:26:45 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:26:45 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:26:45 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:26:46 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:26:46 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:26:46 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:26:47 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:26:59 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:26:59 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:26:59 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:26:59 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:27:00 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:27:00 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:27:01 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:27:01 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"92","price":"6.00"}
+ERROR - 2017-03-24 11:27:01 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:27:02 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:27:02 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:27:03 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:27:03 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:27:03 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"92"}
+ERROR - 2017-03-24 11:28:11 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:28:14 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"8.00"}
+ERROR - 2017-03-24 11:28:16 --> [methodError]:[您已经是该藏品的最高出价者，无需再次竞拍！]:F:\work\program\server\application\controllers/auction/U_auction.php:biddingAuctionItem:{"itemId":"97","price":"8.00"}
+ERROR - 2017-03-24 11:28:16 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:28:17 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"97"}
+ERROR - 2017-03-24 11:30:02 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:30:04 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:30:08 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"109"}
+ERROR - 2017-03-24 11:30:15 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"105"}
+ERROR - 2017-03-24 11:30:18 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"105"}
+ERROR - 2017-03-24 11:30:22 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"105"}
+ERROR - 2017-03-24 11:30:49 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"90"}

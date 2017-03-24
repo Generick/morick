@@ -185,7 +185,6 @@ class M_admin extends My_Model{
 
             $result[] = $userInfo;
         }
-
         return $result;
     }
 

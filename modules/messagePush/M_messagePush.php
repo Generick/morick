@@ -122,7 +122,7 @@ class M_messagePush extends My_Model
          	$v['isRead'] = 0;
 	        $unreadMsg[] = $v;
              
-         }
+         } 
          $data = array_merge($unreadMsg, $readMsg);
          $count = $this->db->from('message')->where($whr)->or_where('user_id', $userId)->count_all_results();
          return ERROR_OK;

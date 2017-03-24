@@ -126,9 +126,7 @@ class M_prizesQuiz extends My_Model
 			if (empty($partUser)) {
 				return ERROR_OK;
 			}
-			//var_dump($auctionId);
-			//var_dump($partUser);die;
-			$tickets = $this->db->select('tickets')->from('prizesquiz')->where('auction_id', $auctionId)->get()->row();
+			$tickets = $this->db->select('tickets')->from('prizesquiz')->where('auction_id', $auctionId)->get()->row_array();
 			for ($i=0; $i < $prizesQuizObj->currentNum ; $i++) 
 			{ 
 				$cUserId = $partUser[$i]['user_id'];
@@ -153,7 +151,8 @@ class M_prizesQuiz extends My_Model
 	{
 		$partUser = $this->db->select('user_id')->from('quizuser')->where('auction_id', $auctionId)->get()->result_array();
 		$quizData = $this->db->select('sum, tickets')->from('prizesquiz')->where('auction_id', $auctionId)->get()->row_array();
-		foreach ($partUser as $v) {
+		foreach ($partUser as $v) 
+		{
 			$this->m_transaction->addTransaction($v['user_id'], TRANSACTION_QUIZ_TICKETS_RETURN, $quizData['tickets']);
 		}
 		return ERROR_OK;
@@ -176,12 +175,21 @@ class M_prizesQuiz extends My_Model
 	{
 		$auctionObj = $this->m_auction->getAuctionBase($auctionId);
 		//判断是否流拍
-		if ($auctionObj->bidsNum == 0) {
+		if ($auctionObj->bidsNum == 0) 
+		{
 			$this->AuctionLP($auctionId);
 			return ERROR_OK;
 		}
+		//有奖竞猜参与人数小于3
+		$cNum = $this->db->select('currentNum')->from('prizesquiz')->where('auction_id', $auctionId)->get()->row_array();
+		if ($cNum['currentNum'] < 3) 
+		{
+			$this->quitQuiz($auctionId);
+			return ERROR_OK;
+		}
 		//$purchasePrice = $this->db->select('currentPrice')->from('auctionitems')->where(array('id'=>$auctionId, 'endTime <='=>time()))->get()->row_array();
-		if ($this->isDealQuiz($auctionId)) {
+		if ($this->isDealQuiz($auctionId)) 
+		{
 			return ERROR_OK;
 		}
 		$sum = $this->db->select('sum')->from('prizesquiz')->where('auction_id', $auctionId)->get()->row_array();
@@ -191,9 +199,31 @@ class M_prizesQuiz extends My_Model
 		//var_dump($userId_quizPrice);die;
 
 		//奖励每一位获奖用户
+		$awardNum = count($awardUser);
+		//计算比率，只有一等奖，比率为100%
+		//只有一二等奖，比率为65%、35%
+		//一二三等奖都有，比率为60%、30%、10%
+		switch ($awardNum) {
+			case 1:
+				$fAwardRate = 1;
+				break;
+			case 2:
+				$fAwardRate = 0.65;
+				$sAwardRate = 0.35;
+				break;
+			case 3:
+				$fAwardRate = 0.6;
+				$sAwardRate = 0.3;
+				$tAwardRate = 0.1;
+				break;
+			
+			default:
+				# code...
+				break;
+		}
 		$awardMoney = 0;
 		$award = 0;
-		for ($i=0; $i <count($awardUser) ; $i++) 
+		for ($i=0; $i < $awardNum; $i++) 
 		{ 
 			switch ($i) 
 			{
@@ -201,7 +231,7 @@ class M_prizesQuiz extends My_Model
 					//一等奖
 					if (count($awardUser[$i]) != 0) 
 					{
-						$awardMoney = $sum['sum'] * 6 / 10 / count($awardUser[$i]);
+						$awardMoney = $sum['sum'] * $fAwardRate / count($awardUser[$i]);
 						$award = FIRST_PRIZE;
 					}
 					
@@ -210,7 +240,7 @@ class M_prizesQuiz extends My_Model
 					//二等奖
 					if (count($awardUser[$i]) != 0) 
 					{
-						$awardMoney = $sum['sum'] * 3 / 10 / count($awardUser[$i]);
+						$awardMoney = $sum['sum'] * $sAwardRate / count($awardUser[$i]);
 						$award = SECOND_PRIZE;
 					}
 					
@@ -219,7 +249,7 @@ class M_prizesQuiz extends My_Model
 					//三等奖
 					if (count($awardUser[$i]) != 0) 
 					{
-						$awardMoney = $sum['sum'] * 1 / 10 / count($awardUser[$i]);
+						$awardMoney = $sum['sum'] * $tAwardRate / count($awardUser[$i]);
 						$award = THIRD_PRIZE;
 					}
 					
@@ -254,11 +284,7 @@ class M_prizesQuiz extends My_Model
 	{
 		//$auctionIds = $this->db->select('id')->from('auctionItems')->where('endTime <=',time())->get()->result_array();
 		$whr = array('auctionItems.endTime <=' => time());
-		// $auctionItems = array();
-		// $count = 0;
-		// $this->m_auction->getAuctionItems(0, 0, $whr, array(), "", $auctionItems, $count);
 		$auctionOver = $this->db->select('auction_id')->from('prizesquiz')->where($whr)->join('auctionItems', 'prizesquiz.auction_id = auctionItems.id')->get()->result_array();
-		//var_dump($auctionOver);die;
 		foreach ($auctionOver as $v) 
 		{
 			$this->quizOver($v['auction_id']);
@@ -279,11 +305,14 @@ class M_prizesQuiz extends My_Model
 		}
 
 		sort($diff_arr);
-		//$diff_arr_sort = array_unique($diff_arr);
-		$diff_arr_sort = array_keys(array_flip($diff_arr));
+		$diff_arr_sorts = array_unique($diff_arr);
+		//$diff_arr_sort = array_keys(array_flip($diff_arr));
+		$diff_arr_sort = array();
+		foreach ($diff_arr_sorts as $v) 
+		{
+			$diff_arr_sort[] = $v;
+		}
 		$f_userid = $s_userid = $t_userid = $awardUser = array();
-		//var_dump($diff_arr_sort);
-		//var_dump($UID_Price_diff);die;
 		for ($i=0; $i < count($UID_Price_diff); $i++) 
 		{ 
 			if (array_key_exists(0, $diff_arr_sort) && $UID_Price_diff[$i]['quiz_price'] == $diff_arr_sort[0]) 
@@ -308,7 +337,8 @@ class M_prizesQuiz extends My_Model
 	function getQuizList($startIndex, $num, &$data, &$count)
 	{
 		$data = $this->db->from('prizesquiz')->join('auctionItems',"prizesquiz.auction_id = auctionItems.id")->select("auction_id,startTime,goods_icon,goods_name,limitNum,currentNum,sum,prizesquiz.status,isQuiz")->order_by('auctionItems.createTime desc')->limit($num,$startIndex)->get()->result_array();
-		foreach ($data as &$v) {
+		foreach ($data as &$v) 
+		{
 			//$auction = $this->db->select('endTime, currentPrice')->from('auctionItems')->where('id', $v['auction_id'])->get()->row_array();
 			$auctionObj = $this->m_auction->getAuctionBase($v['auction_id']);
 			if ($auctionObj->endTime <= time()) 
@@ -348,13 +378,15 @@ class M_prizesQuiz extends My_Model
 	function getQuizInfo($auctionId, &$data)
 	{
 		$data = $this->db->from('prizesquiz')->where('auction_id', $auctionId)->join('auctionItems','prizesquiz.auction_id = auctionItems.id')->get()->row_array();
-		if (empty($data)) {
+		if (empty($data)) 
+		{
 			return PQ_NO_QUIZ;
 		}
 		$data['goods_detail'] = '';
 		//$goods_detail = $this->db->select('goods_detail')->from('goods_bak')->where('goods_bak_id', $data['goods_bak_id'])->get()->row_array();
 		$goods_bak_obj = $this->m_goods_bak->getGoodsBakBase($data['goods_bak_id']);
-		if (!empty($goods_bak_obj)) {
+		if (!empty($goods_bak_obj)) 
+		{
 			$data['goods_detail'] = $goods_bak_obj->goods_detail;
 		}
 		
@@ -369,7 +401,8 @@ class M_prizesQuiz extends My_Model
 		{
 			//$auction = $this->db->select('endTime, currentPrice')->from('auctionItems')->where('id', $v['auction_id'])->get()->row_array();
 			$auctionObj = $this->m_auction->getAuctionBase($v['auction_id']);
-			if ($auctionObj->endTime > time()) {
+			if ($auctionObj->endTime > time()) 
+			{
 				$v['purchasePrice'] = null;
 			}else{
 				$v['purchasePrice'] = $auctionObj->currentPrice;
@@ -415,7 +448,8 @@ class M_prizesQuiz extends My_Model
 
 		$data = $this->db->from('prizesquiz')->like('auction_id', $fields)->or_like('goods_name', $fields)->get()->result_array();
 
-		foreach ($data as &$v) {
+		foreach ($data as &$v) 
+		{
 			//$auction = $this->db->select('endTime, currentPrice')->from('auctionItems')->where('id', $v['auction_id'])->get()->row_array();
 			$auctionObj = $this->m_auction->getAuctionBase($v['auction_id']);
 			if ($auctionObj->endTime <= time()) 
@@ -469,6 +503,8 @@ class M_prizesQuiz extends My_Model
 		//return array(1,array(1,5));
 		//$auctionObj = $this->m_auction->getAuctionBase(1);
 		//var_dump($auctionObj);die;
+		//$this->quizOver(90);
+		//die;
 		$price = 1000;
 		$testdata = array(array('user_id'=>1,'quiz_price'=>22),array('user_id'=>2,'quiz_price'=>88),array('user_id'=>3,'quiz_price'=>88),array('user_id'=>4,'quiz_price'=>33));
 		$res = $this->getFTUserId($price,$testdata);
