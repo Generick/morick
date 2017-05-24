@@ -1,0 +1,28 @@
+<div class="goods-pics-box fix">
+    <div class="goods-img f">
+        <video id="uplo-videos" controls="controls" poster="assets/images/public/default.png" preload="auto" width="150" height="150">
+        	<source></source>
+        </video>
+        <!--<span class="up-load-span" style="background: url(assets/images/public/default.png) no-repeat center center;" id="up-output" >
+        	<p class="up-load-p">
+        		还未上传视频
+        	</p>
+        	<p class="up-load-p1">
+        		视频地址：
+        	</p>
+        	<p class="up-load-p2" ng-bind="url">
+        		
+        	</p>
+        </span>-->
+    </div>
+     
+    <div class="upload-icon f">
+        <div class="upload-goods-form">
+            <i class="ti-plus"></i>
+            <form id="file-form-4">
+            	<input type="file" name="file" accept="video/mp4,video/mpeg"  onchange="angular.element(this).scope().videoUpload(this.files)">
+            </form>
+        </div>
+      
+    </div>
+</div>

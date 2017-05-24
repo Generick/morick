@@ -4,7 +4,42 @@
  *公共方法
  *
  */
-
+  //跳转到指定位置
+	$.fn.scrollTo =function(options){
+        var defaults = {
+            toT : 0, //滚动目标位置
+            durTime : 30, //过渡动画时间
+            delay : 15, //定时器时间
+            callback:null //回调函数
+        };
+        var opts = $.extend(defaults,options),
+            timer = null,
+            _this = this,
+            curTop = _this.scrollTop(),//滚动条当前的位置
+            subTop = opts.toT - curTop, //滚动条目标位置和当前位置的差值
+            index = 0,
+            dur = Math.round(opts.durTime / opts.delay),
+            smoothScroll = function(t){
+                index++;
+                var per = Math.round(subTop/dur);
+                if(index >= dur){
+                    _this.scrollTop(t);
+                    window.clearInterval(timer);
+                    if(opts.callback && typeof opts.callback == 'function'){
+                        opts.callback();
+                    }
+                    return;
+                }else{
+                    _this.scrollTop(curTop + index*per);
+                }
+            };
+        timer = window.setInterval(function(){
+            smoothScroll(opts.toT);
+        }, opts.delay);
+        return _this;
+    };
+    
+    
 var commonFu = {
 
 	//比较两个值是否相等
@@ -25,6 +60,196 @@ var commonFu = {
 		
 		return isEqual;
 	},
+	
+	
+	     //保留两位小数
+    toDecimals : function (x) {  
+    	
+        var f = parseFloat(x);    
+        if (isNaN(f)) {    
+            return false;    
+        }    
+        var f = Math.round(x*100)/100;    
+        var s = f.toString();    
+        var rs = s.indexOf('.');    
+        if (rs < 0) {    
+            rs = s.length;    
+            s += '.';    
+        }    
+        while (s.length <= rs + 2) {    
+            s += '0';    
+        }    
+        return s;    
+    } ,   
+	
+	
+	//正则筛选
+	
+	returnRightReg : function(comeStr){
+	
+		var re1 = new RegExp("<.+?>","g");
+		var msg2 = comeStr.replace(re1,'');//执行替换成空字符
+		msg2 = msg2.replace(/\↵/g,"");
+	    msg2 = msg2.replace(/[\f\n\r\t\v]/g,"");
+		msg2 = msg2.replace(/[ ]/g,"");
+		msg2 = msg2.replace(/&nbsp;/ig,"");
+		msg2 = msg2.replace(/&amp;/ig,"");
+		msg2 = msg2.replace(/nbsp;/ig,"");
+		msg2 = msg2.replace(/nbsp/ig,"");
+		msg2 = msg2.replace(/&/ig,"");
+		msg2 = msg2.replace(/amp;/ig,"");
+		msg2 = msg2.replace(/amp/ig,"");
+        msg2 = msg2.replace(/\s/g,"");
+	
+		return msg2;
+	},
+	
+	
+	 /**
+	 * 设置二次分享
+	 */
+	setShareTimeLine : function(wxParams,shareInfo,URL)
+	{     
+		wx.config({
+		    debug: false,
+		    appId: wxParams.appId,
+		    timestamp: wxParams.timestamp,
+		    nonceStr: wxParams.nonceStr,
+		    signature: wxParams.signature,
+		    jsApiList: [
+				'onMenuShareTimeline',	// 获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
+				'onMenuShareAppMessage',  // 获取“分享给朋友”按钮点击状态及自定义分享内容接口
+		    ]
+		});
+		
+		wx.ready(function(){
+			
+		
+		        var srcList = [];
+		        $.each($('#preImages img'),function(i,item){
+		            if(item.src) {
+		                srcList.push(item.src);
+		                $(item).click(function(e){
+		                
+		                    wx.previewImage({
+		                        current: this.src,
+		                        urls: srcList
+		                    });
+		                });
+		            }
+		        });
+		    
+			//普通 分享到微信好友
+			wx.onMenuShareAppMessage({
+			    title: shareInfo.title, // 分享标题
+			    desc: shareInfo.content, // 分享描述
+			    link: URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+			    imgUrl: shareInfo.img, // 分享图标
+			    success: function () { 
+//			        $dialog.msg("已分享");// 用户确认分享后执行的回调函数
+			    },
+			    cancel: function () { 
+			        $dialog.msg("已取消");// 用户取消分享后执行的回调函数
+			    }
+			});
+			
+			//普通 分享到微信朋友圈
+			wx.onMenuShareTimeline({
+			    title: shareInfo.title, // 分享标题
+			    desc: shareInfo.content, // 分享描述
+			    link: URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+			    imgUrl: shareInfo.img, // 分享图标
+			    success: function () { 
+//			        $dialog.msg("已分享");// 用户确认分享后执行的回调函数
+			    },
+			    cancel: function () { 
+			        $dialog.msg("已取消");// 用户取消分享后执行的回调函数
+			    }
+			});
+			
+		})
+		
+	},
+	
+	
+	getUrlPublic : function(localHref){
+		
+		var arr = [];
+		
+		var page  = null,pageId = null;
+		if(localHref.indexOf("&") != -1)
+		{   
+			
+			page = localHref.split("&")[1].split("=")[1];
+			pageId = localHref.split("&")[0].split("=")[1];
+			
+            if(String(page).indexOf("#") != -1)
+			{
+				 page = parseInt(page.split("#")[0]);
+				    	    	
+			}
+			else
+			{
+				page = parseInt(page);
+			}
+			if(String(pageId).indexOf("#") != -1)
+			{
+				pageId = parseInt(pageId.split("#")[0]);
+				    	    	
+			}
+			else
+			{
+				pageId = parseInt(pageId);
+			}
+			
+			arr.push(page);
+			arr.push(pageId);
+			
+		}
+		else{}
+		return arr;
+	},
+	
+	
+	listGetUrlPublic : function(localHref2){
+		
+		var arr = [];
+		
+		var page  = null,pageId = null;
+		
+		if(localHref2.indexOf("&") !=-1)
+		{   
+			
+			page =  localHref2.split("&")[0].split("=")[1];
+			pageId = localHref2.split("&")[1].split("=")[1];
+			
+	    	if(String(page).indexOf("#") != -1)
+			{
+			    page = parseInt(page.split("#")[0]);
+			    	    	
+			}
+			else
+			{
+			    page = parseInt(page);
+			}
+			if(String(pageId).indexOf("#") != -1)
+			{
+				pageId = parseInt(pageId.split("#")[0]);
+			    
+			}
+			else
+			{
+				pageId = parseInt(pageId);
+			}
+            arr.push(page);
+            arr.push(pageId);
+                  
+		}
+		else{}
+		return arr;
+	},
+	
+	
 	
 	//判断是否为空
 	isEmpty : function(strVal)
@@ -318,4 +543,8 @@ function fadeIn(elem,speed)
     }
     
     dg();
-}
+};
+
+
+  
+  

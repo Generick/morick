@@ -32,6 +32,7 @@ CUserInfo::registerFields(array(
 ));
 
 CUserBaseInfo::registerFields(array(
+    'note',
 ));
 
 ///////////////////////////////

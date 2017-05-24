@@ -13,6 +13,7 @@ class M_auction extends My_Model
         parent::__construct();
 
         $this->load->driver("cache");
+        $this->load->model('m_account');
         if(!$this->cache->redis->is_supported())
         {
             $this->log->write_log('error', "redis not supported!!!");
@@ -413,7 +414,7 @@ class M_auction extends My_Model
                 {
                     $this->load->model("m_smsCode");
                     //close message notification
-                    //$this->m_smsCode->sendMsg($userObj->telephone, $content);
+                    $this->m_smsCode->sendMsg($userObj->telephone, $content);
                     $this->m_common->insert("sms_remind", array("remindType" => 0, "userId" => $userId, "auctionId" => $auctionId, "remindTime" => now()));
                 }
             }
@@ -581,6 +582,22 @@ class M_auction extends My_Model
         if($this->m_common->delete("auctionItems", array("id" => $itemId)) >= 1)
         {
             $auctionItemObj->deleteCache();
+
+            $adminId = $this->m_account->getSessionData('userId');
+            $this->load->model("m_goods_bak");
+            $goods_bak_info = $this->m_goods_bak->getGoodsBakBase($auctionItemObj->goods_bak_id);
+            //$goods_bak_info = $this->db->select('goods_name, goods_pics')->where('goods_bak_id', $auctionItemObj->goods_bak_id)->get('goods_bak')->row_array();
+            $cName = $goods_bak_info->goods_name;
+            $cPic = $goods_bak_info->goods_cover;
+            $data = array(
+                'adminId' => $adminId,
+                'TID' => $itemId,
+                'type' => 1,
+                'cName' => $cName,
+                'cPic' => $cPic,
+                'delTime' => time());
+            $this->db->insert('del_record', $data);
+            $this->db->where('auctionItemId', $itemId)->delete('biddingLogs');
             return ERROR_OK;
         }
         return ERROR_SYSTEM;
@@ -603,5 +620,47 @@ class M_auction extends My_Model
         return $auctionGoodArr;
     }
 
-    
+    //获取删除藏品、拍品的记录
+    function AGDelRecord($startIndex, $num, $whr, &$data, &$count)
+    {
+        $this->db->start_cache();
+        $this->db->from('del_record')->where($whr);
+        $this->db->stop_cache();
+        $count = $this->db->count_all_results();
+        if ($num > 0) 
+        {
+            $this->db->limit($num, $startIndex);
+        }
+        $data = $this->db->order_by('delTime desc')->get()->result_array();
+        $this->db->flush_cache();
+        foreach ($data as &$v) 
+        {
+            // if ($v['type'] == 1) 
+            // {
+            //     $info = $this->getAuctionBase($v['TID']);
+            //     $goodsInfo = $info->goodsInfo;
+            // }else
+            // {
+            //     $goodsInfo = $this->db->select('goods_name, goods_pics')->where('goods_id', $v['TID'])->get('goods')->row_array();
+            //     var_dump($goodsInfo);die;
+            // }
+
+            // $v['tName'] = $goodsInfo['goods_name'];
+            // $v['tPic'] = $goodsInfo['goods_pics'];
+            $adminName = $this->db->select('name')->where('userId', $v['adminId'])->get('admin')->row_array();
+            $v['adminName'] = $adminName['name'];
+            $v['delTime'] = date("Y-m-d H:i:s", $v['delTime']);
+        }
+    }
+
+
+    //设置竞拍记录备注 
+    function setBidNote($id, $note)
+    {
+        if ($this->db->where('id', $id)->update('biddingLogs', array('note' => $note))) 
+        {
+            return ERROR_OK;
+        }
+        return ERROR_SYSTEM;
+    }
 }

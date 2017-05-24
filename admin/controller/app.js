@@ -65,3 +65,23 @@ app.controller('QuizCtrl', function($scope){ //竞猜
 app.controller('PushCtrl', function($scope){ //推送
 	PushController.init($scope);
 })
+
+app.controller('userInfoController', function($scope){ //个人信息
+	userInfoController.init($scope);
+
+})
+
+app.controller('objectGoodsController', function($scope){ //个人信息
+	objectGoodsController.init($scope);
+
+})
+
+app.controller('auctionGoodsController', function($scope){ //个人信息
+	auctionGoodsController.init($scope);
+
+})
+
+app.controller('elegantController', function($scope){ //个人信息
+	elegantController.init($scope);
+
+})

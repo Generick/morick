@@ -58,16 +58,20 @@ var bindAccountController =
     		if (self.bindModel.bindType == 0)
     		{
     			self.bindModel.QQBind = true;
+    			
+    			$("#QQShow").removeClass("type-hidden").addClass("type-show").siblings().removeClass("type-show").addClass("type-hidden")
     			self.bindModel.QQ = parseInt(self.bindModel.bindAccount);
     		}
     		else if (self.bindModel.bindType == 1)
     		{
     			self.bindModel.weChatBind = true;
+    			$("#WeiXinShow").removeClass("type-hidden").addClass("type-show").siblings().removeClass("type-show").addClass("type-hidden")
     			self.bindModel.weChat = self.bindModel.bindAccount;
     		}
     		else
     		{
     			self.bindModel.mailBind = true;
+    			$("#emailShow").removeClass("type-hidden").addClass("type-show").siblings().removeClass("type-show").addClass("type-hidden")
     			self.bindModel.mail = self.bindModel.bindAccount;
     		}
     	}

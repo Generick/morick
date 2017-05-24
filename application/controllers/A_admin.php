@@ -259,6 +259,24 @@ class A_admin extends Admin_Controller
         $this->responseError(ERROR_OK);
         return;
     }
+
+    function getUserInfo()
+    {
+        if(!$this->checkParam(array("userId")))
+        {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
+
+        $userId = intval($this->input->post("userId"));
+
+        $this->load->model("m_user");
+        $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $userId);
+        $userInfo = $userObj->getUserBaseData();
+
+        $this->responseSuccess(array("userInfo" => $userInfo));
+        return;
+    }
     /////////////////////////////////////////////////////////////
     // end region 管理员管理
 

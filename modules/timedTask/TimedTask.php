@@ -86,22 +86,22 @@ class TimedTask extends My_Controller
                 $this->m_messagePush->createUserMsg($one->currentUser, MP_MSG_TYPE_AUCTION, $orderInfo['order_no']);
 
                 //竞拍成功 短信提醒
-                // if($this->m_common->get_one("paid_services", array("userId" =>$one->currentUser, "serviceType" => SERVICE_SMS_MONTHLY, "startTime <=" => now(), "endTime >=" => now())))
-                // {
-                //     $goodsInfo = $this->m_goods_bak->getGoodsBakBase($one->goods_bak_id);
-                //     if($goodsInfo)
-                //     {
-                //         $content = $this->m_common->format(SMS_OBTAIN, $goodsInfo->goods_name, $one->currentPrice);
+                 if($this->m_common->get_one("paid_services", array("userId" =>$one->currentUser, "serviceType" => SERVICE_SMS_MONTHLY, "startTime <=" => now(), "endTime >=" => now())))
+                 {
+                     $goodsInfo = $this->m_goods_bak->getGoodsBakBase($one->goods_bak_id);
+                     if($goodsInfo)
+                     {
+                         $content = $this->m_common->format(SMS_OBTAIN, $goodsInfo->goods_name, $one->currentPrice);
 
-                //         $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $one->currentUser);
-                //         if($userObj)
-                //         {
-                //             //close message notification
-                //             //$this->m_smsCode->sendMsg($userObj->telephone, $content);
-                //             $this->m_common->insert("sms_remind", array("remindType" => 1, "userId" => $one->currentUser, "auctionId" => $one->id, "remindTime" => now()));
-                //         }
-                //     }
-                // }
+                         $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $one->currentUser);
+                         if($userObj)
+                         {
+                             //close message notification
+                             $this->m_smsCode->sendMsg($userObj->telephone, $content);
+                             $this->m_common->insert("sms_remind", array("remindType" => 1, "userId" => $one->currentUser, "auctionId" => $one->id, "remindTime" => now()));
+                         }
+                     }
+                 }
                 //code
             }
         }
@@ -146,7 +146,7 @@ class TimedTask extends My_Controller
                         if($userObj)
                         {
                             //close message notification
-                            //$this->m_smsCode->sendMsg($userObj->telephone, $content);
+                            $this->m_smsCode->sendMsg($userObj->telephone, $content);
                             $this->m_common->insert("sms_remind", array("remindType" => 2, "userId" => $one->currentUser, "auctionId" => $one->id, "remindTime" => now()));
                         }
                     }

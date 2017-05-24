@@ -15,7 +15,7 @@
             "upload/uploadImages" : {"file":{"type":"file"},"file2":{"type":"file"}, "说明":"上传图片", "备注" : "fileType 1图片 2视频 3其他"},
             // 账号相关
             "account/registerUser" : {"platformId":"123", "password":"123", "verifyCode" : "8888", "说明": "注册", "备注" : ""},
-            "account/login" : {userType : 1, "platform":5, "platformId" : "13918879481", "password" : "8888",  "说明" : "登录",
+            "account/login" : {"userType" : 1, "platform":5, "platformId" : "13918879481", "password" : "8888",  "说明" : "登录",
                 "备注" : "platform（平台类型 1自有账号 2微信 3QQ 4微博 5手机验证码） " +
                 "platformId（当前平台的唯一标识），userType：1为普通用户，2为管理员"},
             "account/reLogin" : {"userType":1, "token":"123", "说明":"重登录", "备注" : ""},
@@ -44,6 +44,7 @@
             "a_admin/modUserInfo" : {"userId" : "", "modInfo" : '{"note": "备注信息"}', "说明":"修改个人数据"},
             "a_admin/opBalance" : {"userId" : "", "opType" : "", "balance" : "", "说明" : "管理员操作用户余额 opType 0增加 1减少"},
             "a_admin/smsSend" :{"params" :'{"type":1,"phoneNum":"18255001881","goods_name":"test","price":20}',"说明":"type为类型 1超价提醒 2竞拍成功 3截拍提醒"},
+            "a_admin/getUserInfo" : {"userId" : "", "说明" : "根据UserId获取个人用户信息"},
 
             //region 商品
             "goods/Goods/getGoods" : {"startIndex":0, "num":10, "说明":"获取商品列表"},
@@ -51,11 +52,12 @@
             "goods/Goods/getOneGoods" : {"goodsId" : 1,  "说明" : "获取商品详情"},
             "goods/A_goods/modGoods" : {"goodsId" : 1, "modInfo" : '{}', "说明" : "修改商品"},
             "goods/A_goods/delGoods" : {"goodsIds" : '[]', "说明" : "删除商品"},
+            "goods/A_goods/outLibrary" : {"goodsId" : 100, "说明" : "商品出库"},
             //endregion
 
             //region 拍卖
-            "auction/Auction/getAuctionItems" : {"startIndex" : 0, "num" : 10, "type" : 0, "说明" : "获取拍卖展品列表", "备注" : "type 0正在拍卖 1表示已经结束"},
-            "auction/A_auction/getAuctionItems" : {"startIndex" : 0, "num" : 10, "说明" : "获取拍卖展品列表"},
+            "auction/Auction/getAuctionItems" : {"startIndex" : 0, "num" : 10, "type" : 0, "说明" : "获取拍卖展品列表", "备注" : "type 0正在拍卖 1表示已经结束 2包含正常拍卖跟已截拍的"},
+            "auction/A_auction/getAuctionItems" : {"startIndex" : 0, "num" : 10, 'todayAuction' : 0, "说明" : "获取拍卖展品列表 todayAuction 1当日截拍"},
             "auction/Auction/getAuctionAllInfo" : {"itemId" : 0, "说明" : "根据展品ID获取展品详情"},
             "auction/Auction/getBiddingList" : {"itemId" : 0, "startIndex" : 0, "num" : 10, "说明" : "获取竞拍记录"},
             "auction/Auction/getPersonalBiddingList" : {"userId" : 0, "startIndex" : 0, "num" : 10, "说明" : "获取个人竞拍记录"},
@@ -69,6 +71,10 @@
                 "startTime" : "2016-11-17 17:19:47",
                 "endTime" : "2016-11-17 17:19:54",
                 "cappedPrice" : "800",
+                "isVIP" : 0,
+                "isQuiz" : 1,
+                "limitNum" : 100,
+                "tickets" : 5,
                 "说明" : "发布展品"
                   },
             "auction/A_auction/modActionItem" : {"itemId" : 0, "modInfo" : '{"details" : ""}', "说明" : "修改展品信息"},
@@ -76,6 +82,8 @@
             "auction/A_auction/delAuctionItems" : {"itemIds" : '[]', "说明" : "删除展品"},
             "auction/A_auction/setAuctionItemOff" : {"itemId" : 0, "说明" : "下架展品"},
             "auction/A_auction/auctionStatistical" :  {"startTime" : "", "endTime" : "", "startIndex" : 0, "num" : 10, "说明" : "拍品统计"},
+            "auction/A_auction/AGDelRecord" :  {"startIndex" : 0, "num" : 10, 'type' : 0,"startTime" : '', "endTime" : '', "说明" : "获取删除记录 0藏品 1拍品"},
+            "auction/A_auction/setBidNote" :  {"id" : 0, "note" : 'beizhu', "说明" : "竞拍记录设置备注"},
             //endregion
 
             //bids interface start
@@ -185,6 +193,18 @@
             //region 定时任务
             "timedTask/TimedTask/createOrder" : {"说明" : "创建订单"},
             "timedTask/TimedTask/remindNearEnd" : {"说明" : "截拍提醒"},
+            //endregion
+
+            //region
+            "information/Information/getInformationList" : {"startIndex" : 0, "num" : 10, "说明" : "获取资讯列表"},
+            "information/Information/getInformationInfo" : {"informationId" : 0, "说明" : "获取资讯详情"},
+            "information/A_information/getInformationList" : {"startIndex" : 0, "num" : 10, "likeStr" : "", "说明" : "获取资讯列表"},
+            "information/A_information/createInformation" : {"type" : 0, "cover" : "", "title" : "", "content" : "", "说明" : "新增资讯"},
+            "information/A_information/releaseInformation" : {"informationId" : 0, "说明" : "发布or取消发布资讯"},
+            "information/A_information/delInformation" : {"informationIds" : '[1,2]',  "说明" : "删除资讯"},
+            "information/A_information/modInformation" : {"informationId" : 0, "modInfo" : '{"type" : 0}', "说明" : "修改资讯"},
+            "information/A_information/getInformationInfo" : {"informationId" : 0,  "说明" : "获取资讯详情"}
+
             //endregion
         };
 

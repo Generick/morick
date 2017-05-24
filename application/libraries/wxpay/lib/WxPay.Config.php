@@ -36,12 +36,12 @@ class WxPayConfig
 	 */
 
     //内网证书
-    //const SSLCERT_PATH = 'E:\Saturn\work\auction\program\server\application\libraries\wxpay\cert\apiclient_cert.pem';
-    //const SSLKEY_PATH = 'E:\Saturn\work\auction\program\server\application\libraries\wxpay\cert\apiclient_key.pem';
+    const SSLCERT_PATH = 'E:\Saturn\work\auction\program\server\application\libraries\wxpay\cert\apiclient_cert.pem';
+    const SSLKEY_PATH = 'E:\Saturn\work\auction\program\server\application\libraries\wxpay\cert\apiclient_key.pem';
 
     //本机证书
-    const SSLCERT_PATH = 'F:\work\program\server\application\libraries\wxpay\cert\apiclient_cert.pem';
-    const SSLKEY_PATH = 'F:\work\program\server\application\libraries\wxpay\cert\apiclient_key.pem';
+//    const SSLCERT_PATH = 'F:\work\program\server\application\libraries\wxpay\cert\apiclient_cert.pem';
+//    const SSLKEY_PATH = 'F:\work\program\server\application\libraries\wxpay\cert\apiclient_key.pem';
 
     //外网证书
     //const SSLCERT_PATH = '/mnt/data/www/wzq/application/libraries/wxpay/cert/apiclient_cert.pem';

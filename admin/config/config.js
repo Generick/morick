@@ -6,13 +6,12 @@
 //var BASE_URL = "http://meeno.f3322.net:8082/auction_dev/index.php/"; //开发
 //var BASE_URL = "http://meeno.f3322.net:8082/auction/index.php/"; //测试
 //var BASE_URL = "http://auction.yawan365.com/index.php/"; //正式
-//var BASE_URL = "http://192.168.2.23:8082/auction/index.php/"; //内网Url
-//var BASE_URL = "http://mc.meeno.net:8082/auction/index.php/"; //内网Url
-var BASE_URL = "http://localhost/auction/index.php/"; //内网Url
+var BASE_URL = "http://192.168.0.88:8082/auction/index.php/"; //内网Url
+
 var BASE_JUMP_URL = "../admin/index.html#/";
-//var BASE_URL = "http://192.168.2.128/auction/index.php/"
+//var BASE_URL = "http://192.168.0.110/auction/index.php/"
 
-
+//var BASE_JUMP_URL = "../paimai-admin/index.html#/";
 
 //api
 var api = {
@@ -30,7 +29,8 @@ var api = {
     API_MOD_GOODS : BASE_URL + "goods/A_goods/modGoods", //修改藏品
     API_GET_SINGLE_GOODS : BASE_URL + "goods/Goods/getOneGoods", //获取单个藏品
     API_DEL_GOODS : BASE_URL + "goods/A_goods/delGoods", //删除藏品
-
+    API_OUT_GOODS : BASE_URL + "goods/A_goods/outLibrary",//商品出库
+    API_GET_DELETE_AUCTIONS_OBJECTS : BASE_URL + "auction/A_auction/AGDelRecord",//获取藏品和拍品删除记录
     //拍卖
     API_GET_AUCTION_LIST : BASE_URL + "auction/A_auction/getAuctionItems", //竞拍展品列表
     API_GET_BIDDING_LIST : BASE_URL + "auction/Auction/getBiddingList", //竞拍记录
@@ -40,7 +40,7 @@ var api = {
     API_DEL_AUCTION_ITEM : BASE_URL + "auction/A_auction/delAuctionItems", //删除展品
     API_GET_AUCTION_GOODS : BASE_URL + "auction/A_auction/getAuctionGoods", //获取藏品列表
     API_SET_AUCTION_OFF : BASE_URL + "auction/A_auction/setAuctionItemOff", //下架展品
-    
+    API_SET_AUCTION_NOTE : BASE_URL +"auction/A_auction/setBidNote",//竞拍记录设置备注
     //出价管理
     API_SEND_MESSAGE : BASE_URL + "bids/A_bids/smsSend",//发送短信
     API_GET_BIDLIST : BASE_URL +"bids/A_bids/getBidList",//获取数据
@@ -89,6 +89,20 @@ var api = {
 	//推送
 	API_PUSH_MESSAGE : BASE_URL + "messagePush/A_messagePush/pushMessage", //后台推送消息pushType推送类型0非vip 1:vip 2:全部 3:个人
 	
+	
+	API_GET_INFORMATION_LIST : BASE_URL + "information/A_information/getInformationList",//获取资讯列表
+	
+	API_ADD_INFORMATION_LIST : BASE_URL + "information/A_information/createInformation",//新增资讯
+	
+	API_SET_INFORMATION_LIST : BASE_URL + "information/A_information/releaseInformation",//发布资讯
+	
+	API_DELETE_INFORMATION : BASE_URL + "information/A_information/delInformation",//删除资讯
+	
+	API_MOD_INFORMATION_LIST : BASE_URL + "information/A_information/modInformation",//修改资讯
+	
+	API_GET_INFORMATION_DETAIL : BASE_URL + "information/A_information/getInformationInfo",//获取资讯详情
+	
+	API_ADMIN_GET_USERINFO : BASE_URL + "a_admin/getUserInfo",//获取用户信息
     //上传文件
     API_UP_FILE : BASE_URL + "upload/uploadImages"
 };
@@ -161,7 +175,9 @@ var JUMP_URL = {
     ORDER_INFO: BASE_JUMP_URL + 'orderInfo', //订单详情
     USER_LIST: BASE_JUMP_URL + "user", //用户
     BIDDING_LIST: BASE_JUMP_URL + "bidding", //竞拍记录
-    AUCTION_LIST: BASE_JUMP_URL + "auction" //竞拍藏品
+    AUCTION_LIST: BASE_JUMP_URL + "auction", //竞拍藏品
+    PUSH_MESSAGE: BASE_JUMP_URL + "push",//消息推送
+    ACTION_USERINFO : BASE_JUMP_URL + "userInfo",//跳到个人详情
 };
 
 //权限2级

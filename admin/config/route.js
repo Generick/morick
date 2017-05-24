@@ -85,4 +85,34 @@ app.config(function($stateProvider, $urlRouterProvider){
         	templateUrl: 'view/push/mn.push.html',
         	controller: 'PushCtrl'
         })
+        //拍品页个人信息
+        .state('userInfo', {
+        	url: '/userInfo',
+        	templateUrl: 'view/auction/userInfo.html',
+        	controller: 'userInfoController'
+        })
+        
+        
+        //拍品页个人信息
+        .state('auctionGoods', {
+        	url: '/auctionGoods',
+        	templateUrl: 'view/data/auctionGoods.html',
+        	controller: 'auctionGoodsController'
+        })
+        
+        //拍品页个人信息
+        .state('objectGoods', {
+        	url: '/objectGoods',
+        	templateUrl: 'view/data/objectGoods.html',
+        	controller: 'objectGoodsController'
+        })
+        
+         //拍品页个人信息
+        .state('elegant', {
+        	url: '/elegant',
+        	templateUrl: 'view/elegant/elegantList.html',
+        	controller: 'elegantController'
+        })
+        
+        
 });

@@ -42,6 +42,10 @@ class Auction extends My_Controller
             {
                 $whereArr["endTime <"] = now();
             }
+            elseif($type == AUCTION_ALL)
+            {
+                $whereArr["startTime <="] = now();
+            }
         }
         $startIndex = intval($this->input->post("startIndex"));
         $num = intval($this->input->post("num"));

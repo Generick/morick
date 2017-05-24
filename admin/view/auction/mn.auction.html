@@ -5,6 +5,7 @@
         <div class="f checking" ng-click="getDifGoods(-1)"><span>全部</span></div>
         <div class="f checking" ng-click="getDifGoods(0)"><span>普通拍品</span></div>
         <div class="f checking" ng-click="getDifGoods(1)"><span>VIP拍品</span></div>
+         <div class="f checking" ng-click="getDifGoods(2)"><span>当日截拍拍品</span></div>
         </div>
      
         <div class="r m-g-l-10"><a class="btn btn-danger" ng-click="delAuctions()"><i class="ti-trash"></i>删除</a></div>
@@ -71,7 +72,19 @@
             </tbody>
         </table>
     </div>
-
+    <div class="all-fixed-table all-fixed-table-act" id="all-fixed-table-act">
+     	<div class="auct-box">
+     		<p class="auct-title" style="text-align: center;">删除拍品</p>
+     		<div class="auct-cont" style="line-height: 80px;">
+     			确定要删除该项拍品吗？
+     		</div>
+     		<div class="auct-btn">
+     			
+     			<p class="all-btn-cancle" ng-click="yesToDelete(1)">确定</p>
+     			<p class="all-btn-ok" ng-click="yesToDelete(0)">取消</p>
+     		</div>
+     	</div>
+     </div>
     <div ng-include="'modules/page/page.html'"></div>
 </div>
 

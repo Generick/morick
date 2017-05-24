@@ -2,20 +2,13 @@
  * 拍卖历史详情
  */
 
-app.controller("ctrl", function ($scope)
-{
-	
-    auctedGoodsDetailController.init($scope); 
-    sessionStorage.setItem("itIsAuctionPage",1);
-    
-	
-});
 
 var auctedGoodsDetailController =
 {
 	scope : null,
     
-   
+    wxParams : {},
+    shareInfo : {},
     auctedGoodsDetailModel:
     {
     	id : null,//商品id
@@ -43,9 +36,11 @@ var auctedGoodsDetailController =
     	initialPrice : null//初始价钱
     },
     
-    init : function ($scope)
+    init : function ($scope,wxParams)
     {
     	this.scope = $scope; 
+    	
+    	this.wxParams = wxParams;
     	
     	this.getUrlAndIds();
     	
@@ -63,30 +58,16 @@ var auctedGoodsDetailController =
     getUrlAndIds : function(){
     	
     	var self = this;
-    	if(location.href.indexOf("&") != -1)
-		{
-			
-			auctedGoodsDetailController.thisDetailPage = location.href.split("&")[1].split("=")[1];
-			auctedGoodsDetailController.thisDataId = location.href.split("&")[0].split("=")[1];
-		    if(String(self.thisDetailPage).indexOf("#") != -1)
-			{
-				 self.thisDetailPage = parseInt(self.thisDetailPage.split("#")[0]);
-				    	    	
-			}
-			else
-			{
-				self.thisDetailPage = parseInt(self.thisDetailPage);
-			}
-			if(String(self.thisDataId).indexOf("#") != -1)
-			{
-				self.thisDataId = parseInt(self.thisDataId.split("#")[0]);
-				    	    	
-			}
-			else
-			{
-				self.thisDataId = parseInt(self.thisDataId);
-			}
-		}
+    	
+    	var arr = [];
+    	
+    	if(commonFu.getUrlPublic(location.href).length == 2)
+    	{
+    		arr = commonFu.getUrlPublic(location.href);
+	    	self.thisDetailPage = arr[0];
+	    	self.thisDataId = arr[1];
+    	}
+    	
     },
     
     initData : function ()
@@ -105,23 +86,29 @@ var auctedGoodsDetailController =
     		self.auctedGoodsDetailModel.id = params.itemId;
     	}
     	
-    	self.setReadLog();
+//  	self.setReadLog();
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_AUCTION_INFO, params, function(data)
     	{  
-                console.log(JSON.stringify(data))
+//              console.log(JSON.stringify(data))
     			self.auctedGoodsDetailModel.allInfo = [];
 	    		self.auctedGoodsDetailModel.allInfo = data.allInfo;
 	    		self.auctedGoodsDetailModel.auctionSuccess = false;
 	    		if(!commonFu.isEmpty(self.auctedGoodsDetailModel.allInfo.goodsInfo))
 	    		{
 	    			self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_pics = JSON.parse(data.allInfo.goodsInfo.goods_pics);
+	    		    var imgArr = self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_pics;
+	                self.shareInfo.img = (commonFu.isEmpty(imgArr) || imgArr.length == 0) ? "" : imgArr[0];
+	    		
 	    		}
 				
-			    self.auctedGoodsDetailModel.allInfo.currentPrice = self.toDecimals(self.auctedGoodsDetailModel.allInfo.currentPrice);
+			    self.auctedGoodsDetailModel.allInfo.currentPrice = commonFu.toDecimals(self.auctedGoodsDetailModel.allInfo.currentPrice);
 				if(!commonFu.isEmpty(self.auctedGoodsDetailModel.allInfo.goodsInfo))
 	    		{
 	    			$('#goodsContent2').html(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_detail);
+	    			
+	    			self.shareInfo.content = commonFu.returnRightReg(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_detail).substr(0,63);
+	    			
 	    		}
 				
 	            if(parseFloat(self.auctedGoodsDetailModel.allInfo.cappedPrice) > 0)
@@ -145,10 +132,15 @@ var auctedGoodsDetailController =
 				if(!commonFu.isEmpty(self.auctedGoodsDetailModel.allInfo.goodsInfo))
 	    		{
 	    			setTitle(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_name);
+	    			
+	    			self.shareInfo.title =  commonFu.returnRightReg(self.auctedGoodsDetailModel.allInfo.goodsInfo.goods_name);
+	    			self.shareInfo.title =  self.shareInfo.title + " - 雅玩之家";
 	    		}
 	            $('.animation').css('display','none');
 	            $('.container').css('opacity','1');
-	
+	          
+	            commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
+	            
 	            self.scope.auctedGoodsDetailModel = self.auctedGoodsDetailModel;
 	            self.scope.$apply();
  
@@ -160,21 +152,21 @@ var auctedGoodsDetailController =
     	}
     },
     
-    //记录拍品已阅读
-    setReadLog: function()
-    {
-    	var self = this;
-    	
-    	var param = {
-    		readType : 1,
-    		readId : self.auctedGoodsDetailModel.id
-    	};
-    	
-    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_READLOG, param, function()
-    	{
-    		self.scope.$apply();
-    	})
-    },
+//  //记录拍品已阅读
+//  setReadLog: function()
+//  {
+//  	var self = this;
+//  	
+//  	var param = {
+//  		readType : 1,
+//  		readId : self.auctedGoodsDetailModel.id
+//  	};
+//  	
+//  	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_READLOG, param, function()
+//  	{
+//  		self.scope.$apply();
+//  	})
+//  },
 
     //初始化竞拍记录
     initBiddingData: function()
@@ -207,7 +199,7 @@ var auctedGoodsDetailController =
     			if (!commonFu.isEmpty(self.biddingModel.biddingList[i].userData))
 	    		{
 	    			self.biddingModel.biddingList[i].userData.telephone = commonFu.telephoneDispose(self.biddingModel.biddingList[i].userData.telephone);
-	    			self.biddingModel.biddingList[i].nowPrice = self.toDecimals(self.biddingModel.biddingList[i].nowPrice)
+	    			self.biddingModel.biddingList[i].nowPrice = commonFu.toDecimals(self.biddingModel.biddingList[i].nowPrice)
 	    			if (commonFu.isEmpty(self.biddingModel.biddingList[i].userData.smallIcon))
 	    			{
 	    				self.biddingModel.biddingList[i].userData.smallIcon = "img/personCenter/default-icon.png";
@@ -223,25 +215,7 @@ var auctedGoodsDetailController =
     },
     
     
-       //保留两位小数
-    toDecimals : function (x) {  
-    	
-        var f = parseFloat(x);    
-        if (isNaN(f)) {    
-            return false;    
-        }    
-        var f = Math.round(x*100)/100;    
-        var s = f.toString();    
-        var rs = s.indexOf('.');    
-        if (rs < 0) {    
-            rs = s.length;    
-            s += '.';    
-        }    
-        while (s.length <= rs + 2) {    
-            s += '0';    
-        }    
-        return s;    
-    } ,   
+   
     bindClick: function()
     {
     	var self = this;
@@ -290,5 +264,7 @@ var auctedGoodsDetailController =
                 autoplayDisableOnInteraction: false
             });
         });
-    }
+    },
+   
+  
 };

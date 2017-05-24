@@ -97,4 +97,24 @@ class A_goods extends Admin_Controller
 
         $this->responseSuccess(array("delArr" => $delArr));
     }
+
+    //出库
+    function outLibrary($goodsId)
+    {
+        if (!$this->checkParam(array('goodsId'))) 
+        {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
+        
+        $goodsId = $this->input->post('goodsId');
+        $res = $this->m_goods->outLibrary($goodsId);
+        if($res !== ERROR_OK)
+        {
+            $this->responseError($res);
+            return;
+        }
+        $this->responseSuccess($res);
+    }
+    
 }

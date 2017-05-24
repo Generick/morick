@@ -66,7 +66,8 @@ var GoodsDataCtrl = {
                 {
 	                for(var i = 0; i < len; i++)
 	                {
-	                    self.dataModel.modelArr[i].pic = JSON.parse(self.dataModel.modelArr[i].goods_pics)[0];
+//	                	self.dataModel.modelArr[i].pic = JSON.parse(self.dataModel.modelArr[i].goods_pics)[0];
+	                    self.dataModel.modelArr[i].pic = self.dataModel.modelArr[i].goods_cover;
 	                }
                 }
                 else

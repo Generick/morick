@@ -35,12 +35,25 @@ var QuizController = {
 			var totalPage = Math.ceil(data.count / self.scope.page.selectPageNum);
                 pageController.pageNum(totalPage);
             
-            
-			for(var i = 0; i < data.data.length; i++)
+//          console.log(JSON.stringify(data))
+            self.quizModel.listData = data.data;
+//			for(var i = 0; i < data.data.length; i++)
+//			{    
+//				
+//				data.data[i].goods_icon = JSON.parse(data.data[i].goods_icon);
+// 			    data.data[i].goods_icon = data.data[i].goods_cover;
+//				data.data[i].type =  self.fundAuctionType(data.data[i].status);
+//			}
+			if(self.quizModel.listData.length == 0)
 			{
-				data.data[i].type =  self.fundAuctionType(data.data[i].status);
+				$dialog.msg("暂无数据！")
 			}
-			self.quizModel.listData = data.data;
+			for(var i = 0; i < self.quizModel.listData.length; i++)
+			{    
+
+			    self.quizModel.listData[i].type =  self.fundAuctionType(self.quizModel.listData[i].status);
+			}
+			self.scope.quizModel = self.quizModel;
 			self.scope.$apply();
 		});
 	},

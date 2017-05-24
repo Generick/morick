@@ -4,9 +4,9 @@
 /*底部导航栏*/
 var tab = [
     //{title: '有奖竞猜', isActive: false, pic: ["img/bottom/under_auction.png","img/bottom/under_auction_active.png"]},
-    {title: '预展', isActive: false, pic: ["img/pre-see.png","img/pre-see-color.png"]},
-    {title: '正在拍卖', isActive: false, pic: ["img/bottom/under_auction.png","img/bottom/under_auction_active.png"]},
-    {title: '拍卖历史', isActive: false, pic: ["img/bottom/auction_history.png","img/bottom/auction_history_active.png"]}
+    {title: '雅学院', isActive: false, pic: ["img/pre-see.png","img/pre-see-color.png"],id:1},
+    {title: '十点拍', isActive: false, pic: ["img/bottom/under_auction.png","img/bottom/under_auction_active.png"],id:2},
+    {title: '特卖会', isActive: false, pic: ["img/sellUn.png","img/sellActive.png"],id:3}
    
 ];
 
@@ -16,7 +16,7 @@ var TRANSACTION_TYPE_ARR =
         {
             type : 0,
             text : "充值",
-            symbol : "-",
+            symbol : "+",
             style : "money-reduce"
         },
         {
@@ -28,8 +28,8 @@ var TRANSACTION_TYPE_ARR =
         {
             type : 2,
             text : "提现",
-            symbol : "+",
-            style : "money-add"
+            symbol : "-",
+            style : "money-reduce"
         },
         {
             type : 3,

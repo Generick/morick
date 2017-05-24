@@ -1,0 +1,19 @@
+<div class="goods-pics-box fix">
+    <div class="goods-img f">
+        <!--<i class="fa fa-minus-circle" ng-click="delPic($index)"></i>-->
+        <img style="height:150px"  ng-src="{{(url == '')?('assets/images/public/default.png'):(url)}}">
+        <!--<div class="set-face-img" title="未选择时默认第一张为封面" ng-click="setFaceImg($index)">设为封面</div>
+        <div class="select-round" ng-click="setFaceImg($index)"></div>-->
+    </div>
+     
+    <div class="upload-icon f">
+        <div class="upload-goods-form">
+            <i class="ti-plus"></i>
+            <form id="file-form-3">
+            	<input type="file" id="scrap-inputs" name="file" onchange="angular.element(this).scope().imgUpload(this.files)">
+            </form>
+        </div>
+      
+    </div>
+</div>
+

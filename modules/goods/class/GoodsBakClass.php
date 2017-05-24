@@ -19,9 +19,11 @@ class CGoodsBakBaseInfo extends IExtractInfo {
         self::$fields = array(
             "goods_id",
             "goods_name",
-            "goods_detail",
             "goods_pics",
-            "goods_bid"
+            "goods_detail",
+            "goods_bid",
+            "goods_cover",
+            "outLibrary",
         );
     }
 
@@ -52,7 +54,9 @@ class CGoodsBakAllInfo extends IExtractInfo {
             "goods_name",
             "goods_detail",
             "goods_pics",
-            "goods_bid"
+            "goods_bid",
+            "goods_cover",
+            "outLibrary",
             //"has_bak",
         );
     }
@@ -93,6 +97,8 @@ class CGoodsBak extends CDataClassBase {
             "goods_detail" => new CField(FIELD_TYPE_NORMAL),
             "goods_pics" => new CField(FIELD_TYPE_NORMAL),
             "goods_bid" => new CField(FIELD_TYPE_NORMAL),
+            "goods_cover" => new CField(FIELD_TYPE_NORMAL),
+            "outLibrary" => new CField(FIELD_TYPE_NORMAL),
             //"has_bak" => new CField(FIELD_TYPE_NORMAL),
         );
 
@@ -105,7 +111,9 @@ class CGoodsBak extends CDataClassBase {
             "goods_name",
             "goods_detail",
             "goods_pics",
-            "goods_bid"
+            "goods_bid",
+            "goods_cover",
+            "outLibrary",
             //"has_bak",
         );
 

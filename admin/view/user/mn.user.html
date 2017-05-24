@@ -24,10 +24,11 @@
                 <td style="text-align: center">账户余额</td>
                 <td style="text-align: center">注册时间</td>
                 <td style="text-align: center">备注信息</td>
+               
                 <td style="text-align: center"></td>
                 <td style="text-align: center"></td>
                 <td style="text-align: center"></td>
-                <td style="text-align: center"></td>
+                 <td style="text-align: center">发送信息</td>
                 <td style="text-align: center"></td>
                 <td style="text-align: center"></td>
                
@@ -48,9 +49,11 @@
                 	</div>
                 </td>
               <!-- <i class="ti-pencil-alt"></i>-->
+               
                 <td style="text-align: center"></td>
                 <td style="text-align: center"></td>
                 <td style="text-align: center"></td>
+                <td class="dtSmall" style="text-align: center"><a class="btn btn-white btnSmall" ng-click="sendMessage(item)">发送信息</a></td>
                 <td style="text-align: center"></td>
                 <td style="text-align: center"></td>
                 
@@ -67,10 +70,24 @@
 <div ng-include="'view/user/modal.html'" ng-show="userModel.isShowInfo"></div>
 
 
+<!--
+<div class="all-fixed-table">
+     	<div class="auct-box">
+     		<p class="auct-title"><span ng-bind="goodsModel.messContent" style="color:#000000;"></span></p>
+     		<div class="auct-cont">
+     			你确定要发送关于拍品 <span ng-bind="goodsModel.goodsName" style="color:#000000;font-weight: 600;"></span> 的 <span ng-bind="goodsModel.messContent" style="color:#000000;font-weight: 600;"></span> 给用户   <span ng-bind="goodsModel.userName" style="font-weight: 600;color:#000000"></span> 吗？
+     		</div>
+     		<div class="auct-btn">
+     			
+     			<p class="all-btn-cancle" ng-click="submitData()">发送</p>
+     			<p class="all-btn-ok"  ng-click="hideShadow()">取消</p>
+     		</div>
+     	</div>
+</div>-->
 
 <div id="big-box">
 	<div class="modify-box" id="mode-remark">
-		<div class="delete-it" ng-click="hideShadow()">X</div>
+		<!--<div class="delete-it" ng-click="hideShadow()">X</div>-->
 	    <div class="note-box">
 	        <div class="note-box-title">备注信息：</div>
 	        <!--<div class="note-box-con" ng-bind="modify.note"></div>-->
@@ -79,10 +96,16 @@
 	        <textarea  ng-model="modify.note">
 	        </textarea>
 	    </div>
-	    <div class="cancle-ok">
+	    
+	    <div class="auct-btn">
+     			
+     			<p class="all-btn-cancle" ng-click="submitData()">确定</p>
+     			<p class="all-btn-ok"  ng-click="hideShadow()">取消</p>
+     	</div>
+	    <!--<div class="cancle-ok">
 	    	<div class="ok" ng-click="submitData()">确定</div>
 	    	<div class="cancle" ng-click="hideShadow()">取消</div>
-	    </div> 
+	    </div> -->
 	</div>
 </div>
 <script src="view/user/mn.userCtrl.js"></script>

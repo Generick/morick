@@ -115,7 +115,6 @@
                 bool=true;  
             },1000);
 		    window.addEventListener("popstate", function(e) {
-
 		    	if (bool)
 		    	{    
 		    		if(sessionStorage.getItem("comeWithGuess") == 4)
@@ -129,8 +128,7 @@
 			        	location.href = pageUrl.MY_MESSAGE;
 			        }
 		    		else
-		    		{       
-		    			    
+		    		{
 		    			    sessionStorage.setItem("needPageId",1)
 		    			    if(sessionStorage.getItem("messlistOrauction") == 0)
 			        	    {   

@@ -1,5 +1,10 @@
 <div class="mn-header fix">
 	<div class="f"><i class="fa fa-th m-color-0"></i><span>消息推送</span></div>
+	<div class="f m-g-l-10" style="float:right" ng-show="isShowBack" ng-click="goBackUsers()">
+		<a class="btn btn-white">
+			返回
+		</a>
+	</div>
 </div>
 <div class="common-container">
 	<h3>推送详情</h3>
@@ -9,9 +14,24 @@
     </div>
     <div class="con-item fix" id="selectUser" style="padding-left: 40px;">
         <span class="f" style="text-align: left; width: 120px;">选择推送用户：</span>
-        <div class="f">
-        	<select class="form-control" ng-change="changeUser()" ng-model="pushModel.selected" ng-options="item.index as item.name for item in pushModel.pushType"></select>
+        <!--<div class="f">
+        	<select class="form-control seleteId" ng-change="changeUser()" ng-model="pushModel.selected"  ng-options="item.index as item.name for item in pushModel.pushType"></select>
         </div>
+        -->
+         <div  class="select-div">
+			<div class="select-top">
+				<div class="select-content" ng-bind="selectModel.name"></div>
+				<div class="select-arrow" ng-click="toShowselect()"><img src="assets/images/public/down.png" /> </div>
+			</div>
+			<div id="online-div">
+				<div ng-click="chooseselectModel(2)" >全部</div>
+				<div ng-click="chooseselectModel(0)" >注册用户</div>
+				<div ng-click="chooseselectModel(1)" >vip用户</div>
+				<div ng-click="chooseselectModel(3)" >个人用户</div>
+			</div>
+		</div>
+		
+		
     </div>
     <div class="con-item fix f" style="margin-left: 40px;" ng-if="pushModel.userPhoneType">
         <span class="f" style="text-align: left; width: 120px;">用户手机号：</span>

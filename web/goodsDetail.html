@@ -40,7 +40,7 @@
 						<img src="img/fresh.png" />更&nbsp;新<span id="updateTime" ></span>
 					</div>
 					<div class="endtime-realtime clear">
-						<div class="endtime-text">距离结束:</div>
+						<div class="endtime-text">距离截拍:</div>
 						<div class="endtime-time">
 							<div id="endTime">
 								<span id="day"></span>天
@@ -51,12 +51,8 @@
 						</div>
 					</div>
 				</div>
-				<button id="goodsBtn" class="goods-btn-2" ng-click="onClickPay()">出&nbsp;价</button>
-				<button id="selfGoodsBtn" class="goods-btn-2" ng-click="onClickSelfPay()" ng-bind="selfPaidText"></button>
-				<button id="selfGoodsBtn" class="goods-btn-2" ng-show="goodsDetailModel.allInfo.isQuiz == '1'" ng-click="jumpToGuess(item)" >我要竞猜</button>
-			</div>
-
-			<div class="goods-operate groble-operate-thrity clear">
+				
+				<div class="goods-operate groble-operate-thrity clear">
 				<div class="goods-operate-block groble-thrity clear">
 					<span class="operate-type">起</span>
 					<div>
@@ -83,6 +79,14 @@
 				</div>-->
 			</div>           
            
+				<button id="goodsBtn" class="goods-btn-2" ng-click="onClickPay()">出&nbsp;价</button>
+				<button id="selfGoodsBtn" class="goods-btn-2" ng-click="onClickSelfPay()" ng-bind="selfPaidText"></button>
+				<!--<button id="selfGoodsBtn" class="goods-btn-2" ng-show="goodsDetailModel.allInfo.isQuiz == '1'" ng-click="jumpToGuess(item)" >成交价竞猜</button>-->
+			</div>
+            
+            
+            
+			
 			<!--已委托出价条件展示-->
 			<div class="self-paid-container" ng-show="hasSelfPaid">
 				<div ng-repeat="item in bids track by $index">
@@ -134,15 +138,15 @@
                     <img class="pay-price-img" ng-show="biddingModel.numDel" ng-click="onClickNumDel()" src="img/del.png" />
                 </div>
 
-                <div class="pay-txt" ng-show="biddingModel.count == 0">
+                <div class="pay-txt" ng-show="biddingModel.count == 0 && goodsDetailModel.allInfo.margin != 0">
                     <p>保证金：<span style="color: #FF4506;">{{"￥" + goodsDetailModel.allInfo.margin}}</span></p>
                     <p>此次出价需要缴纳保证金</p>
                     <p>有关保证金详情，请浏览<span style="color: #759FE3" ng-click="onClickPayProtocol()">《雅玩之家服务协议》</span></p>
                 </div>
-                <div class="phone-message">
+                <!--<div class="phone-message">
 	                	<span class="message-title">小贴士：</span>
 	                	<span class="message-content">出价超越有短信提醒，您可以到“账户中心/付费服务”开通短信通知服务。</span>
-                </div>
+                </div>-->
                 <div class="pay-protocol">
                     <div class="goods-btn ripple" ng-click="onClickPayNow()">出价</div>
                     <p>出价即表示同意<span style="color: #759FE3" ng-click="onClickPayProtocol()">《雅玩之家服务协议》</span></p>

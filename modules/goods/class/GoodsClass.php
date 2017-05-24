@@ -21,7 +21,9 @@ class CGoodsBaseInfo extends IExtractInfo {
             "goods_name",
             "goods_pics",
             "goods_bid",
-            "create_time"
+            "create_time",
+            "goods_cover",
+            "outLibrary",
         );
     }
 
@@ -53,7 +55,9 @@ class CGoodsAllInfo extends IExtractInfo {
             "goods_pics",
             "goods_bid",
             "bak_id",
-            "create_time"
+            "create_time",
+            "goods_cover",
+            "outLibrary",
         );
     }
 
@@ -94,6 +98,8 @@ class CGoods extends CDataClassBase {
             "goods_bid" => new CField(FIELD_TYPE_NORMAL),
             "bak_id" => new CField(FIELD_TYPE_NORMAL),
             "create_time" => new CField(FIELD_TYPE_NORMAL),
+            "goods_cover" => new CField(FIELD_TYPE_NORMAL),
+            "outLibrary" => new CField(FIELD_TYPE_NORMAL),
         );
 
         self::$modInfo = array(
@@ -107,6 +113,8 @@ class CGoods extends CDataClassBase {
             "goods_pics",
             "goods_bid",
             "bak_id",
+            "goods_cover",
+            "outLibrary",
         );
 
         self::$staticConstructed = true;

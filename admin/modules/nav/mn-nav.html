@@ -130,9 +130,15 @@
                     <li class="secPermission" id="secPerm_604">
                         <a ui-sref="balanceData"><span class="text">余额修改记录</span></a>
                     </li>
+                    <li class="secPermission" id="secPerm_605">
+                        <a ui-sref="objectGoods"><span class="text">藏品删除记录</span></a>
+                    </li>
+                    <li class="secPermission" id="secPerm_606">
+                        <a ui-sref="auctionGoods"><span class="text">拍品删除记录</span></a>
+                    </li>
                 </ul>
             </li>
-            <li class="active" id="nav_10" style="display: block;">
+            <!--<li class="active" id="nav_10" style="display: block;">
                 <a class="js-sub-menu-toggle">
                     <i class="fa fa-youtube"></i>
                     <span class="text">消息推送</span>
@@ -141,6 +147,19 @@
                 <ul class="sub-menu">
                     <li class="secPermission" id="secPerm_1001">
                         <a ui-sref="push"><span class="text">推送</span></a>
+                    </li>
+                </ul>
+            </li>-->
+            
+            <li class="active" id="nav_11" style="display: block;">
+                <a class="js-sub-menu-toggle">
+                    <i class="fa fa-bitbucket"></i>
+                    <span class="text">雅学院</span>
+                    <i class="toggle-icon fa fa-angle-down"></i>
+                </a>
+                <ul class="sub-menu">
+                    <li class="secPermission" id="secPerm_1101">
+                        <a ui-sref="elegant"><span class="text">雅学院</span></a>
                     </li>
                 </ul>
             </li>
@@ -165,6 +184,8 @@
 
 <script charset="utf-8">
     // toggle function
+   
+    localStorage.removeItem("jumpData");
     $.fn.clickToggle = function(f1, f2) {
         return this.each(function() {
             var clicked = false;
@@ -187,7 +208,8 @@
     $('.main-menu a.js-sub-menu-toggle').unbind().on("click", function(e) {
 
         e.preventDefault();
-
+       
+        localStorage.removeItem("jumpData");
         var $li = $(this).parent('li'),
             toggleClass = ($(this).next("ul").css("display") == "none")? "toggle-icon fa fa-angle-left" : "toggle-icon fa fa-angle-down";
 

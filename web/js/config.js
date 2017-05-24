@@ -9,14 +9,19 @@
 //const API_BASE_URL = "http://meeno.f3322.net:8082/auction/index.php/";//测试
 
 
-const API_BASE_URL = "http://192.168.2.128/auction/index.php/";//测试
+//const API_BASE_URL = "http://192.168.2.128/auction/index.php/";//测试
+//const API_BASE_URL = "http://192.168.0.110:8088/auction/index.php/";
 
+
+var API_BASE_URL =  "http://192.168.0.88:8082/auction/index.php/";
 //const API_BASE_URL = "http://auction.yawan365.com/index.php/";//正式
 //const BASE_PAGE_URL = "http://auction.yawan365.com/";//正式
 //const BASE_PAGE_URL = "http://meeno.f3322.net:8082/auction/web/";//测试
 //const BASE_PAGE_URL = "http://www.yawan365.com:8080/";//测试
 // const API_BASE_URL = "http://auction.yawan365.com:8080/index.php/";//测试
-const BASE_PAGE_URL = "http://192.168.2.107:8020/web/";
+//const BASE_PAGE_URL = "http://192.168.0.168:8020/web/";
+
+const BASE_PAGE_URL = "http://192.168.0.168/auction/";
 //const BASE_PAGE_URL = "http://127.0.0.1:8020/paimai-web/";
 
 /***************API 配置接口****************/
@@ -86,7 +91,9 @@ var apiUrl =
     API_GET_GUESSUSERLIST : API_BASE_URL + "prizesQuiz/prizesQuiz/getQuizUserList",//获取竞猜用户
     API_JOIN_GUESS : API_BASE_URL + "prizesQuiz/U_prizesQuiz/partakeQuiz",//参加竞猜
     API_MY_GUESS_LIST : API_BASE_URL + "prizesQuiz/U_prizesQuiz/getUserQuiz",
-    API_GETAWARD_USERS : API_BASE_URL + "prizesQuiz/prizesQuiz/getAwardUserList"//获取中奖的用户
+    API_GETAWARD_USERS : API_BASE_URL + "prizesQuiz/prizesQuiz/getAwardUserList",//获取中奖的用户
+    API_GET_INFORMATION_LIST : API_BASE_URL + "information/Information/getInformationList",//获取资讯列表
+    API_GET_INFORMATION_INFO  : API_BASE_URL + "information/Information/getInformationInfo",//获取资讯详情
 };
 
 var localStorageKey =
@@ -114,6 +121,7 @@ var localStorageKey =
 var errCode  = 
 {
 	SUCCESS : 0 ,
+	CODEERR : 406,
 	TOKEN_WRONG : 102, //102token错误，103token超时
 	TOKEN_FAILED : 103, //102token错误，103token超时
     SESSION_FAILED : 5, //会话不存在
@@ -123,14 +131,16 @@ var errCode  =
 var pageUrl = 
 {
 	LOGIN_PAGE : BASE_PAGE_URL + "login.html",//登录
-	GUESS_PAGE : BASE_PAGE_URL + "guessList.html",//竞猜列表
-	GUESS_DETAIL : BASE_PAGE_URL + "guessDetailPage.html",//竞猜页
+	GUESS_PAGE : BASE_PAGE_URL + "guessList.php",//竞猜列表
+	
+	GUESS_DETAIL : BASE_PAGE_URL + "guessDetails.php",//竞猜页
+	
 	GUESS_INNER : BASE_PAGE_URL + "guessInner.html",//竞猜详情
-	SELECTED_GOODS : BASE_PAGE_URL + "selectedGoods.html",//精选
+	SELECTED_GOODS : BASE_PAGE_URL + "beAtAuction.php",//精选
 	MY_GUESS_LIST : BASE_PAGE_URL + "myselfGuessList.html",//我的竞猜列表
-	GOODS_DETAIL : BASE_PAGE_URL + "goodsDetail.html",//详情
-	AUCTION_HISTORY : BASE_PAGE_URL + "auctionHistory.html",//拍卖历史
-	AUCTION_HISTORY_INFO : BASE_PAGE_URL + "auctedGoodsDetail.html",//拍卖历史拍品详情
+	GOODS_DETAIL : BASE_PAGE_URL + "goodsDetail.php",//详情
+	AUCTION_HISTORY : BASE_PAGE_URL + "auctionHistory.php",//拍卖历史
+	AUCTION_HISTORY_INFO : BASE_PAGE_URL + "auctedGoodsDetail.php",//拍卖历史拍品详情
 	PERSON_CENTER : BASE_PAGE_URL + "personCenter.html",//个人中心
 	PERSON_INFO : BASE_PAGE_URL + "personCenter/personInfo.html",//个人信息
 	MOD_NAME : BASE_PAGE_URL + "personCenter/modName.html",//修改昵称
@@ -146,6 +156,8 @@ var pageUrl =
 	TRANSACTION_DETAIL : BASE_PAGE_URL + "personCenter/transactionDetail.html",//账户明细
 	
 	MY_MESSAGE : BASE_PAGE_URL + "myMessages.html",//我的消息
+	
+	MY_PAY_ORDER_PAGE : BASE_PAGE_URL + "personCenter/goToPayPage.html",//支付客服中心支付订单
 	
 	MY_MESSAGE_LIST : BASE_PAGE_URL + "",//消息列表
 	

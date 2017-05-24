@@ -1,4 +1,4 @@
-<div class="item" ng-show="1">
+<div class="item" ng-show="isShowUserData">
     <div class="mn-header fix">
         <div class="f"><i class="fa fa-th m-color-0"></i><span>出价列表</span></div>
         <div class="f">
@@ -15,10 +15,12 @@
                 <td style="text-align: center">拍品图片</td>
                 <td style="text-align: center">拍品名称</td>
                 <td style="text-align: center">出价用户</td>
+                
+                <td style="text-align: center;width:190px;line-height: 30px;">备注</td>
+                <!--<td style="text-align: center;width:170px">用户详情</td>-->
                 <td style="text-align: center">出价金额</td>
                 <td style="text-align: center">出价时间</td>
-
-                <td style="text-align: left;padding-left:110px">操作</td>
+                <!--<td style="text-align: left;padding-left:110px">操作</td>-->
              
                 <!--<td><div class="all-sel-txt">全选</div><span ng-click="onClickSelectAll()" ng-class="{true: 'has-sel', false: 'un-sel'}[isSelected]"></span></td>-->
             </tr>
@@ -29,7 +31,28 @@
 	                <td style="text-align: center">{{$index + 1 + (page.currentPage - 1)*page.selectPageNum}}</td>
 	                <td><img style="width: 105px;margin: 0 auto;" ng-if="item.goods_pics" ng-src="{{item.goods_pics}}" ng-click="checkImg()"></td>
 	                <td style="text-align: center">{{item.goods_name}}</td>
-	                <td style="text-align: center">{{item.name}}</td>
+	                <td title="点击查看用户详情" style="text-align: center;overflow: hidden;position: relative;width:170px;" ng-click="toSeeHisDetail(item)">
+	                	<div style="width:70%;">
+	                		{{item.name}}
+	                		
+	                	</div>
+	                	<img style="position: absolute;display:block;width:30px;height:30px;top:50%;right:19%;margin-top:-15px;" src="assets/images/public/toseeper2.png" /> 
+	                </td>
+	                
+	                <td style="text-align: center;position: relative;width:200px;line-height: 30px;overflow: hidden;" ng-click="showPersonDetail(item)">
+	                	<div style="width:70%;max-height: 60px;line-height: 30px;overflow: hidden;">
+	                		{{item.note}}
+	                		
+	                	</div>
+	                	
+	                	<img style="position: absolute;display:block;width:30px;height:30px;top:48%;right:15%;margin-top:-15px;" src="assets/images/public/tsp2.png" />
+	                </td>
+	                <!--<td style="text-align: center;width:170px">
+	                	<div class="btn btn-white" ng-click="toSeeHisDetail(item)">
+	                		查看详情
+	                	</div>
+	                	
+	                </td>-->
 	                <td class="highOrSale">
 	                	<span class="now-money" ng-class="{true:'now-money-cg',false:''}[item.isSale || item.isHigh]">
 	                		{{"￥"+item.nowPrice}}
@@ -39,15 +62,15 @@
 	                	
 	                </td>
 	                <td style="text-align: center">{{item.createTime}}</td>
-	                <td style="text-align: center;" class="btn"><div class="message-style" ng-click="sendMessage(2,item)">成交短信</div></td>
+	                <!--<td style="text-align: center;" class="btn"><div class="message-style" ng-click="sendMessage(2,item)">成交短信</div></td>
 	                <td style="text-align: center;" class="btn"><div class="message-style" ng-click="sendMessage(3,item)">截拍短信</div></td>
-	                <td style="text-align: center;" class="btn"><div class="message-style" ng-click="sendMessage(1,item)">超出短信</div></td>
-	              
+	                <td style="text-align: center;" class="btn"><div class="message-style" ng-click="sendMessage(1,item)">超出短信</div></td>-->
+	                
 	            </tr>
             </tbody>
         </table>
     </div>
-     <div id="fixed-table">
+     <div class="all-fixed-table">
      	<div class="auct-box">
      		<p class="auct-title"><span ng-bind="goodsModel.messContent" style="color:#000000;"></span></p>
      		<div class="auct-cont">
@@ -55,10 +78,42 @@
      		</div>
      		<div class="auct-btn">
      			
-     			<p id="btn-cancle" ng-click="yesToSend(1)">发送</p>
-     			<p id="btn-ok" ng-click="yesToSend(0)">取消</p>
+     			<p class="all-btn-cancle" ng-click="yesToSend(1)">发送</p>
+     			<p class="all-btn-ok" ng-click="yesToSend(0)">取消</p>
      		</div>
      	</div>
      </div>
+     
+     
+     
+    <div id="big-box-three" ng-click="submitData()">
+	<div class="modify-box" id="mode-remark-three">
+		<!--<div class="delete-it" ng-click="hideShadow()">X</div>-->
+	    <div class="note-box">
+	        <div class="note-box-title">备注信息：</div>
+	        <!--<div class="note-box-con" ng-bind="modify.note"></div>-->
+	    </div>
+	    <div class="input-box">
+	       
+	        <div ng-bind="personNote">
+	        	
+	        </div>
+	    </div>
+	    
+	    <div class="auct-btn">
+     			
+     			<p style="margin-right:130px;height:32px;line-height:32px;" class="all-btn-cancle" ng-click="submitData()">确定</p>
+     			<!--<p class="all-btn-ok"  ng-click="hideShadow()">取消</p>-->
+     	</div>
+	    <!--<div class="cancle-ok">
+	    	<div class="ok" ng-click="submitData()">确定</div>
+	    	<div class="cancle" ng-click="hideShadow()">取消</div>
+	    </div> -->
+	</div>
+</div>
     <div ng-include="'modules/page/page.html'"></div>
 </div>
+
+<div ng-include="'view/offerPrice/userInfoPage.html'" ng-show="!isShowUserData"></div>
+
+

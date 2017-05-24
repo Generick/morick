@@ -4,12 +4,6 @@
  * 
  */
 
-app.controller("ctrl", function ($scope)
-{  
-	
-	GuessListCtrl.init($scope);
-
-});
 
 var GuessListCtrl =
 {   
@@ -23,6 +17,10 @@ var GuessListCtrl =
 		timeNum : 20,
 	},
 	
+	wxParams : {},
+   
+    shareInfo : {},
+	
 	totalCount : 0,//数据的总条数
 	
 //	goWithPageId : true,
@@ -35,53 +33,37 @@ var GuessListCtrl =
     	auctionItems: [],
     },
     
-    init: function($scope) {
+    init: function($scope,wxParams) {
     	this.scope = $scope;
-    	
+  
+        this.wxParams = wxParams;
+        
     	this.judjeIsFirstCome();
-    	
-    	this.bindClick();
     	
     	this.getUrlAndId();
     	
     	this.initData(2);
     	
         this.ngRepeatFinish();
-        
+       
         initTab.start(this.scope, 0); //底部导航
+         
+    	this.bindClick();
+    	
     },
    
     getUrlAndId : function(){
     	var self = this;
     	
-    	if(location.href.indexOf("&") !=-1)
-		{   
-			
-			GuessListCtrl.thisJumpPage =  location.href.split("&")[0].split("=")[1];
-			GuessListCtrl.thisJumpId = location.href.split("&")[1].split("=")[1];
-			
-			if(String(GuessListCtrl.thisJumpPage).indexOf("#") != -1)
-			{
-			   
-			   GuessListCtrl.thisJumpPage = parseInt(GuessListCtrl.thisJumpPage.split("#")[0]);
-			    	    	
-			}
-			else
-			{
-			    GuessListCtrl.thisJumpPage = parseInt(GuessListCtrl.thisJumpPage);
-			}
-			if(String(GuessListCtrl.thisJumpId).indexOf("#") != -1)
-			{
-				
-				GuessListCtrl.thisJumpId = parseInt(GuessListCtrl.thisJumpId.split("#")[0]);
-			    
-			}
-			else
-			{
-				GuessListCtrl.thisJumpId = parseInt(GuessListCtrl.thisJumpId);
-			}
-			
-		}
+    	var arr = [];
+    	if(commonFu.listGetUrlPublic(location.href).length == 2)
+    	{
+    		arr = commonFu.listGetUrlPublic(location.href);
+    		self.thisJumpPage = arr[0];
+    		self.thisJumpId = arr[1];
+    	}
+    	
+    	
     },
     
     initData: function(type) {
@@ -170,11 +152,8 @@ var GuessListCtrl =
 		    				//返回列表页且获取该页数据，即是用点击前存储的页数减 1
 //		    				params.startIndex = (enterPage - 1) * self.page.timeNum;
 
-
-
 							params.startIndex = 0;
 	                        params.num = enterPage * self.page.timeNum;
-	                   
 	                   
 	                   
 		    			}
@@ -193,26 +172,27 @@ var GuessListCtrl =
 
 	    	$('.animation').css('display','block');
 	    	
+	    	 
 //	    	console.log('params:' + JSON.stringify(params));
 	    	
 	     
 	    	
-	    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_GUESSLIST, params, function(data){
+	    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_INFORMATION_LIST, params, function(data){
 	    		
 //	    		console.log(JSON.stringify(data));
 	    	    self.totalCount = data.count;
 	    	    //设置总页数
 	    	    self.setTotalPage(self.totalCount);
-               
+                
                 if(commonFu.isEmpty(sessionStorage.getItem("guessAlreadyGet")))
 	    	    {  
 	    	    	
 	    	    	if(!commonFu.isEmpty(self.thisJumpPage) && !commonFu.isEmpty(self.thisJumpId))
 	    			{   
 		    			self.selectedModel.auctionItems = [];
-			    	    self.selectedModel.auctionItems = data.data;
+			    	    self.selectedModel.auctionItems = data.informationList;
 			    	    sessionStorage.removeItem("guessAlreadyGet");
-			    	    sessionStorage.setItem("guessAlreadyGet",JSON.stringify(data.data));
+			    	    sessionStorage.setItem("guessAlreadyGet",JSON.stringify(data.informationList));
 			    	    if(String(self.thisJumpPage).indexOf("#") != -1)
 			    	    {
 			    	    	self.page.currentPage = parseInt(self.thisJumpPage.split("#")[0]);
@@ -230,9 +210,9 @@ var GuessListCtrl =
 		    		 	* 如果是第一次进入，本地缓存为空，则 params.startIndex = 0;
 		    		 	*/
 		    		 	self.selectedModel.auctionItems = [];
-	                	self.selectedModel.auctionItems = data.data;
+	                	self.selectedModel.auctionItems = data.informationList;
 	                	sessionStorage.removeItem("guessAlreadyGet");
-	                	sessionStorage.setItem("guessAlreadyGet",JSON.stringify(data.data));
+	                	sessionStorage.setItem("guessAlreadyGet",JSON.stringify(data.informationList));
 	                	//获取加载到的最大页
 	                	self.page.currentPage = 1;
 	    			}
@@ -246,7 +226,7 @@ var GuessListCtrl =
 		    	    	/*
 		    	    	 * 获取下一页数据时，在本地的数据模型上拼接上请求来的数据
 		    	    	 */
-		    	    	var dataNxt = data.data;
+		    	    	var dataNxt = data.informationList;
 
 		    	    	self.selectedModel.auctionItems = self.selectedModel.auctionItems.concat(dataNxt);
 		    	    	/*
@@ -276,8 +256,8 @@ var GuessListCtrl =
 			    	    		self.selectedModel.auctionItems = [];
 			    	    		
 			    	    		
-			    	    		self.selectedModel.auctionItems = data.auctionItems;
-                                sessionStorage.setItem("guessAlreadyGet",JSON.stringify(data.auctionItems));
+			    	    		self.selectedModel.auctionItems = data.informationList;
+                                sessionStorage.setItem("guessAlreadyGet",JSON.stringify(data.informationList));
 			    	    		
 //			    	    		self.selectedModel.auctionItems = JSON.parse(sessionStorage.getItem("guessAlreadyGet")); 
 			    	    	//  self.page.currentPage = parseInt(sessionStorage.getItem("interGuessPage"));    	    		
@@ -291,8 +271,8 @@ var GuessListCtrl =
 			    	    		 * 并且重置页面页数等
 			    	    		 */
 			    	    		self.selectedModel.auctionItems = [];
-			    	    		self.selectedModel.auctionItems = data.data;
-			    	    		self.alreadyGetData(data.data,1);
+			    	    		self.selectedModel.auctionItems = data.informationList;
+			    	    		self.alreadyGetData(data.informationList,1);
 			    	    		//获取加载到的最大页
 			    	    		self.page.currentPage = 1;
 			    	    		
@@ -315,7 +295,7 @@ var GuessListCtrl =
 
 		    		for (var i = 0; i < goods.length; i++)
 		    		{   
-//		    			goods[i].goods_icon = JSON.stringify(["img/wzg.jpg"])
+                        self.selectedModel.auctionItems[i].hasSee = 1;
 		    			if(goods[i].goods_icon != null)
 		    			{
 		    				goods[i].goodsPicsShow = JSON.parse(goods[i].goods_icon)[0];
@@ -326,203 +306,165 @@ var GuessListCtrl =
 			 
 	                    goods[i].isShowPrice = !commonFu.isEmpty(goods[i].currentUserInfo); //是否已经有人出价
 	                    
+	                    goods[i].currentPrice = commonFu.toDecimals(goods[i].currentPrice);
 	                    
-	                    goods[i].currentPrice = self.toDecimals(goods[i].currentPrice);
+	                    
 		    		}
 	    		}
 	    		else
 	    		{
 	    			$(".no-data").show();
 	    		}
-
+                
+                self.shareInfo.title = "雅玩之家";
+                self.shareInfo.img = "http://auction.yawan365.com/web/img/share-to-other.jpg";
+                self.shareInfo.content = "文化收藏，雅玩之家，每晚十点，欢迎回家";
+        
+                commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
+                
+                for(var j = 0; j < self.selectedModel.auctionItems.length; j ++)
+                {
+                	self.selectedModel.auctionItems[j].title =  commonFu.returnRightReg(self.selectedModel.auctionItems[j].title);
+                }
+                
 	    		self.scope.auctionItems = self.selectedModel.auctionItems;
+	    		
 	    		$('.animation').css("display","none");
 	    		$('.container').css('opacity','1');
 	            self.isFinsh = false;
+	            
 	            self.scope.$apply();
-	    		
+	    		for(var j = 0; j < self.selectedModel.auctionItems.length ; j++ )
+	    		{
+	    			if(self.selectedModel.auctionItems[j].type == 1)
+	    			{
+
+	    				$(".guess-list-ul").children('li').eq(j).find("video").prop("src",self.selectedModel.auctionItems[j].content)
+                        $(".guess-list-ul").children('li').eq(j).find("video").prop("poster",self.selectedModel.auctionItems[j].cover)
+						
+	    			}
+	    		}
 	    	})
 
     },
-  
-  
-//判断是否需要调用重登陆
-    judjeIsFirstCome : function(){
 
-		if(commonFu.isEmpty(sessionStorage.getItem("isFirstCome")))
-		{    
-			/*
-			 *   1，isFirstCome是空说明是第一次进入该应用。此时先要判断是否从登陆页面跳转过来的
-			 *     即formLoginCome字段是否存在，如果存在，则说明已经登录了；
-			 */
-    			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
-				{    
-					
-					if(commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) && commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
-					{  
-						
-						//alert("有token调重登陆")
-						var localToken = localStorage.getItem(localStorageKey.TOKEN);
-						var params = {};
-						params.userType = 1;
-						params.token = localToken;
-		
-					    jqAjaxRequest.asyncAjaxRequest(apiUrl.API_USER_RELOGIN, params, function(data){
-					    	
-					    	//alert("调重登陆成功")
-						    var newToken = data.token;
-							localStorage.removeItem(localStorageKey.TOKEN);
-							localStorage.setItem(localStorageKey.TOKEN,newToken)
-							
-							//不管是重登陆还是登录界面登录的，登录成功的标志，关闭浏览器后自动失效
-							sessionStorage.setItem("loginSucess",1);
-							sessionStorage.removeItem("reloginFail")
-						})
-					}
-					else
-					{    
-						//如果formLoginCome不为空，则说明是从登录页面跳转过来的，
-					   	//alert("从登陆页面登录进来的")
-					}
-				}
-				else
-				{   
-					//如果token为空，则说明是一个没有登录过的人，第一次的直接地跳到了列表页，此时直接取列表页数据就好
-					//alert("未登陆过，第一次跳到列表页")	
-				}
-		}
-		else
-		{  
-			//isFirstCome不为空说明不是第一次进入，而是在应用内跳转的，所以直接加载数据
-			//alert("应用内跳转")
-		}
-		
-        sessionStorage.setItem("isFirstCome",1);//表明不是第一次进入该页面取数据，做以标记
-    },
-    
-    
-    
-    //获取当前数据模型最大加载到了第几页
-    getNowDataPage : function(local,selected){
-
-    	var self = this;
-    	for(var o = 0; o < local.length; o++)
-    	{
-    		if(local[o].id == selected[selected.length - 1].id)
-    		{    
-    			var theAllPage = Math.ceil((o + 1)/self.page.timeNum);
-    		}
-    	}
-
-    	return theAllPage;
-    },
-    
     bindClick: function ()
     {
     	var self = this;
+
+    	self.scope.onClickToGoodsDetail = function(item,index)
+    	{   
+              
+    		    var id = item.id;
+    		    if(item.type == 1 )
+    		    {  
+    		    	
+    		    	var vides = $(".guess-list-ul").children('li').eq(index).find("video");
+      
+		    		if(vides.get(0).paused)
+		    		{
+		    			vides.get(0).play();
+		    			
+		    			for(var m = 0 ; m < self.selectedModel.auctionItems.length; m ++)
+		    			{
+		    				if(m == index)
+		    				{
+		    					self.selectedModel.auctionItems[index].hasSee = 0;
+		    				}
+		    				
+		    			}
+		    			$(".guess-list-ul").children('li').eq(index).find(".videobg").css("opacity","0");
+		    		}
+		    		else
+		    		{
+		    			vides.get(0).pause();
+		    			
+		    			for(var m = 0 ; m < self.selectedModel.auctionItems.length; m ++)
+		    			{
+		    				if(m == index)
+		    				{
+		    					self.selectedModel.auctionItems[index].hasSee = 1;
+		    				}
+		    				
+		    			}
+		    			$(".guess-list-ul").children('li').eq(index).find(".videobg").css("opacity","1");
+		    		}
+
+    		    }
+    		    else
+    		    {
+//  		    	$(".guess-list-ul").children('li').eq($(".guess-list-ul").children('li').length-1).css("margin-bottom","8px");
+    		    	
+    		    	localStorage.setItem(localStorageKey.FROM_LOCATION,0);
+					sessionStorage.setItem("guessId","guess_"+id);
+					self.getInterPage(id);
+					var thisPage = sessionStorage.getItem("interGuessPage");
+					location.href = pageUrl.GUESS_DETAIL + "?id=" + item.id + "&thisPage=" + thisPage;
+				 	
+    		    }
+    		    
+
+    	};
+    	
     	
     	//跳转到个人中心
     	self.scope.jumpToSelfZone1 = function(){
     	
     		if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
 			{   	
-				setTimeout(function(){
-	       		 	
-        			 location.href = pageUrl.LOGIN_PAGE;
-        				
-        		},250)		
-               
+				
+	       		localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+        		location.href = pageUrl.LOGIN_PAGE;
+        	
 			}
             else
             {   
             		
             	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
-    			   
+    			  
+    			
 	    			if(JSON.stringify(data) == 'true' || !commonFu.isEmpty(sessionStorage.getItem("loginSucess"))){
 	    				
-	    			    setTimeout(function(){
-	       		 	
-        			 		location.href = pageUrl.PERSON_CENTER;
+        			 	location.href = pageUrl.PERSON_CENTER;
         				
-        				},250)	
+	    			}else{
+	    				
+	       		 	    localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+        			 	location.href = pageUrl.LOGIN_PAGE;
+        			
 	    			}
     		
     		    },
     		    function(){
-            		 
-            		setTimeout(function(){
-	       		 	
-        			 	location.href = pageUrl.LOGIN_PAGE;
-        				
-        			},250)	
+            		
+	       		    localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+        			location.href = pageUrl.LOGIN_PAGE;
+        			
             	});
    
             }
     		
     	};
     	
-    	self.scope.onClickToGoodsDetail = function(item)
-    	{   
-              
-    		    var id = item.id;
-            	if(!commonFu.isEmpty(sessionStorage.getItem("reloginFail")))
-            	{   //每次第一次进入都会判断有没有登录，没有登录且调重登陆失败，做一标记，标记存在，则说明未重登陆成功
-            		if((parseInt(item.isVIP) == 1) && (commonFu.isEmpty(localStorage.getItem(localStorageKey.vipOrNot))))
-	            	{ 
-	            		$("#fixed-shade").css("display","block");
-			    		$("html,body").css("overflow","hidden");
-			    		$('#fixed-shade').bind("touchmove",function(e){
-			              	e.preventDefault();
-						});
-		    			return;
-	            	}
-	            	else
-	            	{  
-	            		localStorage.setItem(localStorageKey.FROM_LOCATION,0);
-				    	sessionStorage.setItem("guessId","guess_"+id);
-				    	self.getInterPage(id);
-				    	var thisPage = sessionStorage.getItem("interGuessPage");
-				    	location.href = pageUrl.GUESS_DETAIL + "?id=" + id + "&thisPage=" + thisPage;
-	            	}
-	            	
-            	}
-            	else
-            	{  
-            		//调重登陆成功，或者未调重登陆，但在登录状态则：调用个人信息接口
-            		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
-			    		localStorage.setItem(localStorageKey.vipOrNot,data.userInfo.isVIP)
-			    		var isMySelfVip = data.userInfo.isVIP;
-
-			    		if(((parseInt(item.isVIP) == 1) && (parseInt(isMySelfVip) == 0)))
-		 				{
-			 				$("#fixed-shade").css("display","block");
-				    		$("html,body").css("overflow","hidden");
-				    		$('#fixed-shade').bind("touchmove",function(e){
-				              	e.preventDefault();
-							});
-			    			return;
-		 				}
-		 				else
-		 				{
-		 					localStorage.setItem(localStorageKey.FROM_LOCATION,0);
-					    	sessionStorage.setItem("guessId","guess_"+id);
-					    	self.getInterPage(id);
-					    	//alert($(document).height());//当前文档的高度
-					    	//alert($(window).height());//当前窗口的高度
-				    		//alert(document.body.scrollTop);//当前滚动条到窗口顶部的距离
-					    	var thisPage = sessionStorage.getItem("interGuessPage");
-					    	location.href = pageUrl.GUESS_DETAIL + "?id=" + id + "&thisPage=" + thisPage;
-		 				}
-            		})
-            	}
-    
+    	self.scope.onClickToGoods = function(){
+    		
+    		location.href = pageUrl.GUESS_DETAIL;
+    		
     	};
-    	
     	
     	self.scope.okToShut = function(){
     		  
     		$("#fixed-shade").css("display","none");
     		$("html,body").css("overflow","auto");
+    	};
+    	
+    	
+    	
+    	
+    	self.scope.videoUrl = function(url){
+    	
+             return $sce.trustAsResourceUrl(url);  
+
     	};
     },
     
@@ -577,6 +519,100 @@ var GuessListCtrl =
 		});
     },
     
+      
+  
+//判断是否需要调用重登陆
+    judjeIsFirstCome : function(){
+         $("#myself-head img").removeClass('sharking');
+		if(commonFu.isEmpty(sessionStorage.getItem("isFirstCome")))
+		{   
+			/*
+			 *   1，isFirstCome是空说明是第一次进入该应用。此时先要判断是否从登陆页面跳转过来的
+			 *     即formLoginCome字段是否存在，如果存在，则说明已经登录了；
+			 */
+    			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+				{    
+				  
+					if(commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) && commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
+					{  
+						
+						$("#myself-head img").addClass('sharking');
+						//alert("有token调重登陆")
+						var localToken = localStorage.getItem(localStorageKey.TOKEN);
+						var params = {};
+						params.userType = 1;
+						params.token = localToken;
+		                
+					    jqAjaxRequest.asyncAjaxRequest(apiUrl.API_USER_RELOGIN, params, function(data){
+					    	
+					    	//alert("调重登陆成功")
+						    var newToken = data.token;
+							localStorage.removeItem(localStorageKey.TOKEN);
+							localStorage.setItem(localStorageKey.TOKEN,newToken)
+							$("#myself-head img").removeClass('sharking');
+							//不管是重登陆还是登录界面登录的，登录成功的标志，关闭浏览器后自动失效
+							sessionStorage.setItem("loginSucess",1);
+							sessionStorage.removeItem("reloginFail")
+							
+						})
+					}
+					else
+					{  
+						//如果formLoginCome不为空，则说明是从登录页面跳转过来的，
+					   	//alert("从登陆页面登录进来的")
+					}
+				}
+				else
+				{  
+					$("#myself-head img").addClass('sharking');
+					//如果token为空，则说明是一个没有登录过的人，第一次的直接地跳到了列表页，此时直接取列表页数据就好
+					//alert("未登陆过，第一次跳到列表页")	
+				}
+		}
+		else
+		{  
+			if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			{
+				
+				$("#myself-head img").addClass('sharking');
+			}
+			else
+			{
+				if(!commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) || !commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
+				{   
+					$("#myself-head img").removeClass('sharking');
+				}
+				else if(commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) && commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
+				{    
+					$("#myself-head img").addClass('sharking');
+				}
+			}
+			
+			//isFirstCome不为空说明不是第一次进入，而是在应用内跳转的，所以直接加载数据
+			//alert("应用内跳转")
+		}
+		
+        sessionStorage.setItem("isFirstCome",1);//表明不是第一次进入该页面取数据，做以标记
+    },
+    
+    
+    
+    //获取当前数据模型最大加载到了第几页
+    getNowDataPage : function(local,selected){
+
+    	var self = this;
+    	for(var o = 0; o < local.length; o++)
+    	{
+    		if(local[o].id == selected[selected.length - 1].id)
+    		{    
+    			var theAllPage = Math.ceil((o + 1)/self.page.timeNum);
+    		}
+    	}
+
+    	return theAllPage;
+    },
+    
+    
     
       //判断当前ID是否存在，不存在则跳到页面元素的第一个
     judgeExist : function(id){
@@ -584,7 +620,7 @@ var GuessListCtrl =
     	var judje = false;
     	for(var n = 0; n < self.selectedModel.auctionItems.length; n++)
     	{   
-    	    console.log(JSON.stringify(self.selectedModel.auctionItems))
+//  	    console.log(JSON.stringify(self.selectedModel.auctionItems))
     	   
     		if(self.selectedModel.auctionItems[n].id == id)
     		{   
@@ -787,28 +823,9 @@ var GuessListCtrl =
 	   	 	this.page.totalPage = integer + 1;
 	   	}
 
-	},
+	}
      
 
-    //保留两位小数
-    toDecimals : function (x) {  
-    	
-        var f = parseFloat(x);    
-        if (isNaN(f)) {    
-            return false;    
-        }    
-        var f = Math.round(x*100)/100;    
-        var s = f.toString();    
-        var rs = s.indexOf('.');    
-        if (rs < 0) {    
-            rs = s.length;    
-            s += '.';    
-        }    
-        while (s.length <= rs + 2) {    
-            s += '0';    
-        }    
-        return s;    
-    }    
     
 };
     //滚动事件的监控
@@ -846,7 +863,7 @@ var GuessListCtrl =
 	
 			    	if((GuessListCtrl.page.currentPage < GuessListCtrl.page.totalPage) && (GuessListCtrl.selectedModel.auctionItems.length < GuessListCtrl.totalCount))
 					{   
-                         
+//                      $(".guess-list-ul").children('li').eq($(".guess-list-ul").children('li').length-1).css("margin-bottom","8px");
             	        GuessListCtrl.initData(1);
             	        
             	      
@@ -860,7 +877,7 @@ var GuessListCtrl =
 
 						},500);
 						setTimeout(function(){
-
+                           
 							$(".no-more-data").css("display","block");
 
 //							setTimeout(function(){
@@ -881,42 +898,4 @@ var GuessListCtrl =
 	});  
    
  
-    /*
-     *跳转到指定的位置 
-     */
-    $.fn.scrollTo =function(options){
-    	
-        var defaults = {
-            toT : 0, //滚动目标位置
-            durTime : 30, //过渡动画时间
-            delay : 15, //定时器时间
-            callback:null //回调函数
-        };
-        var opts = $.extend(defaults,options),
-            timer = null,
-            _this = this,
-            curTop = _this.scrollTop(),//滚动条当前的位置
-            subTop = opts.toT - curTop, //滚动条目标位置和当前位置的差值
-            index = 0,
-            dur = Math.round(opts.durTime / opts.delay),
-            smoothScroll = function(t){
-                index++;
-                var per = Math.round(subTop/dur);
-                if(index >= dur){
-                    _this.scrollTop(t);
-                    window.clearInterval(timer);
-                    if(opts.callback && typeof opts.callback == 'function'){
-                        opts.callback();
-                    }
-                    return;
-                }else{
-                    _this.scrollTop(curTop + index*per);
-                }
-            };
-        timer = window.setInterval(function(){
-            smoothScroll(opts.toT);			
-        }, opts.delay);
-        return _this;
-    };
-     
-	
+  

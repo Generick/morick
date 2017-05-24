@@ -1,6 +1,8 @@
 
 var UserCtrl = {
     scope: null,
+   
+    comeFromPush : false,
     
     userModel: {
         modelArr: [],
@@ -23,21 +25,104 @@ var UserCtrl = {
     itemData : null,
     init: function($scope){
         this.scope = $scope;
-
+		
         this.scope.userModel = this.userModel;
         
         this.scope.modify = this.modify;
+      
+        this.changeColor(-1);
+        
+        this.getUrlData();
         
         this.getUserList("",-1);
      
-        this.changeColor(-1);
-        
         this.onEvent();
     },
 
+
+    getUrlData : function(){
+		
+	    var self =this;
+//	     location.href.indexOf("?") != -1
+      
+	    if(!_utility.isEmpty(localStorage.getItem("jumpData")))
+	    {   
+	    	self.comeFromPush = true;
+	    	 
+	    	var jumpData =   localStorage.getItem("jumpData");
+	    
+	    	var page = {};
+	    	page.selectPageNum = JSON.parse(jumpData).selectPageNum;
+	    	page.currentPage = JSON.parse(jumpData).currentPage;
+	    	page.totalPage = JSON.parse(jumpData).totalPage;
+	    	page.inputPage = JSON.parse(jumpData).inputPage;
+	    	var pageNumSelections = [10, 20, 50, 100];
+	    	pageController.scope = self.scope;
+	    	pageController.page = page;
+	    	
+	    	pageController.scope.pageNumSelections = pageNumSelections;
+	    	pageController.scope.page = pageController.page;
+	    	pageController.pageClick();
+	    	
+	        pageController.reFreshCurPageJump(page.selectPageNum, page.currentPage,
+                page.totalPage, page.inputPage, function(data) {
+                       
+                pageController.pageNum(page.totalPage);   
+                
+                self.userModel.modelArr = data.userList;
+                for(var i = 0;i < self.userModel.modelArr.length;i++)
+                { 
+                	if(self.userModel.modelArr[i].gender == 1)
+                	{
+                		if(self.userModel.modelArr[i].smallIcon =="" || self.userModel.modelArr[i].smallIcon ==null)
+		              	{
+		              		self.userModel.modelArr[i].smallIcon = "assets/images/public/default-male.png";
+		              	}
+                	}
+		            
+		            if(self.userModel.modelArr[i].gender == 0)
+                	{
+                		if(self.userModel.modelArr[i].smallIcon =="" || self.userModel.modelArr[i].smallIcon ==null)
+		              	{
+		              		self.userModel.modelArr[i].smallIcon =  "assets/images/public/default-fmale.png";
+		              	}
+                	}
+                	self.userModel.modelArr[i].balance = _utility.toDecimalTwo(self.userModel.modelArr[i].balance);
+                	self.userModel.modelArr[i].note = data.userList[i].note;
+                }
+                self.userModel.isShowInfo = false;
+                localStorage.removeItem("jumpData");
+             
+                if(pageController.fixedParams.isVIP == undefined)
+				{
+				
+					$("#father-checeking").children().eq(0).css({"background":"#B07B67","color":"#ffffff"}).siblings().css({"background":"#FFFFFF","color":"#777777"});
+			    	
+				}
+				else
+				{   
+				   
+				    $("#father-checeking").children().eq(parseInt(pageController.fixedParams.isVIP+1)).css({"background":"#B07B67","color":"#ffffff"}).siblings().css({"background":"#FFFFFF","color":"#777777"});
+			    	   	
+				}
+             
+                self.scope.$apply();
+                
+            })
+            
+	    }
+		
+	},
+	
+    
+
     getUserList: function(keywords,type){
         var self = this;
-       
+        
+        if(!_utility.isEmpty(localStorage.getItem("jumpData")))
+        {
+        	return;
+        }
         if(type == -1)
         {
             var params = {
@@ -67,6 +152,7 @@ var UserCtrl = {
              * @param data.userList.gender 性别
              */
             function(data){
+//          	console.log(JSON.stringify(data))
                 if(self.scope.page.selectPageNum)
                 {
                     var totalPage = Math.ceil(data.count / self.scope.page.selectPageNum);
@@ -95,7 +181,9 @@ var UserCtrl = {
                 	self.userModel.modelArr[i].note = data.userList[i].note;
                 }
                 self.userModel.isShowInfo = false;
+                
                 self.scope.$apply();
+
             }
         );
     },
@@ -135,6 +223,26 @@ var UserCtrl = {
 				});
         	}	
         };
+        
+        self.scope.sendMessage = function(item){
+        	
+        	
+        	location.href = JUMP_URL.PUSH_MESSAGE + "?telephone=" + item.telephone;
+        	    
+        	    
+        	    localStorage.setItem("jumpData",JSON.stringify(pageController.page));
+        	   
+        	    var $li = $("#nav_10"),
+		            toggleClass = ($(this).next("ul").css("display") == "none")? "toggle-icon fa fa-angle-left" : "toggle-icon fa fa-angle-down";
+		
+		        $li.find(' > a .toggle-icon').attr("class", toggleClass);
+		        $li.removeClass('active').siblings("li").addClass("active");
+		        $li.find('.sub-menu').slideToggle(200);
+		        $li.siblings("li").find(".sub-menu").slideUp(200);
+		        $li.siblings("li").find(' > a .toggle-icon').attr("class", 'toggle-icon fa fa-angle-down');
+		   
+        };
+        
         
         self.scope.abolish = function(item){
         	//取消VIP
@@ -212,17 +320,19 @@ var UserCtrl = {
   
     //点击筛选改变颜色
     changeColor : function(type){
+
     	var index = type + 2; 
-    	$("#father-checeking").children().eq(0).css("background","#cdcdcd");
+    	$("#father-checeking").children().eq(0).css({"background":"#B07B67","color":"#ffffff"});
     	$("#father-checeking").off("click");
     	$("#father-checeking").on("click",".checking",function(index){
-    		$(this).css("background","#cdcdcd").siblings().css("background","#FFFFFF");
+    		$(this).css({"background":"#B07B67","color":"#ffffff"}).siblings().css({"background":"#ffffff","color":"#777777"});
     	})
     },
     
     //遮罩层的展示和隐藏
     
     showBox : function(){
+    	
     	var self = this;
     	$("#big-box").show()
     },
@@ -262,7 +372,7 @@ var userInfoCtrl = {
 
     init: function($scope, item){
         this.scope = $scope;
-
+      
         this.infoModel.singleData = item; //个人信息
         this.scope.infoModel = this.infoModel;
 

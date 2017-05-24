@@ -204,6 +204,34 @@ class M_goods extends My_Model
         if($this->m_common->delete("goods", array("goods_id" => $goodsId)) >= 1)
         {
             $goodsObj->deleteCache();
+
+            $this->load->model('m_account');
+            $adminId = $this->m_account->getSessionData('userId');
+            $cName = $goodsObj->goods_name;
+            $cPic = $goodsObj->goods_pics;
+            $data = array(
+                'adminId' => $adminId,
+                'TID' => $goodsId,
+                'type' => 0,
+                'cName' => $cName,
+                'cPic' => $cPic,
+                'delTime' => time());
+            $this->db->insert('del_record', $data);
+            return ERROR_OK;
+        }
+        return ERROR_SYSTEM;
+    }
+
+    //出库
+    function outLibrary($goodsId)
+    {
+        $goodsObj = $this->getGoodsObj($goodsId);
+        if (!$goodsObj) 
+        {
+            return ERROR_GOODS_NOT_FOUND;
+        }
+        if($this->db->where('goods_id', $goodsId)->update('goods', array('outLibrary' => 1)))
+        {
             return ERROR_OK;
         }
         return ERROR_SYSTEM;

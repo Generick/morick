@@ -2,12 +2,6 @@
  * 拍卖历史
  */
 
-app.controller("ctrl", function ($scope)
-{   
-    AuctionHistoryCtrl.init($scope);
-   
-});
-
 var AuctionHistoryCtrl =
 {
     scope : null,
@@ -17,6 +11,11 @@ var AuctionHistoryCtrl =
     thisJumpPage :null,
     
     thisJumpId : null,
+    
+    
+	wxParams : {},
+   
+    shareInfo : {},
     
     page : {
 		currentPage : 1,
@@ -33,317 +32,55 @@ var AuctionHistoryCtrl =
     	id : null
     },
     
-    init : function ($scope)
+    init : function ($scope,wxParams)
     {
        
     	this.scope = $scope; 
     	
-    	this.judjeIsFirstCome();
+    	this.wxParams = wxParams;
     	
-    	this.bindClick();
+    	this.judjeIsFirstCome();
     	
     	this.getUrlAndId();
     	
-    	this.initData(2);
-        
         this.ngRepeatFinish();
-        
+       
         initTab.start(this.scope, 2); //底部导航
+        
+        this.bindClick();
+    	
     },
     
     getUrlAndId : function(){
     	
-    	if(location.href.indexOf("&") !=-1)
-		{   
-			
-			AuctionHistoryCtrl.thisJumpPage =  location.href.split("&")[0].split("=")[1];
-			AuctionHistoryCtrl.thisJumpId = location.href.split("&")[1].split("=")[1];
-			
-	    	if(String(AuctionHistoryCtrl.thisJumpPage).indexOf("#") != -1)
-			{
-			    AuctionHistoryCtrl.thisJumpPage = parseInt(AuctionHistoryCtrl.thisJumpPage.split("#")[0]);
-			    	    	
-			}
-			else
-			{
-			    AuctionHistoryCtrl.thisJumpPage = parseInt(AuctionHistoryCtrl.thisJumpPage);
-			}
-			if(String(AuctionHistoryCtrl.thisJumpId).indexOf("#") != -1)
-			{
-				AuctionHistoryCtrl.thisJumpId = parseInt(AuctionHistoryCtrl.thisJumpId.split("#")[0]);
-			    
-			}
-			else
-			{
-				 AuctionHistoryCtrl.thisJumpId = parseInt(AuctionHistoryCtrl.thisJumpId);
-			}
-
-		}
+    	var self = this;
+    	
+    	
+    	self.shareInfo.title = "雅玩之家";
+        self.shareInfo.img = "http://auction.yawan365.com/web/img/share-to-other.jpg";
+        self.shareInfo.content = "文化收藏，雅玩之家，每晚十点，欢迎回家";
+        
+        commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
+    	
+    	
+    	
+    	var arr = [];
+    	$('.container').css('opacity','1');
+    	if(commonFu.listGetUrlPublic(location.href).length == 2)
+    	{   
+    		arr = commonFu.listGetUrlPublic(location.href);
+    		self.thisJumpPage = arr[0];
+    	    self.thisJumpId = arr[1];
+    	}
+    	
+    	
     },
     
-    initData : function (type)
-    {   
-    	var self = this;
-       
-        if(self.isFinsh){
-            	
-            return;
-        }
-        self.isFinsh = true;
-  
-    	var params = 
-    	{
-    		num : self.page.timeNum,
-    		type : 1//0表示正在进行 1表示已经结束
-    	};
-        if(commonFu.isEmpty(sessionStorage.getItem("hasGetData")))
-	    {   
-	    	
-	    	if((!commonFu.isEmpty(self.thisJumpPage) && !commonFu.isEmpty(self.thisJumpId)))
-	    	{
-	    			params.startIndex = 0
-	    			 
-	    	        if(String(self.thisJumpPage).indexOf("#") != -1)
-			    	{
-			    	    self.thisJumpPage = parseInt(self.thisJumpPage.split("#")[0]);
-			    	    	
-			    	}
-			    	else
-			    	{
-			    	    self.thisJumpPage = parseInt(self.thisJumpPage);
-			    	}
-			    	params.num =parseInt(self.thisJumpPage) * parseInt(self.page.timeNum); 
-
-	    	}
-	    	else
-	    	{  
-	    		/*
-	    		 * 如果是第一次进入，本地缓存为空，则 params.startIndex = 0;
-	    		 */
-                params.startIndex = 0;
-	    	}
-	    	
-	    }
-	    else
-	    {   /*
-	    	 * 如果不是第一次进入，则
-	    	 * 1，获取本地存储的数据 dataArr
-	    	 * 2，获取当前数据模型里的数据 selfData
-	    	 */
-	    	var dataArr = JSON.parse(sessionStorage.getItem("hasGetData"));
-	    	var selfData = self.auctionHistoryModel.auctionItems;
-	    		
-	    	if(type == 1){
-	    		
-	    	    $('.acu-chrysanthemums').css("display","block");
-		    	/*
-		    	 * 如果是取下一页，则满足触发事件的条件（即，只要滚轮距离底部的距离小于10px时）
-		    	 * 此时的startIndex就是nowPage * self.page.timeNum
-		    	 */
-		    	
-				var atPage_2 = self.getNowPage(dataArr,selfData,1);
-                //此时的startIndex就是当前页乘以每一页拉取的数据条数
-                params.startIndex = atPage_2 * self.page.timeNum;
-	    	}
-	    	else if(type == 2)
-	    	{   
-	    		/*
-	    		 * 1,如果是详情页点击tab栏回到列表页的话，startIndexcurrPage就是
-	    		 *   存储在本地储存的interPage;
-	    		 * 2,如果是在列表页点击tab栏的话，则重置页面数据，并且清空本地存储的储存数据
-	    		 *   请求数据的startIndex就是0
-	    		 */
-	    			
-	    		if(!commonFu.isEmpty(sessionStorage.getItem("intoPage")))
-	    		{ 
-	    			var enterPage = parseInt(sessionStorage.getItem("intoPage"));
-	    			//返回列表页且获取该页数据，即是用点击前存储的页数减 1
-	 //   			params.startIndex = (enterPage - 1) * self.page.timeNum;
-                    
-                    
-                    params.startIndex = 0;
-	                params.num = enterPage * self.page.timeNum;
-	                
-	                
-	    		}
-	    		else
-	    		{   
-	    			/*
-	    			 * 如果是在列表页点击tab栏，则
-	    			 */
-	    			var atPage_4 = self.getNowPage(dataArr,selfData,2);
-	    			//此处相当于在列表页点击tab栏点击
-	    			params.startIndex = (atPage_4 - 1) * self.page.timeNum;
-	    		}
-	    			
-	    	}
-	    }		
-    	
-    	
-    	$('.animation').css('display','block');
-    	
-    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_AUCTION_ITEMS, params, function(data){
-    	    console.log(JSON.stringify(data))
-    		//在回调里拿到总数据条数，给全局变量
-	    	self.totalCount = data.count;
-	    	//设置总页数
-	    	self.setTotalPage(self.totalCount);
-    		
-    		if(commonFu.isEmpty(sessionStorage.getItem("hasGetData")))
-	    	{  
-	    		if(!commonFu.isEmpty(self.thisJumpPage) && !commonFu.isEmpty(self.thisJumpId))
-	    		{   
-		    		self.auctionHistoryModel.auctionItems = [];
-			    	self.auctionHistoryModel.auctionItems = data.auctionItems;
-			    	sessionStorage.removeItem("hasGetData");
-			    	sessionStorage.setItem("hasGetData",JSON.stringify(data.auctionItems));
-			    	
-		    	    if(String(self.thisJumpPage).indexOf("#") != -1)
-		    	    {
-		    	    	self.page.currentPage = parseInt(self.thisJumpPage.split("#")[0]);
-		    	    }
-		    	    else
-		    	    {
-		    	    	self.page.currentPage = parseInt(self.thisJumpPage);
-		    	    }
-
-	    		}
-	    		else
-	    		{
-	    			/*
-		    		* 如果是第一次进入，本地缓存为空，则 params.startIndex = 0;
-		    		*/
-		    		self.auctionHistoryModel.auctionItems = [];
-	                self.auctionHistoryModel.auctionItems = data.auctionItems;
-	
-	                sessionStorage.removeItem("hasGetData");
-	                sessionStorage.setItem("hasGetData",JSON.stringify(data.auctionItems));
-	                //获取加载到的最大页
-	                self.page.currentPage = 1;
-	    		}
-	    		
-	    	}
-    		else
-    		{
-    			if(type == 1)
-		    	{   
-		    	    /*
-		    	     * 获取下一页数据时，在本地的数据模型上拼接上请求来的数据
-		    	     */
-
-		    	    var dataNxt = data.auctionItems;
-
-		    	    for(var s = 0;s < self.auctionHistoryModel.auctionItems.length;s++)
-		    	    {   
-		    	    	if(!commonFu.isEmpty(self.auctionHistoryModel.auctionItems[s].goodsInfo))
-	                    {
-	                    	self.auctionHistoryModel.auctionItems[s].goodsInfo.goods_pics = JSON.stringify(self.auctionHistoryModel.auctionItems[s].goodsInfo.goods_pics)
-	                    }
-		    	    	
-		    	    }
-
-		    	    self.auctionHistoryModel.auctionItems = self.auctionHistoryModel.auctionItems.concat(dataNxt);
-
-		    	    /*
-		    	     * 把请求到的数据同步到本地缓存里，
-		    	     */
-		    	    //向本地存储后面追加数据
-		     	    self.alreadyGetData(dataNxt,0);
-		    	    //获取缓存里的数据
-		    	    var theSessionData_2 = JSON.parse(sessionStorage.getItem("hasGetData"));
-		    	    //请求完数据后获取当前数据模型
-		    	    var theSelfData_2 = self.auctionHistoryModel.auctionItems;
-		    	    //获取加载到的最大页
-		    	    self.page.currentPage = self.getNowDataPage(theSessionData_2,theSelfData_2);
-                    $('.acu-chrysanthemums').css("display","none");
-		        }
-		    	else if(type == 2)
-		    	{  
-		    	    /*
-		    	     * 如果是在详情页点击tab栏，则清空本地数据模型，再把请求来的数据赋值给当前数据模型；
-		    	     * 如果是在列表页点击tab栏，则重置页面，只取第一页数据，
-		    	     */
-		    	    if(!commonFu.isEmpty(sessionStorage.getItem("intoPage")))
-		    	    {   
-    	    		        
-		    	    	self.auctionHistoryModel.auctionItems = [];
-		    	    
-		    	    
-		    	    
-		    	        self.auctionHistoryModel.auctionItems = data.auctionItems;
-                        sessionStorage.setItem("hasGetData",JSON.stringify(data.auctionItems));
-		    	    	
-		    	    	
-		    	    	
-//		    	    	self.auctionHistoryModel.auctionItems = JSON.parse(sessionStorage.getItem("hasGetData"));
-		    	    	self.page.currentPage = Math.ceil(JSON.parse(sessionStorage.getItem("hasGetData")).length/self.page.timeNum)
-		    	    	//self.page.currentPage = parseInt(sessionStorage.getItem("intoPage"));
-		    	    	//把本地存储的点击进入的那个interPage置空    	    		
-		    	
-		    	    	sessionStorage.removeItem("intoPage");
-		    	    	
-		    	    }
-		    	    else
-		    	    {   
-		    	    	/*
-		    	    	 * 如果是在列表页点击tab栏，则只取第一页数据
-		    	    	 * 并且重置页面页数等
-		    	    	 */
-		    	    	
-		    	    	self.auctionHistoryModel.auctionItems = [];
-		    	    	self.auctionHistoryModel.auctionItems = data.auctionItems;
-		    	    	self.alreadyGetData(data.auctionItems,1);
-		    	    	//获取加载到的最大页
-		    	    	self.page.currentPage = 1;
-		    	    }
-		    	}
-	            else
-	            {
-	            }
-    		}
-    		
-    		if (self.auctionHistoryModel.auctionItems.length > 0)
-    		{
-    			$(".no-data").css('display','none');
-    			var goods = self.auctionHistoryModel.auctionItems;
-                
-	    		for (var i = 0;i < goods.length; i++)
-	    		{    
-                    if(!commonFu.isEmpty(goods[i].goodsInfo))
-                    {
-                    	goods[i].goodsInfo.goods_pics = JSON.parse(goods[i].goodsInfo.goods_pics);
-                    }
-		    		goods[i].isAucted = false;
-                    
-		    		if (!commonFu.isEmpty(goods[i].currentUserInfo))
-		    		{
-		    			
-		    			goods[i].isAucted = true;
-		    			goods[i].currentPrice = self.toDecimals(parseFloat(goods[i].currentPrice));
-		    			
-		    			
-		    		}
-		    		
-	    		}
-    		}
-    		else
-    		{
-    			$(".no-data").css('display','block');
-    		}
-    		
-    		self.scope.auctionItems = self.auctionHistoryModel.auctionItems;
-    		
-    		$('.animation').css('display','none');
-    		$('.container').css('opacity','1');
-            self.isFinsh = false;
-    		self.scope.$apply();
-    	})
-    },
     
     
      //判断是否需要调用重登陆
     judjeIsFirstCome : function(){
-
+        $("#myself-head img").removeClass('sharking');
 		if(commonFu.isEmpty(sessionStorage.getItem("isNewCome")))
 		{    
 			/*
@@ -355,7 +92,7 @@ var AuctionHistoryCtrl =
 					
 					if(commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) && commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
 					{  
-						
+					
 						//alert("有token调重登陆")
 						var localToken = localStorage.getItem(localStorageKey.TOKEN);
 						var params = {};
@@ -375,28 +112,44 @@ var AuctionHistoryCtrl =
 						})
 					}
 					else
-					{    
+					{     
 						//如果formLoginCome不为空，则说明是从登录页面跳转过来的，
 					   	//alert("从登陆页面登录进来的")
 					}
 				}
 				else
-				{   
+				{      
+					$("#myself-head img").addClass('sharking');
 					//如果token为空，则说明是一个没有登录过的人，第一次的直接地跳到了列表页，此时直接取列表页数据就好
 					//alert("未登陆过，第一次跳到列表页")	
 				}
 		}
 		else
 		{  
+			
+			if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			{
+				
+				$("#myself-head img").addClass('sharking');
+			}
+			else
+			{
+				if(!commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) || !commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
+				{
+					$("#myself-head img").removeClass('sharking');
+				}
+				else if(commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) && commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
+				{
+					$("#myself-head img").addClass('sharking');
+				}
+			}
+				
 			//isFirstCome不为空说明不是第一次进入，而是在应用内跳转的，所以直接加载数据
 			//alert("应用内跳转")
 		}
 		
         sessionStorage.setItem("isNewCome",1);//表明不是第一次进入该页面取数据，做以标记
     },
-    
-    
-    
     
     
       //设置总页数
@@ -490,7 +243,7 @@ var AuctionHistoryCtrl =
     	var judje = false;
     	for(var n = 0; n < self.auctionHistoryModel.auctionItems.length; n++)
     	{   
-    	    console.log(JSON.stringify(self.auctionHistoryModel.auctionItems))
+//  	    console.log(JSON.stringify(self.auctionHistoryModel.auctionItems))
     	   
     		if(self.auctionHistoryModel.auctionItems[n].id == id)
     		{   
@@ -569,12 +322,10 @@ var AuctionHistoryCtrl =
     		
     		if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
 			{   
-				setTimeout(function(){
-	       		 	
-        			location.href = pageUrl.LOGIN_PAGE;
-        				
-        		},250)	
-                
+				
+	       		localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+        		location.href = pageUrl.LOGIN_PAGE;
+        		
 			}
             else
             {   
@@ -583,27 +334,24 @@ var AuctionHistoryCtrl =
     			   
 	    			if(JSON.stringify(data)  == 'true'  || !commonFu.isEmpty(sessionStorage.getItem("loginSucess"))){
 	    				
-	    			    setTimeout(function(){
-	       		 	
-        					location.href = pageUrl.PERSON_CENTER;
+        				location.href = pageUrl.PERSON_CENTER;
         				
-        				},250)	
+	    			}
+	    			else{
+	    				
+			       		localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+		        		location.href = pageUrl.LOGIN_PAGE;
+		        		
 	    			}
     		
     		    },
             	function(){
-            		 setTimeout(function(){
-	       		 	
-        				location.href = pageUrl.LOGIN_PAGE;
-        				
-        			},250)	
             		
+	       		 	localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+        			location.href = pageUrl.LOGIN_PAGE;
+        			
             	});
-//              if(!commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
-//          	{
-//          		location.href = pageUrl.PERSON_CENTER;
-//          	}
-			
+
             }
     		
     	};
@@ -796,27 +544,8 @@ var AuctionHistoryCtrl =
 
     	}
  
-    },
-    
-    //保留两位小数
-    toDecimals : function (x) {  
-    	
-        var f = parseFloat(x);    
-        if (isNaN(f)) {    
-            return false;    
-        }    
-        var f = Math.round(x*100)/100;    
-        var s = f.toString();    
-        var rs = s.indexOf('.');    
-        if (rs < 0) {    
-            rs = s.length;    
-            s += '.';    
-        }    
-        while (s.length <= rs + 2) {    
-            s += '0';    
-        }    
-        return s;    
-    } ,   
+    }
+   
 
 };
 
@@ -881,41 +610,5 @@ var AuctionHistoryCtrl =
     	});  
 	});  
     
-    
-    //跳转到指定位置
-	$.fn.scrollTo =function(options){
-        var defaults = {
-            toT : 0, //滚动目标位置
-            durTime : 30, //过渡动画时间
-            delay : 15, //定时器时间
-            callback:null //回调函数
-        };
-        var opts = $.extend(defaults,options),
-            timer = null,
-            _this = this,
-            curTop = _this.scrollTop(),//滚动条当前的位置
-            subTop = opts.toT - curTop, //滚动条目标位置和当前位置的差值
-            index = 0,
-            dur = Math.round(opts.durTime / opts.delay),
-            smoothScroll = function(t){
-                index++;
-                var per = Math.round(subTop/dur);
-                if(index >= dur){
-                    _this.scrollTop(t);
-                    window.clearInterval(timer);
-                    if(opts.callback && typeof opts.callback == 'function'){
-                        opts.callback();
-                    }
-                    return;
-                }else{
-                    _this.scrollTop(curTop + index*per);
-                }
-            };
-        timer = window.setInterval(function(){
-            smoothScroll(opts.toT);
-        }, opts.delay);
-        return _this;
-    };
-    
-    
+  
 

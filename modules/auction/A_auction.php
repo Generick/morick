@@ -36,9 +36,11 @@ class A_auction extends Admin_Controller
         $startIndex = intval($this->input->post("startIndex"));
         $num = intval($this->input->post("num"));
 
+        $whr = array();
+        $whr['outLibrary'] = 0;
         $goods = array();
         $count = 0;
-        $this->m_goods->getGoods($startIndex, $num, $goods, $count, array(), $likeStr, $auctionGoodArr);
+        $this->m_goods->getGoods($startIndex, $num, $goods, $count, $whr, $likeStr, $auctionGoodArr);
 
         $this->responseSuccess(array("goods" => $goods, "count" => $count));
         return;
@@ -57,11 +59,18 @@ class A_auction extends Admin_Controller
 
         $startIndex = intval($this->input->post("startIndex"));
         $num = intval($this->input->post("num"));
+        $todayAuction = $this->input->post('todayAuction');
 
         $whereArr = array();
         if(isset($_POST["isVIP"]))
         {
             $whereArr["isVIP"] = intval($this->input->post("isVIP"));
+        }
+
+        if (!empty($todayAuction)) 
+        {
+            $whereArr['endTime >='] = strtotime(date("Y-m-d"));
+            $whereArr['endTime <='] = strtotime(date("Y-m-d", strtotime("+1 day")));
         }
 
         $auctionItems = array();
@@ -259,5 +268,52 @@ class A_auction extends Admin_Controller
 
         $this->responseSuccess(array("count" => $count, "auctionList" => $auctionList));
         return;
+    }
+
+    //拍品、藏品删除记录
+    function AGDelRecord()
+    {
+        if (!$this->checkParam(array('startIndex', 'num', 'type'))) 
+        {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
+
+        $startIndex = $this->input->post('startIndex');
+        $num = $this->input->post('num');
+        $type = $this->input->post('type');
+        $startTime = $this->input->post('startTime');
+        $endTime = $this->input->post('endTime');
+
+        $whr = array();
+        $whr['type'] = $type;
+        if (!empty($startTime) && !empty($endTime)) 
+        {
+            $whr['delTime >='] = $startTime;
+            $whr['delTime <='] = $endTime;
+        }
+        $data = array();
+        $count = 0;
+        $this->m_auction->AGDelRecord($startIndex, $num, $whr, $data, $count);
+        $this->responseSuccess(array('delRecord' => $data, 'count' => $count));
+    }
+
+    //竞拍记录设置备注
+    function setBidNote()
+    {
+        if (!$this->checkParam(array('id', 'note'))) 
+        {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
+        $id = $this->input->post('id');
+        $note = $this->input->post('note');
+        $res = $this->m_auction->setBidNote($id, $note);
+        if ($res !== ERROR_OK) 
+        {
+            $this->responseError($res);
+            return;
+        }
+        $this->responseSuccess($res);
     }
 }

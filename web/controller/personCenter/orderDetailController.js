@@ -202,7 +202,7 @@ var OrderDetailCtrl = {
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_ORDER_LOGISTICS_INFO, param, function(data) {
     		self.traces = [];
-            console.log("gdfdgdfgdf"+JSON.stringify(data))
+//          console.log("gdfdgdfgdf"+JSON.stringify(data))
     		self.traces = data.traces;
     		
     		if (!commonFu.isEmpty(self.traces) && self.traces.length > 0)
@@ -287,21 +287,23 @@ var OrderDetailCtrl = {
     		}
     		else
     		{
-    			if (!self.orderDetailModel.noReceipt)
-    			{
-    				$dialog.msg("请先完善收货地址再付款");
-    			}
-    			else
-	            {
-	                if(parseFloat(self.orderDetailModel.balance)  >= parseFloat(self.orderDetailModel.orderInfo.payPrice)) //余额大于实付金额直接掉接口否则取充值界面
-	                {
-	                    self.sendMessage(params,type);
-	                }
-	                else
-	                {
-	                    location.href = pageUrl.ACCOUNT_RECHARGE;
-	                }
-	            }
+    			
+    			location.href = pageUrl.MY_PAY_ORDER_PAGE;
+//  			if (!self.orderDetailModel.noReceipt)
+//  			{
+//  				$dialog.msg("请先完善收货地址再付款");
+//  			}
+//  			else
+//	            {
+//	                if(parseFloat(self.orderDetailModel.balance)  >= parseFloat(self.orderDetailModel.orderInfo.payPrice)) //余额大于实付金额直接掉接口否则取充值界面
+//	                {
+//	                    self.sendMessage(params,type);
+//	                }
+//	                else
+//	                {
+//	                    location.href = pageUrl.ACCOUNT_RECHARGE;
+//	                }
+//	            }
     		}
        };
     },
@@ -317,15 +319,15 @@ var OrderDetailCtrl = {
 	        	self.orderDetailModel.unPay = false;
 	        	$("#shenqing").css({"display":"block"})
 	        }
-	        else
-	        {   
-	        	//付款成功后操作
-	            $dialog.msg("付款成功", 1);          	
-	            setTimeout(function(){
-	                location.href = pageUrl.MY_ORDER_LIST + "?orderType=" + ""; //付款成功后跳到全部订单
-	            },1000);
-	        }
-	
+//	        else
+//	        {   
+//	        	//付款成功后操作
+//	            $dialog.msg("付款成功", 1);          	
+//	            setTimeout(function(){
+//	                location.href = pageUrl.MY_ORDER_LIST + "?orderType=" + ""; //付款成功后跳到全部订单
+//	            },1000);
+//	        }
+//	
 	    })
     },
     

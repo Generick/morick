@@ -44,7 +44,7 @@ var myAccountController =
     	$('.animation').css('display','block');
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data){
     		
-//  		console.log(data)
+//  		console.log(JSON.stringify(data))
     		
     		self.myAccountModel.userInfo = data.userInfo;
     		
@@ -52,8 +52,8 @@ var myAccountController =
     		$('.container').css('opacity','1');
     		
     		
-    		self.myAccountModel.userInfo.balance = self.toDecimals(self.myAccountModel.userInfo.balance);
-    		self.myAccountModel.userInfo.frozen = self.toDecimals(self.myAccountModel.userInfo.frozen);
+    		self.myAccountModel.userInfo.balance = commonFu.toDecimals(self.myAccountModel.userInfo.balance);
+    		self.myAccountModel.userInfo.frozen = commonFu.toDecimals(self.myAccountModel.userInfo.frozen);
     		self.scope.myAccountModel = self.myAccountModel;
     		
     		self.scope.$apply();
@@ -62,26 +62,7 @@ var myAccountController =
     	
     },
     
-      //保留两位小数
-    toDecimals : function (x) {  
-    	
-        var f = parseFloat(x);    
-        if (isNaN(f)) {    
-            return false;    
-        }    
-        var f = Math.round(x*100)/100;    
-        var s = f.toString();    
-        var rs = s.indexOf('.');    
-        if (rs < 0) {    
-            rs = s.length;    
-            s += '.';    
-        }    
-        while (s.length <= rs + 2) {    
-            s += '0';    
-        }    
-        return s;    
-    } ,   
-    
+   
     bindClick  : function ()
     {
     	var self = this;

@@ -30,6 +30,10 @@ var jqAjaxRequest =
 				{   
 					callback(data.data);
 				}
+				else if(commonFu.equal(err,errCode.CODEERR))
+				{
+					$dialog.msg(errMsg);
+				}
 				else if(commonFu.equal(err, errCode.TOKEN_FAILED) || commonFu.equal(err, errCode.TOKEN_WRONG)) //token过期跳或出错跳登录页
 				{   
 					
@@ -74,9 +78,10 @@ var jqAjaxRequest =
                 }
 			},
 			error: function(data) {
-              
+//                 $dialog.msg(s_url)
+            
 //                $dialog.msg("请求数据失败");
-                   alert("请求数据失败了");
+//                 $dialog.msg("请求数据失败了");
             //    location.href = pageUrl.LOGIN_PAGE;
             }
 		});
@@ -88,10 +93,10 @@ var jqAjaxRequest =
             userType : 1,
             token : localStorage.getItem(localStorageKey.TOKEN)
         };
-          
+        sessionStorage.removeItem("loginSucess"); 
         jqAjaxRequest.asyncAjaxRequest(apiUrl.API_USER_RELOGIN, params, function(data){
             sessionStorage.setItem("loginSucess",1);
-            sessionStorage.removeItem("reloginFail")
+            sessionStorage.removeItem("reloginFail");
             localStorage.setItem(localStorageKey.TOKEN, data.token);
         })
     }

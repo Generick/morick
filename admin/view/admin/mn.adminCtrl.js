@@ -50,6 +50,7 @@ var AdminCtrl = {
              * @param data.adminList.accountId 用户名
              */
             function(data){
+//          	console.log(JSON.stringify(data))
                 if(self.scope.page.selectPageNum)
                 {
                     var pageNum = Math.ceil(data.totalNum / self.scope.page.selectPageNum);

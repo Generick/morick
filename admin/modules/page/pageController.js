@@ -181,7 +181,7 @@ var pageController = {
             inputPage : parseInt(inputPage)
         };
         self.scope.page = self.page;
-
+        
         self.callback = callback;
 
         self.callApi();

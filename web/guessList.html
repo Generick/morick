@@ -2,7 +2,7 @@
 <html ng-app="app">
 	<head>
 		<meta charset="UTF-8">
-<!--		
+        <!--		
 		<meta  http-equivV="pragma" content="no-cache"> 
         <meta  http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
         <meta  http-equiv="expires" content="0">-->
@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="css/ui.base.css" />
         <link rel="stylesheet" href="css/selected.css" />
         <link rel="stylesheet" href="popUpModal/popUp.css" />
+      
 	</head>
 	<body ng-controller="ctrl">
 		<div id="myself-head"  ng-click="jumpToSelfZone1()" style="position: fixed;top:10px;left:10px;width:50px;height:50px;display: block;z-index: 99999;">
@@ -24,57 +25,36 @@
 			<img src="img/loading.gif"/>
 		</div>
 		
-		<!--style="position:absolute; overflow:auto;-webkit-overflow-scrolling: touch; margin-bottom:52px;top:0;left:0;right:0"-->
         <div id="container" class="container scroll">
-            <div class="xzlDown"></div>
-            <div class="list" id="list-empty" style="background-color: #fff;margin-bottom: 20px;">
-				<ul id="selected-ul" style="padding-bottom:0px">
-					<li class="oneList" style="padding-bottom:0px" ng-repeat = "item in auctionItems" id="guess_{{item.id}}" ng-click = "onClickToGoodsDetail(item)" on-finish-render-filters>
-                        <div class="item-img">
-                        	<img style="position: absolute;top:1vw;left:0px;z-index: 5;width:14vw;height:14vw;" class="smallvippic" ng-show="(item.isVIP == 1)" src="img/newVip.png">
-                            <img ng-src="{{item.goodsPicsShow}}">
-                        </div>
-						<div class="price">
-							<div ng-bind="item.goods_name"></div>
-							<div style="float: right;" class="clear">
-							
-								<span style="margin-top: 4px;"  ng-show = 'item.isShowPrice || item.initialPrice != 0'>起拍价</span>
-								<span ng-show = 'item.isShowPrice || item.initialPrice != 0'>￥{{item.isShowPrice?item.currentPrice: item.initialPrice}}</span>
-								<span ng-show = '!item.isShowPrice && item.initialPrice == 0'>零起拍</span>
-							</div>
-						</div>
+           
+            <div class="list" id="list-empty" style="background-color: #fff;padding-bottom: 70px;">
+				<ul id="selected-ul" class="guess-list-ul" style="padding-bottom:0px">
+					<li class="oneList oneList-2" style="padding-bottom:0px;margin-bottom:8px;" ng-repeat = "item in auctionItems" id="guess_{{item.id}}" ng-click = "onClickToGoodsDetail(item,$index)" on-finish-render-filters>
+                        <div class="item-img-2">
+                        	
+                            <img ng-show="item.type ==0" ng-src="{{item.cover}}">
+                        <!--<video x5-video-player-fullscreen="true" playsinline="true" style="position: absolute;top:0;left:0;" webkit-playsinline="true" x5-video-player-type='h5' class="c-h5"   ng-if="item.type ==1" poster="img/preSee3.png" ng-show="item.type ==1" id="video" height="100%" width="100%">-->
+			                <video x5-video-player-fullscreen="true" class="c-h5"  style="background: black;"   ng-if="item.type ==1" poster="img/preSee3.png" ng-show="item.type ==1">
+								<!--<source width="100%" height="100%"></source>-->
+							</video>
+                            <div class="bottom-title-content" ng-bind="item.title"></div>
+                        </div> 
 					</li>
+				
 				</ul>
-				<div class="no-more-data">
-					更多精彩拍品，每晚十点上拍！
-				</div>
+			
 			</div>
 			
 			<!--暂无数据-->
 			<div class="no-data">暂无数据！</div>
 		</div>
-      
-        
-        
-        <div id="fixed-shade" ng-click="okToShut()">
-        	<div class="modied-box" id="sure-remark">
-			    <div class="vipMark-box">
-			        <img src="img/newBigVip.png">
-			    </div>
-			    <div class="contents-box">
-			                        本件拍品为 “VIP专享”，只有VIP才能查看详情和参与竞价。 申请成为VIP，请联系VIP客服专员, 微信号：tldwzhg(陶兰都吴掌柜)
-			    </div>
-			    <div class="sure-to-do" ng-click="okToShut()">
-			    	确定
-			    </div> 
-			</div>
-        </div>
-        
+         
         <div class="chrysanthemums">
 			<img src="img/loading.gif"/>
 		</div>
 		
 		<div ng-include="'module/tab/tab.html'"></div>
+		
 	</body>
 
 	<!--系统js-->
@@ -93,7 +73,7 @@
 	<!--插件-->
 	<script type="text/javascript" src="js/fastclick.js"></script>
 	<!--<script type="text/javascript" src="js/htmlNoScroll.js"></script>-->
-	<script type="text/javascript" src="js/xzl-down-rerfresh-guess.js" ></script>
+	<!--<script type="text/javascript" src="js/xzl-down-rerfresh-guess.js" ></script>-->
 	
 	<!--controller-->
 	<script type="text/javascript" src="controller/guessListController.js" ></script>
@@ -126,6 +106,22 @@
 		        window.history.pushState(state, "title", "#");
 		    }
 		})
+		
+		$(document).ready(function(){
+		    $(window).resize(function(){
+		    	
+		        var windowWidth=$(window).innerWidth();
+		        var windowHeight=$(window).innerHeight();
+		       
+		        $('.c-h5').css({
+		            width:windowWidth,
+		            height:windowHeight
+		        })
+		     
+		    })
+		})
+		 
 	</script>
+        
 
 </html>

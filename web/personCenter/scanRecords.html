@@ -19,7 +19,7 @@
 			<div class="list">
 				<ul>
 					<li ng-repeat = "item in readObjList track by $index" ng-click="onClickToScanRecordDetail(item)">
-                        <div ng-if="item.goodsInfo.goods_pics[0]">
+                        <div ng-if="item.goodsInfo.goods_cover">
                             <div class="item-img">
                                <!-- <b style="background-image: url({{item.aucted}})"></b>-->
                                 <img style="position: absolute;top:1vw;left:0px;z-index: 5;width:14vw;height:14vw;" class="smallvippic" ng-show="(item.isVIP == 1)" src="../img/newVip.png">
@@ -28,7 +28,7 @@
                                 	<img ng-show="!(item.isEnd)" src="../img/aucting.png">
                                 </b>
                                 
-                                <img ng-src="{{item.goodsInfo.goods_pics[0]}}">
+                                <img ng-src="{{item.goodsInfo.goods_cover}}">
                             </div>
                             <div class="price">
                                 <div ng-bind="item.goodsInfo.goods_name"></div>

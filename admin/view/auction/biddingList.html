@@ -7,23 +7,86 @@
     <table class="table">
         <thead>
             <tr>
-                <td>序号</td>
-                <td>用户名</td>
-                <td>当前价格</td>
-                <td>竞拍时间</td>
+                <td style="text-align: center;">序号</td>
+                <td style="text-align: center;">用户名</td>
+                <td style="text-align: center;">当前价格</td>
+                <td style="text-align: center;">竞拍时间</td>
+                <td style="text-align: center;">备注</td>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="item in biddingModel.modelArr">
-                <td>{{$index + 1 + (page.currentPage - 1)*page.selectPageNum}}</td>
-                <td>{{item.userData.name}}</td>
-                <td>{{"￥"+item.nowPrice}}</td>
-                <td>{{item.createTime*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td style="text-align: center;">{{$index + 1 + (page.currentPage - 1)*page.selectPageNum}}</td>
+                <td ng-click="junpToUserInfo(item)" style="color:#F9CA00;position: relative;width:140px">
+                	
+                	
+                	<div style="width:70%;max-height: 60px;line-height: 30px;overflow: hidden;text-align: center;">
+	                	{{item.userData.name}}
+	                		
+	                </div>
+                    <img style="position: absolute;display:block;width:30px;height:30px;top:48%;right:7%;margin-top:-15px;" src="assets/images/public/toseeper2.png" />
+                </td>
+                <td style="text-align: center;">{{"￥"+item.nowPrice}}</td>
+                <td style="text-align: center;">{{item.createTime*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td style="width: 240px;position: relative;padding-right:30px" ng-click="showPersonDetail(item)">
+                	<div  style="float: left; width:170px;letter-spacing: 2px;max-height: 60px;line-height:28px;overflow: hidden;text-align: center;">{{item.userData.note}}</div>
+                	<img style="position: absolute;display:block;width:30px;height:30px;top:48%;right:30px;margin-top:-15px;" src="assets/images/public/tsp2.png" />
+                	<!--<div style="float: right;">
+                		<i class="ti-pencil-alt" ng-click="reMark(item)"></i>
+                	</div>-->
+                </td>
             </tr>
         </tbody>
     </table>
 </div>
 
+
+
+ <div id="big-box-two" ng-click="closeMol()">
+	<div class="modify-box" id="mode-remark-two">
+		<!--<div class="delete-it" ng-click="hideShadow()">X</div>-->
+	    <div class="note-box">
+	        <div class="note-box-title">备注信息：</div>
+	        <!--<div class="note-box-con" ng-bind="modify.note"></div>-->
+	    </div>
+	    <div class="input-box">
+	       
+	        <div ng-bind="personNote">
+	        	
+	        </div>
+	    </div>
+	    
+	    <div class="auct-btn">
+     			
+     			<p style="margin-right:130px;height:32px;line-height:32px;" class="all-btn-cancle" ng-click="closeMol()">确定</p>
+     			<!--<p class="all-btn-ok"  ng-click="hideShadow()">取消</p>-->
+     	</div>
+	    <!--<div class="cancle-ok">
+	    	<div class="ok" ng-click="submitData()">确定</div>
+	    	<div class="cancle" ng-click="hideShadow()">取消</div>
+	    </div> -->
+	</div>
+</div>
+<!--<div id="big-box-auct">
+	<div class="modify-box" id="mode-remark-auct">
+		<div class="delete-it" ng-click="hideShadow()">X</div>
+	    <div class="note-box">
+	        <div class="note-box-title">备注信息：</div>
+	    </div>
+	    <div class="input-box">
+	        <textarea  ng-model="noteWord">
+	        </textarea>
+	    </div>
+	    <div class="cancle-ok">
+	    	<div class="ok" ng-click="submitData()">确定</div>
+	    	<div class="cancle" ng-click="hideShadow()">取消</div>
+	    </div> 
+	</div>
+</div>-->
 <div ng-include="'modules/page/page.html'"></div>
 
 <script src="view/auction/biddingListCtrl.js"></script>
+
+
+
+

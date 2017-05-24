@@ -1,14 +1,6 @@
 /*
  * 商品详情
  */
-
-app.controller("ctrl", function($scope) {
-	
-	sessionStorage.setItem("itIsSelectPage",1)
-    GoodsInfoCtrl.init($scope);
-   
-});
-
 var GoodsInfoCtrl = {
 	scope : null,
     
@@ -17,6 +9,10 @@ var GoodsInfoCtrl = {
     isListLengthZero : 1,
     
     thisDetailPage : null,
+    
+    wxParams : {},
+    
+    shareInfo : {},
     
     thisDataId : null,
     
@@ -72,9 +68,11 @@ var GoodsInfoCtrl = {
 
     timer: null, //定时器
     
-    init : function ($scope)
+    init : function ($scope,wxParams)
     {
     	this.scope = $scope; 
+    	
+    	this.wxParams = wxParams;
     	
     	this.getUrlAndIds();
 
@@ -93,35 +91,18 @@ var GoodsInfoCtrl = {
     	initTab.start(this.scope, -1); //底部导航
 	    
     },
+    
     getUrlAndIds :function(){
     	
     	var self = this;
-    	if(location.href.indexOf("&") != -1)
-		{   
-			
-			self.thisDetailPage = location.href.split("&")[1].split("=")[1];
-			self.thisDataId = location.href.split("&")[0].split("=")[1];
-			
-            if(String(self.thisDetailPage).indexOf("#") != -1)
-			{
-				 self.thisDetailPage = parseInt(self.thisDetailPage.split("#")[0]);
-				    	    	
-			}
-			else
-			{
-				self.thisDetailPage = parseInt(self.thisDetailPage);
-			}
-			if(String(self.thisDataId).indexOf("#") != -1)
-			{
-				self.thisDataId = parseInt(self.thisDataId.split("#")[0]);
-				    	    	
-			}
-			else
-			{
-				self.thisDataId = parseInt(self.thisDataId);
-			}
-				    	
-		}
+    	var arr = [];
+    	
+        if(commonFu.getUrlPublic(location.href).length == 2)
+    	{
+    		arr = commonFu.getUrlPublic(location.href);
+	    	self.thisDetailPage = arr[0];
+	    	self.thisDataId = arr[1];
+    	}
     },
     
     
@@ -161,7 +142,7 @@ var GoodsInfoCtrl = {
             function(data) {
                   
                    
- 					console.log("chushi"+JSON.stringify(data))
+// 					console.log("chushi"+JSON.stringify(data))
             		self.goodsDetailModel.allInfo = [];
             		self.goodsDetailModel.allInfo = data.allInfo;
             		if(commonFu.isEmpty(self.goodsDetailModel.allInfo.cappedPrice) || (parseFloat(self.goodsDetailModel.allInfo.cappedPrice) == 0))
@@ -193,6 +174,16 @@ var GoodsInfoCtrl = {
 	                    setTitle(self.goodsDetailModel.allInfo.goodsInfo.goods_name);
 	
 	                    self.goodsDetailModel.isTimeChange = false;
+	                    
+	                    var imgArr = self.goodsDetailModel.allInfo.goodsInfo.goods_pics;
+	                    
+	                    self.shareInfo.img = (commonFu.isEmpty(imgArr) || imgArr.length == 0) ? "" : imgArr[0];
+//	                   
+	                    self.shareInfo.content = commonFu.returnRightReg(self.goodsDetailModel.allInfo.goodsInfo.goods_detail).substr(0,63);
+	    		        self.shareInfo.title =  commonFu.returnRightReg(self.goodsDetailModel.allInfo.goodsInfo.goods_name);
+	                    self.shareInfo.title = self.shareInfo.title + " - 雅玩之家";
+	                    
+	                    commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
 	                }
 	                
 	                //倒计时初始化
@@ -218,7 +209,7 @@ var GoodsInfoCtrl = {
 	                $('#second').html(sec);
 	
 	                self.countDown(self.goodsDetailModel.allInfo.startTime,self.goodsDetailModel.allInfo.endTime);
-	            
+	                
 	                self.scope.goodsDetailModel = self.goodsDetailModel;
 	                $('.animation').css('display','none');
 	                $('.container').css('opacity','1');
@@ -325,64 +316,6 @@ var GoodsInfoCtrl = {
     		self.type = 1;
 	    	self.selfPaidText = "委托出价";
 		    self.scope.selfPaidText = self.selfPaidText;
-/*
-   			jqAjaxRequest.asyncAjaxRequest(apiUrl.API_SELF_PAID_SERVICES, {}, function(data)
-		    	{   
-
-		    		var timestamp = commonFu.getTimeStamp();
-		    		self.services = data.services;
-		    		if (self.services.length == 0)
-		    		{
-		    			self.type = 0;
-		    			self.selfPaidText = "开通委托出价";
-		    		}
-		    		else if (self.services.length == 1)
-		    		{
-		    			if (self.services[0].serviceType == 0)
-		    			{
-		    				self.type = 0;
-		    				self.selfPaidText = "开通委托出价";
-		    			}
-		    			else
-		    			{
-		    				if (self.services[0].endTime > timestamp)
-		    				{
-			    				self.type = 1;
-			    				self.selfPaidText = "委托出价";
-		    				}
-		    				else
-		    				{
-		    					self.type = 0;
-		    					self.selfPaidText = "开通委托出价";
-		    				}
-		    			}
-		    		}
-		    		else
-		    		{
-		    			for (var i = 0;i < self.services.length;i ++)
-		    			{
-		    				if (self.services[i].serviceType == 1)
-		    				{
-		    					if (self.services[i].endTime > timestamp)
-		    					{
-		    						self.type = 1;
-		    						self.selfPaidText = "委托出价";
-		    					}
-		    					else
-		    					{
-		    						self.type = 0;
-		    						self.selfPaidText = "开通委托出价";
-		    					}
-		    				}
-		    			}
-		    		}
-
-	                self.type = 1;
-	    			self.selfPaidText = "委托出价";
-		    		self.scope.selfPaidText = self.selfPaidText;
-		    		self.scope.$apply();
-		    	})
-*/		    	
     	}
     	else
     	{   
@@ -469,7 +402,7 @@ var GoodsInfoCtrl = {
 
                 for (var i=0;i<self.biddingModel.biddingList.length;i++)
                 {
-                    self.biddingModel.biddingList[i].nowPrice = self.toDecimals(parseFloat(self.biddingModel.biddingList[i].nowPrice));
+                    self.biddingModel.biddingList[i].nowPrice = commonFu.toDecimals(parseFloat(self.biddingModel.biddingList[i].nowPrice));
 
                     if (!commonFu.isEmpty(self.biddingModel.biddingList[i].userData))
                     {
@@ -521,25 +454,7 @@ var GoodsInfoCtrl = {
         }
     },
     
-      //保留两位小数
-    toDecimals : function (x) {  
-    	
-        var f = parseFloat(x);    
-        if (isNaN(f)) {    
-            return false;    
-        }    
-        var f = Math.round(x*100)/100;    
-        var s = f.toString();    
-        var rs = s.indexOf('.');    
-        if (rs < 0) {    
-            rs = s.length;    
-            s += '.';    
-        }    
-        while (s.length <= rs + 2) {    
-            s += '0';    
-        }    
-        return s;    
-    } ,   
+  
     //出价时获取是否扣除保证金
     getIfFreeze: function() {
     	var self = this,
@@ -812,7 +727,7 @@ var GoodsInfoCtrl = {
     	//出价支付
     	self.scope.onClickPayNow = function()
     	{
-            var $payPrice =self.toDecimals(parseFloat($('#payPrice').html())) ;
+            var $payPrice =commonFu.toDecimals(parseFloat($('#payPrice').html())) ;
             
     		if ($payPrice.length != 0)
     		{
@@ -894,17 +809,22 @@ var GoodsInfoCtrl = {
     },
     
     ngRepeatFinish: function() {
+    	
     	var self = this;
 
 		self.scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
             var swiper = new Swiper('.swiper-container', {
                 pagination: '.swiper-pagination',
                 paginationClickable: true,
-//              autoplay: 3000,
                 autoplayDisableOnInteraction: false
             });
             self.showOrHide(self.isListLengthZero);
             self.judjeOver();
-		});
-    }
+        
+	    });
+	}
+	
 };
+
+  
+ 

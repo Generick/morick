@@ -67,7 +67,7 @@ var MessagesController = {
         
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_MY_MESSAGELIST, params, function(data){
      		
-   		console.log(JSON.stringify(data))
+// 		console.log(JSON.stringify(data))
  			self.messListModel.messlistArr = self.messListModel.messlistArr.concat(data.data);
   		    self.messListModel.count = data.count;
   		    
@@ -108,7 +108,7 @@ var MessagesController = {
   		    	if(self.messListModel.messlistArr[s].msg_type == 0)
   		    	{
   		    		
-  		    		self.messListModel.messlistArr[s].word = "查看全部";
+  		    		self.messListModel.messlistArr[s].word = "展开";
   		    		
   		    		if(self.messListModel.messlistArr[s].isRead == 1)
   		    		{
@@ -178,8 +178,9 @@ var MessagesController = {
         	        item.titleStyle = "title-style";
         		}
         	    else
-        	    {  
-        	    	item.word = "查看全部";
+        	    {   
+        	    	
+        	    	item.word = "展开";
         	    	item.bgStyle = "unopen-hasread-style";
         	    	item.isAuto = !item.isAuto; 
         	    }

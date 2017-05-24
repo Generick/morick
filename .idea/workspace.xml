@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/modules/auction/M_auction.php" line="220" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/modules/auction/M_auction.php" line="221" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="2bb3ad55-6976-41c6-974a-c70f240f3bd8" name="Default" comment="">
@@ -10,7 +10,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/server.iml" afterPath="$PROJECT_DIR$/.idea/server.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/M_admin.php" afterPath="$PROJECT_DIR$/application/models/M_admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/auction/M_auction.php" afterPath="$PROJECT_DIR$/modules/auction/M_auction.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/goods/sql/alter20170425.sql" afterPath="$PROJECT_DIR$/modules/goods/sql/alter20170425.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/messagePush/M_messagePush.php" afterPath="$PROJECT_DIR$/modules/messagePush/M_messagePush.php" />
     </list>
     <ignored path="server.iws" />
@@ -26,6 +26,7 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
     <option name="GROUP_SCHEMA" value="true" />
     <option name="GROUP_CONTENTS" value="false" />
     <option name="SORT_POSITIONED" value="false" />
@@ -39,53 +40,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="alter_20170316.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/auction/sql/alter_20170316.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" column="29" lean-forward="false" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="alter_20170318.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/alter_20170318.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="83" lean-forward="false" selection-start-line="2" selection-start-column="83" selection-end-line="2" selection-end-column="83" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="M_adminUser.php" pinned="false" current-in-tab="false">
-        <entry file="file://F:/m_works/pingan_doctor/program/server/modules/admin/M_adminUser.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="20" column="19" lean-forward="false" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-              <folding>
-                <element signature="e#6#93#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="errors.php" pinned="false" current-in-tab="false">
-        <entry file="file://F:/m_works/pingan_doctor/program/server/modules/admin/define/errors.php">
+        <entry file="file://F:/m_works/pingan_doctor/program/server/application/core/errors.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="24" column="39" lean-forward="false" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
+            <state relative-caret-position="380">
+              <caret line="25" column="104" lean-forward="false" selection-start-line="25" selection-start-column="104" selection-end-line="25" selection-end-column="104" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin_defines.php" pinned="false" current-in-tab="true">
-        <entry file="file://F:/m_works/pingan_doctor/program/server/modules/admin/define/admin_defines.php">
+      <file leaf-file-name="SensitiveWord.php" pinned="false" current-in-tab="false">
+        <entry file="file://F:/m_works/pingan_doctor/program/server/modules/sensitiveWord/SensitiveWord.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="209">
+              <caret line="11" column="30" lean-forward="false" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="M_area.php" pinned="false" current-in-tab="false">
+        <entry file="file://F:/m_works/pingan_doctor/program/server/modules/area/M_area.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1045">
+              <caret line="60" column="5" lean-forward="false" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -94,19 +73,87 @@
       <file leaf-file-name="test.php" pinned="false" current-in-tab="false">
         <entry file="file://F:/m_works/pingan_doctor/program/server/application/views/test.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="41" column="42" lean-forward="false" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
+            <state relative-caret-position="2793">
+              <caret line="147" column="96" lean-forward="false" selection-start-line="147" selection-start-column="96" selection-end-line="147" selection-end-column="96" />
+              <folding>
+                <marker date="1495280841413" expanded="true" signature="221:25816" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="11783:11876" ph="//..." />
+                <marker date="1495280841413" expanded="true" signature="12005:12170" ph="{&quot;msgContent&quot;: &quot;&quot;...}" />
+                <marker date="1495280841413" expanded="true" signature="12913:13114" ph="//..." />
+                <marker date="1495280841413" expanded="true" signature="13610:13811" ph="//..." />
+                <marker date="1495280841413" expanded="true" signature="24307:24653" ph="//..." />
+                <marker date="1495280841413" expanded="true" signature="25898:26831" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="25967:26658" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="26344:26423" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="26482:26561" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="26698:26819" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="26873:27511" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="26968:27291" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="27073:27170" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="27558:27653" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="27695:27774" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="27824:31182" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="27985:30801" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="28104:30116" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="28220:28583" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="28667:29090" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="29167:29922" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="29344:29850" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="29968:30098" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="30168:30341" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="30192:30322" ph="/*...*/" />
+                <marker date="1495280841413" expanded="true" signature="30393:30413" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="30451:30787" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="30872:30938" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="30968:31034" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="31120:31172" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="31207:31356" ph="..." />
+                <marker date="1495280841413" expanded="true" signature="31222:31262" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="31273:31344" ph="{...}" />
+                <marker date="1495280841413" expanded="true" signature="31371:32266" ph="..." />
+                <marker date="1495280841413" expanded="true" signature="31383:31402" ph="..." />
+                <marker date="1495280841413" expanded="true" signature="31428:32258" ph="..." />
+                <marker date="1495280841413" expanded="false" signature="31494:31506" ph="..." />
+                <marker date="1495280841413" expanded="true" signature="31559:31611" ph="..." />
+                <marker date="1495280841413" expanded="true" signature="31712:31855" ph="..." />
+                <marker date="1495280841413" expanded="true" signature="31915:32071" ph="..." />
+                <marker date="1495280841413" expanded="true" signature="31928:32057" ph="..." />
+                <marker date="1495280841413" expanded="true" signature="32099:32250" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="M_timeTask.php" pinned="false" current-in-tab="false">
+        <entry file="file://F:/m_works/pingan_doctor/program/server/modules/timeTask/M_timeTask.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="855">
+              <caret line="50" column="18" lean-forward="false" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
+              <folding>
+                <element signature="e#6#86#0#PHP" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="errors.php" pinned="false" current-in-tab="false">
+        <entry file="file://F:/m_works/pingan_doctor/program/server/modules/order/define/errors.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="11" column="75" lean-forward="false" selection-start-line="11" selection-start-column="75" selection-end-line="11" selection-end-column="75" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="error.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/auction/define/error.php">
+      <file leaf-file-name="defines.php" pinned="false" current-in-tab="true">
+        <entry file="file://F:/m_works/pingan_doctor/program/server/modules/order/define/defines.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="12" column="51" lean-forward="false" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="51" />
-              <folding />
+            <state relative-caret-position="798">
+              <caret line="42" column="32" lean-forward="false" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+              <folding>
+                <element signature="e#6#90#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -114,28 +161,18 @@
       <file leaf-file-name="defines.php" pinned="false" current-in-tab="false">
         <entry file="file://F:/m_works/pingan_doctor/program/server/application/core/defines.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="24" column="20" lean-forward="true" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="errors.php" pinned="false" current-in-tab="false">
-        <entry file="file://F:/m_works/pingan_doctor/program/server/application/core/errors.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="50" column="71" lean-forward="false" selection-start-line="50" selection-start-column="71" selection-end-line="50" selection-end-column="71" />
+            <state relative-caret-position="1330">
+              <caret line="70" column="62" lean-forward="false" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="defines.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/transaction/define/defines.php">
+        <entry file="file://F:/m_works/pingan_doctor/program/server/modules/transaction/define/defines.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="17" column="61" lean-forward="false" selection-start-line="17" selection-start-column="61" selection-end-line="17" selection-end-column="61" />
+            <state relative-caret-position="266">
+              <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -145,40 +182,46 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>payOrder</find>
-      <find>count_all_results</find>
-      <find>getAuction</find>
-      <find>bid</find>
-      <find>getOrderList</find>
-      <find>getOrder</find>
-      <find>address</find>
-      <find>biddingLogs</find>
-      <find>modifyType</find>
-      <find>createGoodsBak</find>
-      <find>referencePrice</find>
-      <find>getBidList</find>
-      <find>payorder</find>
-      <find>sendMsg</find>
-      <find>出价提醒</find>
-      <find>bids</find>
-      <find>明细</find>
-      <find>余额不足</find>
-      <find>GetOpen</find>
-      <find>openid</find>
-      <find>GetOpenid</find>
-      <find>jspai</find>
-      <find>jsapi</find>
-      <find>values</find>
-      <find>getOpen</find>
-      <find>rechargeSuccess</find>
-      <find>verify</find>
-      <find>mxl add</find>
-      <find>hasLogin</find>
-      <find>IS_DELETE_TYPE_OK</find>
+      <find>msgType</find>
+      <find>10</find>
+      <find>100</find>
+      <find>明细记录</find>
+      <find>C</find>
+      <find>Ch</find>
+      <find>Cha</find>
+      <find>Charge::create</find>
+      <find>ERROR_ORDER_NOT_EXISTS</find>
+      <find>2</find>
+      <find>21</find>
+      <find>210</find>
+      <find>2100</find>
+      <find>21000</find>
+      <find>appraise</find>
+      <find>getSelf</find>
+      <find>saveCache</find>
+      <find>CACHE_LIVE_TIME</find>
+      <find>chat</find>
+      <find>information</find>
+      <find />
+      <find>用户名或密码错误</find>
+      <find>用户名或密码错</find>
+      <find>用户名或密码</find>
+      <find>用户名或密</find>
+      <find>用户名或</find>
+      <find>用户名</find>
+      <find>ERROR_ACCOUNT_LOGIN_FAILED</find>
+      <find>classify</find>
+      <find>continue</find>
     </findStrings>
     <replaceStrings>
       <replace />
     </replaceStrings>
+    <dirStrings>
+      <dir>F:\m_works\pingan_doctor\program\server\application\logs</dir>
+      <dir>F:\m_works\pingan_doctor\program\server\application</dir>
+      <dir>F:\m_works\pingan_doctor\program\server\modules\order</dir>
+      <dir>F:\m_works\pingan_doctor\program\server</dir>
+    </dirStrings>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -188,52 +231,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/application/config/database.php" />
-        <option value="$PROJECT_DIR$/modules/proxyBid/M_proxyBid.php" />
-        <option value="$PROJECT_DIR$/application/controllers/A_admin.php" />
-        <option value="$PROJECT_DIR$/system/core/CodeIgniter.php" />
-        <option value="$PROJECT_DIR$/modules/readLog/M_readLog.php" />
-        <option value="$PROJECT_DIR$/modules/readLog/U_readLog.php" />
-        <option value="$PROJECT_DIR$/modules/bids/A_bids.php" />
-        <option value="$PROJECT_DIR$/modules/bids/M_bids.php" />
-        <option value="$PROJECT_DIR$/modules/auction/A_auction.php" />
-        <option value="$PROJECT_DIR$/modules/bids/sql/alter_20170303.sql" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/f866a43f-f832-4f81-b384-22a13d52cdd8/console.sql" />
-        <option value="$PROJECT_DIR$/modules/auction/sql/alter_20170302.sql" />
-        <option value="$PROJECT_DIR$/modules/order/A_order.php" />
-        <option value="$PROJECT_DIR$/database/alter_20170302.sql" />
-        <option value="$PROJECT_DIR$/modules/order/define/defines.php" />
-        <option value="$PROJECT_DIR$/modules/timedTask/TimedTask.php" />
-        <option value="$PROJECT_DIR$/modules/withdrawCash/A_withdrawCash.php" />
-        <option value="$PROJECT_DIR$/modules/withdrawCash/M_withdrawCash.php" />
-        <option value="$PROJECT_DIR$/modules/withdrawCash/U_withdrawCash.php" />
-        <option value="$PROJECT_DIR$/modules/auction/sql/alter_20170308.sql" />
-        <option value="$PROJECT_DIR$/modules/order/U_order.php" />
-        <option value="$PROJECT_DIR$/modules/messagePush/A_messagePush.php" />
-        <option value="$PROJECT_DIR$/modules/messagePush/M_messagePush.php" />
-        <option value="$PROJECT_DIR$/modules/messagePush/U_messagePush.php" />
-        <option value="$PROJECT_DIR$/modules/recharge/M_recharge.php" />
-        <option value="$PROJECT_DIR$/application/libraries/wxpay/lib/WxPay.Config.php" />
-        <option value="$PROJECT_DIR$/modules/recharge/U_recharge.php" />
-        <option value="$PROJECT_DIR$/application/libraries/Wxpay.php" />
-        <option value="$PROJECT_DIR$/modules/wx/WxCallback.php" />
-        <option value="$PROJECT_DIR$/modules/messagePush/define/defines.php" />
-        <option value="$PROJECT_DIR$/modules/withdrawCash/define/defines.php" />
-        <option value="$PROJECT_DIR$/modules/auction/sql/alter_20170315.sql" />
-        <option value="$PROJECT_DIR$/modules/auction/M_auction.php" />
-        <option value="$PROJECT_DIR$/modules/withdrawCash/define/errors.php" />
-        <option value="$PROJECT_DIR$/modules/messagePush/define/error.php" />
-        <option value="$PROJECT_DIR$/application/views/test.php" />
-        <option value="$PROJECT_DIR$/database/alter_20170318.sql" />
-        <option value="$PROJECT_DIR$/modules/transaction/define/defines.php" />
-        <option value="$PROJECT_DIR$/modules/prizesQuiz/define/defines.php" />
-        <option value="$PROJECT_DIR$/modules/prizesQuiz/define/error.php" />
-        <option value="F:/m_works/pingan_doctor/program/server/application/config/database.php" />
-        <option value="F:/m_works/pingan_doctor/program/server/modules/admin/M_adminUser.php" />
-        <option value="F:/m_works/pingan_doctor/program/server/modules/admin/define/errors.php" />
-        <option value="F:/m_works/pingan_doctor/program/server/application/core/errors.php" />
-        <option value="F:/m_works/pingan_doctor/program/server/application/views/test.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/healthPoint/U_healthPoint.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/sensitiveWord/define/errors.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/transaction/define/errors.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/withdraw/define/error.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/application/models/M_errors.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/app/core/errors.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/task/define/errors.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/banner/Banner.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/doctor/define/defines.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/banner/define/errors.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/transaction/D_transaction.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/app/Account_ext.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/doctor/A_doctor.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/application/core/My_Controller.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/wxmenu/WXmenu.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/application/models/M_smsCode.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/transaction/define/defines.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/transaction/A_transaction.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/chat/CustomerChat.php" />
         <option value="F:/m_works/pingan_doctor/program/server/application/core/defines.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/application/config/database.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/application/logs/log-2017-04-24.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/appraise/U_appraise.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/appraise/M_appraise.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/appraise/Appraise.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/chat/M_chat.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/database/doctor.sql" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/chat/define/chat_defines.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/healthPoint/define/errors.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/order/Order.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/order/U_order.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/order/D_order.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/chat/A_chat.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/timeTask/define/defines.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/chat/define/errors.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/timeTask/timeTask.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/appraise/define/defines.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/appraise/A_appraise.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/appraise/define/errors.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/timeTask/M_timeTask.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/application/core/errors.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/sensitiveWord/SensitiveWord.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/application/views/test.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/activity/M_activity.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/activity/A_activity.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/activity/D_activity.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/activity/U_activity.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/activity/define/errors.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/message/D_message.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/order/define/errors.php" />
+        <option value="F:/m_works/pingan_doctor/program/server/modules/order/define/defines.php" />
       </list>
     </option>
   </component>
@@ -258,9 +306,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="width" value="1924" />
-    <option name="height" value="1057" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -291,6 +340,16 @@
               <option name="myItemId" value="server" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auction" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="server" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
@@ -312,88 +371,12 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="auction" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="auction" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="define" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="auction" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="auction" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -403,7 +386,7 @@
     <property name="options.searchVisible" value="true" />
     <property name="last_opened_file_path" value="F:/m_works/pingan_doctor/program/server" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="vcs.Subversion" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
@@ -434,6 +417,11 @@
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder5" value="5" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\m_works\pingan_doctor\program\server\modules\doctor" />
+      <recent name="F:\m_works\pingan_doctor\program\server\modules\doctor\class" />
+      <recent name="F:\work\program\server\database" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\work\program\server\database" />
       <recent name="F:\work\program\server\modules\auction\sql" />
@@ -441,11 +429,31 @@
       <recent name="F:\work\program\server\modules\prizesQuiz\sql" />
       <recent name="F:\work\program\server\modules\messagePush\sql" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\work\program\server\database" />
-    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CodeceptionConfigurationType" factoryName="Codeception">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
     <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
       <config-file value="" />
       <node-interpreter value="project" />
@@ -561,12 +569,41 @@
       <workItem from="1489978039527" duration="16000" />
       <workItem from="1489978082434" duration="3544000" />
       <workItem from="1489997299621" duration="20612000" />
-      <workItem from="1490261526214" duration="2088000" />
+      <workItem from="1490261526214" duration="2916000" />
+      <workItem from="1490581123357" duration="17831000" />
+      <workItem from="1490682861332" duration="53400000" />
+      <workItem from="1491362864073" duration="1866000" />
+      <workItem from="1491373515833" duration="27741000" />
+      <workItem from="1491787101138" duration="81000" />
+      <workItem from="1491787354633" duration="9161000" />
+      <workItem from="1491876811557" duration="21031000" />
+      <workItem from="1492045626163" duration="95000" />
+      <workItem from="1492045885515" duration="10313000" />
+      <workItem from="1492153027705" duration="11775000" />
+      <workItem from="1492395670368" duration="3535000" />
+      <workItem from="1492421699649" duration="734000" />
+      <workItem from="1492483111969" duration="29214000" />
+      <workItem from="1492652023072" duration="28322000" />
+      <workItem from="1493030083920" duration="5635000" />
+      <workItem from="1493257316562" duration="9407000" />
+      <workItem from="1493366668007" duration="17765000" />
+      <workItem from="1493949345838" duration="19423000" />
+      <workItem from="1494228527275" duration="5043000" />
+      <workItem from="1494301090328" duration="5407000" />
+      <workItem from="1494383525586" duration="1709000" />
+      <workItem from="1494397095822" duration="15107000" />
+      <workItem from="1494659441486" duration="937000" />
+      <workItem from="1494902400484" duration="239000" />
+      <workItem from="1494986563447" duration="60000" />
+      <workItem from="1494986802774" duration="216000" />
+      <workItem from="1495003841653" duration="45000" />
+      <workItem from="1495029362419" duration="1617000" />
+      <workItem from="1495201878974" duration="1182000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="203570000" />
+    <option name="totallyTimeSpent" value="503289000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -578,28 +615,27 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1924" height="1057" extended-state="1" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15987125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14166667" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37012988" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21162046" sideWeight="0.49624866" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.141258" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29761904" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15075107" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1748401" sideWeight="0.50375134" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -618,209 +654,99 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/libraries/Wxpay.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/app/core/App_ControllerBase.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="931">
-          <caret line="49" column="34" lean-forward="false" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
+        <state relative-caret-position="83">
+          <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/recharge/U_recharge.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/information/U_information.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="33" column="30" lean-forward="false" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
+        <state relative-caret-position="83">
+          <caret line="25" column="33" lean-forward="false" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/recharge/M_recharge.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/application/models/M_account.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1045">
-          <caret line="55" column="9" lean-forward="false" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+        <state relative-caret-position="532">
+          <caret line="36" column="29" lean-forward="true" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/wx/WxCallback.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/application/core/My_Controller.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="27" column="44" lean-forward="false" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
+        <state relative-caret-position="292">
+          <caret line="218" column="46" lean-forward="true" selection-start-line="218" selection-start-column="46" selection-end-line="218" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/withdrawCash/U_withdrawCash.php">
+    <entry file="file://$PROJECT_DIR$/application/core/errors.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="24" column="59" lean-forward="true" selection-start-line="24" selection-start-column="59" selection-end-line="24" selection-end-column="59" />
+        <state relative-caret-position="247">
+          <caret line="18" column="49" lean-forward="false" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="49" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/libraries/wxpay/lib/WxPay.Api.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/transaction/A_transaction.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10146">
-          <caret line="534" column="12" lean-forward="false" selection-start-line="534" selection-start-column="12" selection-end-line="534" selection-end-column="12" />
+        <state relative-caret-position="689">
+          <caret line="64" column="41" lean-forward="false" selection-start-line="64" selection-start-column="41" selection-end-line="64" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/order/define/error.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="16" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/alter_20170315.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="61" lean-forward="false" selection-start-line="1" selection-start-column="61" selection-end-line="1" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/alter_20170302.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="115" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/bids/sql/alter_20170303.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="42" lean-forward="false" selection-start-line="1" selection-start-column="42" selection-end-line="1" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/timedTask/TimedTask.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1501">
-          <caret line="79" column="18" lean-forward="false" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/messagePush/define/defines.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="23" column="41" lean-forward="false" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/withdrawCash/define/defines.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="8" column="15" lean-forward="false" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/withdrawCash/define/errors.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="51" lean-forward="false" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/core/defines.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/messagePush/define/error.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="10" column="3" lean-forward="false" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/auction/define/defines.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/goods/M_goods_bak.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="41" column="15" lean-forward="false" selection-start-line="41" selection-start-column="15" selection-end-line="41" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="90" column="25" lean-forward="false" selection-start-line="90" selection-start-column="25" selection-end-line="90" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/auction/sql/alter_20170302.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="8" lean-forward="true" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/auction/sql/mn_auctionitems.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/Account.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="300" column="13" lean-forward="false" selection-start-line="300" selection-start-column="13" selection-end-line="300" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/auction/Auction.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="685">
-          <caret line="109" column="30" lean-forward="false" selection-start-line="109" selection-start-column="30" selection-end-line="109" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/auction/M_auction.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1573">
-          <caret line="442" column="7" lean-forward="false" selection-start-line="442" selection-start-column="7" selection-end-line="442" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3750">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/prizesQuiz/define/error.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/chat/CustomerChat.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
-          <caret line="10" column="35" lean-forward="false" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/application/controllers/JpushTest.php">
+    <entry file="file://$PROJECT_DIR$/application/models/M_account.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#6#93#0#PHP" expanded="false" />
-          </folding>
+        <state relative-caret-position="2166">
+          <caret line="119" column="33" lean-forward="false" selection-start-line="119" selection-start-column="33" selection-end-line="119" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/application/libraries/jPush/Jpush.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/doctor/define/defines.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4790">
-          <caret line="26" column="65" lean-forward="false" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="65" />
+        <state relative-caret-position="437">
+          <caret line="23" column="36" lean-forward="false" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/application/config/config.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/application/logs/log-2017-04-24.php" />
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/appraise/M_appraise.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="30" lean-forward="false" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/appraise/U_appraise.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/appraise/Appraise.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="4" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/chat/M_chat.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="30" lean-forward="true" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/application/models/M_common.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -829,174 +755,298 @@
     </entry>
     <entry file="file://F:/m_works/pingan_doctor/program/server/application/config/database.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
+        <state relative-caret-position="988">
           <caret line="52" column="42" lean-forward="false" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/application/controllers/A_admin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-          <folding>
-            <element signature="e#6#89#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/prizesQuiz/define/defines.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="21" lean-forward="false" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/admin/A_user.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="30" column="43" lean-forward="false" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
-          <folding>
-            <marker date="1490344617930" expanded="true" signature="3606:3718" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/alter_20170318.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="83" lean-forward="false" selection-start-line="2" selection-start-column="83" selection-end-line="2" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/auction/sql/alter_20170316.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="29" lean-forward="false" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/app/define/app_defines.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/app/A_admin_ext.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5493">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/app/Account_ext.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/app/M_admin_ext.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/app/M_user_ext.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1921">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/admin/M_adminUser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="20" column="19" lean-forward="false" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-          <folding>
-            <element signature="e#6#93#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://F:/m_works/pingan_doctor/program/server/modules/shop/define/errors.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="57">
+          <caret line="8" column="7" lean-forward="false" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/shop/define/defines_ext.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/healthPoint/define/errors.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="95">
+          <caret line="10" column="6" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/admin/define/errors.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/order/Order.php" />
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/order/U_order.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="24" column="39" lean-forward="false" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
-          <folding />
+        <state relative-caret-position="285">
+          <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/application/controllers/Test.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/order/D_order.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="209">
+          <caret line="11" column="30" lean-forward="false" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/application/views/test.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/database/doctor.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="41" column="42" lean-forward="false" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
-          <folding />
+        <state relative-caret-position="19">
+          <caret line="156" column="10" lean-forward="false" selection-start-line="156" selection-start-column="10" selection-end-line="156" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/auction/define/error.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/chat/A_chat.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="12" column="51" lean-forward="false" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="51" />
-          <folding />
+        <state relative-caret-position="418">
+          <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/transaction/define/defines.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/timeTask/define/defines.php" />
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/order/define/defines_ext.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" column="61" lean-forward="false" selection-start-line="17" selection-start-column="61" selection-end-line="17" selection-end-column="61" />
-          <folding />
+        <state relative-caret-position="475">
+          <caret line="30" column="55" lean-forward="true" selection-start-line="30" selection-start-column="55" selection-end-line="30" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/chat/define/chat_defines.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/chat/define/errors.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="65" lean-forward="false" selection-start-line="10" selection-start-column="65" selection-end-line="10" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/timeTask/timeTask.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="41" lean-forward="true" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/appraise/define/defines.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="27" lean-forward="false" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/appraise/A_appraise.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="38" lean-forward="false" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/appraise/define/errors.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="85" lean-forward="false" selection-start-line="9" selection-start-column="85" selection-end-line="9" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/application/controllers/U_user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="71" column="41" lean-forward="false" selection-start-line="71" selection-start-column="41" selection-end-line="71" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/information/class/InformationClass.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="151" column="20" lean-forward="false" selection-start-line="151" selection-start-column="20" selection-end-line="151" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/application/models/M_user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="698">
+          <caret line="145" column="31" lean-forward="false" selection-start-line="145" selection-start-column="22" selection-end-line="145" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/app_chat/static/js/src/modules/iframe.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="290" column="24" lean-forward="false" selection-start-line="290" selection-start-column="24" selection-end-line="290" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://F:/m_works/pingan_doctor/program/server/application/core/errors.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="25" column="104" lean-forward="false" selection-start-line="25" selection-start-column="104" selection-end-line="25" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/timeTask/M_timeTask.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
-          <caret line="50" column="71" lean-forward="false" selection-start-line="50" selection-start-column="71" selection-end-line="50" selection-end-column="71" />
+          <caret line="50" column="18" lean-forward="false" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
+          <folding>
+            <element signature="e#6#86#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/application/views/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2793">
+          <caret line="147" column="96" lean-forward="false" selection-start-line="147" selection-start-column="96" selection-end-line="147" selection-end-column="96" />
+          <folding>
+            <marker date="1495280841413" expanded="true" signature="221:25816" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="11783:11876" ph="//..." />
+            <marker date="1495280841413" expanded="true" signature="12005:12170" ph="{&quot;msgContent&quot;: &quot;&quot;...}" />
+            <marker date="1495280841413" expanded="true" signature="12913:13114" ph="//..." />
+            <marker date="1495280841413" expanded="true" signature="13610:13811" ph="//..." />
+            <marker date="1495280841413" expanded="true" signature="24307:24653" ph="//..." />
+            <marker date="1495280841413" expanded="true" signature="25898:26831" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="25967:26658" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="26344:26423" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="26482:26561" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="26698:26819" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="26873:27511" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="26968:27291" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="27073:27170" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="27558:27653" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="27695:27774" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="27824:31182" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="27985:30801" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="28104:30116" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="28220:28583" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="28667:29090" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="29167:29922" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="29344:29850" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="29968:30098" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="30168:30341" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="30192:30322" ph="/*...*/" />
+            <marker date="1495280841413" expanded="true" signature="30393:30413" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="30451:30787" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="30872:30938" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="30968:31034" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="31120:31172" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="31207:31356" ph="..." />
+            <marker date="1495280841413" expanded="true" signature="31222:31262" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="31273:31344" ph="{...}" />
+            <marker date="1495280841413" expanded="true" signature="31371:32266" ph="..." />
+            <marker date="1495280841413" expanded="true" signature="31383:31402" ph="..." />
+            <marker date="1495280841413" expanded="true" signature="31428:32258" ph="..." />
+            <marker date="1495280841413" expanded="false" signature="31494:31506" ph="..." />
+            <marker date="1495280841413" expanded="true" signature="31559:31611" ph="..." />
+            <marker date="1495280841413" expanded="true" signature="31712:31855" ph="..." />
+            <marker date="1495280841413" expanded="true" signature="31915:32071" ph="..." />
+            <marker date="1495280841413" expanded="true" signature="31928:32057" ph="..." />
+            <marker date="1495280841413" expanded="true" signature="32099:32250" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/activity/M_activity.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/activity/A_activity.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/activity/D_activity.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/activity/U_activity.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/activity/define/defines.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/activity/define/errors.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="2" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/sensitiveWord/SensitiveWord.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="30" lean-forward="false" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/message/D_message.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="37" lean-forward="false" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/area/M_area.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1045">
+          <caret line="60" column="5" lean-forward="false" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/transaction/define/defines.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://F:/m_works/pingan_doctor/program/server/application/core/defines.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" column="20" lean-forward="true" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+        <state relative-caret-position="1330">
+          <caret line="70" column="62" lean-forward="false" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/admin/define/admin_defines.php">
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/order/define/errors.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="114">
+          <caret line="11" column="75" lean-forward="false" selection-start-line="11" selection-start-column="75" selection-end-line="11" selection-end-column="75" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/order/define/defines.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="42" column="32" lean-forward="false" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+          <folding>
+            <element signature="e#6#90#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

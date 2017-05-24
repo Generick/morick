@@ -40,6 +40,7 @@ class M_prizesQuiz extends My_Model
 		$data['auction_id'] = $auctionId;
 		$data['goods_name'] = $goods_bak_obj->goods_name;
 		$data['goods_icon'] = $goods_bak_obj->goods_pics;
+        $data['goods_cover'] = $goods_bak_obj->goods_cover;
 		$data['tickets'] = $tickets;
 		$data['limitNum'] = $limitNum;
 		$data['status'] = PQ_STATUS_QUIZ;//quiz status
@@ -167,8 +168,6 @@ class M_prizesQuiz extends My_Model
 		}
 		return false;
 	}
-
-	
 
 	//有奖竞猜正常结束
 	function quizOver($auctionId)
@@ -336,7 +335,7 @@ class M_prizesQuiz extends My_Model
 	//管理后台获取有奖竞猜列表
 	function getQuizList($startIndex, $num, &$data, &$count)
 	{
-		$data = $this->db->from('prizesquiz')->join('auctionItems',"prizesquiz.auction_id = auctionItems.id")->select("auction_id,startTime,goods_icon,goods_name,limitNum,currentNum,sum,prizesquiz.status,isQuiz")->order_by('auctionItems.createTime desc')->limit($num,$startIndex)->get()->result_array();
+		$data = $this->db->from('prizesquiz')->join('auctionItems',"prizesquiz.auction_id = auctionItems.id")->select("auction_id,startTime,goods_icon, goods_cover,goods_name,limitNum,currentNum,sum,prizesquiz.status,isQuiz")->order_by('auctionItems.createTime desc')->limit($num,$startIndex)->get()->result_array();
 		foreach ($data as &$v) 
 		{
 			//$auction = $this->db->select('endTime, currentPrice')->from('auctionItems')->where('id', $v['auction_id'])->get()->row_array();
@@ -495,22 +494,4 @@ class M_prizesQuiz extends My_Model
 		$currentPrice = $this->db->select_max('quiz_price')->from('quizuser')->where('auction_id', $auction_id)->get()->row_array();
 		return $currentPrice['quiz_price'];
 	}
-
-
-	function test()
-	{
-		//return $this->db->select('user_id')->from('quizuser')->where('count',1)->get()->result_array();
-		//return array(1,array(1,5));
-		//$auctionObj = $this->m_auction->getAuctionBase(1);
-		//var_dump($auctionObj);die;
-		//$this->quizOver(90);
-		//die;
-		$price = 1000;
-		$testdata = array(array('user_id'=>1,'quiz_price'=>22),array('user_id'=>2,'quiz_price'=>88),array('user_id'=>3,'quiz_price'=>88),array('user_id'=>4,'quiz_price'=>33));
-		$res = $this->getFTUserId($price,$testdata);
-		var_dump($res);die;
-		$somedata = $this->db->select('currentPrice,bidsNum')->from('auctionItems')->where('isRemind',2)->get()->result_array();
-		var_dump($somedata);
-	}
-
 }

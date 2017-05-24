@@ -20,21 +20,100 @@
 		</div>
 
         <div class="container noScroll" style="overflow-y: scroll;">
-			<div id="guessDetailContent" style="background: #FFFFFF;padding: 5px 10px 5px 10px;line-height:21px;color;#000000">
-				<div style="width:100%;height:40px;line-height:40px;text-align: center;font-size: 17px;color:#8B4603;">竞猜活动说明</div>
+			
+		   <div class="swiper-container">
+		        <div class="swiper-wrapper">
+		            <div class="swiper-slide item-img" ng-repeat="item in goodsDetailModel.allInfo.goods_icon_new" on-Finish-Render-Filters>
+		            	<img ng-src="{{item.showIcon}}"/>
+		            </div>
+		        </div>
+                <!--<!-- Add Pagination -->
+               <div class="swiper-pagination"></div>
+		    </div>
+		    
+		    
+		    <div style="line-height:38px;text-align:center;color:#C4996D;background: #FFFFFF;" ng-click="showRegular()">
+		    	查看竞猜规则 >>
+		    </div>
+		    
+		   <!--<div id="guessDetailContent" style="background: #FFFFFF;padding: 5px 10px 5px 10px;line-height:21px;color;#000000">
+				<div style="width:100%;height:40px;line-height:40px;text-align: center;font-size: 17px;color:#8B4603;">成交价竞猜活动说明</div>
+				
 				<div style="margin-bottom:8px">
-					1，本次竞猜活动共设<span style="color:#E38D2C"> 3 </span>个奖项，最接近成交价格的<span style="color:#E38D2C"> 3 </span>个价格即为胜出者，人数不限。
+					1.开拍前可以竞猜成交价，每人可竞猜一次，押注<span style="color:#E38D2C" ng-bind="goodsDetailModel.allInfo.tickets"></span> 元，放入奖金池。最多可
+					<span style="color:#E38D2C" ng-bind="goodsDetailModel.allInfo.limitNum"></span>
+					人参与竞猜，即奖金池金额最多为
+					<span style="color:#E38D2C" ng-bind="goodsDetailModel.sumMoney"></span>元；
 				</div>
+				
 				<div style="margin-bottom:5px">
-					2，本次活动门票数量限制 <span style="color:#E38D2C" ng-bind="goodsDetailModel.allInfo.limitNum"></span> 张，每人只能买一张。
+					2.开拍后如遇特殊情况取消拍卖，则押注退回到每个参与者的账户；
 				</div>
+		
 				<div style="margin-bottom:5px">
-					3，竞猜门票为 <span style="color:#E38D2C" ng-bind="goodsDetailModel.allInfo.tickets"></span> 元，点击参加活动即开始扣款，门票除特殊情况，一律不予退还。
+					3. 开拍前可以竞猜成交价，每人可竞猜一次，押注 元，点击参加活动即开始扣款，门票除特殊情况，一律不予退还。
 				</div>
 				<div style="margin-bottom: 5px;">
-					4，本次活动最终解释权归雅玩之家所有。
+					3.截拍后分配奖金，如果流拍，则押注退回到每个参与者的账户；
 				</div>
+				<div style="margin-bottom: 5px;">
+					4.设一等奖、二等奖和三等级三级奖项。竞猜的成交价最接近实际成交价的参与者获得一等奖，以此类推，如果同一级奖项有多人获得，则这些参与者平分该级奖项；
+				</div>
+				<div style="margin-bottom: 5px;">
+					5.如果只有一等奖，则奖金池100%分配给一等奖获得者；
+				</div>
+				<div style="margin-bottom: 5px;">
+					6.如果只有一等奖和二等奖，则奖金池的分配比例为65%和35%；
+				</div>
+				<div style="margin-bottom: 5px;">
+					7. 如果有一等奖、二等奖和三等奖，则奖金池的分配比例为60%、30%和10%；
+				</div>
+				<div style="margin-bottom: 5px;">
+					8. 有关活动规则，雅玩之家拥有最终解释权；
+				</div>
+				
+			</div>-->
+		  
+		    <div id="fixed-regular" ng-click="showRegular()">
+		    </div>
+		    <div id="fixed-close"  ng-click="showRegular()">
+		    	X
+		    </div>
+		    <div id="guessDetailContent" style="background: #FFFFFF;padding: 5px 10px 5px 10px;line-height:21px;">
+		    	
+				<div style="width:100%;height:30px;line-height:30px;text-align: center;font-size: 16px;color:#8B4603;">成交价竞猜活动说明</div>
+				
+				<div style="margin-bottom:8px">
+					1.开拍前可以竞猜成交价，每人可竞猜一次，押注<span style="color:#E38D2C" ng-bind="goodsDetailModel.allInfo.tickets"></span> 元，放入奖金池。最多可
+					<span style="color:#E38D2C" ng-bind="goodsDetailModel.allInfo.limitNum"></span>
+					人参与竞猜，即奖金池金额最多为
+					<span style="color:#E38D2C" ng-bind="goodsDetailModel.sumMoney"></span>元；
+				</div>
+				
+				<div style="margin-bottom:5px">
+					2.开拍后如遇特殊情况取消拍卖，则押注退回到每个参与者的账户；
+				</div>
+				<div style="margin-bottom: 5px;">
+					3.截拍后分配奖金，如果流拍，则押注退回到每个参与者的账户；
+				</div>
+				<div style="margin-bottom: 5px;">
+					4.设一等奖、二等奖和三等级三级奖项。竞猜的成交价最接近实际成交价的参与者获得一等奖，以此类推，如果同一级奖项有多人获得，则这些参与者平分该级奖项；
+				</div>
+				<div style="margin-bottom: 5px;">
+					5.如果只有一等奖，则奖金池100%分配给一等奖获得者；
+				</div>
+				<div style="margin-bottom: 5px;">
+					6.如果只有一等奖和二等奖，则奖金池的分配比例为65%和35%；
+				</div>
+				<div style="margin-bottom: 5px;">
+					7.如果有一等奖、二等奖和三等奖，则奖金池的分配比例为60%、30%和10%；
+				</div>
+				<div style="margin-bottom: 5px;">
+					8.有关活动规则，雅玩之家拥有最终解释权。
+				</div>
+				
 			</div>
+		   
 		   
 			<div class="time-operate" style="overflow: hidden;">
 				<div class="end-time">
@@ -42,7 +121,7 @@
 						<img src="img/fresh.png" />更&nbsp;新<span id="updateTime" ></span>
 					</div>
 					<div class="endtime-realtime clear">
-						<div class="endtime-text">距离结束:</div>
+						<div class="endtime-text">距离开拍:</div>
 						<div class="endtime-time">
 							<div id="endTime">
 								<span id="day"></span>天
@@ -53,20 +132,18 @@
 						</div>
 					</div>
 				</div>
-				<button id="goodsBtn" class="goods-btn-2" ng-click="onClickPay()" style="margin-top:20px;margin-bottom:20px">马上竞猜</button>
+				<button id="goodsBtn" class="goods-btn-2" ng-click="onClickPay()" style="margin-top:20px;margin-bottom:20px">我要竞猜</button>
 				
 			</div>
 
-	
-         
             <div id="capped-box" ng-show="goodsDetailModel.allInfo.isQuiz != null" class="capped-hide" style="display: block;">
 	            <div id="capped-price-box">
 	                <button id="capped-price-btn">
-	                    <span id="capped-price">奖金</span>￥<span ng-bind="goodsDetailModel.allInfo.sum"></span>
+	                    <span id="capped-price">奖金池总额</span>￥<span ng-bind="goodsDetailModel.allInfo.sum"></span>
 	                </button>
 	            </div>
             </div>
-            <div ng-show="isShoWaWard == true" class="goods-buyer" style="padding-bottom:10px">
+            <div ng-show="biddingModel.isShoWaWard" class="goods-buyer" style="padding-bottom:10px">
 				<div class="guess-list-title">
 					<div class="guess-list">中奖列表</div>
 					<!--<div class="guess-money">中奖金额</div>-->
@@ -98,16 +175,17 @@
 			</div>
         </div>
         
+        
         <!--出价弹窗-->
         <div class="pay-block-bg">
             <div class="pay-block">
                 <div class="pay-block-top fix" style ="padding:0px;height:30px;line-height:30px;background: #F0F0F0;">
-                    <span style = "width:100%;height:100%;text-align: center;background: #F0F0F0;">竞猜拍品价格</span>
+                    <span style = "width:100%;height:100%;text-align: center;font-size:15px;background: #F0F0F0;letter-spacing: 1px;">竞猜成交价</span>
                     <span style = "position:absolute;right:10px;top:5px;width:20px;line-height:20px;text-align: center;" id="closePayBlock"></span>
                 </div>
                 <div class="pay-price fix">
-                    <span style="min-width:110px">输入竞猜价格</span>
-                    <div class="pay-price-input fix" style="max-width:150px">
+                    <span style="min-width:130px">输入您预测的成交价</span>
+                    <div class="pay-price-input fix" style="max-width:140px">
                         <div id="payPrice"></div>
                         <div class="cursor"></div>
                     </div>
@@ -116,14 +194,10 @@
 
                 <div class="pay-txt" style="padding:8px 10px;">
                   
-                    	<span style="color: #000000;font-size: 13px;">竞猜拍品价格，需要扣除竞猜费用</span>￥<span style="color: #FF0000;font-size: 13px;" ng-bind="goodsDetailModel.allInfo.tickets"></span>
+                    	<span style="color: #888888;font-size: 14px;">竞猜成交价格，需要扣除押注</span><span style="color: #FF0000;">￥</span><span style="color: #FF0000;font-size: 13px;" ng-bind="goodsDetailModel.allInfo.tickets"></span>
                 </div>
-                <div class="pay-txt" style="padding: 0 15px 10px 17px;font-size: 12px;">
-	                	<p>竞猜费用作为竞猜门票费，不予退还。</p>
-	                    <p>竞猜金额可以任意输入数字，金额越高越容易中奖哦。</p>
-	                	
-                </div>
-                <div class="pay-protocol">
+               
+                <div class="pay-protocol" style="padding-top:15px">
                     <div class="ripple" style="width:84%;height:38px;margin:15px 0 0 8%;background: #04BC06;letter-spacing:2px;color:#FFFFFF;text-align: center;line-height:38px;font-size:15px" ng-click="onClickPayNow()">确定</div>
                     <p>出价即表示同意<span style="color: #759FE3" ng-click="onClickPayProtocol()">《雅玩之家服务协议》</span></p>
                 </div>
@@ -176,6 +250,24 @@
                         <div class="back-del"><img src="img/back-del.png" /></div>
                     </div>
                 </div>
+                
+                
+<!--                
+                 <div class="to-add-money" style="height:385px;position: fixed;padding-top:40px;width:100%;height:384px;bottom:0;left:0;background: #FFFFFF;">
+		        	<span ng-click="closeAdd()" style = "position:absolute;color:#BBBBBB;font-size:22px;right:10px;top:10px;width:26px;line-height:26px;text-align: center;background: #E5E5E5;border-radius:50%;;" >X</span>
+		        	
+		        	<div>
+		        		<p style="line-height:40px;height:40px;display: inline-block;min-width:200px;text-align: right;">当前的门票价为:</p>
+		        		<p  style="line-height:40px;height:40px;display: inline-block;text-align: center;"><span ng-bind="goodsDetailModel.guessTicket" style="line-height:40px;color:#E38D2C"></span> 元 </p>
+		        	</div>
+		        	<div style="margin-bottom:30px">
+		        		<p style="line-height:40px;height:40px;display: inline-block;min-width:200px;text-align: right;">您当前的账户余额为:</p>
+		        		<p  style="line-height:40px;height:40px;display: inline-block;text-align: center;"><span ng-bind="biddingModel.myMoney" style="line-height:40px;color:#E38D2C"></span> 元 </p>
+		        	</div>
+		        	<div class="ripple" style="width:84%;height:38px;margin:15px 0 0 8%;background: #04BC06;letter-spacing:2px;color:#FFFFFF;text-align: center;line-height:38px;font-size:15px" ng-click="goToAddMoney()">前去充值</div>     
+		        </div>-->
+         
+            
             </div>
         </div>
         
@@ -244,42 +336,42 @@
 		    			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
 		    			{   
 		    				
-		    				if(sessionStorage.getItem("comeWithGuess") == 0)
+		    				if(sessionStorage.getItem("comeWithGuess") == 0)//0从我的竞猜详情跳转过来
 		    				{    
 		    					location.href = pageUrl.GUESS_DETAIL + "?id=" + GuessInnerCtrl.thisDataId + "&page=" + GuessInnerCtrl.thisDetailPage ;
 		    				
 		    				}
-		    				else if((sessionStorage.getItem("comeWithGuess") == 1))
+		    				else if((sessionStorage.getItem("comeWithGuess") == 1))//从我的拍品详情跳转过来
 		    				{   
 		    					location.href = pageUrl.GOODS_DETAIL + "?id=" + GuessInnerCtrl.thisDataId + "&page=" + GuessInnerCtrl.thisDetailPage ;
 		    				}
-		    				else if(sessionStorage.getItem("comeWithGuess") == 2)
+		    				else if(sessionStorage.getItem("comeWithGuess") == 2)//从拍卖历史列表或我的消息详情跳转过来
 			        	    {   
 			        	    	
-			        	    	if(sessionStorage.getItem("messlistOrauction") == 0)
+			        	    	if(sessionStorage.getItem("messlistOrauction") == 0)//从我的竞猜详情跳转过来
 			        	    	{   
 			        	    		
 			        	    		location.href = pageUrl.AUCTION_HISTORY_INFO + "?id=" + GuessInnerCtrl.thisDataId + "&page=" + GuessInnerCtrl.thisDetailPage ;
 			        	    	}
-			        	    	else if(sessionStorage.getItem("messlistOrauction") == 1)
+			        	    	else if(sessionStorage.getItem("messlistOrauction") == 1)//从我的消息跳转过来
 			        	    	{
 			        	    		location.href = pageUrl.MY_MESSAGE;
 			        	    	}
 			        	       
 			        	    }
-			        	    else if(sessionStorage.getItem("comeWithGuess") == 3)
+			        	    else if(sessionStorage.getItem("comeWithGuess") == 3)//从我的竞猜列表跳转过来
 			        	    { 
 			        	    	location.href = pageUrl.MY_GUESS_LIST + "?userId=" + localStorage.getItem(localStorageKey.userId);
 			        	    }
-			        	    else if(sessionStorage.getItem("comeWithGuess") == 4)
+			        	    else if(sessionStorage.getItem("comeWithGuess") == 4)//从我的个人中心跳转过来
 			        	    {
 			        	    	location.href = pageUrl.PERSON_CENTER;
 			        	    }
-			        	    else if(sessionStorage.getItem("comeWithGuess") == 5)
+			        	    else if(sessionStorage.getItem("comeWithGuess") == 5)//从我的消息跳转过来
 			        	    {
 			        	    	location.href = pageUrl.MY_MESSAGE;
 			        	    }
-			        	    else if(sessionStorage.getItem("comeWithGuess") == 6)
+			        	    else if(sessionStorage.getItem("comeWithGuess") == 6)//从我的竞猜列表跳转过来
 			        	    {
 			        	    	location.href = pageUrl.MY_GUESS_LIST + "?userId=" + sessionStorage.getItem("userId");
 			        	    }

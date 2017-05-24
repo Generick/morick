@@ -1,0 +1,18 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2017-05-03 12:10:53 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/auction/A_auction.php:getAuctionItems:{"startIndex":"0","num":"10"}
+ERROR - 2017-05-03 12:10:53 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/auction/A_auction.php:getAuctionGoods:{"startIndex":"0","num":"0"}
+ERROR - 2017-05-03 14:19:03 --> Query error: Unknown column 'goods_cover' in 'field list' - Invalid query: INSERT INTO `mn_goods_bak` (`goods_id`, `cat_id`, `goods_type`, `brand_id`, `tag_id`, `owner_id`, `goods_name`, `goods_detail`, `goods_pics`, `goods_bid`, `goods_cover`, `outLibrary`) VALUES ('107', '0', '0', '0', '0', '1', 'hdrtgfhdgfh', 'gdfgfdgdfsgdf', '[\"http://localhost/auction/uploads/photo/1490842847_58dc74df660ef.jpg\",\"http://localhost/auction/uploads/photo/1493365966_5902f4cec555a.jpg\",\"http://localhost/auction/uploads/photo/1493365966_5902f4cee5407.jpg\",\"http://localhost/auction/uploads/photo/1493365967_5902f4cf0dc83.jpg\"]', '4.00', 'http://localhost/auction/uploads/photo/1490842847_58dc74df660ef.jpg', '0')
+ERROR - 2017-05-03 14:20:41 --> Query error: Unknown column 'outLibrary' in 'field list' - Invalid query: INSERT INTO `mn_goods_bak` (`goods_id`, `cat_id`, `goods_type`, `brand_id`, `tag_id`, `owner_id`, `goods_name`, `goods_detail`, `goods_pics`, `goods_bid`, `goods_cover`, `outLibrary`) VALUES ('107', '0', '0', '0', '0', '1', 'hdrtgfhdgfh', 'gdfgfdgdfsgdf', '[\"http://localhost/auction/uploads/photo/1490842847_58dc74df660ef.jpg\",\"http://localhost/auction/uploads/photo/1493365966_5902f4cec555a.jpg\",\"http://localhost/auction/uploads/photo/1493365966_5902f4cee5407.jpg\",\"http://localhost/auction/uploads/photo/1493365967_5902f4cf0dc83.jpg\"]', '4.00', 'http://localhost/auction/uploads/photo/1490842847_58dc74df660ef.jpg', '0')
+ERROR - 2017-05-03 14:22:16 --> DBField is not found in fields: goods_cover
+ERROR - 2017-05-03 14:22:16 --> DBField is not found in fields: outLibrary
+ERROR - 2017-05-03 14:22:16 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"107","initialPrice":"0","lowestPremium":"2","margin":"0","startTime":"2017-05-03 22:00:00","endTime":"2017-05-10 22:00:00","cappedPrice":"11","isVIP":"0","isQuiz":"1","limitNum":"11","tickets":"5"}
+ERROR - 2017-05-03 14:23:29 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/auction/A_auction.php:getAuctionItems:{"startIndex":"0","num":"10"}
+ERROR - 2017-05-03 14:23:29 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/auction/A_auction.php:getAuctionGoods:{"startIndex":"0","num":"0"}
+ERROR - 2017-05-03 14:32:40 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"114"}
+ERROR - 2017-05-03 14:32:40 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/u_user.php:getSelfInfo:[]
+ERROR - 2017-05-03 14:32:40 --> [methodError]:[重登录失败：令牌已超时!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":""}
+ERROR - 2017-05-03 17:46:45 --> User type not found: 0
+ERROR - 2017-05-03 18:14:34 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"114"}
+ERROR - 2017-05-03 18:14:34 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/u_user.php:getSelfInfo:[]
+ERROR - 2017-05-03 18:14:35 --> [methodError]:[重登录失败：令牌已超时!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":""}

@@ -1,0 +1,226 @@
+<div class="item">
+	<div class="mn-header fix">
+		<div class="f"><i class="fa fa-th m-color-0"></i><span>资讯列表</span></div>
+		<div class="r m-g-l-10">
+			<a class="btn btn-danger" ng-click="onClickToDeleteGoods()"><i class="ti-trash"></i>删除</a>
+		</div>
+		<div class="r">
+			<a class="btn btn-default" ng-click="onClickToAddGoods()"><i class="ti-plus"></i>增加</a>
+		</div>
+	</div>
+
+	<div class="table-container">
+		<table class="table">
+			<thead>
+				<tr>
+					<td style="text-align: center">序号</td>
+					<td style="text-align: center;width:210px !important;">标题</td>
+					<td style="text-align: center">图片</td>
+					<td style="text-align: center">类型</td>
+					<td style="text-align: center">操作者</td>
+					<td style="text-align: center">时间</td>
+					<td style="text-align: center">操作</td>
+					<td style="text-align: center">
+						<div class="all-sel-txt">全选</div><span ng-click="onClickSelectAll()" ng-class="{true: 'has-sel', false: 'un-sel'}[isSelected]"></span></td>
+				</tr>
+
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in informationList">
+					<td style="text-align: center">{{$index + 1 + (page.currentPage - 1)*page.selectPageNum}}</td>
+					<td style="text-align: center;width:210px !important;">{{item.title}}</td>
+					<td style="text-align: center"><img style="width: 105px;margin: 0 auto;" ng-if="item.cover" ng-src="{{item.cover}}" ng-click="checkImg()"></td>
+					
+					<td style="text-align: center">
+						
+						<span ng-show="item.type == 0">图文</span>
+						<span ng-show="item.type == 1">视频</span>
+					</td>
+					<td style="text-align: center">{{item.author}}</td>
+					<td style="text-align: center" ng-bind="item.createTime*1000 | date:'yyyy-MM-dd HH:mm:ss'"></td>
+					<td style="text-align: center">
+						<a class="btn btn-default" ng-click="modified(item.id)"><i class="ti-pencil-alt"></i>修改</a>
+						<a class="btn btn-default" ng-show="item.isRelease == 0" ng-click="sendMessage(item)"><i class="ti-pencil-alt"></i>发布</a>
+						<a class="btn btn-default" ng-show="item.isRelease == 1" ng-click="sendMessage(item)" ng-click="modified(item.id)"><i class="ti-pencil-alt"></i>取消发布</a>
+					</td>
+					<td style="text-align: center"><span ng-click="onClickItemSelected(item.id)" ng-class="{true: 'has-sel', false: 'un-sel'}[item.selected]"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+    <div class="all-fixed-table all-fixed-table-act" id="all-fixed-table-goods">
+     	<div class="auct-box">
+     		<p class="auct-title" style="text-align: center;">删除资讯</p>
+     		<div class="auct-cont" style="line-height: 80px;">
+     			确定要删除该项资讯吗？
+     		</div>
+     		<div class="auct-btn">
+     			
+     			<p class="all-btn-cancle" ng-click="yesToDelete(1)">确定</p>
+     			<p class="all-btn-ok" ng-click="yesToDelete(0)">取消</p>
+     		</div>
+     	</div>
+    </div>
+     
+	<div ng-include="'modules/page/page.html'"></div>
+</div>
+
+
+
+
+
+
+
+<div class="item hidden">
+	<div class="mn-header fix">
+		<div class="f"><i class="fa fa-th m-color-0"></i><span ng-bind="title"></span></div>
+		<div class="r">
+			<a class="btn btn-white" ng-click="onClickBack()"><i class="ti-back-left"></i>返回</a>
+		</div>
+	</div>
+
+	<div class="common-container">
+		<h3>资讯详情</h3>
+		
+		<div class="con-item fix">
+			<span class="f">资讯标题：</span>
+			<div class="f con-title"><input type="text" ng-change="canOnlySeven()" maxlength="50" class="price-input form-control scr-max-fifty" placeholder="最多输入50个字符" ng-model="infoTitle"></div>
+		</div>
+		<div class="con-item fix">
+			<span class="f" style="display:block;">封面图片：</span>
+			<span class="f" style="display:block;width:600px;text-align: left;"></span>
+			<div class="f con-img" style="width:70%;margin-left:140px;">
+				<upload-scrap url="imgUrl"></upload-scrap>
+			</div>
+		</div>
+		
+		<div class="con-item fix">
+			<span class="f">资讯类型：</span>
+			<div class="f con-title type-mes-box">
+				<div class="check-round-box">
+					<div id="map-mes" ng-click="changeType(0)" class="round-box-select round-box-selecting">
+						
+					</div>
+					<div class="mess-type">
+						图文资讯
+					</div>
+				</div>
+				<div class="check-round-box">
+					<div id="video-mes" ng-click="changeType(1)" class="round-box-select">
+						
+					</div>
+					<div class="mess-type">
+						视频资讯
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="con-item fix"   ng-show="isMaps">
+			<span class="f">资讯详情：</span>
+			<div class="f con-editor">
+				<ui-kindeditor ng-model="elegantModel.editor"></ui-kindeditor>
+			</div>
+		</div>
+     
+        
+        <div class="con-item fix"   ng-show="!isMaps">
+			<span class="f">视频：</span>
+			<div class="f con-title type-mes-box">
+				<div class="check-round-box">
+					<div id="local-video" ng-click="changeVideoType(0)" class="round-box-select round-box-selecting">
+						
+					</div>
+					<div class="mess-type">
+						本地视频
+					</div>
+				</div>
+				<div class="check-round-box">
+					<div id="href-video" ng-click="changeVideoType(1)" class="round-box-select">
+						
+					</div>
+					<div class="mess-type">
+						视频链接
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="con-item fix" ng-show="isLocalVideo == 0">
+        	  <span class="f">输入链接：</span>
+        	  <div class="f con-title"><input type="text"  ng-model="localVideoHref" id="local-inp" class="price-input form-control"></div>
+        </div>
+        <div class="up-video-box" style="padding-left:140px;" ng-show="isLocalVideo == 1">
+        	<upload-video url="elegantModel.video"></upload-video>
+        </div>
+        
+        	<!--<video controls="controls" autoplay="autoplay" poster="img/video.jpg">
+			  <source src="assets/video/youxi.mp4"  type="video/mp4" />
+			</video>-->
+			
+		<div class="con-item fix">
+		<!--	<span class="f">提交数据：</span>-->
+			<a class="f btn btn-default" style="margin-left:180px;" ng-click="onClickSubmit(0)">保&nbsp;&nbsp;存</a>
+			<a class="f btn btn-default" style="margin-left:50px;background: #B09067;" ng-click="preview()">预&nbsp;&nbsp;览</a>
+		</div>
+		
+	</div>
+</div>
+
+
+<div class="close-fixed" ng-click="closeFixed()">X</div>
+<div class="preview-box" ng-click="closeFixed()">
+	
+	
+	
+</div>
+<div class="preview-content">
+		
+		<!--<div class="prew-title">
+			
+		</div>
+		<div class="prew-time">
+			
+		</div>-->
+		<div class="prew-rich-box">
+			
+		</div>
+</div>
+
+
+<script src="view/elegant/elegantController.js"></script>
+
+<div class="fixed-chrysanthemum">
+	<img src="assets/images/public/loading600.gif" /> 
+</div>
+
+<!--
+
+
+<video id="video" controls="controls">
+<source src="assets/video/youxi.mp4">
+</video>
+<div id="output"></div>
+<script type="text/javascript">
+(function(){
+var video, output;
+var scale = 0.8;
+var initialize = function() {
+output = document.getElementById("output");
+video = document.getElementById("video");
+video.addEventListener('loadeddata',captureImage);
+};
+ 
+var captureImage = function() {
+            var canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth * scale;
+            canvas.height = video.videoHeight * scale;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+ 
+            var img = document.createElement("img");
+            img.src = canvas.toDataURL("image/png");
+            output.appendChild(img);
+};
+ 
+initialize();
+})();
+</script>-->

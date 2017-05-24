@@ -333,7 +333,7 @@ a,ins {
 
 
 
-#fixed-table{
+.all-fixed-table{
 	display: none;
 	position: fixed;
 	z-index: 111;
@@ -343,7 +343,7 @@ a,ins {
 	top:0;
 	right:0;
 	bottom:0;
-	background: rgba(0,0,0,0.3);
+	background: rgba(0,0,0,0.5);
 }
 .auct-box{
 	position: absolute;
@@ -353,8 +353,8 @@ a,ins {
 	height:230px;
 	background: #FFFFFF;
 	border: 1px solid #999999;
-	border-radius: 4px;
-	
+	border-radius: 10px;
+	box-shadow: 0 0 8px 3px #666666
 }
 .auct-title{
 	width:100%;
@@ -362,7 +362,7 @@ a,ins {
 	padding:20px 0 10px 30px;
 	text-align: left;
 	font-size: 17px;
-	color:#111111;
+	color:#555555;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 }
@@ -375,7 +375,7 @@ a,ins {
 	line-height: 45px;
 	font-size: 15px;
 	color:#333333;
-	border:1px solid #A2A2A2;
+	border:1px solid #cccccc;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	letter-spacing: 1px;
@@ -385,41 +385,39 @@ a,ins {
 	height:40px;
 	width:100%;
 }
-#btn-cancle{
+.all-btn-cancle{
 	width:63px;
 	height:37px;
 	line-height:37px;
 	float:right;
 	margin-right: 30px;
 	text-align: center;
-	border: 1px solid #777777;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	font-size: 16px;
 	border-radius: 3px;
-	color:#333333;
-	font-size: 600;
+	color:#FFFFFF;
+	background: #5FBEAA;
 }
-#btn-ok{
+.all-btn-ok{
 	width:63px;
 	height:37px;
 	line-height:37px;
 	float:right;
 	margin-right: 25px;
 	text-align: center;
-	border: 1px solid #777777;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	font-size: 16px;
 	border-radius: 3px;
-	color:#333333;
-	font-size: 600;
+	color:#FFFFFF;
+	background: #5FBEAA;
 }
-#btn-ok:active{
+/*.all-btn-ok:active{
 	background: #DDDDDD;
 	color: #FFFFFF;
 }
-#btn-cancle:active{
+.all-btn-cancle:active{
 	background: #DDDDDD;
 	color: #FFFFFF;
-}
+}*/

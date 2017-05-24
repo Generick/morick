@@ -124,12 +124,26 @@ var GuessInfoCtrl = {
  					console.log("chushi"+JSON.stringify(data))
             		self.goodsDetailModel.allInfo = [];
             		self.goodsDetailModel.allInfo = data;
-	                self.goodsDetailModel.allInfo.goods_icon = JSON.parse(data.goods_icon); 
-
+             
+                    if(!commonFu.isEmpty(self.goodsDetailModel.allInfo.goods_icon))
+		            {
+		                self.goodsDetailModel.allInfo.goods_icon = JSON.parse(self.goodsDetailModel.allInfo.goods_icon);//  JSON.parse(self.goodsDetailModel.allInfo.goods_icon); 
+		                self.goodsDetailModel.allInfo.goods_icon_new = []
+		               
+			            for (var i = 0; i < self.goodsDetailModel.allInfo.goods_icon.length; i ++)
+			            {
+			               var itemObj = {}
+			              		
+			              	itemObj.showIcon = self.goodsDetailModel.allInfo.goods_icon[i];
+			              		
+			              	self.goodsDetailModel.allInfo.goods_icon_new.push(itemObj);
+			            }
+		                
+		            }
+                    
 	                self.wasLogin = data.hasLogin;
 	                $('#goodsContent').html(self.goodsDetailModel.allInfo.goods_detail);
-	                
-
+	              
 	                setTitle(self.goodsDetailModel.allInfo.goods_name);
 	
 	                //倒计时初始化

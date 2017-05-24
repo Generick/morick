@@ -80,9 +80,12 @@ var WithdrawCtrl = {
 		pageController.pageInit(self.scope, api.API_GET_WITHDRAW_LIST, params, function(data){
 			//分页
 			var totalPage = Math.ceil(data.count / self.scope.page.selectPageNum);
-            console.log(JSON.stringify(data))
+//          console.log(JSON.stringify(data))
             pageController.pageNum(totalPage);
-            
+            if(data.data.length == 0)
+			{
+				$dialog.msg("暂无数据！")
+			}
             for(var i = 0; i < data.data.length; i++){
             	data.data[i].type = self.turnStatus(data.data[i].status);
             }

@@ -1,6 +1,6 @@
 <div class="auction-bottom fix">
     <div class="bottom-li" ng-repeat="item in tabs" ng-click="onClickSwitchTab($index)">
-        <div><img ng-src="{{item.isActive?item.pic[1]:item.pic[0]}}" /></div>
+        <div><img ng-class="{true:'bottom-imgs',false:''}[item.id == 3]" ng-src="{{item.isActive?item.pic[1]:item.pic[0]}}"/></div>
         <span ng-class="{true: 'bottom_active',false: ''}[item.isActive]">{{item.title}}</span>
     </div>
 </div>

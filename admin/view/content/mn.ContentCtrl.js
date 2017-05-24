@@ -15,7 +15,7 @@ var ContentCtrl = {
 
     init: function($scope){
         this.scope = $scope;
-
+       
         this.scope.contentModel = this.contentModel;
 
         this.getData();

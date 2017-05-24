@@ -88,16 +88,18 @@
 }
 
 .goods-img{
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 155px;
     margin: 10px;
-    border:1px dashed #ddd;
+    margin-bottom:20px;
+  /*  border:1px dashed #ddd;*/
     position: relative;
 }
 
 .goods-img img{
     width: 100%;
-    height:100%;
+    height:120px;
+    border:1px dashed #ddd;
 }
 
 .goods-img > i{
@@ -110,9 +112,33 @@
     cursor: pointer;
 }
 
+.set-face-img{
+	width:100%;
+	height:32px;
+	line-height: 32px;
+	text-align: center;
+	background: #996633;
+	color:#FFFFFF
+}
+
+.select-round{
+	width:24px;
+	height:24px;
+	overflow: hidden;
+	border-radius: 50%;
+	margin:0 auto;
+	border:1px solid #DDDDDD;
+	
+}
+
+.round-has-select{
+	background: url(../images/public/yes.png) no-repeat left top;
+	background-size: cover;
+}
 .upload-icon{
-    width: 120px;
-    height: 120px;
+	
+    width: 140px;
+    height: 150px;
     margin: 10px;
     vertical-align: top;
     cursor: pointer;
@@ -120,10 +146,10 @@
 
 .upload-goods-form{
 	position: relative;
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 150px;
     text-align: center;
-    line-height: 120px;
+    line-height: 150px;
     font-size: 28px;
     border:1px dashed #ddd;
 
@@ -132,8 +158,8 @@
     position: absolute;
     top:0;
     left:0;
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 150px;
     z-index: 22;
     filter:alpha(opacity=0);  
     -moz-opacity:0;  
@@ -144,6 +170,51 @@
 	position: ;
 }
 
+
+
+.goods-img-2{
+    width: 140px;
+    height: 155px;
+    margin: 10px;
+    margin-bottom:20px;
+  /*  border:1px dashed #ddd;*/
+    position: relative;
+}
+
+.goods-img-2 img{
+    width: 100%;
+    height:120px;
+    border:1px dashed #ddd;
+}
+
+.goods-img-2 > i{
+    display: block;
+    position: absolute;
+    top: -10px;
+    right: -9px;
+    color: #B07B67;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.set-face-img-2{
+	width:100%;
+	height:32px;
+	line-height: 32px;
+	text-align: center;
+	background: #996633;
+	color:#FFFFFF
+}
+
+.select-round-2{
+	width:24px;
+	height:24px;
+	overflow: hidden;
+	border-radius: 50%;
+	margin:0 auto;
+	border:1px solid #DDDDDD;
+	
+}
 
 
 /*.upload-goods-form > i{

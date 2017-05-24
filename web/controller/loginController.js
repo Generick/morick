@@ -33,7 +33,7 @@ var LoginCtrl =
     //检查参数
     checkParams: function(type){
         var self = this;
-
+         
         if(commonFu.isEmpty(self.loginModel.platformId))
         {
             $dialog.msg("请输入手机号");
@@ -49,7 +49,19 @@ var LoginCtrl =
             $dialog.msg("请输入验证码");
             return false;
         }
-
+        if(type && self.loginModel.password.length != 4)
+        {
+        	
+            $dialog.msg("验证码为4位");
+            return false;
+        }
+       
+        if(type && commonFu.isEmpty(self.loginModel.password))
+        {   
+            $dialog.msg("验证码错误");
+            return false;
+        }
+        
         return true;
     },
     
@@ -101,7 +113,7 @@ var LoginCtrl =
         	param.platform = self.loginModel.platform;
         	param.platformId = self.loginModel.platformId;
         	param.password = self.loginModel.password;
-
+           
             if(self.checkParams(1))
             {
             
@@ -127,8 +139,10 @@ var LoginCtrl =
                         //登陆的回调里，在本地缓存一个从登录页面进入的标志，在列表页判断，如果它存在，就不用掉用重登陆接口，否则再进行下一步判断
                         sessionStorage.setItem("formLoginCome",1);
                         
+                        sessionStorage.removeItem("loginSucess");
                         //不管是重登陆还是登录界面登录的，登录成功的标志，关闭浏览器后自动失效
                         sessionStorage.setItem("loginSucess",1)
+                      
                         sessionStorage.removeItem("reloginFail")
                         //跳到精选
                         if(commonFu.isEmpty(localStorage.getItem(localStorageKey.DEFAULT)))

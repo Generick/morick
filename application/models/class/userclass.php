@@ -21,6 +21,7 @@ class CUserBaseInfo extends IExtractInfo {
             "gender",
             "smallIcon",
             "telephone",
+            "balance",
         );
     }
 
@@ -48,6 +49,7 @@ class CUserInfo extends IExtractInfo {
             "icon",
             "telephone",
             "registerTime",
+            "balance",
         );
     }
 

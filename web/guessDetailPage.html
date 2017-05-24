@@ -23,8 +23,8 @@
 			<!-- Swiper -->
 		    <div class="swiper-container">
 		        <div class="swiper-wrapper">
-		            <div class="swiper-slide item-img" ng-repeat="item in goodsDetailModel.allInfo.goods_icon" on-Finish-Render-Filters>
-		            	<img ng-src="{{item}}"/>
+		            <div class="swiper-slide item-img" ng-repeat="item in goodsDetailModel.allInfo.goods_icon_new" on-Finish-Render-Filters>
+		            	<img ng-src="{{item.showIcon}}"/>
 		            </div>
 		        </div>
                 <!-- Add Pagination -->
@@ -40,7 +40,7 @@
 						<img src="img/fresh.png" />更&nbsp;新<span id="updateTime" ></span>
 					</div>
 					<div class="endtime-realtime clear">
-						<div class="endtime-text">距离结束:</div>
+						<div class="endtime-text">距离开拍:</div>
 						<div class="endtime-time">
 							<div id="endTime">
 								<span id="day"></span>天
@@ -51,12 +51,8 @@
 						</div>
 					</div>
 				</div>
-				<button id="goodsBtn" disabled="disabled" class="goods-btn-un" ng-click="onClickPay()">出&nbsp;价</button>
-				<button id="selfGoodsBtn1" disabled="disabled"  class="goods-btn-un" ng-click="onClickSelfPay()">委托出价</button>
-				<button id="selfGoodsBtn" class="goods-btn-2"  ng-click="jumpToGuess(item)" >我要竞猜</button>
-			</div>
-
-			<div class="goods-operate groble-operate-thrity clear">
+				
+				<div class="goods-operate groble-operate-thrity clear">
 				<div class="goods-operate-block groble-thrity clear">
 					<span class="operate-type">起</span>
 					<div>
@@ -83,11 +79,17 @@
 				</div>-->
 			</div>           
    
+				<button id="goodsBtn" disabled="disabled" class="goods-btn-un" ng-click="onClickPay()">出&nbsp;价</button>
+				<button id="selfGoodsBtn1" disabled="disabled"  class="goods-btn-un" ng-click="onClickSelfPay()">委托出价</button>
+				<button id="selfGoodsBtn" class="goods-btn-2"  ng-click="jumpToGuess(item)" >成交价竞猜</button>
+			</div>
+
+			
           
-            <div id="capped-box" class="capped-hide" style="display: block;">
-	            <div id="capped-price-box">
+            <div id="capped-box" class="capped-hide" style="display: block;overflow:hidden;height:80px;">
+	            <div id="capped-price-box"  style="display: block;">
 	                <button id="capped-price-btn">
-	                    <span id="capped-price">奖金</span>￥<span ng-bind="goodsDetailModel.allInfo.sum"></span>
+	                    <span id="capped-price">奖金池总额</span>￥<span ng-bind="goodsDetailModel.allInfo.sum">10000</span>
 	                </button>
 	            </div>
             </div>
@@ -152,7 +154,6 @@
 			$('#closeSelfBlock').click(function(){
 				$('.self-pay-block-bg').css('display','none');
 			});
-			
 			//监听微信返回按钮
 			pushHistory();
 			var bool=false;
@@ -162,12 +163,11 @@
             },1000);
 		    window.addEventListener("popstate", function(e) {
 		    	if (bool)
-		    	{   
+		    	{
 		    		if(commonFu.isEmpty(localStorageKey.FROM_LOCATION))
 		    		{   
 		    			sessionStorage.setItem("needGuessPage",1)
 		    			location.href = pageUrl.GUESS_PAGE +"?backPage=" + GuessInfoCtrl.thisDetailPage + "&thisDataId=" + GuessInfoCtrl.thisDataId;
-
 		    		}
 		    		else
 		    		{

@@ -13,19 +13,19 @@
 	<body ng-controller="bindAccountController">
 		<div class="container" style="opacity: 1;">
 			<!--邮箱-->
-			<div class="mid-top clear" ng-show="bindModel.mailBind">
+			<div class="mid-top clear type-hidden" id="emailShow">
 				<img class="bind_img" src="../img/personCenter/mail.png" />
 				<span>邮箱</span>
 				<input class="person-input" type="text" placeholder="请输入邮箱号" ng-model="bindModel.mail" />
 			</div>
 			<!--QQ-->
-			<div class="mid-top clear" ng-show="bindModel.QQBind">
+			<div class="mid-top clear type-hidden" id="QQShow">
 				<img class="bind_img" src="../img/personCenter/QQ.png" />
 				<span>QQ</span>
 				<input class="person-input" type="number" placeholder="请输入QQ号" ng-model="bindModel.QQ" />
 			</div>
 			<!--微信-->
-			<div class="mid-top clear" ng-show="bindModel.weChatBind">
+			<div class="mid-top clear type-hidden" id="WeiXinShow">
 				<img class="bind_img" src="../img/personCenter/weChat.png" />
 				<span>微信</span>
 				<input class="person-input" type="text" placeholder="请输入微信号" ng-model="bindModel.weChat" />

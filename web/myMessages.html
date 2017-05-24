@@ -23,7 +23,17 @@
 				<div class="message-had-unread" ng-class="item.bgStyle"  ng-bind="item.msg_content" ng-click="jumpTOatherPage(item)"></div>
 				
 				<a class="go-to-see" ng-show="item.msg_type != 0" style="text-align: center;" ng-click="jumpTOatherPage(item)">去看看</a>
-				<a class="go-to-see" ng-class="item.titleStyle" style="text-decoration: none;text-align: center;" ng-show="item.msg_type == 0" ng-click="jumpTOatherPage(item)" ng-bind="item.word"></a>
+				<div class="showMore"ng-show="item.msg_type == 0" style="text-decoration: none;" ng-click="jumpTOatherPage(item)" >
+					<p class="showMore-word"  style="text-align: left;"  ng-bind="item.word"  ng-class="item.titleStyle">
+						
+					</p>
+					<p ng-show="!item.isAuto" class="down-up-arrow">
+						<img src="img/personCenter/right_icon.png" /> 
+					</p>
+					<p ng-show="item.isAuto" class="up-down-arrow">
+						<img src="img/personCenter/right_icon.png" /> 
+					</p>
+				</div>
 			</div>
 			
 			<!--暂无数据-->

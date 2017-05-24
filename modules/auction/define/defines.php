@@ -14,6 +14,7 @@ define('AUCTION_OFF',   1);//下架状态
 
 define('AUCTION_ING',  0);//正在拍卖
 define('AUCTION_END',  1);//拍卖历史
+define('AUCTION_ALL',   2);//全部【正在拍卖+拍卖历史】
 
 define('AUCTION_TYPE_SMALL', 0);
 define('AUCTION_TYPE_BASE', 1);

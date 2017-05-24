@@ -253,7 +253,7 @@ th {
 #online-pay{
 	float: left;
 	line-height: 23px;
-	border: 1px solid #666666;
+	border: 1px solid #CCCCCC;
 	padding:3px 8px;
 	-webkit-user-select: none; /* for Chrome */
 	-moz-user-select: none; /* for Firefox */
@@ -261,7 +261,7 @@ th {
 #face-pay{
 	float: left;
 	line-height: 23px;
-	border: 1px solid #666666;
+	border: 1px solid #CCCCCC;
 	padding:3px 8px;
 	margin-left:10px;
 	-webkit-user-select: none; /* for Chrome */
@@ -270,7 +270,7 @@ th {
 #all-pay{
 	float: left;
 	line-height: 23px;
-	border: 1px solid #666666;
+	border: 1px solid #CCCCCC;
 	padding:3px 12px;
 	margin-right: 10px;
 	-webkit-user-select: none; /* for Chrome */
@@ -278,7 +278,7 @@ th {
 }
 
 #pay-way .pay-active{
-	background: #0099FF;
+	background: #B07B67;
 	color:#FFFFFF;
 	border: none;
 }

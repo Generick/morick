@@ -16,8 +16,10 @@ var GuessInnerCtrl = {
  
     GuessTicket : null,
     
-    isShoWaWard : true,
+    gonOnGet : false,
     
+    isOpenRegular : false,
+   
     thisDetailPage : null,
     
     thisDataId : null,
@@ -25,13 +27,18 @@ var GuessInnerCtrl = {
     hasLogin : false,
     
     goodsDetailModel : 
-    {
+    {   
+    	guessTicket : null,
+        sumMoney : null,
     	id : null, //商品id
     	allInfo : {}
     },
     
     biddingModel :
-    {
+    {   
+    	
+    	myMoney : null,
+    	isShoWaWard : false,
     	biddingList : [],
     	drawnList : [],
     	isCheckOver : true, //查看更多
@@ -117,9 +124,9 @@ var GuessInnerCtrl = {
     	}
     
     	
-    	self.setReadLog();
-    	
-    	
+//  	self.setReadLog();
+//  	
+//  	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_GUESSDETAIL, params,
             /**
              * @param data.allInfo.referencePrice 参考价
@@ -130,25 +137,51 @@ var GuessInnerCtrl = {
             function(data) {
                   
                    
- 					console.log("ggg2gg"+JSON.stringify(data))
+// 					console.log("ggg2gg"+JSON.stringify(data))
             		self.goodsDetailModel.allInfo = [];
             		self.goodsDetailModel.allInfo = data;
             		if(!commonFu.isEmpty(data.isQuiz))
 	                {
 	                	self.hasLogin = data.hasLogin;
 	            		self.GuessTicket = self.goodsDetailModel.allInfo.tickets;
+	            		self.goodsDetailModel.guessTicket = self.goodsDetailModel.allInfo.tickets;
+		                self.goodsDetailModel.sumMoney = parseFloat(self.goodsDetailModel.allInfo.tickets)  * parseFloat(self.goodsDetailModel.allInfo.limitNum);
+		                
+		                
+		                if(!commonFu.isEmpty(self.goodsDetailModel.allInfo.goods_icon))
+		                {
+		                	self.goodsDetailModel.allInfo.goods_icon = JSON.parse(self.goodsDetailModel.allInfo.goods_icon);//  JSON.parse(self.goodsDetailModel.allInfo.goods_icon); 
+		                    self.goodsDetailModel.allInfo.goods_icon_new = []
 		               
+			              	for (var i = 0; i < self.goodsDetailModel.allInfo.goods_icon.length; i ++)
+			              	{
+			              		var itemObj = {}
+			              		
+			              		itemObj.showIcon = self.goodsDetailModel.allInfo.goods_icon[i];
+			              		
+			              		self.goodsDetailModel.allInfo.goods_icon_new.push(itemObj);
+			              	}
+		                }
+		              
 		                //倒计时初始化
 		                var currentDate = new Date().getTime();
 		                var second1 = Math.ceil(currentDate/1000);
-		              
+		                var time0 = (parseFloat(self.goodsDetailModel.allInfo.endTime) - second1);
 		                var time = (parseFloat(self.goodsDetailModel.allInfo.startTime) - second1);
 		                setTitle(self.goodsDetailModel.allInfo.goods_name)
 		                if (time <= 0)
 		                {
 		                    $('#endTime').hide();
 		                    $('.endtime-text').html("");
-		                    $('.endtime-time').html("竞猜结束");
+		                    if(time0 <= 0)
+		                    {
+		                    	$('.endtime-time').html("竞猜已结束");
+		                    }
+		                    else
+		                    {
+		                    	 $('.endtime-time').html("已停止下注 ");
+		                    }
+		                   
 		                    $('#goodsBtn').attr({"disabled": "disabled", "class": "goods-btn-un"});
 		                }
 		                
@@ -161,7 +194,7 @@ var GuessInnerCtrl = {
 		                $('#minute').html(min);
 		                $('#second').html(sec);
 		               
-		                self.countDown(self.goodsDetailModel.allInfo.startTime);
+		                self.countDown(self.goodsDetailModel.allInfo.startTime,self.goodsDetailModel.allInfo.endTime);
 		            
 		                self.scope.goodsDetailModel = self.goodsDetailModel;
 		                $('.animation').css('display','none');
@@ -172,7 +205,7 @@ var GuessInnerCtrl = {
 	                else{
 	                	   $('#endTime').hide();
 		                    $('.endtime-text').html("");
-		                    $('.endtime-time').html("竞猜结束");
+		                    $('.endtime-time').html("竞猜已结束");
 		                    $('#goodsBtn').attr({"disabled": "disabled", "class": "goods-btn-un"});
 		                    self.scope.goodsDetailModel = self.goodsDetailModel;
 			                $('.animation').css('display','none');
@@ -191,13 +224,13 @@ var GuessInnerCtrl = {
     
   
     //jquery倒计时
-	countDown : function(timestamp)
+	countDown : function(timestamp,timestamp2)
 	{
         var self = this;
 		var currentDate = new Date().getTime();
 		var second1 = Math.ceil(currentDate/1000);
 		var time = (parseFloat(timestamp) - second1);
-
+        var time0 = (parseFloat(timestamp2) - second1);
         clearInterval(self.timer);
 		self.timer = setInterval(function ()
 		{
@@ -205,7 +238,16 @@ var GuessInnerCtrl = {
 			{
 				$('#endTime').hide();
 				$('.endtime-text').html("");
-				$('.endtime-time').html("竞猜结束");
+				
+				if(time0 <= 0)
+		        {
+		            $('.endtime-time').html("竞猜已结束");
+		        }
+		        else
+		        {
+		            $('.endtime-time').html("已停止下注 ");
+		        }
+				
                 $('#goodsBtn').attr({"disabled": "disabled", "class": "goods-btn-un"});
 
 				clearInterval(self.timer);
@@ -230,28 +272,30 @@ var GuessInnerCtrl = {
     	var self = this;
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
-    	    console.log("wodezhanghu "+JSON.stringify(data))
+//  	    console.log("wodezhanghu "+JSON.stringify(data))
     		self.balance = data.userInfo.balance;
+    		self.biddingModel.myMoney =  data.userInfo.balance;
+
     		self.scope.$apply();
     		
     	})
     },
 
-    //记录拍品已阅读
-    setReadLog: function() {
-    	var self = this;
-    	
-    	var param = 
-    	{
-    		readType : 1,
-    		readId : self.goodsDetailModel.id
-    	};
-    	
-    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_READLOG, param, function()
-    	{
-    		self.scope.$apply();
-    	})
-    },
+//  //记录拍品已阅读
+//  setReadLog: function() {
+//  	var self = this;
+//  	
+//  	var param = 
+//  	{
+//  		readType : 1,
+//  		readId : self.goodsDetailModel.id
+//  	};
+//  	
+//  	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_READLOG, param, function()
+//  	{
+//  		self.scope.$apply();
+//  	})
+//  },
     
    
     //获取中奖用户列表
@@ -265,18 +309,26 @@ var GuessInnerCtrl = {
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GETAWARD_USERS, params,function(data){
     		
-    		console.log("huojiang"+JSON.stringify(data))
+//  		console.log("huojiang"+JSON.stringify(data))
     		
     		self.biddingModel.drawnList = data;
     		
     		if(!commonFu.isEmpty(self.biddingModel.drawnList))
-    		{   
-    			self.isShoWaWard = true;
+    		{  
+    			
+    			var currentDate = new Date().getTime();
+		        var second1 = Math.ceil(currentDate/1000);
+		        var time = (parseFloat(self.goodsDetailModel.allInfo.startTime) - second1);
+		        
+		        if(time <= 0){
+		        	self.biddingModel.isShoWaWard = true;
+		        }
+    			
     			for(var s = 0; s < self.biddingModel.drawnList.length; s++)
 	    		{    
 	    			if(self.biddingModel.drawnList[s].awardMoney != null)
 	    			{
-	    				self.biddingModel.drawnList[s].awardMoney = self.toDecimals(parseFloat(self.biddingModel.drawnList[s].awardMoney));
+	    				self.biddingModel.drawnList[s].awardMoney = commonFu.toDecimals(parseFloat(self.biddingModel.drawnList[s].awardMoney));
 	    			}
 	    			else
 	    			{
@@ -309,12 +361,12 @@ var GuessInnerCtrl = {
 	                	self.biddingModel.drawnList[s].Bagcolor = "third-user";
 	                }
 	                
-	               
+	             
 	    		}
     		}
     		else
-    		{
-    			self.isShoWaWard = false;
+    		{   
+    			
     		}
     		
     		self.scope.biddingModel = self.biddingModel;
@@ -348,7 +400,7 @@ var GuessInnerCtrl = {
              */
             function(data){
             	
-             	console.log("jingpai"+JSON.stringify(data))
+//           	console.log("jingpai"+JSON.stringify(data))
                 self.biddingModel.biddingList = [];
                 self.biddingModel.biddingList = data.data;
                 self.biddingModel.count = data.count;
@@ -360,7 +412,7 @@ var GuessInnerCtrl = {
 
                 for (var i=0;i<self.biddingModel.biddingList.length;i++)
                 {
-                    self.biddingModel.biddingList[i].quiz_price = self.toDecimals(parseFloat(self.biddingModel.biddingList[i].quiz_price));
+                    self.biddingModel.biddingList[i].quiz_price = commonFu.toDecimals(parseFloat(self.biddingModel.biddingList[i].quiz_price));
 
                     if (!commonFu.isEmpty(self.biddingModel.biddingList[i]))
                     {
@@ -390,14 +442,15 @@ var GuessInnerCtrl = {
 
 	    if (parseFloat(self.balance)  < parseFloat(self.GuessTicket))
 	    {
-	    	
+	    	self.gonOnGet = true;
 	        $dialog.msg("余额不足，前去充值", 1);
 	
 	        setTimeout(function() {
 	          
-	          location.href = pageUrl.ACCOUNT_RECHARGE;
-	       
-	        }, 1500);
+	           location.href = pageUrl.ACCOUNT_RECHARGE;
+	         
+	        }, 1200);
+	        
 	    }
     
     },
@@ -406,6 +459,36 @@ var GuessInnerCtrl = {
     {
     	var self = this;
     	
+    	self.scope.showRegular = function(){
+    	    
+    	    if(self.isOpenRegular)
+    	    {
+    	    	$("#fixed-regular").css("display","none");
+    	        $("#fixed-close").css("display","none");
+    	        $("#guessDetailContent").css("display","none");
+    	    }
+    	    else{
+    	    	
+    	        $("#fixed-regular").css("display","block");
+    	        $("#fixed-close").css("display","block");
+    	        $("#guessDetailContent").css("display","block");
+    	    }
+    		self.isOpenRegular = !self.isOpenRegular;
+    	};
+    	
+    	//去充值
+    	self.scope.goToAddMoney = function(){
+    		
+    		location.href = pageUrl.ACCOUNT_RECHARGE;
+    		
+    	}
+    	
+    	//隐藏出价框
+    	self.scope.closeAdd =function(){
+    		
+    		$(".pay-block-bg").css("display","none")
+    		
+    	};
     	//更新
     	self.scope.onClickUpdateTime = function()
     	{
@@ -428,6 +511,10 @@ var GuessInnerCtrl = {
 	    			return;
 	    		}
 	            self.biddingModel.numDel = true;
+//	            if(self.balance < self.GuessTicket){
+//	            	
+//	            	$(".to-add-money").css("display","block");
+//	            }
 	            $('.pay-block-bg').show();
 	            $('#payPrice').html();
     		}
@@ -506,15 +593,13 @@ var GuessInnerCtrl = {
     	//出价支付
     	self.scope.onClickPayNow = function()
     	{
-            var $payPrice =self.toDecimals(parseFloat($('#payPrice').html())) ;
+            var $payPrice =commonFu.toDecimals(parseFloat($('#payPrice').html())) ;
             if($payPrice == '' || $payPrice ==null || $payPrice == 0)
 	    	{
 	    		$dialog.msg("竞猜金额不合理！");
 	    		return;
 	    	}
-	    
-	    	
-//  			$('.goods-btn2').attr("disabled", "disabled").addClass("pay-btn");
+
 				var params = 
 	    		{
 	    			auctionId : self.goodsDetailModel.id,
@@ -527,6 +612,10 @@ var GuessInnerCtrl = {
 	    		}
 	    		 
 	    		self.getIfFreeze();
+	    		if(self.gonOnGet)
+	    		{
+	    			return;
+	    		}
 	    		 
 	    		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JOIN_GUESS, params,
                
@@ -560,15 +649,20 @@ var GuessInnerCtrl = {
                     }
                     else if(err == 20004)
                     {
-                    	$dialog.msg("账户余额不足！");
-                       
+                    	$dialog.msg("余额不足，前去充值!");
+                        setTimeout(function() {
+	          
+				           location.href = pageUrl.ACCOUNT_RECHARGE;
+				           return;
+				        }, 1200);
+				        
                     }
                     setTimeout(function(){
                     	$('.pay-block-bg').hide();
                         self.initData();
                         self.getAwardUserList();
                         self.initBiddingData();
-                    },1200)
+                    },1300)
                         	
                 })
     	};
@@ -593,32 +687,17 @@ var GuessInnerCtrl = {
     	}
     },
   
-    //保留两位小数
-    toDecimals : function (x) {  
-    	
-        var f = parseFloat(x);    
-        if (isNaN(f)) {    
-            return false;    
-        }    
-        var f = Math.round(x*100)/100;    
-        var s = f.toString();    
-        var rs = s.indexOf('.');    
-        if (rs < 0) {    
-            rs = s.length;    
-            s += '.';    
-        }    
-        while (s.length <= rs + 2) {    
-            s += '0';    
-        }    
-        return s;    
-    } ,   
-    
-    
     ngRepeatFinish: function() {
     	var self = this;
 
 		self.scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
-           
+                   
+           var swiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination',
+                paginationClickable: true,
+//              autoplay: 3000,
+                autoplayDisableOnInteraction: false
+            });
 		});
     }
 };

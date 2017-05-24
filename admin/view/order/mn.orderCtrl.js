@@ -177,9 +177,6 @@ var OrderCtrl = {
         	
         };
         
-        
-        
-       
         //查看详情
         self.scope.checkInfo = function(item){
         	
@@ -226,8 +223,7 @@ var OrderCtrl = {
         	$dialog.msg("操作成功！")
        
     	})
-	    
-	    
+ 
     },
     
     
@@ -268,7 +264,8 @@ var orderInfoCtrl = {
       
         for(var i = 0; i < self.orderInfoModel.goodsArr.length; i++)
         {
-            self.orderInfoModel.goodsArr[i].pic = JSON.parse(self.orderInfoModel.goodsArr[i].goods_pics)[0]; //取第一张
+        	self.orderInfoModel.goodsArr[i].pic = self.orderInfoModel.goodsArr[i].goods_cover;
+//          self.orderInfoModel.goodsArr[i].pic = JSON.parse(self.orderInfoModel.goodsArr[i].goods_pics)[0]; //取第一张
         }
 
         for(var j = 0; j < self.orderInfoModel.orderLog.length; j++)

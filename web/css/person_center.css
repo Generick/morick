@@ -1150,8 +1150,8 @@
 
 }
 .users-name img{
-	width:40px;
-	height:40px;
+	width:45px;
+	height:45px;
 	
 }
 .users-name-word{
@@ -1613,4 +1613,12 @@
 	padding:10px;
 	line-height:23px;
 	overflow: hidden;
+}
+
+.type-show{
+	display: block;
+}
+
+.type-hidden{
+	display: none;
 }

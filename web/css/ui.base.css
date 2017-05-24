@@ -445,13 +445,74 @@ input,textarea:focus{
 	position: absolute;
 	right:0px;
 	display: inline-block;
-	width:28%;
+	width:20%;
 	line-height:26px;
 	color:#FF9966;
 	text-decoration: underline;
    
 }
+.showMore{
+	position: absolute;
+	right:0px;
+	display: inline-block;
+	width:20%;
+	height:28px;
+	color:#FF9966;
+	
+	text-decoration: underline;
+}
+.showMore-word{
+	display: inline-block;
+	width:54%;
+	height:26px;
+	line-height: 24px;
+}
+.down-up-arrow{
+	float:right;
+	display: inline-block;
+	width:46%;
+	height:26px;
 
+}
+.down-up-arrow img{
+	display: inline-block;
+	margin-top:2px;
+	width:20px;
+	height:20px;
+	transform: rotate(90deg);
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Safari and Chrome */
+}
+
+.up-down-arrow{
+	float:right;
+	display: inline-block;
+	width:46%;
+	height:26px;
+	
+}
+.up-down-arrow img{
+	display: inline-block;
+	margin-top:2px;
+	width:20px;
+	height:20px;
+	transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Safari and Chrome */
+}
+
+
+/*.rotate-img{
+	 animation: rotateImg 2s;
+    -webkit-animation: myfirst 2s;
+}
+@keyframes rotateImg
+{
+    from {rotate(90deg)}
+    to {rotate(-90deg)}
+}
+
+*/
 #sale-message .unopen-style{
 	height:22px;
 	text-decoration:none !important;
@@ -490,3 +551,62 @@ input,textarea:focus{
 	background: #FFFFFF;
 }
 
+.bottom-title-content{
+	position: absolute;
+	width:100%;
+	max-height:13vw;
+	line-height:6vw;
+	padding:0.5vw 2vw;
+	bottom:0;
+	left:0;
+	right:0;
+	color:#FFFFFF;
+   background: rgba(0,0,0,0.4);
+	text-align: left;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space: normal;
+}
+
+.bottom-title-content-2{
+	position: absolute;
+	width:100%;
+	max-height:13vw;
+	line-height:6vw;
+	padding:0.5vw 2vw;
+	bottom:1vw;
+    left:0;
+	right:0;
+	color:#FFFFFF;
+    text-align: left;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space: normal;
+}
+
+
+
+.sharking{
+	
+	animation: myAnimation 3.5s ease 0s infinite alternate;
+	-webkit-animation:myAnimation  3.5s ease 0s infinite alternate; /* Safari 和 Chrome */
+}
+
+@keyframes myAnimation
+{
+  0% {opacity: 1;}
+  13% {opacity: 1;}
+  48% {opacity: 0;}
+  83% {opacity: 1;}
+  100%{opacity: 1;}
+}
+
+
+@-webkit-keyframes myAnimation
+{
+  0% {opacity: 1;}
+  13% {opacity: 1;}
+  48% {opacity: 0;}
+  83% {opacity: 1;}
+  100%{opacity: 1;}
+}

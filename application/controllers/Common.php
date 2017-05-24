@@ -21,7 +21,6 @@ class Common extends My_Controller
 
     function test()
     {
-       session_destroy();
     }
 
     /////////////////////////////////////////////////////////////

@@ -4,18 +4,15 @@
  * 
  */
 
-app.controller("ctrl", function ($scope)
-{  
-	
-	SelectCtrl.init($scope);
-
-});
-
 var SelectCtrl =
 {   
     scope: null,
     
     isFinsh : false,
+    
+    wxParams : {},
+   
+    shareInfo : {},
     
     page : {
 		currentPage : 1,
@@ -35,12 +32,12 @@ var SelectCtrl =
     	auctionItems: [],
     },
     
-    init: function($scope) {
+    init: function($scope,wxParams) {
     	this.scope = $scope;
     	
-    	this.judjeIsFirstCome();
+    	this.wxParams = wxParams;
     	
-    	this.bindClick();
+    	this.judjeIsFirstCome();
     	
     	this.getUrlAndId();
     	
@@ -49,37 +46,23 @@ var SelectCtrl =
         this.ngRepeatFinish();
         
         initTab.start(this.scope, 1); //底部导航
+        
+        this.bindClick();
+        
     },
    
     getUrlAndId : function(){
     	var self = this;
     	
-    	if(location.href.indexOf("&") !=-1)
-		{   
-			
-			SelectCtrl.thisJumpPage =  location.href.split("&")[0].split("=")[1];
-			SelectCtrl.thisJumpId = location.href.split("&")[1].split("=")[1];
-			
-			if(String(SelectCtrl.thisJumpPage).indexOf("#") != -1)
-			{
-			    SelectCtrl.thisJumpPage = parseInt(SelectCtrl.thisJumpPage.split("#")[0]);
-			    	    	
-			}
-			else
-			{
-			    SelectCtrl.thisJumpPage = parseInt(SelectCtrl.thisJumpPage);
-			}
-			if(String(SelectCtrl.thisJumpId).indexOf("#") != -1)
-			{
-				SelectCtrl.thisJumpId = parseInt(SelectCtrl.thisJumpId.split("#")[0]);
-			    
-			}
-			else
-			{
-				 SelectCtrl.thisJumpId = parseInt(SelectCtrl.thisJumpId);
-			}
-			
-		}
+    	var arr = [];
+    	
+    	if(commonFu.listGetUrlPublic(location.href).length == 2)
+    	{
+    		arr = commonFu.listGetUrlPublic(location.href);
+    		self.thisJumpPage = arr[0];
+    	    self.thisJumpId = arr[1];
+    	}
+    	
     },
     
     initData: function(type) {
@@ -93,7 +76,7 @@ var SelectCtrl =
             
     		var params = {
 		    	num : self.page.timeNum,
-		    	type : 0
+		    	type : 2
     	    };
 	    		/*
 	    		 * 
@@ -304,12 +287,12 @@ var SelectCtrl =
 
 		    		for (var i = 0; i < goods.length; i++)
 		    		{
-			    		goods[i].goodsInfo.goodsPicsShow = JSON.parse(goods[i].goodsInfo.goods_pics)[0];
-	                    
+//			    		goods[i].goodsInfo.goodsPicsShow = JSON.parse(goods[i].goodsInfo.goods_pics)[0];
+	                    goods[i].goodsInfo.goodsPicsShow = goods[i].goodsInfo.goods_cover;
+	                  
 	                    goods[i].isShowPrice = !commonFu.isEmpty(goods[i].currentUserInfo); //是否已经有人出价
 	                    
-	                    
-	                    goods[i].currentPrice = self.toDecimals(goods[i].currentPrice);
+	                    goods[i].currentPrice = commonFu.toDecimals(goods[i].currentPrice);
 //	                    alert(goods[i].currentPrice)
 		    		}
 		    		
@@ -318,7 +301,33 @@ var SelectCtrl =
 	    		{
 	    			$(".no-data").show();
 	    		}
-
+               
+                var nowStamp = Date.parse(new Date());
+                for(var s = 0 ; s <  self.selectedModel.auctionItems.length ; s ++)
+                {
+                	if(((parseInt(self.selectedModel.auctionItems[s].endTime)*1000) < nowStamp) || ((parseInt(self.selectedModel.auctionItems[s].currentPrice) >= parseInt(self.selectedModel.auctionItems[s].cappedPrice)) && (parseInt(self.selectedModel.auctionItems[s].cappedPrice) > 0)) ) 
+                	{
+                		self.selectedModel.auctionItems[s].itHasBeenOk = true;
+                	}
+                	else
+                	{
+                		self.selectedModel.auctionItems[s].itHasBeenOk = false;
+                	}
+                	
+                	self.selectedModel.auctionItems[s].isAucted = false;
+		    		if (!commonFu.isEmpty(self.selectedModel.auctionItems[s].currentUserInfo))
+		    		{
+		    			self.selectedModel.auctionItems[s].isAucted = true;
+		    			
+		    		}
+                }
+               
+	    		self.shareInfo.title = "雅玩之家";
+	            self.shareInfo.img = "http://auction.yawan365.com/web/img/share-to-other.jpg";
+	            self.shareInfo.content = "文化收藏，雅玩之家，每晚十点，欢迎回家";
+	          
+    		    commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
+              
 	    		self.scope.auctionItems = self.selectedModel.auctionItems;
 	    		$('.animation').css("display","none");
 	    		$('.container').css('opacity','1');
@@ -332,7 +341,7 @@ var SelectCtrl =
   
 //判断是否需要调用重登陆
     judjeIsFirstCome : function(){
-
+        $("#myself-head img").removeClass('sharking');
 		if(commonFu.isEmpty(sessionStorage.getItem("isFirstCome")))
 		{    
 			/*
@@ -370,13 +379,33 @@ var SelectCtrl =
 					}
 				}
 				else
-				{   
+				{    
+					$("#myself-head img").addClass('sharking');
 					//如果token为空，则说明是一个没有登录过的人，第一次的直接地跳到了列表页，此时直接取列表页数据就好
 					//alert("未登陆过，第一次跳到列表页")	
 				}
 		}
 		else
 		{  
+			
+			if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			{
+				
+				$("#myself-head img").addClass('sharking');
+			}
+			else
+			{
+				if(!commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) || !commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
+				{
+					$("#myself-head img").removeClass('sharking');
+				}
+				else if(commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) && commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
+				{
+					$("#myself-head img").addClass('sharking');
+				}
+			}
+				
+			
 			//isFirstCome不为空说明不是第一次进入，而是在应用内跳转的，所以直接加载数据
 			//alert("应用内跳转")
 		}
@@ -411,12 +440,10 @@ var SelectCtrl =
     		
     		if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
 			{   
-			    setTimeout(function(){
-	       		 	
-        			location.href = pageUrl.LOGIN_PAGE;
-        				
-        		},250)
-               
+			   
+	       		localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+        		location.href = pageUrl.LOGIN_PAGE;
+        		
 			}
             else
             {   
@@ -425,21 +452,21 @@ var SelectCtrl =
     			   
 	    			if(JSON.stringify(data) == 'true'  || !commonFu.isEmpty(sessionStorage.getItem("loginSucess"))){
 	    				
-	    			    setTimeout(function(){
-	       		 	
-        					location.href = pageUrl.PERSON_CENTER;
+        				location.href = pageUrl.PERSON_CENTER;
         				
-        				},250)
+	    			}
+	    			else{
+	    				
+			       		 	localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+		        			location.href = pageUrl.LOGIN_PAGE;
 	    			}
     		
     		    },
             	function(){
-            		setTimeout(function(){
-	       		 	
+            		
+	       		 	    localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
         				location.href = pageUrl.LOGIN_PAGE;
-        				
-        			},250)
-            		 
+        			
             	});
                 
             }
@@ -477,7 +504,7 @@ var SelectCtrl =
             		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
 			    		localStorage.setItem(localStorageKey.vipOrNot,data.userInfo.isVIP)
 			    		var isMySelfVip = data.userInfo.isVIP;
-//			    		alert("isVIP"+isMySelfVip);
+
 			    		if(((parseInt(item.isVIP) == 1) && (parseInt(isMySelfVip) == 0)))
 		 				{
 			 				$("#fixed-shade").css("display","block");
@@ -568,7 +595,7 @@ var SelectCtrl =
     	var judje = false;
     	for(var n = 0; n < self.selectedModel.auctionItems.length; n++)
     	{   
-    	    console.log(JSON.stringify(self.selectedModel.auctionItems))
+//  	    console.log(JSON.stringify(self.selectedModel.auctionItems))
     	   
     		if(self.selectedModel.auctionItems[n].id == id)
     		{   
@@ -769,27 +796,8 @@ var SelectCtrl =
 
 	},
      
-
-    //保留两位小数
-    toDecimals : function (x) {  
-    	
-        var f = parseFloat(x);    
-        if (isNaN(f)) {    
-            return false;    
-        }    
-        var f = Math.round(x*100)/100;    
-        var s = f.toString();    
-        var rs = s.indexOf('.');    
-        if (rs < 0) {    
-            rs = s.length;    
-            s += '.';    
-        }    
-        while (s.length <= rs + 2) {    
-            s += '0';    
-        }    
-        return s;    
-    }    
-    
+     
+   
 };
     //滚动事件的监控
     $(document).ready(function(){
@@ -861,42 +869,4 @@ var SelectCtrl =
 	});  
    
  
-    /*
-     *跳转到指定的位置 
-     */
-    $.fn.scrollTo =function(options){
-    	
-        var defaults = {
-            toT : 0, //滚动目标位置
-            durTime : 30, //过渡动画时间
-            delay : 15, //定时器时间
-            callback:null //回调函数
-        };
-        var opts = $.extend(defaults,options),
-            timer = null,
-            _this = this,
-            curTop = _this.scrollTop(),//滚动条当前的位置
-            subTop = opts.toT - curTop, //滚动条目标位置和当前位置的差值
-            index = 0,
-            dur = Math.round(opts.durTime / opts.delay),
-            smoothScroll = function(t){
-                index++;
-                var per = Math.round(subTop/dur);
-                if(index >= dur){
-                    _this.scrollTop(t);
-                    window.clearInterval(timer);
-                    if(opts.callback && typeof opts.callback == 'function'){
-                        opts.callback();
-                    }
-                    return;
-                }else{
-                    _this.scrollTop(curTop + index*per);
-                }
-            };
-        timer = window.setInterval(function(){
-            smoothScroll(opts.toT);			
-        }, opts.delay);
-        return _this;
-    };
-     
-	
+  

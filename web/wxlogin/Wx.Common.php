@@ -8,15 +8,15 @@
 
 class Common {
 
-    function __construct()
-    {
-
-    }
-
-    function __destruct()
-    {
-
-    }
+//  function __construct()
+//  {
+//
+//  }
+//
+//  function __destruct()
+//  {
+//
+//  }
 
     /**
      * HTTP请求
