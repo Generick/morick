@@ -29,16 +29,18 @@ $CI->getPersonalData = function($ctrl){
         return;
     }
 
-    $data = array(
-        "smallIcon" => $userObj->smallIcon,
-        "name" => $userObj->name,
-        "gender" => $userObj->gender,
-        "telephone" => $userObj->telephone,
-        "shippingAddress" => $shippingAddressList,
-        "bindInfo" => $bindInfo
-    );
+    // $data = array(
+    //     "smallIcon" => $userObj->smallIcon,
+    //     "name" => $userObj->name,
+    //     "gender" => $userObj->gender,
+    //     "telephone" => $userObj->telephone,
+    //     "shippingAddress" => $shippingAddressList,
+    //     "bindInfo" => $bindInfo
+    // );
+    $userObj->shippingAddress = $shippingAddressList;
+    $userObj->bindInfo = $bindInfo;
 
-    $ctrl->responseSuccess($data);
+    $ctrl->responseSuccess($userObj);
 };
 
 $CI->getBindInfo = function($ctrl){

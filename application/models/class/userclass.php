@@ -50,6 +50,10 @@ class CUserInfo extends IExtractInfo {
             "telephone",
             "registerTime",
             "balance",
+            "sms_obtain_status",
+            "sms_beyond_status",
+            "sms_over_status",
+            "deposit_cash",
         );
     }
 
@@ -85,6 +89,10 @@ class CUser extends IUserBase {
             "icon" =>       new CField(FIELD_TYPE_NORMAL),
             "telephone" =>  new CField(FIELD_TYPE_NORMAL),
             "registerTime" =>  new CField(FIELD_TYPE_NORMAL),
+            "sms_obtain_status" =>  new CField(FIELD_TYPE_NORMAL),
+            "sms_beyond_status" =>  new CField(FIELD_TYPE_NORMAL),
+            "sms_over_status" =>  new CField(FIELD_TYPE_NORMAL),
+            "deposit_cash" =>  new CField(FIELD_TYPE_NORMAL),
         );
 
         // 可被修改的字段，对应到用户身上的哪个字段（这里的数值主要用于modInfo，还有一些数据的修改和相应的逻辑有关）

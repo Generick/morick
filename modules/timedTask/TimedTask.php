@@ -45,7 +45,8 @@ class TimedTask extends My_Controller
             $orderInfo["userId"] = $one->currentUser;
             $orderInfo["goodsBid"] = $one->goodsInfo->goods_bid;
             $orderInfo["goodsPrice"] =  $one->currentPrice;//暂时goodsPrice 跟payPrice一样 后续有需求再调整。
-            $orderInfo["prepaidPrice"] = $one->margin;//保证金 作为预支付金额
+            $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $one->currentUser);
+            $orderInfo["prepaidPrice"] = $userObj->deposit_cash > $one->margin ? $userObj->deposit_cash : $one->margin;//保证金 作为预支付金额
             $orderInfo["payPrice"] = (($one->currentPrice - $one->margin) > 0) ? ($one->currentPrice - $one->margin) : 0;
             $orderInfo["orderTime"] = now();
 
@@ -94,7 +95,7 @@ class TimedTask extends My_Controller
                          $content = $this->m_common->format(SMS_OBTAIN, $goodsInfo->goods_name, $one->currentPrice);
 
                          $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $one->currentUser);
-                         if($userObj)
+                         if($userObj && $userObj->sms_obtain_status == 1)
                          {
                              //close message notification
                              $this->m_smsCode->sendMsg($userObj->telephone, $content);
@@ -143,7 +144,7 @@ class TimedTask extends My_Controller
                         $content = $this->m_common->format(SMS_NEAR_END, $goodsInfo->goods_name, $one->currentPrice);
 
                         $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $user["userId"]);
-                        if($userObj)
+                        if($userObj && $userObj->sms_over_status == 1)
                         {
                             //close message notification
                             $this->m_smsCode->sendMsg($userObj->telephone, $content);

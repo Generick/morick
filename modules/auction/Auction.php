@@ -76,8 +76,9 @@ class Auction extends My_Controller
         }
 
         $itemId = intval($this->input->post("itemId"));
+        $userId = intval($this->input->post("userId"));
 
-        $allInfo = $this->m_auction->getAuctionAll($itemId);
+        $allInfo = $this->m_auction->getAuctionAll($itemId, $userId);
         if(!$allInfo)
         {
             $this->responseError(ERROR_AUCTION_NOT_FOUND);

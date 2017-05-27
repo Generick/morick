@@ -130,7 +130,7 @@ class M_auction extends My_Model
      * @param $itemId
      * @return CAuctionAllInfo|null
      */
-    function getAuctionAll($itemId)
+    function getAuctionAll($itemId, $userId = 0)
     {
         $auctionItemObj = $this->getAuctionItemObj($itemId);
         if(!$auctionItemObj)
@@ -138,6 +138,12 @@ class M_auction extends My_Model
             return null;
         }
         $allData = $auctionItemObj->getAuctionAllData();
+        if (!empty($userId)) 
+        {
+            $this->load->model('m_user');
+            $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $userId);
+            $allData->margin = $userObj->deposit_cash > $allData->margin ? $userObj->deposit_cash : $allData->margin;
+        }
 
         $this->load->model("m_goods_bak");
         $allData->goodsInfo = $this->m_goods_bak->getGoodsBakBase($allData->goods_bak_id);
@@ -364,15 +370,15 @@ class M_auction extends My_Model
         }
 
         //超越提醒
-        // if($auctionItemObj->currentUser != 0)
-        // {
-        //     //判断是否在指定时间内提醒过
-        //     if(!$this->m_common->get_one("sms_remind", array("remindType" => 0, "userId" => $auctionItemObj->currentUser, "auctionId" => $auctionItemObj->id, "remindTime >" => (now() - SMS_REMIND_INTERVAL))))
-        //     {
-        //         $this->beyondPrice($auctionItemObj, $price);
-        //        // $this->beyondPrice($auctionItemObj->goods_bak_id, $auctionItemObj->currentUser, $price);
-        //     }
-        // }
+        if($auctionItemObj->currentUser != 0)
+        {
+            //判断是否在指定时间内提醒过
+            if(!$this->m_common->get_one("sms_remind", array("remindType" => 0, "userId" => $auctionItemObj->currentUser, "auctionId" => $auctionItemObj->id, "remindTime >" => (now() - SMS_REMIND_INTERVAL))))
+            {
+                $this->beyondPrice($auctionItemObj, $price);
+               // $this->beyondPrice($auctionItemObj->goods_bak_id, $auctionItemObj->currentUser, $price);
+            }
+        }
 
         //修改展品表对应数据
         if(!$auctionItemObj->modInfo($modInfo))
@@ -410,7 +416,7 @@ class M_auction extends My_Model
                 $content = $this->m_common->format(SMS_BEYOND_PRICE, $goodsInfo->goods_name, $price);
                 $this->load->model("m_user");
                 $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $userId);
-                if($userObj)
+                if($userObj && $userObj->sms_beyond_status == 1)
                 {
                     $this->load->model("m_smsCode");
                     //close message notification

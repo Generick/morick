@@ -58,7 +58,7 @@
             //region 拍卖
             "auction/Auction/getAuctionItems" : {"startIndex" : 0, "num" : 10, "type" : 0, "说明" : "获取拍卖展品列表", "备注" : "type 0正在拍卖 1表示已经结束 2包含正常拍卖跟已截拍的"},
             "auction/A_auction/getAuctionItems" : {"startIndex" : 0, "num" : 10, 'todayAuction' : 0, "说明" : "获取拍卖展品列表 todayAuction 1当日截拍"},
-            "auction/Auction/getAuctionAllInfo" : {"itemId" : 0, "说明" : "根据展品ID获取展品详情"},
+            "auction/Auction/getAuctionAllInfo" : {"itemId" : 4, 'userId':3,"说明" : "根据展品ID获取展品详情"},
             "auction/Auction/getBiddingList" : {"itemId" : 0, "startIndex" : 0, "num" : 10, "说明" : "获取竞拍记录"},
             "auction/Auction/getPersonalBiddingList" : {"userId" : 0, "startIndex" : 0, "num" : 10, "说明" : "获取个人竞拍记录"},
             "auction/U_auction/biddingAuctionItem" : {"itemId" : 0, "price" : 0, "说明" : "竞拍展品"},

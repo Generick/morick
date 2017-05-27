@@ -19,7 +19,12 @@ var GuessListCtrl =
 	
 	wxParams : {},
    
-    shareInfo : {},
+    shareInfo : {
+    	title:"",
+    	img:"",
+    	content:""
+    	
+    },
 	
 	totalCount : 0,//数据的总条数
 	
@@ -54,6 +59,13 @@ var GuessListCtrl =
    
     getUrlAndId : function(){
     	var self = this;
+    	
+    	self.shareInfo.title = "雅玩之家";
+        self.shareInfo.img = "http://auction.yawan365.com/web/img/share-to-other.jpg";
+        self.shareInfo.content = "文化收藏，雅玩之家，每晚十点，欢迎回家";
+       
+        commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
+                
     	
     	var arr = [];
     	if(commonFu.listGetUrlPublic(location.href).length == 2)
@@ -316,12 +328,7 @@ var GuessListCtrl =
 	    			$(".no-data").show();
 	    		}
                 
-                self.shareInfo.title = "雅玩之家";
-                self.shareInfo.img = "http://auction.yawan365.com/web/img/share-to-other.jpg";
-                self.shareInfo.content = "文化收藏，雅玩之家，每晚十点，欢迎回家";
-        
-                commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
-                
+              
                 for(var j = 0; j < self.selectedModel.auctionItems.length; j ++)
                 {
                 	self.selectedModel.auctionItems[j].title =  commonFu.returnRightReg(self.selectedModel.auctionItems[j].title);
