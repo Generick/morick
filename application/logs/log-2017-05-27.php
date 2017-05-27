@@ -217,3 +217,48 @@ ERROR - 2017-05-27 11:14:14 --> Update admin failed: 12
 ERROR - 2017-05-27 11:14:14 --> Save user failed: 12
 ERROR - 2017-05-27 11:14:26 --> [methodError]:[]:F:\work\program\server\application\controllers/a_admin.php:modUserInfo:{"userId":"21","modInfo":"{\"deposit_cash\":\"111\"}"}
 ERROR - 2017-05-27 11:14:42 --> [methodError]:[重登录失败：令牌错误!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":"d1612a7c09f1703f5ce0563eef0b8432"}
+ERROR - 2017-05-27 11:55:43 --> [methodError]:[重登录失败：令牌错误!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":"0f1c8eed3fb0bd520d11e31e926aa26b"}
+ERROR - 2017-05-27 12:00:42 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"118"}
+ERROR - 2017-05-27 12:00:53 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"118"}
+ERROR - 2017-05-27 12:01:04 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"118"}
+ERROR - 2017-05-27 12:01:16 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"118"}
+ERROR - 2017-05-27 12:01:39 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"118"}
+ERROR - 2017-05-27 12:01:59 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"118"}
+ERROR - 2017-05-27 12:02:09 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"118"}
+ERROR - 2017-05-27 12:02:20 --> [methodError]:[重登录失败：令牌错误!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":"0f1c8eed3fb0bd520d11e31e926aa26b"}
+ERROR - 2017-05-27 12:02:26 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"118"}
+ERROR - 2017-05-27 12:02:41 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"118"}
+ERROR - 2017-05-27 12:02:58 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"118"}
+ERROR - 2017-05-27 13:25:35 --> [methodError]:[重登录失败：令牌错误!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":"0f1c8eed3fb0bd520d11e31e926aa26b"}
+ERROR - 2017-05-27 14:46:56 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"118"}
+ERROR - 2017-05-27 14:47:04 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"116"}
+ERROR - 2017-05-27 14:47:05 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"116"}
+ERROR - 2017-05-27 14:49:08 --> [methodError]:[重登录失败：令牌错误!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":"0f1c8eed3fb0bd520d11e31e926aa26b"}
+ERROR - 2017-05-27 15:17:36 --> [methodError]:[重登录失败：令牌错误!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":"0f1c8eed3fb0bd520d11e31e926aa26b"}
+ERROR - 2017-05-27 17:01:37 --> [methodError]:[重登录失败：令牌错误!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":"639d9ff2202f8067d038f94d88da117f"}
+ERROR - 2017-05-27 17:14:45 --> [methodError]:[重登录失败：令牌错误!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":"0f1c8eed3fb0bd520d11e31e926aa26b"}
+ERROR - 2017-05-27 17:16:27 --> [methodError]:[]:F:\work\program\server\application\controllers/readLog/ReadLog.php:readWithType:{"readType":"1","readId":"118"}
+ERROR - 2017-05-27 18:47:23 --> Severity: Warning --> mysql_select_db() expects parameter 2 to be resource, boolean given F:\work\program\server\system\database\drivers\mysql\mysql_driver.php 208
+ERROR - 2017-05-27 18:47:23 --> Unable to select database: auction
+ERROR - 2017-05-27 19:01:36 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/a_admin.php:searchUserList:{"startIndex":"0","num":"10","userType":"1","likeStr":""}
+ERROR - 2017-05-27 19:02:08 --> [methodError]:[]:F:\work\program\server\application\controllers/information/A_information.php:releaseInformation:{"informationId":"67"}
+ERROR - 2017-05-27 19:07:15 --> Severity: Warning --> mysql_select_db() expects parameter 2 to be resource, boolean given F:\work\program\server\system\database\drivers\mysql\mysql_driver.php 208
+ERROR - 2017-05-27 19:07:15 --> Unable to select database: auction
+ERROR - 2017-05-27 19:07:33 --> Severity: Warning --> mysql_select_db() expects parameter 2 to be resource, boolean given F:\work\program\server\system\database\drivers\mysql\mysql_driver.php 208
+ERROR - 2017-05-27 19:07:33 --> Unable to select database: auction
+ERROR - 2017-05-27 19:07:38 --> Severity: Warning --> mysql_select_db() expects parameter 2 to be resource, boolean given F:\work\program\server\system\database\drivers\mysql\mysql_driver.php 208
+ERROR - 2017-05-27 19:07:38 --> Unable to select database: auction
+ERROR - 2017-05-27 19:07:44 --> Severity: Warning --> mysql_select_db() expects parameter 2 to be resource, boolean given F:\work\program\server\system\database\drivers\mysql\mysql_driver.php 208
+ERROR - 2017-05-27 19:07:44 --> Unable to select database: auction
+ERROR - 2017-05-27 19:07:47 --> Severity: Warning --> mysql_select_db() expects parameter 2 to be resource, boolean given F:\work\program\server\system\database\drivers\mysql\mysql_driver.php 208
+ERROR - 2017-05-27 19:07:47 --> Unable to select database: auction
+ERROR - 2017-05-27 19:07:56 --> Severity: Warning --> mysql_select_db() expects parameter 2 to be resource, boolean given F:\work\program\server\system\database\drivers\mysql\mysql_driver.php 208
+ERROR - 2017-05-27 19:07:56 --> Unable to select database: auction
+ERROR - 2017-05-27 19:08:19 --> Severity: Warning --> mysql_select_db() expects parameter 2 to be resource, boolean given F:\work\program\server\system\database\drivers\mysql\mysql_driver.php 208
+ERROR - 2017-05-27 19:08:19 --> Unable to select database: auction
+ERROR - 2017-05-27 19:08:45 --> Severity: Warning --> mysql_select_db() expects parameter 2 to be resource, boolean given F:\work\program\server\system\database\drivers\mysql\mysql_driver.php 208
+ERROR - 2017-05-27 19:08:45 --> Severity: Warning --> mysql_select_db() expects parameter 2 to be resource, boolean given F:\work\program\server\system\database\drivers\mysql\mysql_driver.php 208
+ERROR - 2017-05-27 19:08:45 --> Unable to select database: auction
+ERROR - 2017-05-27 19:08:45 --> Unable to select database: auction
+ERROR - 2017-05-27 19:15:20 --> [methodError]:[]:F:\work\program\server\application\controllers/information/A_information.php:createInformation:{"type":"3","title":"\u989d\u5916\u70ed\u6e29\u70ed","cover":"http:\/\/meeno.f3322.net:8082\/auction\/uploads\/photo\/1495883699_59295fb397813.jpg","content":"<iframe frameborder=\"0\" width=\"640\" height=\"498\" src=\"https:\/\/v.qq.com\/iframe\/player.html?vid=p002292bxac&tiny=0&auto=0\" allowfullscreen><\/iframe>"}
+ERROR - 2017-05-27 19:15:22 --> [methodError]:[]:F:\work\program\server\application\controllers/information/A_information.php:releaseInformation:{"informationId":"68"}

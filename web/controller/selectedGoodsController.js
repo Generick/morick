@@ -4,6 +4,8 @@
  * 
  */
 
+
+
 var SelectCtrl =
 {   
     scope: null,
@@ -38,7 +40,9 @@ var SelectCtrl =
     	this.wxParams = wxParams;
     	
     	this.judjeIsFirstCome();
-    	
+        
+        this.judjeIsLogin();
+        
     	this.getUrlAndId();
     	
     	this.initData(2);
@@ -64,6 +68,28 @@ var SelectCtrl =
     	}
     	
     },
+    
+    judjeIsLogin : function(){
+    	
+    	var self = this;
+    	
+    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+    		
+    		if(JSON.stringify(data) == 'true'){
+    		
+	    		$("#myself-head img").removeClass('sharking');	
+	    	}
+    		else
+    		{  
+	    		$("#myself-head img").addClass('sharking');
+	    	}
+    		
+    	})
+    	
+    	
+    },
+    
+    
     
     initData: function(type) {
     	    var self = this;
@@ -341,7 +367,7 @@ var SelectCtrl =
   
 //判断是否需要调用重登陆
     judjeIsFirstCome : function(){
-        $("#myself-head img").removeClass('sharking');
+     
 		if(commonFu.isEmpty(sessionStorage.getItem("isFirstCome")))
 		{    
 			/*
@@ -380,31 +406,13 @@ var SelectCtrl =
 				}
 				else
 				{    
-					$("#myself-head img").addClass('sharking');
+					
 					//如果token为空，则说明是一个没有登录过的人，第一次的直接地跳到了列表页，此时直接取列表页数据就好
 					//alert("未登陆过，第一次跳到列表页")	
 				}
 		}
 		else
 		{  
-			
-			if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
-			{
-				
-				$("#myself-head img").addClass('sharking');
-			}
-			else
-			{
-				if(!commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) || !commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
-				{
-					$("#myself-head img").removeClass('sharking');
-				}
-				else if(commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) && commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
-				{
-					$("#myself-head img").addClass('sharking');
-				}
-			}
-				
 			
 			//isFirstCome不为空说明不是第一次进入，而是在应用内跳转的，所以直接加载数据
 			//alert("应用内跳转")
@@ -438,19 +446,10 @@ var SelectCtrl =
     	//跳转到个人中心
     	self.scope.jumpToSelfZone2 = function(){
     		
-    		if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
-			{   
-			   
-	       		localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
-        		location.href = pageUrl.LOGIN_PAGE;
-        		
-			}
-            else
-            {   
-            	
-            	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+    		
+    		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
     			   
-	    			if(JSON.stringify(data) == 'true'  || !commonFu.isEmpty(sessionStorage.getItem("loginSucess"))){
+	    			if(JSON.stringify(data) == 'true'){
 	    				
         				location.href = pageUrl.PERSON_CENTER;
         				
@@ -468,15 +467,14 @@ var SelectCtrl =
         				location.href = pageUrl.LOGIN_PAGE;
         			
             	});
-                
-            }
+    		
     		
     	};
     	
     	
     	self.scope.onClickToGoodsDetail = function(item)
     	{   
-            
+    		 
     		    var id = item.id;
             	if(!commonFu.isEmpty(sessionStorage.getItem("reloginFail")))
             	{   //每次第一次进入都会判断有没有登录，没有登录且调重登陆失败，做一标记，标记存在，则说明未重登陆成功

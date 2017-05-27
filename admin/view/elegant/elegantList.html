@@ -34,14 +34,14 @@
 					<td style="text-align: center">
 						
 						<span ng-show="item.type == 0">图文</span>
-						<span ng-show="item.type == 1">视频</span>
+						<span ng-show="item.type == 1 || item.type == 2 || item.type == 3">视频</span>
 					</td>
 					<td style="text-align: center">{{item.author}}</td>
 					<td style="text-align: center" ng-bind="item.createTime*1000 | date:'yyyy-MM-dd HH:mm:ss'"></td>
 					<td style="text-align: center">
 						<a class="btn btn-default" ng-click="modified(item.id)"><i class="ti-pencil-alt"></i>修改</a>
-						<a class="btn btn-default" ng-show="item.isRelease == 0" ng-click="sendMessage(item)"><i class="ti-pencil-alt"></i>发布</a>
-						<a class="btn btn-default" ng-show="item.isRelease == 1" ng-click="sendMessage(item)" ng-click="modified(item.id)"><i class="ti-pencil-alt"></i>取消发布</a>
+						<a class="btn btn-default" ng-show="item.isRelease == 0 && isAbleToSend == 'true'" ng-click="sendMessage(item)"><i class="ti-pencil-alt"></i>发布</a>
+						<a class="btn btn-default" ng-show="item.isRelease == 1 && isAbleToSend == 'true'" ng-click="sendMessage(item)" ng-click="modified(item.id)"><i class="ti-pencil-alt"></i>取消发布</a>
 					</td>
 					<td style="text-align: center"><span ng-click="onClickItemSelected(item.id)" ng-class="{true: 'has-sel', false: 'un-sel'}[item.selected]"></span></td>
 				</tr>
@@ -64,8 +64,6 @@
      
 	<div ng-include="'modules/page/page.html'"></div>
 </div>
-
-
 
 
 
@@ -143,6 +141,15 @@
 						视频链接
 					</div>
 				</div>
+				<div class="check-round-box">
+					<div id="wap-href" ng-click="changeVideoType(2)" class="round-box-select">
+						
+					</div>
+					<div class="mess-type">
+						视频通用代码
+					</div>
+					
+				</div>
 			</div>
 		</div>
         <div class="con-item fix" ng-show="isLocalVideo == 0">
@@ -152,25 +159,30 @@
         <div class="up-video-box" style="padding-left:140px;" ng-show="isLocalVideo == 1">
         	<upload-video url="elegantModel.video"></upload-video>
         </div>
-        
-        	<!--<video controls="controls" autoplay="autoplay" poster="img/video.jpg">
-			  <source src="assets/video/youxi.mp4"  type="video/mp4" />
-			</video>-->
-			
+        <div class="con-item fix" ng-show="isLocalVideo == 2">
+        	  <span class="f">输入视频通用代码：</span>
+        	  <div class="f con-title"><input type="text"  ng-model="wapVideoHref" id="wap-video" class="price-input form-control"></div>
+        	  <div style="float:left;height:30px ;width:70px;margin-left:20px;text-align: center;margin-top:2px;line-height:30px;border:1px solid #dddddd;border-radius: 3px;" ng-click="showTheIframe()">查看</div>
+        	  <div ng-show="isShowIframS" style="float:left;height:30px ;width:70px;margin-left:20px;text-align: center;margin-top:2px;line-height:30px;border:1px solid #dddddd;border-radius: 3px;" ng-click="hideTheIframe()">隐藏</div>
+        </div>
+        <iframe id="preShowIframe" ng-show="isShowIframS" style="margin-left:150px" frameborder="0" width="440" height="260" allowfullscreen></iframe>
+		
 		<div class="con-item fix">
-		<!--	<span class="f">提交数据：</span>-->
 			<a class="f btn btn-default" style="margin-left:180px;" ng-click="onClickSubmit(0)">保&nbsp;&nbsp;存</a>
 			<a class="f btn btn-default" style="margin-left:50px;background: #B09067;" ng-click="preview()">预&nbsp;&nbsp;览</a>
 		</div>
+		<!--<iframe height=498 width=510 src='http://player.youku.com/embed/XMjc0NTcxOTAyMA==' frameborder=0 'allowfullscreen'></iframe>-->
+		<!--<iframe frameborder="0" width="640" height="498" src="https://v.qq.com/iframe/player.html?vid=w0186y4948o&tiny=0&auto=0" allowfullscreen></iframe>-->
 		
+		<!--<embed src="http://player.video.qiyi.com/15f9fbfceb4cc949ddd3f09d4d53fe7c/0/0/v_19rr7fctvk.swf-albumId=683219500-tvId=683219500-isPurchase=0-cnId=6" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash">
+			
+		</embed>-->
 	</div>
 </div>
 
 
 <div class="close-fixed" ng-click="closeFixed()">X</div>
 <div class="preview-box" ng-click="closeFixed()">
-	
-	
 	
 </div>
 <div class="preview-content">

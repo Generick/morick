@@ -39,7 +39,7 @@ var jqAjaxRequest =
 					
                     localStorage.setItem(localStorageKey.DEFAULT, location.href); //存储当前页面地址
                     sessionStorage.setItem("reloginFail",1)
-//                  location.href = pageUrl.LOGIN_PAGE;
+                    location.href = pageUrl.LOGIN_PAGE;
 				}
 				else if(commonFu.equal(err, errCode.SESSION_FAILED)) //session失效重登陆
 				{   

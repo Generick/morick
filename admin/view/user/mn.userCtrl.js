@@ -19,9 +19,10 @@ var UserCtrl = {
     
     modify :{
     	inputText : null,//输入备注,
-    	note : null
+    	note : null,
+    	deposit_cash:null
     },
-    
+
     itemData : null,
     init: function($scope){
         this.scope = $scope;
@@ -89,6 +90,7 @@ var UserCtrl = {
                 	}
                 	self.userModel.modelArr[i].balance = _utility.toDecimalTwo(self.userModel.modelArr[i].balance);
                 	self.userModel.modelArr[i].note = data.userList[i].note;
+                	self.userModel.modelArr[i].deposit_cash = data.userList[i].deposit_cash;
                 }
                 self.userModel.isShowInfo = false;
                 localStorage.removeItem("jumpData");
@@ -179,6 +181,7 @@ var UserCtrl = {
                 	}
                 	self.userModel.modelArr[i].balance = _utility.toDecimalTwo(self.userModel.modelArr[i].balance);
                 	self.userModel.modelArr[i].note = data.userList[i].note;
+                	self.userModel.modelArr[i].deposit_cash =  _utility.isEmpty(data.userList[i].deposit_cash)? "￥0" : "￥" + data.userList[i].deposit_cash;
                 }
                 self.userModel.isShowInfo = false;
                 
@@ -297,7 +300,61 @@ var UserCtrl = {
         	self.modRemark();
 
         };
+        
+        self.scope.reMargin = function(item){
+        	self.itemData = item;
+        	$("#big-box-five").css("display","block")
+        };
+        
+        
+        self.scope.skillMargin = function(){
+        	
+        	if(self.scope.modify.deposit_cash.length > 7)
+        	{     
+        		self.scope.modify.deposit_cash= self.scope.modify.deposit_cash.substring(0,7);
+        		self.scope.modify.deposit_cash =  self.modify.deposit_cash ;
+        	}
+        };
+        
+        self.scope.setMargin = function(type){
+        	 
+             if(type == 0)
+             {
+             	$("#big-box-five").css("display","none");
+             	self.scope.modify.deposit_cash = "";
+             }
+             else
+             {
+             	self.modMargin();
+             }
+        };
+        
+        
+        
+        
     },
+    
+    
+    modMargin : function(){
+    	
+    	var self = this;
+    	var item = self.itemData;
+        var modInfo = {};
+        modInfo.deposit_cash = self.modify.deposit_cash;
+        var params = {};
+        params.userId = item.userId;
+        params.modInfo = JSON.stringify(modInfo);
+ 
+        $data.httpRequest("post",api.API_MOD_USER_INFO,params,function(){
+        	pageController.callApi();
+            $("#big-box-five").css("display","none");
+            self.scope.modify.deposit_cash = "";
+        	self.scope.$apply();
+        })
+    	
+    	
+    },
+    
     
     //修改用户备注
 

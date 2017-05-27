@@ -79,7 +79,14 @@ var GuessInfoCtrl = {
 //	    		alert("title"+self.shareInfo.title)
 //	    		alert("content"+self.shareInfo.content)
             }
-
+             
+//          alert($("#preImages").html())
+//          
+//	    	if($("#preImages").find("embed")[0].src == "http://192.168.0.88:8082/auction/uploads/video/1495423990_59225bf6b784e.mp4")
+//	    	{
+//	    		$("#preImages").find("video").attr("width","100px");
+//	    		alert(333)
+//	    	}
 
             self.scope.informationTitle = self.informationTitle;
             self.scope.informationTime = self.informationTime;

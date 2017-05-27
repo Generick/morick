@@ -4,7 +4,18 @@
 app.controller("ctrl", function ($scope)
 {  
 	
-	sessionStorage.removeItem("comeIntoOrder")
+	if (typeof localStorage === 'object') {
+		    try {
+				localStorage.setItem('localStorage', 1);
+				localStorage.removeItem('localStorage');
+		} catch (e) {
+				Storage.prototype._setItem = Storage.prototype.setItem;
+				Storage.prototype.setItem = function() {};
+				$dialog.msg('为了正常访问，请关闭无痕模式');
+		}
+	}
+
+	sessionStorage.removeItem("comeIntoOrder");
     PersonCenterCtrl.init($scope);
    
 });

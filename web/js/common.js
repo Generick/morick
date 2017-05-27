@@ -100,7 +100,6 @@ var commonFu = {
 		msg2 = msg2.replace(/amp;/ig,"");
 		msg2 = msg2.replace(/amp/ig,"");
         msg2 = msg2.replace(/\s/g,"");
-	
 		return msg2;
 	},
 	
@@ -124,7 +123,6 @@ var commonFu = {
 		
 		wx.ready(function(){
 			
-		
 		        var srcList = [];
 		        $.each($('#preImages img'),function(i,item){
 		            if(item.src) {

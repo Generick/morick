@@ -113,7 +113,8 @@ var LoginCtrl =
         	param.platform = self.loginModel.platform;
         	param.platformId = self.loginModel.platformId;
         	param.password = self.loginModel.password;
-           
+            
+          
             if(self.checkParams(1))
             {
             
@@ -128,6 +129,8 @@ var LoginCtrl =
                      */
                     function(data){
 //                      alert(JSON.stringify(data))
+
+						
                         localStorage.setItem(localStorageKey.TOKEN,data.token);
                         localStorage.setItem(localStorageKey.SESSIONID,data.sessionId);
                         localStorage.setItem(localStorageKey.userId, data.userInfo.userId);

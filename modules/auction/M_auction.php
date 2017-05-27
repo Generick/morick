@@ -14,6 +14,7 @@ class M_auction extends My_Model
 
         $this->load->driver("cache");
         $this->load->model('m_account');
+        $this->load->model('m_user');
         if(!$this->cache->redis->is_supported())
         {
             $this->log->write_log('error', "redis not supported!!!");
@@ -92,7 +93,7 @@ class M_auction extends My_Model
         $goodsInfo = $this->m_goods_bak->getGoodsBakBase($smallData->goods_bak_id);
         $goodsInfo->price = $smallData->currentPrice;
 
-        $this->load->model("m_user");
+        //$this->load->model("m_user");
         $userObj = $this->m_user->getBaseUserObj(USER_TYPE_ADMIN, $auctionItemObj->owner_id);
         $goodsInfo->ownerInfo = $userObj->name;
         $goodsInfo->endTime = $smallData->endTime;
@@ -120,7 +121,7 @@ class M_auction extends My_Model
         $this->load->model("m_goods_bak");
         $baseData->goodsInfo = $this->m_goods_bak->getGoodsBakBase($baseData->goods_bak_id);
 
-        $this->load->model("m_user");
+        //$this->load->model("m_user");
         $baseData->currentUserInfo = $this->m_user->getBaseUserObj(USER_TYPE_USER, $baseData->currentUser);
         return $baseData;
     }
@@ -140,7 +141,7 @@ class M_auction extends My_Model
         $allData = $auctionItemObj->getAuctionAllData();
         if (!empty($userId)) 
         {
-            $this->load->model('m_user');
+            //$this->load->model('m_user');
             $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $userId);
             $allData->margin = $userObj->deposit_cash > $allData->margin ? $userObj->deposit_cash : $allData->margin;
         }
@@ -336,6 +337,8 @@ class M_auction extends My_Model
 
 
         //冻结资金
+        $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $userId);
+        $auctionItemObj->margin = $userObj->deposit_cash > $auctionItemObj->margin ? $userObj->deposit_cash : $auctionItemObj->margin;
         if($auctionItemObj->margin > 0)
         {
             $this->load->model("m_freeze");

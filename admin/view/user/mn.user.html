@@ -24,13 +24,13 @@
                 <td style="text-align: center">账户余额</td>
                 <td style="text-align: center">注册时间</td>
                 <td style="text-align: center">备注信息</td>
-               
+                <td style="text-align: center">设置保证金</td>
+                <!--<td style="text-align: center"></td>
                 <td style="text-align: center"></td>
-                <td style="text-align: center"></td>
-                <td style="text-align: center"></td>
+                <td style="text-align: center"></td>-->
                  <td style="text-align: center">发送信息</td>
-                <td style="text-align: center"></td>
-                <td style="text-align: center"></td>
+                <!--<td style="text-align: center"></td>
+                <td style="text-align: center"></td>-->
                
                 <td style="text-align: center;margin-left:20px">操作</td>
             </tr></thead>
@@ -48,14 +48,20 @@
                 		<i class="ti-pencil-alt" ng-click="reMark(item)"></i>
                 	</div>
                 </td>
+                <td style="width: 180px;">
+                	<div class="overFlow" style="float: left; width: 150px;text-align: center;">{{item.deposit_cash}}</div>
+                	<div style="float: right;">
+                		<i class="ti-pencil-alt" ng-click="reMargin(item)"></i>
+                	</div>
+                </td>
               <!-- <i class="ti-pencil-alt"></i>-->
                
+                <!--<td style="text-align: center"></td>
                 <td style="text-align: center"></td>
-                <td style="text-align: center"></td>
-                <td style="text-align: center"></td>
+                <td style="text-align: center"></td>-->
                 <td class="dtSmall" style="text-align: center"><a class="btn btn-white btnSmall" ng-click="sendMessage(item)">发送信息</a></td>
-                <td style="text-align: center"></td>
-                <td style="text-align: center"></td>
+                <!--<td style="text-align: center"></td>
+                <td style="text-align: center"></td>-->
                 
                 <td class="dtSmall" style="text-align: center"><a class="btn btn-white btnSmall" ng-click="checkInfo(item)">查看</a></td>
                 <td class="dtSmall" style="text-align: center"><a class="btn btn-white btnSmall" ng-class="{true:'isVipShow',false:'notVipShow'}[item.isVIP==1]" ng-click="dredge(item)">开通VIP会员</a></td>
@@ -84,6 +90,31 @@
      		</div>
      	</div>
 </div>-->
+
+<div id="big-box-five">
+	<div class="modify-box" id="mode-remark-five">
+		<!--<div class="delete-it" ng-click="hideShadow()">X</div>-->
+	    <div class="note-box">
+	        <div class="note-box-title">保证金：</div>
+	        <!--<div class="note-box-con" ng-bind="modify.note"></div>-->
+	    </div>
+	    <div class="input-box-five" >
+	        <textarea id="input-margin" ng-change="skillMargin()" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" max-length="7"  ng-model="modify.deposit_cash">
+	        </textarea>
+	    </div>
+	    
+	    <div class="auct-btn">
+     			
+     			<p class="all-btn-cancle" ng-click="setMargin(1)">确定</p>
+     			<p class="all-btn-ok"  ng-click="setMargin(0)">取消</p>
+     	</div>
+	    <!--<div class="cancle-ok">
+	    	<div class="ok" ng-click="submitData()">确定</div>
+	    	<div class="cancle" ng-click="hideShadow()">取消</div>
+	    </div> -->
+	</div>
+</div>
+
 
 <div id="big-box">
 	<div class="modify-box" id="mode-remark">

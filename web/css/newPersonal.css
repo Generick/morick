@@ -1,0 +1,505 @@
+/*
+html,body{
+	-webkit-touch-callout:none;    
+    -webkit-user-select:none;   
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;  
+    user-select:none;   
+}*/
+.new-per-head-box{
+	position: relative;
+	height:57vw;
+	width:100%;
+	background: url(../img/personCenter/head_bg.png) no-repeat top left;
+	background-size: 100% 100%;
+	float:left;
+}
+
+.new-per-head-box-img{
+	width:21vw;
+	height:21vw;
+	border-radius: 50%;
+	margin:9vw auto;
+	margin-bottom:0px;
+	overflow: hidden;
+	max-width:130px;
+	max-height: 130px;
+}
+
+.new-per-head-box-img img{
+	display: block;
+	width:100%;
+	height:100%;
+	border-radius: 50%;
+}
+
+.new-per-head-box-name{
+	width:100%;
+	height:9vw;
+	line-height:9vw;
+	margin:0 auto;
+	font-size:1.1em;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+
+.new-per-head-box-bottom{
+	position: absolute;
+	z-index: 2;
+	left:0;
+	bottom:0;
+	width:100%;
+	height:10vw;
+	color:#FFFFFF;
+	background: rgba(0,0,0,0.2);
+	overflow: hidden;
+
+}
+
+.new-per-head-box-bottom-harf{
+	height:100%;
+	width:50%;
+	float:left;
+	display:box;
+	box-pack:center;
+	box-align:center;
+	
+	
+	display:-webkit-box;
+	-webkit-box-pack:center;
+	-webkit-box-align:center;
+	
+	
+	display:-moz-box;
+	-moz-box-pack:center;
+	-moz-box-align:center;
+}
+
+.new-per-head-box-bottom-icon{
+	overflow: hidden;
+	width:18px;
+	height:19px;
+    display: block;
+  
+	
+}
+
+
+.new-per-head-box-bottom-number{
+	overflow: hidden;
+	display: block;
+	margin:0 8px;
+	font-size: 1.2em;
+	font-weight: 200 !important;
+}
+
+
+.new-per-head-box-bottom-word{
+	overflow: hidden;
+	display: block;
+	font-weight: 300 !important;
+	letter-spacing: 1px;
+	
+}
+
+
+.new-per-head-box-tab{
+	position: relative;
+	float:left;
+	width:100%;
+	height:12vw;
+	background: white;
+	border-bottom:1px solid #EEEEEE;
+}
+
+.new-per-middle-line{
+	position: absolute;
+	top:1vw;
+	left:49.8vw;
+	width:1px;
+	height: 10vw;
+    background:#EEEEEE;
+}
+
+.new-per-head-box-tab-harf{
+	width:50%;
+	float:left;
+	height:100%;
+	display:box;
+	box-pack:center;
+	box-align:center;
+	
+	
+	display:-webkit-box;
+	-webkit-box-pack:center;
+	-webkit-box-align:center;
+	
+	
+	display:-moz-box;
+	-moz-box-pack:center;
+	-moz-box-align:center;
+}
+
+
+.new-per-mess-title{
+	background: white;
+	font-size: 15px;
+	padding:0 3px;
+	color:#333333;
+}
+
+
+.new-per-mess-number {
+ 	background:#E27E7E;
+ 	padding:0 6px;
+ 	border-radius: 8px;
+ 	height:16px;
+ 	line-height:16px;
+ 	font-size:13px;
+ 	color:white;
+ 	
+ }
+ 
+ 
+ 
+/*
+.action::before{
+	 content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #D9D9D9;
+    color: #D9D9D9;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+}*/
+
+
+
+.new-per-head-box-tab-slide{
+	position: absolute;
+	left:11%;
+	bottom: 0px;
+	width:28%;
+	height:2px;
+	background: #D4B697;
+}
+
+
+
+.new-pre-message-box{
+	top:68.5vw;
+	position: relative;
+	width:100%;
+	padding-bottom: 40px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+
+.new-pre-message-box-item{
+	display: block;
+	background: #FFFFFF;
+	width:100%;
+	height:14vw;
+	border-bottom:1px solid #EEEEEE;
+	overflow: hidden;
+}
+.new-pre-message-box-item:first-of-type{
+	border-top:1vw solid #EEEEEE;
+	height:15vw;
+}
+
+.new-pre-message-box-item-left{
+	position: relative;
+	width:12vw;
+	height:14vw;
+	float:left;
+}
+
+.new-pre-message-box-item-left-box-bg{
+	position: absolute;
+	top:3vw;
+	left:2vw;
+	width:8vw;
+	height:8vw;
+}
+/*
+.new-pre-message-box-item-left-box-icon{
+	position: absolute;
+	top:5vw;
+	left:4vw;
+	width:4vw;
+	height:4vw;
+}*/
+
+
+.new-pre-message-box-item-center{
+	float:left;
+	height:100%;
+	width:68vw;
+	padding:2vw 1vw;
+	overflow: hidden;
+}
+
+.new-pre-message-box-item-center-title{
+	line-height:5vw;
+	height:5vw;
+	color:#444444;
+	font-size:13px !important;
+	overflow: hidden;
+	font-weight:100;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	letter-spacing: 1px;
+}
+
+.new-pre-message-box-item-center-content{
+	line-height:5vw;
+	height:5vw;
+	font-weight: 300;
+	color:#aaaaaa;
+	font-size:12px !important;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	letter-spacing: 1px;
+	
+}
+
+.new-pre-message-box-item-right{
+	width:20vw;
+	height:100%;
+	padding-top:1.5vw;
+	float:left;
+	overflow: hidden;
+}
+
+
+.new-pre-message-box-item-right-time{
+	width:100%;
+	font-size:12px;
+	color:#AAAAAA;
+	height:5vw;
+	line-height:5vw;
+	text-align: left;
+}
+
+
+.there-is-no-data{
+	display: none;
+	border-top:1.2vw solid #EEEEEE;
+	width:100%;
+	height:63vw;
+	overflow: hidden;
+}
+.there-is-no-data img{
+	width:50%;
+	height:57%;
+	margin:45px 25% 0 25%;
+}
+
+.there-is-no-data-word{
+	width:100%;
+	line-height:30px;
+	text-align: center;
+	letter-spacing: 1px;
+	color:#C4996D;
+}
+
+/*
+ * 短信提醒设置页面
+ */
+
+
+.set-message-box{
+	width:100%;
+	overflow: hidden;
+}
+
+.set-message-box-item{
+	width:100%;
+	height:50px;
+	border-bottom: 1px solid #EEEEEE;
+	overflow: hidden;
+	background: #FFFFFF;
+}
+
+.set-message-left-part{
+	width:80px;
+	float:left;
+	height:30px;
+	line-height:30px;
+	margin-top:10px;
+	text-align: center;
+	color: #666666;
+	font-size: 14px;
+}
+
+.set-message-right-part{
+	position: relative;
+	margin-right:20px;
+	float:right;
+	width:63px;
+	height:32px;
+	line-height:32px;
+	font-size:15px;
+	font-weight: 600;
+	color:#FFFFFF;
+	margin-top:9px;
+	border-radius: 16px;
+	border:1px solid #AAAAAA;
+	overflow: hidden;
+	background: #AAAAAA;
+	text-align: right;
+}
+
+.set-message-right-part-word{
+	position: absolute;
+	left:0;
+	top:0;
+	width:100%;
+	padding:0 4px;
+	height:30px;
+	line-height:30px;
+	text-align: right;
+	background: #AAAAAA;
+	border-radius: 15px;
+}
+
+.set-message-right-part-round{
+	display: block;
+	position: absolute;
+	z-index: 2;
+	top:0;
+	left:0;
+	width:30px;
+	height:30px;
+	border-radius: 15px;
+	border:1px solid #FFFFFF;
+	background: #FFFFFF;
+}
+
+/*
+ * 拍卖会列表页
+ */
+
+
+.sell-list-item{
+	width:47.6%;
+	margin:0 1.2% 2% 1.2%;
+	float:left;
+	padding:2%;
+	background: #FFFFFF;
+}
+
+.sell-list-item-img{
+	width:100%;
+	height:42vw;
+}
+
+.sell-list-item-img img{
+	width:100%;
+	height:100%;
+}
+
+.sell-list-item-name{
+	width:100%;
+	text-align: center;
+	color:#999999;
+	line-height:23px;
+	max-height: 46px;
+	font-size:13px;
+	overflow: hidden;
+	white-space:normal;
+    text-overflow:ellipsis;
+}
+
+.sell-list-item-price-box{
+	width:100%;
+	height:30px;
+	overflow: hidden;
+}
+
+.sell-list-item-price-word{
+	width: 70%;
+	height:22px;
+	line-height:22px;
+	text-align: center;
+	margin-left:15%;
+	font-size: 13px;
+	margin-top:4px;
+	overflow: hidden;
+	color:#C4996D;
+	background: url(../img/reference_bg.png) no-repeat top left;
+	background-size: 100% 100%;
+}
+
+
+
+.animation-2{
+	display: none;
+	position: absolute;
+	z-index: 2;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background: #FFFFFF;
+}
+
+.animation-2 img{
+	width:30px;
+	height:30px;
+	position: absolute;
+	top:90px;
+	left:50%;
+	margin-left:-15px;
+}
+
+
+.up-part-box{
+	
+	position: fixed;
+	top:0;
+	z-index: 11;
+	width:100%;
+	overflow: hidden;
+	width:100%;
+	
+}
+
+
+.new-pre-deleteIn-box{
+	height:14vw;
+	overflow: hidden;
+}
+
+
+.new-pre-content-box{
+
+	height:14vw;
+	float:left;
+}
+
+.new-pre-delete-button{
+	width:14vw;
+	height:14vw;
+	float:left;
+	background: #F00000;
+	text-align: center;
+	font-size:15px;
+	letter-spacing: 2px;
+	font-weight: 300;
+	line-height:14vw;
+	color:#FFFFFF;
+	border-radius: 1px;
+	
+}
+

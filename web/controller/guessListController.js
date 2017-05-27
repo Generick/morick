@@ -4,9 +4,9 @@
  * 
  */
 
-
 var GuessListCtrl =
 {   
+    
     scope: null,
     
     isFinsh : false,
@@ -40,10 +40,12 @@ var GuessListCtrl =
     
     init: function($scope,wxParams) {
     	this.scope = $scope;
-  
+        
         this.wxParams = wxParams;
         
     	this.judjeIsFirstCome();
+    	
+    	this.judjeIsLogin();
     	
     	this.getUrlAndId();
     	
@@ -77,6 +79,27 @@ var GuessListCtrl =
     	
     	
     },
+    
+    judjeIsLogin : function(){
+    	
+    	var self = this;
+    	
+    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+    		
+    		if(JSON.stringify(data) == 'true'){
+    		
+	    		$("#myself-head img").removeClass('sharking');	
+	    	}
+    		else
+    		{  
+	    		$("#myself-head img").addClass('sharking');
+	    	}
+    		
+    	})
+    	
+    	
+    },
+    
     
     initData: function(type) {
     	    var self = this;
@@ -132,7 +155,6 @@ var GuessListCtrl =
 	    	     * 1，获取本地存储的数据 dataArr
 	    	     * 2，获取当前数据模型里的数据 selfData
 	    	     */
-	    	    sessionStorage.removeItem("guessAlreadyGet")
 	    	    
 	    	    var dataArr = JSON.parse(sessionStorage.getItem("guessAlreadyGet"));
 	    	    var selfData = self.selectedModel.auctionItems;
@@ -343,14 +365,40 @@ var GuessListCtrl =
 	            self.scope.$apply();
 	    		for(var j = 0; j < self.selectedModel.auctionItems.length ; j++ )
 	    		{
-	    			if(self.selectedModel.auctionItems[j].type == 1)
+	    			if(self.selectedModel.auctionItems[j].type == 1 || self.selectedModel.auctionItems[j].type == 2)
 	    			{
 
 	    				$(".guess-list-ul").children('li').eq(j).find("video").prop("src",self.selectedModel.auctionItems[j].content)
                         $(".guess-list-ul").children('li').eq(j).find("video").prop("poster",self.selectedModel.auctionItems[j].cover)
 						
 	    			}
+	    			else if(self.selectedModel.auctionItems[j].type == 3)
+	    			{
+//	    				var  reg = /<iframe[^<>]*?\\src=['\"]?(.*?)['\"].*?>/i;
+//	    				b = /<iframe src=\"([^\"]*?)\">/gi;
+//                      alert(self.selectedModel.auctionItems[j].content.trim().match(reg))
+	    				var reg = /src=\"([^\"]*?)\"/gi;
+	    			    var cont = self.selectedModel.auctionItems[j].content.trim().match(reg);
+	    			    var src = "";
+	    			    if(cont == null)
+				    	{   
+				    		
+				    		var reg2 = /src=\'([^\']*?)\'/gi;
+				    		cont = self.selectedModel.auctionItems[j].content.trim().match(reg2);
+				    		
+				    	}
+	    			    for(var i= 0;i<cont.length;i++)
+	    			    { 
+//	    			    	alert(cont[i]); 
+                            src  = RegExp.$1
+//	    			    	alert(RegExp.$1)
+	    			    }
+                        
+	    				$(".guess-list-ul").children('li').eq(j).find("iframe").prop("src",src)
+	    			}
 	    		}
+	    		
+	    		
 	    	})
 
     },
@@ -417,20 +465,12 @@ var GuessListCtrl =
     	//跳转到个人中心
     	self.scope.jumpToSelfZone1 = function(){
     	
-    		if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
-			{   	
-				
-	       		localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
-        		location.href = pageUrl.LOGIN_PAGE;
-        	
-			}
-            else
-            {   
-            		
-            	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+    	
+    	
+    	    jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
     			  
     			
-	    			if(JSON.stringify(data) == 'true' || !commonFu.isEmpty(sessionStorage.getItem("loginSucess"))){
+	    			if(JSON.stringify(data) == 'true'){
 	    				
         			 	location.href = pageUrl.PERSON_CENTER;
         				
@@ -448,9 +488,9 @@ var GuessListCtrl =
         			location.href = pageUrl.LOGIN_PAGE;
         			
             	});
-   
-            }
-    		
+    	
+    	
+    	
     	};
     	
     	self.scope.onClickToGoods = function(){
@@ -530,7 +570,7 @@ var GuessListCtrl =
   
 //判断是否需要调用重登陆
     judjeIsFirstCome : function(){
-         $("#myself-head img").removeClass('sharking');
+        
 		if(commonFu.isEmpty(sessionStorage.getItem("isFirstCome")))
 		{   
 			/*
@@ -539,24 +579,24 @@ var GuessListCtrl =
 			 */
     			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
 				{    
-				  
+				
 					if(commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) && commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
 					{  
 						
-						$("#myself-head img").addClass('sharking');
+						
 						//alert("有token调重登陆")
 						var localToken = localStorage.getItem(localStorageKey.TOKEN);
 						var params = {};
 						params.userType = 1;
 						params.token = localToken;
-		                
+		             
 					    jqAjaxRequest.asyncAjaxRequest(apiUrl.API_USER_RELOGIN, params, function(data){
-					    	
+					    	 
 					    	//alert("调重登陆成功")
 						    var newToken = data.token;
 							localStorage.removeItem(localStorageKey.TOKEN);
 							localStorage.setItem(localStorageKey.TOKEN,newToken)
-							$("#myself-head img").removeClass('sharking');
+							
 							//不管是重登陆还是登录界面登录的，登录成功的标志，关闭浏览器后自动失效
 							sessionStorage.setItem("loginSucess",1);
 							sessionStorage.removeItem("reloginFail")
@@ -570,30 +610,14 @@ var GuessListCtrl =
 					}
 				}
 				else
-				{  
-					$("#myself-head img").addClass('sharking');
+				{   
+					
 					//如果token为空，则说明是一个没有登录过的人，第一次的直接地跳到了列表页，此时直接取列表页数据就好
 					//alert("未登陆过，第一次跳到列表页")	
 				}
 		}
 		else
 		{  
-			if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
-			{
-				
-				$("#myself-head img").addClass('sharking');
-			}
-			else
-			{
-				if(!commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) || !commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
-				{   
-					$("#myself-head img").removeClass('sharking');
-				}
-				else if(commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) && commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
-				{    
-					$("#myself-head img").addClass('sharking');
-				}
-			}
 			
 			//isFirstCome不为空说明不是第一次进入，而是在应用内跳转的，所以直接加载数据
 			//alert("应用内跳转")

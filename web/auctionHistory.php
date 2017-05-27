@@ -115,7 +115,23 @@
     <script src="module/dialog/dialog.js"></script>
     <script src="module/tab/tab.js"></script>
     <script src="controller/app.js"></script>
-    <!--插件-->
+ <script>
+    	
+    	
+
+		if (typeof localStorage === 'object') {
+		    try {
+				localStorage.setItem('localStorage', 1);
+				localStorage.removeItem('localStorage');
+			} catch (e) {
+				Storage.prototype._setItem = Storage.prototype.setItem;
+				Storage.prototype.setItem = function() {};
+				$dialog.msg('为了正常访问，请关闭无痕模式');
+			}
+		}
+
+
+    </script>    <!--插件-->
 	<script type="text/javascript" src="js/fastclick.js" ></script>
     
 	<!--controller-->

@@ -222,25 +222,33 @@ var userInfoController = {
              */
             function(data){
                 var totalPage = Math.ceil(data.count / 10);
-
-                self.infoModel.orderArr = data.orderList;
-                for(var i = 0; i < self.infoModel.orderArr.length; i++)
+                
+                if(!_utility.isEmpty(data.orderList))
                 {
-                    self.infoModel.orderArr[i].name = self.infoModel.orderArr[i].orderGoods[0].goods_name;
-                    self.infoModel.orderArr[i].img = JSON.parse(self.infoModel.orderArr[i].orderGoods[0].goods_pics)[0];
-                    self.infoModel.orderArr[i].payPrice  = _utility.toDecimalTwo(self.infoModel.orderArr[i].payPrice);//保留两位小树
+                	self.infoModel.orderArr = data.orderList;
+	                for(var i = 0; i < self.infoModel.orderArr.length; i++)
+	                {
+                        if(_utility.isEmpty(self.infoModel.orderArr[i].orderGoods))
+                        {
+                            continue;
+                        }
+	                    self.infoModel.orderArr[i].name = self.infoModel.orderArr[i].orderGoods[0].goods_name;
+	                    self.infoModel.orderArr[i].img = JSON.parse(self.infoModel.orderArr[i].orderGoods[0].goods_pics)[0];
+	                    self.infoModel.orderArr[i].payPrice  = _utility.toDecimalTwo(self.infoModel.orderArr[i].payPrice);//保留两位小树
+	                }
+	                self.scope.$apply();
+	
+	                $("#simplePage_2").createPage({
+	                    pageCount: totalPage,
+	                    current: self.infoModel.curPage2,
+	                    backFn: function(curPage){
+	                        self.infoModel.curPage2 = curPage;
+	                        self.infoModel.startIndex2 = (curPage-1)*10;
+	                        self.getOrder();
+	                    }
+	                });
                 }
-                self.scope.$apply();
-
-                $("#simplePage_2").createPage({
-                    pageCount: totalPage,
-                    current: self.infoModel.curPage2,
-                    backFn: function(curPage){
-                        self.infoModel.curPage2 = curPage;
-                        self.infoModel.startIndex2 = (curPage-1)*10;
-                        self.getOrder();
-                    }
-                });
+                
             }
         )
 

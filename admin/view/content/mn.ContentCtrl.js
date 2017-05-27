@@ -1,6 +1,9 @@
 var ContentCtrl = {
     scope: null,
-
+    
+    
+    isAbleToSend : false,
+   
     contentModel: {
         adminNum: null,
         userNum: null,
@@ -21,6 +24,8 @@ var ContentCtrl = {
         this.getData();
         
         this.getStatics();
+        
+        this.getSelfInfo();
         
         this.onEvent();
     },
@@ -51,6 +56,43 @@ var ContentCtrl = {
         
      
     },
+    
+    
+    getSelfInfo : function(){
+    	
+    	var self = this;
+    	
+    	$data.httpRequest("post",api.API_GET_SELF_INFO,{},function(data){
+    		
+    		if(_utility.isEmpty(data.userInfo.entries))
+    		{
+    			self.isAbleToSend = true;
+    		}
+    		else{
+    			
+    			for(var i = 0; i< data.userInfo.entries.length; i ++ )
+    			{
+    				if(data.userInfo.entries[i].entryId = "10")
+    				{
+    				    for(var j = 0; j < data.userInfo.entries[i].children.length; j ++)
+    				    {
+    				    	
+    				    	if(data.userInfo.entries[i].children[j].entryId == "1001")
+	    				    {
+	    				    	self.isAbleToSend = true;
+	    				    }
+    				    }
+    				}
+    			}
+    		
+    		}
+    		
+    		localStorage.setItem("isAbleToSend",self.isAbleToSend);
+    
+    	})
+    	
+    },
+    
     
     changgeFontSize :function(){
     	$(".bg-4").css({"padding-left":"10px"});

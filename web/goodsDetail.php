@@ -130,7 +130,7 @@
         
         <!--出价弹窗-->
         <div class="pay-block-bg">
-            <div class="pay-block">
+            <div class="pay-block" style="bottom:54px">
                 <div class="pay-block-top fix">
                     <span>当前出价</span><span class="lead-price"></span><span id="closePayBlock"></span>
                 </div>
@@ -211,7 +211,7 @@
 
         <!--委托出价弹窗-->
         <div class="self-pay-block-bg">
-            <div class="pay-block" style="background-color: #fff;padding: 15px 0;">
+            <div class="pay-block" style="background-color: #fff;padding: 15px 0;margin-bottom:52px">
                 <div class="self-pay-title">委托出价</div><img id="closeSelfBlock" style="width: 22px;height: 22px;position: absolute;top: 15px;right: 10px;" src="img/del-big.png" />
                 <div class="self-pay-condition">
                     <div ng-repeat="item in priceArr">
@@ -281,7 +281,23 @@
     <script src="plugin/layerMobile/layer.js"></script>
     <script src="module/dialog/dialog.js"></script>
     <script src="controller/app.js"></script>
-    
+     <script>
+    	
+    	
+
+		if (typeof localStorage === 'object') {
+		    try {
+				localStorage.setItem('localStorage', 1);
+				localStorage.removeItem('localStorage');
+			} catch (e) {
+				Storage.prototype._setItem = Storage.prototype.setItem;
+				Storage.prototype.setItem = function() {};
+				$dialog.msg('为了正常访问，请关闭无痕模式');
+			}
+		}
+
+
+    </script>
  	<script src="js/commonArr.js"></script>
  	<script>
 		$(function() {

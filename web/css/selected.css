@@ -1086,6 +1086,16 @@ animation-fill-mode: both
 #selected-ul{
 	padding-bottom: 10px;
 }
+
+#selected-ul iframe{
+	width:100% !important;
+
+}
+
+#selected-ul embed{
+	width:100% !important;
+
+}
 /*
  * 委托出价
  */
@@ -1251,6 +1261,16 @@ animation-fill-mode: both
 	letter-spacing: 1px;
 	
 }
+
+.rich-content iframe{
+    min-height:200px;
+	width:100% !important;
+}
+.rich-content  embed video{
+	 min-height:200px;
+	width:100% !important;
+}
+
 .videobg{
 	position: absolute;
 	top:50%;

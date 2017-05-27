@@ -8,10 +8,10 @@
 //var BASE_URL = "http://auction.yawan365.com/index.php/"; //正式
 var BASE_URL = "http://192.168.0.88:8082/auction/index.php/"; //内网Url
 
-var BASE_JUMP_URL = "../admin/index.html#/";
+//var BASE_JUMP_URL = "../admin/index.html#/";
 //var BASE_URL = "http://192.168.0.110/auction/index.php/"
-
-//var BASE_JUMP_URL = "../paimai-admin/index.html#/";
+//var BASE_URL = "http://192.168.0.110:8088/auction/index.php/"; //内网Url
+var BASE_JUMP_URL = "../admin/index.html#/";
 
 //api
 var api = {
@@ -22,7 +22,9 @@ var api = {
 
     //清除缓存
     API_CLEAR_CACHE : BASE_URL + "common/clearRedis", //清除缓存
-
+    
+    
+    
     //藏品列表
     API_GET_GOODS_LIST : BASE_URL + "goods/Goods/getGoods", //获取藏品列表
     API_ADD_GOODS : BASE_URL + "goods/A_goods/createGoods", //新增藏品
@@ -52,6 +54,8 @@ var api = {
     API_DEL_ADMIN : BASE_URL + "a_admin/deleteAdmin", //删除管理员
     API_MOD_ADMIN : BASE_URL + "a_admin/modAdmin", //修改管理员
     API_ADD_ADMIN : BASE_URL + "a_admin/addAdminAccount", //添加管理员
+    
+    API_GET_SELF_INFO : BASE_URL + "a_admin/getSelfInfo",//获取自己的信息
     
     //用户管理
     API_GET_USER_LIST : BASE_URL + "a_admin/searchUserList", //用户列表
@@ -184,18 +188,28 @@ var JUMP_URL = {
 var adminPermission = [{id: '101', val: '管理员列表'}],
     userPermission = [{id: '201', val: '用户信息'}],
     goodsPermission = [{id: '301', val: '藏品列表'}],
-    auctionPermission = [{id: '401', val: '拍卖列表'}],
-    orderPermission = [{id: '501', val: '订单列表'}],
-    dataPermission = [{id: '601', val: '销售记录'},{id: '602', val: '充值记录'},{id: '603', val: '商品录入记录'},{id: '604', val: '余额修改记录'}];
+    auctionPermission = [{id: '401', val: '拍品列表'}],
+    offerPricePermission = [{id: '501', val: '出价列表'}],
+    orderPermission = [{id: '601', val: '订单列表'}],
+    widthDrawPermission = [{id: '701', val: '提现列表'}],
+    guessPermission = [{id: '801', val: '竞猜列表'}],
+    
+    dataPermission = [{id: '901', val: '销售记录'},{id: '902', val: '充值记录'},{id: '903', val: '拍品上拍记录'},{id: '904', val: '余额修改记录'},{id: '905', val: '藏品删除记录'},{id: '906', val: '拍品删除记录'}],
+    
+    elegantPermission = [{id: '1001', val: '雅学院发布'},{id: '1002', val: '雅学院编辑'}];
 
 //权限1级
 var permissionArr = [
     {id: '1', val: '管理员管理', secPermission: adminPermission},
     {id: '2', val: '用户管理', secPermission: userPermission},
     {id: '3', val: '藏品管理', secPermission: goodsPermission},
-    {id: '4', val: '拍卖管理', secPermission: auctionPermission},
-    {id: '5', val: '订单管理', secPermission: orderPermission},
-    {id: '6', val: '数据统计', secPermission: dataPermission}
+    {id: '4', val: '拍品管理', secPermission: auctionPermission},
+    {id: '5', val: '出价管理', secPermission: offerPricePermission},
+    {id: '6', val: '订单管理', secPermission: orderPermission},
+    {id: '7', val: '提现管理', secPermission: widthDrawPermission},
+    {id: '8', val: '有奖竞猜', secPermission: guessPermission},
+    {id: '9', val: '数据统计', secPermission: dataPermission},
+    {id: '10', val: '雅学院', secPermission: elegantPermission}
 ];
 
 var defaultImage = "assets/images/public/default.png";

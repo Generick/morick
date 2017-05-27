@@ -35,14 +35,16 @@
            
             <div class="list" id="list-empty" style="background-color: #fff;padding-bottom: 60px;">
 				<ul id="selected-ul" class="guess-list-ul" style="padding-bottom:0px">
+					
 					<li class="oneList oneList-2" style="padding-bottom:0px;margin-bottom:8px;" ng-repeat = "item in auctionItems" id="guess_{{item.id}}" ng-click = "onClickToGoodsDetail(item,$index)" on-finish-render-filters>
                         <div class="item-img-2">
-                        	<img class="videobg" ng-show="item.type == 1"  src="img/playIt.png" />
+                        	<img class="videobg" ng-show="item.type == 1 || item.type == 2"  src="img/playIt.png" />
                             <img ng-show="item.type ==0" ng-src="{{item.cover}}">
                         <!--<video x5-video-player-fullscreen="true" playsinline="true" style="position: absolute;top:0;left:0;" webkit-playsinline="true" x5-video-player-type='h5' class="c-h5" >-->
-			                <video   class="c-h5"  x5-video-player-fullscreen="true" ng-if="item.type ==1"  ng-show="item.type ==1">
+			                <video   class="c-h5"  x5-video-player-fullscreen="true" ng-if="item.type ==1 || item.type == 2"  ng-show="item.type ==1 || item.type == 2">
 								
 							</video>
+							<iframe frameborder="0" width="640" height="320" src="" ng-if="item.type ==3" ng-show="item.type == 3" allowfullscreen></iframe>
                             <div class="bottom-title-content" ng-bind="item.title"></div>
                         </div> 
 					</li>
@@ -64,7 +66,7 @@
 		<div ng-include="'module/tab/tab.html'"></div>
 		
 	</body>
-
+    
 	<!--系统js-->
 	<script type="text/javascript" src="js/zepto.min.js" ></script>
 	<script type="text/javascript" src="js/angular.min.js" ></script>
@@ -78,7 +80,22 @@
     <script src="controller/app.js"></script>
     <script src="plugin/layerMobile/layer.js"></script>
     <script src="module/dialog/dialog.js"></script>
+    <script  type="text/javascript" >
+    	
+		if (typeof localStorage === 'object') {
+		    try {
+				localStorage.setItem('localStorage', 1);
+				localStorage.removeItem('localStorage');
+			} catch (e) {
+				Storage.prototype._setItem = Storage.prototype.setItem;
+				Storage.prototype.setItem = function() {};
+				$dialog.msg('为了正常访问，请关闭无痕模式');
+			}
+		}
 
+
+    	
+    </script>
 	<!--插件-->
 	<script type="text/javascript" src="js/fastclick.js"></script>
 	<!--<script type="text/javascript" src="js/htmlNoScroll.js"></script>-->
@@ -115,34 +132,23 @@
 		        window.history.pushState(state, "title", "#");
 		    }
 		})
-		
-//		$(document).ready(function(){
-//		    $(window).resize(function(){
-//		    	
-//		        var windowWidth=$(window).innerWidth();
-//		        var windowHeight=$(window).innerHeight();
-//		       
-//		        $('.c-h5').css({
-//		            width:windowWidth,
-//		            height:windowHeight
-//		        })
-//		     
-//		    })
-//		})
+
 		 
 	</script>
-   <script>
+    <script type="text/javascript" >
         app.controller("ctrl", function ($scope)
 	    {  
-			
+	    	
 			var wxParams = {};
 	        wxParams.appId =  '<?php echo $signPackage["appId"];?>';
 	        wxParams.timestamp =  '<?php echo $signPackage["timestamp"];?>';
 	        wxParams.nonceStr =  '<?php echo $signPackage["nonceStr"];?>';
 	        wxParams.signature =  '<?php echo $signPackage["signature"];?>';
-			
+//			alert(12323213)
+		   
 			GuessListCtrl.init($scope,wxParams);
-		
+//			 localStorage.clear();sessionStorage.clear()
+//		    alert(8989)
 		});
         
         

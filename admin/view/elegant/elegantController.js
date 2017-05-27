@@ -8,9 +8,17 @@ var elegantController =
 	
 	Type : 0,
 	
+	isShowIframS : false,
+	
+	isAbleToSend : localStorage.getItem("isAbleToSend"),
+	
+//	isAsuper : false,
+	
 	isSelected : false,
 	
 	informationId : null,
+	
+	wapVideoHref : '',
 	
 	informationList : [],
 	
@@ -41,6 +49,10 @@ var elegantController =
 		
 		this.scope.isMaps = this.isMaps;
 		
+		this.scope.isShowIframS = this.isShowIframS;
+		
+		this.scope.isAbleToSend = this.isAbleToSend;
+		
 		this.getData();
 		
 		this.eventBind();
@@ -52,7 +64,7 @@ var elegantController =
 		var self = this;
 		
 		var self = this;
-        
+      
         pageController.pageInit(self.scope,api.API_GET_INFORMATION_LIST,{},function(data){
         	
         	if(self.scope.page.selectPageNum)
@@ -107,13 +119,15 @@ var elegantController =
 		self.scope.changeType = function(type){
 			
 			if(type == 0)
-			{
+			{   
 				$("#map-mes").addClass("round-box-selecting");
 				$("#video-mes").removeClass("round-box-selecting");
 				self.isMaps = true;
 				self.Type = 0;
 				self.localVideoHref = '';
 				self.scope.localVideoHref = self.localVideoHref;
+				self.wapVideoHref = '';
+				self.scope.wapVideoHref = self.wapVideoHref;
 				self.isLocalVideo = -1;
 				self.scope.isLocalVideo =  self.isLocalVideo;
 			}
@@ -125,22 +139,40 @@ var elegantController =
 				$("#video-mes").addClass("round-box-selecting");
 				$("#map-mes").removeClass("round-box-selecting");
 				self.isMaps = false;
-				self.Type = 1;
+				
 				self.elegantModel.editor = '';
 				self.scope.elegantModel.editor = self.elegantModel.editor;
 			}
 			self.scope.isMaps = self.isMaps;
             
+            
+            
+            if(self.isLocalVideo == 0)
+            {   
+            	self.isShowIframS = false;
+		        self.scope.isShowIframS =  self.isShowIframS;
+            	self.Type = 2;
+            	$("#wap-href").removeClass("round-box-selecting");
+            	$("#href-video").addClass("round-box-selecting");
+				$("#local-video").removeClass("round-box-selecting");
+            }
             if(self.isLocalVideo == 1)
-            {
+            {   
+            	self.isShowIframS = false;
+		        self.scope.isShowIframS =  self.isShowIframS;
+            	self.Type = 1;
+            	$("#wap-href").removeClass("round-box-selecting");
             	$("#local-video").addClass("round-box-selecting");
 				$("#href-video").removeClass("round-box-selecting");
 				
             }
-            if(self.isLocalVideo == 0)
+            
+            if(self.isLocalVideo == 2)
             {
-            	$("#href-video").addClass("round-box-selecting");
-				$("#local-video").removeClass("round-box-selecting");
+            	self.Type = 3;
+            	$("#wap-href").addClass("round-box-selecting");
+            	$("#local-video").removeClass("round-box-selecting");
+				$("#href-video").removeClass("round-box-selecting");
             }
             self.scope.isLocalVideo = self.isLocalVideo;
             
@@ -152,52 +184,61 @@ var elegantController =
 			
 			if(type == 0)
 			{
+				
+				self.isShowIframS = false;
+		        self.scope.isShowIframS =  self.isShowIframS;
+				$("#wap-href").removeClass("round-box-selecting");
 				$("#local-video").addClass("round-box-selecting");
 				$("#href-video").removeClass("round-box-selecting");
 				self.isLocalVideo = 1;
-				
+				self.Type = 1;
 				if(!_utility.isEmpty(self.scope.localVideoHref))
 				{  
-//					$(".up-load-p").css("display","none")
-//					$(".up-load-p1").css("display","block")
-//					$(".up-load-p2").css("display","block")
-     				
+
 					self.elegantModel.video =   $("#local-inp").val();
 					self.scope.elegantModel.video = self.elegantModel.video;
 					self.localVideoHref = self.scope.elegantModel.video;
 					self.scope.localVideoHref = self.localVideoHref;
 					$("#uplo-videos").attr("src",self.scope.localVideoHref);
-//					$(".up-load-p2").html(self.scope.elegantModel.video)
+
 				}
-//				else
-//				{   $(".up-load-p").css("display","block")
-//					$(".up-load-p1").css("display","none")
-//					$(".up-load-p2").css("display","none")
-//				}
+
 			}
-			else
+			else if(type == 1)
 			{  
+				self.isShowIframS = false;
+		        self.scope.isShowIframS =  self.isShowIframS;
+				$("#wap-href").removeClass("round-box-selecting");
 				$("#href-video").addClass("round-box-selecting");
 				$("#local-video").removeClass("round-box-selecting");
 				self.isLocalVideo = 0;
+				self.Type = 2;
 				if(!_utility.isEmpty(self.scope.elegantModel.video))
 				{   
-//					$(".up-load-p").css("display","none")
-//					$(".up-load-p1").css("display","block")
-//					$(".up-load-p2").css("display","block")
-//					
+
+			
 					self.localVideoHref =  self.scope.elegantModel.video;
 					self.scope.localVideoHref = self.localVideoHref;
 					self.elegantModel.video  = self.scope.localVideoHref;
 					self.scope.elegantModel.video = self.elegantModel.video;
-//					$(".up-load-p2").html(self.scope.localVideoHref)
+
 				}
-//				else
-//				{     
-//					$(".up-load-p").css("display","block")
-//					  $(".up-load-p1").css("display","none")
-//					  $(".up-load-p2").css("display","none")
-//				}
+
+			}
+			else
+			{
+				
+				$("#wap-href").addClass("round-box-selecting");
+				$("#href-video").removeClass("round-box-selecting");
+				$("#local-video").removeClass("round-box-selecting");
+				self.isLocalVideo = 2;
+				self.Type = 3;
+				self.scope.wapVideoHref = self.wapVideoHref;
+//				self.localVideoHref =  "";
+//				self.scope.localVideoHref = self.localVideoHref;
+//				self.elegantModel.video  = self.scope.localVideoHref;
+//				self.elegantModel.video  = self.scope.wapVideoHref; 
+//				self.scope.elegantModel.video = self.elegantModel.video;
 			}
 			self.scope.isLocalVideo = self.isLocalVideo;
 		};
@@ -212,6 +253,8 @@ var elegantController =
 				editor : '',
 				video : ''
 		    };
+		    self.wapVideoHref = "";
+		    self.scope.wapVideoHref =  self.wapVideoHref;
 		    self.scope.elegantModel = self.elegantModel;
 		    $("#uplo-videos").attr("src",'');
 			self.showView(1);
@@ -346,9 +389,63 @@ var elegantController =
 			
 		};
 		
+		self.scope.showTheIframe = function(){
+			
+		
+			if(_utility.isEmpty(self.scope.wapVideoHref))
+			{
+				layer.msg("请输入正确的通用代码！", {time: 1600, anim: 5});
+				
+				return;
+			}
+			var reg = /src=\"([^\"]*?)\"/gi;
+	    	var cont = self.scope.wapVideoHref.trim().match(reg);
+	    	var src = "";
+	    	if(cont == null)
+	    	{   
+	    		
+	    		var reg2 = /src=\'([^\']*?)\'/gi;
+	    		cont = self.scope.wapVideoHref.trim().match(reg2);
+	    		
+	    	}
+	    	
+	    	if(_utility.isEmpty(cont) || cont.length < 1)
+	    	{  
+	    		layer.msg("请输入正确的通用代码！", {time: 1600, anim: 5});
+	    		return;
+	    	}
+	    	for(var i= 0;i<cont.length;i++)
+	    	{ 
+
+                src  = RegExp.$1
+
+	    	}
+	      
+            if(src.substr(0,4) == "http")
+            {
+            	
+            	self.isShowIframS = true;
+			    self.scope.isShowIframS = self.isShowIframS;
+			    $("#preShowIframe").prop("src",src)
+            }
+	    	else
+	    	{
+	    		layer.msg("请输入正确的通用代码！", {time: 1600, anim: 5});
+	    	}
+			 
+		};
+		
+		
+		self.scope.hideTheIframe = function()
+		{
+			self.isShowIframS = false;
+			self.scope.isShowIframS = self.isShowIframS;
+		    $(".preShowIframe").prop("src",'')
+		};
+		
 		
 		self.scope.onClickSubmit = function(){
-			if(self.isAdd )
+			if(self.isAdd)
 			{
 				var params = {};
 				params.type = self.Type;
@@ -381,25 +478,34 @@ var elegantController =
 				{
 					if(self.isLocalVideo == 0)
 					{
-						params.content = self.scope.localVideoHref;
+						params.content = self.scope.localVideoHref.trim();
 						if(_utility.isEmpty(params.content))
 						{
 							layer.msg("链接不能为空！", {time: 1600, anim: 5});
 							return;
 						}
 					}
-		            else
+		            else if(self.isLocalVideo == 1)
 		            {
-		            	params.content = self.scope.elegantModel.video;
+		            	params.content = self.scope.elegantModel.video.trim();
 		            	if(_utility.isEmpty(params.content))
 						{
 							layer.msg("请上传视频！", {time: 1600, anim: 5});
 							return;
 						}
 		            }
+		            else if(self.isLocalVideo == 2)
+		            {
+		            	params.content = self.scope.wapVideoHref.trim();
+						if(_utility.isEmpty(params.content))
+						{
+							layer.msg("通用代码不能为空！", {time: 1600, anim: 5});
+							return;
+						}
+		            }
 				}
 				
-				
+		
 				$data.httpRequest("post", api.API_ADD_INFORMATION_LIST, params, function(data){
 	                    layer.msg("添加！", {time: 1600, anim: 5});
 	                    self.showView(0);
@@ -442,21 +548,32 @@ var elegantController =
 				{
 					if(self.isLocalVideo == 0)
 					{
-						params.modInfo.content = self.scope.localVideoHref;
+						params.modInfo.content = self.scope.localVideoHref.trim();
 						if(_utility.isEmpty(params.modInfo.content))
 						{
 							layer.msg("链接不能为空！", {time: 1600, anim: 5});
 							return;
 						}
 					}
-		            else
+		            else if(self.isLocalVideo == 1)
 		            {
-		            	params.modInfo.content = self.scope.elegantModel.video;
+		            	params.modInfo.content = self.scope.elegantModel.video.trim();
 		            	if(_utility.isEmpty(params.modInfo.content))
 						{
 							layer.msg("请上传视频！", {time: 1600, anim: 5});
 							return;
 						}
+		            }
+		            else if (self.isLocalVideo == 2)
+		            {
+		            	
+						params.modInfo.content = self.scope.wapVideoHref.trim();
+						if(_utility.isEmpty(params.modInfo.content))
+						{
+							layer.msg("通用代码不能为空！", {time: 1600, anim: 5});
+							return;
+						}
+		
 		            }
 				}
 				
@@ -555,42 +672,91 @@ var elegantController =
 	        	
 	        	$("#map-mes").addClass("round-box-selecting");
 				$("#video-mes").removeClass("round-box-selecting");
+				$("#wap-href").removeClass("round-box-selecting");
 				self.isMaps = true;
 				self.Type = 0;
 				self.localVideoHref = '';
 				self.scope.localVideoHref = self.localVideoHref;
-				
-	        	 self.elegantModel.editor = data.info.content;
-	        	 self.scope.isMaps = self.isMaps;
-	        	 self.scope.elegantModel.editor = self.elegantModel.editor;
+				self.wapVideoHref = "";
+	        	self.scope.wapVideoHref = self.wapVideoHref;
+	        	self.elegantModel.editor = data.info.content;
+	        	self.scope.isMaps = self.isMaps;
+	        	self.scope.elegantModel.editor = self.elegantModel.editor;
+	        	self.isShowIframS = false;
+		        self.scope.isShowIframS =  self.isShowIframS;
 	        }
 	        else
 	        {
-	        	
-				$("#video-mes").addClass("round-box-selecting");
-				$("#map-mes").removeClass("round-box-selecting");
-	        	self.isMaps  = false;
-	        	self.Type = 1;
-	        	self.elegantModel.video = data.info.content;
-	        	self.localVideoHref = data.info.content;
-	        	self.isLocalVideo = 1;
-	        	$("#local-video").addClass("round-box-selecting");
-				$("#href-video").removeClass("round-box-selecting");
+	        	if(data.info.type == 1)
+	        	{
+	        		$("#video-mes").addClass("round-box-selecting");
+					$("#map-mes").removeClass("round-box-selecting");
+		        	self.isMaps  = false;
+		        	self.Type = 1;
+		        	self.elegantModel.video = data.info.content;
+		        	self.localVideoHref = data.info.content;
+		        	self.isLocalVideo = 1;
+		        	$("#local-video").addClass("round-box-selecting");
+					$("#href-video").removeClass("round-box-selecting");
+					$("#wap-href").removeClass("round-box-selecting");
+				    self.wapVideoHref = "";
+		        	self.scope.wapVideoHref = self.wapVideoHref;
+		        	self.scope.isMaps = self.isMaps;
+		        	self.scope.elegantModel.video  = self.elegantModel.video;
+		        	self.scope.localVideoHref = self.localVideoHref;
+		        	self.scope.isLocalVideo = self.isLocalVideo;
+		        	$("#uplo-videos").attr("src",self.scope.localVideoHref);
+		        	self.isShowIframS = false;
+		            self.scope.isShowIframS =  self.isShowIframS;
+	        	}
+	        	else if(data.info.type == 2)
+	        	{
+	        		$("#video-mes").addClass("round-box-selecting");
+					$("#map-mes").removeClass("round-box-selecting");
+		        	self.isMaps  = false;
+		        	self.Type = 2;
+		        	self.elegantModel.video = data.info.content;
+		        	self.localVideoHref = data.info.content;
+		        	self.isLocalVideo = 0;
+		        	$("#local-video").removeClass("round-box-selecting");
+					$("#href-video").addClass("round-box-selecting");
+					$("#wap-href").removeClass("round-box-selecting");
+				    self.wapVideoHref = "";
+		        	self.scope.wapVideoHref = self.wapVideoHref;
+		        	self.scope.isMaps = self.isMaps;
+		        	self.scope.elegantModel.video  = self.elegantModel.video;
+		        	self.scope.localVideoHref = self.localVideoHref;
+		        	self.scope.isLocalVideo = self.isLocalVideo;
+		        	$("#uplo-videos").attr("src",self.scope.localVideoHref);
+		        	self.isShowIframS = false;
+		            self.scope.isShowIframS =  self.isShowIframS;
+	        	}
+	        	else
+	        	{
+	        		$("#video-mes").addClass("round-box-selecting");
+					$("#map-mes").removeClass("round-box-selecting");
+		        	self.isMaps  = false;
+		        	self.Type = 3;
+		        	self.elegantModel.video = "";
+		        	self.localVideoHref = "";
+		        	self.isLocalVideo = 2;
+		        	$("#local-video").removeClass("round-box-selecting");
+					$("#href-video").removeClass("round-box-selecting");
+				    $("#wap-href").addClass("round-box-selecting");
+		        	self.scope.isMaps = self.isMaps;
+		        	self.scope.elegantModel.video  = "";
+		        	self.scope.localVideoHref = "";
+		        	self.scope.isLocalVideo = self.isLocalVideo;
+		        	self.wapVideoHref = data.info.content;
+		        	self.scope.wapVideoHref = self.wapVideoHref;
+		        	$("#uplo-videos").attr("src",'');
+	        	}
 				
-//				$(".up-load-p").css("display","none")
-//				$(".up-load-p1").css("display","block")
-//				$(".up-load-p2").css("display","block")
-	        	self.scope.isMaps = self.isMaps;
-	        	self.scope.elegantModel.video  = self.elegantModel.video;
-	        	self.scope.localVideoHref = self.localVideoHref;
-	        	self.scope.isLocalVideo = self.isLocalVideo;
-	        	$("#uplo-videos").attr("src",self.scope.localVideoHref);
 	        }
+	       
 	        self.scope.imgUrl = self.imgUrl;
 	        self.scope.infoTitle = self.infoTitle;
-//	        alert(self.scope.isLocalVideo)
 	        self.scope.$apply()
-//	        alert(JSON.stringify(data))
 	    })
 		
 	},
@@ -618,6 +784,9 @@ var elegantController =
 		
 		self.isAdd  = false,
 		
+		self.isShowIframS = false;
+		self.scope.isShowIframS =  self.isShowIframS;
+		
 		self.elegantModel  = {
 		
 			editor : '',
@@ -627,9 +796,8 @@ var elegantController =
 		self.scope.isMaps = self.isMaps;
 		$("#map-mes").addClass("round-box-selecting");
 		$("#video-mes").removeClass("round-box-selecting");
-//		$(".up-load-p").css("display","block")
-//		$(".up-load-p1").css("display","none")
-//		$(".up-load-p2").css("display","none")	
+        self.wapVideoHref = "";
+        self.scope.wapVideoHref = self.wapVideoHref;
 		self.scope.isSelected =  self.isSelected;
 		self.scope.informationId =  self.informationId;
 		self.scope.selectedIds =  self.selectedIds;

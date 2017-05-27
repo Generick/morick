@@ -216,9 +216,11 @@ app.directive('uiKindeditor', function ($timeout) {
 		            var tex = xhr.responseText;	
 		          
 		            var dataUrl = JSON.parse(tex).data.file[0].url;	
-		           
-		            var html = '<embed class="ed-up-video" controls="controls" style="width:100%;" src="'+ dataUrl +'"></embed>';
-                   
+        
+
+//                  var html = '<iframe frameborder="0" width="640" height="498" src="https://v.qq.com/iframe/player.html?vid=w0186y4948o&amp;tiny=0&amp;auto=0" data-ke-src="https://v.qq.com/iframe/player.html?vid=w0186y4948o&amp;amp;tiny=0&amp;amp;auto=0"></iframe>';
+                    var html = '<iframe frameborder="0" width="640" height="340" src="'+dataUrl+'" data-ke-src="'+dataUrl+'"></iframe>';
+//                  var html = '<iframe frameborder="0" width="640" height="320" src="https://v.qq.com/iframe/player.html?vid=o0507d2plwm&tiny=0&auto=0" allowfullscreen></iframe>';
 		            fexUe.editor.insertHtml(html);
 		         
 		        };	

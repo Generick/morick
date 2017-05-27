@@ -268,6 +268,24 @@ var personInfoController =
     		})
     	};
     	
+    	self.scope.onClickSetMess = function(){
+    		
+    		
+    		location.href = pageUrl.MY_MESSAGE_SET_PAGE + "?addType=" + 1;
+    	};
+    	
+    	
+    	self.scope.existWx = function(){
+    		
+    		location.href = "../login.html";
+    	};
+    	
+    	self.scope.onClickToMyCustomer  = function(){
+    		
+    		
+    		location.href = pageUrl.MY_CUSTOMER;
+    	};
+    	
     	//修改收货地址
     	self.scope.onClickModAddress = function()
     	{

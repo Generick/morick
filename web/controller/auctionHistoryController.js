@@ -1,6 +1,16 @@
 /*
  * 拍卖历史
  */
+		if (typeof localStorage === 'object') {
+		    try {
+				localStorage.setItem('localStorage', 1);
+				localStorage.removeItem('localStorage');
+			} catch (e) {
+				Storage.prototype._setItem = Storage.prototype.setItem;
+				Storage.prototype.setItem = function() {};
+				$dialog.msg('为了正常访问，请关闭无痕模式');
+			}
+		}
 
 var AuctionHistoryCtrl =
 {
@@ -41,6 +51,8 @@ var AuctionHistoryCtrl =
     	
     	this.judjeIsFirstCome();
     	
+    	this.judjeIsLogin();
+    	
     	this.getUrlAndId();
     	
         this.ngRepeatFinish();
@@ -77,10 +89,32 @@ var AuctionHistoryCtrl =
     },
     
     
+     judjeIsLogin : function(){
+    	
+    	var self = this;
+    	
+    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+    		
+    		if(JSON.stringify(data) == 'true'){
+    			
+	    		$("#myself-head img").removeClass('sharking');	
+	    	}
+    		else
+    		{   
+	    		$("#myself-head img").addClass('sharking');
+	    	}
+    		
+    	})
+    	
+    	
+    },
+    
+    
+    
     
      //判断是否需要调用重登陆
     judjeIsFirstCome : function(){
-        $("#myself-head img").removeClass('sharking');
+       
 		if(commonFu.isEmpty(sessionStorage.getItem("isNewCome")))
 		{    
 			/*
@@ -119,7 +153,7 @@ var AuctionHistoryCtrl =
 				}
 				else
 				{      
-					$("#myself-head img").addClass('sharking');
+				
 					//如果token为空，则说明是一个没有登录过的人，第一次的直接地跳到了列表页，此时直接取列表页数据就好
 					//alert("未登陆过，第一次跳到列表页")	
 				}
@@ -127,23 +161,6 @@ var AuctionHistoryCtrl =
 		else
 		{  
 			
-			if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
-			{
-				
-				$("#myself-head img").addClass('sharking');
-			}
-			else
-			{
-				if(!commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) || !commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
-				{
-					$("#myself-head img").removeClass('sharking');
-				}
-				else if(commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) && commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
-				{
-					$("#myself-head img").addClass('sharking');
-				}
-			}
-				
 			//isFirstCome不为空说明不是第一次进入，而是在应用内跳转的，所以直接加载数据
 			//alert("应用内跳转")
 		}

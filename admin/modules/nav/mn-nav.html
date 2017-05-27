@@ -61,79 +61,79 @@
                 </ul>
             </li>
             
-            <li class="active" id="nav_7" style="display: block;">
+            <li class="active" id="nav_5">
                 <a class="js-sub-menu-toggle">
                     <i class="fa fa-dropbox"></i>
                     <span class="text">出价管理</span>
                     <i class="toggle-icon fa fa-angle-down"></i>
                 </a>
                 <ul class="sub-menu">
-                    <li class="secPermission" id="secPerm_701">
+                    <li class="secPermission" id="secPerm_501">
                         <a ui-sref="offerPriceCtrl"><span class="text">出价列表</span></a>
                     </li>
                 </ul>
             </li>
             
         
-            <li class="active" id="nav_5">
+            <li class="active" id="nav_6">
                 <a class="js-sub-menu-toggle">
                     <i class="fa fa-file-text"></i>
                     <span class="text">订单管理</span>
                     <i class="toggle-icon fa fa-angle-down"></i>
                 </a>
                 <ul class="sub-menu">
-                    <li class="secPermission" id="secPerm_501">
+                    <li class="secPermission" id="secPerm_601">
                         <a ui-sref="order"><span class="text">订单列表</span></a>
                     </li>
                 </ul>
             </li>
-            <li class="active" id="nav_8" style="display: block;">
+            <li class="active" id="nav_7">
                 <a class="js-sub-menu-toggle">
                     <i class="fa fa-thumbs-up"></i>
                     <span class="text">提现管理</span>
                     <i class="toggle-icon fa fa-angle-down"></i>
                 </a>
                 <ul class="sub-menu">
-                    <li class="secPermission" id="secPerm_801">
+                    <li class="secPermission" id="secPerm_701">
                         <a ui-sref="withdraw"><span class="text">提现列表</span></a>
                     </li>
                 </ul>
             </li>
-            <li class="active" id="nav_9" style="display: block;">
+            <li class="active" id="nav_8">
                 <a class="js-sub-menu-toggle">
                     <i class="fa fa-unlock-alt"></i>
                     <span class="text">有奖竞猜</span>
                     <i class="toggle-icon fa fa-angle-down"></i>
                 </a>
                 <ul class="sub-menu">
-                    <li class="secPermission" id="secPerm_901">
+                    <li class="secPermission" id="secPerm_801">
                         <a ui-sref="quiz"><span class="text">竞猜列表</span></a>
                     </li>
                 </ul>
             </li>
-            <li class="active" id="nav_6">
+            <li class="active" id="nav_9">
                 <a class="js-sub-menu-toggle">
                     <i class="fa fa-bar-chart"></i>
                     <span class="text">数据统计</span>
                     <i class="toggle-icon fa fa-angle-down"></i>
                 </a>
                 <ul class="sub-menu">
-                    <li class="secPermission" id="secPerm_601">
+                    <li class="secPermission" id="secPerm_901">
                         <a ui-sref="saleData"><span class="text">销售记录</span></a>
                     </li>
-                    <li class="secPermission" id="secPerm_602">
+                    <li class="secPermission" id="secPerm_902">
                         <a ui-sref="rechargeData"><span class="text">充值记录</span></a>
                     </li>
-                    <li class="secPermission" id="secPerm_603">
+                    <li class="secPermission" id="secPerm_903">
                         <a ui-sref="goodsData"><span class="text">拍品上拍记录</span></a>
                     </li>
-                    <li class="secPermission" id="secPerm_604">
+                    <li class="secPermission" id="secPerm_904">
                         <a ui-sref="balanceData"><span class="text">余额修改记录</span></a>
                     </li>
-                    <li class="secPermission" id="secPerm_605">
+                    <li class="secPermission" id="secPerm_905">
                         <a ui-sref="objectGoods"><span class="text">藏品删除记录</span></a>
                     </li>
-                    <li class="secPermission" id="secPerm_606">
+                    <li class="secPermission" id="secPerm_906">
                         <a ui-sref="auctionGoods"><span class="text">拍品删除记录</span></a>
                     </li>
                 </ul>
@@ -151,16 +151,17 @@
                 </ul>
             </li>-->
             
-            <li class="active" id="nav_11" style="display: block;">
+            <li class="active" id="nav_10">
                 <a class="js-sub-menu-toggle">
                     <i class="fa fa-bitbucket"></i>
                     <span class="text">雅学院</span>
                     <i class="toggle-icon fa fa-angle-down"></i>
                 </a>
                 <ul class="sub-menu">
-                    <li class="secPermission" id="secPerm_1101">
+                    <li class="secPermission" id="secPerm_1001" style="display: block;">
                         <a ui-sref="elegant"><span class="text">雅学院</span></a>
                     </li>
+                   
                 </ul>
             </li>
              <!--<li class="active" id="nav_7">
@@ -177,6 +178,7 @@
             </li>-->
         </ul>
     </nav>
+   
     <div class="sidebar-mini-box js-toggle-mini-box">
         <i class="fa fa-angle-left"></i>
     </div>
@@ -184,7 +186,7 @@
 
 <script charset="utf-8">
     // toggle function
-   
+  
     localStorage.removeItem("jumpData");
     $.fn.clickToggle = function(f1, f2) {
         return this.each(function() {
