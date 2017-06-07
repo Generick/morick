@@ -18,6 +18,35 @@ var personInfoController =
 {
     scope : null,
     
+    scope : null,
+	
+	userId : null,
+	
+	sms_beyond_status : null,//超出短信
+	
+	sms_obtain_status : null,//成交短信
+	
+	sms_over_status : null,//截拍短信
+	
+	obj1 :
+	{
+		id : 0,
+		type : null 
+	},
+	obj2 :
+	{
+		id : 1,
+		type : null 
+	},
+	obj3 : 
+	{
+		id : 2,
+		type : null
+	},
+	
+	objArr : [],
+    
+    
     personInfoModel : 
     {
     	peronaInfo : {},
@@ -40,11 +69,13 @@ var personInfoController =
     init : function ($scope)
     {
     	this.scope = $scope; 
+
+    	this.initData();
     	
     	this.bindClick();
     	
-    	this.initData();
     },
+
     
     initData : function ()
     {
@@ -55,6 +86,27 @@ var personInfoController =
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_PERSONALDATA, {}, function(data){
     		
+    		self.sms_obtain_status = data.sms_obtain_status;//成交短信
+			self.sms_over_status = data.sms_over_status;//截拍短信
+			self.sms_beyond_status = data.sms_beyond_status;//超出短信
+			self.userId = data.userId;
+			self.obj1 = 
+			{
+				id : 0,
+				type : self.sms_obtain_status 
+			};
+			self.obj2 = 
+			{
+				id : 1,
+				type : self.sms_over_status 
+			};
+			self.obj3 = 
+			{
+				id : 2,
+				type : self.sms_beyond_status 
+			};
+		    self.objArr = [self.obj1,self.obj2,self.obj3];
+			
     		self.personInfoModel.peronaInfo = [];
     		self.personInfoModel.userInfo = data;
     		
@@ -96,12 +148,47 @@ var personInfoController =
     		$('.animation').css('display','none');
     		$('.container').css('opacity','1');
     		
+			self.judgeItsStatus();
     		self.scope.personInfoModel = self.personInfoModel;
     		self.scope.$apply();
     	})
     	
     	
     },
+    
+    
+    
+    
+    
+	judgeItsStatus : function(){
+		
+		var self = this;
+		
+		for(var i = 0;i < self.objArr.length; i ++)
+		{
+			if(self.objArr[i].type == 0)
+			{
+				$(".set-message-right-part").eq(self.objArr[i].id).css({"border":"1px solid #aaaaaa","background":"#aaaaaa"});
+				$(".set-message-right-part").eq(self.objArr[i].id).find("span").css({"left":"0px"});
+				$(".set-message-right-part").eq(self.objArr[i].id).find(".set-message-right-part-word").html("OFF");
+				$(".set-message-right-part").eq(self.objArr[i].id).find(".set-message-right-part-word").css({"background":"#AAAAAA","text-align":"right","border":"1px solid #aaaaaa"})
+					
+		
+			}
+			else{
+				
+				$(".set-message-right-part").eq(self.objArr[i].id).css({"border":"1px solid #009900","background":"#009900"});
+				$(".set-message-right-part").eq(self.objArr[i].id).find("span").css({"left":"31px"});
+				$(".set-message-right-part").eq(self.objArr[i].id).find(".set-message-right-part-word").html("ON");
+				$(".set-message-right-part").eq(self.objArr[i].id).find(".set-message-right-part-word").css({"background":"#009900","text-align":"left","border":"1px solid #009900"});
+			
+			}
+		}
+	    $(".animation").css({"display":"none","background":"#ffffff"});
+
+	},
+	
+	
     
     //绑定类型
     bindTypeTransform : function()
@@ -223,6 +310,13 @@ var personInfoController =
     {
     	var self = this;
     	
+    	//我的收货地址
+    	self.scope.onClickModAddress = function()
+    	{
+    		location.href = pageUrl.MY_ADDRESS_LIST + "?userId=" + self.userId;
+    	};
+    	
+    	
     	//修改个人头像
     	self.upLoadImg();
 
@@ -277,6 +371,7 @@ var personInfoController =
     	
     	self.scope.existWx = function(){
     		
+    		localStorage.setItem(localStorageKey.DEFAULT,pageUrl.PERSON_CENTER)
     		location.href = "../login.html";
     	};
     	
@@ -286,19 +381,19 @@ var personInfoController =
     		location.href = pageUrl.MY_CUSTOMER;
     	};
     	
-    	//修改收货地址
-    	self.scope.onClickModAddress = function()
-    	{
-    		if (self.personInfoModel.hasAddress)
-    		{
-    			location.href = pageUrl.MOD_ADDRESS;
-    		}
-    		else
-    		{
-                localStorage.setItem(localStorageKey.addType, 1);
-    			location.href = pageUrl.ADD_ADDRESS;
-    		}
-    	};
+//  	//修改收货地址
+//  	self.scope.onClickModAddress = function()
+//  	{
+//  		if (self.personInfoModel.hasAddress)
+//  		{
+//  			location.href = pageUrl.MOD_ADDRESS;
+//  		}
+//  		else
+//  		{
+//              localStorage.setItem(localStorageKey.addType, 1);
+//  			location.href = pageUrl.ADD_ADDRESS;
+//  		}
+//  	};
     	
     	//绑定
     	self.scope.onClickAccountBind = function(index)
@@ -315,6 +410,42 @@ var personInfoController =
     		{
 	    		location.href = "bindAccount.html?bindType=" + 2 + "&&bindAccount=" + self.personInfoModel.mailAccount;
     		}
-    	}
+    	};
+    	
+    	
+		self.scope.turnOnOrOff = function(type){
+			
+			
+			if($(".set-message-right-part").eq(type).find("span").css("left") != "31px")
+			{   
+				
+				self.objArr[type].type = 1;
+				$(".set-message-right-part").eq(type).css({"border":"1px solid #009900","background":"#009900"});
+				$(".set-message-right-part").eq(type).find("span").animate({"left":"31px"},100,"easeOutBounce");
+				$(".set-message-right-part").eq(type).find(".set-message-right-part-word").html("ON");
+				$(".set-message-right-part").eq(type).find(".set-message-right-part-word").css({"background":"#009900","text-align":"left","border":"1px solid #009900"});
+			    $(".set-message-right-part").eq(type).find(".set-message-right-part-round").css({"width":"32px","height":"30px"})
+			}
+			else
+			{   
+				self.objArr[type].type = 0;
+				$(".set-message-right-part").eq(type).css({"border":"1px solid #aaaaaa","background":"#aaaaaa"});
+				$(".set-message-right-part").eq(type).find("span").animate({"left":"0px"},100,"easeOutBounce");
+				$(".set-message-right-part").eq(type).find(".set-message-right-part-word").html("OFF");
+				$(".set-message-right-part").eq(type).find(".set-message-right-part-word").css({"background":"#AAAAAA","text-align":"right","border":"1px solid #aaaaaa"})
+			    $(".set-message-right-part").eq(type).find(".set-message-right-part-round").css({"width":"30px","height":"30px"})
+			}
+			
+				var params = {};
+				params.modInfo = {};
+				params.modInfo.sms_obtain_status = self.objArr[0].type;
+				params.modInfo.sms_over_status = self.objArr[1].type;
+				params.modInfo.sms_beyond_status = self.objArr[2].type;
+				params.modInfo = JSON.stringify(params.modInfo);
+				jqAjaxRequest.asyncAjaxRequest(apiUrl.API_MOD_SELF_INFO, params, function(data){
+				
+				})
+			
+		};
     }
 };

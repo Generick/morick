@@ -55,7 +55,7 @@ class A_information extends Admin_Controller
     function createInformation()
     {
         $this->load->model("m_account");
-        if(!$this->checkParam(array("type", "cover", "title", "content")))
+        if(!$this->checkParam(array("type", "cover", "title", "content", "summary")))
         {
             $this->responseError(ERROR_PARAM);
             return;
@@ -66,6 +66,7 @@ class A_information extends Admin_Controller
             "cover" => trim($this->input->post("cover")),
             "title" => trim($this->input->post("title")),
             "content" => trim($this->input->post("content")),
+            "summary" => trim($this->input->post("summary")),
             "createTime" => now(),
         );
 

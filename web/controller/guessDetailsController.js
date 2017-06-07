@@ -17,6 +17,8 @@ var GuessInfoCtrl = {
 	
 	informationTitle : '',
 	
+	informationSummny : '',
+	
 	thisDetailPage : null,
 	
 	thisDataId : null,
@@ -67,13 +69,21 @@ var GuessInfoCtrl = {
 				
 //          	self.informationContent = data.informationInfo.content;
 //              self.scope.informationContent = self.informationContent;
+                self.informationSummny = data.informationInfo.summary;
             	self.informationTitle = data.informationInfo.title;
             	self.informationTime = data.informationInfo.createTime;
             	self.informationTime = commonFu.getFormatDate(self.informationTime,1)
 	    		$("#preImages").append(data.informationInfo.content);
 	    		self.shareInfo.img = data.informationInfo.cover;
+	    		if(!commonFu.isEmpty(data.informationInfo.summary))
+	    		{
+	    			self.shareInfo.content = commonFu.returnRightReg(data.informationInfo.summary).substr(0,63);
+	    		}
+	    		else
+	    		{
+	    			self.shareInfo.content = commonFu.returnRightReg(data.informationInfo.content).substr(0,63);
+	    		}
 	    		
-	    		self.shareInfo.content = commonFu.returnRightReg(data.informationInfo.content).substr(0,63);
 	    		self.shareInfo.title =  commonFu.returnRightReg(data.informationInfo.title);
 //	    		
 //	    		alert("title"+self.shareInfo.title)
@@ -87,7 +97,8 @@ var GuessInfoCtrl = {
 //	    		$("#preImages").find("video").attr("width","100px");
 //	    		alert(333)
 //	    	}
-
+//          setTitle(data.informationInfo.title);
+            self.scope.informationSummny = self.informationSummny;
             self.scope.informationTitle = self.informationTitle;
             self.scope.informationTime = self.informationTime;
   		    self.scope.messageCenterModel = self.messageCenterModel;
@@ -96,7 +107,10 @@ var GuessInfoCtrl = {
 	    	self.scope.$apply();
 	    	
     	});
-		
+//		function setTitle(title){
+//			
+//			 document.title = title + " - 雅玩之家";
+//		};
 		
 	},
 	
@@ -114,7 +128,7 @@ var GuessInfoCtrl = {
 	setShareTimeLine : function()
 	{    
 		var self = this;
- 
+        
 		wx.config({
 		    debug: false,
 		    appId: self.wxParams.appId,
@@ -126,7 +140,7 @@ var GuessInfoCtrl = {
 				'onMenuShareAppMessage',  // 获取“分享给朋友”按钮点击状态及自定义分享内容接口
 		    ]
 		});
-		
+	
 		wx.ready(function(){
 			
 		

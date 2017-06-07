@@ -24,6 +24,7 @@ class COrderSmallInfo extends IExtractInfo{
             "orderGoods",
             "orderTime",
             "orderStatus",
+            "orderType",
         );
     }
 
@@ -53,6 +54,7 @@ class COrderBaseInfo extends IExtractInfo {
             "orderTime",
             "orderStatus",
             "orderGoods",
+            "orderType",
         );
     }
 
@@ -92,6 +94,7 @@ class COrderAllInfo extends IExtractInfo {
             "orderStatus",
             "orderGoods",
             "orderLogs",
+            "orderType",
         );
     }
 
@@ -148,6 +151,7 @@ class COrder extends CDataClassBase {
             "orderTime" => new CField(FIELD_TYPE_NORMAL),
             "orderStatus" => new CField(FIELD_TYPE_NORMAL),
             "isDelete" => new CField(FIELD_TYPE_NORMAL),
+            "orderType" => new CField(FIELD_TYPE_NORMAL),
         );
         self::$modInfo = array(
             "deliveryType",
@@ -213,17 +217,29 @@ class COrder extends CDataClassBase {
         $CI = &get_instance();
 
         $orderGoods = $CI->m_common->get_all("order_goods", array("order_no" => $this->order_no));
-        $CI->load->model("m_goods");
-        $this->orderGoods = array();
-        foreach($orderGoods as $oneGoods)
+        if ($this->orderType == 1) 
         {
-            $goodsInfo = $CI->m_goods->getGoodsBase($oneGoods["goodsId"]);
-            if($goodsInfo)
+            $CI->load->model("m_goods");
+            $this->orderGoods = array();
+            foreach($orderGoods as $oneGoods)
             {
-                $goodsInfo->goodsNum = $oneGoods["goodsNum"];
+                $goodsInfo = $CI->m_goods->getGoodsBase($oneGoods["goodsId"]);
+                if($goodsInfo)
+                {
+                    $goodsInfo->goodsNum = $oneGoods["goodsNum"];
+                }
+                $this->orderGoods[] = $goodsInfo;
             }
-            $this->orderGoods[] = $goodsInfo;
+            return;
         }
+        $CI->load->model('m_saleMeeting');
+        $this->orderGoods = array();
+        $commodityInfo = $CI->m_saleMeeting->getCommodityInfo($orderGoods[0]['goodsId']);
+        if ($commodityInfo) 
+        {
+            $this->orderGoods[] = $commodityInfo;
+        }
+        
     }
 
     /**

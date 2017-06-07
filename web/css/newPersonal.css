@@ -332,14 +332,17 @@ html,body{
 }
 
 .set-message-left-part{
-	width:80px;
+	width:90px;
 	float:left;
+	padding-left:8px;
+	color:#333;
+	font-size:15px;
 	height:30px;
 	line-height:30px;
 	margin-top:10px;
 	text-align: center;
-	color: #666666;
-	font-size: 14px;
+
+
 }
 
 .set-message-right-part{

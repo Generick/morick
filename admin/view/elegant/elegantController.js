@@ -17,18 +17,20 @@ var elegantController =
 	isSelected : false,
 	
 	informationId : null,
-	
-	wapVideoHref : '',
-	
+//	
+//	wapVideoHref : '',
+//	
 	informationList : [],
 	
 	selectedIds : [],
 	
-	infoTitle : '',
+	infoTitle : '', 
 	
-	isLocalVideo : -1,
+	infoAbstract : '',
 	
-	localVideoHref : '',
+//	isLocalVideo : -1,
+	
+//	localVideoHref : '',
 	
 	imgUrl : '',
 	
@@ -48,6 +50,10 @@ var elegantController =
 		this.scope.imgUrl = this.imgUrl;
 		
 		this.scope.isMaps = this.isMaps;
+		
+		this.scope.infoTitle  = this.infoTitle, 
+	
+	    this.scope.infoAbstract =  this.scope.infoAbstract;
 		
 		this.scope.isShowIframS = this.isShowIframS;
 		
@@ -111,150 +117,157 @@ var elegantController =
 					layer.msg("已取消发布！", {time: 1600, anim: 5});
 				}
 				self.getData();
+			
 			})
 			
 		};
 		
-		
-		self.scope.changeType = function(type){
-			
-			if(type == 0)
-			{   
-				$("#map-mes").addClass("round-box-selecting");
-				$("#video-mes").removeClass("round-box-selecting");
-				self.isMaps = true;
-				self.Type = 0;
-				self.localVideoHref = '';
-				self.scope.localVideoHref = self.localVideoHref;
-				self.wapVideoHref = '';
-				self.scope.wapVideoHref = self.wapVideoHref;
-				self.isLocalVideo = -1;
-				self.scope.isLocalVideo =  self.isLocalVideo;
-			}
-			else
-			{
-				
-			    self.isLocalVideo = 1;
-			    self.scope.isLocalVideo = self.isLocalVideo;
-				$("#video-mes").addClass("round-box-selecting");
-				$("#map-mes").removeClass("round-box-selecting");
-				self.isMaps = false;
-				
-				self.elegantModel.editor = '';
-				self.scope.elegantModel.editor = self.elegantModel.editor;
-			}
-			self.scope.isMaps = self.isMaps;
-            
-            
-            
-            if(self.isLocalVideo == 0)
-            {   
-            	self.isShowIframS = false;
-		        self.scope.isShowIframS =  self.isShowIframS;
-            	self.Type = 2;
-            	$("#wap-href").removeClass("round-box-selecting");
-            	$("#href-video").addClass("round-box-selecting");
-				$("#local-video").removeClass("round-box-selecting");
-            }
-            if(self.isLocalVideo == 1)
-            {   
-            	self.isShowIframS = false;
-		        self.scope.isShowIframS =  self.isShowIframS;
-            	self.Type = 1;
-            	$("#wap-href").removeClass("round-box-selecting");
-            	$("#local-video").addClass("round-box-selecting");
-				$("#href-video").removeClass("round-box-selecting");
-				
-            }
-            
-            if(self.isLocalVideo == 2)
-            {
-            	self.Type = 3;
-            	$("#wap-href").addClass("round-box-selecting");
-            	$("#local-video").removeClass("round-box-selecting");
-				$("#href-video").removeClass("round-box-selecting");
-            }
-            self.scope.isLocalVideo = self.isLocalVideo;
-            
-            
-		};
-		
-		self.scope.changeVideoType = function(type){
-			
-			
-			if(type == 0)
-			{
-				
-				self.isShowIframS = false;
-		        self.scope.isShowIframS =  self.isShowIframS;
-				$("#wap-href").removeClass("round-box-selecting");
-				$("#local-video").addClass("round-box-selecting");
-				$("#href-video").removeClass("round-box-selecting");
-				self.isLocalVideo = 1;
-				self.Type = 1;
-				if(!_utility.isEmpty(self.scope.localVideoHref))
-				{  
-
-					self.elegantModel.video =   $("#local-inp").val();
-					self.scope.elegantModel.video = self.elegantModel.video;
-					self.localVideoHref = self.scope.elegantModel.video;
-					self.scope.localVideoHref = self.localVideoHref;
-					$("#uplo-videos").attr("src",self.scope.localVideoHref);
-
-				}
-
-			}
-			else if(type == 1)
-			{  
-				self.isShowIframS = false;
-		        self.scope.isShowIframS =  self.isShowIframS;
-				$("#wap-href").removeClass("round-box-selecting");
-				$("#href-video").addClass("round-box-selecting");
-				$("#local-video").removeClass("round-box-selecting");
-				self.isLocalVideo = 0;
-				self.Type = 2;
-				if(!_utility.isEmpty(self.scope.elegantModel.video))
-				{   
-
-			
-					self.localVideoHref =  self.scope.elegantModel.video;
-					self.scope.localVideoHref = self.localVideoHref;
-					self.elegantModel.video  = self.scope.localVideoHref;
-					self.scope.elegantModel.video = self.elegantModel.video;
-
-				}
-
-			}
-			else
-			{
-				
-				$("#wap-href").addClass("round-box-selecting");
-				$("#href-video").removeClass("round-box-selecting");
-				$("#local-video").removeClass("round-box-selecting");
-				self.isLocalVideo = 2;
-				self.Type = 3;
-				self.scope.wapVideoHref = self.wapVideoHref;
+//		
+//		self.scope.changeType = function(type){
+//			
+//			if(type == 0)
+//			{   
+//				
+//				self.isShowIframS = false;
+//				self.scope.isShowIframS = self.isShowIframS;
+//				$("#map-mes").addClass("round-box-selecting");
+//				$("#video-mes").removeClass("round-box-selecting");
+//				self.isMaps = true;
+//				self.Type = 0;
+//				self.localVideoHref = '';
+//				self.scope.localVideoHref = self.localVideoHref;
+//				self.wapVideoHref = '';
+//				self.scope.wapVideoHref = self.wapVideoHref;
+//				self.isLocalVideo = -1;
+//				self.scope.isLocalVideo =  self.isLocalVideo;
+//			}
+//			else
+//			{
+//				
+//			    self.isLocalVideo = 1;
+//			    self.scope.isLocalVideo = self.isLocalVideo;
+//				$("#video-mes").addClass("round-box-selecting");
+//				$("#map-mes").removeClass("round-box-selecting");
+//				self.isMaps = false;
+//				
+//				self.elegantModel.editor = '';
+//				self.scope.elegantModel.editor = self.elegantModel.editor;
+//			}
+//			self.scope.isMaps = self.isMaps;
+//          
+//          
+//          
+//          if(self.isLocalVideo == 0)
+//          {   
+//          	self.isShowIframS = false;
+//		        self.scope.isShowIframS =  self.isShowIframS;
+//          	self.Type = 2;
+//          	$("#wap-href").removeClass("round-box-selecting");
+//          	$("#href-video").addClass("round-box-selecting");
+//				$("#local-video").removeClass("round-box-selecting");
+//          }
+//          if(self.isLocalVideo == 1)
+//          {   
+//          	self.isShowIframS = false;
+//		        self.scope.isShowIframS =  self.isShowIframS;
+//          	self.Type = 1;
+//          	$("#wap-href").removeClass("round-box-selecting");
+//          	$("#local-video").addClass("round-box-selecting");
+//				$("#href-video").removeClass("round-box-selecting");
+//				
+//          }
+//          
+//          if(self.isLocalVideo == 2)
+//          {
+//          	self.Type = 3;
+//          	$("#wap-href").addClass("round-box-selecting");
+//          	$("#local-video").removeClass("round-box-selecting");
+//				$("#href-video").removeClass("round-box-selecting");
+//          }
+//          self.scope.isLocalVideo = self.isLocalVideo;
+//          
+//          
+//		};
+//		
+//		self.scope.changeVideoType = function(type){
+//			
+//			
+//			if(type == 0)
+//			{
+//				
+//				self.isShowIframS = false;
+//		        self.scope.isShowIframS =  self.isShowIframS;
+//				$("#wap-href").removeClass("round-box-selecting");
+//				$("#local-video").addClass("round-box-selecting");
+//				$("#href-video").removeClass("round-box-selecting");
+//				self.isLocalVideo = 1;
+//				self.Type = 1;
+//				if(!_utility.isEmpty(self.scope.localVideoHref))
+//				{  
+//
+//					self.elegantModel.video =   $("#local-inp").val();
+//					self.scope.elegantModel.video = self.elegantModel.video;
+//					self.localVideoHref = self.scope.elegantModel.video;
+//					self.scope.localVideoHref = self.localVideoHref;
+//					$("#uplo-videos").attr("src",self.scope.localVideoHref);
+//
+//				}
+//
+//			}
+//			else if(type == 1)
+//			{  
+//				self.isShowIframS = false;
+//		        self.scope.isShowIframS =  self.isShowIframS;
+//				$("#wap-href").removeClass("round-box-selecting");
+//				$("#href-video").addClass("round-box-selecting");
+//				$("#local-video").removeClass("round-box-selecting");
+//				self.isLocalVideo = 0;
+//				self.Type = 2;
+//				if(!_utility.isEmpty(self.scope.elegantModel.video))
+//				{   
+//
+//			
+//					self.localVideoHref =  self.scope.elegantModel.video;
+//					self.scope.localVideoHref = self.localVideoHref;
+//					self.elegantModel.video  = self.scope.localVideoHref;
+//					self.scope.elegantModel.video = self.elegantModel.video;
+//
+//				}
+//
+//			}
+//			else
+//			{
+//				
+//				$("#wap-href").addClass("round-box-selecting");
+//				$("#href-video").removeClass("round-box-selecting");
+//				$("#local-video").removeClass("round-box-selecting");
+//				self.isLocalVideo = 2;
+//				self.Type = 3;
+//				self.scope.wapVideoHref = self.wapVideoHref;
 //				self.localVideoHref =  "";
 //				self.scope.localVideoHref = self.localVideoHref;
 //				self.elegantModel.video  = self.scope.localVideoHref;
 //				self.elegantModel.video  = self.scope.wapVideoHref; 
 //				self.scope.elegantModel.video = self.elegantModel.video;
-			}
-			self.scope.isLocalVideo = self.isLocalVideo;
-		};
+//			}
+//			self.scope.isLocalVideo = self.isLocalVideo;
+//		};
 		
 		
 		self.scope.onClickToAddGoods = function(){
+			
 			self.resetAllData();
 			
-			
 			self.elegantModel  = {
-		
+		    
 				editor : '',
 				video : ''
 		    };
-		    self.wapVideoHref = "";
-		    self.scope.wapVideoHref =  self.wapVideoHref;
+		    
+		    
+		    
+//		    self.wapVideoHref = "";
+//		    self.scope.wapVideoHref =  self.wapVideoHref;
 		    self.scope.elegantModel = self.elegantModel;
 		    $("#uplo-videos").attr("src",'');
 			self.showView(1);
@@ -361,8 +374,8 @@ var elegantController =
         	self.informationId = id;
         	self.isAdd = false;
         	self.showView(1);
-        	self.elegantModel.video = "";
-		    self.scope.elegantModel = self.elegantModel;
+//      	self.elegantModel.video = "";
+//		    self.scope.elegantModel = self.elegantModel;
 		    $("#uplo-videos").attr("src",'');
         	self.getInformationInfo();
         	
@@ -389,61 +402,61 @@ var elegantController =
 			
 		};
 		
-		self.scope.showTheIframe = function(){
-			
-		
-			if(_utility.isEmpty(self.scope.wapVideoHref))
-			{
-				layer.msg("请输入正确的通用代码！", {time: 1600, anim: 5});
-				
-				return;
-			}
-			var reg = /src=\"([^\"]*?)\"/gi;
-	    	var cont = self.scope.wapVideoHref.trim().match(reg);
-	    	var src = "";
-	    	if(cont == null)
-	    	{   
-	    		
-	    		var reg2 = /src=\'([^\']*?)\'/gi;
-	    		cont = self.scope.wapVideoHref.trim().match(reg2);
-	    		
-	    	}
-	    	
-	    	if(_utility.isEmpty(cont) || cont.length < 1)
-	    	{  
-	    		layer.msg("请输入正确的通用代码！", {time: 1600, anim: 5});
-	    		return;
-	    	}
-	    	for(var i= 0;i<cont.length;i++)
-	    	{ 
-
-                src  = RegExp.$1
-
-	    	}
-	      
-            if(src.substr(0,4) == "http")
-            {
-            	
-            	self.isShowIframS = true;
-			    self.scope.isShowIframS = self.isShowIframS;
-			    $("#preShowIframe").prop("src",src)
-            }
-	    	else
-	    	{
-	    		layer.msg("请输入正确的通用代码！", {time: 1600, anim: 5});
-	    	}
-			 
-		};
-		
-		
-		self.scope.hideTheIframe = function()
-		{
-			self.isShowIframS = false;
-			self.scope.isShowIframS = self.isShowIframS;
-		    $(".preShowIframe").prop("src",'')
-		};
+//		self.scope.showTheIframe = function(){
+//			
+//		
+//			if(_utility.isEmpty(self.scope.wapVideoHref))
+//			{
+//				layer.msg("请输入正确的通用代码！", {time: 1600, anim: 5});
+//				
+//				return;
+//			}
+//			var reg = /src=\"([^\"]*?)\"/gi;
+//	    	var cont = self.scope.wapVideoHref.trim().match(reg);
+//	    	var src = "";
+//	    	if(cont == null)
+//	    	{   
+//	    		
+//	    		var reg2 = /src=\'([^\']*?)\'/gi;
+//	    		cont = self.scope.wapVideoHref.trim().match(reg2);
+//	    		
+//	    	}
+//	    	
+//	    	if(_utility.isEmpty(cont) || cont.length < 1)
+//	    	{  
+//	    		layer.msg("请输入正确的通用代码！", {time: 1600, anim: 5});
+//	    		return;
+//	    	}
+//	    	for(var i= 0;i<cont.length;i++)
+//	    	{ 
+//
+//              src  = RegExp.$1
+//
+//	    	}
+//	      
+//          if(src.substr(0,4) == "http")
+//          {
+//          	
+//          	self.isShowIframS = true;
+//			    self.scope.isShowIframS = self.isShowIframS;
+//			    $("#preShowIframe").prop("src",src)
+//          }
+//	    	else
+//	    	{
+//	    		layer.msg("请输入正确的通用代码！", {time: 1600, anim: 5});
+//	    	}
+//			 
+//		};
 		
 		
+//		self.scope.hideTheIframe = function()
+//		{
+//			self.isShowIframS = false;
+//			self.scope.isShowIframS = self.isShowIframS;
+//		    $(".preShowIframe").prop("src",'')
+//		};
+//		
+//		
 		self.scope.onClickSubmit = function(){
 			if(self.isAdd)
 			{
@@ -452,7 +465,8 @@ var elegantController =
 				params.title = self.scope.infoTitle;
 				
 				params.cover = self.scope.imgUrl;
-			
+			    params.summary = self.scope.infoAbstract;
+			    
 				if(_utility.isEmpty(params.title))
 				{
 					layer.msg("标题不能为空！", {time: 1600, anim: 5});
@@ -474,36 +488,36 @@ var elegantController =
 						return;
 					}
 				}
-				else
-				{
-					if(self.isLocalVideo == 0)
-					{
-						params.content = self.scope.localVideoHref.trim();
-						if(_utility.isEmpty(params.content))
-						{
-							layer.msg("链接不能为空！", {time: 1600, anim: 5});
-							return;
-						}
-					}
-		            else if(self.isLocalVideo == 1)
-		            {
-		            	params.content = self.scope.elegantModel.video.trim();
-		            	if(_utility.isEmpty(params.content))
-						{
-							layer.msg("请上传视频！", {time: 1600, anim: 5});
-							return;
-						}
-		            }
-		            else if(self.isLocalVideo == 2)
-		            {
-		            	params.content = self.scope.wapVideoHref.trim();
-						if(_utility.isEmpty(params.content))
-						{
-							layer.msg("通用代码不能为空！", {time: 1600, anim: 5});
-							return;
-						}
-		            }
-				}
+//				else
+//				{
+//					if(self.isLocalVideo == 0)
+//					{
+//						params.content = self.scope.localVideoHref.trim();
+//						if(_utility.isEmpty(params.content))
+//						{
+//							layer.msg("链接不能为空！", {time: 1600, anim: 5});
+//							return;
+//						}
+//					}
+//		            else if(self.isLocalVideo == 1)
+//		            {
+//		            	params.content = self.scope.elegantModel.video.trim();
+//		            	if(_utility.isEmpty(params.content))
+//						{
+//							layer.msg("请上传视频！", {time: 1600, anim: 5});
+//							return;
+//						}
+//		            }
+//		            else if(self.isLocalVideo == 2)
+//		            {
+//		            	params.content = self.scope.wapVideoHref.trim();
+//						if(_utility.isEmpty(params.content))
+//						{
+//							layer.msg("通用代码不能为空！", {time: 1600, anim: 5});
+//							return;
+//						}
+//		            }
+//				}
 				
 		
 				$data.httpRequest("post", api.API_ADD_INFORMATION_LIST, params, function(data){
@@ -523,6 +537,7 @@ var elegantController =
 				params.modInfo.title = self.scope.infoTitle;
 				params.modInfo.cover = self.scope.imgUrl;
 				
+				params.modInfo.summary   = self.scope.infoAbstract;
 				if(_utility.isEmpty(params.modInfo.title))
 				{
 					layer.msg("标题不能为空！", {time: 1600, anim: 5});
@@ -544,38 +559,38 @@ var elegantController =
 						return;
 					}
 				}
-				else
-				{
-					if(self.isLocalVideo == 0)
-					{
-						params.modInfo.content = self.scope.localVideoHref.trim();
-						if(_utility.isEmpty(params.modInfo.content))
-						{
-							layer.msg("链接不能为空！", {time: 1600, anim: 5});
-							return;
-						}
-					}
-		            else if(self.isLocalVideo == 1)
-		            {
-		            	params.modInfo.content = self.scope.elegantModel.video.trim();
-		            	if(_utility.isEmpty(params.modInfo.content))
-						{
-							layer.msg("请上传视频！", {time: 1600, anim: 5});
-							return;
-						}
-		            }
-		            else if (self.isLocalVideo == 2)
-		            {
-		            	
-						params.modInfo.content = self.scope.wapVideoHref.trim();
-						if(_utility.isEmpty(params.modInfo.content))
-						{
-							layer.msg("通用代码不能为空！", {time: 1600, anim: 5});
-							return;
-						}
-		
-		            }
-				}
+//				else
+//				{
+//					if(self.isLocalVideo == 0)
+//					{
+//						params.modInfo.content = self.scope.localVideoHref.trim();
+//						if(_utility.isEmpty(params.modInfo.content))
+//						{
+//							layer.msg("链接不能为空！", {time: 1600, anim: 5});
+//							return;
+//						}
+//					}
+//		            else if(self.isLocalVideo == 1)
+//		            {
+//		            	params.modInfo.content = self.scope.elegantModel.video.trim();
+//		            	if(_utility.isEmpty(params.modInfo.content))
+//						{
+//							layer.msg("请上传视频！", {time: 1600, anim: 5});
+//							return;
+//						}
+//		            }
+//		            else if (self.isLocalVideo == 2)
+//		            {
+//		            	
+//						params.modInfo.content = self.scope.wapVideoHref.trim();
+//						if(_utility.isEmpty(params.modInfo.content))
+//						{
+//							layer.msg("通用代码不能为空！", {time: 1600, anim: 5});
+//							return;
+//						}
+//		
+//		            }
+//				}
 				
 				params.modInfo = JSON.stringify(params.modInfo);
 				
@@ -595,6 +610,10 @@ var elegantController =
 		self.scope.preview = function() {
         	
         	var nowTime =  commonFn.getNowFormatDate();
+        	if(self.isMaps == false){
+        		layer.msg("视频类资讯不能预览！", {time: 1600, anim: 5});
+        		return;
+        	}
         	if(_utility.isEmpty(self.scope.infoTitle))
         	{
         		layer.msg("请填写标题！", {time: 1600, anim: 5});
@@ -606,10 +625,11 @@ var elegantController =
         		return;
         	}
         	if(_utility.isEmpty(self.scope.elegantModel.editor))
-        	{
+        	{   
         		layer.msg("请填写内容！", {time: 1600, anim: 5});
         		return;
         	}
+        	
         	$(".prew-title").html(self.scope.infoTitle);
         	$(".prew-time").html(nowTime);
         	$(".prew-rich-box").html(self.scope.elegantModel.editor);
@@ -665,6 +685,9 @@ var elegantController =
 		$data.httpRequest("post", api.API_GET_INFORMATION_DETAIL, params, function(data){
 	               
 	        self.infoTitle = data.info.title;
+	        self.infoAbstract = data.info.summary;
+	      
+	       
 	        
 	        self.imgUrl =  data.info.cover;
 	        if(data.info.type == 0)
@@ -675,86 +698,88 @@ var elegantController =
 				$("#wap-href").removeClass("round-box-selecting");
 				self.isMaps = true;
 				self.Type = 0;
-				self.localVideoHref = '';
-				self.scope.localVideoHref = self.localVideoHref;
-				self.wapVideoHref = "";
-	        	self.scope.wapVideoHref = self.wapVideoHref;
+//				self.localVideoHref = '';
+//				self.scope.localVideoHref = self.localVideoHref;
+//				self.wapVideoHref = "";
+//	        	self.scope.wapVideoHref = self.wapVideoHref;
 	        	self.elegantModel.editor = data.info.content;
 	        	self.scope.isMaps = self.isMaps;
 	        	self.scope.elegantModel.editor = self.elegantModel.editor;
 	        	self.isShowIframS = false;
 		        self.scope.isShowIframS =  self.isShowIframS;
 	        }
-	        else
-	        {
-	        	if(data.info.type == 1)
-	        	{
-	        		$("#video-mes").addClass("round-box-selecting");
-					$("#map-mes").removeClass("round-box-selecting");
-		        	self.isMaps  = false;
-		        	self.Type = 1;
-		        	self.elegantModel.video = data.info.content;
-		        	self.localVideoHref = data.info.content;
-		        	self.isLocalVideo = 1;
-		        	$("#local-video").addClass("round-box-selecting");
-					$("#href-video").removeClass("round-box-selecting");
-					$("#wap-href").removeClass("round-box-selecting");
-				    self.wapVideoHref = "";
-		        	self.scope.wapVideoHref = self.wapVideoHref;
-		        	self.scope.isMaps = self.isMaps;
-		        	self.scope.elegantModel.video  = self.elegantModel.video;
-		        	self.scope.localVideoHref = self.localVideoHref;
-		        	self.scope.isLocalVideo = self.isLocalVideo;
-		        	$("#uplo-videos").attr("src",self.scope.localVideoHref);
-		        	self.isShowIframS = false;
-		            self.scope.isShowIframS =  self.isShowIframS;
-	        	}
-	        	else if(data.info.type == 2)
-	        	{
-	        		$("#video-mes").addClass("round-box-selecting");
-					$("#map-mes").removeClass("round-box-selecting");
-		        	self.isMaps  = false;
-		        	self.Type = 2;
-		        	self.elegantModel.video = data.info.content;
-		        	self.localVideoHref = data.info.content;
-		        	self.isLocalVideo = 0;
-		        	$("#local-video").removeClass("round-box-selecting");
-					$("#href-video").addClass("round-box-selecting");
-					$("#wap-href").removeClass("round-box-selecting");
-				    self.wapVideoHref = "";
-		        	self.scope.wapVideoHref = self.wapVideoHref;
-		        	self.scope.isMaps = self.isMaps;
-		        	self.scope.elegantModel.video  = self.elegantModel.video;
-		        	self.scope.localVideoHref = self.localVideoHref;
-		        	self.scope.isLocalVideo = self.isLocalVideo;
-		        	$("#uplo-videos").attr("src",self.scope.localVideoHref);
-		        	self.isShowIframS = false;
-		            self.scope.isShowIframS =  self.isShowIframS;
-	        	}
-	        	else
-	        	{
-	        		$("#video-mes").addClass("round-box-selecting");
-					$("#map-mes").removeClass("round-box-selecting");
-		        	self.isMaps  = false;
-		        	self.Type = 3;
-		        	self.elegantModel.video = "";
-		        	self.localVideoHref = "";
-		        	self.isLocalVideo = 2;
-		        	$("#local-video").removeClass("round-box-selecting");
-					$("#href-video").removeClass("round-box-selecting");
-				    $("#wap-href").addClass("round-box-selecting");
-		        	self.scope.isMaps = self.isMaps;
-		        	self.scope.elegantModel.video  = "";
-		        	self.scope.localVideoHref = "";
-		        	self.scope.isLocalVideo = self.isLocalVideo;
-		        	self.wapVideoHref = data.info.content;
-		        	self.scope.wapVideoHref = self.wapVideoHref;
-		        	$("#uplo-videos").attr("src",'');
-	        	}
-				
-	        }
+//	        else
+//	        {
+//	        	if(data.info.type == 1)
+//	        	{
+//	        		$("#video-mes").addClass("round-box-selecting");
+//					$("#map-mes").removeClass("round-box-selecting");
+//		        	self.isMaps  = false;
+//		        	self.Type = 1;
+//		        	self.elegantModel.video = data.info.content;
+//		        	self.localVideoHref = data.info.content;
+//		        	self.isLocalVideo = 1;
+//		        	$("#local-video").addClass("round-box-selecting");
+//					$("#href-video").removeClass("round-box-selecting");
+//					$("#wap-href").removeClass("round-box-selecting");
+//				    self.wapVideoHref = "";
+//		        	self.scope.wapVideoHref = self.wapVideoHref;
+//		        	self.scope.isMaps = self.isMaps;
+//		        	self.scope.elegantModel.video  = self.elegantModel.video;
+//		        	self.scope.localVideoHref = self.localVideoHref;
+//		        	self.scope.isLocalVideo = self.isLocalVideo;
+//		        	$("#uplo-videos").attr("src",self.scope.localVideoHref);
+//		        	self.isShowIframS = false;
+//		            self.scope.isShowIframS =  self.isShowIframS;
+//	        	}
+//	        	else if(data.info.type == 2)
+//	        	{
+//	        		$("#video-mes").addClass("round-box-selecting");
+//					$("#map-mes").removeClass("round-box-selecting");
+//		        	self.isMaps  = false;
+//		        	self.Type = 2;
+//		        	self.elegantModel.video = data.info.content;
+//		        	self.localVideoHref = data.info.content;
+//		        	self.isLocalVideo = 0;
+//		        	$("#local-video").removeClass("round-box-selecting");
+//					$("#href-video").addClass("round-box-selecting");
+//					$("#wap-href").removeClass("round-box-selecting");
+//				    self.wapVideoHref = "";
+//		        	self.scope.wapVideoHref = self.wapVideoHref;
+//		        	self.scope.isMaps = self.isMaps;
+//		        	self.scope.elegantModel.video  = self.elegantModel.video;
+//		        	self.scope.localVideoHref = self.localVideoHref;
+//		        	self.scope.isLocalVideo = self.isLocalVideo;
+//		        	$("#uplo-videos").attr("src",self.scope.localVideoHref);
+//		        	self.isShowIframS = false;
+//		            self.scope.isShowIframS =  self.isShowIframS;
+//	        	}
+//	        	else
+//	        	{
+//	        		$("#video-mes").addClass("round-box-selecting");
+//					$("#map-mes").removeClass("round-box-selecting");
+//		        	self.isMaps  = false;
+//		        	self.Type = 3;
+//		        	self.elegantModel.video = "";
+//		        	self.localVideoHref = "";
+//		        	self.isLocalVideo = 2;
+//		        	$("#local-video").removeClass("round-box-selecting");
+//					$("#href-video").removeClass("round-box-selecting");
+//				    $("#wap-href").addClass("round-box-selecting");
+//		        	self.scope.isMaps = self.isMaps;
+//		        	self.scope.elegantModel.video  = "";
+//		        	self.scope.localVideoHref = "";
+//		        	self.scope.isLocalVideo = self.isLocalVideo;
+//		        	self.wapVideoHref = data.info.content;
+//		        	self.scope.wapVideoHref = self.wapVideoHref;
+//		        	$("#uplo-videos").attr("src",'');
+//	        	}
+//				
+//	        }
 	       
 	        self.scope.imgUrl = self.imgUrl;
+	        
+	        self.scope.infoAbstract = self.infoAbstract;
 	        self.scope.infoTitle = self.infoTitle;
 	        self.scope.$apply()
 	    })
@@ -774,19 +799,21 @@ var elegantController =
 		
 		self.selectedIds  = [],
 		
+		self.infoAbstract = '';
+		
 		self.infoTitle  =  '',
-		
-		self.isLocalVideo  = -1,
-		
-		self.localVideoHref  = '',
+//		
+//		self.isLocalVideo  = -1,
+//		
+//		self.localVideoHref  = '',
 		
 		self.imgUrl  = '',
 		
 		self.isAdd  = false,
 		
-		self.isShowIframS = false;
-		self.scope.isShowIframS =  self.isShowIframS;
-		
+//		self.isShowIframS = false;
+//		self.scope.isShowIframS =  self.isShowIframS;
+//		
 		self.elegantModel  = {
 		
 			editor : '',
@@ -794,16 +821,18 @@ var elegantController =
 		};
 		self.scope.Type = self.Type;
 		self.scope.isMaps = self.isMaps;
-		$("#map-mes").addClass("round-box-selecting");
-		$("#video-mes").removeClass("round-box-selecting");
-        self.wapVideoHref = "";
-        self.scope.wapVideoHref = self.wapVideoHref;
+//		$("#map-mes").addClass("round-box-selecting");
+//		$("#video-mes").removeClass("round-box-selecting");
+//      self.wapVideoHref = "";
+//      self.scope.wapVideoHref = self.wapVideoHref;
 		self.scope.isSelected =  self.isSelected;
 		self.scope.informationId =  self.informationId;
 		self.scope.selectedIds =  self.selectedIds;
 		self.scope.infoTitle =  self.infoTitle;
-		self.scope.isLocalVideo =  self.isLocalVideo;
-		self.scope.localVideoHref =  self.localVideoHref;
+		
+		self.scope.infoAbstract = self.infoAbstract;
+//		self.scope.isLocalVideo =  self.isLocalVideo;
+//		self.scope.localVideoHref =  self.localVideoHref;
 		self.scope.imgUrl =  self.imgUrl;
 		self.scope.isAdd =  self.isAdd;
 		document.getElementById("file-form-3").reset();

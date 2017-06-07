@@ -12,7 +12,7 @@
 //const API_BASE_URL = "http://192.168.2.128/auction/index.php/";//测试
 //const API_BASE_URL = "http://192.168.0.110:8088/auction/index.php/";
 
-
+//var API_BASE_URL =  "http://192.168.0.110:8088/auction/index.php/";
 var API_BASE_URL =  "http://192.168.0.88:8082/auction/index.php/";
 //const API_BASE_URL = "http://auction.yawan365.com/index.php/";//正式
 //const BASE_PAGE_URL = "http://auction.yawan365.com/";//正式
@@ -21,7 +21,7 @@ var API_BASE_URL =  "http://192.168.0.88:8082/auction/index.php/";
 // const API_BASE_URL = "http://auction.yawan365.com:8080/index.php/";//测试
 //const BASE_PAGE_URL = "http://192.168.0.168:8020/web/";
 
-const BASE_PAGE_URL = "http://192.168.0.168/auction/";
+const BASE_PAGE_URL = "http://192.168.0.163/auction/";
 //const BASE_PAGE_URL = "http://127.0.0.1:8020/paimai-web/";
 
 /***************API 配置接口****************/
@@ -141,7 +141,8 @@ var pageUrl =
 	GOODS_DETAIL : BASE_PAGE_URL + "goodsDetail.php",//详情
 	AUCTION_HISTORY : BASE_PAGE_URL + "auctionHistory.php",//拍卖历史
 	AUCTION_HISTORY_INFO : BASE_PAGE_URL + "auctedGoodsDetail.php",//拍卖历史拍品详情
-	PERSON_CENTER : BASE_PAGE_URL + "personCenter.html",//个人中心
+//	PERSON_CENTER : BASE_PAGE_URL + "personCenter.html",//个人中心
+    PERSON_CENTER : BASE_PAGE_URL + "newPersoner.html",//个人中心
 	PERSON_INFO : BASE_PAGE_URL + "personCenter/personInfo.html",//个人信息
 	MOD_NAME : BASE_PAGE_URL + "personCenter/modName.html",//修改昵称
 	MY_ADDRESS_LIST : BASE_PAGE_URL + "personCenter/addressList.html",//我的收货地址
@@ -150,6 +151,8 @@ var pageUrl =
 	BIND_ACCOUNT : BASE_PAGE_URL + "personCenter/bindAccount.html",//绑定账号
 	MY_CUSTOMER : BASE_PAGE_URL + "myCustom.html",//我的客服
 	MY_DRAWCASH : BASE_PAGE_URL + "personCenter/widthDrawCash.html",//我的提现
+	
+	MY_MESSAGE_SET_PAGE : BASE_PAGE_URL + "personCenter/messageSetPage.html",//短信设置
 	
 	MY_ACCOUNT : BASE_PAGE_URL + "personCenter/myAccount.html",//我的账户
 	ACCOUNT_RECHARGE : BASE_PAGE_URL + "personCenter/recharge.html",//充值界面

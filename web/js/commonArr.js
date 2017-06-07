@@ -5,7 +5,7 @@
 var tab = [
     //{title: '有奖竞猜', isActive: false, pic: ["img/bottom/under_auction.png","img/bottom/under_auction_active.png"]},
     {title: '雅学院', isActive: false, pic: ["img/pre-see.png","img/pre-see-color.png"],id:1},
-    {title: '十点拍', isActive: false, pic: ["img/bottom/under_auction.png","img/bottom/under_auction_active.png"],id:2},
+    {title: '精品拍', isActive: false, pic: ["img/bottom/under_auction.png","img/bottom/under_auction_active.png"],id:2},
     {title: '特卖会', isActive: false, pic: ["img/sellUn.png","img/sellActive.png"],id:3}
    
 ];

@@ -162,7 +162,7 @@ class M_auction extends My_Model
     function getAuctionItems($startIndex, $num, $whereArr = array(), $orWhereArr = array(), $orderBy = "", &$auctionItems, &$count, $itemInfoType = AUCTION_TYPE_BASE)
     {
         $this->db->start_cache();
-        $this->db->select("id, FROM_UNIXTIME(startTime), FROM_UNIXTIME(endTime), (if((endTime - unix_timestamp(now())) > 0, 1, 0)) as isOverdue")->from("auctionItems");
+        $this->db->select("id, FROM_UNIXTIME(startTime), FROM_UNIXTIME(endTime), abs(endTime - unix_timestamp(now())) as absValue, (if((endTime - unix_timestamp(now())) > 0, 1, 0)) as isOverdue")->from("auctionItems");
         if(!empty($whereArr))
         {
             $this->db->where($whereArr);
@@ -179,7 +179,8 @@ class M_auction extends My_Model
         }
         if(empty($orderBy))
         {
-            $orderBy = "isOverdue desc, startTime desc";
+           // $orderBy = "isOverdue desc, startTime desc";
+            $orderBy = "isOverdue desc, absValue asc";//先是正在拍卖的拍品，临近截拍的排在上面；然后是已截拍的，最近截拍的排在上面
         }
         $this->db->order_by($orderBy);
         $itemArr = $this->db->get()->result_array();

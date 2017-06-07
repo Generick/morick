@@ -26,19 +26,22 @@
         
         <div class="container noScroll" style="overflow-y: scroll;padding-bottom: 65px;">
 			<!-- Swiper -->
-		    <div class="swiper-container">
-		        <div class="swiper-wrapper">
-		            <div class="swiper-slide item-img" ng-repeat="item in goodsDetailModel.allInfo.goodsInfo.goods_pics" on-Finish-Render-Filters>
-		            	<img ng-src="{{item}}"/>
-		            </div>
-		        </div>
-                <!-- Add Pagination -->
-                <div class="swiper-pagination"></div>
-		    </div>
-
-			<div class="goods-content">
-				<p id="goodsContent"></p>
+			<div  id="preImages" style="overflow: hidden;">
+				  <div class="swiper-container">
+			        <div class="swiper-wrapper">
+			            <div class="swiper-slide item-img" ng-repeat="item in goodsDetailModel.allInfo.goodsInfo.goods_pics" on-Finish-Render-Filters>
+			            	<img ng-src="{{item}}"/>
+			            </div>
+			        </div>
+	                <!-- Add Pagination -->
+	                <div class="swiper-pagination"></div>
+			    </div>
+	
+				<div class="goods-content">
+					<p id="goodsContent"></p>
+				</div>
 			</div>
+		   
 			<div class="time-operate">
 				<div class="end-time">
 					<div class="endtime-fresh" ng-click="onClickUpdateTime()">
@@ -85,7 +88,7 @@
 			</div>           
            
 				<button id="goodsBtn" class="goods-btn-2" ng-click="onClickPay()">出&nbsp;价</button>
-				<button id="selfGoodsBtn" class="goods-btn-2" ng-click="onClickSelfPay()" ng-bind="selfPaidText"></button>
+				<!--<button id="selfGoodsBtn" class="goods-btn-2" ng-click="onClickSelfPay()" ng-bind="selfPaidText"></button>-->
 				<!--<button id="selfGoodsBtn" class="goods-btn-2" ng-show="goodsDetailModel.allInfo.isQuiz == '1'" ng-click="jumpToGuess(item)" >成交价竞猜</button>-->
 			</div>
             
@@ -104,7 +107,7 @@
                 </button>
             </div>-->
           
-            <div id="capped-box" class="capped-hide">
+            <div id="capped-box" class="capped-hide" style="padding-bottom:6px;height:63px">
 	            <div id="capped-price-box">
 	                <button id="capped-price-btn">
 	                    <span id="capped-price">封顶价</span>￥<span ng-bind="goodsDetailModel.allInfo.cappedPrice"></span>

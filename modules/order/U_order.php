@@ -28,7 +28,8 @@ class U_order extends User_Controller
 
         $whereArr = array();
         $whereArr["order.userId"] = $this->m_user->getSelfUserId();
-        if(isset($_POST["orderType"]))
+        $orderStatus = $this->input->post('orderStatus');
+        if($orderStatus != null && $orderStatus != '')
         {
             $whereArr["orderStatus"] = intval($this->input->post("orderType"));
         }
@@ -204,5 +205,38 @@ class U_order extends User_Controller
         }
 
         $this->responseError($retCode);
+    }
+
+    //特卖会支付
+    function payTMH()
+    {
+        if (!$this->checkParam(array('userId', 'commodity_id'))) 
+        {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
+        $userId = $this->input->post('userId');
+        $commodity_id = $this->input->post('commodity_id');
+        $res = $this->m_order->payTMH($userId, $commodity_id);
+        if ($res !== ERROR_OK) 
+        {
+            $this->responseError($res);
+            return;
+        }
+        $this->responseSuccess($res);
+    }
+
+    //特卖会订单详情
+    function TMHOrderInfo()
+    {
+        if (!$this->checkParam(array('orderId'))) 
+        {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
+        $orderId = $this->input->post('orderId');
+        $data = array();
+        $this->m_order->TMHOrderInfo($orderId, $data);
+        $this->responseSuccess(array('orderInfo' => $data));
     }
 }

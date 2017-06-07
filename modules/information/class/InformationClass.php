@@ -51,6 +51,7 @@ class CInformationAllInfo extends IExtractInfo {
             "cover",
             "title",
             "content",
+            "summary",
             "isRelease",
             "createTime",
         );
@@ -87,6 +88,7 @@ class CInformation extends CDataClassBase {
             "cover" => new CField(FIELD_TYPE_NORMAL),
             "title" => new CField(FIELD_TYPE_NORMAL),
             "content" => new CField(FIELD_TYPE_NORMAL),
+            "summary" => new CField(FIELD_TYPE_NORMAL),
             "isDelete" => new CField(FIELD_TYPE_NORMAL),
             "isRelease" => new CField(FIELD_TYPE_NORMAL),
             "createTime" => new CField(FIELD_TYPE_NORMAL),

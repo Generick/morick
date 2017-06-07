@@ -52,8 +52,8 @@ var myAccountController =
     		$('.container').css('opacity','1');
     		
     		
-    		self.myAccountModel.userInfo.balance = commonFu.toDecimals(self.myAccountModel.userInfo.balance);
-    		self.myAccountModel.userInfo.frozen = commonFu.toDecimals(self.myAccountModel.userInfo.frozen);
+    		self.myAccountModel.userInfo.balance = parseInt(self.myAccountModel.userInfo.balance);
+    		self.myAccountModel.userInfo.frozen = parseInt(self.myAccountModel.userInfo.frozen);
     		self.scope.myAccountModel = self.myAccountModel;
     		
     		self.scope.$apply();

@@ -9,9 +9,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/server.iml" afterPath="$PROJECT_DIR$/.idea/server.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/M_admin.php" afterPath="$PROJECT_DIR$/application/models/M_admin.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/database.php" afterPath="$PROJECT_DIR$/application/config/database.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/test.php" afterPath="$PROJECT_DIR$/application/views/test.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/goods/sql/alter20170425.sql" afterPath="$PROJECT_DIR$/modules/goods/sql/alter20170425.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/messagePush/M_messagePush.php" afterPath="$PROJECT_DIR$/modules/messagePush/M_messagePush.php" />
     </list>
     <ignored path="server.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,98 +40,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="errors.php" pinned="false" current-in-tab="false">
-        <entry file="file://F:/m_works/pingan_doctor/program/server/application/core/errors.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="25" column="104" lean-forward="false" selection-start-line="25" selection-start-column="104" selection-end-line="25" selection-end-column="104" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SensitiveWord.php" pinned="false" current-in-tab="false">
-        <entry file="file://F:/m_works/pingan_doctor/program/server/modules/sensitiveWord/SensitiveWord.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="11" column="30" lean-forward="false" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="M_area.php" pinned="false" current-in-tab="false">
         <entry file="file://F:/m_works/pingan_doctor/program/server/modules/area/M_area.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1045">
               <caret line="60" column="5" lean-forward="false" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.php" pinned="false" current-in-tab="false">
-        <entry file="file://F:/m_works/pingan_doctor/program/server/application/views/test.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2793">
-              <caret line="147" column="96" lean-forward="false" selection-start-line="147" selection-start-column="96" selection-end-line="147" selection-end-column="96" />
-              <folding>
-                <marker date="1495280841413" expanded="true" signature="221:25816" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="11783:11876" ph="//..." />
-                <marker date="1495280841413" expanded="true" signature="12005:12170" ph="{&quot;msgContent&quot;: &quot;&quot;...}" />
-                <marker date="1495280841413" expanded="true" signature="12913:13114" ph="//..." />
-                <marker date="1495280841413" expanded="true" signature="13610:13811" ph="//..." />
-                <marker date="1495280841413" expanded="true" signature="24307:24653" ph="//..." />
-                <marker date="1495280841413" expanded="true" signature="25898:26831" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="25967:26658" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="26344:26423" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="26482:26561" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="26698:26819" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="26873:27511" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="26968:27291" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="27073:27170" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="27558:27653" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="27695:27774" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="27824:31182" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="27985:30801" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="28104:30116" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="28220:28583" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="28667:29090" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="29167:29922" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="29344:29850" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="29968:30098" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="30168:30341" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="30192:30322" ph="/*...*/" />
-                <marker date="1495280841413" expanded="true" signature="30393:30413" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="30451:30787" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="30872:30938" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="30968:31034" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="31120:31172" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="31207:31356" ph="..." />
-                <marker date="1495280841413" expanded="true" signature="31222:31262" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="31273:31344" ph="{...}" />
-                <marker date="1495280841413" expanded="true" signature="31371:32266" ph="..." />
-                <marker date="1495280841413" expanded="true" signature="31383:31402" ph="..." />
-                <marker date="1495280841413" expanded="true" signature="31428:32258" ph="..." />
-                <marker date="1495280841413" expanded="false" signature="31494:31506" ph="..." />
-                <marker date="1495280841413" expanded="true" signature="31559:31611" ph="..." />
-                <marker date="1495280841413" expanded="true" signature="31712:31855" ph="..." />
-                <marker date="1495280841413" expanded="true" signature="31915:32071" ph="..." />
-                <marker date="1495280841413" expanded="true" signature="31928:32057" ph="..." />
-                <marker date="1495280841413" expanded="true" signature="32099:32250" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="M_timeTask.php" pinned="false" current-in-tab="false">
-        <entry file="file://F:/m_works/pingan_doctor/program/server/modules/timeTask/M_timeTask.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="50" column="18" lean-forward="false" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
-              <folding>
-                <element signature="e#6#86#0#PHP" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -149,8 +63,8 @@
       <file leaf-file-name="defines.php" pinned="false" current-in-tab="true">
         <entry file="file://F:/m_works/pingan_doctor/program/server/modules/order/define/defines.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
-              <caret line="42" column="32" lean-forward="false" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+            <state relative-caret-position="133">
+              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding>
                 <element signature="e#6#90#0#PHP" expanded="true" />
               </folding>
@@ -231,9 +145,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="F:/m_works/pingan_doctor/program/server/modules/healthPoint/U_healthPoint.php" />
-        <option value="F:/m_works/pingan_doctor/program/server/modules/sensitiveWord/define/errors.php" />
-        <option value="F:/m_works/pingan_doctor/program/server/modules/transaction/define/errors.php" />
         <option value="F:/m_works/pingan_doctor/program/server/modules/withdraw/define/error.php" />
         <option value="F:/m_works/pingan_doctor/program/server/application/models/M_errors.php" />
         <option value="F:/m_works/pingan_doctor/program/server/modules/app/core/errors.php" />
@@ -282,6 +193,9 @@
         <option value="F:/m_works/pingan_doctor/program/server/modules/message/D_message.php" />
         <option value="F:/m_works/pingan_doctor/program/server/modules/order/define/errors.php" />
         <option value="F:/m_works/pingan_doctor/program/server/modules/order/define/defines.php" />
+        <option value="$PROJECT_DIR$/modules/saleMeeting/M_saleMeeting.php" />
+        <option value="$PROJECT_DIR$/modules/saleMeeting/A_saleMeeting.php" />
+        <option value="$PROJECT_DIR$/modules/saleMeeting/saleMeeting.php" />
       </list>
     </option>
   </component>
@@ -329,6 +243,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -373,10 +288,79 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auction" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="saleMeeting" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auction" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="saleMeeting" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="define" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auction" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="goods" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -599,11 +583,13 @@
       <workItem from="1495003841653" duration="45000" />
       <workItem from="1495029362419" duration="1617000" />
       <workItem from="1495201878974" duration="1182000" />
+      <workItem from="1496201605700" duration="420000" />
+      <workItem from="1496212161918" duration="1786000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="503289000" />
+    <option name="totallyTimeSpent" value="505495000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -617,7 +603,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21162046" sideWeight="0.49624866" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21588486" sideWeight="0.49624866" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.141258" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -654,41 +640,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/app/core/App_ControllerBase.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/modules/information/U_information.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="25" column="33" lean-forward="false" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/application/models/M_account.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="36" column="29" lean-forward="true" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/m_works/pingan_doctor/program/server/application/core/My_Controller.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="218" column="46" lean-forward="true" selection-start-line="218" selection-start-column="46" selection-end-line="218" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/core/errors.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="18" column="49" lean-forward="false" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://F:/m_works/pingan_doctor/program/server/modules/transaction/A_transaction.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="689">
@@ -903,51 +854,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2793">
           <caret line="147" column="96" lean-forward="false" selection-start-line="147" selection-start-column="96" selection-end-line="147" selection-end-column="96" />
-          <folding>
-            <marker date="1495280841413" expanded="true" signature="221:25816" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="11783:11876" ph="//..." />
-            <marker date="1495280841413" expanded="true" signature="12005:12170" ph="{&quot;msgContent&quot;: &quot;&quot;...}" />
-            <marker date="1495280841413" expanded="true" signature="12913:13114" ph="//..." />
-            <marker date="1495280841413" expanded="true" signature="13610:13811" ph="//..." />
-            <marker date="1495280841413" expanded="true" signature="24307:24653" ph="//..." />
-            <marker date="1495280841413" expanded="true" signature="25898:26831" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="25967:26658" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="26344:26423" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="26482:26561" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="26698:26819" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="26873:27511" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="26968:27291" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="27073:27170" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="27558:27653" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="27695:27774" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="27824:31182" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="27985:30801" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="28104:30116" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="28220:28583" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="28667:29090" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="29167:29922" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="29344:29850" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="29968:30098" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="30168:30341" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="30192:30322" ph="/*...*/" />
-            <marker date="1495280841413" expanded="true" signature="30393:30413" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="30451:30787" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="30872:30938" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="30968:31034" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="31120:31172" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="31207:31356" ph="..." />
-            <marker date="1495280841413" expanded="true" signature="31222:31262" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="31273:31344" ph="{...}" />
-            <marker date="1495280841413" expanded="true" signature="31371:32266" ph="..." />
-            <marker date="1495280841413" expanded="true" signature="31383:31402" ph="..." />
-            <marker date="1495280841413" expanded="true" signature="31428:32258" ph="..." />
-            <marker date="1495280841413" expanded="false" signature="31494:31506" ph="..." />
-            <marker date="1495280841413" expanded="true" signature="31559:31611" ph="..." />
-            <marker date="1495280841413" expanded="true" signature="31712:31855" ph="..." />
-            <marker date="1495280841413" expanded="true" signature="31915:32071" ph="..." />
-            <marker date="1495280841413" expanded="true" signature="31928:32057" ph="..." />
-            <marker date="1495280841413" expanded="true" signature="32099:32250" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1040,10 +947,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/modules/saleMeeting/define/errors.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/saleMeeting/define/defines.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/saleMeeting/M_saleMeeting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+          <folding>
+            <element signature="e#6#86#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/saleMeeting/A_saleMeeting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="41" lean-forward="false" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+          <folding>
+            <element signature="e#6#86#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/saleMeeting/saleMeeting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="41" lean-forward="false" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+          <folding>
+            <element signature="e#6#86#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://F:/m_works/pingan_doctor/program/server/modules/order/define/defines.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="42" column="32" lean-forward="false" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+        <state relative-caret-position="133">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
             <element signature="e#6#90#0#PHP" expanded="true" />
           </folding>

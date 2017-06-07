@@ -317,4 +317,82 @@ class M_order extends My_Model
         return ERROR_OK;
     }
 
+    //特卖会支付
+    function payTMH($userId, $commodity_id)
+    {
+        $this->load->model('m_user');
+        $this->load->model('m_saleMeeting');
+        $this->load->model('m_shippingAddress');
+        $TMH = $this->db->where('commodity_id', $commodity_id)->get('sale_meeting')->row_array();
+        if (empty($TMH)) return ERROR_NOT_TMH_COMMODITY;
+        $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $userId);
+        $commodityObj = $this->m_saleMeeting->getCommodityInfo($commodity_id);
+        if ($commodityObj->stock_num <= 0) return ERROR_STOCK_NUM_NOT_ENOUGH;
+        if ($userObj->balance < $commodityObj->commodity_price) 
+        {
+            return ERROR_BALANCE_NOT_ENOUGH;
+        }
+
+        $orderInfo = array(
+            'order_no' => date('Ymd') . mt_rand(100000, 999999),
+            'userId' => $userId,
+            'deliveryType' => 0,
+            'orderTime' => time(),
+            'goodsPrice' => $commodityObj->commodity_price,
+            'payPrice' => $commodityObj->commodity_price,
+            'orderType' => 2,
+            'orderStatus' => 2,
+            );
+
+        //获取用户的默认收货地址
+        $addressList = array();
+        $count = 0;
+        $this->m_shippingAddress->getShippingAddress(0, 0, array("userId" => $userId, "isCommon" => 1), $addressList, $count);
+        if(count($addressList) > 0)
+        {
+            $oneAddress = $addressList[0];
+            $orderInfo["acceptName"] = $oneAddress->acceptName;
+            $orderInfo["province"] = $oneAddress->province;
+            $orderInfo["city"] = $oneAddress->city;
+            $orderInfo["district"] = $oneAddress->district;
+            $orderInfo["address"] = $oneAddress->address;
+            $orderInfo["mobile"] = $oneAddress->mobile;
+        }
+
+        if ($this->db->insert('order', $orderInfo)) 
+        {
+            $newBalance = $userObj->balance - $commodityObj->commodity_price;
+            $modInfo = array('balance' => $newBalance);
+            $userObj->modInfoWithPrivilege($modInfo);
+            $order_goods_arr = array('order_no' => $orderInfo['order_no'], 'goodsId' => $commodity_id, 'goodsNum' => 1);
+            $this->db->insert('order_goods', $order_goods_arr);
+            $order_logs_arr = array('order_no' => $orderInfo['order_no'], 'orderStatus' => 1, 'statusTime' => time());
+            $this->db->insert('order_logs', $order_logs_arr);
+            //$saleInfo = $this->db->where('commodity_id', $commodity_id)->get('sale_record')->row_array();
+            //if (!$saleInfo) 
+            //{
+                $arr = array(
+                    'commodity_id' => $commodity_id,
+                    'commodity_name' => $commodityObj->commodity_name,
+                    'commodity_price' => $commodityObj->commodity_price,
+                    'sale_num' => 1,
+                    'sale_time' => time(),
+                    );
+                $this->db->insert('sale_record', $arr);
+                //return ERROR_OK;
+            //}
+            //$this->db->where('commodity_id', $commodity_id)->update('sale_record', array('sale_num' => $saleInfo['sale_num'] + 1, 'sale_time' => time()));
+            $this->m_saleMeeting->modCommodity($commodity_id, array('stock_num' => $commodityObj->stock_num - 1));
+            return ERROR_OK;
+        }
+
+        
+    }
+
+    //特卖会订单详情
+    function TMHOrderInfo()
+    {
+        //
+    }
+
 }

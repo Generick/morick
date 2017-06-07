@@ -164,7 +164,7 @@
 
             //region 订单列表
             "order/A_order/getPersonalOrderList" :  {"startIndex" : 0, "num" : 10, "userId" : "", "说明" : "分页获取个人购买记录"},
-            "order/A_order/getOrderList" : {"startIndex" : 0, "num" : 10, "orderType" : 0, "deliveryType" : 0 , "likeStr" : "", "说明" : "获取订单列表"},
+            "order/A_order/getOrderList" : {"startIndex" : 0, "num" : 10, "orderStatus" : 0, "deliveryType" : 0 , "likeStr" : "", "orderType":1,"说明" : "获取订单列表 orderType订单类型1拍品订单 2商品订单"},
             "order/A_order/deliverOrder" : {"order_no" : "", "logistics_no" : "", "说明" : "发货"},
             "order/A_order/orderStatistical" : {"startTime" : "", "endTime" : "", "startIndex" : 0, "num" : 10, "说明" : "销售统计"},
             "order/A_order/getLogisticsInfo" : {"order_no" : "", "说明" : "获取物流信息"},
@@ -174,6 +174,7 @@
             "order/U_order/getLogisticsInfo" : {"order_no" : "", "说明" : "获取物流信息"},
             "order/U_order/confirmReceipt" : {"order_no" : "", "说明" : "确认收货"},
             "order/U_order/payOrder" :{"order_no" : "", "deliveryType" : "0", "说明" : "支付订单"},
+            "order/U_order/payTMH" :{"userId" : "0", "commodity_id" : "0", "说明" : "支付特卖会订单"},
             //endregion
 
             //region 充值
@@ -199,12 +200,26 @@
             "information/Information/getInformationList" : {"startIndex" : 0, "num" : 10, "说明" : "获取资讯列表"},
             "information/Information/getInformationInfo" : {"informationId" : 0, "说明" : "获取资讯详情"},
             "information/A_information/getInformationList" : {"startIndex" : 0, "num" : 10, "likeStr" : "", "说明" : "获取资讯列表"},
-            "information/A_information/createInformation" : {"type" : 0, "cover" : "", "title" : "", "content" : "", "说明" : "新增资讯"},
+            "information/A_information/createInformation" : {"type" : 0, "cover" : "", "title" : "", "content" : "", "summary" : "", "说明" : "新增资讯"},
             "information/A_information/releaseInformation" : {"informationId" : 0, "说明" : "发布or取消发布资讯"},
             "information/A_information/delInformation" : {"informationIds" : '[1,2]',  "说明" : "删除资讯"},
             "information/A_information/modInformation" : {"informationId" : 0, "modInfo" : '{"type" : 0}', "说明" : "修改资讯"},
-            "information/A_information/getInformationInfo" : {"informationId" : 0,  "说明" : "获取资讯详情"}
+            "information/A_information/getInformationInfo" : {"informationId" : 0,  "说明" : "获取资讯详情"},
 
+            //特卖会
+            "saleMeeting/A_saleMeeting/getCommodities": {'startIndex':0, 'num':10, 'is_up': '', 'fields':'', '说明':'获取商品列表 is_up是否上架 0未上架 1上架'},
+            "saleMeeting/A_saleMeeting/addCommodity": {'info':'{"commodity_name":"new name","commodity_desc":"new desc", "commodity_cover":"htttp://xxx.jpg","commodity_detail":"new detail", "commodity_price":100, "stock_num":5000, "commodity_pic":["http://xxx.jpg","http://123.jpg"]}', '说明':'添加商品'},
+            "saleMeeting/A_saleMeeting/getUpCommodities": {'startIndex':0, 'num':10, 'fields':'', '说明':'获取添加到特卖会中的商品'},
+            "saleMeeting/A_saleMeeting/delCommodity": {'ids':'[1,2]', '说明':'删除商品'},
+            "saleMeeting/A_saleMeeting/modCommodity": {'id':1, 'modInfo':'','说明':'修改商品'},
+            "saleMeeting/A_saleMeeting/upCommodityToTMH": {'ids':'[1,2]','说明':'上架商品到特卖会'},
+            "saleMeeting/A_saleMeeting/delTMH": {'commodity_ids':'[1,2]','说明':'从特卖会中删除商品'},
+            "saleMeeting/A_saleMeeting/upCommodity": {'id':1,'is_up':1, '说明':'上架/下架商品 is_up 0下架 1上架'},
+            "saleMeeting/A_saleMeeting/getCommodityInfo": {'id':1,'说明':'获取商品信息'},
+            "saleMeeting/A_saleMeeting/commodityDelRec": {'startIndex':0,'num':10,'startTime':'','endTime':'','说明':'获取商品删除记录'},
+            "saleMeeting/A_saleMeeting/saleRecord": {'startIndex':0,'num':10,'startTime':'','endTime':'','说明':'获取商品销售记录'},
+            "saleMeeting/SaleMeeting/getTMHList": {'startIndex':0, 'num':10, 'fields':'','说明':'获取特卖会列表'},
+            "saleMeeting/SaleMeeting/getTMHCommodityInfo": {'commodity_id':1,'说明':'获取特卖会商品信息'},
             //endregion
         };
 

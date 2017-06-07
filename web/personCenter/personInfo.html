@@ -11,6 +11,8 @@
         <link rel="stylesheet" href="../css/person_center.css" />
         <link rel="stylesheet" href="../css/ui.mine.css" />
         <link rel="stylesheet" href="../popUpModal/popUp.css" />
+        <link rel="stylesheet" href="../css/newPersonal.css" />
+         <link href="../plugin/layerMobile/need/layer.css">
 	</head>
 	<body ng-controller="personInfoController">
 		<div class="animation">
@@ -21,7 +23,7 @@
 				<li class="ub">
 					<div class="ub-f1 list-text mgt-33">头像</div>
 					<div class="ub-f1 list-user-icon">
-						<i class="list-value" style="background-image: url({{personInfoModel.userInfo.smallIcon}});"></i>
+						<img id="myOwnPersonHead" ng-src="{{personInfoModel.userInfo.smallIcon}}"/>
 					</div>
 					<div class="ub-f1 list-right mgt-30"></div>
 				</li>
@@ -45,7 +47,7 @@
 					<div class="ub-f1 list-right mgt-13"></div>
 				</li>
 				<li class="ub line" ng-click="onClickModAddress()">
-					<div class="ub-f1 list-text mgt-16">地址</div>
+					<div class="ub-f1 list-text mgt-16">收货地址管理</div>
 					<div class="ub-f1 list-value mgt-16" ng-class="personInfoModel.userInfo.addressStyle" ng-bind="personInfoModel.userInfo.address"></div>
 					<div class="ub-f1 list-right mgt-13"></div>
 				</li>
@@ -53,14 +55,40 @@
 					<div class="ub-f1 list-text mgt-16">短信提醒设置</div>
 					<div class="ub-f1 list-value mgt-16" ng-class="personInfoModel.userInfo.addressStyle" ></div>
 					<div class="ub-f1 list-right mgt-13"></div>
-				</li>
-				<li class="ub line" ng-click="onClickToMyCustomer()">
+				</li>-->
+				<!--<li class="ub line" ng-click="onClickToMyCustomer()">
 					<div class="ub-f1 list-text mgt-16">我的客服</div>
 					<div class="ub-f1 list-value mgt-16" ng-class="personInfoModel.userInfo.addressStyle" ></div>
 					<div class="ub-f1 list-right mgt-13"></div>
 				</li>-->
+				
 			</ul>
-			
+			<div class="set-message-box" style="margin-top: 10px">
+					<div class="set-message-box-item" style="border-top: 1px solid #EEEEEE;">
+					    <div class="set-message-left-part">成交短信</div>
+					    <div class="set-message-right-part" ng-click="turnOnOrOff(0)">
+					    	<div class="set-message-right-part-word">OFF</div>
+					    
+					    	<span class="set-message-right-part-round"></span>
+					    </div>
+					</div>
+					<div class="set-message-box-item">
+					    <div class="set-message-left-part">截拍短信</div>
+					    <div class="set-message-right-part" ng-click="turnOnOrOff(1)">
+					    	<div class="set-message-right-part-word">OFF</div>
+					
+					    	<span class="set-message-right-part-round"></span>
+					    </div>
+					</div>
+					<div class="set-message-box-item">
+					    <div class="set-message-left-part">超出短信</div>
+					    <div class="set-message-right-part" ng-click="turnOnOrOff(2)">
+					    	<div class="set-message-right-part-word">OFF</div>
+					
+					    	<span class="set-message-right-part-round"></span>
+					    </div>
+					</div>
+			    </div>
 			<ul class="mgt-10 list list-up-down-line">
 				<li class="ub line" ng-click="onClickAccountBind(0)">
 					<div class="ub-f1 list-icon"><img src="../img/personCenter/weChat.png"/></div>
@@ -81,12 +109,12 @@
 					<div class="ub-f1 list-right mgt-13"></div>
 				</li>
 			</ul>
-<!--			
+			
 			<div class="exists-button-box">
 				<div class="exists-button" ng-click="existWx()">
 					退出登录
 				</div>
-			</div>-->
+			</div>
 		</div>
 		
 		<div class="choose-gender-bg">
@@ -99,14 +127,16 @@
 		
 	</body>
 	<!--系统js-->
-
-	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+    <script type="text/javascript" src="../js/zepto.min.js" ></script>
+	<!--<script type="text/javascript" src="../js/jquery.min.js" ></script>-->
 	<script type="text/javascript" src="../js/angular.min.js" ></script>
 	<script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
 	<script type="text/javascript" src="../js/common.js" ></script>
 	<script type="text/javascript" src="../js/config.js" ></script>
 	<script type="text/javascript" src="../popUpModal/confirmTip.js" ></script>
 	<script type="text/javascript" src="../js/lrz.bundle.js" ></script>
+	<script src="../plugin/layerMobile/layer.js"></script>
+    <script src="../module/dialog/dialog.js"></script>
 	<!--controller-->
 	<script type="text/javascript" src="../controller/personCenter/personInfoController.js" ></script>
 	

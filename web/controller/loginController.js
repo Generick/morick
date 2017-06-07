@@ -154,7 +154,13 @@ var LoginCtrl =
                             location.href = pageUrl.GUESS_PAGE;
                         }
                         else
-                        {
+                        {   
+                        	
+                        	if(localStorage.getItem(localStorageKey.DEFAULT) == BASE_PAGE_URL + "personCenter.html")
+                        	{
+                        		localStorage.setItem(localStorageKey.DEFAULT,BASE_PAGE_URL + "newPersoner.html");
+                        	
+                        	}
                             location.href = localStorage.getItem(localStorageKey.DEFAULT);
                             localStorage.setItem(localStorageKey.DEFAULT, "");
                         }

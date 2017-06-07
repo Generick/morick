@@ -42,6 +42,51 @@ class U_messagePush extends User_Controller
     	$this->responseSuccess(array('data' => $data, 'count' => $count));
     }
 
+    //获取用户未批阅的消息
+    function getUnReadMSG()
+    {
+        if (!$this->checkParam(array('userId', 'startIndex', 'num'))) 
+        {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
+        $userId = $this->input->post('userId');
+        $startIndex = $this->input->post('startIndex');
+        $num = $this->input->post('num');
+
+        $whr = array();
+        $or_whr = array('user_id' => $userId);
+        $whr['user_id'] = 0;
+        $push_type = 0;
+        $isVIP = $this->db->select('isVIP')->where('userId', $userId)->get('user')->row_array();
+        if ($isVIP['isVIP'] == 1) $push_type = 1;
+        $whr['push_type'] = $push_type;
+        $data = array();
+        $count = 0;
+        $this->m_messagePush->getUnReadMSG($startIndex, $num, $whr, $or_whr, $data, $count);
+        $this->responseSuccess(array('msgList' => $data, 'count' => $count));
+    }
+
+    //获取已批阅消息
+    function getHasReadMSG()
+    {
+        if (!$this->checkParam(array('userId', 'startIndex', 'num'))) 
+        {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
+        $userId = $this->input->post('userId');
+        $startIndex = $this->input->post('startIndex');
+        $num = $this->input->post('num');
+
+        $whr = array('usermsglog.user_id' => $userId);
+
+        $data = array();
+        $count = 0;
+        $this->m_messagePush->getHasReadMSG($startIndex, $num, $whr, $data, $count);
+        $this->responseSuccess(array('msgList' => $data, 'count' => $count));
+    }
+
 
     //用户查看消息
     function viewMsg()

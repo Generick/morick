@@ -14,9 +14,9 @@
 			<thead>
 				<tr>
 					<td style="text-align: center">序号</td>
-					<td style="text-align: center;width:210px !important;">标题</td>
+					<td style="text-align: center;width:180px !important;">标题</td>
 					<td style="text-align: center">图片</td>
-					<td style="text-align: center">类型</td>
+					<!--<td style="text-align: center">类型</td>-->
 					<td style="text-align: center">操作者</td>
 					<td style="text-align: center">时间</td>
 					<td style="text-align: center">操作</td>
@@ -28,14 +28,14 @@
 			<tbody>
 				<tr ng-repeat="item in informationList">
 					<td style="text-align: center">{{$index + 1 + (page.currentPage - 1)*page.selectPageNum}}</td>
-					<td style="text-align: center;width:210px !important;">{{item.title}}</td>
+					<td style="text-align: center;width:180px !important;">{{item.title}}</td>
 					<td style="text-align: center"><img style="width: 105px;margin: 0 auto;" ng-if="item.cover" ng-src="{{item.cover}}" ng-click="checkImg()"></td>
 					
-					<td style="text-align: center">
-						
+					<!--<td style="text-align: center">
+						<span>图文</span>
 						<span ng-show="item.type == 0">图文</span>
 						<span ng-show="item.type == 1 || item.type == 2 || item.type == 3">视频</span>
-					</td>
+					</td>-->
 					<td style="text-align: center">{{item.author}}</td>
 					<td style="text-align: center" ng-bind="item.createTime*1000 | date:'yyyy-MM-dd HH:mm:ss'"></td>
 					<td style="text-align: center">
@@ -81,17 +81,21 @@
 		<h3>资讯详情</h3>
 		
 		<div class="con-item fix">
-			<span class="f">资讯标题：</span>
+			<span class="f">*资讯标题：</span>
 			<div class="f con-title"><input type="text" ng-change="canOnlySeven()" maxlength="50" class="price-input form-control scr-max-fifty" placeholder="最多输入50个字符" ng-model="infoTitle"></div>
 		</div>
 		<div class="con-item fix">
-			<span class="f" style="display:block;">封面图片：</span>
+			<span class="f">资讯摘要·：</span>
+			<div class="f con-title"><input type="text" maxlength="100" class="price-input form-control" placeholder="最多输入100个字符" ng-model="infoAbstract"></div>
+		</div>
+		<div class="con-item fix">
+			<span class="f" style="display:block;">*封面图片：</span>
 			<span class="f" style="display:block;width:600px;text-align: left;"></span>
 			<div class="f con-img" style="width:70%;margin-left:140px;">
 				<upload-scrap url="imgUrl"></upload-scrap>
 			</div>
 		</div>
-		
+<!--		
 		<div class="con-item fix">
 			<span class="f">资讯类型：</span>
 			<div class="f con-title type-mes-box">
@@ -112,17 +116,17 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 		
 		<div class="con-item fix"   ng-show="isMaps">
-			<span class="f">资讯详情：</span>
+			<span class="f">*资讯详情：</span>
 			<div class="f con-editor">
 				<ui-kindeditor ng-model="elegantModel.editor"></ui-kindeditor>
 			</div>
 		</div>
      
         
-        <div class="con-item fix"   ng-show="!isMaps">
+        <!--<div class="con-item fix"   ng-show="!isMaps">
 			<span class="f">视频：</span>
 			<div class="f con-title type-mes-box">
 				<div class="check-round-box">
@@ -151,8 +155,8 @@
 					
 				</div>
 			</div>
-		</div>
-        <div class="con-item fix" ng-show="isLocalVideo == 0">
+		</div>-->
+        <!--<div class="con-item fix" ng-show="isLocalVideo == 0">
         	  <span class="f">输入链接：</span>
         	  <div class="f con-title"><input type="text"  ng-model="localVideoHref" id="local-inp" class="price-input form-control"></div>
         </div>
@@ -166,7 +170,7 @@
         	  <div ng-show="isShowIframS" style="float:left;height:30px ;width:70px;margin-left:20px;text-align: center;margin-top:2px;line-height:30px;border:1px solid #dddddd;border-radius: 3px;" ng-click="hideTheIframe()">隐藏</div>
         </div>
         <iframe id="preShowIframe" ng-show="isShowIframS" style="margin-left:150px" frameborder="0" width="440" height="260" allowfullscreen></iframe>
-		
+		-->
 		<div class="con-item fix">
 			<a class="f btn btn-default" style="margin-left:180px;" ng-click="onClickSubmit(0)">保&nbsp;&nbsp;存</a>
 			<a class="f btn btn-default" style="margin-left:50px;background: #B09067;" ng-click="preview()">预&nbsp;&nbsp;览</a>

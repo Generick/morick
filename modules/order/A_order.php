@@ -57,9 +57,10 @@ class A_order extends Admin_Controller
         // $num = intval($this->input->post("num"));
         $whereArr = array();
         $likeStr = "";
-        if(isset($_POST["orderType"]))
+        $orderStatus = $this->input->post('orderStatus');
+        if($orderStatus != null && $orderStatus != '')
         {
-            $whereArr["orderStatus"] = intval($this->input->post("orderType"));
+            $whereArr["orderStatus"] = intval($this->input->post("orderStatus"));
         }
 
         if(isset($_POST["likeStr"]))
@@ -67,9 +68,16 @@ class A_order extends Admin_Controller
             $likeStr = trim($this->input->post("likeStr"));
         }
 
-        if(isset($_POST["deliveryType"]))
+        $deliveryType = $this->input->post('deliveryType');
+        if($deliveryType != null && $deliveryType != '')
         {
             $whereArr["deliveryType"] = intval($this->input->post("deliveryType"));
+        }
+
+        $orderType = $this->input->post('orderType');
+        if (!empty($orderType)) 
+        {
+            $whereArr['orderType'] = $this->input->post('orderType');
         }
 
         $orderList = array();

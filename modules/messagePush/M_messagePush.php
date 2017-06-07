@@ -128,6 +128,46 @@ class M_messagePush extends My_Model
          return ERROR_OK;
     }
 
+    //获取用户未批阅的消息
+    function getUnReadMSG($startIndex, $num, $whr, $or_whr = array(), &$data, &$count)
+    {
+        $hasRead = $this->db->select('msg_id')->where('user_id', $or_whr['user_id'])->get('usemsglog')->result_array();
+        $hasReadId = array();
+        if (!empty($hasRead)) $hasReadId = array_column($hasRead, 'msg_id');
+
+        $this->db->start_cache();
+        $this->db->from('message');
+        $this->db->where($whr);
+        $this->db->or_where($or_whr);
+        $this->db->where_not_in('msg_id', $hasReadId);
+        $this->db->stop_cache();
+        $count = $this->db->count_all_results();
+        if ($num > 0) 
+        {
+            $this->db->limit($num, $startIndex);
+        }
+        $data = $this->db->order_by('create_time desc')->get()->result_array();
+        $this->db->flush_cache();
+    }
+
+    //获取用户已批阅的消息
+    function getHasReadMSG($startIndex, $num, $whr, &$data, &$count)
+    {
+        $this->db->start_cache();
+        $this->db->from('usermsglog');
+        $this->db->select('message.*');
+        $this->db->where($whr);
+        $this->db->join('message', 'usermsglog.msg_id = message.msg_id');
+        $this->db->stop_cache();
+        $count = $this->db->count_all_results();
+        if ($num > 0) 
+        {
+            $this->db->limit($num, $startIndex);
+        }
+        $data = $this->db->order_by('message.create_time desc')->get()->result_array();
+        $this->db->flush_cache();
+    }
+
 
     //用户查看消息
     function viewMsg($userId, $msg_id, $msg_type, $href_id, &$data)
