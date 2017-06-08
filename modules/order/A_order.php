@@ -110,14 +110,18 @@ class A_order extends Admin_Controller
         $retCode = $this->m_order->modOrderInfo($order_no, array("logistics_no" => $logistics_no, "orderStatus" => ORDER_STATUS_WAIT_RECEIVE));
         //创建发货信息
         //user id ,msg type, href id=> order id
-        if ($retCode == ERROR_OK) {
+        if ($retCode == ERROR_OK) 
+        {
             $this->load->model('m_messagePush');
             //user id 
             $user_id = $this->db->select('userId')->from('order')->where('order_no', $order_no)->get()->row_array();
             $res = $this->m_messagePush->createUserMsg($user_id['userId'], MP_MSG_TYPE_ORDER, $order_no);
-            if (empty($rse)) {
-                return MP_MSG_CREATE_FAIL;
+            if (empty($res)) 
+            {
+                $this->responseError(MP_MSG_CREATE_FAIL);
+                //return MP_MSG_CREATE_FAIL;
             }
+            $this->responseSuccess(ERROR_OK);
             //over
         }
         

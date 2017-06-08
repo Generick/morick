@@ -323,6 +323,7 @@ class M_order extends My_Model
         $this->load->model('m_user');
         $this->load->model('m_saleMeeting');
         $this->load->model('m_shippingAddress');
+        $this->load->model('m_messagePush');
         $TMH = $this->db->where('commodity_id', $commodity_id)->get('sale_meeting')->row_array();
         if (empty($TMH)) return ERROR_NOT_TMH_COMMODITY;
         $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $userId);
@@ -361,6 +362,7 @@ class M_order extends My_Model
 
         if ($this->db->insert('order', $orderInfo)) 
         {
+            $orderId = $this->db->insert_id();
             $newBalance = $userObj->balance - $commodityObj->commodity_price;
             $modInfo = array('balance' => $newBalance);
             $userObj->modInfoWithPrivilege($modInfo);
@@ -383,6 +385,7 @@ class M_order extends My_Model
             //}
             //$this->db->where('commodity_id', $commodity_id)->update('sale_record', array('sale_num' => $saleInfo['sale_num'] + 1, 'sale_time' => time()));
             $this->m_saleMeeting->modCommodity($commodity_id, array('stock_num' => $commodityObj->stock_num - 1));
+            $this->m_messagePush->createUserMsg($userId, MP_MSG_TYPE_COMMODITY, $orderInfo['order_no']);
             return ERROR_OK;
         }
 

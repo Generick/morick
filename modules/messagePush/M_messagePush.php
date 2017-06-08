@@ -72,7 +72,7 @@ class M_messagePush extends My_Model
     function createReadLog($user_id, $msg_id)
     {
     	$isRead = $this->db->from('usermsglog')->where(array('user_id' => $user_id, 'msg_id' => $msg_id))->get()->row_array();
-    	if (!is_array($isRead)) 
+    	if (empty($isRead)) 
     	{
     		$data = array('user_id' => $user_id,'msg_id' => $msg_id);
     		$this->db->insert('usermsglog', $data);
@@ -131,15 +131,16 @@ class M_messagePush extends My_Model
     //获取用户未批阅的消息
     function getUnReadMSG($startIndex, $num, $whr, $or_whr = array(), &$data, &$count)
     {
-        $hasRead = $this->db->select('msg_id')->where('user_id', $or_whr['user_id'])->get('usemsglog')->result_array();
-        $hasReadId = array();
-        if (!empty($hasRead)) $hasReadId = array_column($hasRead, 'msg_id');
+        $hasRead = $this->db->select('msg_id')->where('user_id', $or_whr['user_id'])->get('usermsglog')->result_array();
 
         $this->db->start_cache();
         $this->db->from('message');
         $this->db->where($whr);
         $this->db->or_where($or_whr);
-        $this->db->where_not_in('msg_id', $hasReadId);
+        if (!empty($hasRead)) 
+        {
+            $this->db->where_not_in('msg_id', array_column($hasRead, 'msg_id'));
+        }
         $this->db->stop_cache();
         $count = $this->db->count_all_results();
         if ($num > 0) 
@@ -170,7 +171,7 @@ class M_messagePush extends My_Model
 
 
     //用户查看消息
-    function viewMsg($userId, $msg_id, $msg_type, $href_id, &$data)
+    function viewMsg($userId, $msg_id)
     {
     	$this->createReadLog($userId, $msg_id);
     	return ERROR_OK;
@@ -193,6 +194,10 @@ class M_messagePush extends My_Model
     			$msg_content = MP_ORDERSTATUS;
     			$msg_title = MP_ORDERSTATUS_TITLE;
     			break;
+            case MP_MSG_TYPE_COMMODITY:
+                $msg_content = MP_COMMODITY;
+                $msg_title = MP_COMMODITY_TITLE;
+                break;
     		default:
     			# code...
     			break;

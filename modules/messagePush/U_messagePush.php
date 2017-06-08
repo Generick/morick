@@ -91,17 +91,16 @@ class U_messagePush extends User_Controller
     //用户查看消息
     function viewMsg()
     {
-    	if (!$this->checkParam(array('userId', 'msg_id', 'msg_type', 'href_id'))) {
+    	if (!$this->checkParam(array('userId', 'msg_id'))) 
+        {
     		$this->responseError(ERROR_PARAM);
     		return;
     	}
-    	$msg_type = $this->input->post('msg_type');
     	$msg_id = $this->input->post('msg_id');
-    	$href_id = $this->input->post('href_id');
     	$userId = $this->input->post('userId');
-    	$data = null;
-    	$this->m_messagePush->viewMsg($userId, $msg_id, $msg_type, $href_id, $data);
-    	$this->responseSuccess($data);
+        
+    	$res = $this->m_messagePush->viewMsg($userId, $msg_id);
+    	$this->responseSuccess($res);
     }
 
 }
