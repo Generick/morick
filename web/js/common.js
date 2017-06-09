@@ -12,6 +12,7 @@
             delay : 15, //定时器时间
             callback:null //回调函数
         };
+    
         var opts = $.extend(defaults,options),
             timer = null,
             _this = this,
@@ -136,7 +137,20 @@ var commonFu = {
 		                });
 		            }
 		        });
-		    
+		       
+		         var srcList2 = [];
+		        $.each($('#preImagesTwo img'),function(i,item){
+		            if(item.src) {
+		                srcList2.push(item.src);
+		                $(item).click(function(e){
+		                
+		                    wx.previewImage({
+		                        current: this.src,
+		                        urls: srcList2
+		                    });
+		                });
+		            }
+		        });
 			//普通 分享到微信好友
 			wx.onMenuShareAppMessage({
 			    title: shareInfo.title, // 分享标题

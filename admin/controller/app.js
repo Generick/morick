@@ -85,3 +85,31 @@ app.controller('elegantController', function($scope){ //个人信息
 	elegantController.init($scope);
 
 })
+
+
+app.controller('specialSellingController', function($scope){ //个人信息
+	specialSellingController.init($scope);
+
+})
+
+
+
+app.controller('commodityListController', function($scope){ //商品
+	
+	commodityListController.init($scope);
+
+})
+
+
+app.controller('commidifyDeleteController', function($scope){ //商品
+	
+	commidifyDeleteController.init($scope);
+
+})
+
+
+app.controller('commidifySaleController', function($scope){ //商品
+	
+	commidifySaleController.init($scope);
+
+})

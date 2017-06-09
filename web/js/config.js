@@ -69,6 +69,8 @@ var apiUrl =
 	API_GET_PROXYBID : API_BASE_URL + "proxyBid/U_proxyBid/getProxyBid",//获取委托出价
 	API_GET_IFFREEZE : API_BASE_URL + "freeze/U_freeze/isFreeze", //获取是否已经扣除过保证金
     
+    API_BUY_SPECIAL_THING : API_BASE_URL + "order/U_order/payTMH",//购买特卖会商品
+    
     //提现
     API_WITHDRAWCRASH : API_BASE_URL + "withdrawCash/U_withdrawCash/withdrawCash",
     
@@ -94,6 +96,14 @@ var apiUrl =
     API_GETAWARD_USERS : API_BASE_URL + "prizesQuiz/prizesQuiz/getAwardUserList",//获取中奖的用户
     API_GET_INFORMATION_LIST : API_BASE_URL + "information/Information/getInformationList",//获取资讯列表
     API_GET_INFORMATION_INFO  : API_BASE_URL + "information/Information/getInformationInfo",//获取资讯详情
+    
+    API_GET_SPECIAL_SALE_LIST : API_BASE_URL + "saleMeeting/SaleMeeting/getTMHList",//获取特卖会列表
+    
+    API_GET_SPECIAL_SALE_DETAIL :API_BASE_URL + "saleMeeting/SaleMeeting/getTMHCommodityInfo",//获取特卖会商品详情
+    
+    API_GET_UN_READ_MESSAGE : API_BASE_URL + "messagePush/U_messagePush/getUnReadMsg",//获取未处理消息
+    
+    API_GET_HAS_READ_MESSAGE : API_BASE_URL + "messagePush/U_messagePush/getHasReadMsg"//获取已读消息 
 };
 
 var localStorageKey =
@@ -125,7 +135,8 @@ var errCode  =
 	TOKEN_WRONG : 102, //102token错误，103token超时
 	TOKEN_FAILED : 103, //102token错误，103token超时
     SESSION_FAILED : 5, //会话不存在
-    VIP_LIMIT : 1108 //VIP专享 
+    VIP_LIMIT : 1108 ,//VIP专享 
+  
 };
 
 var pageUrl = 
@@ -143,6 +154,7 @@ var pageUrl =
 	AUCTION_HISTORY_INFO : BASE_PAGE_URL + "auctedGoodsDetail.php",//拍卖历史拍品详情
 //	PERSON_CENTER : BASE_PAGE_URL + "personCenter.html",//个人中心
     PERSON_CENTER : BASE_PAGE_URL + "newPersoner.html",//个人中心
+    TO_PAY_SPECILA_PAGE : BASE_PAGE_URL + "personCenter/specialPage.html",//跳到商品支付页面
 	PERSON_INFO : BASE_PAGE_URL + "personCenter/personInfo.html",//个人信息
 	MOD_NAME : BASE_PAGE_URL + "personCenter/modName.html",//修改昵称
 	MY_ADDRESS_LIST : BASE_PAGE_URL + "personCenter/addressList.html",//我的收货地址
@@ -179,5 +191,7 @@ var pageUrl =
 	
 	TO_WX_LOGIN : BASE_PAGE_URL + "wxlogin/Wx.Login.php",//跳到微信授权页面
 	
-	WX_PAY : BASE_PAGE_URL + "wxpay/src/jsapi.php"
+	WX_PAY : BASE_PAGE_URL + "wxpay/src/jsapi.php",//
+	
+	NEW_NEW_DETAIL : BASE_PAGE_URL + "new-news-detail.html",
 };

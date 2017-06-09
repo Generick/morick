@@ -324,6 +324,7 @@ class M_order extends My_Model
         $this->load->model('m_saleMeeting');
         $this->load->model('m_shippingAddress');
         $this->load->model('m_messagePush');
+        $this->load->model('m_transaction');
         $TMH = $this->db->where('commodity_id', $commodity_id)->get('sale_meeting')->row_array();
         if (empty($TMH)) return ERROR_NOT_TMH_COMMODITY;
         $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $userId);
@@ -362,10 +363,10 @@ class M_order extends My_Model
 
         if ($this->db->insert('order', $orderInfo)) 
         {
-            $orderId = $this->db->insert_id();
-            $newBalance = $userObj->balance - $commodityObj->commodity_price;
-            $modInfo = array('balance' => $newBalance);
-            $userObj->modInfoWithPrivilege($modInfo);
+            $this->m_transaction->addTransaction($userId, TRANSACTION_COMMODITY, $commodityObj->commodity_price);
+            // $newBalance = $userObj->balance - $commodityObj->commodity_price;
+            // $modInfo = array('balance' => $newBalance);
+            // $userObj->modInfoWithPrivilege($modInfo);
             $order_goods_arr = array('order_no' => $orderInfo['order_no'], 'goodsId' => $commodity_id, 'goodsNum' => 1);
             $this->db->insert('order_goods', $order_goods_arr);
             $order_logs_arr = array('order_no' => $orderInfo['order_no'], 'orderStatus' => 1, 'statusTime' => time());
@@ -386,6 +387,7 @@ class M_order extends My_Model
             //$this->db->where('commodity_id', $commodity_id)->update('sale_record', array('sale_num' => $saleInfo['sale_num'] + 1, 'sale_time' => time()));
             $this->m_saleMeeting->modCommodity($commodity_id, array('stock_num' => $commodityObj->stock_num - 1));
             $this->m_messagePush->createUserMsg($userId, MP_MSG_TYPE_COMMODITY, $orderInfo['order_no']);
+            
             return ERROR_OK;
         }
 

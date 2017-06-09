@@ -20,6 +20,7 @@
         <div class="fix" ng-show="orderModel.curOrderType != '2'">
             <div class="f order-info-box">配送方式：<span ng-show="orderInfoModel.info.deliveryType == '0'">顺丰快递</span><span ng-show="orderInfoModel.info.deliveryType == '1'">————</span></div>
             <div class="f order-info-box">运单号：<span ng-show="orderInfoModel.info.deliveryType == '0'">{{orderInfoModel.info.logistics_no}}</span><span ng-show="orderInfoModel.info.deliveryType == '1'">————</span></div>
+            <div class="f order-info-box">订单类型：<span ng-show="orderInfoModel.info.orderType == 2">商品订单</span><span ng-show="orderInfoModel.info.orderType == 1">拍品订单</span></div>
         </div>
     </div>
 
@@ -35,14 +36,14 @@
     </div>
 
     <div class="order-item">
-        <h3>商品信息</h3>
+        <h3><span ng-show="orderInfoModel.info.orderType == 2">商品</span><span ng-show="orderInfoModel.info.orderType == 1">拍品</span>信息</h3>
         <div>
             <table class="table">
                 <thead><tr>
-                    <td>商品图片</td>
-                    <td>商品名</td>
+                    <td><span ng-show="orderInfoModel.info.orderType == 2">商品</span><span ng-show="orderInfoModel.info.orderType == 1">拍品</span>图片</td>
+                    <td><span ng-show="orderInfoModel.info.orderType == 2">商品</span><span ng-show="orderInfoModel.info.orderType == 1">拍品</span>名</td>
                     <td>数量</td>
-                    <td>商品总价</td>
+                    <td><span ng-show="orderInfoModel.info.orderType == 2">商品</span><span ng-show="orderInfoModel.info.orderType == 1">拍品</span>总价</td>
                 </tr></thead>
                 <tbody>
                 <tr ng-repeat="item in orderInfoModel.goodsArr">
@@ -55,7 +56,7 @@
             </table>
              <div class="pay-money-box" style="margin-right:23%;padding-bottom: 10px;">
              	<div class="order-total" style="float:right;margin-left:140px">实付：<span style="color: #FF5E28;">{{"￥"+orderInfoModel.info.payPrice}}</span></div> 
-            	<div class="order-prepay" style="float:right;padding-right:30px">保证金抵扣：<span style="color: #777777;">{{"￥"+orderInfoModel.info.prepaidPrice}}</span></div>
+            	<div ng-show="orderInfoModel.info.orderType == 1" class="order-prepay" style="float:right;padding-right:30px">保证金抵扣：<span style="color: #777777;">{{"￥"+orderInfoModel.info.prepaidPrice}}</span></div>
                
             </div>
         </div>

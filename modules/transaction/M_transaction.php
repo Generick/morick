@@ -84,6 +84,7 @@ class M_transaction extends My_Model
             case TRANSACTION_PAY:
             case TRANSACTION_SYSTEM_REDUCE:
             case TRANSACTION_QUIZ_TICKETS:
+            case TRANSACTION_COMMODITY:
                 if($userObj->balance < $money)
                 {
                     return ERROR_BALANCE_NOT_ENOUGH;

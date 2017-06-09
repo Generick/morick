@@ -17,30 +17,7 @@
         <link rel="stylesheet" href="css/selected.css" />
         <link rel="stylesheet" href="popUpModal/popUp.css" />
         <link rel="stylesheet" href="plugin/layerMobile/need/layer.css" />
-        <style>
-        	html,body
-        	{
-        		background: #EEEEEE;
-        		width:100%;
-        		height:100%;
-        	}
-        	
-        	.fullwidthHtml{
-        		 width: inherit;
-                 height: inherit;
-        	}
-        	.contents-img-box{
-        		 width: inherit;
-                 height: inherit;
-        	}
-        	
-        	.contents-img {
-		        width: 50vw;
-		        height: 63vw;
-		        margin:auto 25vw;
-		        margin-top:22vh;
-		    }
-        </style>
+        <link rel="stylesheet" href="css/newPersonal.css" />
 	</head>
 	<body ng-controller="ctrl">
 		<div id="myself-head"  ng-click="jumpToSelfZone3()" style="position: fixed;top:10px;left:10px;width:16vw;height:16vw;display: block;z-index: 99999;">
@@ -51,36 +28,77 @@
 			<img src="img/loading.gif" />
 		</div>
 		
-		<!--style="background-color: #fff;margin-bottom: 40px;position:absolute; overflow:auto;-webkit-overflow-scrolling: touch; top:0; left:0; bottom:0; right:0;"-->
-		
-		<div class="container scroll fullwidthHtml">
-			         
-			         <div class="contents-img-box">
-			         	<img class="contents-img" src="img/pleaseWaiting.png">
-			         </div> 
-					
-					
-					<!--<li ng-repeat="item in auctionItems" id="test_{{item.id}}" ng-click="onClickToAuctionHistoryDetail(item)" on-finish-render-filters>
-						<div class="item-img">
-                            <b style="background-image: url({{item.aucted}})"></b>
-                            <img style="position: absolute;top:1vw;left:0px;z-index: 5;width:14vw;height:14vw;" class="smallvippic" ng-show="(item.isVIP == 1)" src="img/newVip.png">
-                            <b>
-                            	<img src="img/aucted0.png"> 
-                            </b>
-							<img ng-src="{{item.goodsInfo.goods_cover}}">
+		<div class="container scroll fullwidthHtml" style="background-color: #fff !important;padding:0.8%;padding-bottom: 60px;overflow:hidden;height:100%;">
+			<div class="list" id="list-empty" style="background-color: #fff;overflow: hidden;">
+				<ul id="selected-ul">
+					<div on-finish-render-filters class="oneList sell-list-item" style="position: relative;"  id="test_{{item.commodity_id}}"  ng-click="onClickToAuctionHistoryDetail(item)" ng-repeat="item in auctionHistoryModel.TMHList">
+						<div class="sell-list-item-img">
+							<img ng-src="{{item.pictures}}" />
 						</div>
-						<div class="price">
-							<div ng-bind="item.goodsInfo.goods_name"></div>
-							<div class="aucted-content">
-								<span>{{item.status==1?"流拍":item.isAucted?"成交价￥":"流拍"}}</span>
-								 <span ng-show="item.status==0 && item.isAucted" ng-bind="item.currentPrice"></span>
+						<div class="sell-list-item-name" ng-bind="item.info.commodity_name">
+							传送到对方水范德萨范德萨范德萨水电费水电
+						</div>
+						<div class="sell-list-item-price-box">
+							
+							<div class="sell-list-item-price-word" ng-bind="'￥'+item.info.commodity_price">
+								
 							</div>
 						</div>
-					</li>-->
+					</div>
+			   </ul>
+            </div>
+
+<!--			<div class="sell-list-item"  ng-click="onClickToAuctionHistoryDetail()">
+				<div class="sell-list-item-img">
+					<img src="img/newPic/test1.png" />
+				</div>
+				<div class="sell-list-item-name">
+					传送到对方水
+				</div>
+				<div class="sell-list-item-price-box">
+					
+					<div class="sell-list-item-price-word">
+						￥555550
+					</div>
+				</div>
+			</div>
 			
-			<!--暂无数据-->
+			
+			<div class="sell-list-item"  ng-click="onClickToAuctionHistoryDetail()">
+				<div class="sell-list-item-img">
+					<img src="img/newPic/test2.png" />
+				</div>
+				<div class="sell-list-item-name">
+					传送到对方水
+				</div>
+				<div class="sell-list-item-price-box">
+					
+					<div class="sell-list-item-price-word">
+						￥222222
+					</div>
+				</div>
+			</div>
+			
+			<div class="sell-list-item"  ng-click="onClickToAuctionHistoryDetail()">
+				<div class="sell-list-item-img">
+					<img src="img/newPic/test3.png" />
+				</div>
+				<div class="sell-list-item-name">
+					传送到对方水
+				</div>
+				<div class="sell-list-item-price-box">
+					
+					<div class="sell-list-item-price-word">
+						￥100000
+					</div>
+				</div>
+			</div>-->
 			<div class="no-data">暂无数据！</div>
 		</div>
+        
+        <div class="goods-cars">
+        	
+        </div>
         
         <div id="acfixed-shade"  ng-click="acOkToShut()">
         	<div class="acmodied-box" id="acsure-remark">
@@ -95,7 +113,7 @@
 			    </div> 
 			</div>
         </div>
-        
+       
         <div class="acu-chrysanthemums">
 			<img src="img/loading.gif"/>
 		</div>
@@ -104,7 +122,7 @@
 
 	<!--系统js-->
 	<script type="text/javascript" src="js/zepto.min.js"></script>
-	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!--<script type="text/javascript" src="js/jquery.min.js"></script>-->
 	<script type="text/javascript" src="js/weixin.js"></script> 
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript" src="js/jqAjaxRequest.js"></script>
@@ -115,7 +133,7 @@
     <script src="module/dialog/dialog.js"></script>
     <script src="module/tab/tab.js"></script>
     <script src="controller/app.js"></script>
- <script>
+    <script>
     	
     	
 
@@ -131,7 +149,8 @@
 		}
 
 
-    </script>    <!--插件-->
+    </script>
+    <!--插件-->
 	<script type="text/javascript" src="js/fastclick.js" ></script>
     
 	<!--controller-->

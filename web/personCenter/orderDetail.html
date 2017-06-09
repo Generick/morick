@@ -35,14 +35,16 @@
 			</div>
 			<div class="order-mid fix">
                 <div class="f bidding-img">
-                    <img ng-src="{{orderDetailModel.orderInfo.orderGoods[0].goods_cover}}">
+                    <img ng-if="orderDetailModel.orderInfo.orderType != 2" ng-show="orderDetailModel.orderInfo.orderType != 2"  ng-src="{{orderDetailModel.orderInfo.orderGoods[0].goods_cover}}">
+                    <img ng-if="orderDetailModel.orderInfo.orderType == 2" ng-show="orderDetailModel.orderInfo.orderType == 2" ng-src="{{orderDetailModel.orderInfo.orderGoods[0].commodity_cover}}">
                 </div>
                 <div class="bidding-txt f">
                     <h4 style="color: #555; font-weight: 500;">{{orderDetailModel.orderInfo.orderGoods[0].goods_name}}</h4>
                     <div class="price-init" style="color: #FF4506;">¥{{orderDetailModel.orderInfo.goodsPrice}}</div>
                     <div class="price-tag">
                     	<span style="margin-left: 3px;" class="order-item-num">x</span>
-                    	<span class="order-item-num" ng-bind="orderDetailModel.orderInfo.orderGoods[0].goodsNum"></span>
+                    	<span class="order-item-num"  ng-if="orderDetailModel.orderInfo.orderType != 2" ng-show="orderDetailModel.orderInfo.orderType != 2"   ng-bind="orderDetailModel.orderInfo.orderGoods[0].goodsNum"></span>
+                    	<span class="order-item-num"  ng-if="orderDetailModel.orderInfo.orderType == 2" ng-show="orderDetailModel.orderInfo.orderType == 2">1</span>
                         <!--<span ng-show="!orderDetailModel.unPay && orderDetailModel.orderInfo.deliveryType == 0" style="padding-right:10px;float:right;color:#FF4506">在线订单</span>
                         <span ng-show="orderDetailModel.orderInfo.deliveryType == 1" style="padding-right:10px;float:right;color:#FF4506">当面付订单</span>-->
                     </div>
@@ -54,7 +56,8 @@
 				<ul class="clear">
 					<li class="pay-li">实付¥<span ng-bind="orderDetailModel.orderInfo.payPrice"></span></li>
 					<li style="font-size: 12px;margin: 0 10px;color: #4a4a4a;">小计(不含运费) : </li>
-					<li style="font-size: 12px;color: #4a4a4a;">共<span ng-bind="orderDetailModel.orderInfo.orderGoods[0].goodsNum"></span>件商品</li>
+					<li   ng-if="orderDetailModel.orderInfo.orderType != 2" ng-show="orderDetailModel.orderInfo.orderType != 2"    style="font-size: 12px;color: #4a4a4a;">共<span ng-bind="orderDetailModel.orderInfo.orderGoods[0].goodsNum"></span>件商品</li>
+					<li   ng-if="orderDetailModel.orderInfo.orderType == 2" ng-show="orderDetailModel.orderInfo.orderType == 2"    style="font-size: 12px;color: #4a4a4a;">共<span >1</span>件商品</li>
 				</ul>
 			</div>
 			<div class="pay-ways" ng-show="orderDetailModel.unPay">
@@ -70,7 +73,8 @@
 			
 			<div class="other-detail">
 				<li>订单编号: <span ng-bind="orderDetailModel.orderInfo.order_no"></span></li>
-				<li>创建时间: <span ng-bind="orderDetailModel.orderInfo.orderGoods[0].create_time*1000|date:'yyyy-MM-dd HH:mm:ss'"></span></li>
+				<li  ng-show="orderDetailModel.orderInfo.orderType != 2"  ng-if="orderDetailModel.orderInfo.orderType != 2" >创建时间: <spanng-bind="orderDetailModel.orderInfo.orderGoods[0].create_time*1000|date:'yyyy-MM-dd HH:mm:ss'"></span></li>
+				<li  ng-show="orderDetailModel.orderInfo.orderType == 2"  ng-if="orderDetailModel.orderInfo.orderType == 2" >创建时间: <span ng-bind="orderDetailModel.orderInfo.orderGoods[0].add_time*1000|date:'yyyy-MM-dd HH:mm:ss'"></span></li>
 				<li class="clear" ng-show="orderDetailModel.unPay">
 					<button id="go-to-pay" class="other-detail-btn" class="btn-active" ng-click="onClickToPayOrder(0)">去付款</button>
 					<button id="up-data" class="other-detail-btn" class="btn-active" ng-click="onClickToPayOrder(1)">提交申请</button>
@@ -137,18 +141,18 @@
                 {
                     if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
                     {   
-                    	if(sessionStorage.getItem("comeIntoOrder") == 1)
-                    	{
-                    		location.href = pageUrl.PERSON_CENTER;
-                    	}
-                    	else if(sessionStorage.getItem("comeIntoOrder") == 2)
-                    	{
-                    		location.href = pageUrl.MY_MESSAGE;
-                    	}
-                    	else{
-                    		 location.href = pageUrl.MY_ORDER_LIST + "?orderType=" + 1;
-                    	}
-                       
+//                  	if(sessionStorage.getItem("comeIntoOrder") == 1)
+//                  	{
+//                  		location.href = pageUrl.PERSON_CENTER;
+//                  	}
+//                  	else if(sessionStorage.getItem("comeIntoOrder") == 2)
+//                  	{
+//                  		location.href = pageUrl.MY_MESSAGE;
+//                  	}
+//                  	else{
+//                  		 location.href = pageUrl.MY_ORDER_LIST + "?orderType=" + 1;
+//                  	}
+                        location.href = pageUrl.PERSON_CENTER; 
                     }
                 }
                 pushHistory();

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html ng-app="messageSet">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+        <title>短信提醒设置</title>
+        <link rel="stylesheet" href="../css/ui.base.css" />
+        <link rel="stylesheet" href="../css/selected.css" />
+        <link rel="stylesheet" href="../css/person_center.css" />
+        <link rel="stylesheet" href="../popUpModal/popUp.css" />
+        <link href="../plugin/layerMobile/need/layer.css">
+        <link rel="stylesheet" href="../css/newPersonal.css" />
+	</head>
+	<body ng-controller="messageSetController">
+		<!--加载动画-->
+		<div class="animation" style="position:absolute;z-index: 11;">
+			<img src="../img/loading.gif"/>
+		</div>
+		
+		<div class="container" style="opacity: 1;">
+			<div class="set-message-box">
+				<div class="set-message-box-item">
+				    <div class="set-message-left-part">成交短信</div>
+				    <div class="set-message-right-part" ng-click="turnOnOrOff(0)">
+				    	<div class="set-message-right-part-word">OFF</div>
+				    
+				    	<span class="set-message-right-part-round"></span>
+				    </div>
+				</div>
+				<div class="set-message-box-item">
+				    <div class="set-message-left-part">截拍短信</div>
+				    <div class="set-message-right-part" ng-click="turnOnOrOff(1)">
+				    	<div class="set-message-right-part-word">OFF</div>
+				
+				    	<span class="set-message-right-part-round"></span>
+				    </div>
+				</div>
+				<div class="set-message-box-item">
+				    <div class="set-message-left-part">超出短信</div>
+				    <div class="set-message-right-part" ng-click="turnOnOrOff(2)">
+				    	<div class="set-message-right-part-word">OFF</div>
+				
+				    	<span class="set-message-right-part-round"></span>
+				    </div>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="../js/zepto.min.js" ></script>
+	<script type="text/javascript" src="../js/angular.min.js" ></script>
+	<script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
+    <script src="../plugin/layerMobile/layer.js"></script>
+    <script src="../module/dialog/dialog.js"></script>
+	<script type="text/javascript" src="../popUpModal/confirmTip.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="../controller/personCenter/messageSetPageContro.js" ></script>
+	
+	<!--插件-->
+	<script type="text/javascript" src="../js/fastclick.js" ></script>
+	<script>
+		$(function(){
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;  
+	        setTimeout(function(){  
+	            bool=true;  
+	        },800);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{
+		    		if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			        {  
+                        var addType = commonFu.getQueryStringByKey("addType");
+                        if (addType == 1)
+                        {
+                            location.href = pageUrl.PERSON_INFO;
+                        }
+           
+			        }
+		    	}
+		    	pushHistory();
+		        
+		    }, false); 
+		    function pushHistory() { 
+		        var state = { 
+		            title: "title", 
+		            url: "#"
+		        }; 
+		        window.history.pushState(state, "title", "#"); 
+		    }
+		})
+	</script>
+	
+</html>

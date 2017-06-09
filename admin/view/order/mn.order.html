@@ -9,11 +9,44 @@
 
 	<div class="table-tab">
 		<div id="pay-way">
-			<div id="all-pay" class="pay-active" ng-click="onlinePay(0)">全部订单</div>
+			<!--<div id="all-pay" class="pay-active" ng-click="onlinePay(0)">全部订单</div>
 			<div id="online-pay" ng-click="onlinePay(1)">线上支付订单</div>
-			<div id="face-pay" ng-click="onlinePay(2)">当面付订单</div>
+			<div id="face-pay" ng-click="onlinePay(2)">当面付订单</div>-->
+			<div class="pay-way-box"  style="float:left;">
+	        	<div class="pay-way-title" style="width:80px;line-height:35px;float:left;text-align: center;font-size:16px">支付方式：</div>
+	             <div  class="select-div">
+					<div class="select-top">
+						<div class="select-content" ng-bind="payWayModel.name"></div>
+						<div class="select-arrow" ng-click="toShowPay()"><img src="assets/images/public/down.png" /> </div>
+					</div>
+					<div id="online-div-3">
+						<div ng-click="choosePay(0)" >全部</div>
+						<div ng-click="choosePay(1)" >当面支付</div>
+						<div ng-click="choosePay(2)" >线上支付</div>
+					</div>
+			     </div>
+        	
+        	</div>
+        	
+        	<div class="pay-way-box"  style="float:left;">
+	        	<div class="pay-way-title" style="width:80px;line-height:35px;float:left;text-align: center;font-size:16px">订单类型：</div>
+	             <div  class="select-div">
+					<div class="select-top">
+						<div class="select-content" ng-bind="orderTypeModel.name"></div>
+						<div class="select-arrow" ng-click="toShowOrder()"><img src="assets/images/public/down.png" /> </div>
+					</div>
+					<div id="online-div-2">
+						<div ng-click="chooseOrder(0)" >全部</div>
+						<div ng-click="chooseOrder(2)" >商品订单</div>
+						<div ng-click="chooseOrder(1)" >拍品订单</div>
+					</div>
+			     </div>
+        	
+        	</div>
+        	<div ng-click="toSearchOrder()" style="line-height:33px;margin-left:10px;width:70px;border:1px solid #DDDDDD;float:left;text-align: center;">查询</div>
 		</div>
-
+       
+       
 		<ul class="fix" id="orderTab">
 			<li class="f" ng-repeat="tab in tabs">
 				<a ng-click="onClickTab(tab, $index)" ng-class="{true: 'btn btn-default', false: 'btn btn-white'}[tab.isActive]" ng-show="tab.isShowTitle">{{tab.title}}</a>
@@ -31,6 +64,7 @@
 					<td style="text-align: center">手机号</td>
 					<td style="text-align: center">下单时间</td>
 					<td style="text-align: center">收货信息</td>
+					<td style="text-align: center">订单类型</td>
 					<td style="text-align: center">支付金额</td>
 					<td style="text-align: center">订单状态</td>
 					<td style="text-align: center">支付方式</td>
@@ -53,6 +87,10 @@
 							<span class="m-g-l-10">电话：{{item.mobile}}</span>
 							<span class="m-g-l-10">收货地址：{{item.province + item.city + item.district + item.address}}</span>
 						</div>
+					</td>
+					<td style="text-align: center">
+						<div ng-show="item.orderType == '1'">拍品订单</div>
+						<div ng-show="item.orderType == '2'">商品订单</div>
 					</td>
 					<td style="text-align: center">{{"￥"+item.payPrice}}</td>
 					<td style="text-align: center">{{item.orderStatusCopy}}</td>

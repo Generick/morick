@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="email=no">
+        <title>雅玩之家</title>
+        <link rel="stylesheet" href="css/ui.base.css" />
+        <link rel="stylesheet" href="css/selected.css" />
+        <link rel="stylesheet" href="popUpModal/popUp.css" />
+        <link rel="stylesheet" href="css/newPersonal.css" /> 
+		<title></title>
+	</head>
+	<body ng-controller="ctrl" style="background: #FFFFFF;">
+		<div class="animation">
+			<img src="img/loading.gif" />
+		</div>
+		<div class="container" id="message-box" style="background: #FFFFFF;">
+			 <div class="big-new-boxes"> 
+			 	<div class="new-news-top-box">
+			 		 <div class="new-news-top-box-title" ng-bind="title">
+			 		 	
+			 		 </div>
+			 		 <div class="new-news-top-box-time"  ng-bind="time*1000 | date:'MM-dd HH:mm'">
+			 		 	
+			 		 </div>
+			 	</div>
+			 	<div class="new-news-bottom-box"  ng-bind="content">
+			 		
+			 	</div>
+			 </div>
+		</div>		
+	</body>
+	<!--系统js-->
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/commonArr.js"></script>
+    <script src="module/tab/tab.js"></script>
+	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
+    <script src="controller/app.js"></script>
+    <script src="plugin/layerMobile/layer.js"></script>
+    <script src="module/dialog/dialog.js"></script>
+    	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js"></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/newNewsDetailController.js" ></script>
+	
+
+    <script>
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		
+		    		if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+		    		{   
+		    				
+			        	location.href = pageUrl.PERSON_CENTER;
+			        
+		    		}
+		    	
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+	</script>
+	
+</html>
+

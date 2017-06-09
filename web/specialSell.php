@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php
+    require_once "wx/jssdk.php";
+	$jssdk = new JSSDK("wx8aa4883c737caaaa", "620937dd20bdecf9e84f369d2ef64305");
+	$signPackage = $jssdk->GetSignPackage();
+?>
+
 <html ng-app="app">
 	<head>
 		<meta charset="UTF-8">
@@ -12,7 +18,7 @@
         <link rel="stylesheet" href="plugin/layerMobile/need/layer.css" />
 	</head>
 	<body ng-controller="ctrl">
-		<div id="myself-head"  ng-click="jumpToSelfZone3()" style="position: fixed;top:10px;left:10px;width:50px;height:50px;display: block;z-index: 99999;">
+		<div id="myself-head"  ng-click="jumpToSelfZone3()" style="position: fixed;top:10px;left:10px;width:56px;height:56px;display: block;z-index: 99999;">
 			<img src="img/personal-enter.png"> 
 		</div>
 		<!--加载动画-->
@@ -22,7 +28,7 @@
 		
 		<!--style="background-color: #fff;margin-bottom: 40px;position:absolute; overflow:auto;-webkit-overflow-scrolling: touch; top:0; left:0; bottom:0; right:0;"-->
 		
-		<div class="container scroll">
+		<div class="container scroll" >
 			<div class="list">
 				<ul id="auction-ul">
 					<li ng-repeat="item in auctionItems" id="test_{{item.id}}" ng-click="onClickToAuctionHistoryDetail(item)" on-finish-render-filters>
@@ -76,6 +82,7 @@
 	<!--系统js-->
 	<script type="text/javascript" src="js/zepto.min.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/weixin.js"></script> 
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript" src="js/jqAjaxRequest.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
@@ -122,5 +129,23 @@
 		        window.history.pushState(state, "title", "#");
 		    }
 		})
+	</script>
+	<script>
+		
+		app.controller("ctrl", function ($scope)
+		{   
+			
+			
+			var wxParams = {};
+	        wxParams.appId =  '<?php echo $signPackage["appId"];?>';
+	        wxParams.timestamp =  '<?php echo $signPackage["timestamp"];?>';
+	        wxParams.nonceStr =  '<?php echo $signPackage["nonceStr"];?>';
+	        wxParams.signature =  '<?php echo $signPackage["signature"];?>';
+	        
+		    AuctionHistoryCtrl.init($scope,wxParams);
+		   
+		});
+
+		
 	</script>
 </html>

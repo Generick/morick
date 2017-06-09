@@ -1,0 +1,183 @@
+
+<div  class="item">
+    <div class="mn-header fix">
+    	<div class="f"><i class="fa fa-th m-color-0"></i><span>特卖会管理</span></div>
+    	
+        <div class="r m-g-l-10" style="float:right;margin-left:20px;"><a class="btn btn-danger" ng-click="delCommodity()"><i class="ti-trash"></i>删除</a></div>
+        <div class="r" style="float:right;margin-left:30px;" ><a class="btn btn-default" ng-click="addCommodity()"><i class="ti-plus"></i>添加</a></div>
+    	<div class="f m-g-l-10"  style="float:right"><a class="btn btn-white" ng-click="searchCommodify()">查询</a></div>
+    	<div class="f input" style="float:right"><input type="text" ng-model="fields" class="form-control" placeholder="输入商品名称查询"></div>
+        
+    	
+    </div>
+    
+    <div class="table-container">
+        <table class="table">
+            <thead>
+            <tr>
+                
+                <td style="text-align: center">序号</td>
+                <td style="text-align: center">商品图片</td>
+                <td style="text-align: center">商品名称</td>
+                <td style="text-align: center">价格</td>
+              
+      
+                <td style="text-align: center">添加时间</td>
+                <td style="text-align: center">操作</td>
+                <td><div class="all-sel-txt">全选</div><span ng-click="allSel()" ng-class="{true: 'has-sel', false: 'un-sel'}[selectAll]"></span></td>
+            </tr>
+            </thead>
+            <tbody id="tBodyCommodity">
+            <tr ng-repeat="item in TMHList">
+                <td style="text-align: center" >{{$index + 1 + (page.currentPage - 1)*page.selectPageNum}}</td>
+                <td style="text-align: center" >
+                	<img ng-src="{{item.info.commodity_cover}}" style="width:100px;margin:0 auto"/>
+                </td>
+                <td style="text-align: center" ng-bind="item.info.commodity_name"></td>
+                <td style="text-align: center" ng-bind="'￥'+item.info.commodity_price"></td>
+                <td style="text-align: center" ng-bind="item.add_time*1000 | date:'yyyy-MM-dd HH:mm:ss'"></td>
+                
+               
+                <td style="text-align: center">
+                	<a class="btn btn-default" ng-click="preViewCommodity(item)">查看</a>
+                   
+                </td>
+                <td style="text-align: center"><span ng-click="oneSel(item)" ng-class="{true: 'has-sel', false: 'un-sel'}[item.selected]"></span></td>
+                
+            </tr>
+           
+            </tbody>
+        </table>
+    </div>
+    <div class="all-fixed-table all-fixed-table-act" id="all-fixed-table-special">
+     	<div class="auct-box">
+     		<p class="auct-title" style="text-align: center;">删除商品</p>
+     		<div class="auct-cont" style="line-height: 80px;">
+     			确定要删除该项商品吗？
+     		</div>
+     		<div class="auct-btn">
+     			
+     			<p class="all-btn-cancle" ng-click="yesToDelete(1)">确定</p>
+     			<p class="all-btn-ok" ng-click="yesToDelete(0)">取消</p>
+     		</div>
+     	</div>
+     </div>
+    <div ng-include="'modules/page/page.html'"></div>
+</div>
+
+
+<script src="view/specialSelling/specialListController.js"></script>
+
+<div class="add-more-special-box"  ng-click="hideFicedAdd()">
+	
+	
+</div>
+<div class="add-more-special-content">
+	
+	<div class="add-more-special-content-title">
+	    <div class="add-more-special-content-word">添加商品</div>
+	    <div class="add-more-special-content-close" ng-click="hideFicedAdd()">X</div>
+	</div>
+    <div class="search-commidify-box">
+    	<input type="text" ng-model="fixedFields" placeholder="输入商品名查询" />
+    	<p style="line-height:34px" ng-click="searchFixedList()">查询</p>
+    </div>
+    <div class="it-in-list">
+    	
+    	 <table class="table">
+            <thead>
+            <tr>
+                
+                <td style="text-align: center">序号</td>
+                <td style="text-align: center">商品图片</td>
+                <td style="text-align: center;max-width: 230px;">商品名称</td>
+                <td style="text-align: center">价格</td>
+              
+      
+                <td style="text-align: center">添加时间</td>
+               
+                <td><div class="all-sel-txt">全选</div><span ng-click="fixedAllSel()" ng-class="{true: 'has-sel', false: 'un-sel'}[fixedSelectAll]"></span></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in fixedCommodityList">
+                <td style="text-align: center" >{{$index + 1 + (page.currentPage - 1)*page.selectPageNum}}</td>
+                <td style="text-align: center" >
+                	<img ng-src="{{item.commodity_cover}}" style="width:100px;margin:0 auto"/>
+                </td>
+                <td style="text-align: center;max-width: 230px;" ng-bind="item.commodity_name">dfdsf</td>
+                <td style="text-align: center" ng-bind="'￥'+item.commodity_price">sfdsf</td>
+                <td style="text-align: center" ng-bind="item.add_time*1000 | date:'yyyy-MM-dd HH:mm:ss'">dfsdfdas</td>
+                
+               
+               
+                <td style="text-align: center"><span ng-click="fixedOneSel(item)" ng-class="{true: 'has-sel', false: 'un-sel'}[item.selected]"></span></td>
+                
+            </tr>
+           
+            </tbody>
+        </table>
+    	
+    </div>
+    <div class="be-to-selected">
+    	<p ng-click="toAddCommToSpe()">确认添加</p>
+    		
+    </div>
+</div>
+
+
+
+
+<!--修改藏品-->
+<div class="hidden item">
+	<div class="mn-header fix">
+		<div class="f"><i class="fa fa-th m-color-0"></i><span ng-bind="title"></span></div>
+		<div class="r">
+			<a class="btn btn-white" ng-click="onClickBack()"><i class="ti-back-left"></i>返回</a>
+		</div>
+	</div>
+
+	<div class="common-container">
+		<h3 ng-bind="modifyOrAdd">商品详情</h3>
+		<div class="con-item fix">
+			<span class="f">*商品名称：</span>
+			<div class="f con-title"><input type="text" ng-model="CommodityName" maxlength="100" class="form-control"></div>
+		</div>
+		<div class="con-item fix">
+			<span class="f">*商品描述：</span>
+			<div class="f con-title"><input type="text"  ng-model="CommodityDesc" maxlength="100" class="form-control"></div>
+		</div>
+		<div class="con-item fix">
+			<span class="f">*商品图片：</span>
+			<div class="f con-img">
+				<upload-spe url="CommodityImgs"></upload-spe>
+			</div>
+			
+		</div>
+		<div class="con-item fix">
+			<span class="f">*商品价格(元)：</span>
+			<div class="f con-title"><input type="number" ng-model="CommodityPrice" class="price-input form-control"></div>
+		</div>
+		<div class="con-item fix">
+			<span class="f">*库存(件)：</span>
+			<div class="f con-title"><input type="number" ng-model="CommodityNumber" class="price-input form-control"></div>
+		</div>
+		<div class="con-item fix">
+			<span class="f">*商品详情：</span>
+			<div class="f con-editor">
+				<ui-kindeditor ng-model="CommodityDetail"></ui-kindeditor>
+			</div>
+		</div>
+
+		<!--<div class="con-item fix">
+			<span class="f">提交数据：</span>
+			<a class="f btn btn-default" ng-click="onClickSubmit()">提&nbsp;&nbsp;交</a>
+		</div>-->
+	</div>
+</div>
+
+
+<div class="fixed-chrysanthemum2">
+	<img src="assets/images/public/loading600.gif" /> 
+</div>
+

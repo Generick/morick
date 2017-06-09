@@ -38,9 +38,7 @@ var SelectCtrl =
     	this.scope = $scope;
     	
     	this.wxParams = wxParams;
-    	
-    	this.judjeIsFirstCome();
-        
+
         this.judjeIsLogin();
         
     	this.getUrlAndId();
@@ -353,7 +351,7 @@ var SelectCtrl =
 	            self.shareInfo.content = "文化收藏，雅玩之家，每晚十点，欢迎回家";
 	          
     		    commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
-              
+               
 	    		self.scope.auctionItems = self.selectedModel.auctionItems;
 	    		$('.animation').css("display","none");
 	    		$('.container').css('opacity','1');
@@ -364,63 +362,7 @@ var SelectCtrl =
 
     },
   
-  
-//判断是否需要调用重登陆
-    judjeIsFirstCome : function(){
-     
-		if(commonFu.isEmpty(sessionStorage.getItem("isFirstCome")))
-		{    
-			/*
-			 *   1，isFirstCome是空说明是第一次进入该应用。此时先要判断是否从登陆页面跳转过来的
-			 *     即formLoginCome字段是否存在，如果存在，则说明已经登录了；
-			 */
-    			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
-				{    
-					
-					if(commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) && commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
-					{  
-						
-						//alert("有token调重登陆")
-						var localToken = localStorage.getItem(localStorageKey.TOKEN);
-						var params = {};
-						params.userType = 1;
-						params.token = localToken;
-		
-					    jqAjaxRequest.asyncAjaxRequest(apiUrl.API_USER_RELOGIN, params, function(data){
-					    	
-					    	//alert("调重登陆成功")
-						    var newToken = data.token;
-							localStorage.removeItem(localStorageKey.TOKEN);
-							localStorage.setItem(localStorageKey.TOKEN,newToken)
-							
-							//不管是重登陆还是登录界面登录的，登录成功的标志，关闭浏览器后自动失效
-							sessionStorage.setItem("loginSucess",1);
-							sessionStorage.removeItem("reloginFail")
-						})
-					}
-					else
-					{    
-						//如果formLoginCome不为空，则说明是从登录页面跳转过来的，
-					   	//alert("从登陆页面登录进来的")
-					}
-				}
-				else
-				{    
-					
-					//如果token为空，则说明是一个没有登录过的人，第一次的直接地跳到了列表页，此时直接取列表页数据就好
-					//alert("未登陆过，第一次跳到列表页")	
-				}
-		}
-		else
-		{  
-			
-			//isFirstCome不为空说明不是第一次进入，而是在应用内跳转的，所以直接加载数据
-			//alert("应用内跳转")
-		}
-		
-        sessionStorage.setItem("isFirstCome",1);//表明不是第一次进入该页面取数据，做以标记
-    },
-    
+ 
     
     
     //获取当前数据模型最大加载到了第几页
@@ -623,6 +565,7 @@ var SelectCtrl =
 		        	{
 		        		dealTop = $("#sel_"+ self.selectedModel.auctionItems[0].id).offset().top ;
 		        	}
+		        	
 		     
 				    sessionStorage.removeItem("needPage")
 		        }

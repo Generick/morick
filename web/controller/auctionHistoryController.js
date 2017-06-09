@@ -30,7 +30,7 @@ var AuctionHistoryCtrl =
     page : {
 		currentPage : 1,
 		totalPage : null,
-		timeNum : 20,
+		timeNum : 6,
 	},
 	
 	totalCount : 0,//数据的总条数
@@ -38,7 +38,7 @@ var AuctionHistoryCtrl =
     
     auctionHistoryModel : 
     {
-    	auctionItems : [],
+    	TMHList : [],
     	id : null
     },
     
@@ -49,11 +49,13 @@ var AuctionHistoryCtrl =
     	
     	this.wxParams = wxParams;
     	
-    	this.judjeIsFirstCome();
-    	
     	this.judjeIsLogin();
     	
     	this.getUrlAndId();
+    	
+    	$('.container').css('opacity','0');
+    	
+    	this.initData(2);
     	
         this.ngRepeatFinish();
        
@@ -77,7 +79,7 @@ var AuctionHistoryCtrl =
     	
     	
     	var arr = [];
-    	$('.container').css('opacity','1');
+    
     	if(commonFu.listGetUrlPublic(location.href).length == 2)
     	{   
     		arr = commonFu.listGetUrlPublic(location.href);
@@ -109,64 +111,272 @@ var AuctionHistoryCtrl =
     	
     },
     
-    
-    
-    
-     //判断是否需要调用重登陆
-    judjeIsFirstCome : function(){
+    initData : function(type){
+    	
+    	var self = this;
        
-		if(commonFu.isEmpty(sessionStorage.getItem("isNewCome")))
-		{    
-			/*
-			 *   1，isFirstCome是空说明是第一次进入该应用。此时先要判断是否从登陆页面跳转过来的
-			 *     即formLoginCome字段是否存在，如果存在，则说明已经登录了；
-			 */
-    			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
-				{    
-					
-					if(commonFu.isEmpty(sessionStorage.getItem("formLoginCome")) && commonFu.isEmpty(sessionStorage.getItem("loginSucess")))
-					{  
-					
-						//alert("有token调重登陆")
-						var localToken = localStorage.getItem(localStorageKey.TOKEN);
-						var params = {};
-						params.userType = 1;
-						params.token = localToken;
-		
-					    jqAjaxRequest.asyncAjaxRequest(apiUrl.API_USER_RELOGIN, params, function(data){
-					    	
-					    	//alert("调重登陆成功")
-						    var newToken = data.token;
-							localStorage.removeItem(localStorageKey.TOKEN);
-							localStorage.setItem(localStorageKey.TOKEN,newToken)
-							
-							//不管是重登陆还是登录界面登录的，登录成功的标志，关闭浏览器后自动失效
-							sessionStorage.setItem("loginSucess",1);
-							sessionStorage.removeItem("reloginFail")
-						})
-					}
-					else
-					{     
-						//如果formLoginCome不为空，则说明是从登录页面跳转过来的，
-					   	//alert("从登陆页面登录进来的")
-					}
-				}
-				else
-				{      
-				
-					//如果token为空，则说明是一个没有登录过的人，第一次的直接地跳到了列表页，此时直接取列表页数据就好
-					//alert("未登陆过，第一次跳到列表页")	
-				}
-		}
-		else
-		{  
-			
-			//isFirstCome不为空说明不是第一次进入，而是在应用内跳转的，所以直接加载数据
-			//alert("应用内跳转")
-		}
-		
-        sessionStorage.setItem("isNewCome",1);//表明不是第一次进入该页面取数据，做以标记
+        if(self.isFinsh){
+            	
+            return;
+        }
+        self.isFinsh = true;
+  
+    	var params = 
+    	{
+    		num : self.page.timeNum,
+    	
+    	};
+    		
+    	if(commonFu.isEmpty(sessionStorage.getItem("hasGetData")))
+	    {   
+	    	
+	    	if((!commonFu.isEmpty(self.thisJumpPage) && !commonFu.isEmpty(self.thisJumpId)))
+	    	{
+	    			params.startIndex = 0
+	    			 
+	    	        if(String(self.thisJumpPage).indexOf("#") != -1)
+			    	{
+			    	    self.thisJumpPage = parseInt(self.thisJumpPage.split("#")[0]);
+			    	    	
+			    	}
+			    	else
+			    	{
+			    	    self.thisJumpPage = parseInt(self.thisJumpPage);
+			    	}
+			    	params.num =parseInt(self.thisJumpPage) * parseInt(self.page.timeNum); 
+
+	    	}
+	    	else
+	    	{  
+	    		/*
+	    		 * 如果是第一次进入，本地缓存为空，则 params.startIndex = 0;
+	    		 */
+                params.startIndex = 0;
+	    	}
+	    	
+	    }
+	    else
+	    {   /*
+	    	 * 如果不是第一次进入，则
+	    	 * 1，获取本地存储的数据 dataArr
+	    	 * 2，获取当前数据模型里的数据 selfData
+	    	 */
+	    	var dataArr = JSON.parse(sessionStorage.getItem("hasGetData"));
+	    	var selfData = self.auctionHistoryModel.TMHList;
+	    		
+	    	if(type == 1){
+	    		
+	    	    $('.acu-chrysanthemums').css("display","block");
+		    	/*
+		    	 * 如果是取下一页，则满足触发事件的条件（即，只要滚轮距离底部的距离小于10px时）
+		    	 * 此时的startIndex就是nowPage * self.page.timeNum
+		    	 */
+		    	
+				var atPage_2 = self.getNowPage(dataArr,selfData,1);
+                //此时的startIndex就是当前页乘以每一页拉取的数据条数
+                params.startIndex = atPage_2 * self.page.timeNum;
+	    	}
+	    	else if(type == 2)
+	    	{   
+	    		/*
+	    		 * 1,如果是详情页点击tab栏回到列表页的话，startIndexcurrPage就是
+	    		 *   存储在本地储存的interPage;
+	    		 * 2,如果是在列表页点击tab栏的话，则重置页面数据，并且清空本地存储的储存数据
+	    		 *   请求数据的startIndex就是0
+	    		 */
+	    			
+	    		if(!commonFu.isEmpty(sessionStorage.getItem("intoPage")))
+	    		{ 
+	    			var enterPage = parseInt(sessionStorage.getItem("intoPage"));
+	    			//返回列表页且获取该页数据，即是用点击前存储的页数减 1
+	 //   			params.startIndex = (enterPage - 1) * self.page.timeNum;
+                    
+                    
+                    params.startIndex = 0;
+	                params.num = enterPage * self.page.timeNum;
+	                
+	                
+	    		}
+	    		else
+	    		{   
+	    			/*
+	    			 * 如果是在列表页点击tab栏，则
+	    			 */
+	    			var atPage_4 = self.getNowPage(dataArr,selfData,2);
+	    			//此处相当于在列表页点击tab栏点击
+	    			params.startIndex = (atPage_4 - 1) * self.page.timeNum;
+	    		}
+	    			
+	    	}
+	    }		
+    	
+    	
+    	$('.animation').css('display','block');
+    	
+    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SPECIAL_SALE_LIST, params, function(data){
+    	    console.log(JSON.stringify(data))
+    		//在回调里拿到总数据条数，给全局变量
+	    	self.totalCount = data.count;
+	    	//设置总页数
+	    	self.setTotalPage(self.totalCount);
+    		
+    		if(commonFu.isEmpty(sessionStorage.getItem("hasGetData")))
+	    	{  
+	    		if(!commonFu.isEmpty(self.thisJumpPage) && !commonFu.isEmpty(self.thisJumpId))
+	    		{   
+		    		self.auctionHistoryModel.TMHList = [];
+			    	self.auctionHistoryModel.TMHList = data.TMHList;
+			    	sessionStorage.removeItem("hasGetData");
+			    	sessionStorage.setItem("hasGetData",JSON.stringify(data.TMHList));
+			    	
+		    	    if(String(self.thisJumpPage).indexOf("#") != -1)
+		    	    {
+		    	    	self.page.currentPage = parseInt(self.thisJumpPage.split("#")[0]);
+		    	    }
+		    	    else
+		    	    {
+		    	    	self.page.currentPage = parseInt(self.thisJumpPage);
+		    	    }
+
+	    		}
+	    		else
+	    		{
+	    			/*
+		    		* 如果是第一次进入，本地缓存为空，则 params.startIndex = 0;
+		    		*/
+		    		self.auctionHistoryModel.TMHList = [];
+	                self.auctionHistoryModel.TMHList = data.TMHList;
+	
+	                sessionStorage.removeItem("hasGetData");
+	                sessionStorage.setItem("hasGetData",JSON.stringify(data.TMHList));
+	                //获取加载到的最大页
+	                self.page.currentPage = 1;
+	    		}
+	    		
+	    	}
+    		else
+    		{
+    			if(type == 1)
+		    	{   
+		    	    /*
+		    	     * 获取下一页数据时，在本地的数据模型上拼接上请求来的数据
+		    	     */
+
+		    	    var dataNxt = data.TMHList;
+
+		    	    for(var s = 0;s < self.auctionHistoryModel.TMHList.length;s++)
+		    	    {   
+		    	    	if(!commonFu.isEmpty(self.auctionHistoryModel.TMHList[s].info.commodity_pic))
+	                    {
+	                    	self.auctionHistoryModel.TMHList[s].pictures = JSON.parse(self.auctionHistoryModel.TMHList[s].info.commodity_pic)[0];
+	                    }
+		    	    	
+		    	    }
+
+		    	    self.auctionHistoryModel.TMHList = self.auctionHistoryModel.TMHList.concat(dataNxt);
+
+		    	    /*
+		    	     * 把请求到的数据同步到本地缓存里，
+		    	     */
+		    	    //向本地存储后面追加数据
+		     	    self.alreadyGetData(dataNxt,0);
+		    	    //获取缓存里的数据
+		    	    var theSessionData_2 = JSON.parse(sessionStorage.getItem("hasGetData"));
+		    	    //请求完数据后获取当前数据模型
+		    	    var theSelfData_2 = self.auctionHistoryModel.TMHList;
+		    	    //获取加载到的最大页
+		    	    self.page.currentPage = self.getNowDataPage(theSessionData_2,theSelfData_2);
+                    $('.acu-chrysanthemums').css("display","none");
+		        }
+		    	else if(type == 2)
+		    	{  
+		    	    /*
+		    	     * 如果是在详情页点击tab栏，则清空本地数据模型，再把请求来的数据赋值给当前数据模型；
+		    	     * 如果是在列表页点击tab栏，则重置页面，只取第一页数据，
+		    	     */
+		    	    if(!commonFu.isEmpty(sessionStorage.getItem("intoPage")))
+		    	    {   
+    	    		        
+		    	    	self.auctionHistoryModel.TMHList = [];
+		    	    
+		    	    
+		    	    
+		    	        self.auctionHistoryModel.TMHList = data.TMHList;
+                        sessionStorage.setItem("hasGetData",JSON.stringify(data.TMHList));
+		    	    	
+		    	    	
+		    	    	
+//		    	    	self.auctionHistoryModel.TMHList = JSON.parse(sessionStorage.getItem("hasGetData"));
+		    	    	self.page.currentPage = Math.ceil(JSON.parse(sessionStorage.getItem("hasGetData")).length/self.page.timeNum)
+		    	    	//self.page.currentPage = parseInt(sessionStorage.getItem("intoPage"));
+		    	    	//把本地存储的点击进入的那个interPage置空    	    		
+		    	
+		    	    	sessionStorage.removeItem("intoPage");
+		    	    	
+		    	    }
+		    	    else
+		    	    {   
+		    	    	/*
+		    	    	 * 如果是在列表页点击tab栏，则只取第一页数据
+		    	    	 * 并且重置页面页数等
+		    	    	 */
+		    	    	
+		    	    	self.auctionHistoryModel.TMHList = [];
+		    	    	self.auctionHistoryModel.TMHList = data.TMHList;
+		    	    	self.alreadyGetData(data.TMHList,1);
+		    	    	//获取加载到的最大页
+		    	    	self.page.currentPage = 1;
+		    	    }
+		    	}
+	            else
+	            {
+	            }
+    		}
+    		
+    		if (self.auctionHistoryModel.TMHList.length > 0)
+    		{
+    			$(".no-data").css('display','none');
+    			var goods = self.auctionHistoryModel.TMHList;
+                
+	    		for (var i = 0;i < goods.length; i++)
+	    		{    
+	    			
+                    if(!commonFu.isEmpty(goods[i].info.commodity_pic))
+                    {
+                    	goods[i].pictures = JSON.parse(goods[i].info.commodity_pic)[0];
+                    	
+                    }
+		    		
+		    		if (!commonFu.isEmpty(goods[i].info.commodity_price))
+		    		{
+		    			
+		    			goods[i].commodity_price = commonFu.toDecimals(parseFloat(goods[i].info.commodity_price));
+		    			
+		    		}
+		    		
+	    		}
+    		}
+    		else
+    		{
+    			$(".no-data").css('display','block');
+    		}
+    		
+    		self.shareInfo.title = "雅玩之家";
+            self.shareInfo.img = "img/share-to-other.jpg";
+            self.shareInfo.content = "文化收藏，雅玩之家，每晚十点，欢迎回家";
+          
+    		commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
+//  		alert(JSON.stringify(self.auctionHistoryModel.TMHList))
+//  		alert(self.auctionHistoryModel.TMHList.length)
+    		self.scope.auctionHistoryModel = self.auctionHistoryModel;
+    		
+    		$('.animation').css('display','none');
+    		$('.container').css('opacity','1');
+            self.isFinsh = false;
+    		self.scope.$apply();
+    	})
     },
+    
     
     
       //设置总页数
@@ -194,7 +404,7 @@ var AuctionHistoryCtrl =
     	var self = this;
     	for(var o = 0; o < local.length; o++)
     	{
-    		if(local[o].id == selected[selected.length - 1].id)
+    		if(local[o].commodity_id == selected[selected.length - 1].commodity_id)
     		{    
     			var theAllPage = Math.ceil((o + 1)/self.page.timeNum);
     		}
@@ -217,7 +427,8 @@ var AuctionHistoryCtrl =
 				$('.container').css({'opacity':'0'});
 				$('.animation').css("display","block");
 				if(!commonFu.isEmpty(self.thisJumpId))
-				{
+				{   
+				
 					self.getDisToTop(self.thisJumpId);
 				}
 				
@@ -237,7 +448,7 @@ var AuctionHistoryCtrl =
 					$('.container').css({'opacity':'0'});
 					$('.animation').css("display","block");
 					if(!commonFu.isEmpty(acuId))
-					{
+					{   
 						self.getDisToTop(acuId);
 					}
 					
@@ -258,11 +469,11 @@ var AuctionHistoryCtrl =
     judgeExist : function(id){
     	var self = this;
     	var judje = false;
-    	for(var n = 0; n < self.auctionHistoryModel.auctionItems.length; n++)
+    	for(var n = 0; n < self.auctionHistoryModel.TMHList.length; n++)
     	{   
-//  	    console.log(JSON.stringify(self.auctionHistoryModel.auctionItems))
+//  	    console.log(JSON.stringify(self.auctionHistoryModel.TMHList))
     	   
-    		if(self.auctionHistoryModel.auctionItems[n].id == id)
+    		if(self.auctionHistoryModel.TMHList[n].commodity_id == id)
     		{   
     			judje = true;
     		}
@@ -276,8 +487,9 @@ var AuctionHistoryCtrl =
      
     getDisToTop : function(id){
   		var self = this;
-        var id = id;
-
+        var commodity_id = id;
+        $('.animation').css('display','block');
+    	$('.container').css('opacity','0');
         if(!commonFu.isEmpty(self.thisJumpPage) && !commonFu.isEmpty(self.thisJumpId))
         {  
         	
@@ -287,12 +499,12 @@ var AuctionHistoryCtrl =
 		       
 		        var dealTop = null;
 		        if(self.judgeExist(self.thisJumpId))
-		        {
-		        	dealTop = $("#test_"+ self.thisJumpId).offset().top ;
+		        {    
+		        	dealTop = $("#test_"+ self.thisJumpId).offset().top;
 		        }
 		        else
 		        {
-		        	dealTop = $("#test_"+ self.auctionHistoryModel.auctionItems[0].id).offset().top ;
+		        	dealTop = $("#test_"+ self.auctionHistoryModel.TMHList[0].commodity_id).offset().top ;
 		        }
 		       
 				sessionStorage.removeItem("needPageId")
@@ -300,7 +512,7 @@ var AuctionHistoryCtrl =
 		    else
 		    {   
 		        	
-		        var dealTop = $("#test_"+ self.auctionHistoryModel.auctionItems[0].id).offset().top;
+		        var dealTop = $("#test_"+ self.auctionHistoryModel.TMHList[0].commodity_id).offset().top;
 		    }
         	self.thisJumpPage = null;
 		    self.thisJumpId = null;
@@ -309,21 +521,23 @@ var AuctionHistoryCtrl =
         {   
 
         	var dealTop = null;
-        	var idStr = id.split('_')[1];
+        	var idStr = commodity_id.split('_')[1];
 
         	if(self.judgeExist(idStr))
-		    {
-		        dealTop = $("#"+ id).offset().top ;
+		    {   
+		    	
+		        dealTop = $("#"+ commodity_id).offset().top;
 		    }
 		    else
 		    {
-		        dealTop = $("#test_"+ self.auctionHistoryModel.auctionItems[0].id).offset().top ;
+		        dealTop = $("#test_"+ self.auctionHistoryModel.TMHList[0].commodity_id).offset().top ;
 		    }
 		
         }
       	
       	$("html,body").scrollTo({toT:dealTop});
-     
+        $('.animation').css('display','none');
+    	$('.container').css('opacity','1');
     },
     
     
@@ -382,62 +596,26 @@ var AuctionHistoryCtrl =
     	
     	self.scope.onClickToAuctionHistoryDetail = function(item)
     	{   
-    		var id = item.id;
+	
+    		var id = item.commodity_id;
     	    sessionStorage.setItem("comeWithGuess",2);
     	    sessionStorage.setItem("messlistOrauction",0)
-    		if(!commonFu.isEmpty(sessionStorage.getItem("reloginFail")))
-    		{
-    			if((parseInt(item.isVIP) == 1) && (commonFu.isEmpty(localStorage.getItem(localStorageKey.vipOrNot))))
-	            	{  
-	            		$("#acfixed-shade").css("display","block");
-		   				$("html,body").css("overflow","hidden");
-		   				$('#acfixed-shade').bind("touchmove",function(e){
-		              		 e.preventDefault();
-					    });
-		    			return;
-	            	}
-	            	else
-	            	{
-	            		
-	            		self.auctionHistoryModel.id = id;
-		    			sessionStorage.setItem("aucDisId","test_"+id);
-		    			self.getInterPage(id);
-		    			var thisAcPage = sessionStorage.getItem("intoPage");
-		    			location.href = pageUrl.AUCTION_HISTORY_INFO + "?id=" + id  + "&thisAcPage=" + thisAcPage;
-	            	
-	            	}
-    		}
-    		else
-    		{
-    			
+    		
     			jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
 		    		
 		    		localStorage.setItem(localStorageKey.vipOrNot,data.userInfo.isVIP)
 		    		var isMySelfVip = data.userInfo.isVIP;
 		    		
-		    		if(((parseInt(item.isVIP) == 1) && (parseInt(isMySelfVip) == 0)))
-	 				{
-		 				$("#acfixed-shade").css("display","block");
-		   				$("html,body").css("overflow","hidden");
-		   				$('#acfixed-shade').bind("touchmove",function(e){
-		              		 e.preventDefault();
-					    });
-		    			return;
-	 				}
-	    			else
-	    			{
-		    			
+		    		
 		    			self.auctionHistoryModel.id = id;
 		    			sessionStorage.setItem("aucDisId","test_"+id);
 		    			self.getInterPage(id);
 		    			var thisAcPage = sessionStorage.getItem("intoPage");
 		    			location.href = pageUrl.AUCTION_HISTORY_INFO + "?id=" + id  + "&thisAcPage=" + thisAcPage;
-	    			
-	    			}
-	    	
+					
+	    		
 	            })
-    		}
-    
+    		
     	};
     },
    
@@ -450,7 +628,7 @@ var AuctionHistoryCtrl =
     	var alrGetData = JSON.parse(sessionStorage.getItem("hasGetData"));
     	for(var i = 0;i < alrGetData.length; i++)
     	{   
-    		if(alrGetData[i].id == id)
+    		if(alrGetData[i].commodity_id == id)
     		{   
     			intoPage = Math.ceil((i+1)/self.page.timeNum); 
     		}
@@ -476,7 +654,7 @@ var AuctionHistoryCtrl =
                 //取下一页数据
 	    		for(var n = 0; n < sessionData.length; n++)
     		    {
-    		    	if(selfData[selfData.length -1].id == sessionData[n].id)
+    		    	if(selfData[selfData.length -1].commodity_id == sessionData[n].commodity_id)
     		    	{
     		    	    nowPage = Math.ceil(n/self.page.timeNum);
     		    	}
@@ -536,7 +714,7 @@ var AuctionHistoryCtrl =
     	    	
     	    	for(var h = 0; h < dataArr.length; h++)
     	    	{
-    	    		if((dataArr[h].id == data[0].id) || (dataArr[h].id == data[data.length - 1].id))
+    	    		if((dataArr[h].commodity_id == data[0].commodity_id) || (dataArr[h].commodity_id == data[data.length - 1].commodity_id))
     	    		{
     	    			isrepeat = true;
     	    		}
@@ -582,7 +760,7 @@ var AuctionHistoryCtrl =
 			//获取到本地缓存
 			var dataArr = JSON.parse(sessionStorage.getItem("hasGetData"));
 			
-			var selfData = AuctionHistoryCtrl.auctionHistoryModel.auctionItems;
+			var selfData = AuctionHistoryCtrl.auctionHistoryModel.TMHList;
 			
             if(d <= a)
             {   
@@ -596,13 +774,14 @@ var AuctionHistoryCtrl =
 			    	/*
 			    	 * 如果当前加载到的最大页码数小于总页数
 			    	 */
-			    	if((AuctionHistoryCtrl.page.currentPage < AuctionHistoryCtrl.page.totalPage) && (AuctionHistoryCtrl.auctionHistoryModel.auctionItems.length < AuctionHistoryCtrl.totalCount))
+			    	
+			    	if((AuctionHistoryCtrl.page.currentPage < AuctionHistoryCtrl.page.totalPage) && (AuctionHistoryCtrl.auctionHistoryModel.TMHList.length < AuctionHistoryCtrl.totalCount))
 					{   
-                       
+                      
             	        AuctionHistoryCtrl.initData(1);
 					}
-					else if((AuctionHistoryCtrl.page.currentPage == AuctionHistoryCtrl.page.totalPage) || (AuctionHistoryCtrl.auctionHistoryModel.auctionItems.length == AuctionHistoryCtrl.totalCount))
-					{
+					else if((AuctionHistoryCtrl.page.currentPage == AuctionHistoryCtrl.page.totalPage) || (AuctionHistoryCtrl.auctionHistoryModel.TMHList.length == AuctionHistoryCtrl.totalCount))
+					{ 
 						$('.acu-chrysanthemums').css("display","block");
 						setTimeout(function(){
 							$('.acu-chrysanthemums').css("display","none");

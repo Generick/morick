@@ -30,6 +30,17 @@ var jqAjaxRequest =
 				{   
 					callback(data.data);
 				}
+				else if((err == '800') || (err == '2303')||(err == "2302"))
+				{
+					$dialog.msg(errMsg);
+					if(err == '800')
+					{
+					    localStorage.setItem(localStorageKey.DEFAULT, location.href); //存储当前页面地址
+                 		location.href = pageUrl.ACCOUNT_RECHARGE;
+					}
+
+				}
+				
 				else if(commonFu.equal(err,errCode.CODEERR))
 				{
 					$dialog.msg(errMsg);

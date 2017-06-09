@@ -14,85 +14,57 @@
         <link rel="stylesheet" href="css/selected.css" />
         <link rel="stylesheet" href="popUpModal/popUp.css" />
         <link rel="stylesheet" href="plugin/layerMobile/need/layer.css" />
+        <link rel="stylesheet" href="css/newPersonal.css" /> 
 	</head>
-	<body ng-controller="ctrl">
+	<body ng-controller="ctrl" style="background: #FFFFFF;">
 		<!--加载动画-->
 		<div class="animation">
 			<img src="img/loading.gif" />
 		</div>
-		<div class="container" style="overflow-y: scroll;padding-bottom: 65px;">
+		<div class="container" style="overflow-y: scroll;padding-bottom: 65px;background: #FFFFFF;">
 			<!-- Swiper -->
 		    <div class="swiper-container">
-		        <div class="swiper-wrapper">
-		            <div class="swiper-slide item-img" ng-repeat="item in auctedGoodsDetailModel.allInfo.goodsInfo.goods_pics" on-Finish-Render-Filters>
+		        <div class="swiper-wrapper" id="preImages">
+		            <div class="swiper-slide item-img" ng-repeat="item in specilSellPictureArr" on-Finish-Render-Filters>
 		            	<img ng-src="{{item}}">
 		            </div>
 		        </div>
-
+ 
                 <!-- Add Pagination -->
                 <div class="swiper-pagination"></div>
             </div>
-
-			<div class="goods-content">
-				<p id="goodsContent2"></p>
-			</div>
-			<div class="time-operate">
-				<div style="text-align: center;color: #7E7346;font-size: 16px;padding: 12px 0;" ng-show="auctedGoodsDetailModel.auctionSuccess">
-					已截拍，成交价<span style="color: #db3e1f;">￥</span>
-					<span style="color: #db3e1f;" ng-bind="auctedGoodsDetailModel.allInfo.currentPrice"></span>
-				</div>
-				<div style="text-align: center;color: #7E7346;font-size: 16px;padding: 12px 0;" ng-show="!auctedGoodsDetailModel.auctionSuccess">
-					已流拍
-				</div>
-				<button id="selfGoodsBtn" class="goods-btn-2" ng-show="auctedGoodsDetailModel.allInfo.isQuiz == '1'" ng-click="jumpToGuess(item)" >我要竞猜</button>
-			</div>
-			<div class="goods-operate groble-operate-thrity-h clear">
-				<div class="goods-operate-block groble-thrity-h clear">
-					<span class="operate-type">起</span>
-					<div>
-						￥<span id="initialPrice" ng-bind="auctedGoodsDetailModel.allInfo.initialPrice"></span>
-					</div>
-				</div>
-				<div class="goods-operate-block groble-thrity-h">
-					<span class="operate-type">加</span>
-					<div>
-						￥<span id="lowestPremium" ng-bind="auctedGoodsDetailModel.allInfo.lowestPremium"></span>
-					</div>
-				</div>
-				<div class="goods-operate-block groble-thrity-h">
-					<span class="operate-type">保</span>
-					<div>
-						￥<span ng-bind="auctedGoodsDetailModel.allInfo.margin"></span>
-					</div>
-				</div>
-				<!--<div class="goods-operate-block" style="padding-left: 12%;">
-					<span class="operate-type">延</span>
-					<div>
-						<span ng-bind="auctedGoodsDetailModel.allInfo.postponeTime"></span>分钟
-					</div>
-				</div>-->
-			</div>
-            <div class="goods-operate-box"  ng-show="auctedGoodsDetailModel.isShowHighest">
-                <button class="goods-operate-block2">
-                    <span class="reference-price">封顶价</span>￥<span ng-bind="auctedGoodsDetailModel.allInfo.cappedPrice"></span>
-                </button>
+            <div class="goods-content" style="padding-bottom:0;width:100%;overflow:hidden">
+            	<p class="special-sell-name" ng-bind="specialName">
+            		第三方第三方三发斯蒂芬大师法第三地方撒第三方大分
+            	</p>
+            	<p class="special-sell-content" ng-bind="specialDesc">
+            		的广泛的施工方覆盖是的法规地方地方撒对方是个对方是个广东佛山覆盖格式个地方和高度规范规范沪电股份沪电股份沪电股份
+            	</p>
+            </div>
+            <div class="sell-price-number-box">
+            	<span style="padding-left:5px" class="sell-price-box" ng-bind="'￥'+specialPrice">
+            		￥50000
+            	</span>
+            	<span class="sell-number-box">
+            	     <span>库存</span>
+            	     <span ng-bind="specialNumber">222</span>
+            	     <span>件</span>
+            	</span>
             </div>
             
-			<div class="goods-buyer">
-				<div class="goods-buyer-block clear">
-					<li class="clear" ng-repeat="item in biddingModel.biddingList">
-						<img class="buyer-icon" ng-src="{{item.userData.smallIcon}}" />
-						<div class="buyer-tel" ng-bind="item.userData.telephone"></div>
-						<div class="buyer-money">￥<span ng-bind="item.nowPrice"></span></div>
-						<div class="pay-time" ng-bind="item.createTime*1000 | date:'yy-MM-dd HH:mm:ss'"></div>
-					</li>
-					<div class="check-more" ng-click="onClickCheckMore()" ng-show="biddingModel.isCheckOver" ng-bind="checkMore">查看更多</div>
-				</div>
-			</div>
+            <div class="special-sell-rich"  id="preImagesTwo">
+            	<p class="special-sell-rich-title">
+            		商品详情
+            	</p>
+            	
+            	<div id="special-sell-detail-content"></div>
+            </div>
+		</div>
+		<div class="bottom-bye-button" ng-click="jumpToBye()">
+			立即购买
+			<div class="opc-bye-button"></div>
 			
 		</div>
-		<!--底部tab-->
-	    <div ng-include="'module/tab/tab.html'"></div>
 	</body>
     
 	<!--系统js-->
@@ -156,12 +128,12 @@
 		    			    sessionStorage.setItem("needPageId",1)
 		    			    if(sessionStorage.getItem("messlistOrauction") == 0)//表示从拍卖历史跳转过来的
 			        	    {   
-			        	    	location.href = pageUrl.AUCTION_HISTORY + "?backPage=" + auctedGoodsDetailController.thisDetailPage + "&thisDataId=" + auctedGoodsDetailController.thisDataId;
+			        	    	location.href = pageUrl.AUCTION_HISTORY + "?backPage=" + specialSellController.thisDetailPage + "&thisDataId=" + specialSellController.thisDataId;
 
 			        	    }
 			        	    else if(sessionStorage.getItem("messlistOrauction") == 1)//表示从从消息中心跳转过来的
 			        	    {
-			        	    	
+			        	    	 
 			        	    	location.href = pageUrl.MY_MESSAGE;
 			        	    }
 			    			
@@ -198,8 +170,8 @@
 	        wxParams.nonceStr =  '<?php echo $signPackage["nonceStr"];?>';
 	        wxParams.signature =  '<?php echo $signPackage["signature"];?>';
 	       
-		    auctedGoodsDetailController.init($scope,wxParams); 
-		   
+		    specialSellController.init($scope,wxParams); 
+		  
 		});
 
 	</script>

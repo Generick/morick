@@ -84,5 +84,11 @@ var TRANSACTION_TYPE_ARR =
             text : "竞猜奖金",
             symbol : "+",
             style : "money-add"
+        },
+        {
+        	type : 12,
+            text : "购买商品",
+            symbol : "-",
+            style : "money-reduce"
         }
     ];

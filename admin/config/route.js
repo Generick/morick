@@ -114,5 +114,32 @@ app.config(function($stateProvider, $urlRouterProvider){
         	controller: 'elegantController'
         })
         
+         //拍品页个人信息
+        .state('specialSelling', {
+        	url: '/specialSelling',
+        	templateUrl: 'view/specialSelling/specialList.html',
+        	controller: 'specialSellingController'
+        })
         
+        
+          //拍品页个人信息
+        .state('commodityList', {
+        	url: '/commodityList',
+        	templateUrl: 'view/commodity/commodityList.html',
+        	controller: 'commodityListController'
+        })
+        
+        
+        
+        .state('commodifydel', {
+        	url: '/commodifydel',
+        	templateUrl: 'view/data/commidifyDelete.html',
+        	controller: 'commidifyDeleteController'
+        })
+        
+         .state('commodifysale', {
+        	url: '/commodifysale',
+        	templateUrl: 'view/data/commodifySaleList.html',
+        	controller: 'commidifySaleController'
+        })
 });

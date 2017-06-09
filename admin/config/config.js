@@ -108,8 +108,37 @@ var api = {
 	
 	API_ADMIN_GET_USERINFO : BASE_URL + "a_admin/getUserInfo",//获取用户信息
     //上传文件
-    API_UP_FILE : BASE_URL + "upload/uploadImages"
-};
+    API_UP_FILE : BASE_URL + "upload/uploadImages",
+    
+    
+    
+    API_GET_COMMIDIFY_LIST : BASE_URL + "saleMeeting/A_saleMeeting/getCommodities",//获取商品列表
+    
+    API_ADD_SALE_COMMIDIFY : BASE_URL + "saleMeeting/A_saleMeeting/addCommodity",//添加商品
+    
+    API_MOD_SALE_COMMIDIFY : BASE_URL + "saleMeeting/A_saleMeeting/modCommodity",//修改商品
+    
+    API_UP_COMMIDIFY : BASE_URL + "saleMeeting/A_saleMeeting/upCommodity",//上架商品
+    
+    API_GET_HAS_UP_COMMIDIFY : BASE_URL + "saleMeeting/A_saleMeeting/getUpCommodities",//获取添加到特卖会中的商品
+    
+    API_DEL_SALE_COMMIDIFY : BASE_URL + "saleMeeting/A_saleMeeting/delCommodity",//删除商品
+    
+    API_UO_SALE_TO_SPECIAL : BASE_URL + "saleMeeting/A_saleMeeting/upCommodityToTMH",//添加商品到特卖会中
+    
+    API_DEL_SPECIAL_COMMIDIFY :BASE_URL + "saleMeeting/A_saleMeeting/delTMH",//从特卖会中删除商品
+    
+    API_GET_SALE_COMMIDIFY_DETAIL : BASE_URL + "saleMeeting/A_saleMeeting/getCommodityInfo",//获取商品详情
+    
+    API_GET_SPECIAL_SALE_LIST : BASE_URL + "saleMeeting/SaleMeeting/getTMHList",//获取特卖会列表   （前端管理后台通用）
+    
+    API_GET_SPACIAL_SALE_DETAIL : BASE_URL + "saleMeeting/SaleMeeting/getTMHCommodityInfo",//获取特卖会商品信息    （前端管理后台通用）
+    
+    API_GET_DELETE_COMMIDIFYLIST : BASE_URL + "saleMeeting/A_saleMeeting/commodityDelRec",//获取商品删除记录
+    
+    API_GET_COMMODIFY_SALE_LIST : BASE_URL + "saleMeeting/A_saleMeeting/saleRecord",//获取商品销售记录
+    
+ };
 
 //errType
 var errCode = {

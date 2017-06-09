@@ -16,15 +16,27 @@ var OrderCtrl = {
         deliveryType : null,
         isShowBtn : true,
     },
+   
     
-//    allPayWays : null,//支付方式
+    payWayModel : {
+    	
+    	id : 0,
+    	name :"全部"
+    },
     
+    orderTypeModel : {
+    	id : 0,
+    	name :"全部"
+    	
+    },
+    
+
     init: function($scope){
         this.scope = $scope;
 
         this.initData();
         
-        this.changeBtColor(0);
+//      this.changeBtColor(0);
         
         this.scope.orderModel = this.orderModel;
 
@@ -48,7 +60,11 @@ var OrderCtrl = {
             {title: '已完成', isActive: false, id: 4,isShowTitle:true},
             {title: '已取消', isActive: false, id: 0,isShowTitle:true}
         ];
-
+        
+        self.scope.payWayModel = self.payWayModel;
+        
+        self.scope.orderTypeModel = self.orderTypeModel;
+        
         self.scope.onClickTab = function(tab, index){ //切换tab
 
             self.scope.tabs[self.orderModel.tabIndex].isActive = false; //关闭前一个选项
@@ -60,6 +76,9 @@ var OrderCtrl = {
             self.orderModel.keywords = null; //切换模块前搜索框清空
             self.getOrders();
         };
+        
+        
+        
     },
 
     //获取订单
@@ -68,10 +87,12 @@ var OrderCtrl = {
             params = {};
         
        
-        if(self.orderModel.curOrderType !== ""){    
-            params.orderType = self.orderModel.curOrderType
+        if(self.orderModel.curOrderType != ""){    
+            params.orderStatus = self.orderModel.curOrderType
         }
-
+        if(self.orderTypeModel.id != 0){    
+            params.orderType = self.orderTypeModel.id;
+        }
         if(!_utility.isEmpty(self.orderModel.keywords)){
             params.likeStr = self.orderModel.keywords
         }
@@ -124,34 +145,125 @@ var OrderCtrl = {
     onEvent: function(){
         var self = this;
         
-        self.scope.onlinePay = function(type){
-
-            if(type == 0)
-            {
-            	self.orderModel.isShowBtn = true;
+        
+        self.scope.toShowPay = function(){
+        	
+        	if($("#online-div-3").css("display") == "none")
+        	{
+        		$("#online-div-3").css("display","block")
+        	}
+        	else
+        	{
+        		$("#online-div-3").css("display","none")
+        	}
+        	
+        };
+        
+        self.scope.toShowOrder = function(){
+        	
+        	if($("#online-div-2").css("display") == "none")
+        	{
+        		$("#online-div-2").css("display","block")
+        	}
+        	else
+        	{
+        		$("#online-div-2").css("display","none")
+        	}
+        
+        };
+        
+        self.scope.toSearchOrder = function(){
+        	
+        	self.getOrders();
+        };
+        
+        
+        self.scope.choosePay = function(type){
+        	
+        	if(type == 0)
+        	{
+        		self.payWayModel.name = "全部";
+        		self.payWayModel.id = 0;
+        		self.orderModel.isShowBtn = true;
             	self.orderModel.deliveryType = null;
             	self.scope.tabs[2].isShowTitle = true;
             	self.scope.tabs[3].isShowTitle = true;
-            }
-        	else if(type == 1)
-        	{   
-        		self.orderModel.isShowBtn = false;
-        		self.scope.tabs[2].isShowTitle = true;
-            	self.scope.tabs[3].isShowTitle = true;
-        		self.orderModel.deliveryType = type - 1;
-        	}	
-        	else
-        	{   
+        	}
+        	else if (type == 1)
+        	{
+        		self.payWayModel.name = "当面支付";
+        		self.payWayModel.id = 1;
         		self.orderModel.isShowBtn = true;
         		self.scope.tabs[2].isShowTitle = false;
             	self.scope.tabs[3].isShowTitle = false;
-        		self.orderModel.deliveryType = type - 1;
+        		self.orderModel.deliveryType = 1;
         	}
-	        self.changeBtColor(type);
-	        self.getOrders();
-
+        	else
+        	{
+        		self.payWayModel.name = "线上支付";
+        		self.payWayModel.id = 2;
+        		
+        		
+        		self.orderModel.isShowBtn = false;
+        		self.scope.tabs[2].isShowTitle = true;
+            	self.scope.tabs[3].isShowTitle = true;
+        		self.orderModel.deliveryType = 0;
+        	}
+        	$("#online-div-3").css("display","none")
+        	self.scope.payWayModel = self.payWayModel;
+        }
+        self.scope.chooseOrder = function(type){
+        	
+        	if(type == 0)
+        	{   
+        		self.scope.tabs[1].isShowTitle = true;
+        		self.orderTypeModel.name = "全部";
+        		self.orderTypeModel.id = 0;
+        	}
+        	else if (type == 2)
+        	{
+        		self.scope.tabs[1].isShowTitle = false;
+        		self.orderTypeModel.name = "商品订单";
+        		self.orderTypeModel.id = 2;
+        	}
+        	else
+        	{   
+        		self.scope.tabs[1].isShowTitle = true;
+        		self.orderTypeModel.name = "拍品订单";
+        		self.orderTypeModel.id = 1;
+        	}
+        	$("#online-div-2").css("display","none");
+        	self.scope.orderTypeModel = self.orderTypeModel;
         };
-       
+//      
+//      self.scope.onlinePay = function(type){
+//
+//          if(type == 0)
+//          {
+//          	self.orderModel.isShowBtn = true;
+//          	self.orderModel.deliveryType = null;
+//          	self.scope.tabs[2].isShowTitle = true;
+//          	self.scope.tabs[3].isShowTitle = true;
+//          }
+//      	else if(type == 1)
+//      	{   
+//      		self.orderModel.isShowBtn = false;
+//      		self.scope.tabs[2].isShowTitle = true;
+//          	self.scope.tabs[3].isShowTitle = true;
+//      		self.orderModel.deliveryType = type - 1;//线上0,,
+//      	}	
+//      	else
+//      	{   
+//      		self.orderModel.isShowBtn = true;
+//      		self.scope.tabs[2].isShowTitle = false;
+//          	self.scope.tabs[3].isShowTitle = false;
+//      		self.orderModel.deliveryType = type - 1;
+//      	}
+//	        self.changeBtColor(type);
+//	        self.getOrders();
+//
+//      };
+//     
         self.scope.search = function(){ //搜索
             self.getOrders();
         };
@@ -227,11 +339,11 @@ var OrderCtrl = {
     },
     
     
-    changeBtColor : function(types){
-    	
-    	var self = this;
-    	$("#pay-way").find("div").eq(types).addClass("pay-active").siblings().removeClass("pay-active")
-    }
+//  changeBtColor : function(types){
+//  	
+//  	var self = this;
+//  	$("#pay-way").find("div").eq(types).addClass("pay-active").siblings().removeClass("pay-active")
+//  }
 };
 
 //订单详情
@@ -248,14 +360,15 @@ var orderInfoCtrl = {
 
     init: function($scope, data){
         var self = this;
-//      console.log(JSON.stringify(data))
+       
        
         self.scope = $scope;
      
         self.orderInfoModel.info = data;
+    
         
         self.orderInfoModel.info.payPrice = _utility.toDecimalTwo(parseFloat(self.orderInfoModel.info.payPrice));
-        
+       
         self.orderInfoModel.info.goodsPrice = _utility.toDecimalTwo(parseFloat(self.orderInfoModel.info.goodsPrice));
         self.orderInfoModel.info.prepaidPrice = _utility.toDecimalTwo(parseFloat(self.orderInfoModel.info.prepaidPrice));
         self.orderInfoModel.goodsArr = data.orderGoods;

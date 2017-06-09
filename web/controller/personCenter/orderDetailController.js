@@ -96,8 +96,16 @@ var OrderDetailCtrl = {
                 self.orderDetailModel.unPay = true;
 
                 //待付款剩余时间
-                var endTime = parseInt(self.orderDetailModel.orderInfo.orderGoods[0].create_time) + 60*60*72;
-                var lastTime = parseInt(endTime) - parseInt(self.orderDetailModel.orderInfo.orderGoods[0].create_time);
+                if(self.orderDetailModel.orderInfo.orderType == 2)
+                {
+                	var endTime = parseInt(self.orderDetailModel.orderInfo.orderGoods[0].add_time) + 60*60*72;
+                    var lastTime = parseInt(endTime) - parseInt(self.orderDetailModel.orderInfo.orderGoods[0].add_time);
+                }
+                else
+                {
+                	var endTime = parseInt(self.orderDetailModel.orderInfo.orderGoods[0].create_time) + 60*60*72;
+                    var lastTime = parseInt(endTime) - parseInt(self.orderDetailModel.orderInfo.orderGoods[0].create_time);
+                }
                 self.orderDetailModel.lastTime = self.countDown(lastTime);
             }
             else if (self.orderDetailModel.orderInfo.orderStatus == 2)
@@ -141,10 +149,10 @@ var OrderDetailCtrl = {
             	self.orderDetailModel.unPay = false;
             	self.orderDetailModel.showLogistics = false;
             }
-            if(!commonFu.isEmpty(self.orderDetailModel.orderInfo) && !commonFu.isEmpty(self.orderDetailModel.orderInfo.orderGoods[0]))
-            {
-            	self.orderDetailModel.orderInfo.orderGoods[0].goods_pics = JSON.parse(self.orderDetailModel.orderInfo.orderGoods[0].goods_pics);
-            }
+//          if(!commonFu.isEmpty(self.orderDetailModel.orderInfo) && !commonFu.isEmpty(self.orderDetailModel.orderInfo.orderGoods[0]))
+//          {
+//          	self.orderDetailModel.orderInfo.orderGoods[0].goods_pics = JSON.parse(self.orderDetailModel.orderInfo.orderGoods[0].goods_pics);
+//          }
            
 
             self.getTraceList();

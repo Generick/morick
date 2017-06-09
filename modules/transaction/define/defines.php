@@ -17,3 +17,4 @@ define('TRANSACTION_REFUSE_WITHDRAW',8);//管理员拒绝提现，返还提现�
 define('TRANSACTION_QUIZ_TICKETS', 9);//用户参与有奖竞猜扣除门票
 define('TRANSACTION_QUIZ_TICKETS_RETURN', 10);//有奖竞猜人数小于3或者流拍，返还门票
 define('TRANSACTION_AWARD', 11);//有奖竞猜获奖奖金
+define('TRANSACTION_COMMODITY', 12);//特卖会购买商品成功
