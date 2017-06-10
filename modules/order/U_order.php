@@ -105,8 +105,11 @@ class U_order extends User_Controller
         }
 
         $order_no = trim($this->input->post("order_no"));
+        $userId = $this->m_user->getSelfUserId();
 
         $retCode = $this->m_order->modOrderInfo($order_no, array("orderStatus" => ORDER_STATUS_RECEIVE));
+        $this->load->model('m_messagePush');
+        $this->m_messagePush->createUserMsg($userId, MP_MSG_TYPE_RECEIVED, $order_no);
         $this->responseError($retCode);
         return;
     }

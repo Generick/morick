@@ -51,8 +51,10 @@ class M_saleMeeting extends My_Model
     	$this->db->where($whr);
     	if (!empty($fields)) 
     	{
+            $this->db->group_start();
     		$this->db->like('id', $fields);
     		$this->db->or_like('commodity_name', $fields);
+            $this->db->group_end();
     	}
     	if (!empty($whereNotIn)) 
     	{
@@ -134,38 +136,55 @@ class M_saleMeeting extends My_Model
     }
 
     //销售记录
-    function saleRecord($startIndex, $num, $whr, &$data, &$count, &$total, $wh = array())
+    function saleRecord($startIndex, $num, $whr, &$data, &$count, &$total, $fields = '')
     {
         $this->db->start_cache();
         $this->db->from('sale_record');
-        $this->db->select('commodity_id, sum(sale_num) as nums, sum(sale_num * commodity_price) as saleAmount, commodity_name, sale_time');
         $this->db->where($whr);
-        $this->db->group_by('commodity_id');
+        if (!empty($fields)) 
+        {
+            $this->db->like('commodity_name', $fields);
+        }
         $this->db->stop_cache();
-        //$count = $this->db->count_all_results();
+        $count = $this->db->count_all_results();
         if ($num > 0) 
         {
             $this->db->limit($num, $startIndex);
         }
-        
         $data = $this->db->order_by('sale_time desc')->get()->result_array();
         $this->db->flush_cache();
-        //
-        $numAndPrice = $this->db->select('commodity_price, sale_num')->get('sale_record')->result_array();
-        foreach ($numAndPrice as $v) 
-        {
-            $single = $v['commodity_price'] * $v['sale_num'];
-            $total += $single;
-        }
+        $total = $this->db->select_sum('commodity_price')->get('sale_record')->row_array();
+        $total = $total['commodity_price'];
+        // $this->db->start_cache();
+        // $this->db->from('sale_record');
+        // $this->db->select('commodity_id, sum(sale_num) as nums, sum(sale_num * commodity_price) as saleAmount, commodity_name, sale_time');
+        // $this->db->where($whr);
+        // $this->db->group_by('commodity_id');
+        // $this->db->stop_cache();
+        // //$count = $this->db->count_all_results();
+        // if ($num > 0) 
+        // {
+        //     $this->db->limit($num, $startIndex);
+        // }
+        
+        // $data = $this->db->order_by('sale_time desc')->get()->result_array();
+        // $this->db->flush_cache();
+        // //
+        // $numAndPrice = $this->db->select('commodity_price, sale_num')->get('sale_record')->result_array();
+        // foreach ($numAndPrice as $v) 
+        // {
+        //     $single = $v['commodity_price'] * $v['sale_num'];
+        //     $total += $single;
+        // }
 
-        $sql = "select count(*) as count from (select count(*) from mn_sale_record ";
-        if (!empty($whr)) 
-        {
-            $sql .= "where sale_time >= {$wh['startTime']} and sale_time <= {$wh['endTime']} ";
-        }
-        $sql .= "group by commodity_id) W";
-        $res = $this->db->query($sql)->row_array();
-        $count = (int)$res['count'];
+        // $sql = "select count(*) as count from (select count(*) from mn_sale_record ";
+        // if (!empty($whr)) 
+        // {
+        //     $sql .= "where sale_time >= {$wh['startTime']} and sale_time <= {$wh['endTime']} ";
+        // }
+        // $sql .= "group by commodity_id) W";
+        // $res = $this->db->query($sql)->row_array();
+        // $count = (int)$res['count'];
     }
 
     //修改商品
@@ -250,7 +269,9 @@ class M_saleMeeting extends My_Model
     {
         $info = $this->getCommodityInfo($commodity_id);
         if (empty($info)) return ERROR_NO_COMMODITY;
-        if ($this->db->where('commodity_id', $commodity_id)->update('sale_meeting', array('is_delete' => DELETE_YES))) 
+        $res = $this->db->where('commodity_id', $commodity_id)->delete('sale_meeting');
+        //$res = $this->db->where('commodity_id', $commodity_id)->update('sale_meeting', array('is_delete' => DELETE_YES));
+        if ($res) 
         {
             return ERROR_OK;
         }

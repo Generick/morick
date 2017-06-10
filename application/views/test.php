@@ -219,7 +219,7 @@
             "saleMeeting/A_saleMeeting/upCommodity": {'id':1,'is_up':1, '说明':'上架/下架商品 is_up 0下架 1上架'},
             "saleMeeting/A_saleMeeting/getCommodityInfo": {'id':1,'说明':'获取商品信息'},
             "saleMeeting/A_saleMeeting/commodityDelRec": {'startIndex':0,'num':10,'startTime':'','endTime':'','说明':'获取商品删除记录'},
-            "saleMeeting/A_saleMeeting/saleRecord": {'startIndex':0,'num':10,'startTime':'','endTime':'','说明':'获取商品销售记录'},
+            "saleMeeting/A_saleMeeting/saleRecord": {'startIndex':0,'num':10,'startTime':'','endTime':'','fields':'','说明':'获取商品销售记录'},
             "saleMeeting/SaleMeeting/getTMHList": {'startIndex':0, 'num':10, 'fields':'','说明':'获取特卖会列表'},
             "saleMeeting/SaleMeeting/getTMHCommodityInfo": {'commodity_id':1,'说明':'获取特卖会商品信息'},
             //endregion

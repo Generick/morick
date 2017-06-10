@@ -204,18 +204,18 @@ class A_saleMeeting extends Admin_Controller
         $num = $this->input->post('num');
         $startTime = $this->input->post('startTime');
         $endTime = $this->input->post('endTime');
-        $whr = $wh = array();
+        $fields = $this->input->post('fields');
+        $whr = array();
         if (!empty($startTime) && !empty($endTime)) 
         {
             $whr['sale_time >='] = $startTime;
             $whr['sale_time <='] = $endTime;
-            $wh = array('startTime' => $startTime, 'endTime' => $endTime);
         }
 
         $data = array();
         $count = 0;
         $total = 0;
-        $this->m_saleMeeting->saleRecord($startIndex, $num, $whr, $data, $count,$total, $wh);
+        $this->m_saleMeeting->saleRecord($startIndex, $num, $whr, $data, $count, $total, $fields);
         $this->responseSuccess(array('saleList' => $data, 'count' => $count, 'total' => $total));
     }
 

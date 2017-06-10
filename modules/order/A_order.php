@@ -114,8 +114,9 @@ class A_order extends Admin_Controller
         {
             $this->load->model('m_messagePush');
             //user id 
-            $user_id = $this->db->select('userId')->from('order')->where('order_no', $order_no)->get()->row_array();
-            $res = $this->m_messagePush->createUserMsg($user_id['userId'], MP_MSG_TYPE_ORDER, $order_no);
+            $user_id = $this->db->select('userId, orderType')->from('order')->where('order_no', $order_no)->get()->row_array();
+            $msgType = $user_id['orderType'] == 2 ? MP_MSG_TYPE_COMMODITY_ORDER : MP_MSG_TYPE_ORDER;
+            $res = $this->m_messagePush->createUserMsg($user_id['userId'], $msgType, $order_no);
             if (empty($res)) 
             {
                 $this->responseError(MP_MSG_CREATE_FAIL);

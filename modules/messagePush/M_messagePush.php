@@ -198,6 +198,14 @@ class M_messagePush extends My_Model
                 $msg_content = MP_COMMODITY;
                 $msg_title = MP_COMMODITY_TITLE;
                 break;
+            case MP_MSG_TYPE_COMMODITY_ORDER:
+                $msg_content = MP_COMMODITY_STATUS;
+                $msg_title = MP_COMMODITY_STATUS_TITLE;
+                break;
+            case MP_MSG_TYPE_RECEIVED:
+                $msg_content = MP_RECEIVED;
+                $msg_title = MP_RECEIVED_TITLE;
+                break;
     		default:
     			# code...
     			break;
