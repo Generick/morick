@@ -21,50 +21,105 @@
 		<div class="animation">
 			<img src="img/loading.gif" />
 		</div>
-		<div class="container" style="overflow-y: scroll;padding-bottom: 65px;background: #FFFFFF;">
+		<div class="container" style="overflow-y: scroll;padding-bottom:16vw;background: #FFFFFF;margin-bottom:56px">
 			<!-- Swiper -->
 		    <div class="swiper-container">
 		        <div class="swiper-wrapper" id="preImages">
 		            <div class="swiper-slide item-img" ng-repeat="item in specilSellPictureArr" on-Finish-Render-Filters>
-		            	<img ng-src="{{item}}">
+		            	<img ng-src="{{item}}" style="height:auto;margin:0 auto">
+		            		<!--<div class="swiper-imgs" style="background-image: url({{item}})"></div>-->
 		            </div>
 		        </div>
  
                 <!-- Add Pagination -->
                 <div class="swiper-pagination"></div>
             </div>
-            <div class="goods-content" style="padding-bottom:0;width:100%;overflow:hidden">
-            	<p class="special-sell-name" ng-bind="specialName">
-            		第三方第三方三发斯蒂芬大师法第三地方撒第三方大分
-            	</p>
+            <div class="goods-content" style="padding-bottom:0;width:100%;overflow:hidden;padding-top:12px">
+            	<div class="num-name-box">
+            		<p class="special-sell-name" ng-bind="specialName">
+	            		第三方第三方三发斯蒂芬大师法第三地方撒第三方大分
+	            	</p>
+	            	
+            		<p class="special-sell-num">
+            		<!--李小波 改动-->
+            	    <!--<span ng-bind="specialNumber"></span>
+            	    <span>库存</span>-->
+            	    <span ng-bind='specialNumber'></span>
+	            	</p>
+	            	
+            	</div>
+            	
             	<p class="special-sell-content" ng-bind="specialDesc">
             		的广泛的施工方覆盖是的法规地方地方撒对方是个对方是个广东佛山覆盖格式个地方和高度规范规范沪电股份沪电股份沪电股份
             	</p>
             </div>
             <div class="sell-price-number-box">
-            	<span style="padding-left:5px" class="sell-price-box" ng-bind="'￥'+specialPrice">
+            	<span style="padding-left:5px;" class="sell-price-box" ng-bind="'￥'+viewPrice">
             		￥50000
             	</span>
-            	<span class="sell-number-box">
+            	<!--<span class="sell-number-box">
             	     <span>库存</span>
             	     <span ng-bind="specialNumber">222</span>
             	     <span>件</span>
-            	</span>
+            	</span>-->
             </div>
             
             <div class="special-sell-rich"  id="preImagesTwo">
-            	<p class="special-sell-rich-title">
+            	<!--李小波 改动-->
+            	<!--<p class="special-sell-rich-title">
             		商品详情
-            	</p>
+            	</p>-->
             	
-            	<div id="special-sell-detail-content"></div>
+            	<div id="special-sell-detail-content" style="line-height:23px"></div>
             </div>
 		</div>
+		<!--<div class="click-to-buy">
+			购买
+		</div>-->
 		<div class="bottom-bye-button" ng-click="jumpToBye()">
 			立即购买
-			<div class="opc-bye-button"></div>
+			<!--<div class="opc-bye-button"></div>
+			-->
+		</div>
+		
+		
+		<div class="fixed-add-goods-box" ng-click="cancleAddNumber()"></div>
+		<div class="add-goodsNumber-box">
+			<div class="add-goodsNumber-box-inner">
+				<div class="add-goodsNumber-title-cancle" ng-click="cancleAddNumber()">
+					<img src="img/newPic/deleicon.png" /> 
+			    </div>
+				<div class="add-goodsNumber-title">
+					<div class="add-goodsNumber-title-words">请选择您购买的商品数量</div>
+					<!--<div class="add-goodsNumber-title-cancle" ng-click="cancleAddNumber()">X</div>-->
+					
+				</div>
+				<div class="add-goodsNumber-content">
+					<div class="add-goodsNumber-content-inner">
+						<div class="add-goodsNumber-pre" ng-click="reduceNumber(0)">
+							<img src="img/newPic/bodcut.png" /> 
+						</div>
+						<div class="add-goodsNumber-input">
+							<input id="chooseGoodsNum" type="number" ng-model="buyNumber" ng-change="checkNumber()"/>
+						</div>
+						<div class="add-goodsNumber-nex" ng-click="reduceNumber(1)">
+							<img src="img/newPic/bodadd.png" /> 
+						</div>
+					</div>
+					
+				</div>
+				<div class="add-goodsNumber-bottom">
+					<!--<div class="add-goodsNumber-bottom-cancle" ng-click="cancleAddNumber()">取消</div>-->
+					<!--<img src="img/newPic/pay_bg.png"  />-->
+					<div class="add-goodsNumber-bottom-sure" ng-click="yesToCheckOver()">确定</div>
+				</div>
+			</div>
 			
 		</div>
+		
+		
+		<!--底部tab-->
+	    <div ng-include="'module/tab/tab.html'" style="z-index: 666;position: fixed;bottom:0px;left:0px;width:100%;height:54px;overflow: hidden;"></div>
 	</body>
     
 	<!--系统js-->
@@ -112,31 +167,41 @@
 
 		    	if (bool)
 		    	{    
-		    		if(sessionStorage.getItem("comeWithGuess") == 4)//表示从个人中心跳转过来的
+		    		if(localStorage.getItem("comeWithGuess") == 4)//表示从个人中心跳转过来的
 			        {   
 			        
 			        	location.href = pageUrl.PERSON_CENTER;
 			        }
-			        else if(sessionStorage.getItem("comeWithGuess") == 5)//表示从个人信息跳转过来的
+			        else if(localStorage.getItem("comeWithGuess") == 5)//表示从个人信息跳转过来的
 			        {   
 			        	
 			        	location.href = pageUrl.MY_MESSAGE;
 			        }
 		    		else
 		    		{       
-		    			    
+		    			 
 		    			    sessionStorage.setItem("needPageId",1)
-		    			    if(sessionStorage.getItem("messlistOrauction") == 0)//表示从拍卖历史跳转过来的
-			        	    {   
-			        	    	location.href = pageUrl.AUCTION_HISTORY + "?backPage=" + specialSellController.thisDetailPage + "&thisDataId=" + specialSellController.thisDataId;
-
-			        	    }
-			        	    else if(sessionStorage.getItem("messlistOrauction") == 1)//表示从从消息中心跳转过来的
+		    			  
+			        	    if(localStorage.getItem("messlistOrauction") == 1)//表示从从消息中心跳转过来的
 			        	    {
-			        	    	 
+			        	    	
 			        	    	location.href = pageUrl.MY_MESSAGE;
 			        	    }
-			    			
+			    			else{
+			    				
+			    				
+			    				var obj = new Base64();
+						   	
+								var id_base64 = obj.encode(specialSellController.thisDataId);
+										    	
+								var thisPage_base64 = obj.encode(specialSellController.thisDetailPage);
+										
+								var str =  pageUrl.AUCTION_HISTORY  +"?backPage=" +thisPage_base64 + "&thisDataId=" + id_base64;		    	
+									
+								location.href = encodeURI(str);
+//			    				
+//			    				location.href = pageUrl.AUCTION_HISTORY + "?backPage=" + specialSellController.thisDetailPage + "&thisDataId=" + specialSellController.thisDataId;
+			    			}
 			    		   
 		    		}
 		    	}

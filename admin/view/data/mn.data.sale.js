@@ -81,7 +81,7 @@ var SaleDataCtrl = {
                 }
                 else
                 {
-                	$dialog.msg("没有找到你要的内容哦");
+                	$dialog.msg("暂无数据");
                 }
                 for(var j = 0;j < self.dataModel.modelArr;j++)
                 {

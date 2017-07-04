@@ -34,10 +34,12 @@
 					</div>
                     <div class="order-mid fix" ng-click="onClickToOrderDetail(item.order_no,item.userId)">
                         <div class="f bidding-img">
-                            <img ng-src="{{item.orderGoods[0].goods_cover}}">
+                            <img ng-show="item.orderType != 2"  ng-if="item.orderType != 2"  ng-src="{{item.orderGoods[0].goods_cover}}">
+                            <img ng-show="item.orderType == 2"  ng-if="item.orderType == 2" ng-src="{{item.orderGoods[0].commodity_cover}}">
                         </div>
                         <div class="bidding-txt f">
-                            <h4 style="color: #555; font-weight: 500;">{{item.orderGoods[0].goods_name}}</h4>
+                            <h4  ng-show="item.orderType != 2"  ng-if="item.orderType != 2"  style="color: #555; font-weight: 500;">{{item.orderGoods[0].goods_name}}</h4>
+                            <h4  ng-show="item.orderType == 2"  ng-if="item.orderType == 2"  style="color: #555; font-weight: 500;">{{item.orderGoods[0].commodity_name}}</h4>
                             <div class="price-init" style="color: #FF4506;line-height:50px">￥{{item.goodsPrice}}</div>
                             <!--<div class="price-tag"><span style="margin-left: 3px;" class="order-item-num">x </span><span class="order-item-num" ng-bind="item.orderGoods[0].goodsNum"></span>
                             	<span ng-show="!item.orderIsPay && item.deliveryType == 0" style="padding-right:10px;float:right;color:#FF4506">在线订单</span>
@@ -52,7 +54,8 @@
 						<ul class="clear">
 							<li class="pay-li">实付<span>¥{{item.payPrice}}</span></li>
 							<li style="font-size: 12px;margin: 0 10px;color: #4a4a4a;">小计(不含运费) : </li>
-							<li style="font-size: 12px;color: #4a4a4a;">共<span ng-bind="item.orderGoods[0].goodsNum"></span>件商品</li>
+							<li  ng-show="item.orderType != 2"  ng-if="item.orderType != 2"  style="font-size: 12px;color: #4a4a4a;">共<span ng-bind="item.orderGoods[0].goodsNum"></span>件商品</li>
+							<li  ng-show="item.orderType == 2"  ng-if="item.orderType == 2"  style="font-size: 12px;color: #4a4a4a;">共<span>1</span>件商品</li>
 						</ul>
 						<div ng-show="item.deliveryType == 1 && item.orderStatus == 1" style="color:#FF4506;line-height: 20px;font-size: 12px;margin-bottom:0px">您选择了当面交易方式，请在交易时，支付订单金额。</div>
 					</div>
@@ -91,7 +94,7 @@
 			var bool=false;  
             setTimeout(function(){  
                 bool=true;  
-            },1500);
+            },1000);
 		    window.addEventListener("popstate", function(e) {
 		    	if(bool)
 		    	{

@@ -13,6 +13,7 @@ var specialSellingController = {
 	
 	fields : "",
 	
+	CommodityYearYield : 0,
 	
 	fixedSelectAll : false,
 	
@@ -23,6 +24,8 @@ var specialSellingController = {
 	fixedCommodityList : [],
 	
 	TMHList : [],
+	
+	CommodityBid_price : null,
 	
 	CommodityName : null,
 	
@@ -183,7 +186,7 @@ var specialSellingController = {
 				
 				self.fixedFields = '';
 				self.scope.fixedFields = self.fixedFields;
-				self.getFixedData();
+//				self.getFixedData();
 				self.getData();
 				self.fixedSelectAll = false;
 				self.scope.fixedSelectAll = self.fixedSelectAll;
@@ -353,12 +356,17 @@ var specialSellingController = {
 				
 				self.CommodityPrice =  parseInt(data.info.commodity_price);
 				
+				self.CommodityYearYield = parseInt(data.info.annualized_return);
+				
 				self.CommodityNumber =  parseInt(data.info.stock_num) ;
 				
 				self.CommodityDetail =   data.info.commodity_detail;
+	            self.CommodityBid_price = parseInt(data.info.bid_price);
+		        self.scope.CommodityBid_price =  self.CommodityBid_price;
 			 	self.scope.CommodityName = self.CommodityName;
 				self.scope.CommodityDesc = self.CommodityDesc;
 				self.scope.CommodityImgs = self.CommodityImgs;
+				self.scope.CommodityYearYield = self.CommodityYearYield;
 				self.scope.CommodityPrice = self.CommodityPrice;
 				self.scope.CommodityNumber = self.CommodityNumber;
 				self.scope.CommodityDetail = self.CommodityDetail;
@@ -460,10 +468,15 @@ var specialSellingController = {
 		
 		self.CommodityPrice = null;
 		
+		self.CommodityYearYield = 0;
+		
 		self.CommodityNumber = null;
 		
 		self.CommodityDetail =  '';
 		
+		self.CommodityBid_price = 0;
+		self.scope.CommodityBid_price = self.CommodityBid_price;
+		self.scope.CommodityYearYield = self.CommodityYearYield;
 		self.scope.selectedArr = self.selectedArr;
 		self.scope.CommodityName = self.CommodityName;
 		self.scope.CommodityDesc = self.CommodityDesc;

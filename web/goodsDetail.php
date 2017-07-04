@@ -96,11 +96,11 @@
             
 			
 			<!--已委托出价条件展示-->
-			<div class="self-paid-container" ng-show="hasSelfPaid">
+			<!--<div class="self-paid-container" ng-show="hasSelfPaid">
 				<div ng-repeat="item in bids track by $index">
 					<span>{{$index+1}}、当金额达到</span><span ng-bind="item.triggerPrice"></span>时，自动出价到<span ng-bind="item.offerPrice"></span>
 				</div>
-			</div>
+			</div>-->
             <!--<div class="goods-operate-box">
                 <button class="goods-operate-block2" ng-show="goodsDetailModel.showReference">
                     <span class="reference-price">参考价</span>￥<span ng-bind="goodsDetailModel.allInfo.referencePrice"></span>
@@ -332,14 +332,26 @@
 
             setTimeout(function(){
                 bool=true;
-            },1200);
+            },1000);
 		    window.addEventListener("popstate", function(e) {
 		    	if (bool)
 		    	{  
 		    		if(commonFu.isEmpty(localStorageKey.FROM_LOCATION) || (localStorage.getItem(localStorageKey.FROM_LOCATION) == 0))//0:表示从主页进，1:表示从我的竞拍进入，2:表示从浏览记录进入
 		    		{   
 		    			
-		    			location.href = pageUrl.SELECTED_GOODS +"?backPage=" + GoodsInfoCtrl.thisDetailPage + "&thisDataId=" + GoodsInfoCtrl.thisDataId;
+						var obj = new Base64();
+						   	
+						var id_base64 = obj.encode(GoodsInfoCtrl.thisDataId);
+							    	
+						var thisPage_base64 = obj.encode(GoodsInfoCtrl.thisDetailPage);
+							
+					    var str = pageUrl.SELECTED_GOODS +"?backPage=" + thisPage_base64 + "&thisDataId=" + id_base64;		    	
+						
+						location.href = encodeURI(str);
+//		    			
+//		    			
+//		    			
+//		    			location.href = pageUrl.SELECTED_GOODS +"?backPage=" + GoodsInfoCtrl.thisDetailPage + "&thisDataId=" + GoodsInfoCtrl.thisDataId;
                          sessionStorage.setItem("needPage",1)
 		    		
 		    		}

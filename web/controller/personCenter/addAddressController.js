@@ -200,11 +200,42 @@ var addAddressController =
                     },500)
                 }
                 else
-                {
-                    setTimeout(function()
+                {   
+                	if(localStorage.getItem(localStorageKey.TO_ADDRESS_TYPE) == 3) //判断从哪里进入地址列表)
                     {
-                        location.href = pageUrl.MY_ADDRESS_LIST + "?userId=" + localStorage.getItem(localStorageKey.userId);
-                    },500)
+                    	
+                    		setTimeout(function(){
+                    			var commodifyId = localStorage.getItem("commodifyId");
+			                    var specialPrice =  localStorage.getItem("specialPrice");
+			                    var thisAcPage =  localStorage.getItem("thisAcPage");
+			                    
+			                    var obj = new Base64();
+			                    var ids = obj.encode(commodifyId);
+			                    var prices = obj.encode(specialPrice);
+			                    var pages = obj.encode(thisAcPage);
+			                    var str =  pageUrl.PRE_PAY_PAGE + "?commodifyId=" + ids + "&specialPrice=" + prices + "&thisAcPage=" + pages;
+                    			location.href = encodeURI(str);
+                    			
+//                  			location.href =  pageUrl.PRE_PAY_PAGE + "?commodifyId=" + commodifyId + "&specialPrice=" + specialPrice + "&thisAcPage=" + thisAcPage;
+                    		},500)
+                    }
+                    else
+                    {  
+                    	setTimeout(function()
+	                    {   
+	                    	
+	                    	var obj = new Base64();
+	                    	var usID = obj.encode(localStorage.getItem(localStorageKey.userId));
+	                    	var str = pageUrl.MY_ADDRESS_LIST + "?userId=" + usID;
+	                    	
+	                    	location.href = encodeURI(str)
+//	                    	pageUrl.MY_ADDRESS_LIST + "?userId=" + localStorage.getItem(localStorageKey.userId);
+	                    	
+	                        
+	                    },500)
+                    		
+                    }
+                    
                 }
     		})
     	}

@@ -4,6 +4,154 @@
  *公共方法
  *
  */
+
+
+
+	
+(function($) {
+  $.fn.numberAnimate = function(setting) {
+    var defaults = {
+      speed : 1000,//动画速度
+      num : "", //初始化值
+      iniAnimate : true, //是否要初始化动画效果
+      symbol : '',//默认的分割符号，千，万，千万
+      dot : 0 //保留几位小数点
+    }
+    //如果setting为空，就取default的值
+    var setting = $.extend(defaults, setting);
+    console.log(setting)
+    //如果对象有多个，提示出错
+    if($(this).length > 1){
+      alert("just only one obj!");
+      return;
+    }
+  
+    //如果未设置初始化值。提示出错
+    if(setting.num == ""){
+      alert("must set a num!");
+      return;
+    }
+    var nHtml = '<div class="mt-number-animate-dom" data-num="{{num}}">\
+            <span class="mt-number-animate-span">0</span>\
+            <span class="mt-number-animate-span">1</span>\
+            <span class="mt-number-animate-span">2</span>\
+            <span class="mt-number-animate-span">3</span>\
+            <span class="mt-number-animate-span">4</span>\
+            <span class="mt-number-animate-span">5</span>\
+            <span class="mt-number-animate-span">6</span>\
+            <span class="mt-number-animate-span">7</span>\
+            <span class="mt-number-animate-span">8</span>\
+            <span class="mt-number-animate-span">9</span>\
+            <span class="mt-number-animate-span">.</span>\
+          </div>';
+   
+    //数字处理
+    var numToArr = function(num){
+      num = parseFloat(num).toFixed(setting.dot);
+      if(typeof(num) == 'number'){
+        var arrStr = num.toString().split("");  
+      }else{
+        var arrStr = num.split("");
+      }
+//      console.log(arrStr);
+      return arrStr;
+    }
+ 
+    //设置DOM symbol:分割符号
+    var setNumDom = function(arrStr){
+      var shtml = '<div class="mt-number-animate">';
+      for(var i=0,len=arrStr.length; i<len; i++){
+        if(i != 0 && (len-i)%3 == 0 && setting.symbol != "" && arrStr[i]!="."){
+          shtml += '<div class="mt-number-animate-dot">'+setting.symbol+'</div>'+nHtml.replace("{{num}}",arrStr[i]);
+        }else{
+          shtml += nHtml.replace("{{num}}",arrStr[i]);
+        }
+//      alert(arrStr[i])
+      }
+      shtml += '</div>';
+      return shtml;
+    }
+ 
+    //执行动画
+    var runAnimate = function($parent){
+      $parent.find(".mt-number-animate-dom").each(function() {
+        var num = $(this).attr("data-num");
+        num = (num=="."?10:num);
+        var spanHei = $(this).height()/11; //11为元素个数
+        var thisTop = -num*spanHei+"px";
+//      if(thisTop == -225+ "px")
+//      {
+//      	$(this).css("top","0px")
+//      	alert($(this).attr("data-num"))
+//
+//      }
+        if(thisTop != $(this).css("top")){
+          if(setting.iniAnimate){
+            //HTML5不支持
+            if(!window.applicationCache){
+              $(this).animate({
+                top : thisTop
+              }, setting.speed);
+            }else{
+              $(this).css({
+                'transform':'translateY('+thisTop+')',
+                '-ms-transform':'translateY('+thisTop+')',   /* IE 9 */
+                '-moz-transform':'translateY('+thisTop+')',  /* Firefox */
+                '-webkit-transform':'translateY('+thisTop+')', /* Safari 和 Chrome */
+                '-o-transform':'translateY('+thisTop+')',
+                '-ms-transition':setting.speed/1000+'s',
+                '-moz-transition':setting.speed/1000+'s',
+                '-webkit-transition':setting.speed/1000+'s',
+                '-o-transition':setting.speed/1000+'s',
+                'transition':setting.speed/1000+'s'
+              }); 
+            }
+          }else{
+            setting.iniAnimate = true;
+            $(this).css({
+              top : thisTop
+            });
+          }
+        }
+      });
+    }
+ 
+    //初始化
+    var init = function($parent){
+      //初始化
+     
+      $parent.html(setNumDom(numToArr(setting.num)));
+      runAnimate($parent);
+    };
+ 
+    //重置参数
+    this.resetData = function(num){
+      var newArr = numToArr(num);
+      var $dom = $(this).find(".mt-number-animate-dom");
+      if($dom.length < newArr.length){
+        $(this).html(setNumDom(numToArr(num)));
+      }else{
+     
+        $dom.each(function(index, el) {
+          $(this).attr("data-num",newArr[index]);
+        });
+      }
+      runAnimate($(this));
+    };
+    //init
+    init($(this));
+    return this;
+  }
+})($);
+
+
+
+
+
+
+
+
+
   //跳转到指定位置
 	$.fn.scrollTo =function(options){
         var defaults = {
@@ -322,6 +470,69 @@ var commonFu = {
 	    return currentDate;
 	},
 	
+	
+	//获取当前时间
+	getNowFormatDate_2 : function() 
+	{
+	    var date = new Date();
+	    var seperator1 = "-";
+	    var seperator2 = ":";
+	    var month = date.getMonth() + 1;
+	    var strDate = date.getDate();
+	    if (month >= 1 && month <= 9) {
+	        month = "0" + month;
+	    }
+	    if (strDate >= 0 && strDate <= 9) {
+	        strDate = "0" + strDate;
+	    }
+	    var hou = date.getHours();
+	    var sec = date.getSeconds();
+	    var min = date.getMinutes();
+	    if(parseInt(min) < 10){
+	    	
+	    	min = '0'+min;
+	    }
+	    if(parseInt(sec) < 10){
+	    	sec = '0'+sec;
+	    }
+	    if(parseInt(hou)< 10){
+	    	
+	    	hou = '0'+hou;
+	    }
+	    var currentDate = hou + seperator2 + min
+	            + seperator2 + sec;
+	    
+	    return currentDate;
+	},
+	
+	
+    //获取当前时间的年
+	getNowFormatYear : function() 
+	{
+	    var date = new Date();
+	
+	    var currentDate = date.getFullYear();
+	    return currentDate;
+	},
+    
+    isSmoothYear : function(){
+    	
+    	var date = new Date();
+	
+	    var currentDate = date.getFullYear();
+    	
+    	var year = parseInt(currentDate);
+    	
+    	if((year % 4 == 0) && (year % 100 != 0 || year % 400 == 0))
+    	{
+    		return 366;
+    	}
+    	else
+    	{
+    		return 365;
+    	}
+    },
+	
 	//手机号码处理
 	telephoneDispose : function(tel)
 	{
@@ -559,4 +770,106 @@ function fadeIn(elem,speed)
 
 
   
-  
+   function Base64() {
+ 
+    // private property
+    _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+ 
+    // public method for encoding
+    this.encode = function (input) {
+        var output = "";
+        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+        var i = 0;
+        input = _utf8_encode(input);
+        while (i < input.length) {
+            chr1 = input.charCodeAt(i++);
+            chr2 = input.charCodeAt(i++);
+            chr3 = input.charCodeAt(i++);
+            enc1 = chr1 >> 2;
+            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+            enc4 = chr3 & 63;
+            if (isNaN(chr2)) {
+                enc3 = enc4 = 64;
+            } else if (isNaN(chr3)) {
+                enc4 = 64;
+            }
+            output = output +
+            _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +
+            _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
+        }
+        return output;
+    }
+ 
+    // public method for decoding
+    this.decode = function (input) {
+        var output = "";
+        var chr1, chr2, chr3;
+        var enc1, enc2, enc3, enc4;
+        var i = 0;
+        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+        while (i < input.length) {
+            enc1 = _keyStr.indexOf(input.charAt(i++));
+            enc2 = _keyStr.indexOf(input.charAt(i++));
+            enc3 = _keyStr.indexOf(input.charAt(i++));
+            enc4 = _keyStr.indexOf(input.charAt(i++));
+            chr1 = (enc1 << 2) | (enc2 >> 4);
+            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+            chr3 = ((enc3 & 3) << 6) | enc4;
+            output = output + String.fromCharCode(chr1);
+            if (enc3 != 64) {
+                output = output + String.fromCharCode(chr2);
+            }
+            if (enc4 != 64) {
+                output = output + String.fromCharCode(chr3);
+            }
+        }
+        output = _utf8_decode(output);
+        return output;
+    }
+ 
+    // private method for UTF-8 encoding
+    _utf8_encode = function (string) {
+        string = string.replace(/\r\n/g,"\n");
+        var utftext = "";
+        for (var n = 0; n < string.length; n++) {
+            var c = string.charCodeAt(n);
+            if (c < 128) {
+                utftext += String.fromCharCode(c);
+            } else if((c > 127) && (c < 2048)) {
+                utftext += String.fromCharCode((c >> 6) | 192);
+                utftext += String.fromCharCode((c & 63) | 128);
+            } else {
+                utftext += String.fromCharCode((c >> 12) | 224);
+                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                utftext += String.fromCharCode((c & 63) | 128);
+            }
+ 
+        }
+        return utftext;
+    }
+ 
+    // private method for UTF-8 decoding
+    _utf8_decode = function (utftext) {
+        var string = "";
+        var i = 0;
+        var c = c1 = c2 = 0;
+        while ( i < utftext.length ) {
+            c = utftext.charCodeAt(i);
+            if (c < 128) {
+                string += String.fromCharCode(c);
+                i++;
+            } else if((c > 191) && (c < 224)) {
+                c2 = utftext.charCodeAt(i+1);
+                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                i += 2;
+            } else {
+                c2 = utftext.charCodeAt(i+1);
+                c3 = utftext.charCodeAt(i+2);
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                i += 3;
+            }
+        }
+        return string;
+    }
+ }

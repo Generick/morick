@@ -18,6 +18,10 @@ class A_bids extends Admin_Controller{
     //获取出价列表 [support search]
 
     function getBidList(){
+        if (!$this->checkParam(array('startIndex', 'num'))) {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
         if (isset($_POST['startIndex'])) {
             $startIndex = intval($_POST['startIndex']);
         }else{
@@ -30,9 +34,11 @@ class A_bids extends Admin_Controller{
             $num = 10;
         }
 
+        $auctionItemId = $this->input->post('auctionItemId');
+
         $count = 0;
         $bidList = array();
-        $retCode = $this->m_bids->getBidList($startIndex, $num, $count, $bidList);
+        $retCode = $this->m_bids->getBidList($startIndex, $num, $auctionItemId, $count, $bidList);
         //var_dump($bidList);die;
         foreach ($bidList as &$v) {
             $auctionInfo = $this->m_auction->getAuctionSmall($v['auctionItemId']);

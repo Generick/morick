@@ -179,6 +179,10 @@ var PushController = {
 			msg_content: self.pushModel.pushMsg,
 			phoneNum: self.pushModel.userPhoneNum
 		}
+		if(params.pushType != 3)
+		{
+			params.phoneNum = null;
+		}
 //		alert(JSON.stringify(params))
 		$data.httpRequest('post', api.API_PUSH_MESSAGE, params, function(data){
 			self.scope.pushModel.pushTitle = null;

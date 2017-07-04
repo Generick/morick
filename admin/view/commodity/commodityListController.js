@@ -10,6 +10,10 @@ var commodityListController = {
 	
 	modifyOrAdd : "",
 	
+	CommodityBid_price : 0,
+	
+	singleNumber : true,
+	
 	isAdd : 1,
 	
 	swiperModel : {
@@ -47,7 +51,9 @@ var commodityListController = {
 	
 	CommodityPrice : null,
 	
-	CommodityNumber : null,
+	CommodityYearYield : 20,
+	
+	CommodityNumber : 1,
 	
 	CommodityDetail : '',
 	
@@ -58,6 +64,8 @@ var commodityListController = {
 	    this.scope.CommodityImgs = this.CommodityImgs;
 		
 		this.scope.fields = this.fields;
+		
+		this.scope.singleNumber = this.singleNumber;
 		
 		this.scope.isGrounding = this.isGrounding;
 		
@@ -162,20 +170,65 @@ var commodityListController = {
 		
 		
 		self.scope.addCommodity = function(){
-			
+			self.singleNumber = true;
+		    self.scope.singleNumber = self.singleNumber;
+		    $(".singleNumber").eq(1).removeClass("complexOrsingle");
+		    $("#singleNub").attr("disabled",true);
+		    $("#singleNub").css("background","#E9E9E9");
+			$(".singleNumber").eq(0).addClass("complexOrsingle");
 			
 			self.showView(1);
 			self.isAdd = 1;
 			self.resetInnerData();
 			self.modifyOrAdd = "新增商品";
 			self.scope.modifyOrAdd = self.modifyOrAdd;
-			
+			if(self.isGrounding)
+			{
+				$("#dis_price").attr("disabled",false);
+			    $("#dis_return").attr("disabled",false);
+
+			    $("#dis_price").css({"background":"#ffffff","border":"1px solid #e3e3e3"});
+			    $("#dis_return").css({"background":"#ffffff","border":"1px solid #e3e3e3"});
+			}
+			else{
+				$("#dis_price").attr("disabled",false);
+			    $("#dis_return").attr("disabled",false);
+                
+			    $("#dis_price").css({"background":"#ffffff","border":"1px solid #e3e3e3"});
+			    $("#dis_return").css({"background":"#ffffff","border":"1px solid #e3e3e3"});
+			}
 			
 		};
 		
-		
+		self.scope.chooseSOrC = function(type){
+			$(".singleNumber").eq(type).addClass("complexOrsingle");
+		    if(type == 0)
+		    {   
+		    	self.CommodityNumber = 1;
+		    	self.scope.CommodityNumber = self.CommodityNumber;
+		    	self.singleNumber = true;
+		    	self.scope.singleNumber = self.singleNumber;
+		    	$(".singleNumber").eq(1).removeClass("complexOrsingle");
+		    	$("#singleNub").attr("disabled",true);
+		    	$("#singleNub").css("background","#E9E9E9");
+		    }
+		    else{
+		    	self.singleNumber = false;
+		    	self.scope.singleNumber = self.singleNumber;
+		    	$(".singleNumber").eq(0).removeClass("complexOrsingle");
+		    	$("#singleNub").attr("disabled",false);
+		    	$("#singleNub").css("background","#ffffff");
+		    }
+			
+		};
 			
 		self.scope.modCommodity = function(item){
+			self.singleNumber = true;
+		    self.scope.singleNumber = self.singleNumber;
+		    $(".singleNumber").eq(1).removeClass("complexOrsingle");
+		    $("#singleNub").attr("disabled",true);
+		    $("#singleNub").css("background","#E9E9E9");
+			$(".singleNumber").eq(0).addClass("complexOrsingle");
 			
 			self.commodifyId = item.id;
 			self.showView(1);
@@ -184,7 +237,20 @@ var commodityListController = {
 			self.modifyOrAdd = "修改商品";
 			self.scope.modifyOrAdd = self.modifyOrAdd;
 			self.getSingle(item.id);
-			
+			if(self.isGrounding)
+			{ 
+				$("#dis_price").attr("disabled","disabled");
+			    $("#dis_return").attr("disabled","disabled");
+			    $("#dis_price").css({"background":"#e9e9e9","border":"1px solid #cccccc"});
+			    $("#dis_return").css({"background":"#e9e9e9","border":"1px solid #cccccc"});
+			}
+			else{
+				
+                $("#dis_price").attr("disabled",false);
+			    $("#dis_return").attr("disabled",false);
+			    $("#dis_price").css({"background":"#ffffff","border":"1px solid #e3e3e3"});
+			    $("#dis_return").css({"background":"#ffffff","border":"1px solid #e3e3e3"});
+			}
 		};
 		
 		
@@ -341,7 +407,7 @@ var commodityListController = {
 			}
 			if(_utility.isEmpty(self.scope.CommodityDesc))
 			{
-				 $dialog.msg("请输入商描述", 1.6);
+				 $dialog.msg("请输入商品描述", 1.6);
 				  return;
 			}
 			if(_utility.isEmpty(self.scope.CommodityImgs))
@@ -349,19 +415,31 @@ var commodityListController = {
 				 $dialog.msg("请上传商品图片", 1.6);
 				  return;
 			}
+			if(_utility.isEmpty(self.scope.CommodityBid_price))
+			{
+				 $dialog.msg("请输入商品进价", 1.6);
+				  return;
+			}
+			
 			if(_utility.isEmpty(self.scope.CommodityPrice))
 			{
 				 $dialog.msg("请输入商品价格", 1.6);
 				  return;
 			}
-			if(_utility.isEmpty(self.scope.CommodityNumber))
+			if(!_utility.isEmpty(self.scope.CommodityYearYield) && (self.scope.CommodityYearYield <= 0))
+			{
+				 $dialog.msg("请输入合法的年化收益率", 1.6);
+				  return;
+			}
+			
+			if(_utility.isEmpty(self.scope.CommodityNumber) || self.scope.CommodityNumber <= 0)
 			{
 				 $dialog.msg("请输入商品库存", 1.6);
 				  return;
 			}
 			if(_utility.isEmpty(self.scope.CommodityDetail))
 			{
-				 $dialog.msg("请输入商详情", 1.6);
+				 $dialog.msg("请输入商品详情", 1.6);
 				  return;
 			}
 			
@@ -376,8 +454,26 @@ var commodityListController = {
 				params.info.commodity_price = self.scope.CommodityPrice;
 				params.info.commodity_pic = self.scope.CommodityImgs;
 				params.info.stock_num = self.scope.CommodityNumber;
+				params.info.bid_price = self.scope.CommodityBid_price;
+				if(self.singleNumber)
+				{
+					params.info.commodity_attr = 0;
+				}
+				else
+				{
+					params.info.commodity_attr = 1;
+				}
+				if(_utility.isEmpty(self.scope.CommodityYearYield))
+				{
+					params.info.annualized_return = 20;
+				}
+				else
+				{
+					params.info.annualized_return = parseInt(self.scope.CommodityYearYield);
+				}
 				
 //				alert(JSON.stringify(self.CommodityImgs))
+	
 				var cover = null;
 		        for(var i = 0; i < self.CommodityImgs.length; i++)
 		        {
@@ -422,7 +518,7 @@ var commodityListController = {
 				params.modInfo.commodity_price = self.scope.CommodityPrice;
 				params.modInfo.commodity_pic = self.scope.CommodityImgs;
 				params.modInfo.stock_num = self.scope.CommodityNumber;
-				
+				params.modInfo.bid_price = self.scope.CommodityBid_price;
 				var cover = null;
 		        for(var i = 0; i < self.scope.CommodityImgs.length; i++)
 		        {
@@ -445,7 +541,14 @@ var commodityListController = {
 		        
 		       
 		        params.modInfo = JSON.stringify(params.modInfo);
-				
+				if(self.singleNumber)
+				{
+					params.modInfo.commodity_attr = 0;
+				}
+				else
+				{
+					params.modInfo.commodity_attr = 1;
+				}
 //				alert("EEE"+JSON.stringify(params))
 //				 return;
 				$data.httpRequest("post", api.API_MOD_SALE_COMMIDIFY, params,function(data){
@@ -475,7 +578,12 @@ var commodityListController = {
 			self.swiperModel.swiperNumber = data.info.stock_num;
 			self.swiperModel.swiperMoney = data.info.commodity_price;
 			self.swiperModel.swiperDetail = data.info.commodity_detail;
-			
+			var screenWidth = window.screen.width;
+    		if(self.swiperModel.swiperName.length > 13)
+    		{   
+    			
+    			self.swiperModel.swiperName = self.swiperModel.swiperName.substring(0,12) + "...";
+    		}
 			self.scope.swiperModel = self.swiperModel;
 			
 			self.scope.$apply()
@@ -501,16 +609,38 @@ var commodityListController = {
 		
 			self.CommodityImgs = JSON.parse(data.info.commodity_pic);
 			self.CommodityName = data.info.commodity_name;
+	        self.CommodityBid_price = parseInt(data.info.bid_price);
 			self.CommodityPrice = data.info.commodity_price;
+			self.CommodityYearYield = data.info.annualized_return;
 			self.CommodityDesc = data.info.commodity_desc;
 			self.CommodityDetail = data.info.commodity_detail;
 			self.CommodityNumber = data.info.stock_num;
+			self.scope.CommodityBid_price = self.CommodityBid_price;
 			self.scope.CommodityName = self.CommodityName;
 			self.scope.CommodityDesc = self.CommodityDesc;
 			self.scope.CommodityDetail = self.CommodityDetail;
 			self.scope.CommodityPrice = parseInt(self.CommodityPrice);
 			self.scope.CommodityImgs = self.CommodityImgs;
+			self.scope.CommodityYearYield = parseInt(self.CommodityYearYield);
 			self.scope.CommodityNumber = parseInt(self.CommodityNumber);
+			if(data.info.commodity_attr == 0)
+			{
+				
+				self.singleNumber = true;
+			    $(".singleNumber").eq(1).removeClass("complexOrsingle");
+			    $("#singleNub").attr("disabled",true);
+			    $("#singleNub").css("background","#E9E9E9");
+				$(".singleNumber").eq(0).addClass("complexOrsingle");
+			
+			}
+			else
+			{
+				self.singleNumber = false;
+			    $(".singleNumber").eq(0).removeClass("complexOrsingle");
+			    $("#singleNub").attr("disabled",false);
+			    $("#singleNub").css("background","#ffffff");
+				$(".singleNumber").eq(1).addClass("complexOrsingle");
+			}
 			self.scope.$apply();
 			 if(!_utility.isEmpty(data.info.commodity_cover)  && !_utility.isEmpty(self.CommodityImgs))
             {   
@@ -585,15 +715,19 @@ var commodityListController = {
 		
 		self.CommodityPrice = null;
 		
-		self.CommodityNumber = null;
+		self.CommodityYearYield = 20;
+		
+		self.CommodityNumber = 1;
 		
 		self.CommodityDetail =  '';
-		
+		self.CommodityBid_price = 0;
+		self.scope.CommodityBid_price = self.CommodityBid_price;
 		self.scope.selectedArr = self.selectedArr;
 		self.scope.CommodityName = self.CommodityName;
 		self.scope.CommodityDesc = self.CommodityDesc;
 		self.scope.CommodityImgs = self.CommodityImgs;
 		self.scope.CommodityPrice = self.CommodityPrice;
+		self.scope.CommodityYearYield = self.CommodityYearYield;
 		self.scope.CommodityNumber = self.CommodityNumber;
 		self.scope.CommodityDetail = self.CommodityDetail;
 	    self.scope.fields = self.fields;

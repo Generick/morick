@@ -502,11 +502,16 @@
 }
 
 .input-box div{
+	overflow: hidden;
 	padding:5px;
 	width:100%;
 	height:120px;
     border:1px solid #DDDDDD;
     border-radius: 3px;
+    word-wrap:break-word;
+    white-space: normal;
+    word-break: break-all;
+
 }
 .cancle-ok{
 	margin: 0 auto;
@@ -786,10 +791,11 @@
 	-webkit-user-select: none; /* for Chrome */
 	-moz-user-select: none; /* for Firefox */
 }
-.forth-width:active{
+.forth-width-active{
 	background: #B07B67;
 	color:#FFFFFF;
 }
+
 .message-style{
 	height:33px;
 	line-height:33px;
@@ -1181,6 +1187,113 @@
 	overflow-y: scroll;
 }
 
+
+
+
+
+
+
+
+
+.sell-price-number-box{
+	margin:10px 0 15px 0;
+	font-size:16px;
+	width:100%;
+	overflow: hidden;
+
+}
+
+.sell-price-box{
+	display: block;
+	color:#D56161;
+	font-size: 14px;
+	/*float:left;*/
+	margin:0 auto;
+	text-align: center;
+	width:48%;
+	background: url(../images/public/endtime-bg.png) no-repeat center top;
+	background-size:100% 100%;
+	height:28px;
+	line-height:28px;
+	
+}
+
+.sell-number-box{
+	color:#666666;
+	float:right;
+	margin-right:1.5%;
+}
+
+.num-name-box{
+	width:100%;
+    height:28px;
+	position: relative;
+	overflow: hidden;
+	
+}
+
+.special-sell-name{
+	position: absolute;
+	left:0;
+	top:0;
+	z-index: 1;
+	width:100%;
+	/*float:center;*/
+	line-height:25px;
+	color:#333333;
+	
+	max-height:50px;
+	font-size:17px;
+	overflow: hidden;
+	white-space:nowrap;
+    text-overflow:ellipsis;
+    text-align:center
+}
+
+.special-sell-num{
+	position: absolute;
+	right:0;
+	top:0;
+	z-index: 2;
+	/*width:24%;*/
+	background: #FFFFFF;
+	/*max-width:82px;*/
+	/*margin-right:1%;*/
+	float:right;
+	padding:0 2px;
+	line-height:25px;
+	color:#CFAC88;
+	text-align:center;
+	max-height:25px;
+	font-size:14px;
+	
+	overflow: hidden;
+	white-space:nowrap;
+    text-overflow:ellipsis;
+	
+	
+	
+}
+.special-sell-content{
+	float:left;
+	width:100%;
+	line-height:21px;
+	text-align:center;
+	max-height:63px;
+	/*text-align: justify;*/
+	color:#777777;
+	overflow：hidden;
+	margin-top:10px;
+}
+
+
+
+
+
+
+
+
+
 .swiper-middle-box{
 	overflow: hidden;
 	width:100%;
@@ -1230,6 +1343,7 @@
 .swiper-bottom-box{
 	padding:0 2.5%;
 	width:100%;
+	border-top:10px solid #EEEEEE
 }
 
 .swiper-bottom-box-title{
@@ -1244,6 +1358,7 @@
 .swiper-bottom-box-content{
 	width:100%;
 	padding-bottom: 20px;
+	
 }
 
 .swiper-bottom-box-content{
@@ -1286,7 +1401,7 @@
 	top:200px;
 	left:50%;
 	margin-left:-400px;
-	width:860px;
+	width:900px;
 	height:480px;
 	/*max-height:480px;
 	overflow-y: scroll;*/
@@ -1480,4 +1595,29 @@
 
 .pay-way-box{
 	position: relative;
+}
+
+
+
+.complexOrsingle{
+	float:left;
+	width:24px;
+	height:24px;
+	margin: 5px 10px 5px 5px;
+	border:1px solid #CCCCCC;
+	border-radius: 50%;
+	background: #666666;
+	box-shadow: inset 0 0 5px 3px #FFFFFF;
+	
+}
+
+.singleNumber{
+	
+	float:left;
+	width:24px;
+	height:24px;
+	margin: 5px 10px 5px 5px;
+	border:1px solid #CCCCCC;
+	border-radius: 50%;
+	
 }

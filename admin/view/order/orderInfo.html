@@ -46,9 +46,15 @@
                     <td><span ng-show="orderInfoModel.info.orderType == 2">商品</span><span ng-show="orderInfoModel.info.orderType == 1">拍品</span>总价</td>
                 </tr></thead>
                 <tbody>
-                <tr ng-repeat="item in orderInfoModel.goodsArr">
+                <tr ng-if="orderInfoModel.info.orderType != 2" ng-show="orderInfoModel.info.orderType != 2" ng-repeat="item in orderInfoModel.goodsArr">
                     <td><img ng-if="item.pic" ng-src="{{item.pic}}"></td>
                     <td>{{item.goods_name}}</td>
+                    <td>{{item.goodsNum}}</td>
+                    <td>{{"￥"+orderInfoModel.info.goodsPrice}}</td>
+                </tr>
+                 <tr ng-if="orderInfoModel.info.orderType == 2" ng-show="orderInfoModel.info.orderType == 2" ng-repeat="item in orderInfoModel.goodsArr">
+                    <td><img ng-if="item.commodity_cover" ng-src="{{item.commodity_cover}}"></td>
+                    <td>{{item.commodity_name}}</td>
                     <td>{{item.goodsNum}}</td>
                     <td>{{"￥"+orderInfoModel.info.goodsPrice}}</td>
                 </tr>

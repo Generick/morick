@@ -36,24 +36,37 @@ var jqAjaxRequest =
 					if(err == '800')
 					{
 					    localStorage.setItem(localStorageKey.DEFAULT, location.href); //存储当前页面地址
-                 		location.href = pageUrl.ACCOUNT_RECHARGE;
+					    setTimeout(function(){
+					    	location.href = pageUrl.ACCOUNT_RECHARGE;
+					    },1600)
+                 		
 					}
 
 				}
-				
+				else if(err == '2304')
+				{
+					$dialog.msg(errMsg);
+				}
 				else if(commonFu.equal(err,errCode.CODEERR))
 				{
 					$dialog.msg(errMsg);
 				}
 				else if(commonFu.equal(err, errCode.TOKEN_FAILED) || commonFu.equal(err, errCode.TOKEN_WRONG)) //token过期跳或出错跳登录页
-				{   
-					
+				{    
                     localStorage.setItem(localStorageKey.DEFAULT, location.href); //存储当前页面地址
-                    sessionStorage.setItem("reloginFail",1)
-                    location.href = pageUrl.LOGIN_PAGE;
+                    sessionStorage.setItem("reloginFail",1);
+                    $dialog.msg("会话过期，请先登录");
+                    setTimeout(function(){
+                    	
+                    	location.href = pageUrl.LOGIN_PAGE;
+                    	
+                    	
+                    },1300)
+                    
 				}
 				else if(commonFu.equal(err, errCode.SESSION_FAILED)) //session失效重登陆
-				{   
+				{  
+				
 					jqAjaxRequest.reLogin();
 				}
 				else if(commonFu.equal(err, errCode.VIP_LIMIT)) //非vip进入了vip
@@ -93,7 +106,7 @@ var jqAjaxRequest =
             
 //                $dialog.msg("请求数据失败");
 //                 $dialog.msg("请求数据失败了");
-            //    location.href = pageUrl.LOGIN_PAGE;
+                  location.href = pageUrl.LOGIN_PAGE;
             }
 		});
 	},

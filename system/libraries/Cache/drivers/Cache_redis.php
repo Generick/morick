@@ -102,7 +102,7 @@ class CI_Cache_redis extends CI_Driver
 
 		if ($CI->config->load('redis', TRUE, TRUE))
 		{
-			$config = array_merge(self::$_default_config, $CI->config->item('redis'));
+			$config = array_merge(self::$_default_config, $CI->config->item('redis', 'redis'));
 		}
 		else
 		{

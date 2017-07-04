@@ -10,7 +10,7 @@ var specialPageController =
 {
 	scope : null,
 	
-	isSelected : false,
+	isSelected : true,
 	
 	commId : null,
 	

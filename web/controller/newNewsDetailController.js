@@ -4,8 +4,8 @@
  */
 
 app.controller('ctrl',function($scope){
-	sessionStorage.removeItem("messlistOrauction")
-	sessionStorage.removeItem("comeIntoOrder")
+	localStorage.removeItem("messlistOrauction")
+	localStorage.removeItem("comeIntoOrder")
 	MessagesController.init($scope);
 })
 

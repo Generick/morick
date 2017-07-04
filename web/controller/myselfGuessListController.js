@@ -26,7 +26,7 @@ mySelfGuessListApp.directive('onFinishRenderFilters', function ($timeout) {
 
 mySelfGuessListApp.controller("mySelfGuessListController", function ($scope)
 {  
-	sessionStorage.removeItem("comeWithGuess")
+	localStorage.removeItem("comeWithGuess")
     mySelfGuessListController.init($scope);
     
 });
@@ -109,8 +109,8 @@ var mySelfGuessListController =
     	
     	self.scope.onClickToMyBiddingDetail = function(id)
     	{
-    		sessionStorage.setItem("comeWithGuess",6);
-    		sessionStorage.setItem("userId",self.myGuessListModel.userId)
+    		localStorage.setItem("comeWithGuess",6);
+    		localStorage.setItem("userId",self.myGuessListModel.userId)
     		location.href = pageUrl.GUESS_INNER + "?id=" + id;
     	}
     },

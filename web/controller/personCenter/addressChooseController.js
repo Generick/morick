@@ -141,7 +141,13 @@ var addressChooseController =
 				else if (type == 1)
 				{
 					var id = localStorage.getItem(localStorageKey.addressId);
-					location.href = pageUrl.MOD_ADDRESS_LIST + "?id=" + id;
+					var obj = new Base64();
+					
+					var ids = obj.encode(id);
+					var str = pageUrl.MOD_ADDRESS_LIST + "?id=" + ids;
+					
+					location.href = encodeURI(str)
+//					location.href = pageUrl.MOD_ADDRESS_LIST + "?id=" + id;
 					localStorage.setItem(localStorageKey.addressId,"");
 				}
 				else

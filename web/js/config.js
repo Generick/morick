@@ -117,7 +117,7 @@ var localStorageKey =
 	orderNo : "orderNo",
 	FROM_LOCATION : "FROM_LOCATION",//0:表示从主页进，1:表示从我的竞拍进入，2:表示从浏览记录进入
 	TOTALADDRESS : "TOTALADDRESS",//选择地址后的全地址
-	TO_ADDRESS_TYPE : "TO_ADDRESS_TYPE",//地址列表入口：1订单详情修改地址，2账户中心
+	TO_ADDRESS_TYPE : "TO_ADDRESS_TYPE",//地址列表入口：1订单详情修改地址，2账户中心3,商品详情
 	configData : "configData",
 	acceptName : "acceptName",//收货人
 	mobile : "mobile",//联系方式
@@ -194,4 +194,6 @@ var pageUrl =
 	WX_PAY : BASE_PAGE_URL + "wxpay/src/jsapi.php",//
 	
 	NEW_NEW_DETAIL : BASE_PAGE_URL + "new-news-detail.html",
+	
+	PRE_PAY_PAGE : BASE_PAGE_URL + "prePayPage.html"//支付选择页面
 };

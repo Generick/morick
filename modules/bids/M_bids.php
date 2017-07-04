@@ -20,9 +20,13 @@ class M_bids extends My_Model{
     }
 
     //获取用户出价列表
-    function getBidList($startIndex, $num, &$count, &$bidList){
+    function getBidList($startIndex, $num, $auctionItemId, &$count, &$bidList){
         $this->db->start_cache();
         $this->db->from('biddingLogs');
+        if (!empty($auctionItemId)) 
+        {
+            $this->db->where('biddingLogs.auctionItemId', $auctionItemId);
+        }
         $this->db->join('user',"biddingLogs.userId = user.userId");
         $this->db->join('auctionItems', 'biddingLogs.auctionItemId = auctionItems.id');
         $this->db->select("biddingLogs.userId,biddingLogs.auctionItemId,isHigh,name,note,nowPrice, biddingLogs.createTime,telephone");

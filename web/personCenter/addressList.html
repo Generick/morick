@@ -72,23 +72,54 @@
 			var bool=false;  
             setTimeout(function(){  
                 bool=true;  
-            },1500);
+            },1000);
 		    window.addEventListener("popstate", function(e) {
 		    	if (bool)
 		    	{
 		    		if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
 			        {
                         var tt = localStorage.getItem(localStorageKey.TO_ADDRESS_TYPE);
+                       
                         
-			        	if (tt == "1")
-			        	{
-                            localStorage.removeItem(localStorageKey.TO_ADDRESS_TYPE);
-				        	location.href = pageUrl.ORDER_DETAIL;
-			        	}
-			        	else
-			        	{
-                            location.href = pageUrl.PERSON_INFO;
-			        	}
+                        if(localStorage.getItem("hereComeFromAuc") == 1)
+                        {
+                        	
+//                      	location.href = pageUrl.PRE_PAY_PAGE + "?thisAcPage=" + AddressListCtrl.thisDetailPage + "&commodifyId=" + AddressListCtrl.thisDataId + "&specialPrice=" + specialPrice;
+                            if(localStorage.getItem("wxAddressEmpty") == 1)
+                            {
+                            	var commodifyId = localStorage.getItem("commodifyId");
+			                    var specialPrice =  localStorage.getItem("specialPrice");
+			                    var thisAcPage =  localStorage.getItem("thisAcPage");
+			                    localStorage.removeItem("wxAddressEmpty");
+			                    var obj = new Base64();
+			                    var ids = obj.encode(commodifyId);
+			                    var prices = obj.encode(specialPrice);
+			                    var pagse = obj.encode(thisAcPage);
+			                    var str = pageUrl.PRE_PAY_PAGE + "?commodifyId=" + ids + "&specialPrice=" + prices + "&thisAcPage=" + pagse;
+//			                    location.href =  pageUrl.PRE_PAY_PAGE + "?commodifyId=" + commodifyId + "&specialPrice=" + specialPrice + "&thisAcPage=" + thisAcPage;
+                            	
+                            	location.href = encodeURI(str);
+                            }
+                            else
+                            {   
+                            	localStorage.removeItem("wxAddressEmpty");
+                            	var specialPrice = localStorage.getItem("specialPrice");
+                            	location.href = pageUrl.ORDER_DETAIL;
+                            }
+                        }
+                        else
+                        {
+                        	if (tt == "1")
+				        	{
+	                            localStorage.removeItem(localStorageKey.TO_ADDRESS_TYPE);
+					        	location.href = pageUrl.ORDER_DETAIL;
+				        	}
+				        	else
+				        	{
+	                            location.href = pageUrl.PERSON_INFO;
+				        	}
+                        }
+			        	
 			        }
 		    	}
 		    	pushHistory();

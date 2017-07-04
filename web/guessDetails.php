@@ -93,8 +93,21 @@
 		    	if (bool)
 		    	{
 		    		  
-		    		sessionStorage.setItem("needGuessPage",1)
-		    		location.href = pageUrl.GUESS_PAGE +"?backPage=" + GuessInfoCtrl.thisDetailPage + "&thisDataId=" + GuessInfoCtrl.thisDataId;
+		    		sessionStorage.setItem("needGuessPage",1);
+		    		
+		    		
+		    		var obj = new Base64();
+						   	
+					var id_base64 = obj.encode(GuessInfoCtrl.thisDataId);
+							    	
+					var thisPage_base64 = obj.encode(GuessInfoCtrl.thisDetailPage);
+							
+					var str = pageUrl.GUESS_PAGE +"?backPage=" +thisPage_base64 + "&thisDataId=" + id_base64;		    	
+						
+					location.href = encodeURI(str);
+//		    		
+//		    		
+//		    		location.href = pageUrl.GUESS_PAGE +"?backPage=" + GuessInfoCtrl.thisDetailPage + "&thisDataId=" + GuessInfoCtrl.thisDataId;
 
 		    	}
 		    	pushHistory();

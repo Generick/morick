@@ -65,16 +65,24 @@ var GuessListCtrl =
         self.shareInfo.content = "文化收藏，雅玩之家，每晚十点，欢迎回家";
        
         commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
-                
+        
+        
+        if(location.href.indexOf("?") > 0){
+    		var obj = new Base64();
+	    	self.thisJumpId = obj.decode(commonFu.getQueryStringByKey("thisDataId"));
+		    self.thisJumpPage = obj.decode(commonFu.getQueryStringByKey("backPage"));
+//  	    
+//  	    alert(self.thisJumpPage)
+        }
     	
-    	var arr = [];
-    	if(commonFu.listGetUrlPublic(location.href).length == 2)
-    	{
-    		arr = commonFu.listGetUrlPublic(location.href);
-    		self.thisJumpPage = arr[0];
-    		self.thisJumpId = arr[1];
-    	}
-    	
+//  	var arr = [];
+//  	if(commonFu.listGetUrlPublic(location.href).length == 2)
+//  	{
+//  		arr = commonFu.listGetUrlPublic(location.href);
+//  		self.thisJumpPage = arr[0];
+//  		self.thisJumpId = arr[1];
+//  	}
+//  	
     	
     },
     
@@ -452,8 +460,18 @@ var GuessListCtrl =
 					sessionStorage.setItem("guessId","guess_"+id);
 					self.getInterPage(id);
 					var thisPage = sessionStorage.getItem("interGuessPage");
-					location.href = pageUrl.GUESS_DETAIL + "?id=" + item.id + "&thisPage=" + thisPage;
-				 	
+					
+					
+					var obj = new Base64();
+						    	
+					var id_base64 = obj.encode(item.id);
+							    	
+					var thisPage_base64 = obj.encode(thisPage);
+					
+					var str = pageUrl.GUESS_DETAIL + "?id=" + id_base64 + "&thisPage=" + thisPage_base64;
+					   
+					location.href = encodeURI(str);
+					
     		    }
     		    
 
@@ -479,13 +497,7 @@ var GuessListCtrl =
         			
 	    			}
     		
-    		    },
-    		    function(){
-            		
-	       		    localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
-        			location.href = pageUrl.LOGIN_PAGE;
-        			
-            	});
+    		    });
     	
     	
     	

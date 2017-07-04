@@ -4,8 +4,8 @@
  */
 
 app.controller('ctrl',function($scope){
-	sessionStorage.removeItem("messlistOrauction")
-	sessionStorage.removeItem("comeIntoOrder")
+	localStorage.removeItem("messlistOrauction")
+	localStorage.removeItem("comeIntoOrder")
 	MessagesController.init($scope);
 })
 
@@ -192,7 +192,7 @@ var MessagesController = {
         		{
         			self.userHasReadMessage(params);
         		}
-        		sessionStorage.setItem("comeWithGuess",5);
+        		localStorage.setItem("comeWithGuess",5);
         		item.isRead = 1;
 
         		setTimeout(function(){
@@ -219,7 +219,7 @@ var MessagesController = {
 //      				location.href = pageUrl.AUCTION_HISTORY_INFO  +"?id="+ item.href_id +"&page=" + 1;
 //      		},250)
 //      		
-        		sessionStorage.setItem("comeIntoOrder",2);
+        		localStorage.setItem("comeIntoOrder",2);
 	      		localStorage.setItem(localStorageKey.orderNo, item.href_id);
 	      		
 	       		setTimeout(function(){
@@ -237,7 +237,7 @@ var MessagesController = {
         		}
         		
         		item.isRead = 1;
-        		sessionStorage.setItem("comeIntoOrder",2)
+        		localStorage.setItem("comeIntoOrder",2)
 	      		localStorage.setItem(localStorageKey.orderNo, item.href_id);
 	      		
 	       		setTimeout(function(){

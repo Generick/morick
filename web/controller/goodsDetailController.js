@@ -82,8 +82,8 @@ var GoodsInfoCtrl = {
     	
     	this.dataModelInit();
     	
-    	this.getSelfInfo();
-    	
+//  	this.getSelfInfo();
+//  	
     	this.initBiddingData();
     	
     	this.ngRepeatFinish();
@@ -97,11 +97,14 @@ var GoodsInfoCtrl = {
     	var self = this;
     	var arr = [];
     	
-        if(commonFu.getUrlPublic(location.href).length == 2)
+
+        if(location.href.indexOf("?") > 0)
     	{
-    		arr = commonFu.getUrlPublic(location.href);
-	    	self.thisDetailPage = arr[0];
-	    	self.thisDataId = arr[1];
+    		var obj = new Base64();
+    		self.thisDataId = obj.decode(commonFu.getQueryStringByKey("id"));
+	    	self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisPage"));
+//	    	alert(self.thisDataId);
+//	    	alert(self.thisDetailPage)
     	}
     },
     
@@ -120,16 +123,17 @@ var GoodsInfoCtrl = {
     	
     	if(location.href.indexOf("?") > 0)
     	{   
-    		
-    		params.itemId = commonFu.getQueryStringByKey("id"); //当前藏品ID
+    		var obj = new Base64();
+    		params.itemId = obj.decode(commonFu.getQueryStringByKey("id")); //当前藏品ID
+    		self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisPage")); //当前藏品ID
     		
     		self.goodsDetailModel.id = params.itemId;
     		
     	}
     	
-    	self.getProxyBid();
+//  	self.getProxyBid();
     	
-    	self.setReadLog();
+//  	self.setReadLog();
     	
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_AUCTION_INFO, params,
@@ -176,8 +180,9 @@ var GoodsInfoCtrl = {
 	                    self.goodsDetailModel.isTimeChange = false;
 	                    
 	                    var imgArr = self.goodsDetailModel.allInfo.goodsInfo.goods_pics;
-	                    
-	                    self.shareInfo.img = (commonFu.isEmpty(imgArr) || imgArr.length == 0) ? "" : imgArr[0];
+	                    self.shareInfo.img = commonFu.isEmpty(self.goodsDetailModel.allInfo.goodsInfo.goods_cover) ? imgArr[0] : self.goodsDetailModel.allInfo.goodsInfo.goods_cover;
+//	                    self.shareInfo.img = (commonFu.isEmpty(imgArr) || imgArr.length == 0) ? "" : imgArr[0];
+//	                    self.shareInfo.img = (commonFu.isEmpty(imgArr) || imgArr.length == 0) ? "" : imgArr[0];
 //	                   
 	                    self.shareInfo.content = commonFu.returnRightReg(self.goodsDetailModel.allInfo.goodsInfo.goods_detail).substr(0,63);
 	    		        self.shareInfo.title =  commonFu.returnRightReg(self.goodsDetailModel.allInfo.goodsInfo.goods_name);
@@ -279,92 +284,92 @@ var GoodsInfoCtrl = {
     },
     
     //获取个人账户信息
-    getSelfInfo: function()
-    {
-    	var self = this;
-    	
-    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
-    		
-    		self.balance = data.userInfo.balance;
-    		self.scope.$apply();
-    	})
-    },
+//  getSelfInfo: function()
+//  {
+//  	var self = this;
+//  	
+//  	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
+//  		
+//  		self.balance = data.userInfo.balance;
+//  		self.scope.$apply();
+//  	})
+//  },
 
     //记录拍品已阅读
-    setReadLog: function() {
-    	var self = this;
-    	
-    	var param = 
-    	{
-    		readType : 1,
-    		readId : self.goodsDetailModel.id
-    	};
-    	
-    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_READLOG, param, function()
-    	{
-    		self.scope.$apply();
-    	})
-    },
+//  setReadLog: function() {
+//  	var self = this;
+//  	
+//  	var param = 
+//  	{
+//  		readType : 1,
+//  		readId : self.goodsDetailModel.id
+//  	};
+//  	
+//  	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_READLOG, param, function()
+//  	{
+////  		self.scope.$apply();
+//  	})
+//  },
     
-    //获取包月服务信息
-    getSelfServices : function()
-    {
-    	var self = this;
-    	if (!self.hasSelfPaid)
-    	{   
-    		
-    		self.type = 1;
-	    	self.selfPaidText = "委托出价";
-		    self.scope.selfPaidText = self.selfPaidText;
-    	}
-    	else
-    	{   
-    		self.selfPaidText = "已委托出价";
-    		self.scope.selfPaidText = self.selfPaidText;
-    		self.scope.$apply();
-    	}
-    },
+//  //获取包月服务信息
+//  getSelfServices : function()
+//  {
+//  	var self = this;
+//  	if (!self.hasSelfPaid)
+//  	{   
+//  		
+//  		self.type = 1;
+//	    	self.selfPaidText = "委托出价";
+//		    self.scope.selfPaidText = self.selfPaidText;
+//  	}
+//  	else
+//  	{   
+//  		self.selfPaidText = "已委托出价";
+//  		self.scope.selfPaidText = self.selfPaidText;
+//  		self.scope.$apply();
+//  	}
+//  },
     
-    //获取委托出价
-    getProxyBid : function()
-    {   
-    	var self = this;
-    	
-    	var param =
-    	{
-    		auctionId : self.goodsDetailModel.id
-    	};
-    	if(!commonFu.isEmpty(sessionStorage.getItem("reloginFail")) || !commonFu.isEmpty(sessionStorage.getItem("itIsSelectPage")))
-    	{   
-
-    		self.selfPaidText = "委托出价";
-		    self.scope.selfPaidText = self.selfPaidText;
-    	}
-    	else
-    	{
-    	}
-    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_PROXYBID, param, function(data)
-    	{
-    		
-    		self.bids = data.bids;
-            var len = self.bids.length;
-    		
-    		if (len > 0)
-    		{
-    			self.hasSelfPaid = true;
-    			for (var i = 0; i < len; i++)
-	    		{
-	    			self.bids[i].triggerPrice = parseFloat(self.bids[i].triggerPrice); //触发价
-	    			self.bids[i].offerPrice = parseFloat(self.bids[i].offerPrice); //达到触发价自动出价
-	    		}
-    		}
-
-    		self.scope.hasSelfPaid = self.hasSelfPaid;
-    		self.scope.bids = self.bids;
-     		self.getSelfServices();//可以提前到了前面
-    	})
-    	
-    },
+//  //获取委托出价
+//  getProxyBid : function()
+//  {   
+//  	var self = this;
+//  	
+//  	var param =
+//  	{
+//  		auctionId : self.goodsDetailModel.id
+//  	};
+//  	if(!commonFu.isEmpty(sessionStorage.getItem("reloginFail")) || !commonFu.isEmpty(sessionStorage.getItem("itIsSelectPage")))
+//  	{   
+//
+//  		self.selfPaidText = "委托出价";
+//		    self.scope.selfPaidText = self.selfPaidText;
+//  	}
+//  	else
+//  	{
+//  	}
+//  	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_PROXYBID, param, function(data)
+//  	{
+//  		
+//  		self.bids = data.bids;
+//          var len = self.bids.length;
+//  		
+//  		if (len > 0)
+//  		{
+//  			self.hasSelfPaid = true;
+//  			for (var i = 0; i < len; i++)
+//	    		{
+//	    			self.bids[i].triggerPrice = parseFloat(self.bids[i].triggerPrice); //触发价
+//	    			self.bids[i].offerPrice = parseFloat(self.bids[i].offerPrice); //达到触发价自动出价
+//	    		}
+//  		}
+//
+//  		self.scope.hasSelfPaid = self.hasSelfPaid;
+//  		self.scope.bids = self.bids;
+//   		self.getSelfServices();//可以提前到了前面
+//  	})
+//  	
+//  },
 
     //初始化竞拍记录
     initBiddingData : function()
@@ -470,18 +475,23 @@ var GoodsInfoCtrl = {
              */
             function(data) {
                 if (!data.isFreeze)
-                {
-                    if (parseFloat(self.balance)  < parseFloat(self.goodsDetailModel.allInfo.margin))
-                    {
-                        $dialog.msg("余额不足，前去充值", 1);
-
-                        setTimeout(function() {
-                            location.href = pageUrl.ACCOUNT_RECHARGE;
-                        }, 1500);
-                    }
+                {   
+                	
+                	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
+    		
+			    		self.balance = data.userInfo.balance;
+			    		if (parseFloat(self.balance)  < parseFloat(self.goodsDetailModel.allInfo.margin))
+	                    {
+	                        $dialog.msg("余额不足，前去充值", 1);
+	
+	                        setTimeout(function() {
+	                            location.href = pageUrl.ACCOUNT_RECHARGE;
+	                        }, 1500);
+	                    }
+			    	})
+                
                 }
-            }
-        )
+            })
     },
     
     bindClick: function ()
@@ -491,7 +501,7 @@ var GoodsInfoCtrl = {
     	//我的竞猜
     	
     	self.scope.jumpToGuess = function(){
-    		sessionStorage.setItem("comeWithGuess",1);
+    		localStorage.setItem("comeWithGuess",1);
     		location.href = pageUrl.GUESS_INNER +"?id="+ self.thisDataId + "&page=" +self.thisDetailPage;
     		
     	};
@@ -499,7 +509,7 @@ var GoodsInfoCtrl = {
     	//更新
     	self.scope.onClickUpdateTime = function()
     	{
-    		var time = commonFu.getNowFormatDate();
+    		var time = commonFu.getNowFormatDate_2();
     		$('#updateTime').html(time);
     		self.biddingModel.num = 0;
     		self.biddingModel.isCheckOver = true;
@@ -610,6 +620,7 @@ var GoodsInfoCtrl = {
 //  		alert(JSON.stringify(params))
 	    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_SET_PROXYBID, params, function()
 	    	{
+	    		
 	    		$('.self-pay-block-bg').css('display','none');
 	    		$dialog.msg("委托出价成功");
 	    		setTimeout(function() {

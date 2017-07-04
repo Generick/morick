@@ -135,8 +135,10 @@ class M_messagePush extends My_Model
 
         $this->db->start_cache();
         $this->db->from('message');
+        $this->db->group_start();
         $this->db->where($whr);
         $this->db->or_where($or_whr);
+        $this->db->group_end();
         if (!empty($hasRead)) 
         {
             $this->db->where_not_in('msg_id', array_column($hasRead, 'msg_id'));

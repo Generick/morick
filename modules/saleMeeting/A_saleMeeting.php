@@ -27,7 +27,7 @@ class A_saleMeeting extends Admin_Controller
     	$info = $this->input->post('info');
     	$info = json_decode($info, true);
         $info['commodity_pic'] = is_array($info['commodity_pic']) ? json_encode($info['commodity_pic'], true) : $info['commodity_pic'];
-        $pic = json_decode($info['commodity_pic'], true);
+        //$pic = json_decode($info['commodity_pic'], true);
     	$info['add_time'] = time();
     	$res = $this->m_saleMeeting->addCommodity($info);
     	if ($res !== ERROR_OK) 
@@ -112,8 +112,13 @@ class A_saleMeeting extends Admin_Controller
     		return;
     	}
     	$modInfo = json_decode($this->input->post('modInfo'), true);
-        $modInfo['commodity_pic'] = json_encode($modInfo['commodity_pic']) ? json_encode($modInfo['commodity_pic'], true) : $modInfo['commodity_pic'];
+        $modInfo['commodity_pic'] = is_array($modInfo['commodity_pic']) ? json_encode($modInfo['commodity_pic'], true) : $modInfo['commodity_pic'];
     	$id = $this->input->post('id');
+
+        //add 禁止修改价格以及年化收益率
+        if (isset($modInfo['commodity_price'])) unset($commodity_price);
+        if (isset($modInfo['annualized_return'])) unset($modInfo['annualized_return']);
+        //end
     	$res = $this->m_saleMeeting->modCommodity($id, $modInfo);
     	if ($res !== ERROR_OK) 
     	{
@@ -205,18 +210,19 @@ class A_saleMeeting extends Admin_Controller
         $startTime = $this->input->post('startTime');
         $endTime = $this->input->post('endTime');
         $fields = $this->input->post('fields');
-        $whr = array();
+        $whr = $wh = array();
         if (!empty($startTime) && !empty($endTime)) 
         {
             $whr['sale_time >='] = $startTime;
             $whr['sale_time <='] = $endTime;
+            $wh = array('startTime' => $startTime, 'endTime' => $endTime);
         }
 
         $data = array();
         $count = 0;
-        $total = 0;
-        $this->m_saleMeeting->saleRecord($startIndex, $num, $whr, $data, $count, $total, $fields);
-        $this->responseSuccess(array('saleList' => $data, 'count' => $count, 'total' => $total));
+        $statistics = array();
+        $this->m_saleMeeting->saleRecord($startIndex, $num, $whr, $data, $count, $statistics, $fields, $wh);
+        $this->responseSuccess(array('saleList' => $data, 'count' => $count, 'statistics' => $statistics));
     }
 
     //获取商品信息

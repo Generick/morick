@@ -4,14 +4,23 @@
 
 <div class="table-search fix">
     <div class="f">开始时间：</div>
-    <div class="f m-g-l-10"><input type="text" class="form-control wicon" id="sTime" readonly></div>
+    <div class="f m-g-l-10" style="width:180px;"><input type="text" class="form-control wicon" id="sTime" readonly></div>
     <div class="f m-g-l-20">结束时间：</div>
-    <div class="f m-g-l-10"><input type="text" class="form-control wicon" id="eTime" readonly></div>
+    <div class="f m-g-l-10" style="width:180px;"><input type="text" class="form-control wicon" id="eTime" readonly></div>
+    <!--<div class="f input" style="margin-left:30px;width:160px;"><input type="text"  class="form-control" placeholder="输入商品名" ng-model="fields"></div>-->
     <div class="f m-g-l-20"><a class="btn btn-default" ng-click="search()">查询</a></div>
+<!--    
+    
+     <div class="f m-g-l-10"><a class="btn btn-white" ng-click="searchFields()">查询</a></div>-->
 </div>
+
 <div class="data-total fix">
-	<div class="f">总成交金额：<span class="m-color-1">{{"￥"+dataModel.totalData}}</span></div>
-	<!--<div class="f">总收益：<span class="m-color-1">{{"￥"+dataModel.totalIncome}}</span></div>-->
+	<div class="f">销售总数：<span class="m-color-1">{{"￥"+saleTotalNum}}</span></div>
+	<div class="f">进价总额：<span class="m-color-1">{{"￥"+bidTotalPrice}}</span></div>
+	<div class="f">销售总额：<span class="m-color-1">{{"￥"+saleTotalMoney}}</span></div>
+	
+	<div class="f">商品总利润：<span class="m-color-1">{{"￥"+totalProfit}}</span></div>
+
 </div>
 
 <div class="table-container">
@@ -21,19 +30,25 @@
             <td style="text-align: center">时间</td>
             <td style="text-align: center">商品名称</td>
             <!--<td style="text-align: center">商品单价</td>-->
-            <td style="text-align: center">销售总量</td>
-            <td style="text-align: center">总金额</td>
+            <td style="text-align: center">销售数量</td>
+            <td style="text-align: center">单件商品进价总额</td>
+            <td style="text-align: center">单件商品销售总额</td>
+            
+            <td style="text-align: center">单件商品利润</td>
         </tr></thead>
         <tbody><tr ng-repeat="item in dataModel.modelArr">
             <td style="text-align: center">{{$index + 1 + (page.currentPage-1)*page.selectPageNum}}</td>
             <td style="text-align: center">
                 <span ng-if="item.sale_time == '0'">暂无数据</span>
-                <span ng-if="item.sale_time !== '0'">{{item.sale_time*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+                <span ng-if="item.sale_time !== '0'">{{item.sale_time}}</span>
             </td>
             <td style="text-align: center">{{item.commodity_name}}</td>
             <!--<td style="text-align: center">{{"￥"+item.commodity_price}}</td>-->
             <td style="text-align: center">{{item.nums}}</td>
-            <td style="text-align: center">{{'￥' + item.saleAmount}}</td>
+            <td style="text-align: center">{{'￥' +item.total_bid}}</td>
+            <td style="text-align: center">{{'￥' +item.saleAmount}}</td>
+            
+            <td style="text-align: center">{{'￥' + item.singleProfit}}</td>
         </tr></tbody>
     </table>
 </div>

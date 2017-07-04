@@ -4,7 +4,7 @@
 app.controller("ctrl", function ($scope)
 {  
 	
-	sessionStorage.removeItem("comeIntoOrder")
+	localStorage.removeItem("comeIntoOrder")
     newPersonCenterCtrl.init($scope);
    
 });
@@ -20,14 +20,14 @@ var newPersonCenterCtrl =
     page : {
 		currentPage : 1,
 		totalPage : null,
-		timeNum : 15,
+		timeNum : 30,
 		totalCount : 0
 	},
 	
 	 page2 : {
 		currentPage : 1,
 		totalPage : null,
-		timeNum : 15,
+		timeNum : 30,
 		totalCount : 0
 	},
 	
@@ -105,7 +105,7 @@ var newPersonCenterCtrl =
         
     	var params = {};
     	params.userId = self.userId;
-    	params.num = 15;
+    	params.num = 30;
     	params.startIndex = 0;
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_UN_READ_MESSAGE, params, function(data){
     		if(data.count == 0){
@@ -120,7 +120,7 @@ var newPersonCenterCtrl =
     		self.page = {
 				currentPage : 1,
 				totalPage : null,
-				timeNum : 15,
+				timeNum : 30,
 				totalCount : 0
 			};
 			self.unReadCount = data.count;
@@ -156,7 +156,7 @@ var newPersonCenterCtrl =
         $(".animation-2").css({"display":"block","background":"#ffffff"});
     	var params = {};
     	params.userId = self.userId;
-    	params.num = 15;
+    	params.num = 30;
     	params.startIndex = 0;
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_HAS_READ_MESSAGE, params, function(data){
@@ -172,7 +172,7 @@ var newPersonCenterCtrl =
     		self.page2 = {
 				currentPage : 1,
 				totalPage : null,
-				timeNum : 15,
+				timeNum : 30,
 				totalCount : 0
 			};
     		self.messageList = data.msgList;
@@ -332,7 +332,7 @@ var newPersonCenterCtrl =
             if(self.isUnReadTab){
             	self.userHasReadMessage(item)
             }
-            if(item.msg_type == 3 || item.msg_type == 4 || item.msg_type == 2)
+            if(item.msg_type !=0 && item.msg_type !=1)
             {
             	
             
@@ -476,84 +476,84 @@ var newPersonCenterCtrl =
 		    })
 			
 			
-			
-			
-			
-			
-		    // 设定每一行的宽度=屏幕宽度+按钮宽度
-		    $(".new-pre-deleteIn-box").width($(".new-pre-message-box-item").width() + $(".new-pre-delete-button").width());
-		    // 设定常规信息区域宽度=屏幕宽度
-		    $(".new-pre-content-box").width($(".new-pre-message-box-item").width());
-		    // 设定文字部分宽度（为了实现文字过长时在末尾显示...）
-		    // 获取所有行，对每一行设置监听
-		    var lines = $(".new-pre-content-box");
-		    var len = lines.length; 
-		    var lastX, lastXForMobile;
-		    // 用于记录被按下的对象
-		    var pressedObj;  // 当前左滑的对象
-		    var lastLeftObj; // 上一个左滑的对象
-		    // 用于记录按下的点
-		    var start;
-		    // 网页在移动端运行时的监听
-		    for (var i = 0; i < len; ++i) {
-		        lines[i].addEventListener('touchstart', function(e){
-		            lastXForMobile = e.changedTouches[0].pageX;
-		            pressedObj = this; // 记录被按下的对象 
-		            // 记录开始按下时的点
-		            var touches = event.touches[0];
-		            start = { 
-		                x: touches.pageX, // 横坐标
-		                y: touches.pageY  // 纵坐标
-		            };
-		        });
-		        lines[i].addEventListener('touchmove',function(e){
-		            // 计算划动过程中x和y的变化量
-		            var touches = event.touches[0];
-		            delta = {
-		                x: touches.pageX - start.x,
-		                y: touches.pageY - start.y
-		            };
-		            // 横向位移大于纵向位移，阻止纵向滚动
-		            if (Math.abs(delta.x) > Math.abs(delta.y)) {
-		                event.preventDefault();
-		            }
-		            else{}
-		            if (lastLeftObj && pressedObj != lastLeftObj) { // 点击除当前左滑对象之外的任意其他位置
-		                $(lastLeftObj).animate({marginLeft:"0"}, 260,"swing"); // 右滑
-		                lastLeftObj = null; // 清空上一个左滑的对象
-		            }
-		            var diffX = e.changedTouches[0].pageX - lastXForMobile;
-		            if (diffX < -30) {
-		                $(pressedObj).animate({marginLeft:"-14vw"}, 260,"swing"); // 左滑
-		                lastLeftObj && lastLeftObj != pressedObj && 
-		                    $(lastLeftObj).animate({marginLeft:"0"}, 260,"swing"); // 已经左滑状态的按钮右滑
-		                lastLeftObj = pressedObj; // 记录上一个左滑的对象
-		            } else if (diffX > 30) {
-		              if (pressedObj == lastLeftObj) {
-		                $(pressedObj).animate({marginLeft:"0"}, 260,"swing"); // 右滑
-		                lastLeftObj = null; // 清空上一个左滑的对象
-		              }
-		            }
-		            
-		        });
-		        lines[i].addEventListener('touchend', function(e){
-		            if (lastLeftObj && pressedObj != lastLeftObj) { // 点击除当前左滑对象之外的任意其他位置
-		                $(lastLeftObj).animate({marginLeft:"0"}, 260,"swing"); // 右滑
-		                lastLeftObj = null; // 清空上一个左滑的对象
-		            }
-		            var diffX = e.changedTouches[0].pageX - lastXForMobile;
-		            if (diffX < -90) {
-		                $(pressedObj).animate({marginLeft:"-14vw"}, 260,"swing"); // 左滑
-		                lastLeftObj && lastLeftObj != pressedObj && 
-		                    $(lastLeftObj).animate({marginLeft:"0"}, 260,"swing"); // 已经左滑状态的按钮右滑
-		                lastLeftObj = pressedObj; // 记录上一个左滑的对象
-		            } else if (diffX > 90) {
-		              if (pressedObj == lastLeftObj) {
-		                $(pressedObj).animate({marginLeft:"0"}, 260,"swing"); // 右滑
-		                lastLeftObj = null; // 清空上一个左滑的对象
-		              }
-		            }
-		        });
-		    };
+//			
+//			
+//			
+//			
+//		    // 设定每一行的宽度=屏幕宽度+按钮宽度
+//		    $(".new-pre-deleteIn-box").width($(".new-pre-message-box-item").width() + $(".new-pre-delete-button").width());
+//		    // 设定常规信息区域宽度=屏幕宽度
+//		    $(".new-pre-content-box").width($(".new-pre-message-box-item").width());
+//		    // 设定文字部分宽度（为了实现文字过长时在末尾显示...）
+//		    // 获取所有行，对每一行设置监听
+//		    var lines = $(".new-pre-content-box");
+//		    var len = lines.length; 
+//		    var lastX, lastXForMobile;
+//		    // 用于记录被按下的对象
+//		    var pressedObj;  // 当前左滑的对象
+//		    var lastLeftObj; // 上一个左滑的对象
+//		    // 用于记录按下的点
+//		    var start;
+//		    // 网页在移动端运行时的监听
+//		    for (var i = 0; i < len; ++i) {
+//		        lines[i].addEventListener('touchstart', function(e){
+//		            lastXForMobile = e.changedTouches[0].pageX;
+//		            pressedObj = this; // 记录被按下的对象 
+//		            // 记录开始按下时的点
+//		            var touches = event.touches[0];
+//		            start = { 
+//		                x: touches.pageX, // 横坐标
+//		                y: touches.pageY  // 纵坐标
+//		            };
+//		        });
+//		        lines[i].addEventListener('touchmove',function(e){
+//		            // 计算划动过程中x和y的变化量
+//		            var touches = event.touches[0];
+//		            delta = {
+//		                x: touches.pageX - start.x,
+//		                y: touches.pageY - start.y
+//		            };
+//		            // 横向位移大于纵向位移，阻止纵向滚动
+//		            if (Math.abs(delta.x) > Math.abs(delta.y)) {
+//		                event.preventDefault();
+//		            }
+//		            else{}
+//		            if (lastLeftObj && pressedObj != lastLeftObj) { // 点击除当前左滑对象之外的任意其他位置
+//		                $(lastLeftObj).animate({marginLeft:"0"}, 260,"swing"); // 右滑
+//		                lastLeftObj = null; // 清空上一个左滑的对象
+//		            }
+//		            var diffX = e.changedTouches[0].pageX - lastXForMobile;
+//		            if (diffX < -30) {
+//		                $(pressedObj).animate({marginLeft:"-14vw"}, 260,"swing"); // 左滑
+//		                lastLeftObj && lastLeftObj != pressedObj && 
+//		                    $(lastLeftObj).animate({marginLeft:"0"}, 260,"swing"); // 已经左滑状态的按钮右滑
+//		                lastLeftObj = pressedObj; // 记录上一个左滑的对象
+//		            } else if (diffX > 30) {
+//		              if (pressedObj == lastLeftObj) {
+//		                $(pressedObj).animate({marginLeft:"0"}, 260,"swing"); // 右滑
+//		                lastLeftObj = null; // 清空上一个左滑的对象
+//		              }
+//		            }
+//		            
+//		        });
+//		        lines[i].addEventListener('touchend', function(e){
+//		            if (lastLeftObj && pressedObj != lastLeftObj) { // 点击除当前左滑对象之外的任意其他位置
+//		                $(lastLeftObj).animate({marginLeft:"0"}, 260,"swing"); // 右滑
+//		                lastLeftObj = null; // 清空上一个左滑的对象
+//		            }
+//		            var diffX = e.changedTouches[0].pageX - lastXForMobile;
+//		            if (diffX < -90) {
+//		                $(pressedObj).animate({marginLeft:"-14vw"}, 260,"swing"); // 左滑
+//		                lastLeftObj && lastLeftObj != pressedObj && 
+//		                    $(lastLeftObj).animate({marginLeft:"0"}, 260,"swing"); // 已经左滑状态的按钮右滑
+//		                lastLeftObj = pressedObj; // 记录上一个左滑的对象
+//		            } else if (diffX > 90) {
+//		              if (pressedObj == lastLeftObj) {
+//		                $(pressedObj).animate({marginLeft:"0"}, 260,"swing"); // 右滑
+//		                lastLeftObj = null; // 清空上一个左滑的对象
+//		              }
+//		            }
+//		        });
+//		    };
 		    
 		});

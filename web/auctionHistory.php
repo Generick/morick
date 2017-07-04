@@ -5,13 +5,13 @@
 	$signPackage = $jssdk->GetSignPackage();
 ?>
 
-<html ng-app="app">
+<html ng-app="app" style="background: #FFFFFF;">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<meta name="format-detection" content="telephone=no">
 		<meta name="format-detection" content="email=no">
-        <title>雅玩之家</title>
+        <title>雅玩之家精选店，明码标价，童叟无欺</title>
        
         <link rel="stylesheet" href="css/ui.base.css" />
         <link rel="stylesheet" href="css/selected.css" />
@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="plugin/layerMobile/need/layer.css" />
         <link rel="stylesheet" href="css/newPersonal.css" />
 	</head>
-	<body ng-controller="ctrl">
+	<body ng-controller="ctrl" style="background: #FFFFFF;">
 		<div id="myself-head"  ng-click="jumpToSelfZone3()" style="position: fixed;top:10px;left:10px;width:16vw;height:16vw;display: block;z-index: 99999;">
 			<img src="img/personal-enter.png"> 
 		</div>
@@ -27,22 +27,74 @@
 		<div class="animation">
 			<img src="img/loading.gif" />
 		</div>
+		<!--<div class="fix-clock">
+			
+		</div>-->
+		<!--<div class="fix-round">
+			<canvas id="myCanvas" width="300" height="300"></canvas>
+			<div id="img-box-s" class="rotate-s" >
+		  		<img id="clock_indicator-s" src="img/newPic/indicator.png" />
+		  	</div>
+	    </div>-->
 		
-		<div class="container scroll fullwidthHtml" style="background-color: #fff !important;padding:0.8%;padding-bottom: 60px;overflow:hidden;height:100%;">
-			<div class="list" id="list-empty" style="background-color: #fff;overflow: hidden;">
+		
+		<!--<div class="fix-round">
+			<span id="changing-number">10</span>
+			<span id="changing-words">s</span>
+	    </div>-->
+		<div class="container scroll fullwidthHtml" style="background-color: #fff !important;padding:0.8%;margin-bottom: 60px;overflow:hidden;height:100%;">
+			<div class="list" id="list-empty" style="background-color: #fff;overflow: hidden;padding-bottom: 0;">
 				<ul id="selected-ul">
 					<div on-finish-render-filters class="oneList sell-list-item" style="position: relative;"  id="test_{{item.commodity_id}}"  ng-click="onClickToAuctionHistoryDetail(item)" ng-repeat="item in auctionHistoryModel.TMHList">
-						<div class="sell-list-item-img">
-							<img ng-src="{{item.pictures}}" />
+						<!--李小波 改动-->
+						
+						<!--<div class="sell-list-item-img" style="background-image: url({{item.pictures}})">
+						
+						</div>-->
+						<div class="sell-list-item-img" style="position: relative;">
+							<!--<img ng-src="{{item.pictures}}" style="border-radius: 1px;"/>-->
+							<div  class="shade-pic" ng-show="item.info.stock_num == 0">
+								<img src="img/newPic/sell-out-i.png">
+							</div>
+							
+							<div class="create-img-box">
+								<img ng-src="{{item.pictures}}">
+								<!--<div class="masking">
+									<img src="img/newPic/sell-out-i.png"> 
+								</div>	-->
+							</div>
+							
 						</div>
 						<div class="sell-list-item-name" ng-bind="item.info.commodity_name">
 							传送到对方水范德萨范德萨范德萨水电费水电
 						</div>
 						<div class="sell-list-item-price-box">
 							
-							<div class="sell-list-item-price-word" ng-bind="'￥'+item.info.commodity_price">
+							<!--<div class="sell-list-item-price-word" ng-bind="'￥'+item.info.viewPrice">
 								
-							</div>
+							</div>-->
+							<span style="color:#C4996D;font-size:13px;display:block;line-height: 25px;height:25px">￥</span>
+							<div class="sell-list-item-price-word" id="sb_{{item.commodity_id}}">
+							    <div class="flip" ng-class = "item.newName">
+							      
+							        <div class="price-div">
+							          <div class="w-k number"></div>
+							          <div class="q-k number"></div>
+							          <div class="h-k number"></div>
+							          <div class="t-k number"></div>
+							          <div class="k number"></div>
+							          <!--<div class="comma sign">,</div>-->
+							          <div class="h number"></div>
+							          <div class="t number"></div>
+							          <div class="single number"></div>
+							          <div class="sign dot">.</div>
+							          <div class="t-d number" style="width:7px;-webkit-transform: scaleX(0.9);font-size:12px"></div>
+							          <div class="h-d number" style="width:7px;-webkit-transform: scaleX(0.9);font-size:12px;"></div>
+							          <div class="q-d number" style="width:7px;-webkit-transform: scaleX(0.9);font-size:12px"></div>
+							          <div class="w-d number" style="width:7px;-webkit-transform: scaleX(0.9);font-size:12px"></div>
+							        </div>
+							      </div>
+							</div>	
 						</div>
 					</div>
 			   </ul>
@@ -93,7 +145,7 @@
 					</div>
 				</div>
 			</div>-->
-			<div class="no-data">暂无数据！</div>
+			<div class="no-data" style="height:70vh">暂无数据！</div>
 		</div>
         
         <div class="goods-cars">
@@ -122,7 +174,8 @@
 
 	<!--系统js-->
 	<script type="text/javascript" src="js/zepto.min.js"></script>
-	<!--<script type="text/javascript" src="js/jquery.min.js"></script>-->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!--<script type="text/javascript" src="js/jquery-1.9.0.js"></script>-->
 	<script type="text/javascript" src="js/weixin.js"></script> 
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript" src="js/jqAjaxRequest.js"></script>
@@ -148,14 +201,70 @@
 			}
 		}
 
-
+        
+        
+//      function initClock(){
+//  	
+//	    		var c = document.getElementById('myCanvas');
+//	    		
+//		   		var ctx = c.getContext('2d');
+//	  
+//		   		var imgs = document.getElementById("img-box-s");
+//
+//				CanvasRenderingContext2D.prototype.sector = function(x,y,r,angle1,angle2){
+//				
+//		            this.save();
+//		            this.beginPath();
+//		            this.moveTo(x,y);
+//		            this.arc(x,y,r,angle1*Math.PI/180,angle2*Math.PI/180,false);
+//		            this.closePath();    
+//		            this.restore();
+//		            
+//		            return this;
+//		        }
+//	            
+//		        var angle = 270.0;
+//		        var timer = null;
+//		        
+//		        
+//		        timer = setInterval(function(){
+//		            imgs.style.transform='rotate('+ (270.0 + angle) +'deg)';
+//	                
+//	                if(angle > 630.0){
+//
+//		            	ctx.clearRect(0,0,30,30);
+////		                clearInterval(timer); 
+//		                angle = 270.0;
+//		            }
+//		            
+//		            ctx.fillStyle = '#F68588';
+//				    ctx.sector(15,15,13,270.0,angle).fill();
+//		            drawRound(angle);
+//		            angle+= 6.0;
+//		          
+//		        },100);
+//			    
+//			    
+//			  function drawRound(angle){
+//			  	    
+//			  	    ctx.save();
+//		            ctx.beginPath();
+//				    ctx.lineWidth = 2;
+//				    ctx.strokeStyle = '#C4996D';
+//				    ctx.arc(15, 15, 13,270.0*Math.PI/180,angle*Math.PI/180,false);
+//				    ctx.stroke();
+//				    ctx.closePath();
+//				    ctx.restore();
+//			  };
+//	        };
+//  	initClock();
     </script>
     <!--插件-->
 	<script type="text/javascript" src="js/fastclick.js" ></script>
     
 	<!--controller-->
+	<script type="text/javascript" src="js/auctionAminate.js"></script>
 	<script type="text/javascript" src="controller/auctionHistoryController.js" ></script>
-	
 	
 	<!--<script type="text/javascript" src="js/htmlNoScroll.js" ></script>-->
 	

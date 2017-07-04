@@ -72,7 +72,7 @@ var OrderCtrl = {
             self.orderModel.tabIndex = index; //记录当前选项以备下一次关闭
 
             self.orderModel.curOrderType = tab.id;
-
+          
             self.orderModel.keywords = null; //切换模块前搜索框清空
             self.getOrders();
         };
@@ -86,9 +86,13 @@ var OrderCtrl = {
         var self = this,
             params = {};
         
-       
         if(self.orderModel.curOrderType != ""){    
-            params.orderStatus = self.orderModel.curOrderType
+        	
+            params.orderStatus = self.orderModel.curOrderType;
+        }
+        if(self.orderModel.curOrderType == 0)
+        {
+        	 params.orderStatus = self.orderModel.curOrderType;
         }
         if(self.orderTypeModel.id != 0){    
             params.orderType = self.orderTypeModel.id;
@@ -100,7 +104,7 @@ var OrderCtrl = {
         	
         	params.deliveryType = self.orderModel.deliveryType;
         }
-       
+//     alert(self.orderModel.curOrderType)
 //      alert(JSON.stringify(params))
         pageController.pageInit(self.scope, api.API_GET_ORDER_LIST, params,
             /**
@@ -222,7 +226,7 @@ var OrderCtrl = {
         	}
         	else if (type == 2)
         	{
-        		self.scope.tabs[1].isShowTitle = false;
+        		self.scope.tabs[1].isShowTitle = true;
         		self.orderTypeModel.name = "商品订单";
         		self.orderTypeModel.id = 2;
         	}
@@ -268,6 +272,24 @@ var OrderCtrl = {
             self.getOrders();
         };
         
+        //商品订单完成或取消
+        
+        self.scope.commodityAgree = function(item,type){
+        	var params = {};
+        	params.order_no = item.order_no;
+        	params.type = type;
+        	if(type == 0 && item.orderStatus != 4)
+        	{   
+        		
+        		self.sentTocheangOrder(params,type,item);
+        		
+        	}
+        	else if(type == 1 && item.orderStatus != 0)
+        	{   
+        		self.sentTocheangOrder(params,type,item);
+        	}
+        	
+        },
         
         //确定或取消订单
         

@@ -21,6 +21,10 @@ class M_saleMeeting extends My_Model
     //添加商品
     function addCommodity($info)
     {
+        if (!isset($info['commodity_attr']) || $info['commodity_attr'] == 0) 
+        {
+            $info['stock_num'] = 1;
+        }
     	$res = $this->db->insert('commodity', $info);
     	if (!$res) 
     	{
@@ -136,55 +140,70 @@ class M_saleMeeting extends My_Model
     }
 
     //销售记录
-    function saleRecord($startIndex, $num, $whr, &$data, &$count, &$total, $fields = '')
+    function saleRecord($startIndex, $num, $whr, &$data, &$count, &$statistics, $fields = '', $wh = array())
     {
-        $this->db->start_cache();
-        $this->db->from('sale_record');
-        $this->db->where($whr);
-        if (!empty($fields)) 
-        {
-            $this->db->like('commodity_name', $fields);
-        }
-        $this->db->stop_cache();
-        $count = $this->db->count_all_results();
-        if ($num > 0) 
-        {
-            $this->db->limit($num, $startIndex);
-        }
-        $data = $this->db->order_by('sale_time desc')->get()->result_array();
-        $this->db->flush_cache();
-        $total = $this->db->select_sum('commodity_price')->get('sale_record')->row_array();
-        $total = $total['commodity_price'];
         // $this->db->start_cache();
         // $this->db->from('sale_record');
-        // $this->db->select('commodity_id, sum(sale_num) as nums, sum(sale_num * commodity_price) as saleAmount, commodity_name, sale_time');
         // $this->db->where($whr);
-        // $this->db->group_by('commodity_id');
+        // if (!empty($fields)) 
+        // {
+        //     $this->db->like('commodity_name', $fields);
+        // }
         // $this->db->stop_cache();
-        // //$count = $this->db->count_all_results();
+        // $count = $this->db->count_all_results();
         // if ($num > 0) 
         // {
         //     $this->db->limit($num, $startIndex);
         // }
-        
         // $data = $this->db->order_by('sale_time desc')->get()->result_array();
         // $this->db->flush_cache();
-        // //
+        // $total = $this->db->select_sum('commodity_price')->get('sale_record')->row_array();
+        // $total = $total['commodity_price'];
+
+
+        $this->db->start_cache();
+        $this->db->from('sale_record');
+        $this->db->select('commodity_id, sum(sale_num) as nums, sum(sale_num * commodity_price) as saleAmount, sum(sale_num * bid_price) as total_bid, commodity_name, max(sale_time) as sale_time');
+        $this->db->where($whr);
+        $this->db->group_by('commodity_id');
+        $this->db->stop_cache();
+        //$count = $this->db->count_all_results();
+        if ($num > 0) 
+        {
+            $this->db->limit($num, $startIndex);
+        }
+        
+        $data = $this->db->order_by('sale_time desc')->get()->result_array();
+        $this->db->flush_cache();
+        foreach ($data as &$v) 
+        {
+            $v['singleProfit'] = $v['saleAmount'] - $v['total_bid'];
+            $v['sale_time'] = date("Y-m-d H:i:s", $v['sale_time']);
+        }
+        //统计信息
         // $numAndPrice = $this->db->select('commodity_price, sale_num')->get('sale_record')->result_array();
         // foreach ($numAndPrice as $v) 
         // {
+        //     $total = 0;
         //     $single = $v['commodity_price'] * $v['sale_num'];
         //     $total += $single;
         // }
+        // $statistics['total'] = $total;
 
-        // $sql = "select count(*) as count from (select count(*) from mn_sale_record ";
-        // if (!empty($whr)) 
-        // {
-        //     $sql .= "where sale_time >= {$wh['startTime']} and sale_time <= {$wh['endTime']} ";
-        // }
-        // $sql .= "group by commodity_id) W";
-        // $res = $this->db->query($sql)->row_array();
-        // $count = (int)$res['count'];
+        $sql = "select sum(bid_price) as bidTotalPrice, sum(sale_num) as saleTotalNum, sum(sale_num * commodity_price) as saleTotalMoney from mn_sale_record";
+        $statistics = $this->db->query($sql)->row_array();
+        $statistics['totalProfit'] = $statistics['saleTotalMoney'] - $statistics['bidTotalPrice'];
+        //var_dump($statistics);die;
+
+
+        $sql = "select count(*) as count from (select count(*) from mn_sale_record ";
+        if (!empty($whr)) 
+        {
+            $sql .= "where sale_time >= {$wh['startTime']} and sale_time <= {$wh['endTime']} ";
+        }
+        $sql .= "group by commodity_id) W";
+        $res = $this->db->query($sql)->row_array();
+        $count = (int)$res['count'];
     }
 
     //修改商品
@@ -247,6 +266,11 @@ class M_saleMeeting extends My_Model
 
     	$data = $this->db->where('id', $id)->get('commodity')->row();
     	if(empty($data)) return null;
+        if (empty($data->sold_time)) 
+        {
+            $sold_time = $this->db->select('orderTime')->where(array('goodsId' => $data->id))->join('order', 'order_goods.order_no = order.order_no')->order_by('orderTime desc')->get('order_goods')->row_array();
+            $data->sold_time = $sold_time['orderTime'];
+        }
     	self::$loadedCommodity[self::$commodity_id] = $data;
     	$this->saveCache();
     	return $data;
@@ -305,7 +329,10 @@ class M_saleMeeting extends My_Model
     //获取特卖会商品信息
     function getTMHCommodityInfo($id)
     {
-    	return $this->getCommodityInfo($id);
+    	$info = $this->getCommodityInfo($id);
+        $up_time = $this->db->select('add_time')->where('commodity_id', $id)->get('sale_meeting')->row_array();
+        $info->up_time = $up_time['add_time'];
+        return $info;
     }
 
     function saveCache()

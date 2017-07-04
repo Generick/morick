@@ -57,13 +57,20 @@ var SelectCtrl =
     	var self = this;
     	
     	var arr = [];
-    	
-    	if(commonFu.listGetUrlPublic(location.href).length == 2)
-    	{
-    		arr = commonFu.listGetUrlPublic(location.href);
-    		self.thisJumpPage = arr[0];
-    	    self.thisJumpId = arr[1];
+    	if(location.href.indexOf("?") > 0){
+    		var obj = new Base64();
+	    	self.thisJumpId = obj.decode(commonFu.getQueryStringByKey("thisDataId"));
+		    self.thisJumpPage = obj.decode(commonFu.getQueryStringByKey("backPage"));
     	}
+    	
+//  	
+//  	
+//  	if(commonFu.listGetUrlPublic(location.href).length == 2)
+//  	{
+//  		arr = commonFu.listGetUrlPublic(location.href);
+//  		self.thisJumpPage = arr[0];
+//  	    self.thisJumpId = arr[1];
+//  	}
     	
     },
     
@@ -402,13 +409,7 @@ var SelectCtrl =
 		        			location.href = pageUrl.LOGIN_PAGE;
 	    			}
     		
-    		    },
-            	function(){
-            		
-	       		 	    localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
-        				location.href = pageUrl.LOGIN_PAGE;
-        			
-            	});
+    		    });
     		
     		
     	};
@@ -416,57 +417,118 @@ var SelectCtrl =
     	
     	self.scope.onClickToGoodsDetail = function(item)
     	{   
-    		 
-    		    var id = item.id;
-            	if(!commonFu.isEmpty(sessionStorage.getItem("reloginFail")))
-            	{   //每次第一次进入都会判断有没有登录，没有登录且调重登陆失败，做一标记，标记存在，则说明未重登陆成功
-            		if((parseInt(item.isVIP) == 1) && (commonFu.isEmpty(localStorage.getItem(localStorageKey.vipOrNot))))
-	            	{  
-	            		$("#fixed-shade").css("display","block");
-			    		$("html,body").css("overflow","hidden");
-			    		$('#fixed-shade').bind("touchmove",function(e){
-			              	e.preventDefault();
-						});
-		    			return;
-	            	}
-	            	else
-	            	{
-	            		localStorage.setItem(localStorageKey.FROM_LOCATION,0);
-				    	sessionStorage.setItem("selDisId","sel_"+id);
-				    	self.getInterPage(id);
-				    	var thisPage = sessionStorage.getItem("interPage");
-				    	location.href = pageUrl.GOODS_DETAIL + "?id=" + id + "&thisPage=" + thisPage;
-	            	}
-            	}
-            	else
-            	{   
-            		//调重登陆成功，或者未调重登陆，但在登录状态则：调用个人信息接口
-            		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
-			    		localStorage.setItem(localStorageKey.vipOrNot,data.userInfo.isVIP)
-			    		var isMySelfVip = data.userInfo.isVIP;
+    		  
+    		            var id = item.id;
+    		    
+    		    
+    		            if(parseInt(item.isVIP) == 1)
+		    			{
+		    				jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
+	            				localStorage.setItem(localStorageKey.vipOrNot,data.userInfo.isVIP)
+				    		    var isMySelfVip = data.userInfo.isVIP;
+	            				if(parseInt(isMySelfVip) == 0)
+	            				{
+	            					$("#fixed-shade").css("display","block");
+						    		$("html,body").css("overflow","hidden");
+						    		$('#fixed-shade').bind("touchmove",function(e){
+						              	e.preventDefault();
+									});
+					    			return;
+	            				}else{
+	            					
+	            					localStorage.setItem(localStorageKey.FROM_LOCATION,0);
+							    	sessionStorage.setItem("selDisId","sel_"+id);
+							    	self.getInterPage(id);
+							    	var thisPage = sessionStorage.getItem("interPage");
+							    	var obj = new Base64();
+							    	
+							    	var id_base = obj.encode(id);
+							    	
+							    	var thispage_base = obj.encode(thisPage);
+							    	
+							    	var ste =  pageUrl.GOODS_DETAIL + "?id=" + id_base + "&thisPage=" + thispage_base;
+//							    	location.href = encodeURI(str);   pageUrl.GOODS_DETAIL + "?id=" + id + "&thisPage=" + thisPage;
+//					    	        
+					    	        location.href = encodeURI(str);
 
-			    		if(((parseInt(item.isVIP) == 1) && (parseInt(isMySelfVip) == 0)))
-		 				{
-			 				$("#fixed-shade").css("display","block");
-				    		$("html,body").css("overflow","hidden");
-				    		$('#fixed-shade').bind("touchmove",function(e){
-				              	e.preventDefault();
-							});
-			    			return;
-		 				}
-		 				else
-		 				{
-		 					localStorage.setItem(localStorageKey.FROM_LOCATION,0);
-					    	sessionStorage.setItem("selDisId","sel_"+id);
-					    	self.getInterPage(id);
-					    	//alert($(document).height());//当前文档的高度
-					    	//alert($(window).height());//当前窗口的高度
-				    		//alert(document.body.scrollTop);//当前滚动条到窗口顶部的距离
-					    	var thisPage = sessionStorage.getItem("interPage");
-					    	location.href = pageUrl.GOODS_DETAIL + "?id=" + id + "&thisPage=" + thisPage;
-		 				}
-            		})
-            	}
+//							    	 pageUrl.GOODS_DETAIL + "?id=" + id + "&thisPage=" + thisPage;
+	            				}
+            			    })
+		    			}
+		    			else{
+		    				       
+		    				        localStorage.setItem(localStorageKey.FROM_LOCATION,0);
+							    	sessionStorage.setItem("selDisId","sel_"+id);
+							    	self.getInterPage(id);
+							    	
+							    	var obj = new Base64();
+							    	
+							    	var thisPage = sessionStorage.getItem("interPage");
+							    	
+							    	var id_base64 = obj.encode(id);
+							    	
+							    	var thisPage_base64 = obj.encode(thisPage);
+							    	
+							    	var str = pageUrl.GOODS_DETAIL + "?id=" + id_base64  + "&thisPage=" + thisPage_base64;
+						    
+							    	location.href = encodeURI(str);
+							    	
+		    			}
+		    		   
+//  		    jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+//  		
+//		    		if(JSON.stringify(data) == 'true'){
+//		    			
+//		    			
+//		    			if(parseInt(item.isVIP) == 1)
+//		    			{
+//		    				jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
+//	            				localStorage.setItem(localStorageKey.vipOrNot,data.userInfo.isVIP)
+//				    		    var isMySelfVip = data.userInfo.isVIP;
+//	            				if(parseInt(isMySelfVip) == 0)
+//	            				{
+//	            					$("#fixed-shade").css("display","block");
+//						    		$("html,body").css("overflow","hidden");
+//						    		$('#fixed-shade').bind("touchmove",function(e){
+//						              	e.preventDefault();
+//									});
+//					    			return;
+//	            				}else{
+//	            					
+//	            					localStorage.setItem(localStorageKey.FROM_LOCATION,0);
+//							    	sessionStorage.setItem("selDisId","sel_"+id);
+//							    	self.getInterPage(id);
+//							    	var thisPage = sessionStorage.getItem("interPage");
+//							    	location.href = pageUrl.GOODS_DETAIL + "?id=" + id + "&thisPage=" + thisPage;
+//	            				}
+//          			    })
+//		    			}
+//		    			else{
+//		    				       
+//		    				        localStorage.setItem(localStorageKey.FROM_LOCATION,0);
+//							    	sessionStorage.setItem("selDisId","sel_"+id);
+//							    	self.getInterPage(id);
+//							    	
+//							    	var thisPage = sessionStorage.getItem("interPage");
+//							    	location.href = pageUrl.GOODS_DETAIL + "?id=" + id + "&thisPage=" + thisPage;
+//		    			}
+//		    		   
+//			    		
+//			    	}
+//		    		else
+//		    		{  
+//		    			$dialog.msg("会话过期，请先登录");
+//	                    setTimeout(function(){
+//	                    	
+//	                    	location.href = pageUrl.LOGIN_PAGE;
+//	                    },1300)
+//			    		
+//			    	}
+//		    		
+//		    	})
+    		    
+    		    
+            	
     
     	};
     	

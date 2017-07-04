@@ -8,6 +8,10 @@ app.controller("ctrl", function($scope) {
 var AddressListCtrl = {
     scope : null,
     
+    thisDetailPage : null,
+    
+    thisDataId : null,
+    
     addressModel: {
     	addressArr : [],
     	userId : null,
@@ -26,7 +30,15 @@ var AddressListCtrl = {
         var self = this;
 
     	localStorage.setItem(localStorageKey.TOTALADDRESS, "");
-
+        
+        if(!commonFu.isEmpty(localStorage.getItem("hereComeFromAuc")) && !commonFu.isEmpty(localStorage.getItem("thisAcPage")) && !commonFu.isEmpty(localStorage.getItem("commodifyId")))
+        {   
+        	self.thisDetailPage = 	localStorage.getItem("thisAcPage");
+        	self.thisDataId = localStorage.getItem("commodifyId");
+          
+        }
+        
+        
     	$('.animation').show();
     	
     	self.getAddressList();
@@ -37,8 +49,9 @@ var AddressListCtrl = {
     	localStorage.setItem(localStorageKey.TOTALADDRESS, "");
 
     	var self = this;
-    	
-    	self.addressModel.userId = commonFu.getQueryStringByKey("userId");
+        var obj = new Base64();
+        self.addressModel.userId= obj.decode(commonFu.getQueryStringByKey("userId"));
+//  	self.addressModel.userId = commonFu.getQueryStringByKey("userId");
     	self.addressModel.type = localStorage.getItem(localStorageKey.IS_ADDRESS);
 
     	var params = 
@@ -96,8 +109,12 @@ var AddressListCtrl = {
         //选择地址，返回订单设置地址
         self.scope.selAddress = function(id){
             if(!commonFu.isEmpty(self.addressModel.type)){
-
-                location.href = pageUrl.ORDER_DETAIL + "?addressId=" + id;
+                
+                var obj = new Base64();
+                var ids = obj.encode(id);
+                var str = pageUrl.ORDER_DETAIL + "?addressId=" + ids;
+                location.href = encodeURI(str)
+//              location.href = pageUrl.ORDER_DETAIL + "?addressId=" + id;
             }
         };
 
@@ -143,7 +160,11 @@ var AddressListCtrl = {
 
     	//编辑
     	self.scope.onClickEditAddress = function(id) {
-    		location.href = pageUrl.MOD_ADDRESS_LIST + "?id=" + id;
+    		
+    		var obj = new Base64();
+    		var ids = obj.encode(id);
+    		var str = pageUrl.MOD_ADDRESS_LIST + "?id=" + ids;
+    		location.href = encodeURI(str);
     		localStorage.setItem(localStorageKey.addressId, id);
     	};
     	

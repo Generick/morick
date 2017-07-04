@@ -287,7 +287,7 @@ var personInfoController =
 		
 		upLoadLocalFile.start("chooseHeadIcon", function(url){
     		self.personInfoModel.userInfo.smallIcon = url;
-    		
+//  		alert(url)
             var modeInfo = {
                 smallIcon : self.personInfoModel.userInfo.smallIcon
             };
@@ -312,8 +312,12 @@ var personInfoController =
     	
     	//我的收货地址
     	self.scope.onClickModAddress = function()
-    	{
-    		location.href = pageUrl.MY_ADDRESS_LIST + "?userId=" + self.userId;
+    	{   
+    		var obj = new Base64();
+    		var ids = obj.encode(self.userId);
+    		var str = pageUrl.MY_ADDRESS_LIST + "?userId=" + ids;
+    		location.href = encodeURI(str)
+//  		location.href = pageUrl.MY_ADDRESS_LIST + "?userId=" + self.userId;
     	};
     	
     	

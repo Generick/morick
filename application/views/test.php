@@ -87,7 +87,7 @@
             //endregion
 
             //bids interface start
-            "bids/A_bids/getBidList":{"startIndex":"0","num":10,"说明":"获取出价列表 startIndex获取位置，num获取数量"},
+            "bids/A_bids/getBidList":{"startIndex":"0","num":10,"auctionItemId":111,"说明":"获取出价列表 startIndex获取位置，num获取数量 auctionItemId为拍品id"},
             "bids/A_bids/smsSend":{"params" :'{"type":1,"phoneNum":"18255001881","goods_name":"test","price":20}',"说明":"type为类型 1超价提醒 2竞拍成功 3截拍提醒"},
             //bids end
 
@@ -176,7 +176,8 @@
             "order/U_order/getLogisticsInfo" : {"order_no" : "", "说明" : "获取物流信息"},
             "order/U_order/confirmReceipt" : {"order_no" : "", "说明" : "确认收货"},
             "order/U_order/payOrder" :{"order_no" : "", "deliveryType" : "0", "说明" : "支付订单"},
-            "order/U_order/payTMH" :{"userId" : "0", "commodity_id" : "0", "说明" : "支付特卖会订单"},
+            "order/U_order/payTMH" :{"userId" : "0", "commodity_id" : "0", "clientPrice":0, "clientTime":0,"buyNum":1,"说明" : "支付特卖会订单 clientPrice前端计算的价格clientTime前端传入的时间 buyNum购买数量"},
+            //"order/U_order/wxPayTMH":{"userId":'3', "commodity_id":'88', "clientPrice":'', "clientTime":'1498647944', "buyNum":1, payEnv":7, "returnUrl":'', "说明":"微信支付商品"},
             //endregion
 
             //region 充值
@@ -210,7 +211,7 @@
 
             //特卖会
             "saleMeeting/A_saleMeeting/getCommodities": {'startIndex':0, 'num':10, 'is_up': '', 'fields':'', '说明':'获取商品列表 is_up是否上架 0未上架 1上架'},
-            "saleMeeting/A_saleMeeting/addCommodity": {'info':'{"commodity_name":"new name","commodity_desc":"new desc", "commodity_cover":"htttp://xxx.jpg","commodity_detail":"new detail", "commodity_price":100, "stock_num":5000, "commodity_pic":["http://xxx.jpg","http://123.jpg"]}', '说明':'添加商品'},
+            "saleMeeting/A_saleMeeting/addCommodity": {'info':'{"commodity_name":"new name","commodity_desc":"new desc", "commodity_cover":"htttp://xxx.jpg","commodity_detail":"new detail", "commodity_price":100, "bid_price":50,"stock_num":5000, "commodity_pic":["http://xxx.jpg","http://123.jpg"],"annualized_return":"20","commodity_attr":0}', '说明':'添加商品'},
             "saleMeeting/A_saleMeeting/getUpCommodities": {'startIndex':0, 'num':10, 'fields':'', '说明':'获取添加到特卖会中的商品'},
             "saleMeeting/A_saleMeeting/delCommodity": {'ids':'[1,2]', '说明':'删除商品'},
             "saleMeeting/A_saleMeeting/modCommodity": {'id':1, 'modInfo':'','说明':'修改商品'},

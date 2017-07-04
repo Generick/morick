@@ -1,6 +1,9 @@
 /*
  * 拍卖历史
  */
+
+      
+
 		if (typeof localStorage === 'object') {
 		    try {
 				localStorage.setItem('localStorage', 1);
@@ -11,6 +14,17 @@
 				$dialog.msg('为了正常访问，请关闭无痕模式');
 			}
 		}
+        CanvasRenderingContext2D.prototype.sector = function(x,y,r,angle1,angle2){
+				
+		            this.save();
+		            this.beginPath();
+		            this.moveTo(x,y);
+		            this.arc(x,y,r,angle1*Math.PI/180,angle2*Math.PI/180,false);
+		            this.closePath();    
+		            this.restore();
+		            
+		            return this;
+		};
 
 var AuctionHistoryCtrl =
 {
@@ -22,15 +36,27 @@ var AuctionHistoryCtrl =
     
     thisJumpId : null,
     
+    timer : null,
+    
+    timer2 : null,
+    
+    timeNumber : 0,
     
 	wxParams : {},
    
     shareInfo : {},
     
+    circle :{
+        x:13,
+        y:13,
+        round:11
+    },
+    
+    
     page : {
 		currentPage : 1,
 		totalPage : null,
-		timeNum : 6,
+		timeNum : 20,
 	},
 	
 	totalCount : 0,//数据的总条数
@@ -39,7 +65,9 @@ var AuctionHistoryCtrl =
     auctionHistoryModel : 
     {
     	TMHList : [],
-    	id : null
+    	id : null,
+    	
+    	
     },
     
     init : function ($scope,wxParams)
@@ -48,11 +76,15 @@ var AuctionHistoryCtrl =
     	this.scope = $scope; 
     	
     	this.wxParams = wxParams;
-    	
+	
     	this.judjeIsLogin();
     	
     	this.getUrlAndId();
     	
+    	$("#changing-number").css("display","none");
+    	$("#changing-words").css("display","none");
+    	$(".fix-clock").css("display","none");
+    	$(".fix-round").css("display","none");
     	$('.container').css('opacity','0');
     	
     	this.initData(2);
@@ -70,22 +102,28 @@ var AuctionHistoryCtrl =
     	var self = this;
     	
     	
-    	self.shareInfo.title = "雅玩之家";
+    	self.shareInfo.title = "雅玩之家精选店";
         self.shareInfo.img = "http://auction.yawan365.com/web/img/share-to-other.jpg";
-        self.shareInfo.content = "文化收藏，雅玩之家，每晚十点，欢迎回家";
+        self.shareInfo.content = "明码标价，童叟无欺";
         
         commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
     	
+        if(location.href.indexOf("?") > 0){
+    		var obj = new Base64();
+	    	self.thisJumpId = obj.decode(commonFu.getQueryStringByKey("thisDataId"));
+		    self.thisJumpPage = obj.decode(commonFu.getQueryStringByKey("backPage"));
+//  	    
+//  	    alert(self.thisJumpPage)
+        }
     	
-    	
-    	var arr = [];
-    
-    	if(commonFu.listGetUrlPublic(location.href).length == 2)
-    	{   
-    		arr = commonFu.listGetUrlPublic(location.href);
-    		self.thisJumpPage = arr[0];
-    	    self.thisJumpId = arr[1];
-    	}
+//  	var arr = [];
+//  
+//  	if(commonFu.listGetUrlPublic(location.href).length == 2)
+//  	{   
+//  		arr = commonFu.listGetUrlPublic(location.href);
+//  		self.thisJumpPage = arr[0];
+//  	    self.thisJumpId = arr[1];
+//  	}
     	
     	
     },
@@ -214,7 +252,7 @@ var AuctionHistoryCtrl =
     	$('.animation').css('display','block');
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SPECIAL_SALE_LIST, params, function(data){
-    	    console.log(JSON.stringify(data))
+//  	    console.log(JSON.stringify(data))
     		//在回调里拿到总数据条数，给全局变量
 	    	self.totalCount = data.count;
 	    	//设置总页数
@@ -266,9 +304,11 @@ var AuctionHistoryCtrl =
 
 		    	    for(var s = 0;s < self.auctionHistoryModel.TMHList.length;s++)
 		    	    {   
-		    	    	if(!commonFu.isEmpty(self.auctionHistoryModel.TMHList[s].info.commodity_pic))
+		    	    	if(!commonFu.isEmpty(self.auctionHistoryModel.TMHList[s].info.commodity_cover))
 	                    {
-	                    	self.auctionHistoryModel.TMHList[s].pictures = JSON.parse(self.auctionHistoryModel.TMHList[s].info.commodity_pic)[0];
+	                    	
+	                    	self.auctionHistoryModel.TMHList[s].pictures = self.auctionHistoryModel.TMHList[s].info.commodity_cover;
+	                    	
 	                    }
 		    	    	
 		    	    }
@@ -287,6 +327,7 @@ var AuctionHistoryCtrl =
 		    	    //获取加载到的最大页
 		    	    self.page.currentPage = self.getNowDataPage(theSessionData_2,theSelfData_2);
                     $('.acu-chrysanthemums').css("display","none");
+//                  self.initClock();
 		        }
 		    	else if(type == 2)
 		    	{  
@@ -343,8 +384,8 @@ var AuctionHistoryCtrl =
 	    			
                     if(!commonFu.isEmpty(goods[i].info.commodity_pic))
                     {
-                    	goods[i].pictures = JSON.parse(goods[i].info.commodity_pic)[0];
-                    	
+                    	goods[i].pictures = goods[i].info.commodity_cover;
+                    
                     }
 		    		
 		    		if (!commonFu.isEmpty(goods[i].info.commodity_price))
@@ -360,28 +401,604 @@ var AuctionHistoryCtrl =
     		{
     			$(".no-data").css('display','block');
     		}
-    		
-    		self.shareInfo.title = "雅玩之家";
-            self.shareInfo.img = "img/share-to-other.jpg";
-            self.shareInfo.content = "文化收藏，雅玩之家，每晚十点，欢迎回家";
+
+            for(var a = 0; a < self.auctionHistoryModel.TMHList.length; a ++)
+            {   
+            	if(self.auctionHistoryModel.TMHList[a].info.stock_num != 0)
+            	{  
+            		self.auctionHistoryModel.TMHList[a].info.viewPrice = (Math.floor(10000 * self.auctionHistoryModel.TMHList[a].info.commodity_price *(1 +  ((commonFu.getTimeStamp()- self.auctionHistoryModel.TMHList[a].add_time)/60) * (self.auctionHistoryModel.TMHList[a].info.annualized_return*0.01/(commonFu.isSmoothYear()*1440)))))/10000;
+                    
+                    self.auctionHistoryModel.TMHList[a].info.viewPrice = self.auctionHistoryModel.TMHList[a].info.viewPrice.toFixed(4);
+            	}
+            	else
+            	{    
+            		
+            		self.auctionHistoryModel.TMHList[a].info.viewPrice = (Math.floor(10000 * self.auctionHistoryModel.TMHList[a].info.commodity_price *(1 +  ((self.auctionHistoryModel.TMHList[a].info.sold_time - self.auctionHistoryModel.TMHList[a].add_time)/60) * (self.auctionHistoryModel.TMHList[a].info.annualized_return*0.01/(commonFu.isSmoothYear()*1440)))))/10000;
+                   
+                    self.auctionHistoryModel.TMHList[a].info.viewPrice = self.auctionHistoryModel.TMHList[a].info.viewPrice.toFixed(4);
+//          	    if(self.auctionHistoryModel.TMHList[a].info.commodity_id == 94)
+//          	    {
+//          	    	alert("pric" + self.auctionHistoryModel.TMHList[a].info.viewPrice)
+//          	    	alert("sold_time" + self.auctionHistoryModel.TMHList[a].info.sold_time)
+//          	    	alert("pric" + self.auctionHistoryModel.TMHList[a].info.viewPrice)
+//          	    }
+            	}
+//          	 console.log(self.auctionHistoryModel.TMHList[a].info.viewPrice);
+            }
+            
+            /*
+             * 切割数据
+             */
           
-    		commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
-//  		alert(JSON.stringify(self.auctionHistoryModel.TMHList))
-//  		alert(self.auctionHistoryModel.TMHList.length)
+            for(var f = 0; f < self.auctionHistoryModel.TMHList.length; f++){
+		    
+		    	self.auctionHistoryModel.TMHList[f].newName = ""+ self.auctionHistoryModel.TMHList[f].id;
+		    }
+            
     		self.scope.auctionHistoryModel = self.auctionHistoryModel;
     		
     		$('.animation').css('display','none');
     		$('.container').css('opacity','1');
             self.isFinsh = false;
+            
     		self.scope.$apply();
+    		$(".fix-round").css("display","flex");
+    		$(".fix-clock").css("display","block");
+    	    $("#changing-number").css("display","inline-block");
+    	    $("#changing-words").css("display","inline-block");
+//  	    self.initClock();
+    	
+    		self.setNewPrice();
+    	    
+    	   	 for (var p =0; p < self.auctionHistoryModel.TMHList.length; p ++)
+		     {
+		   	        
+		   	        
+		   	    
+		   	         if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 13)
+		   	        {
+//		   	        	self.auctionHistoryModel.TMHList[p].info.viewPrice = self.auctionHistoryModel.TMHList[p].info.viewPrice.substring(self.auctionHistoryModel.TMHList[p].info.viewPrice.length - 9,self.auctionHistoryModel.TMHList[p].info.viewPrice.length);
+				   	        var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k"); // Ê®Íò
+							var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k"); // Íò
+				   	        var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k"); // Ê®Íò
+							var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k"); // Íò
+							var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
+							var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h"); // °Ù
+							var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
+							var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
+							var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
+							var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
+							var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
+							var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
+		//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
+							var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
+		//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
+							
+							var data = {
+							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
+							  targetClass: {
+							  	"wk":$wk,
+							  	"qk":$qk,
+							    "hk": $hk,
+							    "tk": $tk,
+							    "k": $k,
+							    "h": $h,
+							    "t": $t,
+							    "single": $single,
+							    "td": $td,
+							    "hd": $hd,
+							    "qd":$qd,
+							    "wd":$wd
+							  },
+							  zero: {
+							  	wk:0,
+							  	qk:0,
+							    hk: 0,
+							    tk: 0,
+							    k: 0,
+							    h: 0,
+							    t: 0,
+							    single: 0,
+							    td: 0,
+							    hd: 0,
+							    qd:0,
+							    wd:0
+							  },
+							  numbersTmp: ""
+						};
+		   	        }
+		   	        
+		   	         if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 12)
+		   	        {
+//		   	        	self.auctionHistoryModel.TMHList[p].info.viewPrice = self.auctionHistoryModel.TMHList[p].info.viewPrice.substring(self.auctionHistoryModel.TMHList[p].info.viewPrice.length - 9,self.auctionHistoryModel.TMHList[p].info.viewPrice.length);
+				   	        var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
+							var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k"); // Íò
+				   	        var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k"); // Ê®Íò
+							var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k"); // Íò
+							var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
+							var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h"); // °Ù
+							var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
+							var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
+							var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
+							var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
+							var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
+							var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
+		//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
+							var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
+		//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
+							
+							var data = {
+							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
+							  targetClass: {
+							  	"wk":$wk,
+							  	"qk":$qk,
+							    "hk": $hk,
+							    "tk": $tk,
+							    "k": $k,
+							    "h": $h,
+							    "t": $t,
+							    "single": $single,
+							    "td": $td,
+							    "hd": $hd,
+							    "qd":$qd,
+							    "wd":$wd
+							  },
+							  zero: {
+							  	wk:0,
+							  	qk:0,
+							    hk: 0,
+							    tk: 0,
+							    k: 0,
+							    h: 0,
+							    t: 0,
+							    single: 0,
+							    td: 0,
+							    hd: 0,
+							    qd:0,
+							    wd:0
+							  },
+							  numbersTmp: ""
+						};
+		   	        }
+		   	        if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 11)
+		   	        {
+//		   	        	self.auctionHistoryModel.TMHList[p].info.viewPrice = self.auctionHistoryModel.TMHList[p].info.viewPrice.substring(self.auctionHistoryModel.TMHList[p].info.viewPrice.length - 9,self.auctionHistoryModel.TMHList[p].info.viewPrice.length);
+				   	        var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
+							var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
+				   	        var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k"); // Ê®Íò
+							var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k"); // Íò
+							var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
+							var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h"); // °Ù
+							var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
+							var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
+							var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
+							var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
+							var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
+							var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
+		//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
+							var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
+		//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
+							
+							var data = {
+							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
+							  targetClass: {
+							  	"wk":$wk,
+							  	"qk":$qk,
+							    "hk": $hk,
+							    "tk": $tk,
+							    "k": $k,
+							    "h": $h,
+							    "t": $t,
+							    "single": $single,
+							    "td": $td,
+							    "hd": $hd,
+							    "qd":$qd,
+							    "wd":$wd
+							  },
+							  zero: {
+							  	wk:0,
+							  	qk:0,
+							    hk: 0,
+							    tk: 0,
+							    k: 0,
+							    h: 0,
+							    t: 0,
+							    single: 0,
+							    td: 0,
+							    hd: 0,
+							    qd:0,
+							    wd:0
+							  },
+							  numbersTmp: ""
+						};
+		   	        }
+		   	        else if (self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 10)
+		   	        {
+		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
+						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
+		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
+						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k"); // Íò
+						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
+						var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h"); // °Ù
+						var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
+						var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
+						var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
+						var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
+						var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
+						var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
+	//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
+						var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
+	//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
+						
+					   var data = {
+							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
+							  targetClass: {
+							  	"wk":$wk,
+							  	"qk":$qk,
+							    "hk": $hk,
+							    "tk": $tk,
+							    "k": $k,
+							    "h": $h,
+							    "t": $t,
+							    "single": $single,
+							    "td": $td,
+							    "hd": $hd,
+							    "qd":$qd,
+							    "wd":$wd
+							  },
+							  zero: {
+							  	wk:0,
+							  	qk:0,
+							    hk: 0,
+							    tk: 0,
+							    k: 0,
+							    h: 0,
+							    t: 0,
+							    single: 0,
+							    td: 0,
+							    hd: 0,
+							    qd:0,
+							    wd:0
+							  },
+							  numbersTmp: ""
+						};
+		   	        }
+		   	        else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 9)
+		   	        {
+		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
+						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
+		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
+						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
+						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
+						var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h"); // °Ù
+						var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
+						var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
+						var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
+						var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
+						var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
+						var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
+	//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
+						var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
+	//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
+						
+						var data = {
+							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
+							  targetClass: {
+							  	"wk":$wk,
+							  	"qk":$qk,
+							    "hk": $hk,
+							    "tk": $tk,
+							    "k": $k,
+							    "h": $h,
+							    "t": $t,
+							    "single": $single,
+							    "td": $td,
+							    "hd": $hd,
+							    "qd":$qd,
+							    "wd":$wd
+							  },
+							  zero: {
+							  	wk:0,
+							  	qk:0,
+							    hk: 0,
+							    tk: 0,
+							    k: 0,
+							    h: 0,
+							    t: 0,
+							    single: 0,
+							    td: 0,
+							    hd: 0,
+							    qd:0,
+							    wd:0
+							  },
+							  numbersTmp: ""
+						};
+		   	        }
+		   	        else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 8)
+		   	        {
+		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
+						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
+		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
+						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
+						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k").css("display","none"); // Ç§
+						var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h"); // °Ù
+						var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
+						var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
+						var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
+						var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
+						var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
+						var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
+	//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
+						var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
+	//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
+						
+						var data = {
+							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
+							  targetClass: {
+							  	"wk":$wk,
+							  	"qk":$qk,
+							    "hk": $hk,
+							    "tk": $tk,
+							    "k": $k,
+							    "h": $h,
+							    "t": $t,
+							    "single": $single,
+							    "td": $td,
+							    "hd": $hd,
+							    "qd":$qd,
+							    "wd":$wd
+							  },
+							  zero: {
+							  	wk:0,
+							  	qk:0,
+							    hk: 0,
+							    tk: 0,
+							    k: 0,
+							    h: 0,
+							    t: 0,
+							    single: 0,
+							    td: 0,
+							    hd: 0,
+							    qd:0,
+							    wd:0
+							  },
+							  numbersTmp: ""
+						};
+		   	        }
+		   	        else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 7)
+		   	        {
+		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
+						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
+		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
+						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
+						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k").css("display","none"); // Ç§
+						var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h").css("display","none"); // °Ù
+						var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
+						var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
+						var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
+						var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
+						var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
+						var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
+	//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
+						var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
+	//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
+						
+						var data = {
+							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
+							  targetClass: {
+							  	"wk":$wk,
+							  	"qk":$qk,
+							    "hk": $hk,
+							    "tk": $tk,
+							    "k": $k,
+							    "h": $h,
+							    "t": $t,
+							    "single": $single,
+							    "td": $td,
+							    "hd": $hd,
+							    "qd":$qd,
+							    "wd":$wd
+							  },
+							  zero: {
+							  	wk:0,
+							  	qk:0,
+							    hk: 0,
+							    tk: 0,
+							    k: 0,
+							    h: 0,
+							    t: 0,
+							    single: 0,
+							    td: 0,
+							    hd: 0,
+							    qd:0,
+							    wd:0
+							  },
+							  numbersTmp: ""
+						};
+		   	        }
+		   	        else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 6)
+		   	        {
+		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
+						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
+		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
+						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
+						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k").css("display","none"); // Ç§
+						var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h").css("display","none"); // °Ù
+						var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t").css("display","none"); // Ê®
+						var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
+						var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
+						var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
+						var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
+						var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
+	//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
+						var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
+	//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
+						
+						var data = {
+							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
+							  targetClass: {
+							  	"wk":$wk,
+							  	"qk":$qk,
+							    "hk": $hk,
+							    "tk": $tk,
+							    "k": $k,
+							    "h": $h,
+							    "t": $t,
+							    "single": $single,
+							    "td": $td,
+							    "hd": $hd,
+							    "qd":$qd,
+							    "wd":$wd
+							  },
+							  zero: {
+							  	wk:0,
+							  	qk:0,
+							    hk: 0,
+							    tk: 0,
+							    k: 0,
+							    h: 0,
+							    t: 0,
+							    single: 0,
+							    td: 0,
+							    hd: 0,
+							    qd:0,
+							    wd:0
+							  },
+							  numbersTmp: ""
+						};
+		   	        }
+		   	       
+				  for(var k = 0; k < 10; k ++) {
+				    data.numbersTmp += "<div class='" + data.numbers[k] + "'>" + k + "</div>";
+				  };
+//                $(".flip").eq(p).empty();
+//                var html = '';
+//                html += '<div class="price-div">';
+//                html += '<div class="w-k number"></div>';
+//                html += '<div class="q-k number"></div>';
+//                html += '<div class="h-k number"></div>';
+//                html += '<div class="t-k number"></div>';
+//                html += '<div class="k number"></div>';
+//                html += '<div class="h number"></div>';
+//                html += '<div class="t number"></div>';
+//                html += '<div class="single number"></div>';
+//                html += '<div class="sign dot">.</div>';
+//                html += '<div class="t-d number" style="width:8px;-webkit-transform: scaleX(0.8);font-size:12px"></div>';
+//                html += '<div class="h-d number" style="width:8px;-webkit-transform: scaleX(0.8);font-size:12px;"></div>';
+//                html += '<div class="q-d number" style="width:8px;-webkit-transform: scaleX(0.8);font-size:12px"></div>';
+//                html += '<div class="w-d number" style="width:8px;-webkit-transform: scaleX(0.8);font-size:12px"></div>';
+//                html += '</div>';
+//                $(".flip").eq(1).html(html);
+//				  console.log($(".flip").eq(1))		        
+                  $("." + self.auctionHistoryModel.TMHList[p].newName + " .price-div .number").empty();
+				  $("." + self.auctionHistoryModel.TMHList[p].newName + " .price-div .number").append("<div class='numbers-view'>" + data.numbersTmp + "</div>");
+		          
+				  self.auctionHistoryModel.TMHList[p]["data"] = data;
+	
+//				display: inline-flex; display: -webkit-inline-flex; flex-direction:  row; justify-content:flex-end;align-items: flex-end ;
+		    }
+    	   	 
+    	   
+    	   	for(var c = 0; c < self.auctionHistoryModel.TMHList.length; c++)
+            {   
+//          	      console.log(self.auctionHistoryModel.TMHList[c].info.viewPrice)
+            		var priceStr = parseFloat(self.auctionHistoryModel.TMHList[c].info.viewPrice) ;
+            		priceStr = parseFloat(priceStr.toFixed(4));
+//          	    $(".numbers-view").stop(true, true);
+	 		    	$.animateToPrice2(priceStr, c,self.auctionHistoryModel.TMHList);
+            	
+            }
+    	
+           
     	})
     },
     
     
+    setNewPrice : function(){
+    	
+    	var self = this;
+    	var dataCopy = [];
+	    dataCopy  =	deepCopy(self.auctionHistoryModel.TMHList); 
+	     
+	    clearInterval(self.timer);
+	    self.timer =setInterval(function(){
+	           
+	           
+	    		for(var j = 0; j < self.auctionHistoryModel.TMHList.length; j ++)
+		    	{   
+		    		if(self.auctionHistoryModel.TMHList[j].info.stock_num != 0)
+	            	{
+	            		self.auctionHistoryModel.TMHList[j].info.viewPrice = (Math.floor(10000 * self.auctionHistoryModel.TMHList[j].info.commodity_price *(1 +  ((commonFu.getTimeStamp()- self.auctionHistoryModel.TMHList[j].add_time)/60) * (self.auctionHistoryModel.TMHList[j].info.annualized_return*0.01/(commonFu.isSmoothYear()*1440)))))/10000;
+		    			
+		    			self.auctionHistoryModel.TMHList[j].info.viewPrice = self.auctionHistoryModel.TMHList[j].info.viewPrice.toFixed(4);
+		    	    
+	            	}
+	            	
+		    	}
+
+		    	for(var s =0; s < dataCopy.length; s ++)
+		    	{   
+		    		
+		    		if((self.auctionHistoryModel.TMHList[s].id == dataCopy[s].id) && (self.auctionHistoryModel.TMHList[s].info.viewPrice != dataCopy[s].info.viewPrice))
+		    		{
+                        
+                             
+                             if(self.auctionHistoryModel.TMHList[s].info.stock_num != 0)
+                             { 
+                             	 if(self.auctionHistoryModel.TMHList[s].info.viewPrice.length  != dataCopy[s].info.viewPrice.length)
+		                         {  
+	
+		                         	self.initData(2);
+		                         }
+		                         else
+		                         {
+		                         	self.auctionHistoryModel.TMHList[s].info.viewPrice = parseFloat(self.auctionHistoryModel.TMHList[s].info.viewPrice).toFixed(4);
+	                            
+	                                $.animateToPrice(self.auctionHistoryModel.TMHList[s].info.viewPrice, s,self.auctionHistoryModel.TMHList);
+		                         }
+                             	
+                             }
+//                          console.log(self.auctionHistoryModel.TMHList[s].info.viewPrice)
+					}
+          	           
+		    		
+		    	}
+	    		
+	    	    dataCopy = [];
+	    	    dataCopy  =	deepCopy(self.auctionHistoryModel.TMHList);
+	    	    
+		    	self.scope.auctionHistoryModel = self.auctionHistoryModel;
+		    	self.scope.$apply();
+	    	    
+	    },3000);
+	  
+    },
     
+    
+//  initClock : function(){
+//  	 
+//  	clearInterval(self.timer2);
+//  	
+//  	var numberDiv = $("#changing-number");
+//  	 
+//  	var num = 10;
+//  	numberDiv.html(num);
+//  	self.timer2 =  setInterval(function(){
+//  		num -- ;
+//  		if(num == 0)
+//  		{
+//  			num = 10;
+//  		}
+//  		numberDiv.html(num);
+//  	},1000)
+//  	 
+//  
+//  },
+ 
       //设置总页数
     setTotalPage : function(count)
 	{   
+		var self = this;
 		//count为总数据条数
 	   	var remainder = count % this.page.timeNum;
 	   
@@ -395,7 +1012,7 @@ var AuctionHistoryCtrl =
 	   	{
 	   	 	this.page.totalPage = integer + 1;
 	   	}
-	
+	   
 	},
      
     //获取当前数据模型最大加载到了第几页
@@ -471,8 +1088,7 @@ var AuctionHistoryCtrl =
     	var judje = false;
     	for(var n = 0; n < self.auctionHistoryModel.TMHList.length; n++)
     	{   
-//  	    console.log(JSON.stringify(self.auctionHistoryModel.TMHList))
-    	   
+	   
     		if(self.auctionHistoryModel.TMHList[n].commodity_id == id)
     		{   
     			judje = true;
@@ -563,7 +1179,7 @@ var AuctionHistoryCtrl =
             	
             	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
     			   
-	    			if(JSON.stringify(data)  == 'true'  || !commonFu.isEmpty(sessionStorage.getItem("loginSucess"))){
+	    			if(JSON.stringify(data)  == 'true'){
 	    				
         				location.href = pageUrl.PERSON_CENTER;
         				
@@ -575,13 +1191,7 @@ var AuctionHistoryCtrl =
 		        		
 	    			}
     		
-    		    },
-            	function(){
-            		
-	       		 	localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
-        			location.href = pageUrl.LOGIN_PAGE;
-        			
-            	});
+    		    });
 
             }
     		
@@ -596,26 +1206,45 @@ var AuctionHistoryCtrl =
     	
     	self.scope.onClickToAuctionHistoryDetail = function(item)
     	{   
-	
-    		var id = item.commodity_id;
-    	    sessionStorage.setItem("comeWithGuess",2);
-    	    sessionStorage.setItem("messlistOrauction",0)
     		
-    			jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
-		    		
-		    		localStorage.setItem(localStorageKey.vipOrNot,data.userInfo.isVIP)
-		    		var isMySelfVip = data.userInfo.isVIP;
-		    		
-		    		
-		    			self.auctionHistoryModel.id = id;
+
+    		var id = item.commodity_id;
+    	    localStorage.setItem("comeWithGuess",2);
+    	    localStorage.setItem("messlistOrauction",0)
+    		
+
 		    			sessionStorage.setItem("aucDisId","test_"+id);
 		    			self.getInterPage(id);
 		    			var thisAcPage = sessionStorage.getItem("intoPage");
-		    			location.href = pageUrl.AUCTION_HISTORY_INFO + "?id=" + id  + "&thisAcPage=" + thisAcPage;
-					
-	    		
-	            })
-    		
+		    			var stampTime = null;
+		    			if(item.info.stock_num != 0)
+		    			{
+		    				stampTime = commonFu.getTimeStamp();
+		    			}
+		    			else{
+		    				stampTime = item.info.sold_time;
+		    			}
+    	
+		    			localStorage.setItem("stampTime",stampTime);
+		    			
+		    			sessionStorage.setItem("stampTime",stampTime);
+
+//		    			viewPrice = (Math.floor(100 * item.info.commodity_price *(1 +  ((stampTime- item.add_time)/60) * (item.info.annualized_return*0.01/(commonFu.isSmoothYear()*1440)))))/100;
+//		    			viewPrice = commonFu.toDecimals(viewPrice);
+		    			
+		    			var obj = new Base64();
+						 	
+						var id_base64 = obj.encode(id);
+							    	
+						var thisPage_base64 = obj.encode(thisAcPage);
+							    	
+						var str = pageUrl.AUCTION_HISTORY_INFO + "?id=" + id_base64  + "&thisAcPage=" + thisPage_base64;
+						    
+						location.href = encodeURI(str);
+//		    			
+//		    			location.href = pageUrl.AUCTION_HISTORY_INFO + "?id=" + id  + "&thisAcPage=" + thisAcPage;
+//					
+
     	};
     },
    
@@ -739,9 +1368,10 @@ var AuctionHistoryCtrl =
 
     	}
  
-    }
-   
-
+    },
+    
+    
+    
 };
 
      //滚动事件的监控
@@ -777,7 +1407,13 @@ var AuctionHistoryCtrl =
 			    	
 			    	if((AuctionHistoryCtrl.page.currentPage < AuctionHistoryCtrl.page.totalPage) && (AuctionHistoryCtrl.auctionHistoryModel.TMHList.length < AuctionHistoryCtrl.totalCount))
 					{   
-                      
+//						$(".sell-list-item-price-word").find(".numbers-view").stop(true, true);
+//						$(".sell-list-item-price-word").find(".numbers-view div").removeClass("temp");
+//                      $this.find(".numbers-view").stop(true, true);
+//                      clearInterval(AuctionHistoryCtrl.timer);
+//                      clearInterval(AuctionHistoryCtrl.timer2);
+//                      AuctionHistoryCtrl.initClock();
+//                      $(".temp").css("display","none")
             	        AuctionHistoryCtrl.initData(1);
 					}
 					else if((AuctionHistoryCtrl.page.currentPage == AuctionHistoryCtrl.page.totalPage) || (AuctionHistoryCtrl.auctionHistoryModel.TMHList.length == AuctionHistoryCtrl.totalCount))
@@ -790,9 +1426,7 @@ var AuctionHistoryCtrl =
 						setTimeout(function(){
 							$(".ac-no-more-data").css("display","block");
 
-//							setTimeout(function(){
-//								$(".ac-no-more-data").css("display","none");
-//							},1800);
+
 						},500)
 					}
 			    }
@@ -808,3 +1442,5 @@ var AuctionHistoryCtrl =
     
   
 
+
+   		

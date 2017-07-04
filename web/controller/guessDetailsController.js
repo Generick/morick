@@ -43,11 +43,14 @@ var GuessInfoCtrl = {
     	
     	var self = this;
     	var arr = [];
-    	if(commonFu.getUrlPublic(location.href).length == 2)
+    	
+    	if(location.href.indexOf("?") > 0)
     	{
-    		arr = commonFu.getUrlPublic(location.href);
-	    	self.thisDetailPage = arr[0];
-	    	self.thisDataId = arr[1];
+    		var obj = new Base64();
+    		self.thisDataId = obj.decode(commonFu.getQueryStringByKey("id"));
+	    	self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisPage"));
+//	    	alert(self.thisDataId);
+//	    	alert(self.thisDetailPage)
     	}
     	
 

@@ -11,11 +11,17 @@ var OfferPriceCtrl = {
 
     param :null,
     
+    itemId : null,
+    
     isShowUserData : true,
+    
+    isTodayGet : false,
     
     userId : null,
     
     personNote : '',
+    
+    todayGetArr : [],
     
 	goodsModel : {
 		modelArr : [],
@@ -36,16 +42,19 @@ var OfferPriceCtrl = {
         startIndex3: 0,  //竞拍记录
         startIndex4: 0,  //购买服务
         startIndex5: 0,  //消费记录
+        startIndex33:0,
         curPage1: 1,     //收货地址当前页
         curPage2: 1,     //购买记录当前页
         curPage3: 1,     //竞拍记录当前页
         curPage4: 1,     //购买服务当前页
         curPage5: 1,     //消费记录当前页
+        curPage33: 1,
         addressArr: [],  //地址列表
         biddingArr: [],  //竞拍记录
         orderArr: [],    //竞拍记录
         servicesArr: [], //购买服务
-        spendingArr: []  //消费列表
+        spendingArr: [],  //消费列表
+        outPriceArr:[]//出价记录列表
     },
     
     
@@ -56,7 +65,9 @@ var OfferPriceCtrl = {
     	this.scope.infoModel = this.infoModel;
     	
     	this.scope.isShowUserData = this.isShowUserData;
-    
+        
+        this.scope.isTodayGet = this.isTodayGet;
+        
     	this.dataModelInit();
     	
     	this.getGoodsList();
@@ -145,9 +156,28 @@ var OfferPriceCtrl = {
     	//获取最新数据
     	
     	self.scope.getNewMes = function(){
+    		self.isTodayGet = false;
+    		self.scope.isTodayGet = self.isTodayGet;
+    		
+    		
+	    	var page = {};
+	    	page.selectPageNum = 10;
+	    	page.currentPage = 1;
+	    	page.totalPage = 0;
+	    	page.inputPage = 1;
+	    	var pageNumSelections = [10, 20, 50, 100];
+	    	pageController.scope = self.scope;
+	    	pageController.page = page;
+	    	
+	    	pageController.scope.pageNumSelections = pageNumSelections;
+	    	pageController.scope.page = pageController.page;
+	    	pageController.pageClick();
+    		
+    		
     		
     		self.getGoodsList()
-    		
+    		$("#offer-price-btn").addClass("forth-width-active");
+    		$("#today-get-btn").removeClass("forth-width-active");
     	};
     	
     	self.scope.showPersonDetail  = function(item){
@@ -184,6 +214,32 @@ var OfferPriceCtrl = {
     		
     	};
     	
+    	
+    	//当日截拍
+    	
+    	self.scope.todayGet = function(){
+    		
+    		self.isTodayGet = true;
+    		self.scope.isTodayGet = self.isTodayGet;
+    		$("#offer-price-btn").removeClass("forth-width-active");
+    		$("#today-get-btn").addClass("forth-width-active");
+    		
+    		var page = {};
+	    	page.selectPageNum = 10;
+	    	page.currentPage = 1;
+	    	page.totalPage = 0;
+	    	page.inputPage = 1;
+	    	var pageNumSelections = [10, 20, 50, 100];
+	    	pageController.scope = self.scope;
+	    	pageController.page = page;
+	    	
+	    	pageController.scope.pageNumSelections = pageNumSelections;
+	    	pageController.scope.page = pageController.page;
+	    	pageController.pageClick();
+    		
+    		
+    		self.getTodayData();
+    	};
     	
     	//点击事件
     	self.scope.sendMessage = function(type,item){
@@ -243,9 +299,18 @@ var OfferPriceCtrl = {
     	};
     	
     	
+    	self.scope.toseeOutPrice = function(item){
+    		
+    		$(".item").eq(0).addClass("hidden");
+    		$(".item").eq(1).removeClass("hidden");
+    		self.getSingleGoodsData(item);
+    	};
     	
-    	
-    	
+    	self.scope.hideTheItem = function(){
+    		$(".item").eq(1).addClass("hidden");
+    		$(".item").eq(0).removeClass("hidden");
+    		
+    	};
     	
     	self.scope.switchRecharge = function(type){
             self.infoModel.isRecharge = type == 0;
@@ -268,6 +333,93 @@ var OfferPriceCtrl = {
     },
     
     
+    
+    getSingleGoodsData : function(item){
+    	
+    	var self = this,
+            params = {
+                startIndex: self.infoModel.startIndex33,
+                num: 10,
+//              auctionItemId :4
+                auctionItemId: item.id
+            };
+        self.itemId = item;
+        $data.httpRequest("post", api.API_GET_BIDLIST, params,
+            /**
+             * 消费记录
+             * @param data.count
+             * @param data.transactionList 消费列表
+             * @param data.transactionList.transactionTime 消费时间
+             * @param data.transactionList.transactionType 消费类型
+             * @param data.transactionList.money 消费金额
+             */
+            function(data){
+
+                var totalPage = Math.ceil(data.count / 10);
+//              alert(JSON.stringify(data))
+                self.infoModel.outPriceArr = data.bidList;
+
+//              for(var i = 0, len = self.infoModel.outPriceArr.length; i < len; i++)
+//              {
+//                  var curObj = self.infoModel.outPriceArr[i];
+//
+//
+//              }
+
+                self.scope.$apply();
+
+                $("#simplePage_33").createPage({
+                    pageCount: totalPage,
+                    current: self.infoModel.curPage33,
+                    backFn: function(curPage){
+                        self.infoModel.curPage33 = curPage;
+                        self.infoModel.startIndex33 = (curPage-1)*10;
+                        self.getSingleGoodsData(self.itemId);
+                    }
+                });
+            }
+        )
+    	
+    },
+    
+    
+    
+    
+    
+    
+        
+    
+    
+    
+    
+    //获取当日截拍
+    getTodayData : function(){
+    	var self = this;
+    	
+    	var params = {};
+    	params.todayAuction = 1
+    	pageController.pageInit(self.scope, api.API_GET_AUCTION_LIST, params,
+
+            function(data){
+            	
+            	if(self.scope.page.selectPageNum)
+	            {   
+	                var totalPage = Math.ceil(data.count / self.scope.page.selectPageNum);
+	                pageController.pageNum(totalPage);
+	              
+	            }
+            	self.todayGetArr = data.auctionItems;
+            	if(self.todayGetArr.length == 0)
+            	{
+            			$dialog.msg("暂无数据！")
+            	}
+            	self.scope.todayGetArr = self.todayGetArr;
+            	self.scope.$apply();
+              console.log(JSON.stringify(data))
+            });
+
+        
+    },
     
      
     getSelfInfo : function(){

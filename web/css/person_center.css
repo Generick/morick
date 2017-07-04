@@ -313,8 +313,9 @@
 .choose-gender-bg{
 	width: 100%;
 	height: 100vh;
-	position: absolute;
+	position: fixed;
 	top: 0;
+	left:0;
 	background-color: rgba(0,0,0,0.5);
 	z-index: 99;
 	display: none;
@@ -466,7 +467,9 @@
 .recharge-offline {
     line-height: 32px;
     font-size: 15px;
-    padding: 20px 12px 0;
+    padding-top: 12px;
+    padding-left:15px;
+    padding-bottom: 8px;
 }
 
 .recharge-offline-wx {
@@ -587,8 +590,9 @@
     height: 30px;
     line-height: 30px;
     position: absolute;
-    bottom: 40px;
+    /*bottom: 40px;*/
     left: 11px;
+    top:40px;
 }
 
 .bidding-txt > .price-init > .bg {
@@ -1645,3 +1649,17 @@
 	
 }
 
+.to-sure-accept{
+	text-align: center;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #d7d7d7;
+    color: #595d60;
+    border-radius: 5px;
+    background-color: #fff;
+    float: right;
+    margin-right: 5px;
+    -webkit-user-select: none;
+    user-select: none;
+}

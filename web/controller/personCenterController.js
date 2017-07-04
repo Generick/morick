@@ -15,7 +15,7 @@ app.controller("ctrl", function ($scope)
 		}
 	}
 
-	sessionStorage.removeItem("comeIntoOrder");
+	localStorage.removeItem("comeIntoOrder");
     PersonCenterCtrl.init($scope);
    
 });
@@ -153,7 +153,7 @@ var PersonCenterCtrl =
         		{
         			self.userHasReadMessage(params);
         		}
-        		sessionStorage.setItem("comeWithGuess",4)
+        		localStorage.setItem("comeWithGuess",4)
         		setTimeout(function(){
 	       		 	
         				location.href = pageUrl.GUESS_INNER +"?id="+ item.href_id + "&page=" + 1;
@@ -177,8 +177,8 @@ var PersonCenterCtrl =
 //      				
 //      		},250)
         	    
-        	    
-        	    sessionStorage.setItem("comeIntoOrder",1)
+        	    localStorage.setItem("comewidthgoto",1);
+        	    localStorage.setItem("comeIntoOrder",1)
         		localStorage.setItem(localStorageKey.orderNo, item.href_id);
          		
                 setTimeout(function(){
@@ -193,11 +193,11 @@ var PersonCenterCtrl =
         		{
         			self.userHasReadMessage(params);
         		}
-        		sessionStorage.setItem("comeIntoOrder",1)
+        		localStorage.setItem("comeIntoOrder",1)
         		localStorage.setItem(localStorageKey.orderNo, item.href_id);
          		
                 setTimeout(function(){
-	       		 	
+	       		 	localStorage.setItem("comewidthgoto",1);
         			location.href = pageUrl.ORDER_DETAIL +"?id="+ item.href_id;
         				
         		},250)

@@ -56,6 +56,7 @@ class U_messagePush extends User_Controller
 
         $whr = array();
         $or_whr = array('user_id' => $userId);
+        $or_whr['push_type'] = 2;
         $whr['user_id'] = 0;
         $push_type = 0;
         $isVIP = $this->db->select('isVIP')->where('userId', $userId)->get('user')->row_array();

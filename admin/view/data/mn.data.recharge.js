@@ -63,7 +63,7 @@ var RechargeDataCtrl = {
                 self.dataModel.modelArr = data.rechargeList;
                 if(self.dataModel.modelArr.length == 0)
                 {
-                	$dialog.msg("没有找到你要的内容哦");
+                	$dialog.msg("暂无数据");
                 }
                  
                 for(var i = 0;i < self.dataModel.modelArr.length; i++)

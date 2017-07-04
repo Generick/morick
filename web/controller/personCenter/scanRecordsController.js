@@ -114,7 +114,12 @@ var ScanRecordsCtrl = {
     			{
     				
     				localStorage.setItem(localStorageKey.FROM_LOCATION, 2);
-		    		location.href = pageUrl.GOODS_DETAIL + "?id=" + item.id + "&page=" + 1;
+    				var obj = new Base64();
+    				var dis = obj.encode(item.id);
+    				var pages = obj.encode("1");
+    				var str =  pageUrl.GOODS_DETAIL + "?id=" + dis + "&thisPage=" + pages;
+    				location.href = encodeURI(str);
+//		    		location.href = pageUrl.GOODS_DETAIL + "?id=" + item.id + "&thisPage=" + 1;
     			}
     				
 		    

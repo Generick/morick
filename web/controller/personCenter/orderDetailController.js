@@ -22,6 +22,9 @@ var OrderDetailCtrl = {
         deliveryType :0
     },
     
+    isMoreThanPrice : null,
+    
+    goodsOrderType : null,
    
     faceOrFast : false,
     
@@ -49,9 +52,12 @@ var OrderDetailCtrl = {
 
         $('.animation').css('display','block');
     	self.orderDetailModel.order_no = localStorage.getItem(localStorageKey.orderNo);
-        self.orderDetailModel.addressId = commonFu.getQueryStringByKey("addressId");
-
+    	
+//      self.orderDetailModel.addressId = commonFu.getQueryStringByKey("addressId");
+          
         if(!commonFu.isEmpty(self.orderDetailModel.addressId)){ //有地址ID就掉接口修改没有直接掉订单接口
+            var obj = new Base64();
+    	    self.orderDetailModel.addressId = obj.decode(commonFu.getQueryStringByKey("addressId"))
             self.setAddress();
         }
         else {
@@ -72,6 +78,7 @@ var OrderDetailCtrl = {
 //            console.log(JSON.stringify(data))
             self.orderDetailModel.orderInfo = {};
             self.orderDetailModel.orderInfo = data.orderInfo;
+            self.goodsOrderType = self.orderDetailModel.orderInfo.orderType;
             if(self.orderDetailModel.orderInfo.acceptName == "")
             {
                 self.orderDetailModel.orderInfo.acceptName = "暂无";
@@ -111,7 +118,7 @@ var OrderDetailCtrl = {
             else if (self.orderDetailModel.orderInfo.orderStatus == 2)
             {
                 self.orderDetailModel.orderInfo.orderTypeText = "等待发货";
-                self.orderDetailModel.showLogistics = true;
+                self.orderDetailModel.showLogistics = false;
                 self.orderDetailModel.orderIsDone = false;
             }
             else if (self.orderDetailModel.orderInfo.orderStatus == 3)
@@ -127,7 +134,9 @@ var OrderDetailCtrl = {
                 self.orderDetailModel.orderIsDone = false;
             }
             else
-            {
+            {   
+            	
+            	self.orderDetailModel.orderInfo.orderTypeText = "已取消";
                 self.orderDetailModel.unPay = false;
                 self.orderDetailModel.showLogistics = false;
             }
@@ -153,8 +162,14 @@ var OrderDetailCtrl = {
 //          {
 //          	self.orderDetailModel.orderInfo.orderGoods[0].goods_pics = JSON.parse(self.orderDetailModel.orderInfo.orderGoods[0].goods_pics);
 //          }
-           
 
+            self.isMoreThanPrice = commonFu.toDecimals(parseFloat(self.orderDetailModel.orderInfo.prepaidPrice) - parseFloat(self.orderDetailModel.orderInfo.goodsPrice)) ; 
+          
+            self.scope.isMoreThanPrice = self.isMoreThanPrice;
+            if(self.orderDetailModel.orderInfo.payType == 3 && self.orderDetailModel.orderInfo.province =='')
+            {
+            	$(".accept-detail").css("display","none")
+            }
             self.getTraceList();
 
             $('.animation').css('display','none');
@@ -261,7 +276,7 @@ var OrderDetailCtrl = {
         	}
         
         };
-
+       
         
         self.scope.hideIt = function(){
         	
@@ -272,13 +287,40 @@ var OrderDetailCtrl = {
 	        
         };
         
+        //确认收货
+    	self.scope.onClickToConfirmReceipt = function()
+    	{
+    		var param =
+    		{
+    			order_no : self.orderDetailModel.order_no
+    		};
+    		
+    		$confirmDialog.show("确认收到藏品，再点击收货哦",function()
+    		{
+    			jqAjaxRequest.asyncAjaxRequest(apiUrl.API_ORDER_CONFIRM_RECEIPT, param, function(data)
+	    		{
+	    			$confirmTip.show("确认收货成功");
+	    			self.getOrderInfo()
+	    		})
+    		})
+    	};
+        
+        
         //选择地址
         self.scope.selAddress = function(){
             if (self.orderDetailModel.orderIsDone) //订单已生成并且未发货之前都可以修改地址
             {
                 localStorage.setItem(localStorageKey.TO_ADDRESS_TYPE, 1); //判断从哪里进入地址列表
                 localStorage.setItem(localStorageKey.IS_ADDRESS, 1); //设置地址标志
-                location.href = pageUrl.MY_ADDRESS_LIST + "?userId=" + self.orderDetailModel.userId;
+                var obj = new Base64();
+//              alert(self.orderDetailModel.userId)
+                var thisDataId = obj.encode(self.orderDetailModel.userId);
+                
+			    var str = pageUrl.MY_ADDRESS_LIST + "?userId=" + thisDataId;
+                location.href = encodeURI(str);
+                
+                
+//              location.href = pageUrl.MY_ADDRESS_LIST + "?userId=" + self.orderDetailModel.userId;
             }
         };
 
@@ -296,7 +338,23 @@ var OrderDetailCtrl = {
     		else
     		{
     			
-    			location.href = pageUrl.MY_PAY_ORDER_PAGE;
+    			if(self.goodsOrderType == 1)
+    			{
+    				
+    				var obj = new Base64();
+    				var ids = obj.encode('2');
+    				var str = pageUrl.MY_PAY_ORDER_PAGE + "?comfromSpecial=" + ids;
+    				location.href = encodeURI(str);
+//  				location.href = pageUrl.MY_PAY_ORDER_PAGE + "?comfromSpecial=" + 2;
+    			}
+    			else
+    			{   
+    				var obj = new Base64();
+    				var ids = obj.encode('3');
+    				var str = pageUrl.MY_PAY_ORDER_PAGE + "?comfromSpecial=" + ids;
+    				location.href = encodeURI(str);
+//  				location.href = pageUrl.MY_PAY_ORDER_PAGE + "?comfromSpecial=" + 3;
+    			}
 //  			if (!self.orderDetailModel.noReceipt)
 //  			{
 //  				$dialog.msg("请先完善收货地址再付款");

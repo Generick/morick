@@ -90,6 +90,7 @@ class COrderAllInfo extends IExtractInfo {
             "prepaidPrice",
             "payPrice",
             "payTime",
+            "payType",
             "orderTime",
             "orderStatus",
             "orderGoods",
@@ -234,9 +235,15 @@ class COrder extends CDataClassBase {
         }
         $CI->load->model('m_saleMeeting');
         $this->orderGoods = array();
+        if(empty($orderGoods)) {
+            //echo "ERROR---".date("Ymd")."----order_no:".$this->order_no."<br>";
+            //var_dump($orderGoods);
+            return;
+        }
         $commodityInfo = $CI->m_saleMeeting->getCommodityInfo($orderGoods[0]['goodsId']);
         if ($commodityInfo) 
         {
+            $commodityInfo->goodsNum = $orderGoods[0]['goodsNum'];
             $this->orderGoods[] = $commodityInfo;
         }
         

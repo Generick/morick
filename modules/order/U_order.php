@@ -220,13 +220,43 @@ class U_order extends User_Controller
         }
         $userId = $this->input->post('userId');
         $commodity_id = $this->input->post('commodity_id');
-        $res = $this->m_order->payTMH($userId, $commodity_id);
+        //add
+        $clientPrice = $this->input->post('clientPrice');
+        $clientTime = $this->input->post('clientTime');
+        $buyNum = $this->input->post('buyNum');
+        $order_no = 0;
+        $res = $this->m_order->payTMH($userId, $commodity_id, $clientPrice, $clientTime, $buyNum, $order_no);
         if ($res !== ERROR_OK) 
         {
             $this->responseError($res);
             return;
         }
-        $this->responseSuccess($res);
+        $this->responseSuccess(array('order_no' => $order_no));
+    }
+
+    //微信支付
+    function wxPayTMH()
+    {
+        if (!$this->checkParam(array('userId', 'commodity_id','clientPrice', 'clientTime'))) 
+        {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
+        $userId = $this->input->post('userId');
+        $commodity_id = $this->input->post('commodity_id');
+        $clientPrice = $this->input->post('clientPrice');
+        $clientTime = $this->input->post('clientTime');
+        $buyNum = $this->input->post('buyNum');
+        $payEnv = $this->input->post('payEnv');
+        $returnUrl = $this->input->post('returnUrl');
+        $ret = array();
+        $res = $this->m_order->wxPayTMH($userId, $commodity_id, $clientPrice, $clientTime, $buyNum, $ret, $payEnv, $returnUrl);
+        if ($res !== ERROR_OK) 
+        {
+            $this->responseError($res);
+            return;
+        }
+        $this->responseSuccess(array('ret' => $ret));
     }
 
     //特卖会订单详情

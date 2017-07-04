@@ -334,10 +334,11 @@ var AuctionCtrl = {
     getPreviewInfo: function(type) {
     	var self = this,
             params = {
-                itemId: self.auctionModel.curID
+                goodsId: self.auctionModel.curID,
+//              userId :self.infoModel.singleData.userId
             };
 
-        $data.httpRequest("post", api.API_GET_AUCTION_INFO, params,
+        $data.httpRequest("post", api.API_GET_SINGLE_GOODS, params,
 
              /**
              * @param data.allInfo.cappedPrice 封顶价
@@ -346,6 +347,7 @@ var AuctionCtrl = {
              * @param data.allInfo.lowestPremium
              */
             function(data) {
+//          	console.log(JSON.stringify(data))
             	if(type)
             	{
             		self.goodsDetailModel.initPrice = self.auctionModel.initPrice;
@@ -360,16 +362,16 @@ var AuctionCtrl = {
             	}
             	else
             	{
-            		self.goodsDetailModel.initPrice = data.allInfo.initialPrice;
-	            	self.goodsDetailModel.lowestPremium = data.allInfo.lowestPremium;
-	            	self.goodsDetailModel.margin = data.allInfo.margin;
-	            	self.goodsDetailModel.cappedPrice = data.allInfo.cappedPrice;
-	            	self.countDown(data.allInfo.endTime);
+//          		self.goodsDetailModel.initPrice = data.allInfo.initialPrice;
+//	            	self.goodsDetailModel.lowestPremium = data.allInfo.lowestPremium;
+//	            	self.goodsDetailModel.margin = data.allInfo.margin;
+//	            	self.goodsDetailModel.cappedPrice = data.allInfo.cappedPrice;
+//	            	self.countDown(data.allInfo.endTime);
             	}
-            	
-            	self.goodsDetailModel.pics = JSON.parse(data.allInfo.goodsInfo.goods_pics);
-            	self.goodsDetailModel.detail = data.allInfo.goodsInfo.goods_detail;
-            	
+//          	alert(data.allInfo.goodsInfo.goods_pics)
+            	self.goodsDetailModel.pics = JSON.parse(data.goodsInfo.goods_pics);
+            	self.goodsDetailModel.detail = data.goodsInfo.goods_detail;
+            	$("#goods-info").html(self.goodsDetailModel.detail);
                 self.scope.$apply();
                 
                 //弹框

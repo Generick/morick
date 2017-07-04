@@ -235,7 +235,7 @@ var UserCtrl = {
         	    
         	    localStorage.setItem("jumpData",JSON.stringify(pageController.page));
         	   
-        	    var $li = $("#nav_10"),
+        	    var $li = $("#nav_14"),
 		            toggleClass = ($(this).next("ul").css("display") == "none")? "toggle-icon fa fa-angle-left" : "toggle-icon fa fa-angle-down";
 		
 		        $li.find(' > a .toggle-icon').attr("class", toggleClass);

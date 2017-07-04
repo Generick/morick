@@ -1,6 +1,6 @@
 <div  class="item">
     <div class="mn-header fix">
-    	<div class="f"><i class="fa fa-th m-color-0"></i><span>商品管理</span></div>
+    	<div class="f"><i class="fa fa-th m-color-0"></i><span>商品列表</span></div>
     	
         <div class="r m-g-l-10" style="float:right;margin-left:20px;"><a class="btn btn-danger" ng-click="delCommodity()"><i class="ti-trash"></i>删除</a></div>
         <div class="r" style="float:right;margin-left:30px;" ><a class="btn btn-default" ng-click="addCommodity()"><i class="ti-plus"></i>新增</a></div>
@@ -23,7 +23,9 @@
                 <td style="text-align: center">序号</td>
                 <td style="text-align: center">商品图片</td>
                 <td style="text-align: center;max-width:230px">商品名称</td>
-                <td style="text-align: center">价格</td>
+                <td style="text-align: center">商品进价</td>
+                <td style="text-align: center">商品售价</td>
+                <td style="text-align: center">年化收益率</td>
                 <td style="text-align: center">库存</td>
                 <td style="text-align: center">状态</td>
                 <td style="text-align: center">创建时间</td>
@@ -36,12 +38,14 @@
                 <td style="text-align: center">{{$index + 1 + (page.currentPage - 1)*page.selectPageNum}}</td>
                 <td style="text-align: center"><img ng-src="{{item.commodity_cover}}" style="width:120px;margin:0 auto" /> </td>
                 <td style="text-align: center;max-width:230px" ng-bind="item.commodity_name"></td>
-                <td style="text-align: center" ng-bind="item.commodity_price+'元'"></td>
+                <td style="text-align: center" ng-bind="'￥'+item.bid_price"></td>
+                <td style="text-align: center" ng-bind="'￥'+item.commodity_price"></td>
+                <td style="text-align: center" ng-bind="item.annualized_return + '%'"></td>
                 <td style="text-align: center" ng-bind="item.stock_num+ '件'"></td>
                 <td style="text-align: center">
                 	
-                	<span ng-show="item.is_delete == 1">已上架</span>
-                	<span ng-show="item.is_delete == 0">已下架</span>
+                	<span ng-show="item.is_up == 1">已上架</span>
+                	<span ng-show="item.is_up == 0">未上架</span>
                 </td>
                 
                 <td style="text-align: center" ng-bind="item.add_time*1000 | date:'yyyy-MM-dd HH:mm:ss'">2017</td>
@@ -96,7 +100,7 @@
                 <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
     </div>	
-    <div class="swiper-middle-box">
+    <!--<div class="swiper-middle-box">
     	<div class="commidify-name" ng-bind="swiperModel.swiperName">
     		阿大声道
     	</div>
@@ -111,10 +115,42 @@
     			<span>件</span>
     		</div>
     	</div>
-    </div>
+    </div>-->
+    
+    
+    
+        <div class="swiper-middle-box" style="padding-bottom:0;width:100%;overflow:hidden;padding-top:12px">
+            	<div class="num-name-box">
+            		<p class="special-sell-name" ng-bind="swiperModel.swiperName">
+	            		第三方第三方三发斯蒂芬大师法第三地方撒第三方大分
+	            	</p>
+            		<p class="special-sell-num">
+            		
+            	     <span ng-bind="swiperModel.swiperNumber">222</span>
+            	     <span>库存</span>
+	            	</p>
+	            	
+            	</div>
+            	
+            	<p class="special-sell-content" ng-bind="swiperModel.swiperDesc">
+            		的广泛的施工方覆盖是的法规地方地方撒对方是个对方是个广东佛山覆盖格式个地方和高度规范规范沪电股份沪电股份沪电股份
+            	</p>
+            </div>
+            <div class="sell-price-number-box">
+            	<span style="padding-left:5px;" class="sell-price-box" ng-bind="'￥'+swiperModel.swiperMoney">
+            		￥50000
+            	</span>
+            	<!--<span class="sell-number-box">
+            	     <span>库存</span>
+            	     <span ng-bind="specialNumber">222</span>
+            	     <span>件</span>
+            	</span>-->
+        </div>
+    
+    
     <div class="swiper-bottom-box">
-    	<div class="swiper-bottom-box-title">商品详情</div>
-    	<div class="swiper-bottom-box-content" id="commidify-rich-content"></div>
+    	<!--<div class="swiper-bottom-box-title">商品详情</div>-->
+    	<div class="swiper-bottom-box-content" id="commidify-rich-content" style="line-height:23px"></div>
     </div>
    
 </div>
@@ -146,12 +182,32 @@
 			
 		</div>
 		<div class="con-item fix">
-			<span class="f">*商品价格(元)：</span>
-			<div class="f con-title"><input type="number" class="price-input form-control" ng-model="CommodityPrice"></div>
+			<span class="f">*商品进价(元)：</span>
+			<div class="f con-title"><input type="number" class="price-input form-control" ng-model="CommodityBid_price"></div>
 		</div>
+		
 		<div class="con-item fix">
-			<span class="f">*库存(件)：</span>
-			<div class="f con-title"><input type="number" class="price-input form-control" ng-model="CommodityNumber"></div>
+			<span class="f">年化收益率：</span>
+			<div class="f con-title"><input type="number" id="dis_return" class="price-input form-control" ng-model="CommodityYearYield"></div>
+			<span class="f" style="width:50px">%</span>
+		</div>
+		
+		<div class="con-item fix">
+			<span class="f">*商品价格(元)：</span>
+			<div class="f con-title"><input type="number" id="dis_price" class="price-input form-control" ng-model="CommodityPrice"></div>
+		</div>
+		
+		<div class="con-item fix">
+			<span class="f">*库存类型：</span>
+			<div class="f con-title">
+				<span style="line-height:34px;margin-left: 5px;margin-right:5px;float:left;">单件</span><div class="singleNumber" ng-click="chooseSOrC(0)"></div>
+				<span style="line-height:34px;margin-left: 5px;margin-right:5px;float:left;">多件</span><div class="singleNumber" ng-click="chooseSOrC(1)"></div>
+			</div>
+		</div>
+		
+		<div class="con-item fix">
+			<span class="f">库存(件)：</span>
+			<div class="f con-title"><input type="number" id="singleNub" class="price-input form-control" style="border: 1px solid #CCCCCC;" ng-model="CommodityNumber"></div>
 		</div>
 		<div class="con-item fix">
 			<span class="f">*商品详情：</span>

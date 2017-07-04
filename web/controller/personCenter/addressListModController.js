@@ -50,8 +50,10 @@ var addressListModController =
     initData : function()
     {
     	var self = this;
-    	
-    	self.addressListModModel.id = commonFu.getQueryStringByKey("id");
+    	var obj = new Base64();
+    	self.addressListModModel.id = obj.decode(commonFu.getQueryStringByKey("id"));
+//  	alert(self.addressListModModel.id)
+//  	self.addressListModModel.id = commonFu.getQueryStringByKey("id");
     	
     	var param = 
     	{

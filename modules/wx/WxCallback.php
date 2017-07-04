@@ -12,6 +12,7 @@ class WxCallback extends My_Controller
         parent::__construct();
         $this->load->library('Wxpay');
         $this->load->model('m_recharge');
+        $this->load->model('m_order');
     }
 
     function notify()
@@ -41,6 +42,9 @@ class WxCallback extends My_Controller
                     {
                         log_message('error', "recharge failed!!! rechargeId: " . $orderId);
                     }
+                } else if($orderHeaderStr == 'wx')
+                {
+                    $this->m_order->wxPaySuccess($orderId);
                 }
             }
             else
@@ -61,6 +65,9 @@ class WxCallback extends My_Controller
                         {
                             log_message('error', "recharge failed!!! rechargeId: " . $v);
                         }
+                    } else if($orderHeaderStr == 'wx')
+                    {
+                        $this->m_order->wxPaySuccess($v);
                     }
                 }
             }

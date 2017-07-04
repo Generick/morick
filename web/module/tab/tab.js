@@ -33,7 +33,21 @@ var initTab = {
 	            		if(!commonFu.isEmpty(GuessInfoCtrl.thisDetailPage) && !commonFu.isEmpty(GuessInfoCtrl.thisDataId))
 	            		{    
 	            			sessionStorage.setItem("needGuessPage",1)
-	            			location.href = pageUrl.GUESS_PAGE  +"?thisDetailPage=" + GuessInfoCtrl.thisDetailPage + "&thisDataId=" + GuessInfoCtrl.thisDataId;
+//	            			location.href = pageUrl.GUESS_PAGE  +"?backPage=" + GuessInfoCtrl.thisDetailPage + "&thisDataId=" + GuessInfoCtrl.thisDataId;
+//	            		    
+	            		    var obj = new Base64();
+						   	
+							var id_base64 = obj.encode(GuessInfoCtrl.thisDataId);
+									    	
+							var thisPage_base64 = obj.encode(GuessInfoCtrl.thisDetailPage);
+									
+							var str = pageUrl.GUESS_PAGE +"?backPage=" +thisPage_base64 + "&thisDataId=" + id_base64;		    	
+								
+							location.href = encodeURI(str);
+	            		    
+	            		    
+	            		    
+	            		
 	            		}
 	            		else
 	            		{
@@ -74,8 +88,20 @@ var initTab = {
             				   
 	            		if(!commonFu.isEmpty(GoodsInfoCtrl.thisDetailPage) && !commonFu.isEmpty(GoodsInfoCtrl.thisDataId))
 	            		{    
-	            			sessionStorage.setItem("needPage",1)
-	            			location.href = pageUrl.SELECTED_GOODS  +"?thisDetailPage=" + GoodsInfoCtrl.thisDetailPage + "&thisDataId=" + GoodsInfoCtrl.thisDataId;
+	            			sessionStorage.setItem("needPage",1);
+	            			
+	            			var obj = new Base64();
+						   	
+							var id_base64 = obj.encode(GoodsInfoCtrl.thisDataId);
+									    	
+							var thisPage_base64 = obj.encode(GoodsInfoCtrl.thisDetailPage);
+									
+							var str = pageUrl.SELECTED_GOODS +"?backPage=" +thisPage_base64 + "&thisDataId=" + id_base64;		    	
+								
+							location.href = encodeURI(str);
+	            			
+	            			
+//	            			location.href = pageUrl.SELECTED_GOODS  +"?backPage=" + GoodsInfoCtrl.thisDetailPage + "&thisDataId=" + GoodsInfoCtrl.thisDataId;
 	            		}
 	            		else
 	            		{
@@ -110,8 +136,21 @@ var initTab = {
             				    
 	            		if(!commonFu.isEmpty(auctedGoodsDetailController.thisDetailPage) && !commonFu.isEmpty(auctedGoodsDetailController.thisDataId))
 	            		{   
-	            			sessionStorage.setItem("needPageId",1)
-	            			location.href = pageUrl.AUCTION_HISTORY  +"?thisDetailPage=" + auctedGoodsDetailController.thisDetailPage + "&thisDataId=" + auctedGoodsDetailController.thisDataId;
+	            			sessionStorage.setItem("needPageId",1);
+	            			
+	            			
+	            			
+	            			var obj = new Base64();
+						   	
+							var id_base64 = obj.encode(auctedGoodsDetailController.thisDataId);
+									    	
+							var thisPage_base64 = obj.encode(auctedGoodsDetailController.thisDetailPage);
+									
+							var str = pageUrl.AUCTION_HISTORY +"?backPage=" +thisPage_base64 + "&thisDataId=" + id_base64;		    	
+								
+							location.href = encodeURI(str);
+	            			
+//	            			location.href = pageUrl.AUCTION_HISTORY  +"?backPage=" + auctedGoodsDetailController.thisDetailPage + "&thisDataId=" + auctedGoodsDetailController.thisDataId;
 	            		}
 	            		else
 	            		{   

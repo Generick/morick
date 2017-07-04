@@ -72,7 +72,7 @@ var GoodsDataCtrl = {
                 }
                 else
                 {
-                	$dialog.msg("没有找到你要的内容哦");
+                	$dialog.msg("暂无数据");
                 }
                 
                 self.scope.$apply();

@@ -323,9 +323,9 @@
 		    window.addEventListener("popstate", function(e) {
 		    	if (bool)
 		    	{   
-		    		if(commonFu.isEmpty(sessionStorage.getItem("comeWithGuess")))
+		    		if(commonFu.isEmpty(localStorage.getItem("comeWithGuess")))
 		    		{   
-		    			sessionStorage.getItem("comeWithGuess")
+		    			localStorage.getItem("comeWithGuess")
 		    			location.href = pageUrl.GUESS_DETAIL + "?id=" + GuessInnerCtrl.thisDataId + "&page=" + GuessInnerCtrl.thisDetailPage ;
 
 		    		}
@@ -336,44 +336,44 @@
 		    			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
 		    			{   
 		    				
-		    				if(sessionStorage.getItem("comeWithGuess") == 0)//0从我的竞猜详情跳转过来
+		    				if(localStorage.getItem("comeWithGuess") == 0)//0从我的竞猜详情跳转过来
 		    				{    
 		    					location.href = pageUrl.GUESS_DETAIL + "?id=" + GuessInnerCtrl.thisDataId + "&page=" + GuessInnerCtrl.thisDetailPage ;
 		    				
 		    				}
-		    				else if((sessionStorage.getItem("comeWithGuess") == 1))//从我的拍品详情跳转过来
+		    				else if((localStorage.getItem("comeWithGuess") == 1))//从我的拍品详情跳转过来
 		    				{   
 		    					location.href = pageUrl.GOODS_DETAIL + "?id=" + GuessInnerCtrl.thisDataId + "&page=" + GuessInnerCtrl.thisDetailPage ;
 		    				}
-		    				else if(sessionStorage.getItem("comeWithGuess") == 2)//从拍卖历史列表或我的消息详情跳转过来
+		    				else if(localStorage.getItem("comeWithGuess") == 2)//从拍卖历史列表或我的消息详情跳转过来
 			        	    {   
 			        	    	
-			        	    	if(sessionStorage.getItem("messlistOrauction") == 0)//从我的竞猜详情跳转过来
+			        	    	if(localStorage.getItem("messlistOrauction") == 0)//从我的竞猜详情跳转过来
 			        	    	{   
 			        	    		
 			        	    		location.href = pageUrl.AUCTION_HISTORY_INFO + "?id=" + GuessInnerCtrl.thisDataId + "&page=" + GuessInnerCtrl.thisDetailPage ;
 			        	    	}
-			        	    	else if(sessionStorage.getItem("messlistOrauction") == 1)//从我的消息跳转过来
+			        	    	else if(localStorage.getItem("messlistOrauction") == 1)//从我的消息跳转过来
 			        	    	{
 			        	    		location.href = pageUrl.MY_MESSAGE;
 			        	    	}
 			        	       
 			        	    }
-			        	    else if(sessionStorage.getItem("comeWithGuess") == 3)//从我的竞猜列表跳转过来
+			        	    else if(localStorage.getItem("comeWithGuess") == 3)//从我的竞猜列表跳转过来
 			        	    { 
 			        	    	location.href = pageUrl.MY_GUESS_LIST + "?userId=" + localStorage.getItem(localStorageKey.userId);
 			        	    }
-			        	    else if(sessionStorage.getItem("comeWithGuess") == 4)//从我的个人中心跳转过来
+			        	    else if(localStorage.getItem("comeWithGuess") == 4)//从我的个人中心跳转过来
 			        	    {
 			        	    	location.href = pageUrl.PERSON_CENTER;
 			        	    }
-			        	    else if(sessionStorage.getItem("comeWithGuess") == 5)//从我的消息跳转过来
+			        	    else if(localStorage.getItem("comeWithGuess") == 5)//从我的消息跳转过来
 			        	    {
 			        	    	location.href = pageUrl.MY_MESSAGE;
 			        	    }
-			        	    else if(sessionStorage.getItem("comeWithGuess") == 6)//从我的竞猜列表跳转过来
+			        	    else if(localStorage.getItem("comeWithGuess") == 6)//从我的竞猜列表跳转过来
 			        	    {
-			        	    	location.href = pageUrl.MY_GUESS_LIST + "?userId=" + sessionStorage.getItem("userId");
+			        	    	location.href = pageUrl.MY_GUESS_LIST + "?userId=" + localStorage.getItem("userId");
 			        	    }
 			        	   
 		    			

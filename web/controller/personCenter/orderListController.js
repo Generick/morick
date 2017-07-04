@@ -92,11 +92,11 @@ var OrderListCtrl = {
 	    				self.orderListModel.orderList[i].orderIsPay = false;
 	    				self.orderListModel.orderList[i].orderIsReceive = false;
 		    		}
-	    			if(self.orderListModel.orderList[i].orderGoods[0])
-	    			{
-	    				self.orderListModel.orderList[i].orderGoods[0].goods_pics = JSON.parse(self.orderListModel.orderList[i].orderGoods[0].goods_pics);
-	    		       
-	    			}
+//	    			if(self.orderListModel.orderList[i].orderGoods[0])
+//	    			{
+//	    				self.orderListModel.orderList[i].orderGoods[0].goods_pics = JSON.parse(self.orderListModel.orderList[i].orderGoods[0].goods_pics);
+//	    		       
+//	    			}
 	    			if(self.orderListModel.orderList[i].deliveryType == 1)
 	    			{
 	    				self.orderListModel.orderList[i].orderIsPay = false;

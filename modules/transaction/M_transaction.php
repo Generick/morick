@@ -84,12 +84,16 @@ class M_transaction extends My_Model
             case TRANSACTION_PAY:
             case TRANSACTION_SYSTEM_REDUCE:
             case TRANSACTION_QUIZ_TICKETS:
-            case TRANSACTION_COMMODITY:
+            //case TRANSACTION_COMMODITY:
                 if($userObj->balance < $money)
                 {
                     return ERROR_BALANCE_NOT_ENOUGH;
                 }
                 $afterBalance = $userObj->balance - $money;
+                break;
+            case TRANSACTION_COMMODITY:
+                //user contact kefu and pay, so the balance isn't changed
+                $afterBalance = $userObj->balance;
                 break;
             default:
                 log_message("error", "addTransaction type error. the type:" . $transactionType);
