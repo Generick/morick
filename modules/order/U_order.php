@@ -256,7 +256,27 @@ class U_order extends User_Controller
             $this->responseError($res);
             return;
         }
-        $this->responseSuccess(array('ret' => $ret));
+        $this->responseSuccess($ret);
+    }
+
+    //继续支付
+    function continuePay()
+    {
+        if (!$this->checkParam(array('order_no', 'returnUrl'))) 
+        {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
+        $order_no = $this->input->post('order_no');
+        $returnUrl = $this->input->post('returnUrl');
+        $res = array();
+        $ret = $this->m_order->continuePay($order_no, $returnUrl, $res);
+        if ($ret !== ERROR_OK) 
+        {
+            $this->responseError($ret);
+            return;
+        }
+        $this->responseSuccess($res);
     }
 
     //特卖会订单详情

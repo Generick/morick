@@ -10,7 +10,7 @@ ini_set('date.timezone','Asia/Shanghai');
 error_reporting(E_ERROR);
 require_once APPPATH ."libraries/wxpay/lib/WxPay.Api.php";
 require_once APPPATH ."libraries/wxpay/lib/WxPay.Notify.php";
-require_once APPPATH ."libraries/wxpay/lib/WxPay.JsApiPay.php";
+//require_once APPPATH ."libraries/wxpay/lib/WxPay.JsApiPay.php";
 class Wxpay extends WxPayNotify{
 
     function __construct()

@@ -55,3 +55,27 @@ ERROR - 2017-07-04 19:52:27 --> [methodError]:[]:F:\work\program\server\applicat
 ERROR - 2017-07-04 19:52:45 --> [methodError]:[]:F:\work\program\server\application\controllers/auction/A_auction.php:releaseAuctionItem:{"goodsId":"102","initialPrice":"7","lowestPremium":"3","margin":"1","startTime":"2017-07-04 19:52:50","endTime":"2017-07-11 19:52:50","cappedPrice":"43","isVIP":"0","isQuiz":"0","limitNum":"","tickets":""}
 ERROR - 2017-07-04 19:53:10 --> user:15balance change. the transactionType:3before:3729.50 after:3728.5
 ERROR - 2017-07-04 19:53:31 --> user:15balance change. the transactionType:3before:3728.5 after:3725.5
+ERROR - 2017-07-04 20:46:13 --> user:15balance change. the transactionType:12before:3725.5 after:3725.5
+ERROR - 2017-07-04 20:46:57 --> [methodError]:[账号名或密码错误！]:F:\work\program\server\application\controllers/account.php:login:{"userType":"2","platform":"1","platformId":"admin","password":"8888"}
+ERROR - 2017-07-04 20:47:34 --> [methodError]:[库存不足！]:F:\work\program\server\application\controllers/order/U_order.php:payTMH:{"userId":"15","commodity_id":"97","clientPrice":"3","clientTime":"1499172383","buyNum":"1"}
+ERROR - 2017-07-04 20:47:48 --> user:15balance change. the transactionType:12before:3725.5 after:3725.5
+ERROR - 2017-07-04 20:47:49 --> Update user failed: 15
+ERROR - 2017-07-04 20:47:49 --> Save user failed: 15
+ERROR - 2017-07-04 20:48:20 --> Severity: Notice --> Trying to get property of non-object F:\work\program\server\modules\order\M_order.php 295
+ERROR - 2017-07-04 20:48:33 --> Severity: Notice --> Undefined index: goodsNum F:\work\program\server\modules\order\M_order.php 295
+ERROR - 2017-07-04 20:49:05 --> Severity: Error --> Cannot use object of type stdClass as array F:\work\program\server\modules\order\M_order.php 295
+ERROR - 2017-07-04 20:51:12 --> user:15balance change. the transactionType:12before:3725.5 after:3725.5
+ERROR - 2017-07-04 20:51:12 --> Update user failed: 15
+ERROR - 2017-07-04 20:51:12 --> Save user failed: 15
+ERROR - 2017-07-04 20:52:01 --> user:15balance change. the transactionType:12before:3725.5 after:3725.5
+ERROR - 2017-07-04 20:52:02 --> Update user failed: 15
+ERROR - 2017-07-04 20:52:02 --> Save user failed: 15
+ERROR - 2017-07-04 20:53:01 --> user:15balance change. the transactionType:12before:3725.5 after:3725.5
+ERROR - 2017-07-04 20:53:02 --> Update user failed: 15
+ERROR - 2017-07-04 20:53:02 --> Save user failed: 15
+ERROR - 2017-07-04 21:03:09 --> Severity: Error --> Cannot use object of type stdClass as array F:\work\program\server\modules\order\M_order.php 323
+ERROR - 2017-07-04 21:03:45 --> Severity: Error --> Cannot use object of type stdClass as array F:\work\program\server\modules\order\M_order.php 323
+ERROR - 2017-07-04 21:04:35 --> Update order failed: 20170704565766
+ERROR - 2017-07-04 21:04:35 --> Save order failed: 20170704565766
+ERROR - 2017-07-04 21:22:54 --> Update order failed: 20170704565766
+ERROR - 2017-07-04 21:22:54 --> Save order failed: 20170704565766

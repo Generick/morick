@@ -208,6 +208,14 @@ class M_messagePush extends My_Model
                 $msg_content = MP_RECEIVED;
                 $msg_title = MP_RECEIVED_TITLE;
                 break;
+            case MP_MSG_TYPE_PAY_SUCCESS:
+                $msg_content = MP_PAY_SUCCESS;
+                $msg_title = MP_PAY_SUCCESS_TITLE;
+                break;
+            case MP_MSG_TYPE_PAY_FAIL:
+                $msg_content = MP_PAY_FAIL;
+                $msg_title = MP_PAY_FAIL_TITLE;
+                break;
     		default:
     			# code...
     			break;

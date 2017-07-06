@@ -18,6 +18,10 @@ define("MP_COMMODITY_STATUS_TITLE","发货通知！");
 define("MP_COMMODITY_STATUS","您好，您的商品已经发货，请注意查收！");
 define("MP_RECEIVED_TITLE","收货通知！");
 define("MP_RECEIVED","您好，您的商品已经收货！");
+define("MP_PAY_SUCCESS","恭喜您，您的商品订单支付成功");
+define("MP_PAY_SUCCESS_TITLE","支付成功");
+define("MP_PAY_FAIL","抱歉，您的商品订单支付失败");
+define("MP_PAY_FAIL_TITLE","支付失败");
 
 define("MP_MSG_TYPE_SYS",0);//系统消息
 define("MP_MSG_TYPE_QUIZ",1);//竞猜得
@@ -26,6 +30,8 @@ define("MP_MSG_TYPE_ORDER",3);//订单状态改变,发货
 define("MP_MSG_TYPE_COMMODITY",4);//商品购买成功
 define("MP_MSG_TYPE_COMMODITY_ORDER",5);//商品订单改变，发货
 define("MP_MSG_TYPE_RECEIVED",6);//已收货
+define("MP_MSG_TYPE_PAY_SUCCESS",7);//支付成功
+define("MP_MSG_TYPE_PAY_FAIL",8);//支付失败
 
 define("MP_PUSH_TYPE_NOT_VIP",0);//推送给非vip用户
 define("MP_PUSH_TYPE_VIP",1);//推送给vip用户

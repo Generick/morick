@@ -34,6 +34,9 @@ define("API_WX_PUBLIC_PAY", "http://api.99epay.net/h5Pay/pub/toAcquireOrder.htm"
 
 define("WX_APPID","wx8aa4883c737caaaa");
 define("WX_MCHID","1272388901");
+//第三方支付商户号以及秘钥
+define('THIRD_MCHID','');
+define('THIRD_APPSECRET','');
 define("WX_KEY","dbb9062df2fd9a7650fc5961da05129f");
 define("WX_APPSECRET","620937dd20bdecf9e84f369d2ef64305");
 define("NOTICE_URL","http://meeno.f3322.net:8082/auction/index.php/wx/WxCallback/notify");

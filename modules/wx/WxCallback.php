@@ -77,4 +77,10 @@ class WxCallback extends My_Controller
             $this->log->write_log('error',  "WX pay fail....");
         }
     }
+
+    //pay notice
+    function callbackFunc()
+    {
+        $this->m_order->callbackFunc();
+    }
 }

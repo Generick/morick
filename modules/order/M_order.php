@@ -13,6 +13,8 @@ class M_order extends My_Model
         parent::__construct();
 
         $this->load->driver("cache");
+        $this->load->model('m_saleMeeting');
+        $this->load->model('m_messagePush');
         if(!$this->cache->redis->is_supported())
         {
             $this->log->write_log('error', "redis not supported!!!");
@@ -314,6 +316,18 @@ class M_order extends My_Model
 
         //$this->db->where('order_no',$orderObj->order_no)->update('order',array('orderStatus'=>$status));
         $this->modOrderInfo($order_no,array('orderStatus'=>$status));
+        if ($orderObj->orderType == 2) 
+        {
+            if ($type == 1) 
+            {
+                foreach ($orderObj->orderGoods as $v) 
+                {
+                    $commodityInfo = $this->m_saleMeeting->getCommodityInfo($v->id);
+                    $this->m_saleMeeting->modCommodity($v->id, array('stock_num' => $v->goodsNum + $commodityInfo->stock_num));
+                } 
+            }
+            
+        }
         return ERROR_OK;
     }
 
@@ -321,9 +335,7 @@ class M_order extends My_Model
     function payTMH($userId, $commodity_id, $clientPrice, $clientTime, $buyNum, &$order_no)
     {
         $this->load->model('m_user');
-        $this->load->model('m_saleMeeting');
         $this->load->model('m_shippingAddress');
-        $this->load->model('m_messagePush');
         $this->load->model('m_transaction');
         $TMH = $this->db->where('commodity_id', $commodity_id)->get('sale_meeting')->row_array();
         if (empty($TMH)) return ERROR_NOT_TMH_COMMODITY;
@@ -418,6 +430,7 @@ class M_order extends My_Model
         $serverPrice = $commodityObj->commodity_price*(1+($commodityObj->annualized_return/($leapYear*1440)/100*(($clientTime-$up_time['add_time'])/60)));
         $price = (int)floor($serverPrice);
         return 0.01;
+        if ($price == $clientPrice) return 0.01;
         if ($price == $clientPrice) return $price;
         return false;
     }
@@ -426,9 +439,7 @@ class M_order extends My_Model
     function wxPayTMH($userId, $commodity_id, $clientPrice, $clientTime, $buyNum, &$ret, $payEnv, $returnUrl)
     {
         $this->load->model('m_user');
-        $this->load->model('m_saleMeeting');
         $this->load->model('m_shippingAddress');
-        $this->load->model('m_messagePush');
         $this->load->model('m_transaction');
         $TMH = $this->db->where('commodity_id', $commodity_id)->get('sale_meeting')->row_array();
         if (empty($TMH)) return ERROR_NOT_TMH_COMMODITY;
@@ -443,7 +454,7 @@ class M_order extends My_Model
             'order_no' => 'wx'.date('Ymd') . mt_rand(100000, 999999),
             'userId' => $userId,
             'deliveryType' => 0,
-            'orderTime' => time(),
+            'orderTime' => $clientTime,
             'goodsPrice' => $commodityObj->commodity_price,
             'payPrice' => $totalPrice,
             'orderType' => 2,
@@ -469,6 +480,7 @@ class M_order extends My_Model
         if ($this->db->insert('order', $orderInfo)) 
         {
             $ret['url'] = '';
+            $orderInfo['buyNum'] = $buyNum;
             $res = $this->callPayAPI($orderInfo, $commodityObj, $payEnv, $returnUrl, $ret);
             $this->m_transaction->addTransaction($userId, TRANSACTION_COMMODITY, $totalPrice);
             //contact with custom service and pay for the bill, don't use balance
@@ -509,7 +521,8 @@ class M_order extends My_Model
     {
         $params = array();
         $params['version'] = "1.1";
-        $params['merchantId'] = WX_MCHID;
+        //$params['merchantId'] = THIRD_MCHID;
+        $params['merchantId'] = 100001;
         $params['merchantTime'] = date("YmdHis");
         $params['traceNO'] = $orderInfo['order_no'];
         $params['requestAmount'] = $orderInfo['payPrice'];
@@ -517,14 +530,15 @@ class M_order extends My_Model
         $params['payment_1'] = $payEnv.'_'.$orderInfo['payPrice'];
         $params['payment_2'] = '';
         $params['returnUrl'] = $returnUrl;
-        $params['notifyUrl'] = NOTICE_URL;
+        $params['notifyUrl'] = $this->getNotifyUrl();
         $params['goodsName'] = "雅玩之家--".$commodityObj->commodity_name;
-        $params['goodsCount'] = 1;
+        $params['goodsCount'] = $orderInfo['buyNum'];
         $params['ip'] = $this->getIP();
         $params['extend'] = $this->getExtend($payEnv, $orderInfo['order_no']);
         $params['sign'] = $this->getSign($params);
+        $params['extend'] = $payEnv == 7 ? $params['extend'] : urlencode($params['extend']);
+        //$params = $this->testParams();
         
-        var_dump($params);
         $url = '';
 
         switch ((int)$payEnv) 
@@ -543,33 +557,46 @@ class M_order extends My_Model
                 break;
         }
 
+        
+        if ((int)$payEnv == 7)
+        {
+            $ret['params'] = $params;
+            return ERROR_OK;
+        }
+        //echo date("Ymd").'---'.$url."<br>";
         $res = $this->http_resuest($url, $params);
+        
         if (!empty($res)) 
         {
-            echo $res;die;
+            //echo $res;die;
             $resArr = explode("|", $res);
-            if(count($resArr) < 3) return $resArr[0];
+            //var_dump($resArr);die;
+            //if(count($resArr) < 3) return $resArr[0];
             $resCode = $resArr[0];
             $resDATA = $resArr[1];
             $resSign = $resArr[2];
             if ($resCode == '000') 
             {
                 $data = json_decode($resDATA, true);
+                //var_dump($data);
                 if (isset($data['payments'])) 
                 {
-                    $payments = json_decode($data['payments'], true);
-                    if (isset($payments['itemResponseMsg'])) 
+                    $payments = $data['payments'];
+                    //var_dump($data['payments']);
+                    if (isset($payments[0]['itemResponseMsg'])) 
                     {
+                        $itemResponseMsg = $payments[0]['itemResponseMsg'];
+                        //var_dump($itemResponseMsg);
                         switch ((int)$payEnv) 
                         {
                             case 5:
-                                $ret['url'] = $payments['itemResponseMsg']['wxurl'];
+                                $ret['url'] = $itemResponseMsg['wxurl'];
                                 break;
                             case 6:
-                                $ret['url'] = $payments['itemResponseMsg']['barcodeInfo'];
+                                $ret['url'] = $itemResponseMsg['barcodeInfo'];
                                 break;
                             case 7:
-                                $ret['url'] = $payments['itemResponseMsg']['localUrl'];
+                                $ret['url'] = $itemResponseMsg['localUrl'];
                                 break;
                             default:
                                 break;
@@ -593,7 +620,8 @@ class M_order extends My_Model
         {
             $str .= $v;
         }
-        $str .= WX_APPSECRET;
+        //$str .= THIRD_APPSECRET;
+        $str .= "1234512345";
         $sign = hash('sha256', $str);
         return $sign;
     }
@@ -610,37 +638,53 @@ class M_order extends My_Model
 
     function getIP()
     {
-         return '121.40.47.177';
-      //   if(isset($_SERVER))
-      //   {
-      //       if($_SERVER['SERVER_ADDR'])
-      //       {
-      //           $server_ip=$_SERVER['SERVER_ADDR'];
-      //       }else
-      //       {
-      //           $server_ip=$_SERVER['LOCAL_ADDR'];
-      //       }
-      //   }else
-      //   {
-      //     $server_ip = getenv('SERVER_ADDR');
-      //   }
-      // return $server_ip;
+       //  return '140.206.112.170';
+        if(strtolower(substr(PHP_OS,0,3)) == "win") return '140.206.112.170';
+        return '123.206.106.123';
+        if(isset($_SERVER))
+        {
+            if($_SERVER['SERVER_ADDR'])
+            {
+                $server_ip=$_SERVER['SERVER_ADDR'];
+            }else
+            {
+                $server_ip=$_SERVER['LOCAL_ADDR'];
+            }
+        }else
+        {
+          $server_ip = getenv('SERVER_ADDR');
+        }
+      return $server_ip;
+    }
 
-      return gethostbyname($_SERVER['SERVER_NAME']);
+    function getNotifyUrl()
+    {
+        $httpType = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
+        $port = strpos($_SERVER['HTTP_HOST'], $_SERVER['SERVER_PORT']) > 0 ? '' : ":".$_SERVER['SERVER_PORT'];
+        $path = $this->getIP() != '123.206.106.123' ? '/auction/index.php' : '';
+        $url = $httpType.$_SERVER['HTTP_HOST'].$port.$path."/wx/WxCallback/callbackFunc";
+        return $url;
     }
 
     //发送请求
     function http_resuest($url, $data = array())
     {
-        var_dump($url);
-        var_dump($data);
+        //var_dump($url);
+        //var_dump($data);
+        $str = '';
+        foreach ($data as $k => $v) 
+        {
+            $str .= $k.'='.$v.'&';
+        }
+        $str = rtrim($str,'&');
+        //$data = urlencode($str);
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-        if (!empty($data)){
+        if (!empty($str)){
             curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $str);
         }
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $output = curl_exec($curl);
@@ -655,23 +699,105 @@ class M_order extends My_Model
         $params['version'] = "1.1";
         $params['merchantId'] = 100001;
         $params['merchantTime'] = "20140221205200";
-        $params['traceNO'] = "1498650966867";
+        $params['traceNO'] = time().mt_rand(1000,9999);
         $params['requestAmount'] = 0.01;
         $params['paymentCount'] = 1;
-        $params['payment_1'] = "3_0.01";
+        $params['payment_1'] = "5_0.01";
         $params['payment_2'] = '';
         $params['returnUrl'] = "http://www.jd.com/returnUrl.htm";
         $params['notifyUrl'] = "http://www.jd.com/notifyUrl.htm";
         $params['goodsName'] = "牙刷";
         $params['goodsCount'] = 1;
-        $params['ip'] = "116.231.118.87";
+        $params['ip'] = "140.206.112.170";
+        $params['extend'] = "app_name=极品影院extreme&package_name=com.media.extreme&周年纪念版";
+        $params['sign'] = $this->getSign($params);
+        $params['extend'] = urlencode($params['extend']);
         return $params;
+    }
+
+    //支付回调
+    function callbackFunc()
+    {
+        $raw_data = $_REQUEST['msg'];
+        log_message('error', 'raw_data_msg:'.$raw_data);
+        if (empty($raw_data)) 
+        {
+            echo "Y";
+            return;
+        }
+        $data = explode('|', $raw_data);
+        $code = $data[0];
+        $callbackData = json_decode($data[1], true);
+        $sign = $data[2];
+        if ($code == '000') 
+        {
+            switch ((int)$callbackData['orderStatus']) 
+            {
+                case 0:
+                    # code...
+                    break;
+                case 1:
+                    $this->wxPaySuccess($callbackData['traceNO']);
+                    break;
+                case 2:
+                    $this->payFail($callbackData['traceNO']);
+                    break;
+                case 3:
+                    # code...
+                    break;
+                case 4:
+                    # code...
+                    break;
+                case 9:
+                    # code...
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        }
+        echo "Y";
     }
 
     //微信支付商品成功后处理
     function wxPaySuccess($orderId)
     {
+        $orderInfo = $this->getOrderAll($orderId);
         $this->modOrderInfo($orderId, array('orderStatus'=>2));
+        $this->m_messagePush->createUserMsg($orderInfo->userId,MP_MSG_TYPE_PAY_SUCCESS , $orderId);
+    }
+
+    //支付失败
+    function payFail($orderId)
+    {
+        $orderInfo = $this->getOrderAll($orderId);
+        $this->modOrderInfo($orderId, array('orderStatus'=>1));
+        $this->m_messagePush->createUserMsg($orderInfo->userId, MP_MSG_TYPE_PAY_FAIL, $orderId);
+    }
+
+    //继续支付
+    function continuePay($order_no, $returnUrl, &$res)
+    {
+        $orderObj = $this->getOrderAll($order_no);
+        $commodityObj = $this->m_saleMeeting->getCommodityInfo($orderObj->orderGoods[0]->id);
+        $leapYear = $this->leapYear();
+        $up_time = $this->db->select('add_time')->where('commodity_id', $commodityObj->id)->get('sale_meeting')->row_array();
+        $price = $commodityObj->commodity_price*(1+($commodityObj->annualized_return/($leapYear*1440)/100*(($orderObj->orderTime-$up_time['add_time'])/60)));
+        $totalPrice = $orderObj->orderGoods[0]->goodsNum * (int)$price;
+        $orderInfo = array(
+            'order_no' => $order_no,
+            'userId' => $orderObj->userId,
+            'deliveryType' => $orderObj->deliveryType,
+            'orderTime' => $orderObj->orderTime,
+            'goodsPrice' => $commodityObj->commodity_price,
+            'payPrice' => $totalPrice,
+            'orderType' => 2,
+            'orderStatus' => 1,
+            'payType' => $orderObj->payType,
+            'buyNum' => $orderObj->orderGoods[0]->goodsNum,
+            );
+        return $this->callPayAPI($orderInfo, $commodityObj, $orderInfo['payType'], $returnUrl, $res);
     }
 
     //特卖会订单详情
