@@ -328,7 +328,8 @@ var newPersonCenterCtrl =
         
         
         self.scope.readMessage = function(item){
-        	
+        	localStorage.setItem(localStorageKey.TO_ADDRESS_TYPE, 1); //判断从哪里进入地址列表
+        	localStorage.setItem("comewidthgoto",1);
             if(self.isUnReadTab){
             	self.userHasReadMessage(item)
             }

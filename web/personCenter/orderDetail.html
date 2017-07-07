@@ -6,6 +6,11 @@
         <meta name="format-detection" content="email=no">
         <meta name="format-detection" content="telephone=no">
         <title>订单详情</title>
+        <style>
+        	form{
+        		display: none;
+        	}
+        </style>
         <link rel="stylesheet" href="../css/ui.base.css" />
         <link rel="stylesheet" href="../css/selected.css" />
         <link rel="stylesheet" href="../css/person_center.css" />
@@ -22,7 +27,7 @@
 				<div ng-bind="orderDetailModel.orderInfo.orderTypeText"></div>
 				<p ng-show="orderDetailModel.unPay">付款时间剩余<span ng-bind="orderDetailModel.lastTime"></span>小时自动关闭</p>
 			</div>
-			<div ng-show="orderDetailModel.orderInfo.deliveryType == 0" class="accept-detail clear" ng-click="selAddress()">
+			<div ng-show="orderDetailModel.orderInfo.deliveryType == 0 && (orderDetailModel.orderInfo.payType == 3 || orderDetailModel.orderInfo.payType == 0)" class="accept-detail clear" ng-click="selAddress()">
 				<div class="accept-lf"><img src="../img/personCenter/address-icon.png" /></div>
 				<div class="accept-mid">
 					<div>收货人: <span ng-bind="orderDetailModel.orderInfo.acceptName"></span><span ng-bind="orderDetailModel.orderInfo.mobile" style="margin-left: 10px;"></span></div>
@@ -64,7 +69,7 @@
 					<li   ng-if="orderDetailModel.orderInfo.orderType == 2" ng-show="orderDetailModel.orderInfo.orderType == 2"    style="font-size: 12px;color: #4a4a4a;">共<span ng-bind="orderDetailModel.orderInfo.orderGoods[0].goodsNum"></span>件商品</li>
 				</ul>
 			</div>
-			<div class="pay-ways" ng-show="orderDetailModel.unPay && orderDetailModel.orderInfo.payType != 3">
+			<div class="pay-ways" ng-show="orderDetailModel.unPay && orderDetailModel.orderInfo.orderType == 1">
 				<li>
 					<span class="pay-title">选择快递方式</span>
 					<div style="display: inline-block;">
@@ -83,9 +88,15 @@
 				<li style="margin-bottom:0px;line-height:22px;">订单编号: <span ng-bind="orderDetailModel.orderInfo.order_no"></span></li>
 				<li style="margin-bottom:0px;line-height:22px;"  ng-show="orderDetailModel.orderInfo.orderType != 2"  ng-if="orderDetailModel.orderInfo.orderType != 2" >创建时间: <span ng-bind="orderDetailModel.orderInfo.orderTime*1000|date:'yyyy-MM-dd HH:mm:ss'"></span></li>
 				<li style="margin-bottom:0px;line-height:22px;" ng-show="orderDetailModel.orderInfo.orderType == 2"  ng-if="orderDetailModel.orderInfo.orderType == 2" >创建时间: <span ng-bind="orderDetailModel.orderInfo.orderTime*1000|date:'yyyy-MM-dd HH:mm:ss'"></span></li>
-				<li class="clear" ng-show="orderDetailModel.unPay && orderDetailModel.orderInfo.payType != 3">
-					<button id="go-to-pay" class="other-detail-btn" class="btn-active" ng-click="onClickToPayOrder(0)">去付款</button>
-					<button id="up-data" class="other-detail-btn" class="btn-active" ng-click="onClickToPayOrder(1)">提交申请</button>
+				<li style="margin-bottom:0px;line-height:22px;" ng-show="orderDetailModel.orderInfo.orderType == 2"  ng-if="orderDetailModel.orderInfo.orderType == 2" >支付方式: 
+					<span ng-show="orderDetailModel.orderInfo.payType == 3">人工支付</span>
+				    <span ng-show="orderDetailModel.orderInfo.payType == 5 || orderDetailModel.orderInfo.payType == 7">微信支付</span>
+				    <span ng-show="orderDetailModel.orderInfo.payType == 6">支付宝支付</span>
+				</li>
+				<li class="clear" ng-show="orderDetailModel.unPay">
+					<!--ng-hide="orderDetailModel.orderInfo.payType == 3 && orderDetailModel.orderInfo.orderType == 2"-->
+					<button id="go-to-pay" class="other-detail-btn"  class="btn-active" ng-click="onClickToPayOrder(0)">去付款</button>
+					<button ng-show="orderDetailModel.orderInfo.orderType == 1" id="up-data" class="other-detail-btn" class="btn-active" ng-click="onClickToPayOrder(1)">提交申请</button>
 				   
 				</li>
 				<li class="clear"  ng-show="orderDetailModel.orderInfo.orderStatus == 3">
@@ -127,6 +138,30 @@
 			</div>
 			
 		</div>
+		<form name="fm" action="http://api.99epay.net/h5Pay/pub/toAcquireOrder.htm" method="post">
+					<table>
+						<tbody>
+							<tr><td>version:</td><td><input type="text" name="version" value=""></td></tr>
+							<tr><td>merchantId:</td><td><input type="text" name="merchantId" value=""></td></tr>
+							<tr><td>merchantTime:</td><td><input type="text" name="merchantTime" value=""></td></tr>
+							<tr><td>traceNO:</td><td><input type="text" name="traceNO" value=""></td></tr>
+							<tr><td>requestAmount:</td><td><input type="text" name="requestAmount" value=""></td></tr>
+							<tr><td>paymentCount:</td><td><input type="text" name="paymentCount" value=""></td></tr>
+							<tr><td>payment_1:</td><td><input type="text" name="payment_1" value=""></td></tr>
+							<tr><td>payment_2:</td><td><input type="text" name="payment_2" value=""></td></tr>
+							<tr><td>returnUrl:</td><td><input type="text" name="returnUrl" value=""></td></tr>
+							<tr><td>notifyUrl:</td><td><input type="text" name="notifyUrl" value=""></td></tr>
+							<tr><td>goodsName:</td><td><input type="text" name="goodsName" value=""></td></tr>
+							<tr><td>goodsCount:</td><td><input type="text" name="goodsCount" value=""></td></tr>
+							
+							<tr><td>ip:</td><td><input type="text" name="ip" value=""></td></tr>
+							
+							<tr><td>sign:</td><td><input type="text" name="sign" value=""></td></tr>
+							<tr><td>extend:</td><td><input type="text" name="extend" value=""></td></tr>
+							<tr><td><input type="submit" value="提交"/></td></tr>
+						</tbody>
+					</table>
+			</form>	
 	</body>
 	<!--系统js-->
 	<script type="text/javascript" src="../js/zepto.min.js" ></script>
@@ -157,44 +192,33 @@
                 {  
                     if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
                     {    
-                    
-//                  	if(sessionStorage.getItem("comeIntoOrder") == 1)
-//                  	{
-//                  		location.href = pageUrl.PERSON_CENTER;
-//                  	}
-//                  	else if(sessionStorage.getItem("comeIntoOrder") == 2)
-//                  	{
-//                  		location.href = pageUrl.MY_MESSAGE;
-//                  	}
-//                  	else{
-//                  		 location.href = pageUrl.MY_ORDER_LIST + "?orderType=" + 1;
-//                  	}
+ 
+						
                         if(localStorage.getItem("comewidthgoto")== 2)
                         {
                            
                            var obj = new Base64();
 						   	
 							var id_base64 = obj.encode("3");
-		//						alert(id_base64)			
+		
 							var str =  pageUrl.MY_PAY_ORDER_PAGE + "?comfromSpecial=" + id_base64;		    	
 											
 							location.href = encodeURI(str);
-//                         
-//                      	var obj = new Base64();
-//                  		var s = '1';
-//                  		var spe = obj.encode(s);
-//                  	   
-//                  	    var str =  pageUrl.MY_PAY_ORDER_PAGE + "?comfromSpecial=" + spe;
-//                  	    
-//                  	    location.href = encodeURI(str);
-//                      	
-                        
+                  
                         	localStorage.removeItem("comewidthgoto");
                         }
-                        else{  	
-                        	location.href = pageUrl.PERSON_CENTER; 
+                        else if(localStorage.getItem("comewidthgoto")== 3){  	
+                        	location.href = pageUrl.PERSON_INFO; 
                         }
-//                      alert(localStorage.getItem("comewidthgoto"))
+                        else if(localStorage.getItem("comewidthgoto") == 8){
+                        	
+                        	location.href = pageUrl.PRE_PAY_PAGE;
+                        }
+                        else{
+                        	
+                        	location.href = pageUrl.PERSON_CENTER;
+                        }
+                        sessionStorage.removeItem("payOrderId");
                     }
                 }
                 pushHistory();

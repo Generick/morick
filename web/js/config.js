@@ -103,7 +103,11 @@ var apiUrl =
     
     API_GET_UN_READ_MESSAGE : API_BASE_URL + "messagePush/U_messagePush/getUnReadMsg",//获取未处理消息
     
-    API_GET_HAS_READ_MESSAGE : API_BASE_URL + "messagePush/U_messagePush/getHasReadMsg"//获取已读消息 
+    API_GET_HAS_READ_MESSAGE : API_BASE_URL + "messagePush/U_messagePush/getHasReadMsg",//获取已读消息 
+    
+    API_PAY_COMMDIFY : API_BASE_URL + "order/U_order/wxPayTMH",//支付
+    
+    API_GO_ON_PAY : API_BASE_URL + "order/U_order/continuePay",//继续支付
 };
 
 var localStorageKey =

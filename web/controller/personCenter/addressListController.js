@@ -47,7 +47,7 @@ var AddressListCtrl = {
     //获取我的地址列表
     getAddressList: function() {
     	localStorage.setItem(localStorageKey.TOTALADDRESS, "");
-
+        sessionStorage.removeItem("payOrderId");
     	var self = this;
         var obj = new Base64();
         self.addressModel.userId= obj.decode(commonFu.getQueryStringByKey("userId"));

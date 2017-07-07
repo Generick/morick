@@ -313,6 +313,9 @@ var personInfoController =
     	//我的收货地址
     	self.scope.onClickModAddress = function()
     	{   
+    		localStorage.setItem("comewidthgoto",3);
+    		localStorage.setItem(localStorageKey.TO_ADDRESS_TYPE, 2); //判断从哪里进入地址列表
+    		localStorage.removeItem("hereComeFromAuc")
     		var obj = new Base64();
     		var ids = obj.encode(self.userId);
     		var str = pageUrl.MY_ADDRESS_LIST + "?userId=" + ids;

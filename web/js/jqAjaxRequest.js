@@ -22,7 +22,7 @@ var jqAjaxRequest =
 			cache:false,
 			dataType: 'json',
 			success: function(data){
-//				console.log("ajax"+JSON.stringify(data))
+                
 				var err = data.err;
 				var errMsg = data.errMsg;
 				
@@ -57,7 +57,7 @@ var jqAjaxRequest =
                     sessionStorage.setItem("reloginFail",1);
                     $dialog.msg("会话过期，请先登录");
                     setTimeout(function(){
-                    	
+//                  	alert("ajax"+JSON.stringify(data))
                     	location.href = pageUrl.LOGIN_PAGE;
                     	
                     	
@@ -102,10 +102,7 @@ var jqAjaxRequest =
                 }
 			},
 			error: function(data) {
-//                 $dialog.msg(s_url)
-            
-//                $dialog.msg("请求数据失败");
-//                 $dialog.msg("请求数据失败了");
+//					alert("ajax"+JSON.stringify(data))
                   location.href = pageUrl.LOGIN_PAGE;
             }
 		});

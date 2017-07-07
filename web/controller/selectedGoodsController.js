@@ -56,11 +56,28 @@ var SelectCtrl =
     getUrlAndId : function(){
     	var self = this;
     	
-    	var arr = [];
+//  	var arr = [];
     	if(location.href.indexOf("?") > 0){
-    		var obj = new Base64();
-	    	self.thisJumpId = obj.decode(commonFu.getQueryStringByKey("thisDataId"));
-		    self.thisJumpPage = obj.decode(commonFu.getQueryStringByKey("backPage"));
+    		
+    		if(location.href.split("?")[1].split("=")[0] == 'from')
+        	{
+        		
+        	}
+        	else
+        	{
+        		var juid = commonFu.getQueryStringByKey("thisDataId").substring(0,1);
+	    		if(juid != 0 && juid != 1 && juid != 2 && juid != 3 && juid != 4 && juid != 5 && juid != 6 && juid != 7 && juid != 8 && juid != 9)
+	    		{
+	    			var obj = new Base64();
+			    	self.thisJumpId = obj.decode(commonFu.getQueryStringByKey("thisDataId"));
+				    self.thisJumpPage = obj.decode(commonFu.getQueryStringByKey("backPage"));
+	    		}
+	    		else{
+	    			self.thisJumpId = commonFu.getQueryStringByKey("thisDataId");
+	    			self.thisJumpPage = commonFu.getQueryStringByKey("backPage");
+	    		}
+        	}
+    		
     	}
     	
 //  	

@@ -101,21 +101,41 @@ var AuctionHistoryCtrl =
     	
     	var self = this;
     	
-    	
+//  	alert(location.href)
     	self.shareInfo.title = "雅玩之家精选店";
         self.shareInfo.img = "http://auction.yawan365.com/web/img/share-to-other.jpg";
         self.shareInfo.content = "明码标价，童叟无欺";
         
         commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
-    	
+//  	
+//  	alert(location.href.split("?")[1].split("=")[0])
         if(location.href.indexOf("?") > 0){
-    		var obj = new Base64();
-	    	self.thisJumpId = obj.decode(commonFu.getQueryStringByKey("thisDataId"));
-		    self.thisJumpPage = obj.decode(commonFu.getQueryStringByKey("backPage"));
+        	
+        	if(location.href.split("?")[1].split("=")[0] == 'from')
+        	{
+        		
+        	}
+        	else{
+        		 var juid = commonFu.getQueryStringByKey("thisDataId").substring(0,1)
+	        	if(juid != 0 && juid != 1 && juid != 2 && juid != 3 && juid != 4 && juid != 5 && juid != 6 && juid != 7 && juid != 8 && juid != 9)
+	        	{
+	        		
+	        		var obj = new Base64();
+			    	self.thisJumpId = obj.decode(commonFu.getQueryStringByKey("thisDataId"));
+				    self.thisJumpPage = obj.decode(commonFu.getQueryStringByKey("backPage"));
+	        	}
+	    		else{
+	    			
+	    			self.thisJumpId = commonFu.getQueryStringByKey("thisDataId");
+				    self.thisJumpPage = commonFu.getQueryStringByKey("backPage");
+	    		}
+        	}
+        	
 //  	    
 //  	    alert(self.thisJumpPage)
         }
-    	
+//  	alert(self.thisJumpId)
+//  	alert(self.thisJumpPage)
 //  	var arr = [];
 //  
 //  	if(commonFu.listGetUrlPublic(location.href).length == 2)

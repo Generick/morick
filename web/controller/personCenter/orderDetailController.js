@@ -8,6 +8,7 @@ app.controller("ctrl", function($scope) {
 var OrderDetailCtrl = {
     scope : null,
     
+    isShowPayWay : true,
     orderDetailModel: {
         balance: null,   //用户余额
         userId: null,    //用户ID
@@ -35,6 +36,8 @@ var OrderDetailCtrl = {
          
         this.scope.orderDetailModel = this.orderDetailModel;
         
+        this.scope.isShowPayWay = this.isShowPayWay;
+        
         this.initData();
         
         localStorage.removeItem(localStorageKey.IS_ADDRESS); //每次进来清除地址标志
@@ -44,15 +47,27 @@ var OrderDetailCtrl = {
         this.ngRepeatFinish();
 
         this.getUserInfo();
+       
+//      if(!commonFu.isEmpty(sessionStorage.getItem("payOrderId"))){
+//      	
+//      	this.isShowPayWay = false;
+//      	
+//      	this.scope.isShowPayWay = this.isShowPayWay;
+//
+//      }
+       
     },
-
+    
+   
+    
+    
     //初始化数据
     initData: function() {
         var self = this;
 
         $('.animation').css('display','block');
     	self.orderDetailModel.order_no = localStorage.getItem(localStorageKey.orderNo);
-    	
+    
 //      self.orderDetailModel.addressId = commonFu.getQueryStringByKey("addressId");
           
         if(!commonFu.isEmpty(self.orderDetailModel.addressId)){ //有地址ID就掉接口修改没有直接掉订单接口
@@ -78,6 +93,7 @@ var OrderDetailCtrl = {
 //            console.log(JSON.stringify(data))
             self.orderDetailModel.orderInfo = {};
             self.orderDetailModel.orderInfo = data.orderInfo;
+            
             self.goodsOrderType = self.orderDetailModel.orderInfo.orderType;
             if(self.orderDetailModel.orderInfo.acceptName == "")
             {
@@ -175,9 +191,63 @@ var OrderDetailCtrl = {
             $('.animation').css('display','none');
             $('.container').css('opacity','1');
             self.scope.$apply();
+            
+            self.setTimeToSeeOrDer();
         })
     },
-
+    
+    
+     setTimeToSeeOrDer : function()
+    {
+    	var self = this;
+    	if(self.orderDetailModel.orderInfo.orderType == 2 && (self.orderDetailModel.orderInfo.payType == 6 || self.orderDetailModel.orderInfo.payType == 7 || self.orderDetailModel.orderInfo.payType == 5))
+    	{
+	    		var timer6 =  setInterval(function(){
+	    		    var param = {
+	                   order_no : self.orderDetailModel.order_no
+	                };
+	
+			        jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_ORDER_INFO, param, function(data) {
+			        	
+			        	var judje = data.orderInfo.orderStatus;
+			        	if(judje == 1)
+			        	{
+			        		
+			        		self.orderDetailModel.unPay = true;
+			        		self.scope.orderDetailModel.unPay = self.orderDetailModel.unPay;
+			        		self.orderDetailModel.orderInfo.orderTypeText = "等待付款";
+			        		self.scope.orderDetailModel.orderInfo.orderTypeText = self.orderDetailModel.orderInfo.orderTypeText;
+			        	    self.scope.$apply();
+			        	   
+			        	}
+			        	else
+			        	{
+			        		self.orderDetailModel.unPay = false;
+			        		self.scope.orderDetailModel.unPay = self.orderDetailModel.unPay;
+			        		if(judje == 2)
+			        		{
+			        			self.orderDetailModel.orderInfo.orderTypeText = "等待发货";
+			        			self.scope.orderDetailModel.orderInfo.orderTypeText = self.orderDetailModel.orderInfo.orderTypeText;
+			        		}
+			        		
+			        	    self.scope.$apply();
+			        	    if(judje == 3 || judje == 4 || judje == 0)
+			        	    {
+			        	    	  clearInterval(timer6);
+			        	    }
+//			        	  
+			        	}
+			        	
+			        })
+	    		
+	    		},1000);
+    	
+    	}
+    	
+    	
+    	
+    },
+    
     //设置地址
     setAddress: function(){
         var self = this;
@@ -310,7 +380,7 @@ var OrderDetailCtrl = {
         self.scope.selAddress = function(){
             if (self.orderDetailModel.orderIsDone) //订单已生成并且未发货之前都可以修改地址
             {
-                localStorage.setItem(localStorageKey.TO_ADDRESS_TYPE, 1); //判断从哪里进入地址列表
+               
                 localStorage.setItem(localStorageKey.IS_ADDRESS, 1); //设置地址标志
                 var obj = new Base64();
 //              alert(self.orderDetailModel.userId)
@@ -349,10 +419,170 @@ var OrderDetailCtrl = {
     			}
     			else
     			{   
-    				var obj = new Base64();
-    				var ids = obj.encode('3');
-    				var str = pageUrl.MY_PAY_ORDER_PAGE + "?comfromSpecial=" + ids;
-    				location.href = encodeURI(str);
+    				
+    				if(self.orderDetailModel.orderInfo.payType == 3)
+    				{
+    					var obj = new Base64();
+	    				var ids = obj.encode('2');
+	    				var str = pageUrl.MY_PAY_ORDER_PAGE + "?comfromSpecial=" + ids;
+	    				location.href = encodeURI(str);
+    				}
+    				else if(self.orderDetailModel.orderInfo.payType == 5 || self.orderDetailModel.orderInfo.payType == 6 || self.orderDetailModel.orderInfo.payType == 7)
+    				{
+		    					jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_PERSONALDATA, {}, function(data){
+    			
+    			                    var  hasAddress = false;
+					    			if(commonFu.isEmpty(data.shippingAddress))
+					    			{
+					    				hasAddress = false;
+					    			}
+					    		    else
+					    		    {   
+					    		    	for(var g = 0 ; g < data.shippingAddress.length; g++)
+					    		    	{
+					    		    		if(data.shippingAddress[g].isCommon == 1)
+						    		    	{
+						    		    		hasAddress = true;
+						    		    	}
+					    		    	}
+    		    	
+					    		    
+					    		    }
+					    		    
+					    		    if(hasAddress)
+						    		{
+						    			var returnurl = '';
+	    			    
+					    			     
+					    			    if(location.href.indexOf("yawan365") == -1)
+					    			    {
+					    			    	
+					    			    	
+					    			    	returnurl = "http://192.168.0.163/auction/personCenter/orderDetail.html";
+					    			    }
+					    			    else{
+					    			    	if(location.href.indexOf("8080") == -1)
+						    			    {
+						    			    	returnurl = "http://www.yawan365.com/personCenter/orderDetail.html";
+						    			    }
+						    			    else
+						    			    {
+						    			    	
+						    			    	returnurl = "http://www.yawan365.com:8080/personCenter/orderDetail.html";
+						    			    }
+					    			    }
+	    			    
+											if(self.isWeiXin())
+											{
+												
+												if(self.orderDetailModel.orderInfo.payType == 7)
+												{
+													
+													var params = {};
+													params.order_no = self.orderDetailModel.order_no;
+													params.returnUrl = returnurl;
+	//												
+													jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GO_ON_PAY, params, function(data){
+														
+														   if(!commonFu.isEmpty(data.params))
+														   {
+	//													   	    alert(JSON.stringify(data))
+	//													   	    console.log(JSON.stringify(data))
+														   	    document.fm.version.value = data.params.version;
+														   	    document.fm.merchantId.value = data.params.merchantId;
+														   	    document.fm.merchantTime.value = data.params.merchantTime;
+														   	    document.fm.traceNO.value = data.params.traceNO;
+														   	    document.fm.requestAmount.value = data.params.requestAmount;
+														   	    document.fm.paymentCount.value = data.params.paymentCount;
+														   	    document.fm.payment_1.value = data.params.payment_1;
+														   	    document.fm.payment_2.value = data.params.payment_2;
+														   	    document.fm.returnUrl.value = data.params.returnUrl;
+														   	    document.fm.notifyUrl.value = data.params.notifyUrl;
+														   	    document.fm.goodsName.value = data.params.goodsName;
+														   	    document.fm.goodsCount.value = data.params.goodsCount;
+														   	    document.fm.ip.value = data.params.ip;
+														   	    document.fm.extend.value = data.params.extend;
+														   	    document.fm.sign.value = data.params.sign;
+													   	       
+														   	    document.fm.submit();
+														   	  
+															    sessionStorage.setItem("payOrderId",data.order_no)
+						                                        
+														   }
+														
+													})
+												}
+												else{
+													$dialog.msg("请到微信之外的浏览器继续支付！")
+												}
+					//							alert("微信浏览器")
+												
+											}
+											else
+											{
+												
+												
+												if(self.orderDetailModel.orderInfo.payType == 5)
+												{
+													 	var params = {};
+														params.order_no = self.orderDetailModel.order_no;
+														params.returnUrl = returnurl;
+							
+														jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GO_ON_PAY, params, function(data){
+															
+							//								alert(JSON.stringify(data))
+															if(!commonFu.isEmpty(data.url))
+															{
+																
+																location.href = data.url;
+																
+//																sessionStorage.setItem("payOrderId",data.order_no)
+															}
+															
+														
+							//								alert(JSON.stringify(data))
+														})
+												}
+												else if(self.orderDetailModel.orderInfo.payType == 6)
+												{
+													    var params = {};
+														params.order_no = self.orderDetailModel.order_no;
+														params.returnUrl = returnurl;
+							
+														jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GO_ON_PAY, params, function(data){
+															
+							
+															if(!commonFu.isEmpty(data.url))
+															{
+																
+																location.href = data.url;
+																
+//																sessionStorage.setItem("payOrderId",data.order_no)
+															}
+															
+														
+							
+														})
+												}
+					                            else{
+					                            	
+					                            	$dialog.msg("请到微信公众号中支付！");
+					                            }
+												//订单详情页面删除缓存，地址列表页面删除缓存，商品详情删除缓存，微信公众号支付删除缓存，自定义返回方法处删除缓存
+												
+											}
+						    		}
+						    		else{
+						    			
+						    			
+						    	            $dialog.msg("请到个人中心设置您的默认收货地址！");
+							    		
+						    		
+						    		}
+					    		 
+					    		}) 
+    				}
+    				
 //  				location.href = pageUrl.MY_PAY_ORDER_PAGE + "?comfromSpecial=" + 3;
     			}
 //  			if (!self.orderDetailModel.noReceipt)
@@ -373,6 +603,18 @@ var OrderDetailCtrl = {
     		}
        };
     },
+    
+    
+     isWeiXin : function(){
+			var ua = window.navigator.userAgent.toLowerCase(); 
+			
+			if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+				return true; 
+			}else
+			{
+				return false; 
+			} 
+	    },
     
     sendMessage : function(params,type){
     	

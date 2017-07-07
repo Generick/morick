@@ -429,13 +429,13 @@ class M_order extends My_Model
         $up_time = $this->db->select('add_time')->where('commodity_id', $commodityObj->id)->get('sale_meeting')->row_array();
         $serverPrice = $commodityObj->commodity_price*(1+($commodityObj->annualized_return/($leapYear*1440)/100*(($clientTime-$up_time['add_time'])/60)));
         $price = (int)floor($serverPrice);
-        return 0.01;
-        if ($price == $clientPrice) return 0.01;
+        //return 0.01;
+        //if ($price == $clientPrice) return 0.01;
         if ($price == $clientPrice) return $price;
         return false;
     }
 
-    //微信支付商品
+    //微信支付宝支付商品
     function wxPayTMH($userId, $commodity_id, $clientPrice, $clientTime, $buyNum, &$ret, $payEnv, $returnUrl)
     {
         $this->load->model('m_user');
@@ -519,15 +519,18 @@ class M_order extends My_Model
     //调用支付API
     function callPayAPI($orderInfo, $commodityObj, $payEnv, $returnUrl, &$ret)
     {
+        log_message('error', '-|----|----|----start call pay API---|---|----');
         $params = array();
         $params['version'] = "1.1";
         //$params['merchantId'] = THIRD_MCHID;
         $params['merchantId'] = 100001;
         $params['merchantTime'] = date("YmdHis");
         $params['traceNO'] = $orderInfo['order_no'];
-        $params['requestAmount'] = $orderInfo['payPrice'];
+        //$params['requestAmount'] = $orderInfo['payPrice'];
+        $params['requestAmount'] = 0.01;
         $params['paymentCount'] = 1;
-        $params['payment_1'] = $payEnv.'_'.$orderInfo['payPrice'];
+        //$params['payment_1'] = $payEnv.'_'.$orderInfo['payPrice'];
+        $params['payment_1'] = $payEnv.'_0.01';
         $params['payment_2'] = '';
         $params['returnUrl'] = $returnUrl;
         $params['notifyUrl'] = $this->getNotifyUrl();
@@ -538,6 +541,7 @@ class M_order extends My_Model
         $params['sign'] = $this->getSign($params);
         $params['extend'] = $payEnv == 7 ? $params['extend'] : urlencode($params['extend']);
         //$params = $this->testParams();
+        log_message('error', 'prePayParams:---->:'.json_encode($params));
         
         $url = '';
 
@@ -564,14 +568,18 @@ class M_order extends My_Model
             return ERROR_OK;
         }
         //echo date("Ymd").'---'.$url."<br>";
-        $res = $this->http_resuest($url, $params);
+        $res = $this->http_request($url, $params);
         
         if (!empty($res)) 
         {
             //echo $res;die;
             $resArr = explode("|", $res);
             //var_dump($resArr);die;
-            //if(count($resArr) < 3) return $resArr[0];
+            if(count($resArr) < 3)
+            {
+                log_message('error', 'API return error-------->'.$res);
+                return ERROR_CALL_API;
+            }
             $resCode = $resArr[0];
             $resDATA = $resArr[1];
             $resSign = $resArr[2];
@@ -606,9 +614,9 @@ class M_order extends My_Model
                 }
                 return ERROR_OK;
             }
-            return $resDATA;
+            return $this->errorHandle($resCode);
         }
-        return ERROR_SYSTEM;
+        return ERROR_API_RETURN_NULL;
     }
 
     //sign
@@ -667,7 +675,7 @@ class M_order extends My_Model
     }
 
     //发送请求
-    function http_resuest($url, $data = array())
+    function http_request($url, $data = array())
     {
         //var_dump($url);
         //var_dump($data);
@@ -690,6 +698,68 @@ class M_order extends My_Model
         $output = curl_exec($curl);
         curl_close($curl);
         return $output;
+    }
+
+    function errorHandle($errorCode)
+    {
+        switch ($errorCode) 
+        {
+            case '001':
+                return ERROR_MCH_ORDER_NO_NOT_NULL;
+                break;
+            case '002':
+                return ERROR_CARD_NOT_BIG_THAN_MIAN;
+                break;
+            case '003':
+                return ERROR_CARD_VERIFY_NOT_PAY;
+                break;
+            case '004':
+                return ERROR_GOODS_NAME_LENGTH_ERROR;
+                break;
+            case '005':
+                return ERROR_MCH_NOT_AUTH_PAY_TOOL;
+                break;
+            case '006':
+                return ERROR_MCH_NOT_ALLOW_CREATE_PAY_ORDER;
+                break;
+            case '007':
+                return ERROR_PAY_MONEY_LOW_THAN_REQUIRE_MONEY;
+                break;
+            case '009':
+                return ERROR_SIGN_ERROR;
+                break;
+            case '010':
+                return ERROR_MCH_NOT_ALLOW_CREATE_TUI;
+                break;
+            case '014':
+                return ERROR_MCH_TIME_NOT_NULL;
+                break;
+            case '015':
+                return ERROR_NO_RETURN_URL;
+                break;
+            case '016':
+                return ERROR_ORDER_MONEY_ILLEGAL;
+                break;
+            case '018':
+                return ERROR_PAY_MONEY_NOT_ILLEGAL;
+                break;
+            case '019':
+                return ERROR_PAY_RESULT_NOTICE_URL_NOT_NULL;
+                break;
+            case '020':
+                return ERROR_GOOGS_NUM_ILLEGAL;
+                break;
+            case '901':
+                return ERROR_CARD_BALANCE_NOT_ENOUGH;
+                break;
+            case '999':
+                return ERROR_OTHER_EXCEPTION;
+                break;
+            
+            default:
+                return ERROR_OTHER_EXCEPTION;
+                break;
+        }
     }
 
     //test data
@@ -718,8 +788,9 @@ class M_order extends My_Model
     //支付回调
     function callbackFunc()
     {
+        log_message('error', '---|----|----|----start pay API call back--|-----|----|----');
         $raw_data = $_REQUEST['msg'];
-        log_message('error', 'raw_data_msg:'.$raw_data);
+        log_message('error', 'raw_data---->:'.$raw_data);
         if (empty($raw_data)) 
         {
             echo "Y";
@@ -760,15 +831,15 @@ class M_order extends My_Model
         echo "Y";
     }
 
-    //微信支付商品成功后处理
+    //支付成功处理
     function wxPaySuccess($orderId)
     {
         $orderInfo = $this->getOrderAll($orderId);
         $this->modOrderInfo($orderId, array('orderStatus'=>2));
-        $this->m_messagePush->createUserMsg($orderInfo->userId,MP_MSG_TYPE_PAY_SUCCESS , $orderId);
+        $this->m_messagePush->createUserMsg($orderInfo->userId, MP_MSG_TYPE_PAY_SUCCESS, $orderId);
     }
 
-    //支付失败
+    //支付失败处理
     function payFail($orderId)
     {
         $orderInfo = $this->getOrderAll($orderId);
@@ -779,7 +850,9 @@ class M_order extends My_Model
     //继续支付
     function continuePay($order_no, $returnUrl, &$res)
     {
+        log_message('error', '---|----|---start continue pay---|------|----');
         $orderObj = $this->getOrderAll($order_no);
+        if (!$orderObj) return ERROR_ORDER_NOT_FOUND;
         $commodityObj = $this->m_saleMeeting->getCommodityInfo($orderObj->orderGoods[0]->id);
         $leapYear = $this->leapYear();
         $up_time = $this->db->select('add_time')->where('commodity_id', $commodityObj->id)->get('sale_meeting')->row_array();
@@ -792,11 +865,13 @@ class M_order extends My_Model
             'orderTime' => $orderObj->orderTime,
             'goodsPrice' => $commodityObj->commodity_price,
             'payPrice' => $totalPrice,
+            //'payPrice' => 0.01,
             'orderType' => 2,
             'orderStatus' => 1,
             'payType' => $orderObj->payType,
             'buyNum' => $orderObj->orderGoods[0]->goodsNum,
             );
+        log_message('error', 'continue pay order params:-------->'.json_encode($orderInfo));
         return $this->callPayAPI($orderInfo, $commodityObj, $orderInfo['payType'], $returnUrl, $res);
     }
 

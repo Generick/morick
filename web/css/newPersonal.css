@@ -1149,7 +1149,7 @@ animation-fill-mode: both
 }
 .every-pay-way-left-word{
 	float:left;
-	width:80px;
+	width:90px;
 	line-height:54px;
 	font-size:15px;
 	padding-left:10px
@@ -1157,9 +1157,9 @@ animation-fill-mode: both
 
 .every-pay-way-right{
 	float:right;
-	width:22px;
-	height:22px;
-	margin-top:15px;
+	width:24px;
+	height:24px;
+	margin-top:14px;
 	border:1px solid #C4996E;
 	border-radius: 50%;
 	

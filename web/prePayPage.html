@@ -5,6 +5,11 @@
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<meta name="format-detection" content="telephone=no">
         <title>支付订单</title>
+        <style>
+        	form{
+        		display: none;
+        	}
+        </style>
         <link rel="stylesheet" href="css/ui.base.css" />
         <link rel="stylesheet" href="css/selected.css" />
         <link rel="stylesheet" href="css/person_center.css" />
@@ -40,13 +45,24 @@
 		    <div class="every-pay-way">
 		    	<div class="every-pay-way-left">
 		    		<div class="every-pay-way-left-icon">
-		    			<img src="img/newPic/pckgpay.png"/>
+		    			<img src="img/newPic/weixinpaytype.png"/>
 		    		</div>
 		    		<div class="every-pay-way-left-word">
-		    		   自助支付
+		    		   微信支付
 		    		</div>
 		    	</div>
 		    	<div class="every-pay-way-right" id="selfpay"  ng-click="chooseIt(1)"></div>
+		    </div>
+		    <div class="every-pay-way" ng-show="isShowZhiFuBao">
+		    	<div class="every-pay-way-left">
+		    		<div class="every-pay-way-left-icon">
+		    			<img src="img/newPic/zhifubaopaytype.png"/>
+		    		</div>
+		    		<div class="every-pay-way-left-word">
+		    		   支付宝支付
+		    		</div>
+		    	</div>
+		    	<div class="every-pay-way-right" id="zhifubaopay"  ng-click="chooseIt(2)"></div>
 		    </div>
 		    <div class="bottom-pay-button" ng-click="underLinePay()">
 			    去支付
@@ -77,10 +93,33 @@
 		    		确认支付
 		    	</div>
 		    </div>-->
-		    	
+		        <form name="fm" action="http://api.99epay.net/h5Pay/pub/toAcquireOrder.htm" method="post">
+					<table>
+						<tbody>
+							<tr><td>version:</td><td><input type="text" name="version" value=""></td></tr>
+							<tr><td>merchantId:</td><td><input type="text" name="merchantId" value=""></td></tr>
+							<tr><td>merchantTime:</td><td><input type="text" name="merchantTime" value=""></td></tr>
+							<tr><td>traceNO:</td><td><input type="text" name="traceNO" value=""></td></tr>
+							<tr><td>requestAmount:</td><td><input type="text" name="requestAmount" value=""></td></tr>
+							<tr><td>paymentCount:</td><td><input type="text" name="paymentCount" value=""></td></tr>
+							<tr><td>payment_1:</td><td><input type="text" name="payment_1" value=""></td></tr>
+							<tr><td>payment_2:</td><td><input type="text" name="payment_2" value=""></td></tr>
+							<tr><td>returnUrl:</td><td><input type="text" name="returnUrl" value=""></td></tr>
+							<tr><td>notifyUrl:</td><td><input type="text" name="notifyUrl" value=""></td></tr>
+							<tr><td>goodsName:</td><td><input type="text" name="goodsName" value=""></td></tr>
+							<tr><td>goodsCount:</td><td><input type="text" name="goodsCount" value=""></td></tr>
+							
+							<tr><td>ip:</td><td><input type="text" name="ip" value=""></td></tr>
+							
+							<tr><td>sign:</td><td><input type="text" name="sign" value=""></td></tr>
+							<tr><td>extend:</td><td><input type="text" name="extend" value=""></td></tr>
+							<tr><td><input type="submit" value="提交"/></td></tr>
+						</tbody>
+					</table>
+				</form>	
 		    </div>
 		    
-		</div>
+		
 	</body>
 	<!--系统js-->
 	<!--<script type="text/javascript" src="../js/jquery.min.js" ></script>-->
@@ -121,7 +160,7 @@
 					    var str =  pageUrl.AUCTION_HISTORY_INFO + "?thisAcPage=" + thisPage_base64  + "&id=" + id_base64;	    	
 						
 						location.href = encodeURI(str);
-						
+						sessionStorage.removeItem("payOrderId");
 			        }
 		    	}
 		    	pushHistory();

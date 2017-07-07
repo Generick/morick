@@ -5,12 +5,13 @@ app.controller('specialctrl',function($scope){
 	
 })
 
-
 var specialPageController = 
 {
 	scope : null,
 	
 	isSelected : true,
+	
+	isShowZhiFuBao : false,
 	
 	hasAddress : false,
 	
@@ -22,15 +23,21 @@ var specialPageController =
 	
 	userId : null,
 	
-	underPay : true,
+	underPay : 0,
 	
 	detailPage : null,
 	
 	commPrice : null,
 	
+	
+	
 	init : function($scope){
 		
 		this.scope = $scope;
+		
+		this.isWeiXin();
+		
+		this.scope.isShowZhiFuBao = this.isShowZhiFuBao;
 		
 		this.getUrlAndId();
 		
@@ -38,6 +45,26 @@ var specialPageController =
 		
 		this.eventBind();
 		
+		
+		if(!commonFu.isEmpty(sessionStorage.getItem("payOrderId")))
+		{
+			
+			setInterval(function(){
+				localStorage.setItem(localStorageKey.orderNo,sessionStorage.getItem("payOrderId"));
+	//			sessionStorage.removeItem("payOrderId");
+				
+				location.href = pageUrl.ORDER_DETAIL;
+				localStorage.setItem("comewidthgoto",8)
+			},350);
+			
+		
+			
+		}
+		
+	     
+        				
+        	
+//		alert(localStorage.getItem("sbbb"))
 	},
 	
 	  getUrlAndId : function(){
@@ -67,6 +94,8 @@ var specialPageController =
     	
     },
    
+   
+    
     getSelfInfo : function(){
     	var self = this;
     	
@@ -109,47 +138,55 @@ var specialPageController =
 		var self = this;
 		document.title = "支付订单";
 		
-		
 	},
 	
 	eventBind : function(){
 		
 		var self = this;
 		
-		self.scope.chooseIt = function(){
-			
-			self.isSelected = !self.isSelected;
-			
-			if(self.isSelected)
-			{   
-				$(".pay-special-choose-checkbox").addClass("pay-special-choose-checkbox-hasSel").removeClass("pay-special-choose-checkbox-unSel");
-			}
-			else
-			{
-				$(".pay-special-choose-checkbox").addClass("pay-special-choose-checkbox-unSel").removeClass("pay-special-choose-checkbox-hasSel");
-			}
-			
-		};
+//		self.scope.chooseIt = function(){
+//			
+//			self.isSelected = !self.isSelected;
+//			
+//			if(self.isSelected)
+//			{   
+//				$(".pay-special-choose-checkbox").addClass("pay-special-choose-checkbox-hasSel").removeClass("pay-special-choose-checkbox-unSel");
+//			}
+//			else
+//			{
+//				$(".pay-special-choose-checkbox").addClass("pay-special-choose-checkbox-unSel").removeClass("pay-special-choose-checkbox-hasSel");
+//			}
+//			
+//		};
 		
 		self.scope.chooseIt = function(type){
 			
 			if(type== 0)
 			{
-				self.underPay = true;
+				self.underPay = 0;
+				$("#zhifubaopay").removeClass("check-add-class");
 				$("#peoplepay").addClass("check-add-class");
 				$("#selfpay").removeClass("check-add-class");
 			}
-			else
+			else if(type == 1)
 			{
-				self.underPay = false;
+				self.underPay = 1;
+				$("#zhifubaopay").removeClass("check-add-class");
 				$("#peoplepay").removeClass("check-add-class");
 				$("#selfpay").addClass("check-add-class");
 			}
+			else{
+				self.underPay = 2;
+				$("#selfpay").removeClass("check-add-class");
+				$("#peoplepay").removeClass("check-add-class");
+				$("#zhifubaopay").addClass("check-add-class");
+			}
+//			alert(self.underPay)
 		};
 		
 		self.scope.underLinePay = function(){
 			
-			if(self.underPay)
+			if(self.underPay == 0)
 			{
 				var stampTime = localStorage.getItem("stampTime");
 		    
@@ -166,86 +203,20 @@ var specialPageController =
 					var obj = new Base64();
 						   	
 					var id_base64 = obj.encode("3");
-//						alert(id_base64)			
+		
 					var str =  pageUrl.MY_PAY_ORDER_PAGE + "?comfromSpecial=" + id_base64;		    	
 									
 					location.href = encodeURI(str);
-//					
-//					
-//					location.href = pageUrl.MY_PAY_ORDER_PAGE + "?comfromSpecial=" + 1;
-						
+				
 				})
 			}
 			
-		  else{
-		  	   $dialog.msg("此功能暂未开通")
+		  else
+		  {
+//		  	   $dialog.msg("此功能暂未开通");
+		  	   self.weiXinPay();
 		  }
-		};
-		
-		
-		
-		self.scope.weiXinPay = function(){
-			
-			    	    
-    	    
-    	    jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_PERSONALDATA, {}, function(data){
-    			
-    			
-    			if(commonFu.isEmpty(data.shippingAddress))
-    			{
-    				self.hasAddress = false;
-    			}
-    		    else
-    		    {
-    		    	self.hasAddress = true;
-    		    }
-    		    
-    		    if(self.hasAddress)
-	    		{
-
-		    		var params= {};
-			    	params.money = self.commPrice;
-			       
-			    	//输入金额合法后，调后台接口
-			    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_RECHARGE, params, function(data)
-			    	{
-
-						if(data == null || data == "")
-						{
-						    return;
-						}   
-			    		//当从后台得到商品单号等数据后，跳转到微信授权页面进行授权，带过去的参数有，单号的id，交易金额price
-			    		var total = parseInt(data.rechargeInfo.price) * 100;
-			    		location.href = pageUrl.TO_WX_LOGIN + "?rechargeId=" + data.rechargeInfo.rechargeId + "&price=" + total;
-		
-			    	});  
-		    		
-	    		}
-	    		else{
-	    			
-	    			
-	    			
-//	    			jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data){
-//	    		
-//	    		        self.userId = data.userInfo.userId;
-//	    	            $dialog.msg("请先完善您的个人收货地址！");
-//		    			setTimeout(function(){
-//		    				
-//		    				localStorage.setItem(localStorageKey.TO_ADDRESS_TYPE, 3); //判断从哪里进入地址列表
-//			                localStorage.setItem("specialPrice",self.commPrice);
-//			               
-//			                localStorage.setItem("wxAddressEmpty",1)
-//			                location.href = pageUrl.MY_ADDRESS_LIST +  "?userId=" + self.userId;
-//			                
-//		    			},1500)
-//	    	     
-//	    	        })
-	    		
-	    		}
-    		 
-    		}) 
-			
-			
+		 
 		};
 		
 		
@@ -273,5 +244,227 @@ var specialPageController =
     	   )
     		
 		}
-	}
+	},
+	
+	
+	weiXinPay : function(){
+			
+			var self = this;    	    
+    	    sessionStorage.removeItem("payOrderId");
+    	    jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_PERSONALDATA, {}, function(data){
+    			
+    			
+    			if(commonFu.isEmpty(data.shippingAddress))
+    			{
+    				self.hasAddress = false;
+    			}
+    		    else
+    		    {   
+    		    	
+    		    	
+    		    	for(var g = 0 ; g < data.shippingAddress.length; g++)
+    		    	{
+    		    		if(data.shippingAddress[g].isCommon == 1)
+	    		    	{
+	    		    		self.hasAddress = true;
+	    		    	}
+    		    	}
+    		    	
+    		    	
+    		    }
+    		    
+    		    if(self.hasAddress)
+	    		{       
+	    			    
+	    			    var returnurl = '';
+	    			    
+	    			    if(location.href.indexOf("yawan365") == -1)
+	    			    {
+	    			    	
+	    			    	
+	    			    	returnurl = "http://192.168.0.163/auction/personCenter/orderDetail.html";
+	    			    }
+	    			    else{
+	    			    	if(location.href.indexOf("8080") == -1)
+		    			    {
+		    			    	returnurl = "http://www.yawan365.com/personCenter/orderDetail.html";
+		    			    }
+		    			    else
+		    			    {
+		    			    	
+		    			    	returnurl = "http://www.yawan365.com:8080/personCenter/orderDetail.html";
+		    			    }
+	    			    }
+	    			    
+                    
+						if(self.isWeiXin())
+						{
+							sessionStorage.removeItem("payOrderId");
+//							alert("微信浏览器")
+							var stampTime = localStorage.getItem("stampTime");
+							var params = {};
+							params.userId = self.userId;
+							params.commodity_id = self.commId;
+							params.clientPrice = Math.floor(self.commPrice);
+							params.clientTime = stampTime;
+							params.buyNum = self.buyNumber;
+							params.payEnv = 7;
+							params.returnUrl = returnurl;
+//							console.log(JSON.stringify(params))
+                            
+							jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PAY_COMMDIFY, params, function(data){
+								
+								   if(!commonFu.isEmpty(data.params))
+								   {
+								   	    
+								   	    console.log(JSON.stringify(data))
+								   	    document.fm.version.value = data.params.version;
+								   	    document.fm.merchantId.value = data.params.merchantId;
+								   	    document.fm.merchantTime.value = data.params.merchantTime;
+								   	    document.fm.traceNO.value = data.params.traceNO;
+								   	    document.fm.requestAmount.value = data.params.requestAmount;
+								   	    document.fm.paymentCount.value = data.params.paymentCount;
+								   	    document.fm.payment_1.value = data.params.payment_1;
+								   	    document.fm.payment_2.value = data.params.payment_2;
+								   	    document.fm.returnUrl.value = data.params.returnUrl;
+								   	    document.fm.notifyUrl.value = data.params.notifyUrl;
+								   	    document.fm.goodsName.value = data.params.goodsName;
+								   	    document.fm.goodsCount.value = data.params.goodsCount;
+								   	    document.fm.ip.value = data.params.ip;
+								   	    document.fm.extend.value = data.params.extend;
+								   	    document.fm.sign.value = data.params.sign;
+							   	 
+								   	    document.fm.submit();
+								   	    localStorage.removeItem(localStorageKey.orderNo);
+								   	    localStorage.setItem(localStorageKey.orderNo,data.order_no);
+									    sessionStorage.setItem("payOrderId",data.order_no)
+                                        
+								   }
+								
+							})
+						}
+						else
+						{
+							
+//							alert(333)
+							if(self.underPay == 1)
+							{
+//								alert("其他浏览器")
+//								alert(self.underPay)
+								var stampTime = localStorage.getItem("stampTime");
+								var params = {};
+								params.userId = self.userId;
+								params.commodity_id = self.commId;
+								params.clientPrice = Math.floor(self.commPrice);
+								params.clientTime = stampTime;
+								params.buyNum = self.buyNumber;
+								params.payEnv = 5;
+								params.returnUrl = returnurl;
+//								alert(JSON.stringify(params))
+								
+								jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PAY_COMMDIFY, params, function(data){
+									
+	//								alert(JSON.stringify(data))
+									if(!commonFu.isEmpty(data.url))
+									{ 
+										location.href = data.url;
+										localStorage.removeItem(localStorageKey.orderNo);
+								   	    localStorage.setItem(localStorageKey.orderNo,data.order_no);
+										sessionStorage.setItem("payOrderId",data.order_no)
+									}
+									
+								
+	//								alert(JSON.stringify(data))
+								})
+							
+							}
+							else if(self.underPay == 2)
+							{
+								var stampTime = localStorage.getItem("stampTime");
+								var params = {};
+								params.userId = self.userId;
+								params.commodity_id = self.commId;
+								params.clientPrice = Math.floor(self.commPrice);
+								params.clientTime = stampTime;
+								params.buyNum = self.buyNumber;
+								params.payEnv = 6;
+								params.returnUrl = returnurl;
+//								alert(JSON.stringify(params))
+
+								
+								jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PAY_COMMDIFY, params, function(data){
+//									alert(JSON.stringify(data))
+	//								alert(JSON.stringify(data))
+									if(!commonFu.isEmpty(data.url))
+									{
+										location.href = data.url;
+										localStorage.removeItem(localStorageKey.orderNo);
+								   	    localStorage.setItem(localStorageKey.orderNo,data.order_no);
+										sessionStorage.setItem("payOrderId",data.order_no)
+									}
+									
+								
+	//								alert(JSON.stringify(data))
+								})
+							}
+//							
+							//订单详情页面删除缓存，地址列表页面删除缓存，商品详情删除缓存，微信公众号支付删除缓存，自定义返回方法处删除缓存
+							
+						}
+	    		}
+	    		else{
+	    			
+	    			
+	    			
+	    			jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data){
+	    		
+	    		        self.userId = data.userInfo.userId;
+	    	            $dialog.msg("请先设置您的默认地址！");
+		    			setTimeout(function(){
+		    				
+		    				sessionStorage.removeItem("payOrderId");
+		    				localStorage.setItem(localStorageKey.TO_ADDRESS_TYPE, 3); //判断从哪里进入地址列表
+			                localStorage.setItem("specialPrice",self.commPrice);
+			               
+			                localStorage.setItem("wxAddressEmpty",1);
+			                
+			                var obj = new Base64();
+			                var ids = obj.encode(self.userId);
+			                var str = pageUrl.MY_ADDRESS_LIST + "?userId=" + ids;
+			                location.href = encodeURI(str)
+			                
+//			                location.href = pageUrl.MY_ADDRESS_LIST +  "?userId=" + self.userId;
+			                
+		    			},1200)
+	    	     
+	    	        })
+	    		
+	    		}
+    		 
+    		}) 
+			
+			
+		},
+	
+	
+	    isWeiXin : function(){
+	    	
+	    	var self = this;
+			var ua = window.navigator.userAgent.toLowerCase(); 
+			
+			if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+				self.isShowZhiFuBao = false;
+				self.scope.isShowZhiFuBao = self.isShowZhiFuBao;
+				return true;
+			}else
+			{   
+				self.isShowZhiFuBao = true;
+				self.scope.isShowZhiFuBao = self.isShowZhiFuBao;
+				return false; 
+			} 
+	    },
+	
+	
 };
+
+

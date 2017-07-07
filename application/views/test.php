@@ -178,7 +178,7 @@
             "order/U_order/payOrder" :{"order_no" : "", "deliveryType" : "0", "说明" : "支付订单"},
             "order/U_order/payTMH" :{"userId" : "0", "commodity_id" : "0", "clientPrice":0, "clientTime":0,"buyNum":1,"说明" : "支付特卖会订单 clientPrice前端计算的价格clientTime前端传入的时间 buyNum购买数量"},
             "order/U_order/wxPayTMH":{"userId":'3', "commodity_id":'88', "clientPrice":'', "clientTime":'1498647944', "buyNum":1, "payEnv":7, "returnUrl":'', "说明":"微信支付商品 payEnv支付环境5微信H5支付6支付宝7微信公众号支付"},
-            "order/U_order/continuePay":{'order_no':'', "returnUrl":"http://www.baidu.com", "说明":"继续支付 order_no订单号"},
+            "order/U_order/continuePay":{'order_no':'', "returnUrl":"http://www.baidu.com", "说明":"继续支付 order_no订单号 returnUrl跳转链接"},
             //endregion
 
             //region 充值

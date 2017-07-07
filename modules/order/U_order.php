@@ -249,6 +249,16 @@ class U_order extends User_Controller
         $buyNum = $this->input->post('buyNum');
         $payEnv = $this->input->post('payEnv');
         $returnUrl = $this->input->post('returnUrl');
+        if (empty($returnUrl)) 
+        {
+            $this->responseError(ERROR_NO_RETURN_URL);
+            return;
+        }
+        if (empty($clientTime)) 
+        {
+            $this->responseError(ERROR_NO_CLIENT_TIME);
+            return;
+        }
         $ret = array();
         $res = $this->m_order->wxPayTMH($userId, $commodity_id, $clientPrice, $clientTime, $buyNum, $ret, $payEnv, $returnUrl);
         if ($res !== ERROR_OK) 
@@ -269,6 +279,11 @@ class U_order extends User_Controller
         }
         $order_no = $this->input->post('order_no');
         $returnUrl = $this->input->post('returnUrl');
+        if (empty($returnUrl)) 
+        {
+            $this->responseError(ERROR_NO_RETURN_URL);
+            return;
+        }
         $res = array();
         $ret = $this->m_order->continuePay($order_no, $returnUrl, $res);
         if ($ret !== ERROR_OK) 

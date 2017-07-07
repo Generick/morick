@@ -97,12 +97,23 @@ var GoodsInfoCtrl = {
     	var self = this;
     	var arr = [];
     	
-
+        
         if(location.href.indexOf("?") > 0)
-    	{
-    		var obj = new Base64();
-    		self.thisDataId = obj.decode(commonFu.getQueryStringByKey("id"));
-	    	self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisPage"));
+    	{  
+    		
+    		var juid = commonFu.getQueryStringByKey("id").substring(0,1);
+    		
+    		if(juid != 0 && juid != 1 && juid != 2 && juid != 3 && juid != 4 && juid != 5 && juid != 6 && juid != 7 && juid != 8 && juid != 9)
+    		{
+    			var obj = new Base64();
+	    		self.thisDataId = obj.decode(commonFu.getQueryStringByKey("id"));
+		    	self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisPage"));
+    		}
+    		else
+    		{
+    			self.thisDataId = commonFu.getQueryStringByKey("id");
+    			self.thisDetailPage = commonFu.getQueryStringByKey("thisPage");
+    		}
 //	    	alert(self.thisDataId);
 //	    	alert(self.thisDetailPage)
     	}
@@ -122,10 +133,25 @@ var GoodsInfoCtrl = {
     	var params = {};
     	
     	if(location.href.indexOf("?") > 0)
-    	{   
-    		var obj = new Base64();
-    		params.itemId = obj.decode(commonFu.getQueryStringByKey("id")); //当前藏品ID
-    		self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisPage")); //当前藏品ID
+    	{  
+    		var juid = commonFu.getQueryStringByKey("id").substring(0,1);
+    		
+    		if(juid != 0 && juid != 1 && juid != 2 && juid != 3 && juid != 4 && juid != 5 && juid != 6 && juid != 7 && juid != 8 && juid != 9)
+    		{
+    			var obj = new Base64();
+	    		self.thisDataId = obj.decode(commonFu.getQueryStringByKey("id"));
+		    	self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisPage"));
+    		}
+    		else
+    		{
+    			self.thisDataId = commonFu.getQueryStringByKey("id");
+    			self.thisDetailPage = commonFu.getQueryStringByKey("thisPage");
+    		}
+    		
+    		
+//  		var obj = new Base64();
+    		params.itemId = self.thisDataId; //当前藏品ID
+//  		self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisPage")); //当前藏品ID
     		
     		self.goodsDetailModel.id = params.itemId;
     		

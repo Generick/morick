@@ -85,15 +85,75 @@ var specialSellController =
     	var self = this;
     	var arr = [];
     	localStorage.removeItem("hereComeFromAuc");
-    	
+    	sessionStorage.removeItem("payOrderId");
     	
         if(location.href.indexOf("?") > 0)
-    	{
-    		var obj = new Base64();
-    		self.thisDataId = obj.decode(commonFu.getQueryStringByKey("id"));
-	    	self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisAcPage"));
+    	{   
+    		var juid  = null;
+//  		alert(location.href)
+    		if(commonFu.getQueryStringByKey("id") == null)
+    		{
+    			if(commonFu.getQueryStringByKey("commodifyId") != null)
+	    		{
+	    			juid = commonFu.getQueryStringByKey("commodifyId").substring(0,1);
+	    			if(juid != 0 && juid != 1 && juid != 2 && juid != 3 && juid != 4 && juid != 5 && juid != 6 && juid != 7 && juid != 8 && juid != 9)
+		    		{
+		    			var obj = new Base64();
+		    			self.thisDataId = obj.decode(commonFu.getQueryStringByKey("commodifyId"));
+			    		self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisAcPage"));
+		    		}
+		    		else
+		    		{
+		    			self.thisDataId  = commonFu.getQueryStringByKey("commodifyId");
+    					self.thisDetailPage = commonFu.getQueryStringByKey("thisAcPage");
+		    		}
+	    		}
+	    		else{
+	    			juid = commonFu.getQueryStringByKey("aucid").substring(0,1);
+	    			if(juid != 0 && juid != 1 && juid != 2 && juid != 3 && juid != 4 && juid != 5 && juid != 6 && juid != 7 && juid != 8 && juid != 9)
+		    		{
+		    			var obj = new Base64();
+		    			self.thisDataId = obj.decode(commonFu.getQueryStringByKey("aucid"));
+			    		self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisAcPage"));
+		    		}
+		    		else
+		    		{
+		    			self.thisDataId  = commonFu.getQueryStringByKey("aucid");
+    					self.thisDetailPage = commonFu.getQueryStringByKey("thisAcPage");
+		    		}
+	    		}
+    		}
+    		else
+    		{
+    			juid = commonFu.getQueryStringByKey("id").substring(0,1);
+    			if(juid != 0 && juid != 1 && juid != 2 && juid != 3 && juid != 4 && juid != 5 && juid != 6 && juid != 7 && juid != 8 && juid != 9)
+		    	{
+		    		var obj = new Base64();
+		    		self.thisDataId = obj.decode(commonFu.getQueryStringByKey("id"));
+			    	self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisAcPage"));
+		    	}
+		    	else
+		    	{
+		    		self.thisDataId  = commonFu.getQueryStringByKey("id");
+    				self.thisDetailPage = commonFu.getQueryStringByKey("thisAcPage");
+		    	}
+    		}
+    		
+    		
+//  		var juid = commonFu.getQueryStringByKey("commodifyId").substring(0,1);
+//  		alert(location.href)
+//  		if(juid != 0 && juid != 1 && juid != 2 && juid != 3 && juid != 4 && juid != 5 && juid != 6 && juid != 7 && juid != 8 && juid != 9)
+//  		{
+//  			var obj = new Base64();
+//  			self.thisDataId = obj.decode(commonFu.getQueryStringByKey("commodifyId"));
+//	    		self.thisDetailPage = obj.decode(commonFu.getQueryStringByKey("thisAcPage"));
+//  		}
+//  		else{
+//  			self.thisDataId  = commonFu.getQueryStringByKey("commodifyId");
+//  			self.thisDetailPage = commonFu.getQueryStringByKey("thisAcPage");
+//  		}
 //	    	alert(self.thisDataId);
-//	    	alert(self.thisDetailPage)
+//	    	alert(self.thisDetailPage);
     	}
 //      if(commonFu.getUrlPublic(location.href).length >= 2)
 //  	{   
@@ -341,9 +401,29 @@ var specialSellController =
     	    	}
     	    	else
     	    	{   
-    	    		$("html,body").css("overflow","hidden");
-    	    		$(".fixed-add-goods-box").css("display","block");
-    		        $(".add-goodsNumber-box").css("display","block");
+    	    		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+    		
+			    		if(JSON.stringify(data) == 'true'){
+			    		    
+		    	    		$("html,body").css("overflow","hidden");
+		    	    		$(".fixed-add-goods-box").css("display","block");
+		    		        $(".add-goodsNumber-box").css("display","block");
+			    		        
+				    	}
+			    		else
+			    		{  
+				    		$dialog.msg("会话过期，请先登录");
+			                    setTimeout(function(){
+			
+			                    	location.href = pageUrl.LOGIN_PAGE;
+			                    	
+			                    	
+			                    },1300)
+				    		
+				    	}
+			    		
+			    	})
+    	    		
     	    	}
     	    	
     	 
@@ -359,7 +439,7 @@ var specialSellController =
     		}
     		else
     		{
-    			setTimeout(function(){
+//  			setTimeout(function(){
 //  			    alert(parseInt(self.scope.buyNumber))
     			    if(parseInt(self.scope.buyNumber) >= 1){
     			    	self.isReallyBuy = true;
@@ -383,7 +463,7 @@ var specialSellController =
     			    	$dialog.msg("请输入正确的商品数量！");
     			    }
 	    			
-    		    },500)
+//  		    },500)
     		}
     		
     		
