@@ -158,8 +158,7 @@ var myGoodsCtr = {
 		
 		self.scope.deleteGood = function(item){
 			
-			$(".fixed-boxes-del").css("display","block");
-			$(".right-to-boxes").css("display","block");
+			$(".fixed-boxes-del,.right-to-boxes").addClass("test-active");
 			$("body").css("overflow","hidden");
 			
 			
@@ -174,8 +173,9 @@ var myGoodsCtr = {
 			
 			if(type == 0)
 			{
-				$(".fixed-boxes-del").css("display","none");
-				$(".right-to-boxes").css("display","none");
+//				$(".fixed-boxes-del").css("display","none");
+//				$(".right-to-boxes").css("display","none");
+			$(".fixed-boxes-del,.right-to-boxes").removeClass("test-active");
 				$("body").css("overflow","auto");
 				self.deleteId = null;
 			}
@@ -185,8 +185,10 @@ var myGoodsCtr = {
 				jqAjaxRequest.asyncAjaxRequest(apiUrl.API_DELETE_GOODS, params,function(data){
 	//					alert(JSON.stringify(data))
 	                   self.page.currentPage = 1;
-	                   $(".fixed-boxes-del").css("display","none");
-						$(".right-to-boxes").css("display","none");
+//	                   $(".fixed-boxes-del").css("display","none");
+//						$(".right-to-boxes").css("display","none");
+						
+			$(".fixed-boxes-del,.right-to-boxes").removeClass("test-active");
 						$("body").css("overflow","auto");
 	                   $dialog.msg("商品删除成功");
 	                   self.getGoodsList(0);

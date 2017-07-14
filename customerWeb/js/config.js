@@ -13,7 +13,8 @@
    const API_BASE_URL = "http://auction.yawan365.com:8080/index.php/";//测试
 //const BASE_PAGE_URL = "http://192.168.0.168:8020/web/";
 
-const BASE_PAGE_URL = "http://192.168.0.163/commercialTenant/";
+const BASE_PAGE_URL = "http://auction.yawan365.com:8080/customerWeb/";
+//const BASE_PAGE_URL = "http://192.168.0.163/commercialTenant/";
 //const BASE_PAGE_URL = '';
 //const BASE_PAGE_URL = "http://127.0.0.1:8020/paimai-web/";
 
