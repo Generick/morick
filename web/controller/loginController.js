@@ -133,6 +133,7 @@ var LoginCtrl =
 						
                         localStorage.setItem(localStorageKey.TOKEN,data.token);
                         localStorage.setItem(localStorageKey.SESSIONID,data.sessionId);
+                        setCookie(localStorageKey.SESSIONID,data.sessionId);
                         localStorage.setItem(localStorageKey.userId, data.userInfo.userId);
                         localStorage.setItem(localStorageKey.configData, JSON.stringify(data.configData));
                         

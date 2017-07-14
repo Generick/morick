@@ -378,8 +378,15 @@ var personInfoController =
     	
     	self.scope.existWx = function(){
     		
-    		localStorage.setItem(localStorageKey.DEFAULT,pageUrl.PERSON_CENTER)
-    		location.href = "../login.html";
+    		
+    		localStorage.removeItem(localStorageKey.TOKEN);
+            localStorage.removeItem(localStorageKey.SESSIONID);
+            delCookie(localStorageKey.SESSIONID);
+            localStorage.removeItem(localStorageKey.userId);
+            localStorage.removeItem(localStorageKey.configData);
+    		localStorage.setItem(localStorageKey.DEFAULT,pageUrl.AUCTION_HISTORY);
+//  		location.href = "../login.html";
+    		location.href = "../auctionHistory.php";
     	};
     	
     	self.scope.onClickToMyCustomer  = function(){

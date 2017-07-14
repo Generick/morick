@@ -426,6 +426,11 @@ var commodityListController = {
 				 $dialog.msg("请输入商品价格", 1.6);
 				  return;
 			}
+			if(parseInt(self.scope.CommodityPrice) >= 1000000)
+			{
+				 $dialog.msg("商品价格应小于一百万", 1.6);
+				  return;
+			}
 			if(!_utility.isEmpty(self.scope.CommodityYearYield) && (self.scope.CommodityYearYield <= 0))
 			{
 				 $dialog.msg("请输入合法的年化收益率", 1.6);

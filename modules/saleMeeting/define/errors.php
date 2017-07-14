@@ -13,4 +13,5 @@ Error::registerErrors(array(
     array('errDefine' => 'ERROR_NOT_TMH_COMMODITY', 'errMsg' => '此商品不在特卖会中！'),
     array('errDefine' => 'ERROR_TIME_OUT', 'errMsg' => '订单超时'),
     array('errDefine' => 'ERROR_BUY_NUM_ERROR', 'errMsg' => '该商品只能购买一件!'),
+    array('errDefine' => 'ERROR_HAS_UP', 'errMsg' => '此商品已上架!'),
 ));

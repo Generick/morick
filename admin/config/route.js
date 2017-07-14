@@ -32,6 +32,11 @@ app.config(function($stateProvider, $urlRouterProvider){
             templateUrl: 'view/admin/mn.admin.html',
             controller: 'AdminCtrl'
         })
+        .state('tenant', {
+            url: '/tenant',
+            templateUrl: 'view/admin/tenant.html',
+            controller: 'tenantCtrl'
+        })
         .state('user', {
             url: '/user',
             templateUrl: 'view/user/mn.user.html',
@@ -129,7 +134,12 @@ app.config(function($stateProvider, $urlRouterProvider){
         	controller: 'commodityListController'
         })
         
-        
+           //拍品页个人信息
+        .state('commodityListAsk', {
+        	url: '/commodityListAsk',
+        	templateUrl: 'view/commodity/commodityAskList.html',
+        	controller: 'commodityAskListController'
+        })
         
         .state('commodifydel', {
         	url: '/commodifydel',

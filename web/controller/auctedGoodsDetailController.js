@@ -216,8 +216,8 @@ var specialSellController =
 //          self.viewPrice = commonFu.toDecimals(self.viewPrice);
             self.stampTime = localStorage.getItem("stampTime");
             self.buyPrice =  (Math.floor(10000 * self.specialPrice *(1 +  ((self.stampTime- data.info.up_time)/60) * (data.info.annualized_return*0.01/(commonFu.isSmoothYear()*1440)))))/10000;
-            
-            
+            localStorage.setItem("payForGoodName",data.info.commodity_name);
+            sessionStorage.setItem("payForGoodName",data.info.commodity_name);
             if(commonFu.isEmpty(sessionStorage.getItem("stampTime")))
             {    
             	self.stampTime = commonFu.getTimeStamp(); 
@@ -229,13 +229,17 @@ var specialSellController =
 //          alert(self.stampTime)
             self.buyPrice = parseInt(self.buyPrice);
             self.viewPrice = self.buyPrice;
-    		self.scope.viewPrice = self.viewPrice;
+            self.viewPrice = '￥'+ self.viewPrice;
+    		self.scope.viewPrice =  self.viewPrice;
 //  		self.scope.specialDetail = self.specialDetail;
 
 			//李小波 改动
 			if (self.specialNumber == 0)
 			{
-				self.specialNumber = '已售罄';
+//				self.specialNumber = '已售罄';
+				self.specialNumber = '';
+				self.viewPrice = '已售';
+    		    self.scope.viewPrice = self.viewPrice;
 			}
 			else if (self.specialNumber == 1)
 			{

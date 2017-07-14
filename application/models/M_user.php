@@ -10,6 +10,7 @@ class M_user extends My_Model{
     static $userTypeConfig = array(
         USER_TYPE_USER => array('className' => 'CUser', 'tableName' => 'user', 'keyField' => 'userId'),
         USER_TYPE_ADMIN => array('className' => 'CAdmin', 'tableName' => 'admin', 'keyField' => 'userId'),
+        USER_TYPE_MCH => array('className' => 'CMch', 'tableName' => 'mch', 'keyField' => 'userId'),
     );
 
     static $loadedItems = array();

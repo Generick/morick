@@ -53,9 +53,9 @@
 						</div>-->
 						<div class="sell-list-item-img" style="position: relative;">
 							<!--<img ng-src="{{item.pictures}}" style="border-radius: 1px;"/>-->
-							<div  class="shade-pic" ng-show="item.info.stock_num == 0">
+							<!--<div  class="shade-pic" ng-show="item.info.stock_num == 0">
 								<img src="img/newPic/sell-out-i.png">
-							</div>
+							</div>-->
 							
 							<div class="create-img-box">
 								<img ng-src="{{item.pictures}}">
@@ -73,13 +73,14 @@
 							<!--<div class="sell-list-item-price-word" ng-bind="'￥'+item.info.viewPrice">
 								
 							</div>-->
-							<span style="color:#C4996D;font-size:13px;display:block;line-height: 25px;height:25px">￥</span>
-							<div class="sell-list-item-price-word" id="sb_{{item.commodity_id}}">
+							<div style="line-height: 25px;height:25px;text-align: center;color:#C4996D" ng-show="item.info.stock_num == 0" ng-if="item.info.stock_num == 0">已售</div>
+							<span style="color:#C4996D;font-size:13px;display:block;line-height: 25px;height:25px" ng-show="item.info.stock_num != 0">￥</span>
+							<div class="sell-list-item-price-word" id="sb_{{item.commodity_id}}" ng-show="item.info.stock_num != 0">
 							    <div class="flip" ng-class = "item.newName">
 							      
 							        <div class="price-div">
-							          <div class="w-k number"></div>
-							          <div class="q-k number"></div>
+							          <!--<div class="w-k number"></div>
+							          <div class="q-k number"></div>-->
 							          <div class="h-k number"></div>
 							          <div class="t-k number"></div>
 							          <div class="k number"></div>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>登录</title>
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="css/popUp.css" />
+        <link href="layer.css">
+	</head>
+
+	<body ng-controller="loginCtr" style="background-color: #fff;">
+		<div class="container">
+			<div class="yawan-log">
+				<img class="round-icon" src="img/loginpage/logo.png" />
+				<br />
+				<img class="row-icon" src="img/loginpage/titles.png" />
+			</div>
+			<div class="password-box">
+				<div class="acc-num">
+					<input type="text" placeholder="请输入账号" onkeyup="value=value.replace(/[\W]/g,'') " ng-model="loginModel.loginNameIp" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" maxlength="16"/>
+				</div>
+				<div class="pas-num">
+					<input type="password" placeholder="请输入密码" onkeyup="value=value.replace(/[\W]/g,'') " ng-model="loginModel.loginPassIp" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" maxlength="16"/>
+				</div>
+				<div class="onload-btn" ng-click="loginClick()">登  录</div>
+			</div>
+		</div>
+	</body>
+    
+	<!--系统js-->
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/layer.js"></script>
+    <script src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/confirmTip.js" ></script>
+     <script src="js/app.js"></script>
+	<script>
+		
+		  
+			if (typeof localStorage === 'object') {
+			    try {
+					localStorage.setItem('localStorage', 1);
+					localStorage.removeItem('localStorage');
+				} catch (e) {
+					Storage.prototype._setItem = Storage.prototype.setItem;
+					Storage.prototype.setItem = function() {};
+					$dialog.msg('为了正常访问，请关闭无痕模式');
+				}
+			}
+
+
+	</script>
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/loginController.js" ></script>
+	<script>
+		if(window.screen.width < 375){
+			$('.user-input').css('margin-top','10px');
+		}
+		
+		
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		location.href = pageUrl.LOGIN_PAGE;
+		    		
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+		
+	</script>
+</html>

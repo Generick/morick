@@ -173,14 +173,15 @@ class M_messagePush extends My_Model
 
 
     //用户查看消息
-    function viewMsg($userId, $msg_id)
+    function viewMsg($userId, $msg_id, &$data = array())
     {
     	$this->createReadLog($userId, $msg_id);
+        $data = $this->db->where('msg_id', $msg_id)->get('message')->row_array();
     	return ERROR_OK;
     }
 
     //创建用户消息
-    function createUserMsg($userId, $msg_type, $href_id)
+    function createUserMsg($userId, $msg_type, $href_id, $fields = '')
     {
     	switch ($msg_type) 
     	{
@@ -197,7 +198,7 @@ class M_messagePush extends My_Model
     			$msg_title = MP_ORDERSTATUS_TITLE;
     			break;
             case MP_MSG_TYPE_COMMODITY:
-                $msg_content = MP_COMMODITY;
+                $msg_content = $this->strSwitch($fields, MP_COMMODITY);
                 $msg_title = MP_COMMODITY_TITLE;
                 break;
             case MP_MSG_TYPE_COMMODITY_ORDER:
@@ -209,12 +210,44 @@ class M_messagePush extends My_Model
                 $msg_title = MP_RECEIVED_TITLE;
                 break;
             case MP_MSG_TYPE_PAY_SUCCESS:
-                $msg_content = MP_PAY_SUCCESS;
+                $msg_content = $this->strSwitch($fields, MP_PAY_SUCCESS);
                 $msg_title = MP_PAY_SUCCESS_TITLE;
                 break;
             case MP_MSG_TYPE_PAY_FAIL:
                 $msg_content = MP_PAY_FAIL;
                 $msg_title = MP_PAY_FAIL_TITLE;
+                break;
+            case MP_MSG_TYPE_ORDER_CANCEL:
+                $msg_content = MP_ORDER_CANCEL;
+                $msg_title = MP_ORDER_CANCEL_TITLE;
+                break;
+            case MP_MSG_TYPE_MCH_C_UP:
+                $msg_content = $this->strSwitch($fields, MP_MCH_C_ON);
+                $msg_title = MP_MCH_C_ON_TITLE;
+                break;
+            case MP_MSG_TYPE_MCH_C_OFF:
+                $msg_content = $this->strSwitch($fields, MP_MCH_C_OFF);
+                $msg_title = MP_MCH_C_OFF_TITLE;
+                break;
+            case MP_MSG_TYPE_MCH_C_SYNC:
+                $msg_content = $this->strSwitch($fields, MP_MCH_C_SYNC);
+                $msg_title = MP_MCH_C_SYNC_TITLE;
+                break;
+            case MP_MSG_TYPE_MCH_C_ORDER:
+                $msg_content = $this->strSwitch($fields, MP_MCH_C_ORDER);
+                $msg_title = MP_MCH_C_ORDER_TITLE;
+                break;
+            case MP_MSG_TYPE_MCH_UP_REJECT:
+                $msg_content = $this->strSwitch($fields, MP_MCH_UP_REJECT);
+                $msg_title = MP_MCH_UP_REJECT_TITLE;
+                break;
+            case MP_MSG_TYPE_MCH_OFF_REJECT:
+                $msg_content = $this->strSwitch($fields, MP_MCH_OFF_REJECT);
+                $msg_title = MP_MCH_OFF_REJECT_TITLE;
+                break;
+            case MP_MSG_TYPE_MCH_SYNC_REJECT:
+                $msg_content = $this->strSwitch($fields, MP_MCH_SYNC_REJECT);
+                $msg_title = MP_MCH_SYNC_REJECT_TITLE;
                 break;
     		default:
     			# code...
@@ -223,6 +256,12 @@ class M_messagePush extends My_Model
 
     	$msg_id = $this->createMessage(MP_PUSH_TYPE_SINGLE, $msg_title, $msg_content, $msg_type, $userId, $href_id);
     	return $msg_id;
+    }
+
+    function strSwitch($fields, $str)
+    {
+        if (empty($fields)) return $str;
+        return str_replace('*','['.$fields.']', $str);
     }
 
 }

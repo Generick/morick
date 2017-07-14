@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<meta name="format-detection" content="telephone=no">
-        <title>支付订单</title>
+        <title>选择支付方式</title>
         <style>
         	form{
         		display: none;
@@ -24,24 +24,21 @@
 		</div>
 		<div class="container" style="background: #FFFFFF;">
 		    <div class="pay-special-roder-title">
-		    	<span style="color:#777777;line-height: 50px;float:left;">订单金额：</span>
-		    	<span style="color:#FF6600;line-height: 50px;float:right" ng-bind="'￥'+showPrice"></span>
+		    	<span style="color:#777777;line-height: 35px;float:left;">订单金额：</span>
+		    	<span style="color:#FF6600;line-height: 35px;float:right" ng-bind="'￥'+showPrice"></span>
+		    	
+		    </div>
+		    <div style="width:100%;padding:0 3% 10px 3%;overflow: hidden;float:left;">
+		    	<span style="line-height:25px;float:right;color:#FF6600">件</span>
+		    	<span style="color:#FF6600;line-height: 25px;float:right;padding-left:5px;padding-right:5px" ng-bind="'x '+buyNumber"></span>
+		    	<span style="color:#777777;line-height: 25px;float:right;" ng-bind="buyGoodsName"></span>
+		    	<span style="color:#777777;line-height: 25px;float:left; font-size: 14px" >商品名称 :</span>
 		    </div>
 		    <div class="pay-special-way-title">
 		    	支付方式
 		    </div>
 		    
-		    <div class="every-pay-way">
-		    	<div class="every-pay-way-left">
-		    		<div class="every-pay-way-left-icon">
-		    			<img src="img/newPic/person-pay-icon.png"/>
-		    		</div>
-		    		<div class="every-pay-way-left-word">
-		    			人工服务
-		    		</div>
-		    	</div>
-		    	<div class="every-pay-way-right   check-add-class" id="peoplepay" ng-click="chooseIt(0)"></div>
-		    </div>
+		    
 		    <div class="every-pay-way">
 		    	<div class="every-pay-way-left">
 		    		<div class="every-pay-way-left-icon">
@@ -51,7 +48,7 @@
 		    		   微信支付
 		    		</div>
 		    	</div>
-		    	<div class="every-pay-way-right" id="selfpay"  ng-click="chooseIt(1)"></div>
+		    	<div class="every-pay-way-right check-add-class" id="selfpay"  ng-click="chooseIt(0)"></div>
 		    </div>
 		    <div class="every-pay-way" ng-show="isShowZhiFuBao">
 		    	<div class="every-pay-way-left">
@@ -62,10 +59,23 @@
 		    		   支付宝支付
 		    		</div>
 		    	</div>
-		    	<div class="every-pay-way-right" id="zhifubaopay"  ng-click="chooseIt(2)"></div>
+		    	<div class="every-pay-way-right" id="zhifubaopay"  ng-click="chooseIt(1)"></div>
+		    </div>
+		    
+		    
+		    <div class="every-pay-way">
+		    	<div class="every-pay-way-left">
+		    		<div class="every-pay-way-left-icon">
+		    			<img src="img/newPic/person-pay-icon.png"/>
+		    		</div>
+		    		<div class="every-pay-way-left-word">
+		    			人工服务
+		    		</div>
+		    	</div>
+		    	<div class="every-pay-way-right" id="peoplepay" ng-click="chooseIt(2)"></div>
 		    </div>
 		    <div class="bottom-pay-button" ng-click="underLinePay()">
-			    去支付
+			    下订单
 			
 		   </div>
 		    <!--<div class="big-pre-pay-box">
@@ -93,7 +103,7 @@
 		    		确认支付
 		    	</div>
 		    </div>-->
-		        <form name="fm" action="http://api.99epay.net/h5Pay/pub/toAcquireOrder.htm" method="post">
+		        <!--<form name="fm" action="http://api.99epay.net/h5Pay/pub/toAcquireOrder.htm" method="post">
 					<table>
 						<tbody>
 							<tr><td>version:</td><td><input type="text" name="version" value=""></td></tr>
@@ -116,7 +126,7 @@
 							<tr><td><input type="submit" value="提交"/></td></tr>
 						</tbody>
 					</table>
-				</form>	
+				</form>	-->
 		    </div>
 		    
 		
@@ -133,6 +143,7 @@
     <script src="plugin/layerMobile/layer.js"></script>
     <script src="module/dialog/dialog.js"></script>
     <script src="controller/app.js"></script>
+   
 	<!--controller-->
 	<script type="text/javascript" src="controller/prePayPageController.js" ></script>
 	

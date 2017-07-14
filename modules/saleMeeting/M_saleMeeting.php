@@ -14,6 +14,7 @@ class M_saleMeeting extends My_Model
     {
         parent::__construct();
         $this->load->model('m_user');
+        $this->load->model('m_merchant');
     }
 
     //商品管理
@@ -102,6 +103,10 @@ class M_saleMeeting extends My_Model
             $data = array('admin_id' => $admin_id, 'commodity_id' => $id, 'delete_time' => time());
             $this->db->insert('commodity_del_record', $data);
             $this->db->where('commodity_id', $id)->update('sale_meeting', array('is_delete' => DELETE_YES));
+            if ($info->CID > 0) 
+            {
+                $this->m_merchant->modCommodity($info->CID, array('up_status' => 0));
+            }
     		return ERROR_OK;
     	}
     	return ERROR_SYSTEM;
@@ -225,6 +230,8 @@ class M_saleMeeting extends My_Model
     {
     	$info = $this->getCommodityInfo($id);
     	if (empty($info)) return ERROR_NO_COMMODITY;
+        $hasUp = $this->db->where('commodity_id', $id)->get('sale_meeting')->row_array();
+        if ($hasUp) return ERROR_HAS_UP;
     	$data = array('commodity_id' => $id, 'add_time' => time());
     	if ($this->db->insert('sale_meeting', $data)) 
     	{
@@ -269,7 +276,20 @@ class M_saleMeeting extends My_Model
         if (empty($data->sold_time)) 
         {
             $sold_time = $this->db->select('orderTime')->where(array('goodsId' => $data->id))->join('order', 'order_goods.order_no = order.order_no')->order_by('orderTime desc')->get('order_goods')->row_array();
-            $data->sold_time = $sold_time['orderTime'];
+            $data->sold_time = empty($sold_time)? "" : $sold_time['orderTime'];
+        }
+        $data->comeFrom = '';
+        $data->mch_is_delete = '';
+        if ($data->CID > 0) 
+        {
+            $mchCommodityObj = $this->m_merchant->getCommodityInfo($data->CID);
+            if ($mchCommodityObj)
+            {
+                $data->mch_is_delete = $mchCommodityObj->mch_is_delete;
+                $userObj = $this->m_user->getUserObj(USER_TYPE_MCH, $mchCommodityObj->userId);
+                if ($userObj)  $data->comeFrom = $userObj->name;
+            }
+            
         }
     	self::$loadedCommodity[self::$commodity_id] = $data;
     	$this->saveCache();
@@ -297,6 +317,10 @@ class M_saleMeeting extends My_Model
         //$res = $this->db->where('commodity_id', $commodity_id)->update('sale_meeting', array('is_delete' => DELETE_YES));
         if ($res) 
         {
+            if ($info->CID > 0) 
+            {
+                $this->m_merchant->modCommodity($info->CID, array('up_status' => 0));
+            }
             return ERROR_OK;
         }
         return ERROR_SYSTEM;

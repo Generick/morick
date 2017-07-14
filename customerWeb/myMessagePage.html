@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<title>我的消息</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="css/popUp.css" />
+        <link href="layer.css">
+      
+	</head>
+	<body ng-controller="messListCtr" style="background: #FFFFFF;">
+		<div class="animation" style="z-index: 3;">
+			<img src="img/loading.gif"/>
+		</div>
+	<div class="container3" style="float:left">
+		<div class="goods-message-box" style="position: relative;">
+			<div class="message-box-tab">
+				<div class="move-line"></div>
+				<div class="tab-every-box" ng-click="getUnRead()">
+					<span class="per-mess-title">未读</span>
+					<span id="per-mess-number" ng-show="count != 0 && !isAtTabLine" ng-bind="count"></span>
+				</div>
+				<div class="tab-every-box"  ng-click="getHasRead()">
+					<span class="per-mess-title">已读</span>
+				</div>
+				<div class="move-tab-line"></div>
+			</div>
+			
+			<div class="my-messlist-box">
+				
+				<div class="animation2" style="z-index: 3;">
+			        <img src="img/loading.gif"/>
+		       </div>
+			     <div class="message-inner">
+			     	<div class="new-pre-message-box-item"  ng-repeat="item in messageList" ng-click="readMessage(item)">
+						
+						<div class="new-pre-message-box-item-left" ng-if="item.msg_type == 11" ng-show="item.msg_type == 11">
+								 <img class="new-pre-message-box-item-left-box-bg" src="img/down-metion.png" /> 
+							</div>
+							<div class="new-pre-message-box-item-left" ng-if="item.msg_type == 10" ng-show="item.msg_type == 10">
+								<img class="new-pre-message-box-item-left-box-bg" src="img/up-metion.png" /> 
+							</div>
+							<div class="new-pre-message-box-item-left" ng-show="item.msg_type == 14 || item.msg_type == 15 || item.msg_type == 16 || item.msg_type == 13">
+								<img class="new-pre-message-box-item-left-box-bg" src="img/send-metion.png" /> 
+							</div>
+							<div class="new-pre-message-box-item-left" ng-if="item.msg_type == 12" ng-show="item.msg_type == 12">
+								<img class="new-pre-message-box-item-left-box-bg" src="img/step-metion.png" /> 
+							</div>
+						<div class="new-pre-message-box-item-center">
+							<div  class="new-pre-message-box-item-center-title" ng-bind="item.msg_title">
+								
+							</div>
+							<div class="new-pre-message-box-item-right">
+								<div class="new-pre-message-box-item-right-time" ng-bind="item.create_time*1000 | date:'MM-dd HH:mm'">
+									
+								</div>
+						    </div>
+							<div  class="new-pre-message-box-item-center-content" ng-bind="item.msg_content">
+								
+							</div>
+						</div>
+					
+				    </div>
+				  <div class="there-is-no-data">
+					<img src="img/thereIsNoData.png" /> 
+					<div class="there-is-no-data-word">
+						没有待批阅的消息哦
+					</div>
+			     </div> 
+			    </div>
+			    
+			</div>
+			<div class="chrysanthemums">
+			        <img src="img/loading.gif"/>
+		       </div>
+		</div> 
+	</div>	
+	</body>
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/layer.js"></script>
+    <script src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/confirmTip.js" ></script>
+     <script src="js/app.js"></script>
+    <script type="text/javascript" src="js/fastclick.js" ></script>
+    <script src="controller/myMessList.js"></script>
+    
+</html>

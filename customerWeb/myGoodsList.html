@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<title>我的商品</title>
+		
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+     
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="css/popUp.css" />
+        <link href="layer.css">
+	</head>
+	<body ng-controller="myGoodsCtr">
+		       <div class="animation3">
+			        <img src="img/loading.gif"/>
+		        </div>
+			<div class="container3">
+				
+				<div class="my-goods-item" ng-repeat="item in myGoodsModel.goodsList" on-finish-render-filters>
+					<div class="my-goods-item-top">
+						<div class="good-create-box">
+							<span class="good-create-title">创建时间：</span>
+							<span class="good-create-time" ng-bind="item.mch_add_time*1000 | date:'yyyy-MM-dd'"></span>
+						    <span class="good-create-time" ng-bind="item.mch_add_time*1000 | date:'HH:mm:ss'"></span>
+						</div>
+						<div class="good-has-up">
+							<span ng-show="item.up_status == 1" style="color:#DF8787">已上架</span>
+							<span ng-show="item.up_status == 2" style="color:#8FE1B2">已下架</span>
+							<!--<span>已下架</span>-->
+						</div>
+					</div>
+					
+					<div class="my-goods-item-middle" ng-click="toSeeMyGoods(item)">
+						
+						<div class="my-goods-item-middle-left">
+							<img ng-src="{{item.mch_commodity_cover}}" /> 
+						</div>
+						<div class="my-goods-item-middle-right">
+							<div class="goods-item-name" ng-bind="item.mch_commodity_name">
+							
+							</div>
+							<div class="goods-item-desc" ng-bind="item.mch_commodity_desc">
+								
+							</div>
+							<div class="goods-item-do-some">
+								<div class="goods-bid-box">
+									<span>进价</span>
+									<span  ng-bind="item.mch_bid_price"></span>
+								</div>
+								<div class="goods-bid-box">
+									<span>售价</span>
+									<span   ng-bind="item.mch_commodity_price"></span>
+								</div>
+								<div class="goods-bid-box">
+									<span>库存</span>
+									<span  ng-bind="item.mch_stock_num"></span>
+								
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="my-goods-item-bottom">
+						<div class="compile" ng-click="modMyGood(item)">
+							<div class="compile-icon">
+								 <img src="img/client-mine-edit.png" /> 
+							</div>
+							<div class="compile-word">
+								编辑
+							</div>
+						</div>
+						<div class="compile" ng-click="begToUpOrDown(item,3)" ng-show="item.hasUp">
+							<div class="compile-icon">
+								<img src="img/client-mine-update.png" /> 
+							</div>
+							<div class="compile-word">
+								请求更新
+							</div>
+						</div>
+						<div class="compile" ng-click="begToUpOrDown(item,1)">
+							<div class="compile-icon">
+							   <img src="img/client-mine-updated.png" /> 
+							</div>
+							<div class="compile-word" ng-show="item.up_status == 2 || item.up_status == 0">
+								请求上架
+							</div>
+							<div class="compile-word" ng-show="item.up_status == 1">
+								请求下架
+							</div>
+						</div>
+						<div class="compile-delete-icon" ng-show="item.up_status == 2 || item.up_status == 0" ng-click="deleteGood(item)">
+							<img src="img/client-mine-delete.png" /> 
+						</div>
+					</div>
+				</div>
+				<div class="chrysanthemums">
+			        <img src="img/loading.gif"/>
+		       </div>
+				
+			</div>
+		    <div class="fixed-boxes-del" ng-click="sureToDel(0)">
+		    	
+		    </div>
+		    <div class="right-to-boxes">
+		    	<div class="cancle-x" ng-click="sureToDel(0)">X</div>
+		    	<div class="del-box-top">确定要删除该商品吗？</div>
+		    	<div class="del-box-bottom">
+		    		<div class="no-not-del"  ng-click="sureToDel(0)">取消</div>
+		    		<div class="ok-sure-del" ng-click="sureToDel(1)">确定</div>
+		    	</div>
+		    </div>
+	</body>
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/layer.js"></script>
+    <script src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/confirmTip.js" ></script>
+    <script src="js/app.js"></script>
+    <script type="text/javascript" src="js/fastclick.js" ></script>
+    <script>
+//		if(window.screen.width < 375){
+//			$('.user-input').css('margin-top','5vh');
+//		}
+//		
+//		
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		
+		    		
+		    		location.href = pageUrl.HOME_PAGE;
+		    		
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+		
+	</script>
+	<script type="text/javascript" src="controller/myGoodsController.js"></script>
+</html>

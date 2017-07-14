@@ -34,4 +34,6 @@ Error::registerErrors(array(
     array('errDefine' => 'ERROR_CARD_BALANCE_NOT_ENOUGH', 'errMsg' => '卡余额不足'),
     array('errDefine' => 'ERROR_OTHER_EXCEPTION', 'errMsg' => '其他异常'),
     array('errDefine' => 'ERROR_API_RETURN_NULL', 'errMsg' => '支付接口返回为空'),
+    array('errDefine' => 'ERROR_ORDER_GOODS_ERROR', 'errMsg' => '订单商品错误'),
+    array('errDefine' => 'ERROR_TRADE_FAIL', 'errMsg' => '交易失败'),
 ));

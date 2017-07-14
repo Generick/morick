@@ -4,12 +4,17 @@ app.controller('specialctrl',function($scope){
 	specialPageController.init($scope);
 	
 })
+//   alert(444)
+     
+        			
 
 var specialPageController = 
 {
 	scope : null,
 	
 	isSelected : true,
+	
+	buyGoodsName : '',
 	
 	isShowZhiFuBao : false,
 	
@@ -45,26 +50,7 @@ var specialPageController =
 		
 		this.eventBind();
 		
-		
-		if(!commonFu.isEmpty(sessionStorage.getItem("payOrderId")))
-		{
-			
-			setInterval(function(){
-				localStorage.setItem(localStorageKey.orderNo,sessionStorage.getItem("payOrderId"));
-	//			sessionStorage.removeItem("payOrderId");
-				
-				location.href = pageUrl.ORDER_DETAIL;
-				localStorage.setItem("comewidthgoto",8)
-			},350);
-			
-		
-			
-		}
-		
-	     
-        				
-        	
-//		alert(localStorage.getItem("sbbb"))
+
 	},
 	
 	  getUrlAndId : function(){
@@ -82,15 +68,19 @@ var specialPageController =
 		{
 			self.buyNumber = parseInt(sessionStorage.getItem("buyGoodsNumber"));
 		}
+		if(!commonFu.isEmpty(sessionStorage.getItem("payForGoodName")))
+		{
+			self.buyGoodsName = sessionStorage.getItem("payForGoodName");
+		}
+		else
+		{
+			self.buyGoodsName = localStorage.getItem("payForGoodName");
+		}
+		self.scope.buyGoodsName = self.buyGoodsName;
 		self.scope.buyNumber = self.buyNumber;
 	    self.getSelfInfo()    
-			    
-//  	self.commId = commonFu.getQueryStringByKey("commodifyId");
-//
-//  	self.commPrice = commonFu.getQueryStringByKey("specialPrice");
-//  	self.detailPage = localStorage.getItem("thisAcPage");
-    	
-//  	self.scope.commPrice = self.commPrice;
+		
+	
     	
     },
    
@@ -115,7 +105,7 @@ var specialPageController =
 	                self.commPrice = commonFu.toDecimals(self.commPrice);
 	                localStorage.setItem("specialPrice",self.commPrice);
 		    	    self.scope.commPrice = self.commPrice;
-//		    	    self.scope.$apply()
+
 		    	})
 		    }
 		    else{
@@ -143,50 +133,35 @@ var specialPageController =
 	eventBind : function(){
 		
 		var self = this;
-		
-//		self.scope.chooseIt = function(){
-//			
-//			self.isSelected = !self.isSelected;
-//			
-//			if(self.isSelected)
-//			{   
-//				$(".pay-special-choose-checkbox").addClass("pay-special-choose-checkbox-hasSel").removeClass("pay-special-choose-checkbox-unSel");
-//			}
-//			else
-//			{
-//				$(".pay-special-choose-checkbox").addClass("pay-special-choose-checkbox-unSel").removeClass("pay-special-choose-checkbox-hasSel");
-//			}
-//			
-//		};
-		
+
 		self.scope.chooseIt = function(type){
 			
 			if(type== 0)
 			{
 				self.underPay = 0;
 				$("#zhifubaopay").removeClass("check-add-class");
-				$("#peoplepay").addClass("check-add-class");
-				$("#selfpay").removeClass("check-add-class");
+				$("#peoplepay").removeClass("check-add-class");
+				$("#selfpay").addClass("check-add-class");
 			}
 			else if(type == 1)
 			{
 				self.underPay = 1;
-				$("#zhifubaopay").removeClass("check-add-class");
+				$("#zhifubaopay").addClass("check-add-class");
 				$("#peoplepay").removeClass("check-add-class");
-				$("#selfpay").addClass("check-add-class");
+				$("#selfpay").removeClass("check-add-class");
 			}
 			else{
 				self.underPay = 2;
 				$("#selfpay").removeClass("check-add-class");
-				$("#peoplepay").removeClass("check-add-class");
-				$("#zhifubaopay").addClass("check-add-class");
+				$("#peoplepay").addClass("check-add-class");
+				$("#zhifubaopay").removeClass("check-add-class");
 			}
-//			alert(self.underPay)
+
 		};
 		
 		self.scope.underLinePay = function(){
 			
-			if(self.underPay == 0)
+			if(self.underPay == 2)
 			{
 				var stampTime = localStorage.getItem("stampTime");
 		    
@@ -213,7 +188,7 @@ var specialPageController =
 			
 		  else
 		  {
-//		  	   $dialog.msg("此功能暂未开通");
+
 		  	   self.weiXinPay();
 		  }
 		 
@@ -310,35 +285,39 @@ var specialPageController =
 							params.buyNum = self.buyNumber;
 							params.payEnv = 7;
 							params.returnUrl = returnurl;
-//							console.log(JSON.stringify(params))
+
                             
 							jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PAY_COMMDIFY, params, function(data){
 								
 								   if(!commonFu.isEmpty(data.params))
 								   {
-								   	    
-								   	    console.log(JSON.stringify(data))
-								   	    document.fm.version.value = data.params.version;
-								   	    document.fm.merchantId.value = data.params.merchantId;
-								   	    document.fm.merchantTime.value = data.params.merchantTime;
-								   	    document.fm.traceNO.value = data.params.traceNO;
-								   	    document.fm.requestAmount.value = data.params.requestAmount;
-								   	    document.fm.paymentCount.value = data.params.paymentCount;
-								   	    document.fm.payment_1.value = data.params.payment_1;
-								   	    document.fm.payment_2.value = data.params.payment_2;
-								   	    document.fm.returnUrl.value = data.params.returnUrl;
-								   	    document.fm.notifyUrl.value = data.params.notifyUrl;
-								   	    document.fm.goodsName.value = data.params.goodsName;
-								   	    document.fm.goodsCount.value = data.params.goodsCount;
-								   	    document.fm.ip.value = data.params.ip;
-								   	    document.fm.extend.value = data.params.extend;
-								   	    document.fm.sign.value = data.params.sign;
-							   	 
-								   	    document.fm.submit();
+								   	    self.underPay = 0;
+//								   	    console.log(JSON.stringify(data))
+//								   	    document.fm.version.value = data.params.version;
+//								   	    document.fm.merchantId.value = data.params.merchantId;
+//								   	    document.fm.merchantTime.value = data.params.merchantTime;
+//								   	    document.fm.traceNO.value = data.params.traceNO;
+//								   	    document.fm.requestAmount.value = data.params.requestAmount;
+//								   	    document.fm.paymentCount.value = data.params.paymentCount;
+//								   	    document.fm.payment_1.value = data.params.payment_1;
+//								   	    document.fm.payment_2.value = data.params.payment_2;
+//								   	    document.fm.returnUrl.value = data.params.returnUrl;
+//								   	    document.fm.notifyUrl.value = data.params.notifyUrl;
+//								   	    document.fm.goodsName.value = data.params.goodsName;
+//								   	    document.fm.goodsCount.value = data.params.goodsCount;
+//								   	    document.fm.ip.value = data.params.ip;
+//								   	    document.fm.extend.value = data.params.extend;
+//								   	    document.fm.sign.value = data.params.sign;
+//							   	 
+//								   	    document.fm.submit();
+//										
+										
 								   	    localStorage.removeItem(localStorageKey.orderNo);
 								   	    localStorage.setItem(localStorageKey.orderNo,data.order_no);
-									    sessionStorage.setItem("payOrderId",data.order_no)
-                                        
+									    sessionStorage.setItem("payOrderId",data.order_no);
+//									    sessionStorage.setItem("formdataSub",JSON.stringify(data));
+                                        localStorage.setItem("comewidthgoto",8);
+                                        location.href = pageUrl.ORDER_DETAIL;
 								   }
 								
 							})
@@ -346,11 +325,11 @@ var specialPageController =
 						else
 						{
 							
-//							alert(333)
-							if(self.underPay == 1)
+
+							if(self.underPay == 0)
 							{
 //								alert("其他浏览器")
-//								alert(self.underPay)
+
 								var stampTime = localStorage.getItem("stampTime");
 								var params = {};
 								params.userId = self.userId;
@@ -360,25 +339,28 @@ var specialPageController =
 								params.buyNum = self.buyNumber;
 								params.payEnv = 5;
 								params.returnUrl = returnurl;
-//								alert(JSON.stringify(params))
+
 								
 								jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PAY_COMMDIFY, params, function(data){
 									
-	//								alert(JSON.stringify(data))
+
 									if(!commonFu.isEmpty(data.url))
 									{ 
-										location.href = data.url;
+
+//										sessionStorage.setItem("dataurl",data.url);
 										localStorage.removeItem(localStorageKey.orderNo);
 								   	    localStorage.setItem(localStorageKey.orderNo,data.order_no);
-										sessionStorage.setItem("payOrderId",data.order_no)
+										sessionStorage.setItem("payOrderId",data.order_no);
+										location.href = pageUrl.ORDER_DETAIL;
+										localStorage.setItem("comewidthgoto",8)
 									}
 									
 								
-	//								alert(JSON.stringify(data))
+
 								})
 							
 							}
-							else if(self.underPay == 2)
+							else if(self.underPay == 1)
 							{
 								var stampTime = localStorage.getItem("stampTime");
 								var params = {};
@@ -389,25 +371,24 @@ var specialPageController =
 								params.buyNum = self.buyNumber;
 								params.payEnv = 6;
 								params.returnUrl = returnurl;
-//								alert(JSON.stringify(params))
-
-								
+						
 								jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PAY_COMMDIFY, params, function(data){
-//									alert(JSON.stringify(data))
-	//								alert(JSON.stringify(data))
+
 									if(!commonFu.isEmpty(data.url))
 									{
-										location.href = data.url;
+
+//										sessionStorage.setItem("dataurl",data.url);
 										localStorage.removeItem(localStorageKey.orderNo);
 								   	    localStorage.setItem(localStorageKey.orderNo,data.order_no);
-										sessionStorage.setItem("payOrderId",data.order_no)
+										sessionStorage.setItem("payOrderId",data.order_no);
+										location.href = pageUrl.ORDER_DETAIL;
+										localStorage.setItem("comewidthgoto",8);
 									}
 									
-								
-	//								alert(JSON.stringify(data))
+
 								})
 							}
-//							
+							
 							//订单详情页面删除缓存，地址列表页面删除缓存，商品详情删除缓存，微信公众号支付删除缓存，自定义返回方法处删除缓存
 							
 						}
@@ -432,9 +413,7 @@ var specialPageController =
 			                var ids = obj.encode(self.userId);
 			                var str = pageUrl.MY_ADDRESS_LIST + "?userId=" + ids;
 			                location.href = encodeURI(str)
-			                
-//			                location.href = pageUrl.MY_ADDRESS_LIST +  "?userId=" + self.userId;
-			                
+
 		    			},1200)
 	    	     
 	    	        })

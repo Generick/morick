@@ -39,7 +39,7 @@ class saleMeeting extends My_Controller
     	$num = $this->input->post('num');
     	$fields = $this->input->post('fields');
 
-    	$whr = array('sale_meeting.is_delete' => DELETE_NO, 'commodity.is_up' => UP_ON);
+    	$whr = array('commodity.is_delete' => DELETE_NO, 'commodity.is_up' => UP_ON);
 
     	$data = array();
     	$count = 0;

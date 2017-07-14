@@ -100,6 +100,12 @@ app.controller('commodityListController', function($scope){ //商品
 
 })
 
+app.controller('commodityAskListController', function($scope){ //商品
+	
+	commodityAskListController.init($scope);
+
+})
+
 
 app.controller('commidifyDeleteController', function($scope){ //商品
 	
@@ -111,5 +117,11 @@ app.controller('commidifyDeleteController', function($scope){ //商品
 app.controller('commidifySaleController', function($scope){ //商品
 	
 	commidifySaleController.init($scope);
+
+})
+
+app.controller('tenantCtrl', function($scope){ //商品
+	
+	tenantCtrl.init($scope);
 
 })

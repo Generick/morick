@@ -138,7 +138,25 @@ var api = {
     
     API_GET_COMMODIFY_SALE_LIST : BASE_URL + "saleMeeting/A_saleMeeting/saleRecord",//获取商品销售记录
     
- };
+    API_GET_TENANTlIST : BASE_URL + "merchant/A_merchant/getMCHList",//获取商户列表
+    
+    API_ADD_TENANT: BASE_URL + "merchant/A_merchant/addMCH",//添加商户号
+    
+    API_MOD_TENANT_PASSWORD : BASE_URL + "merchant/A_merchant/modMCHPWD",//修改商户密码
+    
+    API_DELETE_TENANT: BASE_URL + "merchant/A_merchant/delMCH",//删除商户账号
+    
+    API_GET_TENANT_ASK_LIST : BASE_URL + "merchant/A_merchant/getRequestList",//获取商户请求列表
+    
+    API_TO_AGREE_OR_SEFUSE_ASK : BASE_URL + "merchant/A_merchant/adminHandleRequest",//拒绝或同意商户请求
+    
+    API_DELETE_TENANT_ASK : BASE_URL + "merchant/A_merchant/adminDelRequest",//管理员删除用户请求
+    
+    API_GET_COMMDITY_DETAIL : BASE_URL + "merchant/A_merchant/getMCHCommodityInfo",//管理员查看商品申请列表的信息
+    
+    API_MOD_AND_UP_GOOD : BASE_URL + "merchant/A_merchant/adminSaveCInfoInRequest",//修改并上架商品
+
+};
 
 //errType
 var errCode = {

@@ -66,6 +66,13 @@ class Account extends My_Controller{
      */
     public function onLoginSuccess($userType, $userId, $platform, $platformId, $accountId)
     {
+        $this->load->model("m_user");
+        $userObj = $this->m_user->getUserObj($userType, $userId);
+        if ($userType == USER_TYPE_MCH && $userObj->is_delete == DELETE_YES) 
+        {
+            $this->responseError(ERROR_MCH_DELETE);
+            return;
+        }
         $nowTime = now();
 
         $token = generate_token();
@@ -82,8 +89,7 @@ class Account extends My_Controller{
 
         // 更新上次登录时间
         $this->m_common->update("user_relation", array('lastLoginTime' => $nowTime), array('id' => $userId));
-        $this->load->model("m_user");
-        $userObj = $this->m_user->getUserObj($userType, $userId);
+        
         if ($userObj == null)
         {
             log_message('error', 'User can not be found after register!');

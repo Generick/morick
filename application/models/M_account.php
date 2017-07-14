@@ -124,6 +124,45 @@ class M_account extends My_Model{
 
         return ERROR_OK;
     }
+    public function createNormalMCH($accountId, &$userId, $platformId, $name)
+    {
+        $nowTime = now();
+        // 首先判断在user_relation表中是否已经存在
+        $whereArr = array(
+            'userType' => USER_TYPE_MCH,
+            'accountId' => $accountId
+        );
+
+        $dbData = $this->m_common->get_one("user_relation", $whereArr);
+        if($dbData)
+        {
+            // 如果已经存在，则获取userId
+            $userId = $dbData['id'];
+        }
+        else
+        {
+            // 如果不存在则插入新数据
+            $userRelationData = array(
+                'userType' => USER_TYPE_MCH,
+                'accountId' => $accountId,
+                'lastLoginTime' => $nowTime,
+                'registerTime' => $nowTime,
+            );
+
+            $this->m_common->insert("user_relation", $userRelationData);
+
+            $userId = $this->db->insert_id();
+        }
+
+        $this->load->model("m_merchant");
+        $errCode = $this->m_merchant->createNormalMCH($userId, $platformId, $name);
+        if ($errCode != ERROR_OK)
+        {
+            return $errCode;
+        }
+
+        return ERROR_OK;
+    }
 
     /**
      * 创建管理员

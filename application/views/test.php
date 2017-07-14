@@ -31,6 +31,9 @@
             "u_user/getBindInfo" : {"说明" : "获取用户绑定信息"},
             "u_user/bindAccount" : {"bindType" : 0, "bindAccount" : "", "说明" : "绑定账号", "备注" : "bindType 0QQ 1微信 2邮箱"},
 
+            //商户
+            'x_mch/getSelfInfo' : {"说明":"获取自己的数据"},
+
             // 管理员的操作
             'a_admin/getSelfInfo' : {"说明":"获取自己的数据"},
             "a_admin/addAdminAccount" : {"platformId":"111", "password":"111", "adminType":1, "pageEntries":'[1,2,3,4,5,6,101,102,301,302,303,501,502,601]', "说明":"增加管理员账号"},
@@ -198,6 +201,7 @@
             //region 定时任务
             "timedTask/TimedTask/createOrder" : {"说明" : "创建订单"},
             "timedTask/TimedTask/remindNearEnd" : {"说明" : "截拍提醒"},
+            "timedTask/TimedTask/cancelOrder" : {"说明" : "72小时未支付订单自动取消"},
             //endregion
 
             //region
@@ -224,6 +228,27 @@
             "saleMeeting/A_saleMeeting/saleRecord": {'startIndex':0,'num':10,'startTime':'','endTime':'','fields':'','说明':'获取商品销售记录'},
             "saleMeeting/SaleMeeting/getTMHList": {'startIndex':0, 'num':10, 'fields':'','说明':'获取特卖会列表'},
             "saleMeeting/SaleMeeting/getTMHCommodityInfo": {'commodity_id':1,'说明':'获取特卖会商品信息'},
+
+            //商户模块
+            "merchant/A_merchant/getMCHList":{'startIndex':0,'num':10,"说明":"管理员获取商户账号列表"},
+            "merchant/A_merchant/addMCH":{'accountName':'123456','password':'123456','name':'test',"说明":"管理员添加商户账号"},
+            "merchant/A_merchant/modMCHPWD":{'accountName':'123456','newPWD':'654321',"说明":"管理员修改商户密码"},
+            "merchant/A_merchant/delMCH":{'ids':'[1,2]',"说明":"管理员删除商户账号 id账号的userId"},
+            "merchant/A_merchant/getRequestList":{'startIndex':0,'num':10,"说明":"管理员获取商户请求列表"},
+            "merchant/A_merchant/adminDelRequest":{'ids':'[1]',"说明":"管理员删除商户请求 id为请求id"},
+            "merchant/A_merchant/adminHandleRequest":{'id':1,'handleResult':1,"说明":"管理员处理商户请求 id为请求id handleResult处理结果 1同意2拒绝"},
+            "merchant/A_merchant/getMCHCommodityInfo":{'commodity_id':1,"说明":"管理员获取商户商品信息"},
+            "merchant/A_merchant/adminSaveCInfoInRequest":{'id':1,'info':'',"说明":"管理员修改商户商品并保存同意请求 id为请求id info修改后商品的信息，其中CID要传入商户商品的id"},
+            "merchant/U_merchant/getCommodities":{'startIndex':0,'num':10,"userId":"23","说明":"商户获取自己商品列表"},
+            "merchant/U_merchant/getCommodifyInfo":{'commodity_id':1,"说明":"商户获取自己商品详情"},
+            "merchant/U_merchant/modCommodity":{'commodity_id':1,'modInfo':'{"mch_commodity_name":"modName"}',"说明":"商户修改自己商品"},
+            "merchant/U_merchant/delCommodity":{'commodity_id':1,"说明":"商户删除自己商品"},
+            "merchant/U_merchant/merchantRequest":{'commodity_id':1,'requestType':1,'userId':23,"说明":"商户请求接口 requestType请求类型1上架申请2下架申请3商品同步申请"},
+            "merchant/U_merchant/addCommodity":{'userId':'23','info':'{"mch_commodity_name":"new name","mch_commodity_desc":"new desc", "mch_commodity_cover":"htttp://xxx.jpg","mch_commodity_detail":"new detail", "mch_commodity_price":100, "mch_bid_price":50,"mch_stock_num":5000, "mch_commodity_pic":["http://xxx.jpg","http://123.jpg"],"mch_annualized_return":"20","mch_commodity_attr":0}',"说明":"商户添加商品"},
+            "merchant/U_merchant/getUnReadMSGList":{'startIndex':0,'num':10,'userId':23,'说明':'商户获取未读消息'},
+            "merchant/U_merchant/getHasReadMSGList":{'startIndex':0,'num':10,'userId':23,'说明':'商户获取已读消息'},
+            "merchant/U_merchant/viewMSG":{'userId':23,'msg_id':10,'说明':'商户阅读消息'},
+            "merchant/U_merchant/getMCHUnReadNum":{'userId':23,'说明':'商户获取未读消息数'},
             //endregion
         };
 

@@ -118,15 +118,16 @@
 						<div  class="new-pre-message-box-item-center-title" ng-bind="item.msg_title">
 							
 						</div>
+						<div class="new-pre-message-box-item-right">
+							<div class="new-pre-message-box-item-right-time" ng-bind="item.create_time*1000 | date:'MM-dd HH:mm'">
+								
+							</div>
+					    </div>
 						<div  class="new-pre-message-box-item-center-content" ng-bind="item.msg_content">
 							
 						</div>
 					</div>
-					<div class="new-pre-message-box-item-right">
-						<div class="new-pre-message-box-item-right-time" ng-bind="item.create_time*1000 | date:'MM-dd HH:mm'">
-							
-						</div>
-					</div>
+					
 				</div>
 				
 				<!--<div class="new-pre-message-box-item">

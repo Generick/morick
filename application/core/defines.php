@@ -28,6 +28,7 @@ define('PATH_UPLOAD_OTHER',              PATH_UPLOADS . "other/");
 // 账号类型(自增账号数表也会用此值)
 define('USER_TYPE_USER',             1);//普通用户
 define('USER_TYPE_ADMIN',            2);//管理员
+define('USER_TYPE_MCH',            3);//商户账号
 
 // 管理员类型
 define('ADMIN_TYPE_SUPER',         0); // 超级管理员

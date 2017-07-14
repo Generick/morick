@@ -291,12 +291,13 @@ html,body{
 .new-pre-message-box-item-center{
 	float:left;
 	height:100%;
-	width:65vw;
+	width:88vw;
 	padding:2vw 1vw;
 	overflow: hidden;
 }
 
 .new-pre-message-box-item-center-title{
+	float: left;
 	line-height:5vw;
 	height:5vw;
 	color:#444444;
@@ -306,9 +307,11 @@ html,body{
 	white-space: nowrap;
 	text-overflow:ellipsis;
 	letter-spacing: 1px;
+	width:50vw;
 }
 
 .new-pre-message-box-item-center-content{
+	float:left;
 	line-height:5vw;
 	height:5vw;
 	font-weight: 300;
@@ -318,15 +321,17 @@ html,body{
 	white-space: nowrap;
 	text-overflow:ellipsis;
 	letter-spacing: 1px;
+	width:81vw;
 	
 }
 
 .new-pre-message-box-item-right{
-	width:22vw;
-	margin-right:1vw;
-	height:100%;
-	padding-top:1.5vw;
+	width:36vw;
+	/*margin-right:1vw;*/
+	/*height:100%;*/
+	/*padding-top:1.5vw;*/
 	float:left;
+	height:5vw;
 	overflow: hidden;
 }
 
@@ -337,7 +342,8 @@ html,body{
 	color:#AAAAAA;
 	height:5vw;
 	line-height:5vw;
-	text-align: center;
+	text-align: right;
+	padding-right:3vw;
 }
 
 
@@ -1670,3 +1676,8 @@ animation-fill-mode: both
 	width:5vw;
 	height:12vw;
 }
+
+/*
+.pay-special-roder-num{
+	
+}*/

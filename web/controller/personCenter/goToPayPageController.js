@@ -45,7 +45,7 @@ var goToPayAppController =
 //      alert(self.comfromSpecial)
 		if(self.comfromSpecial == 3)
 		{  
-			self.payPageTitle = "订单创建成功！请添加下方微信号:";
+			self.payPageTitle = "已下订单，请添加以下客服微信号在72小时内完成付款。逾期订单将自动取消，但会影响您在「雅玩之家」的信用值。";
 			$(".to-see-order-detail-two").css("display","block")
 		}
 		else

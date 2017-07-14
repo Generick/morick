@@ -26,7 +26,9 @@
                 <td style="text-align: center">商品进价</td>
                 <td style="text-align: center">商品售价</td>
                 <td style="text-align: center">年化收益率</td>
+               
                 <td style="text-align: center">库存</td>
+                 <td style="text-align: center">商品来源</td>
                 <td style="text-align: center">状态</td>
                 <td style="text-align: center">创建时间</td>
                 <td style="text-align: center">操作</td>
@@ -43,6 +45,10 @@
                 <td style="text-align: center" ng-bind="item.annualized_return + '%'"></td>
                 <td style="text-align: center" ng-bind="item.stock_num+ '件'"></td>
                 <td style="text-align: center">
+                 	<span ng-show="item.CID == 0">自营</span>
+                 	<span ng-show="item.CID == 1" ng-bind="item.comeFrom"></span>
+                </td>
+                <td style="text-align: center">
                 	
                 	<span ng-show="item.is_up == 1">已上架</span>
                 	<span ng-show="item.is_up == 0">未上架</span>
@@ -50,10 +56,11 @@
                 
                 <td style="text-align: center" ng-bind="item.add_time*1000 | date:'yyyy-MM-dd HH:mm:ss'">2017</td>
                 <td style="text-align: center">
-                	<a class="btn btn-default" ng-click="preViewCommodity(item)">预览</a>
-                    <a class="btn btn-default" ng-click="modCommodity(item)">修改</a>
-                    <a class="btn btn-warning" ng-show="isGrounding == 0"  ng-click="uploadCommodity(item,1)">上架</a>
-                    <a class="btn btn-warning" ng-show="isGrounding == 1"  ng-click="uploadCommodity(item,0)">下架</a>
+                	<a class="btn btn-default" ng-click="preViewCommodity(item)"  ng-hide="item.CID != 0 && item.mch_is_delete == 1">预览</a>
+                    <a class="btn btn-default" ng-click="modCommodity(item)" ng-hide="item.CID != 0 && item.mch_is_delete == 1">修改</a>
+                    <a class="btn btn-warning" ng-show="isGrounding == 0 && (item.mch_is_delete != 1)"  ng-click="uploadCommodity(item,1)">上架</a>
+                    <a class="btn btn-warning" ng-show="isGrounding == 1 && (item.mch_is_delete != 1)"  ng-click="uploadCommodity(item,0)">下架</a>
+                    <div style="background: #E3E3E3;line-height:35px;width:160px !important;margin:0 auto" ng-show="item.CID != 0 && item.mch_is_delete == 1">该商品已被商户删除</div>
                 </td>
                 <!--<td style="text-align: center"><span ng-click="oneSel(item.id)" ng-class="{true: 'has-sel', false: 'un-sel'}[item.selected]"></span></td>-->
                  <td style="text-align: center"><span ng-click="oneSel(item)" ng-class="{true: 'has-sel', false: 'un-sel'}[item.selected]"></span></td>

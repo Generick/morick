@@ -465,11 +465,11 @@
 }
 
 .recharge-offline {
-    line-height: 32px;
+    line-height: 21px;
     font-size: 15px;
-    padding-top: 12px;
-    padding-left:15px;
-    padding-bottom: 8px;
+    
+    padding:12px;
+    text-align: justify;
 }
 
 .recharge-offline-wx {
@@ -531,12 +531,13 @@
     width: 30%;
     padding-bottom: 30%;
     position: relative;
+    overflow: hidden;
 }
 
 .bidding-img > img {
     display: block;
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
     position: absolute;
     left: 0;
     top: 0;

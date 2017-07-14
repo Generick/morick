@@ -109,6 +109,13 @@ app.directive('uiKindeditor', function ($timeout) {
                    
 		            fexUe.editor.insertHtml(html);
 		             
+//		            if(ie) {    // 此处判断是否是IE
+//					    $('.ke-icon-uploadImage').find("input").replaceWith($('.ke-icon-uploadImage').find("input").clone(true));
+//					} else {
+//					    $('.ke-icon-uploadImage').find("input").val('');
+//					}
+		             
+		             
 		            $(".ke-icon-uploadImage").find("input").val('');
 		            $(".fixed-chrysanthemum2").css("display","none")
 		        };	
@@ -135,7 +142,14 @@ app.directive('uiKindeditor', function ($timeout) {
                     var html = '<iframe frameborder="0" width="640" height="340" src="'+dataUrl+'" data-ke-src="'+dataUrl+'"></iframe>';
 //                  var html = '<iframe frameborder="0" width="640" height="320" src="https://v.qq.com/iframe/player.html?vid=o0507d2plwm&tiny=0&auto=0" allowfullscreen></iframe>';
 		            fexUe.editor.insertHtml(html);
-//		            alert(JSON.stringify(files[0]));
+
+                    
+//                  if(ie) {    // 此处判断是否是IE
+//					    $('.ke-icon-media').find("input").replaceWith($('.ke-icon-media').find("input").clone(true));
+//					} else {
+//					    $('.ke-icon-media').find("input").val('');
+//					}
+
                     $(".ke-icon-media").find("input").val('');
 		            $(".fixed-chrysanthemum2").css("display","none")
 		        };	
@@ -466,6 +480,134 @@ app.directive('uploadSpe', function() {
 /**
  * 自定义上传图片
  */
+app.directive('uploadAsk', function() { 
+    return { 
+        restrict : 'AE', 
+        templateUrl : 'modules/uploadmul/upload-ask.html', 
+        replace : true,
+        scope : {
+        
+        	url : "=url"
+        },
+        link : function(scope, element, attrs)
+        {
+        	scope.$watch('url', function(newValue)
+            {
+            	scope.url = newValue;
+            	
+            });
+	        
+	       
+        	scope.imgUpload = function(files)
+        	{
+        		$(".fixed-chrysanthemum2").css("display","block")
+        		var lastIndex = files.length - 1;
+        		uploadMulImage(files, lastIndex);
+        	};
+        	
+        	scope.delPic = function(idx){
+        		if($(".goods-img-22").children(".select-round-22").eq(idx).hasClass("round-has-select"))
+	        	{   
+	        		$(".goods-img-22").children(".select-round-22").eq(idx).removeClass("round-has-select").parent().siblings().find(".select-round-22").removeClass("round-has-select");
+	        		
+	        		$(".goods-img-22").children(".select-round-10").eq(0).addClass("round-has-select").parent().siblings().find(".select-round-22").removeClass("round-has-select")
+	        	
+	        	}
+	            else{
+	            	
+	            	for(var i = 0; i < scope.url.length; i++ )
+	            	{
+	            		if($(".goods-img-22").children(".select-round-22").eq(i).hasClass("round-has-select"))
+			        	{   
+			        		
+			        		if(i > idx)
+			        		{
+			        			$(".goods-img-22").children(".select-round-22").eq(i -1).addClass("round-has-select").parent().siblings().find(".select-round-22").removeClass("round-has-select")
+			        	       
+			        		}
+			        		
+			        	}
+	            	}
+	            }
+        		scope.url.splice(idx, 1);
+        		
+	        };
+	        
+	        scope.setFaceImg = function(index){
+	        	
+	        	if($(".goods-img-22").children(".select-round-22").eq(index).hasClass("round-has-select"))
+	        	{   
+	        		
+	        		$(".goods-img-22").children(".select-round-22").eq(index).removeClass("round-has-select").parent().siblings().find(".select-round-22").removeClass("round-has-select");
+	        		
+	        		$(".goods-img-22").children(".select-round-22").eq(index).addClass("round-has-select").parent().siblings().find(".select-round-22").removeClass("round-has-select")
+	        	
+	        	}
+	            else{
+	            	
+	            	$(".goods-img-22").children(".select-round-22").eq(index).addClass("round-has-select").parent().siblings().find(".select-round-22").removeClass("round-has-select")
+	            }
+	            
+	        }
+	        
+	        var uploadMulImage = function(files , i)
+	        {  
+	        	if(i < 0)
+	        	{
+	        		document.getElementById("file-form-22").reset();
+	        		return;
+	        	}
+	        	if(JSON.stringify(files)  == "{}"){
+	        		
+	        		$(".fixed-chrysanthemum2").css("display","none")
+	        		return;
+	        	}
+	        	var xhr = new XMLHttpRequest();
+				var data = new FormData();
+				data.append("file", files[i]);
+		        xhr.open("post",api.API_UP_FILE,true);
+		        xhr.send(data);	 
+		        
+		        xhr.onload = function (){
+		            var tex = xhr.responseText;	
+		            var dataUrl = JSON.parse(tex).data.file[0].url;	
+		            var arr = scope.url;
+		            arr.push(dataUrl);
+		            
+		            scope.$apply(function(){
+		            	
+		            	
+						scope.url = arr;
+						  $(".fixed-chrysanthemum2").css("display","none")
+		            });
+		            var juges = false;
+					for(var s = 0; s < scope.url.length; s++ )
+		            {
+		            	if($(".goods-img-22").children(".select-round-22").eq(s).hasClass("round-has-select"))
+		            	{
+		            		juges = true;
+		            	}
+		            		
+		            }
+					if(!juges)
+					{
+					    $(".goods-img-22").children(".select-round-22").eq(0).addClass("round-has-select").parent().siblings().find(".select-round-22").removeClass("round-has-select")
+					}  
+		            uploadMulImage(files,--i);
+		          
+		        };
+	        }
+        }
+    }; 
+}); 
+
+
+
+
+
+/**
+ * 自定义上传图片
+ */
 app.directive('uploadCom', function() { 
     return { 
         restrict : 'AE', 
@@ -586,7 +728,6 @@ app.directive('uploadCom', function() {
         }
     }; 
 }); 
-
 
 
 

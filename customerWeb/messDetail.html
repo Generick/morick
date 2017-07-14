@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<title>消息详情</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="css/popUp.css" />
+        <link href="layer.css">
+	</head>
+	<body style="background: #FFFFFF;" ng-controller="mesDetailCtr">
+		<div class="animation">
+			<img src="img/loading.gif"/>
+		</div>
+		<div class="container">
+			<div class="go-me-ti" ng-bind="messModel.msg_title">
+				
+			</div>
+			<div class="go-up-time" ng-bind="messModel.create_time*1000 | date : 'yyyy-MM-dd HH:mm:ss'">
+			
+			</div>
+			<div class="my-go-details">
+				<!--<span>您的</span>-->
+				<span class="go-name-spe" ng-bind="messModel.msg_content"></span>
+			    <!--<span>已上架</span>-->
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/layer.js"></script>
+    <script src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/confirmTip.js" ></script>
+     <script src="js/app.js"></script>
+    <script type="text/javascript" src="js/fastclick.js" ></script>
+    <script src="controller/myMessDetail.js"></script>
+</html>

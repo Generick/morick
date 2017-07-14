@@ -15,6 +15,7 @@ class M_order extends My_Model
         $this->load->driver("cache");
         $this->load->model('m_saleMeeting');
         $this->load->model('m_messagePush');
+        $this->load->model('m_merchant');
         if(!$this->cache->redis->is_supported())
         {
             $this->log->write_log('error', "redis not supported!!!");
@@ -325,8 +326,19 @@ class M_order extends My_Model
                     $commodityInfo = $this->m_saleMeeting->getCommodityInfo($v->id);
                     $this->m_saleMeeting->modCommodity($v->id, array('stock_num' => $v->goodsNum + $commodityInfo->stock_num));
                 } 
+            }else if($type == 0)
+            {
+                $foreach ($orderObj->orderGoods as $v) 
+                {
+                    $commodityObj = $this->m_saleMeeting->getCommodityInfo($v->id);
+                    if ($commodityObj->CID > 0) 
+                    {
+                        $mchCommodityObj = $this->m_merchant->getCommodityInfo($commodityObj->CID);
+                        $this->m_messagePush->createUserMsg($mchCommodityObj->userId, MP_MSG_TYPE_MCH_C_ORDER, $commodityObj->CID, $mchCommodityObj->mch_commodity_name);
+                    }
+                }
             }
-            
+
         }
         return ERROR_OK;
     }
@@ -404,7 +416,7 @@ class M_order extends My_Model
                 );
             $this->db->insert('sale_record', $arr);
             $this->m_saleMeeting->modCommodity($commodity_id, array('stock_num' => $commodityObj->stock_num - $buyNum, 'sold_time' => $clientTime));
-            $this->m_messagePush->createUserMsg($userId, MP_MSG_TYPE_COMMODITY, $orderInfo['order_no']);
+            $this->m_messagePush->createUserMsg($userId, MP_MSG_TYPE_COMMODITY, $orderInfo['order_no'], $commodityObj->commodity_name);
             $order_no = $orderInfo['order_no'];
             
             return ERROR_OK;
@@ -431,7 +443,14 @@ class M_order extends My_Model
         $price = (int)floor($serverPrice);
         //return 0.01;
         //if ($price == $clientPrice) return 0.01;
-        if ($price == $clientPrice) return $price;
+        if ($price == $clientPrice)
+        {
+            if ($price > 1) 
+            {
+                return (int)$price;
+            }
+           return $price; 
+        }
         return false;
     }
 
@@ -449,6 +468,7 @@ class M_order extends My_Model
         $price = $this->priceJudge($commodityObj, $clientPrice, $clientTime);
         //var_dump($price);die;
         if (!$price) return ERROR_TIME_OUT;
+        //$price = 0.01;
         $totalPrice = $price * $buyNum;
         $orderInfo = array(
             'order_no' => 'wx'.date('Ymd') . mt_rand(100000, 999999),
@@ -481,7 +501,7 @@ class M_order extends My_Model
         {
             $ret['url'] = '';
             $orderInfo['buyNum'] = $buyNum;
-            $res = $this->callPayAPI($orderInfo, $commodityObj, $payEnv, $returnUrl, $ret);
+            //$res = $this->callPayAPI($orderInfo, $commodityObj, $payEnv, $returnUrl, $ret);
             $this->m_transaction->addTransaction($userId, TRANSACTION_COMMODITY, $totalPrice);
             //contact with custom service and pay for the bill, don't use balance
             // $newBalance = $userObj->balance - $commodityObj->commodity_price;
@@ -500,9 +520,10 @@ class M_order extends My_Model
                 );
             $this->db->insert('sale_record', $arr);
             $this->m_saleMeeting->modCommodity($commodity_id, array('stock_num' => $commodityObj->stock_num - $buyNum, 'sold_time' => $clientTime));
-            $this->m_messagePush->createUserMsg($userId, MP_MSG_TYPE_COMMODITY, $orderInfo['order_no']);
+            $this->m_messagePush->createUserMsg($userId, MP_MSG_TYPE_COMMODITY, $orderInfo['order_no'], $commodityObj->commodity_name);
             $ret['order_no'] = $orderInfo['order_no'];
-            return $res;
+            return ERROR_OK;
+            //return $res;
             // $payInfo['payId'] = $orderInfo['order_no'];
             // $this->load->library('Wxpay');
             // $wxPrePayInfo = $this->wxpay->WXPrePayInfo($payInfo['payId'], $price*100, $commodity_name);
@@ -522,19 +543,19 @@ class M_order extends My_Model
         log_message('error', '-|----|----|----start call pay API---|---|----');
         $params = array();
         $params['version'] = "1.1";
-        //$params['merchantId'] = THIRD_MCHID;
-        $params['merchantId'] = 100001;
+        $params['merchantId'] = THIRD_MCHID;
+        //$params['merchantId'] = 100001;
         $params['merchantTime'] = date("YmdHis");
         $params['traceNO'] = $orderInfo['order_no'];
-        //$params['requestAmount'] = $orderInfo['payPrice'];
-        $params['requestAmount'] = 0.01;
+        $params['requestAmount'] = $orderInfo['payPrice'];
+        //$params['requestAmount'] = 0.01;
         $params['paymentCount'] = 1;
-        //$params['payment_1'] = $payEnv.'_'.$orderInfo['payPrice'];
-        $params['payment_1'] = $payEnv.'_0.01';
+        $params['payment_1'] = $payEnv.'_'.$orderInfo['payPrice'];
+        //$params['payment_1'] = $payEnv.'_0.01';
         $params['payment_2'] = '';
         $params['returnUrl'] = $returnUrl;
         $params['notifyUrl'] = $this->getNotifyUrl();
-        $params['goodsName'] = "雅玩之家--".$commodityObj->commodity_name;
+        $params['goodsName'] = $commodityObj->commodity_name;
         $params['goodsCount'] = $orderInfo['buyNum'];
         $params['ip'] = $this->getIP();
         $params['extend'] = $this->getExtend($payEnv, $orderInfo['order_no']);
@@ -586,6 +607,12 @@ class M_order extends My_Model
             if ($resCode == '000') 
             {
                 $data = json_decode($resDATA, true);
+                // if ($data['errorMsg'] != "交易成功" || $data['errorMsg'] != "收单成功") 
+                // {
+                //     log_message('error', 'data[errorMsg]================='.$data['errorMsg']);
+                //     log_message('error', 'trade fail--|-----|-----|---->:'.$res);
+                //     return ERROR_TRADE_FAIL;
+                // }
                 //var_dump($data);
                 if (isset($data['payments'])) 
                 {
@@ -612,8 +639,10 @@ class M_order extends My_Model
                         return ERROR_OK;
                     }
                 }
-                return ERROR_OK;
+                log_message('error', 'trade fail--|-----|-----|---->:'.$res);
+                return ERROR_TRADE_FAIL;
             }
+            log_message('error', 'trade fail--|-----|-----|---->:'.$res);
             return $this->errorHandle($resCode);
         }
         return ERROR_API_RETURN_NULL;
@@ -628,8 +657,8 @@ class M_order extends My_Model
         {
             $str .= $v;
         }
-        //$str .= THIRD_APPSECRET;
-        $str .= "1234512345";
+        $str .= THIRD_APPSECRET;
+        //$str .= "1234512345";
         $sign = hash('sha256', $str);
         return $sign;
     }
@@ -677,8 +706,6 @@ class M_order extends My_Model
     //发送请求
     function http_request($url, $data = array())
     {
-        //var_dump($url);
-        //var_dump($data);
         $str = '';
         foreach ($data as $k => $v) 
         {
@@ -836,7 +863,13 @@ class M_order extends My_Model
     {
         $orderInfo = $this->getOrderAll($orderId);
         $this->modOrderInfo($orderId, array('orderStatus'=>2));
-        $this->m_messagePush->createUserMsg($orderInfo->userId, MP_MSG_TYPE_PAY_SUCCESS, $orderId);
+        $commodityObj = $this->m_saleMeeting->getCommodityInfo($orderObj->orderGoods[0]->id);
+        $this->m_messagePush->createUserMsg($orderInfo->userId, MP_MSG_TYPE_PAY_SUCCESS, $orderId, $commodityObj->commodity_name);
+        if ($commodityObj->CID > 0) 
+        {
+            $mchCommodityObj = $this->m_merchant->getCommodityInfo($commodityObj->CID);
+            $this->m_messagePush->createUserMsg($mchCommodityObj->userId, MP_MSG_TYPE_MCH_C_ORDER, $commodityObj->CID, $mchCommodityObj->mch_commodity_name);
+        }
     }
 
     //支付失败处理
@@ -844,7 +877,8 @@ class M_order extends My_Model
     {
         $orderInfo = $this->getOrderAll($orderId);
         $this->modOrderInfo($orderId, array('orderStatus'=>1));
-        $this->m_messagePush->createUserMsg($orderInfo->userId, MP_MSG_TYPE_PAY_FAIL, $orderId);
+        $commodityObj = $this->m_saleMeeting->getCommodityInfo($orderObj->orderGoods[0]->id);
+        $this->m_messagePush->createUserMsg($orderInfo->userId, MP_MSG_TYPE_PAY_FAIL, $orderId, $commodityObj->commodity_name);
     }
 
     //继续支付
@@ -853,11 +887,17 @@ class M_order extends My_Model
         log_message('error', '---|----|---start continue pay---|------|----');
         $orderObj = $this->getOrderAll($order_no);
         if (!$orderObj) return ERROR_ORDER_NOT_FOUND;
+        if (!isset($orderObj->orderGoods)) return ERROR_ORDER_GOODS_ERROR;
         $commodityObj = $this->m_saleMeeting->getCommodityInfo($orderObj->orderGoods[0]->id);
         $leapYear = $this->leapYear();
         $up_time = $this->db->select('add_time')->where('commodity_id', $commodityObj->id)->get('sale_meeting')->row_array();
         $price = $commodityObj->commodity_price*(1+($commodityObj->annualized_return/($leapYear*1440)/100*(($orderObj->orderTime-$up_time['add_time'])/60)));
-        $totalPrice = $orderObj->orderGoods[0]->goodsNum * (int)$price;
+        //$price = 0.01;
+        if ($price >= 1) 
+        {
+            $price = (int)$price;
+        }
+        $totalPrice = $orderObj->orderGoods[0]->goodsNum * $price;
         $orderInfo = array(
             'order_no' => $order_no,
             'userId' => $orderObj->userId,

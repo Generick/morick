@@ -4,7 +4,7 @@
 app.controller("ctrl", function($scope) {
     OrderDetailCtrl.init($scope);
 });
-
+      
 var OrderDetailCtrl = {
     scope : null,
     
@@ -23,6 +23,10 @@ var OrderDetailCtrl = {
         deliveryType :0
     },
     
+    timer6 : null,
+    
+    everyGoosPrice : null,
+    
     isMoreThanPrice : null,
     
     goodsOrderType : null,
@@ -30,6 +34,7 @@ var OrderDetailCtrl = {
     faceOrFast : false,
     
     traces: [],//物流信息
+    
     
     init: function ($scope) {
     	this.scope = $scope;
@@ -39,7 +44,7 @@ var OrderDetailCtrl = {
         this.scope.isShowPayWay = this.isShowPayWay;
         
         this.initData();
-        
+       
         localStorage.removeItem(localStorageKey.IS_ADDRESS); //每次进来清除地址标志
     	
     	this.bindClick();
@@ -47,15 +52,9 @@ var OrderDetailCtrl = {
         this.ngRepeatFinish();
 
         this.getUserInfo();
+        
        
-//      if(!commonFu.isEmpty(sessionStorage.getItem("payOrderId"))){
-//      	
-//      	this.isShowPayWay = false;
-//      	
-//      	this.scope.isShowPayWay = this.isShowPayWay;
-//
-//      }
-       
+ 
     },
     
    
@@ -66,6 +65,8 @@ var OrderDetailCtrl = {
         var self = this;
 
         $('.animation').css('display','block');
+//      $('.animation').css('display','block');
+		$(".container").css("opacity","0");
     	self.orderDetailModel.order_no = localStorage.getItem(localStorageKey.orderNo);
     
 //      self.orderDetailModel.addressId = commonFu.getQueryStringByKey("addressId");
@@ -120,7 +121,8 @@ var OrderDetailCtrl = {
 
                 //待付款剩余时间
                 if(self.orderDetailModel.orderInfo.orderType == 2)
-                {
+                {  
+                	
                 	var endTime = parseInt(self.orderDetailModel.orderInfo.orderGoods[0].add_time) + 60*60*72;
                     var lastTime = parseInt(endTime) - parseInt(self.orderDetailModel.orderInfo.orderGoods[0].add_time);
                 }
@@ -155,6 +157,7 @@ var OrderDetailCtrl = {
             	self.orderDetailModel.orderInfo.orderTypeText = "已取消";
                 self.orderDetailModel.unPay = false;
                 self.orderDetailModel.showLogistics = false;
+                self.orderDetailModel.orderIsDone = false;
             }
             if(self.orderDetailModel.orderInfo.deliveryType == 1 && self.orderDetailModel.orderInfo.orderStatus == 1)
             {   
@@ -174,6 +177,11 @@ var OrderDetailCtrl = {
             	self.orderDetailModel.unPay = false;
             	self.orderDetailModel.showLogistics = false;
             }
+            if(self.orderDetailModel.orderInfo.orderType == 2)
+            {
+            	self.everyGoosPrice = parseInt((Math.floor(100 * self.orderDetailModel.orderInfo.orderGoods[0].commodity_price *(1 +  ((self.orderDetailModel.orderInfo.orderTime - self.orderDetailModel.orderInfo.orderGoods[0].up_time)/60) * (self.orderDetailModel.orderInfo.orderGoods[0].annualized_return*0.01/(commonFu.isSmoothYear()*1440)))))/100);
+                self.scope.everyGoosPrice = self.everyGoosPrice;
+            }
 //          if(!commonFu.isEmpty(self.orderDetailModel.orderInfo) && !commonFu.isEmpty(self.orderDetailModel.orderInfo.orderGoods[0]))
 //          {
 //          	self.orderDetailModel.orderInfo.orderGoods[0].goods_pics = JSON.parse(self.orderDetailModel.orderInfo.orderGoods[0].goods_pics);
@@ -187,10 +195,12 @@ var OrderDetailCtrl = {
             	$(".accept-detail").css("display","none")
             }
             self.getTraceList();
-
-            $('.animation').css('display','none');
-            $('.container').css('opacity','1');
+            
             self.scope.$apply();
+
+            	$('.animation').css('display','none');
+            	$('.container').css('opacity','1');
+
             
             self.setTimeToSeeOrDer();
         })
@@ -202,7 +212,7 @@ var OrderDetailCtrl = {
     	var self = this;
     	if(self.orderDetailModel.orderInfo.orderType == 2 && (self.orderDetailModel.orderInfo.payType == 6 || self.orderDetailModel.orderInfo.payType == 7 || self.orderDetailModel.orderInfo.payType == 5))
     	{
-	    		var timer6 =  setInterval(function(){
+	    		    self.timer6 =  setInterval(function(){
 	    		    var param = {
 	                   order_no : self.orderDetailModel.order_no
 	                };
@@ -228,14 +238,11 @@ var OrderDetailCtrl = {
 			        		{
 			        			self.orderDetailModel.orderInfo.orderTypeText = "等待发货";
 			        			self.scope.orderDetailModel.orderInfo.orderTypeText = self.orderDetailModel.orderInfo.orderTypeText;
+			        		    self.scope.$apply();
+			        	        clearInterval(self.timer6);
 			        		}
 			        		
-			        	    self.scope.$apply();
-			        	    if(judje == 3 || judje == 4 || judje == 0)
-			        	    {
-			        	    	  clearInterval(timer6);
-			        	    }
-//			        	  
+			        	   
 			        	}
 			        	
 			        })
@@ -396,7 +403,8 @@ var OrderDetailCtrl = {
 
         //支付订单
     	self.scope.onClickToPayOrder = function(type)
-    	{
+    	{   
+    		clearInterval(self.timer6);
     		var params = {};
 	        params.order_no = self.orderDetailModel.order_no;
 	        params.deliveryType  = JSON.stringify(type);
@@ -486,8 +494,10 @@ var OrderDetailCtrl = {
 														
 														   if(!commonFu.isEmpty(data.params))
 														   {
-	//													   	    alert(JSON.stringify(data))
-	//													   	    console.log(JSON.stringify(data))
+//														   	    alert("1111111-fff"+params.order_no)
+//														   	    alert(JSON.stringify(data))
+	 															localStorage.setItem(localStorageKey.orderNo,data.order_no)
+															    sessionStorage.setItem("payOrderId",data.order_no);
 														   	    document.fm.version.value = data.params.version;
 														   	    document.fm.merchantId.value = data.params.merchantId;
 														   	    document.fm.merchantTime.value = data.params.merchantTime;
@@ -505,8 +515,7 @@ var OrderDetailCtrl = {
 														   	    document.fm.sign.value = data.params.sign;
 													   	       
 														   	    document.fm.submit();
-														   	  
-															    sessionStorage.setItem("payOrderId",data.order_no)
+														   	   
 						                                        
 														   }
 														
@@ -530,10 +539,10 @@ var OrderDetailCtrl = {
 							
 														jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GO_ON_PAY, params, function(data){
 															
-							//								alert(JSON.stringify(data))
+															
 															if(!commonFu.isEmpty(data.url))
 															{
-																
+//																alert(data.url)
 																location.href = data.url;
 																
 //																sessionStorage.setItem("payOrderId",data.order_no)
@@ -554,7 +563,7 @@ var OrderDetailCtrl = {
 							
 															if(!commonFu.isEmpty(data.url))
 															{
-																
+//																alert(data.url)
 																location.href = data.url;
 																
 //																sessionStorage.setItem("payOrderId",data.order_no)

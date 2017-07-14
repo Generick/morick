@@ -6,14 +6,24 @@ var jqAjaxRequest =
 {
 	//异步请求操作 post 操作
 	asyncAjaxRequest : function(s_url, params, callback, fail)
-	{
+	{  
+		
 		var phpSessionId = localStorage.getItem(localStorageKey.SESSIONID);
 		
 		if ((phpSessionId != null) && (phpSessionId != ''))
-		{
+		{ 
 			s_url = s_url + "?sid=" + phpSessionId;
 		}
-		
+		else{
+			
+			phpSessionId = getCookie(localStorageKey.SESSIONID);
+			
+			if ((phpSessionId != null) && (phpSessionId != ''))
+			{ 
+				s_url = s_url + "?sid=" + phpSessionId;
+			}
+			
+		}
 		$.ajax({
 			type: "post",
 			url: s_url,
@@ -57,7 +67,7 @@ var jqAjaxRequest =
                     sessionStorage.setItem("reloginFail",1);
                     $dialog.msg("会话过期，请先登录");
                     setTimeout(function(){
-//                  	alert("ajax"+JSON.stringify(data))
+//                  	alert("ajax555"+JSON.stringify(data))
                     	location.href = pageUrl.LOGIN_PAGE;
                     	
                     	
@@ -102,7 +112,9 @@ var jqAjaxRequest =
                 }
 			},
 			error: function(data) {
-//					alert("ajax"+JSON.stringify(data))
+//					alert("ajax9999"+JSON.stringify(data))
+//					alert(localStorage.getItem(localStorageKey.orderNo));
+//					alert(s_url)
                   location.href = pageUrl.LOGIN_PAGE;
             }
 		});

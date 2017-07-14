@@ -1,4 +1,5 @@
 <?php
+set_time_limit(0);
 /**
  * Created by PhpStorm.
  * User: Saturn
@@ -159,5 +160,31 @@ class TimedTask extends My_Controller
 
         $this->m_common->insert("timetask_logs", array("timetask_type" => 1, "timetask_time" => now()));
         return;
+    }
+
+    //72小时未付款订单自动取消
+    function cancelOrder()
+    {
+        log_message('error', 'timedTask start.cancelOrder');
+        $this->load->model('m_saleMeeting');
+        $whr = array(
+            'orderTime <=' => time() - 72 * 3600,
+            'orderStatus' => 1,
+            'orderType' => 2,
+            );
+        $orders = $this->db->select('order_no, orderTime, orderStatus')->where($whr)->get('order')->result_array();
+        foreach ($orders as $v) 
+        {
+            sleep(1);
+            $orderObj = $this->m_order->getOrderObj($v['order_no']);
+            $this->m_order->modOrderInfo($v['order_no'], array('orderStatus' => 0));
+            foreach ($orderObj->orderGoods as $vv) 
+            {
+                $commodityInfo = $this->m_saleMeeting->getCommodityInfo($vv->id);
+                $this->m_saleMeeting->modCommodity($vv->id, array('stock_num' => $vv->goodsNum + $commodityInfo->stock_num));
+            }
+            $this->m_messagePush->createUserMsg($orderObj->userId, MP_MSG_TYPE_ORDER_CANCEL, $v['order_no']);
+            ob_flush();
+        }        
     }
 }

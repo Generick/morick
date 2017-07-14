@@ -54,7 +54,7 @@
             	</p>
             </div>
             <div class="sell-price-number-box">
-            	<span style="padding-left:5px;" class="sell-price-box" ng-bind="'￥'+viewPrice">
+            	<span style="padding-left:5px;" class="sell-price-box" ng-bind="viewPrice">
             		￥50000
             	</span>
             	<!--<span class="sell-number-box">

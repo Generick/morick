@@ -243,7 +243,9 @@ class COrder extends CDataClassBase {
         $commodityInfo = $CI->m_saleMeeting->getCommodityInfo($orderGoods[0]['goodsId']);
         if ($commodityInfo) 
         {
+            $up_time = $CI->db->select('add_time')->where('commodity_id', $commodityInfo->id)->get('sale_meeting')->row_array();
             $commodityInfo->goodsNum = $orderGoods[0]['goodsNum'];
+            $commodityInfo->up_time = empty($up_time) ? '' : $up_time['add_time'];
             $this->orderGoods[] = $commodityInfo;
         }
         

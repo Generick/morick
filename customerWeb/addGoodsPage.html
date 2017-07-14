@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="css/popUp.css" />
+        <link href="layer.css">
+        <link href="css/mn.icons.css" /> 
+	</head>
+	<body ng-controller="addGoodsCtr">
+		<div class="animation3" style="z-index: 3;">
+			<img src="img/loading.gif"/>
+		</div>
+		<div class="container3">
+			<div class="add-my-goods">
+				<div class="add-goods-items">
+					<div class="items-goods-tille2">
+					    商品名称：
+					</div>
+					<div class="items-goods-in2">
+						<input type="text" ng-model="goodsModel.goodsName"/>
+					</div>
+				</div>
+				<div class="add-goods-items">
+					<div class="items-goods-tille2">
+					    商品描述：
+					</div>
+					<div class="items-goods-in2">
+						<input type="text" ng-model="goodsModel.goodsDes"/>
+					</div>
+				</div>
+				<div class="add-goods-items">
+					<div class="items-goods-tille">
+					   商品进价(元):
+					</div>
+					<div class="items-goods-in">
+						<input type="number" ng-model="goodsModel.goodsinComePrice"/>
+					</div>
+				</div>
+				
+				<div class="add-goods-items">
+					<div class="items-goods-tille">
+					      商品价格(元):
+					</div>
+					<div class="items-goods-in">
+						<input type="number" ng-model="goodsModel.goodsSalePrice"/>
+					</div>
+				</div>
+				
+				<div class="add-goods-items">
+					<div class="items-goods-tille2">
+					      库存类型 :
+					</div>
+					<div class="items-goods-in2">
+						<div class="single-num">
+							<div class="chooseMulSin"  ng-class="{true:'chooseMulSinHas',false:''}[!goodsModel.isMuldetil]" ng-click="chooseNumber(0)"></div>
+							<span>单件商品</span>
+						</div>
+						<div class="mutile-num">
+							<div class="chooseMulSin" ng-class="{true:'chooseMulSinHas',false:''}[goodsModel.isMuldetil]"  ng-click="chooseNumber(1)"></div>
+							<span>多件商品</span>
+						</div>
+					</div>
+				</div>
+				<div class="add-goods-items" ng-show="goodsModel.isMuldetil">
+					<div class="items-goods-tille">
+					      商品库存(件) :
+					</div>
+					<div class="items-goods-in">
+						<input type="number" id="toDisa"  ng-model="goodsModel.goodsNumber"/>
+					</div>
+				</div>
+				<!--<div class="items-goods-cover">
+					<div class="items-goods-cover-title">
+						商品封面
+					</div>
+					<div class="items-goods-cover-img-box">
+						<div class="item-goods-icon">
+							
+						</div>
+						<div class="goods-cover-input-box">
+							<input type="file" style="color: transparent"/>
+							<div class="input-box-cover-shade">
+								<img src="img/add-goods-pl.png" /> 
+							</div>
+						</div>
+					</div>
+				</div>-->
+				<div class="items-goods-imgs-box">
+					<div class="items-goods-cover-title">
+						商品图片
+					</div>
+					<upload-map url="imgsbox"></upload-map>
+					<!--<div class="items-goods-imgs"></div>
+					<div class="goods-imgs-input-box">
+						<input type="file" style="color: transparent"/>
+						<div class="input-box-img-shade">
+							<img src="img/add-goods-pl.png" /> 	
+						</div>
+					</div>-->
+				</div>
+				
+				<div class="items-goods-describe">
+					<div class="items-goods-cover-title">
+						商品详情（文字+图片）
+					</div>
+					<div class="items-goods-describe-words">
+						<!--<textarea style="resize: none;width:100%;border:1px solid #EEEEEE;padding:5px;height:auto;overflow:visible"></textarea>-->
+						<div  contenteditable="true"  id="goods-detail-div"  style=" word-wrap: break-word; word-break:　break-all;border:1px solid #E9E9E9;min-height:50px;text-align: left;padding:2px 5px;line-height:20px;outline: none;color:#333333"></div>
+					</div>
+					<!--<div class="describe-imgs-input-box">
+						<input type="file" style="color: transparent"/>
+						<div class="input-box-img-shade">
+								<img src="img/add-goods-pl.png" /> 
+						</div>
+					</div>-->
+					<upload-sep url="detImg"></upload-sep>
+				</div>
+				
+				<div class="btn-to-sub" ng-click="addGoods()">
+					保存
+				</div>
+				
+			</div>
+			<div class="fixed-chrysanthemum2">
+			<img src="img/loading600.gif" /> 
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/layer.js"></script>
+    <script src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/confirmTip.js" ></script>
+    <script src="js/app.js"></script>
+    <script src="js/derivite.js"></script>
+     <script type="text/javascript" src="js/fastclick.js" ></script>
+     <script type="text/javascript" src="js/angular-ui-router.js" ></script>
+    <script src="controller/addGoodsController.js"></script>
+    
+</html>
