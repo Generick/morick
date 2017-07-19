@@ -63,10 +63,13 @@ var myGoodsCtr = {
     	params.startIndex = (self.page.currentPage - 1) * self.page.timeNum;
 		
 		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_USER_GETSELF_GOODS, params,function(data){
-			console.log(JSON.stringify(data))
+//			console.log(JSON.stringify(data))
 			
 			self.page.totalPage = Math.ceil(parseInt(data.count)/self.page.timeNum) ;
-			
+			if(data.count == 0)
+			{
+				$(".no-data-list").css("display","block");
+			}
 			if(type == 0)
 			{   
 				self.myGoodsModel.goodsList = data.commodityList;
@@ -238,7 +241,7 @@ $(document).ready(function(){
                     	$('.chrysanthemums').css("display","block");
 						setTimeout(function(){
 							$('.chrysanthemums').css("display","none");
-	
+	                         $dialog.msg("没有更多数据了！")
 						},500);
                     }
                     

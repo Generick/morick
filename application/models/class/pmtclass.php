@@ -1,12 +1,10 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');/**
  * Created by PhpStorm.
- * User: Administrator
- * Date: 16-6-1
- * Time: 上午9:53
+ * User: MXL
+ * Date: 7/17/2017
+ * Time: 11:04 AM
  */
-
-class CUserBaseInfo extends IExtractInfo {
+class CPmtBaseInfo extends IExtractInfo {
     public static $fields = null;
     private static $staticConstructed = false;
     public static function staticConstruct()
@@ -18,11 +16,9 @@ class CUserBaseInfo extends IExtractInfo {
 
         self::$fields = array(
             "name",
-            "gender",
-            "smallIcon",
+            "is_delete",
             "telephone",
-            "balance",
-            "PMTID",
+            "qrcode",
         );
     }
 
@@ -32,7 +28,7 @@ class CUserBaseInfo extends IExtractInfo {
     }
 }
 
-class CUserInfo extends IExtractInfo {
+class CPmtInfo extends IExtractInfo {
     public static $fields = null;
     private static $staticConstructed = false;
     public static function staticConstruct()
@@ -45,17 +41,10 @@ class CUserInfo extends IExtractInfo {
         self::$fields = array(
             "userId",
             "name",
-            "gender",
-            "smallIcon",
-            "icon",
+            "is_delete",
             "telephone",
+            "qrcode",
             "registerTime",
-            "balance",
-            "sms_obtain_status",
-            "sms_beyond_status",
-            "sms_over_status",
-            "deposit_cash",
-            "PMTID",
         );
     }
 
@@ -65,7 +54,7 @@ class CUserInfo extends IExtractInfo {
     }
 }
 
-class CUser extends IUserBase {
+class CPmt extends IUserBase {
     // 属性的保存方式
     // Array中保存的是array(objField => CField, ...)
     private static $fields = null;
@@ -86,16 +75,10 @@ class CUser extends IUserBase {
         self::$fields = array(
             "userId" =>       new CField(FIELD_TYPE_NORMAL),
             "name" =>       new CField(FIELD_TYPE_NORMAL),
-            "gender" =>       new CField(FIELD_TYPE_NORMAL),
-            "smallIcon" =>       new CField(FIELD_TYPE_NORMAL),
-            "icon" =>       new CField(FIELD_TYPE_NORMAL),
-            "telephone" =>  new CField(FIELD_TYPE_NORMAL),
+            "is_delete" =>       new CField(FIELD_TYPE_NORMAL),
+            "telephone" =>       new CField(FIELD_TYPE_NORMAL),
             "registerTime" =>  new CField(FIELD_TYPE_NORMAL),
-            "sms_obtain_status" =>  new CField(FIELD_TYPE_NORMAL),
-            "sms_beyond_status" =>  new CField(FIELD_TYPE_NORMAL),
-            "sms_over_status" =>  new CField(FIELD_TYPE_NORMAL),
-            "deposit_cash" =>  new CField(FIELD_TYPE_NORMAL),
-            "PMTID" =>  new CField(FIELD_TYPE_NORMAL),
+            "qrcode" =>  new CField(FIELD_TYPE_NORMAL),
         );
 
         // 可被修改的字段，对应到用户身上的哪个字段（这里的数值主要用于modInfo，还有一些数据的修改和相应的逻辑有关）
@@ -157,7 +140,7 @@ class CUser extends IUserBase {
             return true;
         }
 
-        $affectedRows = $CI->m_common->update('user', $updateFields, array('userId' => $this->userId));
+        $affectedRows = $CI->m_common->update('pmt', $updateFields, array('userId' => $this->userId));
         if ($affectedRows < 1)
         {
             $CI->log->write_log('error', "Update user failed: {$this->userId}");
@@ -169,7 +152,6 @@ class CUser extends IUserBase {
     }
 
     //region 用户资料
-    ////////////////////////////////////////////////////////////////////////////////
     /**
      * 修改用户属性：只包括Normal字段或者类型为CNormalKV的字段
      * @param $info     数组：{key => value}
@@ -185,27 +167,26 @@ class CUser extends IUserBase {
         parent::defaultModInfoWithPrivilege($info, self::$fields);
     }
 
-    //endregion
 
     /**
      * 组一份简易信息发给客户端，只包含最关键的内容
      */
     public function getUserBaseData()
     {
-        $data = new CUserBaseInfo();
-        $data->copyFromObj(CUserBaseInfo::$fields, $this);
+        $data = new CPmtBaseInfo();
+        $data->copyFromObj(CPmtBaseInfo::$fields, $this);
         return $data;
     }
 
     public function getUserSelfData()
     {
-        $data = new CUserInfo();
-        $data->copyFromObj(CUserInfo::$fields, $this);
+        $data = new CPmtInfo();
+        $data->copyFromObj(CPmtInfo::$fields, $this);
         return $data;
     }
 }
 
-// 在最后执行静态构造函数
-CUser::staticConstruct();
-CUserInfo::staticConstruct();
-CUserBaseInfo::staticConstruct();
+// 执行静态构造函数
+CPmt::staticConstruct();
+CPmtInfo::staticConstruct();
+CPmtBaseInfo::staticConstruct();

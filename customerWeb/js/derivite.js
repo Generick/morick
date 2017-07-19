@@ -36,7 +36,7 @@ app.directive('uploadMap', function() {
 	        		$(".goods-img-2").children(".select-round-2").eq(idx).removeClass("round-has-select").parent().siblings().find(".select-round-2").removeClass("round-has-select");
 	        		
 	        		$(".goods-img-2").children(".select-round-2").eq(0).addClass("round-has-select").parent().siblings().find(".select-round-2").removeClass("round-has-select")
-	        	
+	        	    $(".goods-img-2").children(".set-face-img-2").eq(0).html("封面").parent().siblings().find(".set-face-img-2").html("设为封面");
 	        	}
 	            else{
 	            	
@@ -48,7 +48,7 @@ app.directive('uploadMap', function() {
 			        		if(i > idx)
 			        		{
 			        			$(".goods-img-2").children(".select-round-2").eq(i -1).addClass("round-has-select").parent().siblings().find(".select-round-2").removeClass("round-has-select")
-			        	       
+			        	        $(".goods-img-2").children(".set-face-img-2").eq(i -1).html("封面").parent().siblings().find(".set-face-img-2").html("设为封面");
 			        		}
 			        		
 			        	}
@@ -67,10 +67,11 @@ app.directive('uploadMap', function() {
 	        		$(".goods-img-2").children(".select-round-2").eq(index).removeClass("round-has-select").parent().siblings().find(".select-round-2").removeClass("round-has-select");
 	        		
 	        		$(".goods-img-2").children(".select-round-2").eq(index).addClass("round-has-select").parent().siblings().find(".select-round-2").removeClass("round-has-select")
-	        	
+	        	    $(".goods-img-2").children(".set-face-img-2").eq(index).html("封面").parent().siblings().find(".set-face-img-2").html("设为封面");
 	        	}
 	            else{
 	            	$(".goods-img-2").children(".select-round-2").eq(index).addClass("round-has-select").parent().siblings().find(".select-round-2").removeClass("round-has-select")
+	                 $(".goods-img-2").children(".set-face-img-2").eq(index).html("封面").parent().siblings().find(".set-face-img-2").html("设为封面");
 	            }
 	            
 	        }
@@ -119,8 +120,9 @@ app.directive('uploadMap', function() {
 		            }
 					if(!juges)
 					{
-					    $(".goods-img-2").children(".select-round-2").eq(0).addClass("round-has-select").parent().siblings().find(".select-round-2").removeClass("round-has-select")
-					}  
+					    $(".goods-img-2").children(".select-round-2").eq(0).addClass("round-has-select").parent().siblings().find(".select-round-2").removeClass("round-has-select");
+					    $(".goods-img-2").children(".set-face-img-2").eq(0).html("封面").parent().siblings().find(".set-face-img-2").html("设为封面");
+					}
 		            uploadMulImage(files,--i);
 		          
 		        };

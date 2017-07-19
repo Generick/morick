@@ -29,6 +29,7 @@ define('PATH_UPLOAD_OTHER',              PATH_UPLOADS . "other/");
 define('USER_TYPE_USER',             1);//普通用户
 define('USER_TYPE_ADMIN',            2);//管理员
 define('USER_TYPE_MCH',            3);//商户账号
+define('USER_TYPE_PMT',            4);//推广员账号
 
 // 管理员类型
 define('ADMIN_TYPE_SUPER',         0); // 超级管理员

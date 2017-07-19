@@ -78,7 +78,8 @@ var addGoodsCtr = {
 		self.goodsModel.comm_id = obj.decode(commonFu.getQueryStringByKey("id"));
         self.goodsModel.isAdd = obj.decode(commonFu.getQueryStringByKey("isAdd"));	
     	self.scope.goodsModel = self.goodsModel;
-        if(self.goodsModel.isAdd == 1)//添加
+        
+       if(self.goodsModel.isAdd == 1)//添加
 		{
 			document.title = "添加商品";    		
 		}
@@ -145,26 +146,30 @@ var addGoodsCtr = {
 					if(!commonFu.isEmpty(data.commodityInfo.mch_commodity_detail))
 		    		{
 //		    			self.goodsModel.goodsDetailDes = commonFu.returnRightReg(data.commodityInfo.mch_commodity_detail).substr(0,data.commodityInfo.mch_commodity_detail.length-1);
-		    		    $("#goods-detail-div").html(commonFu.returnRightReg(data.commodityInfo.mch_commodity_detail).substr(0,data.commodityInfo.mch_commodity_detail.length-1));
+		    		    $("#goods-detail-div").val(commonFu.returnRightReg(data.commodityInfo.mch_commodity_detail).substr(0,data.commodityInfo.mch_commodity_detail.length-1));
 		    		}
 				
-					var str = data.commodityInfo.mch_commodity_detail;
-					var re = new RegExp("src","g");
-					var arr = str.match(re);
-				
-
-		    		var imgarrs = [];
+//					var str = data.commodityInfo.mch_commodity_detail;
+//					var re = new RegExp("src","g");
+//					var arr = str.match(re);
+				     
+				    
+                    
+		    	    var imgarrs = [];
 	    	   
-		    	    	var reg = /src=\"([^\"]*?)\"/gi;
-		    			var cont = data.commodityInfo.mch_commodity_detail.trim().match(reg);
+		    	    var reg = /src=\"([^\"]*?)\"/gi;
+		    		var cont = data.commodityInfo.mch_commodity_detail.trim().match(reg);
     			   
-		    			for(var j= 0;j<cont.length;j++)
+    			    if(cont != null)
+    			    {
+    			    	for(var j= 0;j<cont.length;j++)
 		    			{   
 		    				var srcs = '';
 		    				srcs = cont[j].split("src=")[1].replace(/\"/g, "");
 	    			    	imgarrs.push(srcs);
 		    			}
-		    	
+    			    }
+
 	    			self.detImg = imgarrs;
 	    			self.scope.detImg = self.detImg;
 
@@ -174,8 +179,8 @@ var addGoodsCtr = {
 			        {
 			        	if(self.imgsbox[i] == data.commodityInfo.mch_commodity_cover)
 			        	{
-			        		$(".goods-img-2").children(".select-round-2").eq(i).addClass("round-has-select").parent().siblings().find(".select-round-2").removeClass("round-has-select")
-			        	
+			        		$(".goods-img-2").children(".select-round-2").eq(i).addClass("round-has-select").parent().siblings().find(".select-round-2").removeClass("round-has-select");
+			        	    $(".goods-img-2").children(".set-face-img-2").eq(i).html("封面").parent().siblings().find(".set-face-img-2").html("设为封面");
 			        	}
 			        	
 			        }
@@ -190,7 +195,7 @@ var addGoodsCtr = {
 			    		$("#upload-icon2").css("display","none");
 			    		$("input").attr("disabled",true);
 			    		$("input").css("background","#FFFFFF");
-			    		$("#goods-detail-div").attr("contentEditable",false)
+//			    		$("#goods-detail-div").attr("contentEditable",false)
 			    	}
 			    	
 
@@ -203,6 +208,9 @@ var addGoodsCtr = {
 	eventBind : function(){
 		
 		var self = this;
+		
+		var a = 0;
+		
 		
 		self.scope.chooseNumber = function(type){
 			
@@ -236,16 +244,16 @@ var addGoodsCtr = {
 				return;
 			}
 			
-			if(commonFu.isEmpty(self.goodsModel.goodsinComePrice))
-			{
-				$dialog.msg("请输入商品进价！");
-				return;
-			}
-			if(parseFloat(self.goodsModel.goodsinComePrice) <= 0)
-			{
-				$dialog.msg("商品进价不能小于等于0！");
-				return;
-			}
+//			if(commonFu.isEmpty(self.goodsModel.goodsinComePrice))
+//			{
+//				$dialog.msg("请输入商品进价！");
+//				return;
+//			}
+//			if(parseFloat(self.goodsModel.goodsinComePrice) <= 0)
+//			{
+//				$dialog.msg("商品进价不能小于等于0！");
+//				return;
+//			}
 			if(commonFu.isEmpty(self.goodsModel.goodsSalePrice))
 			{
 				$dialog.msg("请输入商品价格！");
@@ -256,28 +264,28 @@ var addGoodsCtr = {
 				$dialog.msg("商品价格不能小于等于0！");
 				return;
 			}
-			if(commonFu.isEmpty(self.goodsModel.goodsNumber))
-			{
-				$dialog.msg("请输入商品库存！");
-				return;
-			}
+//			if(commonFu.isEmpty(self.goodsModel.goodsNumber))
+//			{
+//				$dialog.msg("请输入商品库存！");
+//				return;
+//			}
 			if(commonFu.isEmpty(self.imgsbox))
 			{
 //				alert(self.imgsbox)
 				$dialog.msg("请上传商品图片！");
 				return;
 			}
-			if(commonFu.isEmpty($("#goods-detail-div").html()))
+			if(commonFu.isEmpty($("#goods-detail-div").val()))
 			{ 
 //				self.goodsModel.goodsDetailDes
 				$dialog.msg("请输入商品详情文字描述！");
 				return;
 			}
-			if(commonFu.isEmpty(self.detImg))
-			{
-				$dialog.msg("请添加商品详情图片！");
-				return;
-			}
+//			if(commonFu.isEmpty(self.detImg))
+//			{
+//				$dialog.msg("请添加商品详情图片！");
+//				return;
+//			}
 			
 			
 			if(self.goodsModel.isAdd == 1)
@@ -300,34 +308,41 @@ var addGoodsCtr = {
 				
 				param.info.mch_commodity_cover = cover;//商品封面
 				var wordHtml = '';
-				wordHtml = '<div style="width:100%;line-height:21px;text-indent:25px;color:#333333;text-align:left;"> '+ $("#goods-detail-div").html()+' </div>';
+				wordHtml = '<div style="width:100%;line-height:21px;text-indent:25px;color:#333333;text-align:left;"> '+ $("#goods-detail-div").val()+' </div>';
 				
-				var len = self.detImg.length;
 				var imgBox = '';
-				for(var i = 0; i < len ; i++)
+				if(!commonFu.isEmpty(self.detImg))
 				{
-					var imgHtml = '<img style="width:100%;height:auto;margin-top:15px" src="'+self.detImg[i]+'" />';
-					imgBox = imgBox + imgHtml;
+					var len = self.detImg.length;
+					
+					for(var i = 0; i < len ; i++)
+					{
+						var imgHtml = '<img style="width:100%;height:auto;margin-top:15px" src="'+self.detImg[i]+'" />';
+						imgBox = imgBox + imgHtml;
+					}
 				}
+				
 //				alert(imgBox)
 				var allHtml = wordHtml + imgBox;
-				if(self.goodsModel.goods_attr == 0)
-				{
-					self.goodsModel.goodsNumber = 1;
-				}
-				if(self.goodsModel.goods_attr == 1)
-				{
-					if(self.goodsModel.goodsNumber < 2)
-					{
-						$dialog.msg("您选择的库存类型为多件，请输入至少2件以上的商品！");
-						return;
-					}
-					
-				}
+//				if(self.goodsModel.goods_attr == 0)
+//				{
+//					self.goodsModel.goodsNumber = 1;
+//				}
+//				if(self.goodsModel.goods_attr == 1)
+//				{
+//					if(self.goodsModel.goodsNumber < 2)
+//					{
+//						$dialog.msg("您选择的库存类型为多件，请输入至少2件以上的商品！");
+//						return;
+//					}
+//					
+//				}
+				self.goodsModel.goods_attr = 0;
+				self.goodsModel.goodsNumber = 1;
 				param.info.mch_commodity_detail = allHtml;//商品详情
 				
 				param.info.mch_commodity_price = self.goodsModel.goodsSalePrice;//商品价格
-				param.info.mch_bid_price = self.goodsModel.goodsinComePrice;//商品进价
+				param.info.mch_bid_price = parseFloat(self.goodsModel.goodsSalePrice)*0.85;// self.goodsModel.goodsinComePrice;//商品进价
 				param.info.mch_stock_num = self.goodsModel.goodsNumber;//商品库存
 				param.info.mch_commodity_pic = JSON.stringify(self.imgsbox);//商品图片
 				param.info.mch_commodity_attr =  self.goodsModel.goods_attr;//商品库存类型
@@ -339,7 +354,7 @@ var addGoodsCtr = {
 	        	
 	                        $dialog.msg("商品添加成功！");
 	                        setTimeout(function(){
-	                        	location.href = pageUrl.HOME_PAGE;
+	                        	location.href = pageUrl.MY_GOODS_LIST;
 	                        },500)
 	                        
 	        	 })
@@ -347,19 +362,21 @@ var addGoodsCtr = {
 			else if(self.goodsModel.isAdd == 2){
 				
 				
-				if(self.goodsModel.goods_attr == 0)
-				{
-					self.goodsModel.goodsNumber = 1;
-				}
-				if(self.goodsModel.goods_attr == 1)
-				{
-					if(self.goodsModel.goodsNumber < 2)
-					{
-						$dialog.msg("您选择的库存类型为多件，请输入至少2件以上的商品！");
-						return;
-					}
-					
-				}
+//				if(self.goodsModel.goods_attr == 0)
+//				{
+//					self.goodsModel.goodsNumber = 1;
+//				}
+//				if(self.goodsModel.goods_attr == 1)
+//				{
+//					if(self.goodsModel.goodsNumber < 2)
+//					{
+//						$dialog.msg("您选择的库存类型为多件，请输入至少2件以上的商品！");
+//						return;
+//					}
+//					
+//				}
+				self.goodsModel.goods_attr = 0;
+				self.goodsModel.goodsNumber = 1;
 				var param = {};
 				param.commodity_id = self.goodsModel.comm_id;
 //				param.userId = self.goodsModel.userId;
@@ -379,7 +396,7 @@ var addGoodsCtr = {
 				
 				param.modInfo.mch_commodity_cover = cover;//商品封面
 				var wordHtml = '';
-				wordHtml = '<div style="width:100%;line-height:21px;text-indent:25px;color:#333333;text-align:left;"> '+ $("#goods-detail-div").html()+' </div>';
+				wordHtml = '<div style="width:100%;line-height:21px;text-indent:25px;color:#333333;text-align:left;"> '+ $("#goods-detail-div").val()+' </div>';
 				
 				var len = self.detImg.length;
 				var imgBox = '';
@@ -393,7 +410,7 @@ var addGoodsCtr = {
 				param.modInfo.mch_commodity_detail = allHtml;//商品详情
 				
 				param.modInfo.mch_commodity_price = self.goodsModel.goodsSalePrice;//商品价格
-				param.modInfo.mch_bid_price = self.goodsModel.goodsinComePrice;//商品进价
+				param.modInfo.mch_bid_price = parseFloat(self.goodsModel.goodsSalePrice)*0.85;// self.goodsModel.goodsinComePrice;//商品进价
 				param.modInfo.mch_stock_num = self.goodsModel.goodsNumber;//商品库存
 				param.modInfo.mch_commodity_pic = JSON.stringify(self.imgsbox);//商品图片
 				param.modInfo.mch_commodity_attr =  self.goodsModel.goods_attr;//商品库存类型

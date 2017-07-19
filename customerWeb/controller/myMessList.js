@@ -281,7 +281,7 @@ $(document).ready(function(){
                         	$('.chrysanthemums').css("display","block");
 									setTimeout(function(){
 										$('.chrysanthemums').css("display","none");
-			
+			                              $dialog.msg("没有更多数据了！")
 									},500);
                         }
                    	 
@@ -296,7 +296,7 @@ $(document).ready(function(){
                         	$('.chrysanthemums').css("display","block");
 									setTimeout(function(){
 										$('.chrysanthemums').css("display","none");
-			
+			                             $dialog.msg("没有更多数据了！")
 									},500);
                         }
                    }

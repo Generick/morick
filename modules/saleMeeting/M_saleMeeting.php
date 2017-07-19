@@ -184,6 +184,8 @@ class M_saleMeeting extends My_Model
         {
             $v['singleProfit'] = $v['saleAmount'] - $v['total_bid'];
             $v['sale_time'] = date("Y-m-d H:i:s", $v['sale_time']);
+            $commodityObj = $this->getCommodityInfo($v['commodity_id']);
+            $v['originBidPrice'] = $commodityObj->bid_price;
         }
         //统计信息
         // $numAndPrice = $this->db->select('commodity_price, sale_num')->get('sale_record')->result_array();

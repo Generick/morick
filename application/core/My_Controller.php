@@ -297,3 +297,32 @@ class Mch_Controller extends My_Controller
     }
 }
 
+/**
+* 推广员接口
+*/
+class Pmt_Controller extends My_Controller
+{
+    
+    function __construct()
+    {
+        parent::__construct();
+        $userType = $this->m_account->getSessionData('userType');
+        if ($userType == false) 
+        {
+            $this->responseError(ERROR_SESSION_ERROR);
+            return;
+        }
+        //账号类型判断
+        if ($userType != USER_TYPE_PMT) 
+        {
+            $RTR =& load_class('Router', 'core');
+            $method = $RTR->fetch_class() . '/' . $RTR->fetch_method();
+
+            $userId = $this->m_account->getSessionData('userId');
+            log_message("error", "IP:{$_SERVER['REMOTE_ADDR']}\tNOT ADMIN using this method! \tUserId:$userId\tUserType:$userType\tMethod:$method\tParams:" . json_encode($_REQUEST));
+            $this->responseError(ERROR_SESSION_PRIVILEGE_ERROR);
+            return;
+        }
+    }
+}
+

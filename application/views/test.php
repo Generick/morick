@@ -14,7 +14,7 @@
 
             "upload/uploadImages" : {"file":{"type":"file"},"file2":{"type":"file"}, "说明":"上传图片", "备注" : "fileType 1图片 2视频 3其他"},
             // 账号相关
-            "account/registerUser" : {"platformId":"123", "password":"123", "verifyCode" : "8888", "说明": "注册", "备注" : ""},
+            "account/registerUser" : {"platformId":"123", "password":"123", "verifyCode" : "8888",'PMTID':'', "说明": "注册 PMTID推广员的userId", "备注" : ""},
             "account/login" : {"userType" : 1, "platform":5, "platformId" : "13918879481", "password" : "8888",  "说明" : "登录",
                 "备注" : "platform（平台类型 1自有账号 2微信 3QQ 4微博 5手机验证码） " +
                 "platformId（当前平台的唯一标识），userType：1为普通用户，2为管理员"},
@@ -33,6 +33,8 @@
 
             //商户
             'x_mch/getSelfInfo' : {"说明":"获取自己的数据"},
+            //推广员
+            'p_pmt/getSelfInfo' : {"说明":"获取自己的数据"},
 
             // 管理员的操作
             'a_admin/getSelfInfo' : {"说明":"获取自己的数据"},
@@ -249,6 +251,21 @@
             "merchant/U_merchant/getHasReadMSGList":{'startIndex':0,'num':10,'userId':23,'说明':'商户获取已读消息'},
             "merchant/U_merchant/viewMSG":{'userId':23,'msg_id':10,'说明':'商户阅读消息'},
             "merchant/U_merchant/getMCHUnReadNum":{'userId':23,'说明':'商户获取未读消息数'},
+
+            //推广员模块
+            'promoter/A_promoter/addPromoter':{'name':'test','telephone':'123321','password':'123456',"说明":"添加推广员"},
+            'promoter/A_promoter/getPromoters':{'startIndex':0,'num':10,"说明":"获取推广员列表"},
+            'promoter/A_promoter/delPromoter':{'userIds':'[1,2]',"说明":"删除推广员"},
+            'promoter/A_promoter/modPMTPassword':{'telephone':'123321','newPWD':'654321',"说明":"修改推广员密码"},
+            'promoter/A_promoter/adminCheckBill':{'userId':'1','amount':'10',"说明":"结账 amount结账金额"},
+            'promoter/A_promoter/modPromoter':{'userId':'1','qrcode':'http://www.baidu.com/xxx.jpg',"说明":"生成二维码之后修改推广员的二维码地址"},
+            'promoter/A_promoter/getPromoterConditions':{'userId':'1',"说明":"获取推广员的分成条件"},
+            'promoter/A_promoter/adminAddCondition':{'userId':'1','condition_money':50000,'condition_rate':5,"说明":"添加推广员的分成条件 condition_money消费金额 condition_rate分成比例"},
+            'promoter/A_promoter/adminDelCondition':{'id':'1',"说明":"删除推广员的分成条件"},
+            'promoter/A_promoter/getFriendsOrders':{'userId':'1','startIndex':0,'num':10,'startTime':'','endTime':'',"说明":"好友下单记录"},
+            'promoter/A_promoter/getFriends':{'userId':'1','startIndex':0,'num':10,"说明":"好友列表"},
+            'promoter/A_promoter/getCheckBillRecords':{'userId':'1','startIndex':0,'num':10,"说明":"结账记录"},
+            'promoter/A_promoter/getPromoterInfo':{'userId':'1',"说明":"获取推广员信息"},
             //endregion
         };
 

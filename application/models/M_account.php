@@ -85,7 +85,7 @@ class M_account extends My_Model{
      * @param $userId
      * @return mixed
      */
-    public function createNormalUser($accountId, &$userId, $platformId)
+    public function createNormalUser($accountId, &$userId, $platformId, $PMTID = 0)
     {
         $nowTime = now();
         // 首先判断在user_relation表中是否已经存在
@@ -116,7 +116,7 @@ class M_account extends My_Model{
         }
 
         $this->load->model("m_user");
-        $errCode = $this->m_user->createNormalUser($userId, $platformId);
+        $errCode = $this->m_user->createNormalUser($userId, $platformId, $PMTID);
         if ($errCode != ERROR_OK)
         {
             return $errCode;
@@ -156,6 +156,46 @@ class M_account extends My_Model{
 
         $this->load->model("m_merchant");
         $errCode = $this->m_merchant->createNormalMCH($userId, $platformId, $name);
+        if ($errCode != ERROR_OK)
+        {
+            return $errCode;
+        }
+
+        return ERROR_OK;
+    }
+
+    public function createNormalPMT($accountId, &$userId, $platformId, $name)
+    {
+        $nowTime = now();
+        // 首先判断在user_relation表中是否已经存在
+        $whereArr = array(
+            'userType' => USER_TYPE_PMT,
+            'accountId' => $accountId
+        );
+
+        $dbData = $this->m_common->get_one("user_relation", $whereArr);
+        if($dbData)
+        {
+            // 如果已经存在，则获取userId
+            $userId = $dbData['id'];
+        }
+        else
+        {
+            // 如果不存在则插入新数据
+            $userRelationData = array(
+                'userType' => USER_TYPE_PMT,
+                'accountId' => $accountId,
+                'lastLoginTime' => $nowTime,
+                'registerTime' => $nowTime,
+            );
+
+            $this->m_common->insert("user_relation", $userRelationData);
+
+            $userId = $this->db->insert_id();
+        }
+
+        $this->load->model("m_promoter");
+        $errCode = $this->m_promoter->createNormalPMT($userId, $platformId, $name);
         if ($errCode != ERROR_OK)
         {
             return $errCode;
@@ -216,7 +256,7 @@ class M_account extends My_Model{
      * @param $loginData
      * @return mixed
      */
-    public function loginNormal($platform, $platformId, $password, $userType, &$accountId, &$userId)
+    public function loginNormal($platform, $platformId, $password, $userType, &$accountId, &$userId, $PMTID = 0)
     {
         $userId = 0;
         $accountId = 0;
@@ -259,7 +299,7 @@ class M_account extends My_Model{
 
                 // 创建用户
                 $userId = 0;
-                $errCode = $this->createNormalUser($accountId, $userId, $platformId);
+                $errCode = $this->createNormalUser($accountId, $userId, $platformId, $PMTID);
                 if ($errCode != ERROR_OK)
                 {
                     return $errCode;

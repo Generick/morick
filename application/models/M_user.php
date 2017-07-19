@@ -11,6 +11,7 @@ class M_user extends My_Model{
         USER_TYPE_USER => array('className' => 'CUser', 'tableName' => 'user', 'keyField' => 'userId'),
         USER_TYPE_ADMIN => array('className' => 'CAdmin', 'tableName' => 'admin', 'keyField' => 'userId'),
         USER_TYPE_MCH => array('className' => 'CMch', 'tableName' => 'mch', 'keyField' => 'userId'),
+        USER_TYPE_PMT => array('className' => 'CPmt', 'tableName' => 'pmt', 'keyField' => 'userId'),
     );
 
     static $loadedItems = array();
@@ -76,7 +77,7 @@ class M_user extends My_Model{
      * @param $userId
      * @return mixed
      */
-    function createNormalUser($userId, $platformId = "")
+    function createNormalUser($userId, $platformId = "", $PMTID = 0)
     {
         $result = $this->m_common->get_one("user", array("userId" => $userId));
         if(count($result) > 0)
@@ -85,7 +86,14 @@ class M_user extends My_Model{
             return ERROR_ACCOUNT_USER_EXISTS;
         }
 
-        $ret = $this->m_common->insert("user", array("userId" => $userId, "name" => $platformId, "telephone" => $platformId, "registerTime" => now()));
+        $data = array(
+                'userId' => $userId,
+                'name' => $platformId,
+                'telephone' => $platformId,
+                'registerTime' => now(),
+            );
+        if (!empty($PMTID)) $data['PMTID'] = $PMTID;
+        $ret = $this->m_common->insert("user", $data);
         if (!$ret)
         {
             log_message('error', "Insert into user failed!!!");

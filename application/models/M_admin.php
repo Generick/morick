@@ -239,7 +239,14 @@ class M_admin extends My_Model{
         $this->db->flush_cache();
         foreach($userIdArr as $one)
         {
-            $userList[] = $this->m_user->getAllUserObj($userType, $one["userId"]);
+            $oneUser = $this->m_user->getAllUserObj($userType, $one['userId']);
+            $oneUser->from = '';
+            if ($oneUser->PMTID > 0) 
+            {
+                $pmt = $this->m_user->getUserObj(USER_TYPE_PMT, $oneUser->PMTID);
+                $oneUser->from = $pmt->name;
+            }
+            $userList[] = $oneUser;
         }
         return ERROR_OK;
     }

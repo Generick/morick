@@ -211,7 +211,7 @@ var commodityAskListController = {
 				else{
 					item.handleResult = 2;
 				}
-				$dialog.msg("商品下架成功！", 1.6);
+				$dialog.msg("操作成功！", 1.6);
 				self.scope.$apply();
 			})
 		};

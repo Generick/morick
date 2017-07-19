@@ -4,19 +4,18 @@
 
 /**************服务器基地址*******************/
 
-//var API_BASE_URL =  "http://192.168.0.121:8088/auction/index.php/";
-//var API_BASE_URL =  "http://192.168.0.88:8082/auction/index.php/";
-//const API_BASE_URL = "http://auction.yawan365.com/index.php/";//正式
-//const BASE_PAGE_URL = "http://auction.yawan365.com/";//正式
-//const BASE_PAGE_URL = "http://meeno.f3322.net:8082/auction/web/";//测试
-//const API_BASE_URL = "http://www.yawan365.com:8080/";//测试
-   const API_BASE_URL = "http://auction.yawan365.com:8080/index.php/";//测试
-//const BASE_PAGE_URL = "http://192.168.0.168:8020/web/";
+//var API_BASE_URL =  "http://192.168.0.121:8088/auction/index.php/";//苗佳亮接口
+//var API_BASE_URL =  "http://192.168.0.88:8082/auction/index.php/";//明哥接口
 
-const BASE_PAGE_URL = "http://auction.yawan365.com:8080/customerWeb/";
+//const API_BASE_URL = "http://auction.yawan365.com:8080/index.php/";//测试接口路径
+const API_BASE_URL = "http://auction.yawan365.com/index.php/";//正式接口路径
+
+
+//const BASE_PAGE_URL = "http://shang.yawan365.com:8080/";//测试跳转路径
+const BASE_PAGE_URL = "http://shang.yawan365.com/";//正式跳转路径
+
+//const BASE_PAGE_URL = "http://192.168.0.163/customerWeb/";
 //const BASE_PAGE_URL = "http://192.168.0.163/commercialTenant/";
-//const BASE_PAGE_URL = '';
-//const BASE_PAGE_URL = "http://127.0.0.1:8020/paimai-web/";
 
 /***************API 配置接口****************/
 

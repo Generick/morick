@@ -28,6 +28,7 @@ class Account extends My_Controller{
         $platformId = $this->input->post("platformId");
         $password = $this->input->post("password");
         $verifyCode = $this->input->post("verifyCode");
+        $PMTID = $this->input->post("PMTID");
 
         //验证码
         $this->load->model("m_smsCode");
@@ -49,7 +50,7 @@ class Account extends My_Controller{
 
         // 创建用户
         $userId = 0;
-        $errCode = $this->m_account->createNormalUser($accountId, $userId, $platformId);
+        $errCode = $this->m_account->createNormalUser($accountId, $userId, $platformId, $PMTID);
         if ($errCode != ERROR_OK)
         {
             $this->responseError($errCode);
@@ -71,6 +72,11 @@ class Account extends My_Controller{
         if ($userType == USER_TYPE_MCH && $userObj->is_delete == DELETE_YES) 
         {
             $this->responseError(ERROR_MCH_DELETE);
+            return;
+        }
+        if ($userType == USER_TYPE_PMT && $userObj->is_delete == DELETE_YES) 
+        {
+            $this->responseError(ERROR_PMT_DELETE);
             return;
         }
         $nowTime = now();
@@ -135,10 +141,11 @@ class Account extends My_Controller{
         $platform = $this->input->post("platform");
         $platformId = $this->input->post("platformId");
         $password = $this->input->post("password");
+        $PMTID = $this->input->post("PMTID");
 
         $userId = 0;
         $accountId = 0;
-        $errCode = $this->m_account->loginNormal($platform, $platformId, $password, $userType, $accountId, $userId);
+        $errCode = $this->m_account->loginNormal($platform, $platformId, $password, $userType, $accountId, $userId, $PMTID);
         if ($errCode != ERROR_OK)
         {
             $this->responseError($errCode);

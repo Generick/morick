@@ -33,27 +33,27 @@
 						<input type="text" ng-model="goodsModel.goodsDes"/>
 					</div>
 				</div>
-				<div class="add-goods-items">
+				<!--<div class="add-goods-items">
 					<div class="items-goods-tille">
-					   商品进价(元):
+					   商品进价（元）：
 					</div>
 					<div class="items-goods-in">
 						<input type="number" ng-model="goodsModel.goodsinComePrice"/>
 					</div>
-				</div>
+				</div>-->
 				
 				<div class="add-goods-items">
 					<div class="items-goods-tille">
-					      商品价格(元):
+					      商品价格（元）：
 					</div>
 					<div class="items-goods-in">
 						<input type="number" ng-model="goodsModel.goodsSalePrice"/>
 					</div>
 				</div>
 				
-				<div class="add-goods-items">
+				<!--<div class="add-goods-items">
 					<div class="items-goods-tille2">
-					      库存类型 :
+					      库存类型 ：
 					</div>
 					<div class="items-goods-in2">
 						<div class="single-num">
@@ -68,12 +68,12 @@
 				</div>
 				<div class="add-goods-items" ng-show="goodsModel.isMuldetil">
 					<div class="items-goods-tille">
-					      商品库存(件) :
+					      商品库存（件）： 
 					</div>
 					<div class="items-goods-in">
 						<input type="number" id="toDisa"  ng-model="goodsModel.goodsNumber"/>
 					</div>
-				</div>
+				</div>-->
 				<!--<div class="items-goods-cover">
 					<div class="items-goods-cover-title">
 						商品封面
@@ -92,7 +92,7 @@
 				</div>-->
 				<div class="items-goods-imgs-box">
 					<div class="items-goods-cover-title">
-						商品图片
+						商品图片：
 					</div>
 					<upload-map url="imgsbox"></upload-map>
 					<!--<div class="items-goods-imgs"></div>
@@ -106,11 +106,11 @@
 				
 				<div class="items-goods-describe">
 					<div class="items-goods-cover-title">
-						商品详情（文字+图片）
+						商品详情：（文字 + 插图）
 					</div>
 					<div class="items-goods-describe-words">
-						<!--<textarea style="resize: none;width:100%;border:1px solid #EEEEEE;padding:5px;height:auto;overflow:visible"></textarea>-->
-						<div  contenteditable="true"  id="goods-detail-div"  style=" word-wrap: break-word; word-break:　break-all;border:1px solid #E9E9E9;min-height:50px;text-align: left;padding:2px 5px;line-height:20px;outline: none;color:#333333"></div>
+						<textarea id="goods-detail-div" ></textarea>
+					   
 					</div>
 					<!--<div class="describe-imgs-input-box">
 						<input type="file" style="color: transparent"/>

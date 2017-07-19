@@ -11,7 +11,11 @@
         <link rel="stylesheet" href="css/popUp.css" />
         <link href="layer.css">
 	</head>
-	<body ng-controller="myGoodsCtr">
+	<body ng-controller="myGoodsCtr" style="background: #FFFFFF;">
+		    <div class="no-data-list">
+		    	<img src="img/myGoods.png" /> 
+		    	<div class="no-data-word">暂无商品</div>
+		    </div>
 		       <div class="animation3">
 			        <img src="img/loading.gif"/>
 		        </div>
@@ -25,8 +29,9 @@
 						    <span class="good-create-time" ng-bind="item.mch_add_time*1000 | date:'HH:mm:ss'"></span>
 						</div>
 						<div class="good-has-up">
-							<span ng-show="item.up_status == 1" style="color:#DF8787">已上架</span>
-							<span ng-show="item.up_status == 2" style="color:#8FE1B2">已下架</span>
+							<span ng-show="item.up_status == 0" style="color:#D56161">未上架</span>
+							<span ng-show="item.up_status == 1" style="color:#61D592">已上架</span>
+							<span ng-show="item.up_status == 2" style="color:#FAC786">已下架</span>
 							<!--<span>已下架</span>-->
 						</div>
 					</div>
@@ -44,19 +49,19 @@
 								
 							</div>
 							<div class="goods-item-do-some">
-								<div class="goods-bid-box">
+								<!--<div class="goods-bid-box">
 									<span>进价</span>
 									<span  ng-bind="item.mch_bid_price"></span>
-								</div>
+								</div>-->
 								<div class="goods-bid-box">
 									<span>售价</span>
 									<span   ng-bind="item.mch_commodity_price"></span>
 								</div>
-								<div class="goods-bid-box">
+								<!--<div class="goods-bid-box">
 									<span>库存</span>
 									<span  ng-bind="item.mch_stock_num"></span>
 								
-								</div>
+								</div>-->
 							</div>
 						</div>
 					</div>

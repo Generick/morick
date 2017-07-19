@@ -328,7 +328,7 @@ class M_order extends My_Model
                 } 
             }else if($type == 0)
             {
-                $foreach ($orderObj->orderGoods as $v) 
+                foreach ($orderObj->orderGoods as $v) 
                 {
                     $commodityObj = $this->m_saleMeeting->getCommodityInfo($v->id);
                     if ($commodityObj->CID > 0) 
@@ -412,7 +412,7 @@ class M_order extends My_Model
                 'commodity_price' => $price,
                 'sale_num' => $buyNum,
                 'sale_time' => time(),
-                'bid_price' => $commodityObj->bid_price,
+                'bid_price' => $commodityObj->bid_price>0?$commodityObj->bid_price:ceil($clientPrice*0.85),
                 );
             $this->db->insert('sale_record', $arr);
             $this->m_saleMeeting->modCommodity($commodity_id, array('stock_num' => $commodityObj->stock_num - $buyNum, 'sold_time' => $clientTime));
@@ -516,7 +516,7 @@ class M_order extends My_Model
                 'commodity_price' => $price,
                 'sale_num' => $buyNum,
                 'sale_time' => time(),
-                'bid_price' => $commodityObj->bid_price,
+                'bid_price' => $commodityObj->bid_price>0?$commodityObj->bid_price:ceil($clientPrice*0.85),
                 );
             $this->db->insert('sale_record', $arr);
             $this->m_saleMeeting->modCommodity($commodity_id, array('stock_num' => $commodityObj->stock_num - $buyNum, 'sold_time' => $clientTime));
