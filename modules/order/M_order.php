@@ -862,8 +862,9 @@ class M_order extends My_Model
     function wxPaySuccess($orderId)
     {
         $orderInfo = $this->getOrderAll($orderId);
+        if ($orderInfo->orderStatus > 1) return;
         $this->modOrderInfo($orderId, array('orderStatus'=>2));
-        $commodityObj = $this->m_saleMeeting->getCommodityInfo($orderObj->orderGoods[0]->id);
+        $commodityObj = $this->m_saleMeeting->getCommodityInfo($orderInfo->orderGoods[0]->id);
         $this->m_messagePush->createUserMsg($orderInfo->userId, MP_MSG_TYPE_PAY_SUCCESS, $orderId, $commodityObj->commodity_name);
         if ($commodityObj->CID > 0) 
         {
@@ -877,7 +878,7 @@ class M_order extends My_Model
     {
         $orderInfo = $this->getOrderAll($orderId);
         $this->modOrderInfo($orderId, array('orderStatus'=>1));
-        $commodityObj = $this->m_saleMeeting->getCommodityInfo($orderObj->orderGoods[0]->id);
+        $commodityObj = $this->m_saleMeeting->getCommodityInfo($orderInfo->orderGoods[0]->id);
         $this->m_messagePush->createUserMsg($orderInfo->userId, MP_MSG_TYPE_PAY_FAIL, $orderId, $commodityObj->commodity_name);
     }
 

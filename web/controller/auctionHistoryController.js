@@ -467,9 +467,9 @@ var AuctionHistoryCtrl =
     	    $("#changing-number").css("display","inline-block");
     	    $("#changing-words").css("display","inline-block");
 //  	    self.initClock();
-    	
+
     		self.setNewPrice();
-    	    
+    	  
     	   	 for (var p =0; p < self.auctionHistoryModel.TMHList.length; p ++)
 		     {
 		   	        
@@ -477,9 +477,16 @@ var AuctionHistoryCtrl =
 		   	    
 		   	         if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 13)
 		   	        {
+		   	        	
+		   	        	if(parseFloat(document.body.clientWidth) <= 320 ){
+				    	  
+				    	   	$(".price-div").eq(p).find(".h-k,.t-k,.k,.h,.t,.single").css({"width":"8px","font-size":"13px"});
+				    	   	   
+				    	}
+		   	        	    
 //		   	        	self.auctionHistoryModel.TMHList[p].info.viewPrice = self.auctionHistoryModel.TMHList[p].info.viewPrice.substring(self.auctionHistoryModel.TMHList[p].info.viewPrice.length - 9,self.auctionHistoryModel.TMHList[p].info.viewPrice.length);
 //				   	        var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k"); // Ê®Íò
-//							var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k"); // Íò
+							var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k"); // Íò
 				   	        var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k"); // Ê®Íò
 							var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k"); // Íò
 							var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
@@ -498,7 +505,7 @@ var AuctionHistoryCtrl =
 							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
 							  targetClass: {
 //							  	"wk":$wk,
-//							  	"qk":$qk,
+							  	"qk":$qk,
 							    "hk": $hk,
 							    "tk": $tk,
 							    "k": $k,
@@ -512,7 +519,7 @@ var AuctionHistoryCtrl =
 							  },
 							  zero: {
 //							  	wk:0,
-//							  	qk:0,
+							  	qk:0,
 							    hk: 0,
 							    tk: 0,
 							    k: 0,
@@ -530,9 +537,16 @@ var AuctionHistoryCtrl =
 		   	        
 		   	         if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 12)
 		   	        {
+		   	        	if(parseFloat(document.body.clientWidth) <= 320 ){
+				    	  
+				    	   	$(".price-div").eq(p).find(".q-k,.h-k,.t-k,.k,.h,.t,.single").css({"width":"7px","font-size":"13px"});
+				    	   	   
+				    	}
+		   	        	    
+		   	        	
 //		   	        	self.auctionHistoryModel.TMHList[p].info.viewPrice = self.auctionHistoryModel.TMHList[p].info.viewPrice.substring(self.auctionHistoryModel.TMHList[p].info.viewPrice.length - 9,self.auctionHistoryModel.TMHList[p].info.viewPrice.length);
 //				   	        var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//							var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k"); // Íò
+							var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k"); // Íò
 				   	        var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k"); // Ê®Íò
 							var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k"); // Íò
 							var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
@@ -551,7 +565,7 @@ var AuctionHistoryCtrl =
 							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
 							  targetClass: {
 //							  	"wk":$wk,
-//							  	"qk":$qk,
+							  	"qk":$qk,
 							    "hk": $hk,
 							    "tk": $tk,
 							    "k": $k,
@@ -565,7 +579,7 @@ var AuctionHistoryCtrl =
 							  },
 							  zero: {
 //							  	wk:0,
-//							  	qk:0,
+							  	qk:0,
 							    hk: 0,
 							    tk: 0,
 							    k: 0,
@@ -582,9 +596,18 @@ var AuctionHistoryCtrl =
 		   	        }
 		   	        if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 11)
 		   	        {
+		   	        	
+		   	        	if(parseFloat(document.body.clientWidth) <= 320 ){
+				    	  
+				    	   	$(".price-div").eq(p).find(".h-k,.t-k,.k,.h,.t,.single").css({"width":"8px","font-size":"13px"});
+				    	   	   
+				    	}
+		   	        	    
+		   	        	
+				    	   
 //		   	        	self.auctionHistoryModel.TMHList[p].info.viewPrice = self.auctionHistoryModel.TMHList[p].info.viewPrice.substring(self.auctionHistoryModel.TMHList[p].info.viewPrice.length - 9,self.auctionHistoryModel.TMHList[p].info.viewPrice.length);
 //				   	        var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//							var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
+							var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
 				   	        var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k"); // Ê®Íò
 							var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k"); // Íò
 							var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
@@ -603,7 +626,7 @@ var AuctionHistoryCtrl =
 							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
 							  targetClass: {
 //							  	"wk":$wk,
-//							  	"qk":$qk,
+							  	"qk":$qk,
 							    "hk": $hk,
 							    "tk": $tk,
 							    "k": $k,
@@ -617,7 +640,7 @@ var AuctionHistoryCtrl =
 							  },
 							  zero: {
 //							  	wk:0,
-//							  	qk:0,
+							  	qk:0,
 							    hk: 0,
 							    tk: 0,
 							    k: 0,
@@ -634,8 +657,13 @@ var AuctionHistoryCtrl =
 		   	        }
 		   	        else if (self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 10)
 		   	        {
+		   	        	if(parseFloat(document.body.clientWidth) <= 320 ){
+				    	  
+				    	   	$(".price-div").eq(p).find(".h-k,.t-k,.k,.h,.t,.single").css({"width":"8px","font-size":"13px"});
+				    	   	   
+				    	}
 //		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
+						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
 		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
 						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k"); // Íò
 						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
@@ -654,7 +682,7 @@ var AuctionHistoryCtrl =
 							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
 							  targetClass: {
 //							  	"wk":$wk,
-//							  	"qk":$qk,
+							  	"qk":$qk,
 							    "hk": $hk,
 							    "tk": $tk,
 							    "k": $k,
@@ -668,7 +696,7 @@ var AuctionHistoryCtrl =
 							  },
 							  zero: {
 //							  	wk:0,
-//							  	qk:0,
+							  	qk:0,
 							    hk: 0,
 							    tk: 0,
 							    k: 0,
@@ -686,7 +714,7 @@ var AuctionHistoryCtrl =
 		   	        else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 9)
 		   	        {
 //		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
+						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
 		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
 						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
 						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
@@ -705,7 +733,7 @@ var AuctionHistoryCtrl =
 							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
 							  targetClass: {
 //							  	"wk":$wk,
-//							  	"qk":$qk,
+							  	"qk":$qk,
 							    "hk": $hk,
 							    "tk": $tk,
 							    "k": $k,
@@ -719,7 +747,7 @@ var AuctionHistoryCtrl =
 							  },
 							  zero: {
 //							  	wk:0,
-//							  	qk:0,
+							  	qk:0,
 							    hk: 0,
 							    tk: 0,
 							    k: 0,
@@ -737,7 +765,7 @@ var AuctionHistoryCtrl =
 		   	        else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 8)
 		   	        {
 //		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
+						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
 		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
 						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
 						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k").css("display","none"); // Ç§
@@ -756,7 +784,7 @@ var AuctionHistoryCtrl =
 							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
 							  targetClass: {
 //							  	"wk":$wk,
-//							  	"qk":$qk,
+							  	"qk":$qk,
 							    "hk": $hk,
 							    "tk": $tk,
 							    "k": $k,
@@ -770,7 +798,7 @@ var AuctionHistoryCtrl =
 							  },
 							  zero: {
 //							  	wk:0,
-//							  	qk:0,
+							  	qk:0,
 							    hk: 0,
 							    tk: 0,
 							    k: 0,
@@ -788,7 +816,7 @@ var AuctionHistoryCtrl =
 		   	        else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 7)
 		   	        {
 //		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
+						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
 		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
 						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
 						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k").css("display","none"); // Ç§
@@ -807,7 +835,7 @@ var AuctionHistoryCtrl =
 							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
 							  targetClass: {
 //							  	"wk":$wk,
-//							  	"qk":$qk,
+							  	"qk":$qk,
 							    "hk": $hk,
 							    "tk": $tk,
 							    "k": $k,
@@ -821,7 +849,7 @@ var AuctionHistoryCtrl =
 							  },
 							  zero: {
 //							  	wk:0,
-//							  	qk:0,
+							  	qk:0,
 							    hk: 0,
 							    tk: 0,
 							    k: 0,
@@ -839,7 +867,7 @@ var AuctionHistoryCtrl =
 		   	        else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 6)
 		   	        {
 //		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
+						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
 		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
 						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
 						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k").css("display","none"); // Ç§
@@ -858,7 +886,7 @@ var AuctionHistoryCtrl =
 							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
 							  targetClass: {
 //							  	"wk":$wk,
-//							  	"qk":$qk,
+							  	"qk":$qk,
 							    "hk": $hk,
 							    "tk": $tk,
 							    "k": $k,
@@ -872,7 +900,7 @@ var AuctionHistoryCtrl =
 							  },
 							  zero: {
 //							  	wk:0,
-//							  	qk:0,
+							  	qk:0,
 							    hk: 0,
 							    tk: 0,
 							    k: 0,
@@ -973,7 +1001,7 @@ var AuctionHistoryCtrl =
 		                         else
 		                         {
 		                         	self.auctionHistoryModel.TMHList[s].info.viewPrice = parseFloat(self.auctionHistoryModel.TMHList[s].info.viewPrice).toFixed(4);
-	                            
+	                                
 	                                $.animateToPrice(self.auctionHistoryModel.TMHList[s].info.viewPrice, s,self.auctionHistoryModel.TMHList);
 		                         }
                              	
@@ -1227,7 +1255,7 @@ var AuctionHistoryCtrl =
     	self.scope.onClickToAuctionHistoryDetail = function(item)
     	{   
     		
-
+      
     		var id = item.commodity_id;
     	    localStorage.setItem("comeWithGuess",2);
     	    localStorage.setItem("messlistOrauction",0)

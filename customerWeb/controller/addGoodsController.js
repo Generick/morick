@@ -342,7 +342,7 @@ var addGoodsCtr = {
 				param.info.mch_commodity_detail = allHtml;//商品详情
 				
 				param.info.mch_commodity_price = self.goodsModel.goodsSalePrice;//商品价格
-				param.info.mch_bid_price = parseFloat(self.goodsModel.goodsSalePrice)*0.85;// self.goodsModel.goodsinComePrice;//商品进价
+				param.info.mch_bid_price = 0;// self.goodsModel.goodsinComePrice;//商品进价
 				param.info.mch_stock_num = self.goodsModel.goodsNumber;//商品库存
 				param.info.mch_commodity_pic = JSON.stringify(self.imgsbox);//商品图片
 				param.info.mch_commodity_attr =  self.goodsModel.goods_attr;//商品库存类型
@@ -410,7 +410,7 @@ var addGoodsCtr = {
 				param.modInfo.mch_commodity_detail = allHtml;//商品详情
 				
 				param.modInfo.mch_commodity_price = self.goodsModel.goodsSalePrice;//商品价格
-				param.modInfo.mch_bid_price = parseFloat(self.goodsModel.goodsSalePrice)*0.85;// self.goodsModel.goodsinComePrice;//商品进价
+				param.modInfo.mch_bid_price = 0;// self.goodsModel.goodsinComePrice;//商品进价
 				param.modInfo.mch_stock_num = self.goodsModel.goodsNumber;//商品库存
 				param.modInfo.mch_commodity_pic = JSON.stringify(self.imgsbox);//商品图片
 				param.modInfo.mch_commodity_attr =  self.goodsModel.goods_attr;//商品库存类型

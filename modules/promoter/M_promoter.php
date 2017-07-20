@@ -152,7 +152,8 @@ class M_promoter extends My_Model
         {
         	return 'http://www.yawan365.com:8080/login.html?PMTID='.$userId;
         }
-        $url = $httpType.$_SERVER['HTTP_HOST'].$port."/login.html?PMTID=".$userId;
+        $host = strpos($_SERVER['HTTP_HOST'],'auction')>0?$_SERVER['HTTP_HOST']:str_replace('auction', 'www', $_SERVER['HTTP_HOST']);
+        $url = $httpType.$host.$port."/login.html?PMTID=".$userId;
         return $url;
     }
 
@@ -185,6 +186,7 @@ class M_promoter extends My_Model
     //管理员添加条件
     function adminAddCondition($userId, $condition_money, $condition_rate)
     {
+    	if($condition_rate < 0 || $condition_rate > 100) return ERROR_CONDITION_RATE_ERROR;
     	$lastCondition = $this->db->where('userId', $userId)->order_by('condition_money desc')->get('prompt_condition')->row_array();
     	if ($lastCondition && ($lastCondition['condition_money'] >= $condition_money || $lastCondition['condition_rate'] >= $condition_rate)) return ERROR_CONDITION_ERROR;
     	$data = array(
@@ -260,7 +262,9 @@ class M_promoter extends My_Model
     function getPromoterInfo($userId, &$data)
     {
     	$pmt = $this->m_user->getUserObj(USER_TYPE_PMT, $userId);
-    	if (!$pmt) return ERROR_NO_PROMOTER;
+    	if(!$pmt) return ERROR_NO_PROMOTER;
+    	$pmt->invitedNum = $this->db->where('PMTID', $userId)->count_all_results('user');
+    	$pmt->url = $this->getUrl($userId);
     	$historyReturnTotal = $this->db->select_sum('amount')->where('userId', $userId)->get('check')->row_array();
     	$pmt->historyReturnTotal = (empty($historyReturnTotal)||empty($historyReturnTotal['amount']))?0:$historyReturnTotal['amount'];
     	$pmt->friendsTotalFee = 0;
@@ -307,30 +311,43 @@ class M_promoter extends My_Model
     	$condition = $this->db->select('condition_money, condition_rate')->where('userId', $userId)->get('prompt_condition')->result_array();
     	foreach ($userIds as $v) 
     	{
-    		$one = array();
-    		$one['nickname'] = '';
-    		$one['telephone'] = '';
-    		$one['registerTime'] = '';
-    		$one['tradeNum'] = '';
-    		$one['totalFee'] = '';
-    		$one['returnFee'] = '';
-    		$one['recentOrderTime'] = '';
-    		$userObj = $this->m_user->getUserObj(USER_TYPE_USER, $v['userId']);
-    		if ($userObj)
-    		{
-    			$one['nickname'] = $userObj->name;
-    			$one['telephone'] = $userObj->telephone;
-    			$one['registerTime'] = $userObj->registerTime;
-    		}
-    		$lastOrder = $this->db->select('orderTime')->where('userId', $v['userId'])->order_by('orderTime desc')->get('order')->row_array();
-    		if($lastOrder) $one['recentOrderTime'] = $lastOrder['orderTime'];
-    		$one['tradeNum'] = $this->db->where('userId', $v['userId'])->count_all_results('order');
-    		$whr = "userId = {$v['userId']} and orderStatus not in (0,1)";
-    		$totalFee = $this->db->select_sum('payPrice')->where($whr)->get('order')->row_array();
-    		$one['totalFee'] = $totalFee['payPrice'];
-    		$one['returnFee'] = $this->getSingleUserReturnMoney($userId, $whr, $condition);
-    		$data[] = $one;
+    		$data[] = $this->getSingleUserInfo($userId, $v['userId'], $condition);
     	}
+    }
+
+    //获取单个好友个人信息
+    function getSingleUserInfo($userId, $friendUserId, $condition = array())
+    {
+    	if (empty($condition)) 
+    	{
+    		$condition = $this->db->select('condition_money, condition_rate')->where('userId', $userId)->get('prompt_condition')->result_array();
+    	}
+    	$one = array();
+		$one['userId'] = $friendUserId;
+		$one['nickname'] = '';
+		$one['telephone'] = '';
+		$one['registerTime'] = '';
+		$one['smallIcon'] = '';
+		$one['tradeNum'] = '';
+		$one['totalFee'] = '';
+		$one['returnFee'] = '';
+		$one['recentOrderTime'] = '';
+		$userObj = $this->m_user->getUserObj(USER_TYPE_USER, $friendUserId);
+		if ($userObj)
+		{
+			$one['nickname'] = $userObj->name;
+			$one['telephone'] = $userObj->telephone;
+			$one['registerTime'] = $userObj->registerTime;
+			$one['smallIcon'] = $userObj->smallIcon;
+		}
+		$lastOrder = $this->db->select('orderTime')->where('userId', $friendUserId)->order_by('orderTime desc')->get('order')->row_array();
+		if($lastOrder) $one['recentOrderTime'] = $lastOrder['orderTime'];
+		$one['tradeNum'] = $this->db->where('userId', $friendUserId)->count_all_results('order');
+		$whr = "userId = {$friendUserId} and orderStatus not in (0,1)";
+		$totalFee = $this->db->select_sum('payPrice')->where($whr)->get('order')->row_array();
+		$one['totalFee'] = $totalFee['payPrice'];
+		$one['returnFee'] = $this->getSingleUserReturnMoney($userId, $whr, $condition);
+		return $one;
     }
 
     //获取单个好友的返现金额
@@ -378,7 +395,7 @@ class M_promoter extends My_Model
     	$this->db->from('order');
     	$this->db->select('order_no, userId, payPrice, orderTime, orderStatus');
     	$this->db->where($whr);
-    	$this->db->where_in($friendsUserIds);
+    	$this->db->where_in('userId',$friendsUserIds);
     	$this->db->stop_cache();
     	$count = $this->db->count_all_results();
     	if ($num > 0) 
@@ -400,5 +417,72 @@ class M_promoter extends My_Model
     	}
     	return ERROR_OK;
     }
-    
+
+    //获取单个好友下单记录
+    function getSingleUserOrders($startIndex, $num, $userId, $friendUserId, &$data, &$count)
+    {
+    	$condition = $this->db->select('condition_money,condition_rate')->where('userId', $userId)->order_by('id desc')->get('prompt_condition')->result_array();
+    	$lastCheckBill = $this->db->select('check_time')->where('userId', $userId)->order_by('check_time desc')->get('check')->row_array();
+    	$whr = "userId = {$friendUserId} and orderStatus not in (0,1)";
+    	$this->db->start_cache();
+    	$this->db->from('order');
+    	$this->db->select('payPrice, orderTime');
+    	$this->db->where($whr);
+    	$this->db->stop_cache();
+    	$count = $this->db->count_all_results();
+    	if ($num > 0) 
+    	{
+    		$this->db->limit($num, $startIndex);
+    	}
+    	$orders = $this->db->order_by('orderTime desc')->get()->result_array();
+    	$this->db->flush_cache();
+    	$userObj = $this->m_user->getUserObj(USER_TYPE_USER, $friendUserId);
+    	foreach ($orders as &$v)
+    	{
+			$v['isChecked'] = false;
+			if ($lastCheckBill && $lastCheckBill['check_time'] >= $v['orderTime']) $v['isChecked'] = true;    		
+			$v['returnFee'] = $this->getSingleOrderReturnMoney($condition, $v['payPrice']);
+			$data[] = $v;
+    	}
+		
+    }
+
+    //获取待结金额详情
+    function getWaitCheckBill($startIndex, $num, $userId, &$data, &$count)
+    {
+    	$userObj = $this->m_user->getUserObj(USER_TYPE_PMT, $userId);
+    	if (!$userObj) return ERROR_NO_PROMOTER;
+    	$hisFriendsUserIds = $this->db->select('userId')->where('PMTID', $userId)->get('user')->result_array();
+    	if (empty($hisFriendsUserIds)) return ERROR_NO_FRIENDS;
+    	$friendsUserIds = array_column($hisFriendsUserIds, 'userId');
+    	$lastCheckBill = $this->db->select('check_time')->where('userId', $userId)->order_by('check_time desc')->get('check')->row_array();
+    	$check_time = 0;
+    	if($lastCheckBill && $lastCheckBill['check_time'] > 0) $check_time = $lastCheckBill['check_time'];
+    	$condition = $this->db->select('condition_money,condition_rate')->where('userId', $userId)->order_by('id desc')->get('prompt_condition')->result_array();
+    	$whr = "orderTime > {$check_time} and orderStatus not in (0,1)";
+    	$this->db->start_cache();
+    	$this->db->from('order');
+    	$this->db->select('orderTime, userId, payPrice');
+    	$this->db->where($whr);
+    	$this->db->where_in('userId',$friendsUserIds);
+    	$this->db->stop_cache();
+    	$count = $this->db->count_all_results();
+    	if ($num > 0) 
+    	{
+    		$this->db->limit($num, $startIndex);
+    	}
+    	$orders = $this->db->order_by('orderTime desc')->get()->result_array();
+    	$this->db->flush_cache();
+    	foreach ($orders as &$v) 
+    	{
+    		$user = $this->m_user->getUserObj(USER_TYPE_USER, $v['userId']);
+    		$v['from'] = $user->name;
+    		$v['isChecked'] = false;
+    		if ($v['orderTime'] <= $check_time) $v['isChecked'] = true;
+    		$v['returnFee'] = $this->getSingleOrderReturnMoney($condition, $v['payPrice']);
+    		$data[] = $v;
+    	}
+    }
+
+
 }

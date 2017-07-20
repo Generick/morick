@@ -45,7 +45,10 @@
             <td style="text-align: center">{{item.commodity_name}}</td>
             <!--<td style="text-align: center">{{"￥"+item.commodity_price}}</td>-->
             <td style="text-align: center">{{item.nums}}</td>
-            <td style="text-align: center">{{'￥' +item.total_bid}}</td>
+            <td style="text-align: center">
+            	<span ng-show="item.originBidPrice != 0">{{'￥' +item.total_bid}}</span>
+            	<span ng-show="item.originBidPrice == 0">无</span>
+            </td>
             <td style="text-align: center">{{'￥' +item.saleAmount}}</td>
             
             <td style="text-align: center">{{'￥' + item.singleProfit}}</td>

@@ -15,7 +15,7 @@
             "upload/uploadImages" : {"file":{"type":"file"},"file2":{"type":"file"}, "说明":"上传图片", "备注" : "fileType 1图片 2视频 3其他"},
             // 账号相关
             "account/registerUser" : {"platformId":"123", "password":"123", "verifyCode" : "8888",'PMTID':'', "说明": "注册 PMTID推广员的userId", "备注" : ""},
-            "account/login" : {"userType" : 1, "platform":5, "platformId" : "13918879481", "password" : "8888",  "说明" : "登录",
+            "account/login" : {"userType" : 1, "platform":5, "platformId" : "13918879481", "password" : "8888",'PMTID':'',  "说明" : "登录 PMTID推广员userId",
                 "备注" : "platform（平台类型 1自有账号 2微信 3QQ 4微博 5手机验证码） " +
                 "platformId（当前平台的唯一标识），userType：1为普通用户，2为管理员"},
             "account/reLogin" : {"userType":1, "token":"123", "说明":"重登录", "备注" : ""},
@@ -266,6 +266,10 @@
             'promoter/A_promoter/getFriends':{'userId':'1','startIndex':0,'num':10,"说明":"好友列表"},
             'promoter/A_promoter/getCheckBillRecords':{'userId':'1','startIndex':0,'num':10,"说明":"结账记录"},
             'promoter/A_promoter/getPromoterInfo':{'userId':'1',"说明":"获取推广员信息"},
+            'promoter/P_promoter/getPromoterInfo':{'userId':'1',"说明":"推广员获取自己的信息"},
+            'promoter/P_promoter/myPromptUsers':{'userId':'1','startIndex':0,'num':10,"说明":"获取自己推荐的用户"},
+            'promoter/P_promoter/getPromptUserInfo':{'userId':'1','friendUserId':15,'startIndex':0,'num':10,"说明":"获取推荐的用户详情"},
+            'promoter/P_promoter/getWaitCheckBill':{'userId':'1','startIndex':0,'num':10,"说明":"获取待结账金额详情"},
             //endregion
         };
 

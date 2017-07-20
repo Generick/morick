@@ -16,6 +16,8 @@ var GoodsInfoCtrl = {
     
     thisDataId : null,
     
+    userId : null,
+    
     goodsDetailModel : 
     {
     	id : null, //商品id
@@ -75,7 +77,9 @@ var GoodsInfoCtrl = {
     	this.wxParams = wxParams;
     	
     	this.getUrlAndIds();
-
+        
+        this.judgeIsOnload();
+        
     	this.initData();
     	
     	this.bindClick();
@@ -90,6 +94,26 @@ var GoodsInfoCtrl = {
   	    
     	initTab.start(this.scope, -1); //底部导航
 	    
+    },
+    
+    judgeIsOnload : function(){
+    	var self = this;
+    	
+    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+    			   
+	    			if(JSON.stringify(data) == 'true'){
+	    				self.userId = localStorage.getItem(localStorageKey.userId);
+	    			    self.initData();
+	    			}
+	    			else{
+	    				self.userId = null;
+	    				 self.initData();
+	    				 
+	    			}
+    		
+        });
+    
+    	
     },
     
     getUrlAndIds :function(){
@@ -131,7 +155,7 @@ var GoodsInfoCtrl = {
     	$('.animation').css('display','block'); //加载动画
     	
     	var params = {};
-    	
+    	params.userId = self.userId;
     	if(location.href.indexOf("?") > 0)
     	{  
     		var juid = commonFu.getQueryStringByKey("id").substring(0,1);
@@ -172,7 +196,7 @@ var GoodsInfoCtrl = {
             function(data) {
                   
                    
-// 					console.log("chushi"+JSON.stringify(data))
+
             		self.goodsDetailModel.allInfo = [];
             		self.goodsDetailModel.allInfo = data.allInfo;
             		if(commonFu.isEmpty(self.goodsDetailModel.allInfo.cappedPrice) || (parseFloat(self.goodsDetailModel.allInfo.cappedPrice) == 0))

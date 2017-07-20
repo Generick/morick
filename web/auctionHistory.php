@@ -79,8 +79,8 @@
 							    <div class="flip" ng-class = "item.newName">
 							      
 							        <div class="price-div">
-							          <!--<div class="w-k number"></div>
-							          <div class="q-k number"></div>-->
+							          <!--<div class="w-k number"></div>-->
+							          <div class="q-k number"></div>
 							          <div class="h-k number"></div>
 							          <div class="t-k number"></div>
 							          <div class="k number"></div>

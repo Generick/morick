@@ -14,4 +14,5 @@ Error::registerErrors(array(
     array('errDefine' => 'ERROR_DEL_CONDITION_FAIL', 'errMsg' => "删除分成条件失败"),
     array('errDefine' => 'ERROR_NO_FRIENDS', 'errMsg' => "您还没有好友。"),
     array('errDefine' => 'ERROR_PMT_DELETE', 'errMsg' => "此推广员账号已被删除。"),
+    array('errDefine' => 'ERROR_CONDITION_RATE_ERROR', 'errMsg' => "分成比例错误。"),
 ));

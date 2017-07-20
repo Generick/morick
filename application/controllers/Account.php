@@ -143,6 +143,11 @@ class Account extends My_Controller{
         $password = $this->input->post("password");
         $PMTID = $this->input->post("PMTID");
 
+        if (($userType == USER_TYPE_PMT || $userType == USER_TYPE_MCH) && $platform == 5) 
+        {
+            $this->responseError(ERROR_NO_USE_PHONE_CODE_TO_LOGIN);
+            return;
+        }
         $userId = 0;
         $accountId = 0;
         $errCode = $this->m_account->loginNormal($platform, $platformId, $password, $userType, $accountId, $userId, $PMTID);
