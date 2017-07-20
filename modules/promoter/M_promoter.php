@@ -342,8 +342,8 @@ class M_promoter extends My_Model
 		}
 		$lastOrder = $this->db->select('orderTime')->where('userId', $friendUserId)->order_by('orderTime desc')->get('order')->row_array();
 		if($lastOrder) $one['recentOrderTime'] = $lastOrder['orderTime'];
-		$one['tradeNum'] = $this->db->where('userId', $friendUserId)->count_all_results('order');
 		$whr = "userId = {$friendUserId} and orderStatus not in (0,1)";
+		$one['tradeNum'] = $this->db->where($whr)->count_all_results('order');
 		$totalFee = $this->db->select_sum('payPrice')->where($whr)->get('order')->row_array();
 		$one['totalFee'] = $totalFee['payPrice'];
 		$one['returnFee'] = $this->getSingleUserReturnMoney($userId, $whr, $condition);

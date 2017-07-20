@@ -139,3 +139,13 @@ ERROR - 2017-07-20 15:58:57 --> [methodError]:[参数错误！]:F:\work\program\
 ERROR - 2017-07-20 15:59:17 --> [methodError]:[不能使用手机验证登陆。]:F:\work\program\server\application\controllers/account.php:login:{"userType":"4","platform":"5","platformId":"18255001111","password":"8888","PMTID":""}
 ERROR - 2017-07-20 16:17:42 --> [methodError]:[账号名或密码错误！]:F:\work\program\server\application\controllers/account.php:login:{"userType":"4","platform":"1","platformId":"18255001111","password":"123456","PMTID":""}
 ERROR - 2017-07-20 16:18:23 --> [methodError]:[账号名或密码错误！]:F:\work\program\server\application\controllers/account.php:login:{"userType":"4","platform":"1","platformId":"18255001111","password":"123456","PMTID":""}
+ERROR - 2017-07-20 18:52:28 --> IP:192.168.0.163	NOT ADMIN using this method! 	UserId:26	UserType:3	Method:P_promoter/getPromoterInfo	Params:{"sid":"07d3f30db223fb46bb6f968034b2e07721de5f87","_":"1500547953455","userId":"15"}
+ERROR - 2017-07-20 18:52:28 --> [methodError]:[权限不正确！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":"15"}
+ERROR - 2017-07-20 18:52:42 --> IP:192.168.0.163	NOT ADMIN using this method! 	UserId:26	UserType:3	Method:P_promoter/getPromoterInfo	Params:{"sid":"07d3f30db223fb46bb6f968034b2e07721de5f87","_":"1500547967207","userId":"15"}
+ERROR - 2017-07-20 18:52:42 --> [methodError]:[权限不正确！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":"15"}
+ERROR - 2017-07-20 18:56:12 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":""}
+ERROR - 2017-07-20 18:56:50 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":""}
+ERROR - 2017-07-20 18:56:53 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":""}
+ERROR - 2017-07-20 18:56:59 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":""}
+ERROR - 2017-07-20 18:57:30 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":""}
+ERROR - 2017-07-20 19:01:24 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":""}

@@ -243,8 +243,10 @@ class M_admin extends My_Model{
             $oneUser->from = '';
             if ($oneUser->PMTID > 0) 
             {
+                $oneUser->from = '';
                 $pmt = $this->m_user->getUserObj(USER_TYPE_PMT, $oneUser->PMTID);
-                $oneUser->from = $pmt->name;
+                if ($pmt) $oneUser->from = $pmt->name;
+                
             }
             $userList[] = $oneUser;
         }
