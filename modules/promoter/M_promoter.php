@@ -463,8 +463,6 @@ class M_promoter extends My_Model
     	{
     		$userObj = $this->m_user->getUserObj(USER_TYPE_USER, $v['userId']);
     		$v['friendTelephone'] = $userObj->telephone;
-    		//$v['isChecked'] = false;
-    		//if ($lastCheckBill && $lastCheckBill['check_time'] >= $v['orderTime']) $v['isChecked'] = true;    		
     		$v['returnFee'] = $this->getSingleOrderReturnMoney($condition, $v);
     	}
     	return ERROR_OK;
@@ -491,8 +489,6 @@ class M_promoter extends My_Model
     	$userObj = $this->m_user->getUserObj(USER_TYPE_USER, $friendUserId);
     	foreach ($orders as &$v)
     	{
-			//$v['isChecked'] = false;
-			//if ($lastCheckBill && $lastCheckBill['check_time'] >= $v['orderTime']) $v['isChecked'] = true;    		
 			$v['returnFee'] = $this->getSingleOrderReturnMoney($condition, $v);
 			$data[] = $v;
     	}
@@ -529,8 +525,6 @@ class M_promoter extends My_Model
     	{
     		$user = $this->m_user->getUserObj(USER_TYPE_USER, $v['userId']);
     		$v['from'] = $user->name;
-    		//$v['isChecked'] = false;
-    		//if ($v['orderTime'] <= $check_time) $v['isChecked'] = true;
     		$v['returnFee'] = $this->getSingleOrderReturnMoney($condition, $v);
     		$data[] = $v;
     	}
