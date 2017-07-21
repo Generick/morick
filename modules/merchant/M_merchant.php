@@ -98,7 +98,7 @@ class M_merchant extends My_Model
             	return ERROR_ACCOUNT_USER_EXISTS;
         	}
         	$mch = $this->m_user->getUserObj(USER_TYPE_MCH, $userId);
-        	$mch->modInfoWithPrivilege(array('is_delete' => DELETE_NO));
+        	$mch->modInfoWithPrivilege(array('is_delete' => DELETE_NO, 'name' => $name));
           	return ERROR_OK;  
         }
 
@@ -447,6 +447,7 @@ class M_merchant extends My_Model
     		}else
     		{
     			if (!isset($info['CID']) || empty($info['CID'])) $info['CID'] = $request['mch_commodity_id'];
+    			$info['add_time'] = time();
     			$res = $this->m_saleMeeting->addCommodity($info);
     		}
     		

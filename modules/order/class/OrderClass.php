@@ -25,6 +25,8 @@ class COrderSmallInfo extends IExtractInfo{
             "orderTime",
             "orderStatus",
             "orderType",
+            "condition_rate",
+            "isChecked",
         );
     }
 
@@ -55,6 +57,8 @@ class COrderBaseInfo extends IExtractInfo {
             "orderStatus",
             "orderGoods",
             "orderType",
+            "condition_rate",
+            "isChecked",
         );
     }
 
@@ -96,6 +100,8 @@ class COrderAllInfo extends IExtractInfo {
             "orderGoods",
             "orderLogs",
             "orderType",
+            "condition_rate",
+            "isChecked",
         );
     }
 
@@ -153,13 +159,17 @@ class COrder extends CDataClassBase {
             "orderStatus" => new CField(FIELD_TYPE_NORMAL),
             "isDelete" => new CField(FIELD_TYPE_NORMAL),
             "orderType" => new CField(FIELD_TYPE_NORMAL),
+            "condition_rate" => new CField(FIELD_TYPE_NORMAL),
+            "isChecked" => new CField(FIELD_TYPE_NORMAL),
         );
         self::$modInfo = array(
             "deliveryType",
             "logistics_no",
             "payTime",
             "orderStatus",
-            "isDelete"
+            "isDelete",
+            "condition_rate",
+            "isChecked",
         );
 
         self::$staticConstructed = true;

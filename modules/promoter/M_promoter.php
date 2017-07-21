@@ -11,6 +11,7 @@ class M_promoter extends My_Model
     {
         parent::__construct();
         $this->load->model('m_user');
+        $this->load->model('m_order');
     }
 
     //添加推广员
@@ -86,7 +87,7 @@ class M_promoter extends My_Model
             	return ERROR_ACCOUNT_USER_EXISTS;
         	}
         	$mch = $this->m_user->getUserObj(USER_TYPE_PMT, $userId);
-        	$mch->modInfoWithPrivilege(array('is_delete' => DELETE_NO));
+        	$mch->modInfoWithPrivilege(array('is_delete' => DELETE_NO, 'name' => $name));
           	return ERROR_OK;  
         }
 
@@ -177,10 +178,54 @@ class M_promoter extends My_Model
     {
     	$userObj = $this->m_user->getUserObj(USER_TYPE_PMT, $userId);
     	if (!$userObj) return ERROR_NO_PROMOTER;
+    	if ($amount <= 0) return ERROR_CHECK_AMOUNT_ERROR;
     	$data = array('userId' => $userId, 'amount' => $amount, 'check_time' => time());
-    	$res = $this->db->insert('check', $data);
-    	if ($res) return ERROR_OK;
+    	
+		$hisFriends = $this->db->select('userId')->where('PMTID', $userId)->get('user')->result_array();
+		if (empty($hisFriends)) return ERROR_NO_FRIENDS;
+		$hisFriendsUserIds = array_column($hisFriends, 'userId');
+		$check_time = 0;
+		$lastCheckBill = $this->db->select('check_time')->where('userId', $userId)->order_by('check_time desc')->get('check')->row_array();
+		if (!empty($lastCheckBill)) $check_time = $lastCheckBill['check_time'];
+		$condition = $this->db->where('userId', $userId)->order_by('condition_money desc')->get('prompt_condition')->result_array();
+		$whr = "orderTime > {$check_time} and orderStatus not in (0,1) and orderType = 2";
+		$this->db->start_cache();
+		$this->db->from('order');
+		$this->db->select('order_no, payPrice');
+		$this->db->where($whr);
+		$this->db->where_in('userId', $hisFriendsUserIds);
+		$this->db->stop_cache();
+		$orders = $this->db->get()->result_array();
+		$this->db->flush_cache();
+		foreach ($orders as $v) 
+		{
+			$match_rate = $this->getMatchRate($v['payPrice'], $condition);
+			$modInfo = array(
+				'condition_rate' => $match_rate,
+				'isChecked' => 1,
+				);
+			$this->m_order->modOrderInfo($v['order_no'], $modInfo);
+		}
+		$res = $this->db->insert('check', $data);
+		if ($res) return ERROR_OK;
+    
     	return ERROR_CHECK_BILL_FAIL;
+    }
+
+    function getMatchRate($payPrice, $condition)
+    {
+    	if (empty($condition)) return 0;
+    	$match_rate = 0;
+    	foreach ($condition as $v) 
+    	{
+    		if ($payPrice >= $v['condition_money']) 
+    		{
+    			$match_rate = $v['condition_rate'];
+    			break;
+    		}
+    		continue;
+    	}
+    	return $match_rate;
     }
 
     //管理员添加条件
@@ -240,6 +285,7 @@ class M_promoter extends My_Model
     	$friendsTotalFee = 0;
     	$check_time = 0;
     	$lastCheckBill = $this->db->select('check_time')->where('userId', $userId)->order_by('check_time desc')->get('check')->row_array();
+    	if (!empty($lastCheckBill)) $check_time = $lastCheckBill['check_time'];
     	$hisFriends = $this->db->select('userId')->where('PMTID', $userId)->get('user')->result_array();
     	$condition = $this->db->select('condition_money, condition_rate')->where('userId', $userId)->get('prompt_condition')->result_array();
     	if (!empty($hisFriends)) 
@@ -247,11 +293,11 @@ class M_promoter extends My_Model
     		$friendsUserId = array_column($hisFriends, 'userId');
     		foreach ($friendsUserId as $v) 
     		{
-    			$whr = "userId = {$v} and orderStatus not in (0,1)";
+    			$whr = "userId = {$v} and orderStatus not in (0,1) and orderType = 2";
     			$ordersPayPrice = $this->db->select('payPrice')->where($whr)->get('order')->result_array();
     			$total = array_sum(array_map(create_function('$val', 'return $val["payPrice"];'), $ordersPayPrice));
     			$friendsTotalFee += $total;
-    			$whr = "userId = {$v} and orderTime > {$check_time} and orderStatus not in (0,1)";
+    			$whr = "userId = {$v} and orderTime > {$check_time} and orderStatus not in (0,1) and orderType = 2";
     			$waitCheckAmount += $this->getSingleUserReturnMoney($userId, $whr, $condition);
     		}
     	}
@@ -279,11 +325,11 @@ class M_promoter extends My_Model
     		$friendsUserId = array_column($hisFriends, 'userId');
     		foreach ($friendsUserId as $v) 
     		{
-    			$whr = "userId = {$v} and orderStatus not in (0,1)";
+    			$whr = "userId = {$v} and orderStatus not in (0,1) and orderType = 2";
     			$ordersPayPrice = $this->db->select('payPrice')->where($whr)->get('order')->result_array();
     			$total = array_sum(array_map(create_function('$val', 'return $val["payPrice"];'), $ordersPayPrice));
     			$pmt->friendsTotalFee += $total;
-    			$whr = "userId = {$v} and orderTime > {$check_time} and orderStatus not in (0,1)";
+    			$whr = "userId = {$v} and orderTime > {$check_time} and orderStatus not in (0,1) and orderType = 2";
     			$pmt->waitCheckAmount += $this->getSingleUserReturnMoney($userId, $whr, $condition);
     		}
     	}
@@ -341,8 +387,8 @@ class M_promoter extends My_Model
 			$one['smallIcon'] = $userObj->smallIcon;
 		}
 		$lastOrder = $this->db->select('orderTime')->where('userId', $friendUserId)->order_by('orderTime desc')->get('order')->row_array();
-		if($lastOrder) $one['recentOrderTime'] = $lastOrder['orderTime'];
-		$whr = "userId = {$friendUserId} and orderStatus not in (0,1)";
+		if(isset($lastOrder['orderTime']) && !empty($lastOrder['orderTime'])) $one['recentOrderTime'] = $lastOrder['orderTime'];
+		$whr = "userId = {$friendUserId} and orderStatus not in (0,1) and orderType = 2";
 		$one['tradeNum'] = $this->db->where($whr)->count_all_results('order');
 		$totalFee = $this->db->select_sum('payPrice')->where($whr)->get('order')->row_array();
 		$one['totalFee'] = $totalFee['payPrice'];
@@ -354,13 +400,13 @@ class M_promoter extends My_Model
     function getSingleUserReturnMoney($userId, $whr, $condition = array())
     {
     	if (empty($condition)) return 0;
-    	$orders = $this->db->select('payPrice')->where($whr)->get('order')->result_array();
+    	$orders = $this->db->select('payPrice, condition_rate, isChecked')->where($whr)->get('order')->result_array();
     	$sum = 0;
 		if (!empty($orders))
 		{
 			foreach ($orders as $v) 
 			{
-				$singleOrderFee = $this->getSingleOrderReturnMoney($condition, $v['payPrice']);
+				$singleOrderFee = $this->getSingleOrderReturnMoney($condition, $v);
 				$sum += $singleOrderFee;
 			}
 		}
@@ -368,15 +414,21 @@ class M_promoter extends My_Model
     }
 
     //获取单个订单的返现金额
-    function getSingleOrderReturnMoney($condition, $payPrice)
+    function getSingleOrderReturnMoney($condition, $orderInfo)
     {
-    	if (empty($condition)) return 0;
+    	
     	$singleOrderFee = 0;
+    	if ($orderInfo['isChecked'])
+    	{
+    		if ($orderInfo['condition_rate'] == 0) return 0;
+    		return ceil($orderInfo['payPrice']*$orderInfo['condition_rate']/100);
+    	} 
+    	if (empty($condition)) return 0;
     	foreach ($condition as $v) 
     	{
-    		if ($payPrice >= $v['condition_money']) 
+    		if ($orderInfo['payPrice'] >= $v['condition_money']) 
     		{
-    			$singleOrderFee = $payPrice * $v['condition_rate'] / 100;
+    			$singleOrderFee = $orderInfo['payPrice'] * $v['condition_rate'] / 100;
     			break;
     		}
     		continue;
@@ -393,7 +445,7 @@ class M_promoter extends My_Model
      	$friendsUserIds = array_column($hisFriendsUserIds, 'userId');
     	$this->db->start_cache();
     	$this->db->from('order');
-    	$this->db->select('order_no, userId, payPrice, orderTime, orderStatus');
+    	$this->db->select('order_no, userId, payPrice, orderTime, orderStatus, condition_rate, isChecked');
     	$this->db->where($whr);
     	$this->db->where_in('userId',$friendsUserIds);
     	$this->db->stop_cache();
@@ -402,7 +454,7 @@ class M_promoter extends My_Model
     	{
     		$this->db->limit($num, $startIndex);
     	}
-    	$data = $this->db->order_by('orderTime desc')->get()->result_array();
+    	$data = $this->db->order_by('isChecked asc, orderTime desc')->get()->result_array();
     	$this->db->flush_cache();
     	if (empty($data)) return ERROR_OK;
     	$lastCheckBill = $this->db->select('check_time')->where('userId', $userId)->order_by('check_time desc')->get('check')->row_array();
@@ -411,9 +463,9 @@ class M_promoter extends My_Model
     	{
     		$userObj = $this->m_user->getUserObj(USER_TYPE_USER, $v['userId']);
     		$v['friendTelephone'] = $userObj->telephone;
-    		$v['isChecked'] = false;
-    		if ($lastCheckBill && $lastCheckBill['check_time'] >= $v['orderTime']) $v['isChecked'] = true;    		
-    		$v['returnFee'] = $this->getSingleOrderReturnMoney($condition, $v['payPrice']);
+    		//$v['isChecked'] = false;
+    		//if ($lastCheckBill && $lastCheckBill['check_time'] >= $v['orderTime']) $v['isChecked'] = true;    		
+    		$v['returnFee'] = $this->getSingleOrderReturnMoney($condition, $v);
     	}
     	return ERROR_OK;
     }
@@ -423,10 +475,10 @@ class M_promoter extends My_Model
     {
     	$condition = $this->db->select('condition_money,condition_rate')->where('userId', $userId)->order_by('id desc')->get('prompt_condition')->result_array();
     	$lastCheckBill = $this->db->select('check_time')->where('userId', $userId)->order_by('check_time desc')->get('check')->row_array();
-    	$whr = "userId = {$friendUserId} and orderStatus not in (0,1)";
+    	$whr = "userId = {$friendUserId} and orderStatus not in (0,1) and orderType = 2";
     	$this->db->start_cache();
     	$this->db->from('order');
-    	$this->db->select('payPrice, orderTime');
+    	$this->db->select('payPrice, orderTime, condition_rate, isChecked');
     	$this->db->where($whr);
     	$this->db->stop_cache();
     	$count = $this->db->count_all_results();
@@ -434,14 +486,14 @@ class M_promoter extends My_Model
     	{
     		$this->db->limit($num, $startIndex);
     	}
-    	$orders = $this->db->order_by('orderTime desc')->get()->result_array();
+    	$orders = $this->db->order_by('isChecked asc, orderTime desc')->get()->result_array();
     	$this->db->flush_cache();
     	$userObj = $this->m_user->getUserObj(USER_TYPE_USER, $friendUserId);
     	foreach ($orders as &$v)
     	{
-			$v['isChecked'] = false;
-			if ($lastCheckBill && $lastCheckBill['check_time'] >= $v['orderTime']) $v['isChecked'] = true;    		
-			$v['returnFee'] = $this->getSingleOrderReturnMoney($condition, $v['payPrice']);
+			//$v['isChecked'] = false;
+			//if ($lastCheckBill && $lastCheckBill['check_time'] >= $v['orderTime']) $v['isChecked'] = true;    		
+			$v['returnFee'] = $this->getSingleOrderReturnMoney($condition, $v);
 			$data[] = $v;
     	}
 		
@@ -459,10 +511,10 @@ class M_promoter extends My_Model
     	$check_time = 0;
     	if($lastCheckBill && $lastCheckBill['check_time'] > 0) $check_time = $lastCheckBill['check_time'];
     	$condition = $this->db->select('condition_money,condition_rate')->where('userId', $userId)->order_by('id desc')->get('prompt_condition')->result_array();
-    	$whr = "orderTime > {$check_time} and orderStatus not in (0,1)";
+    	$whr = "orderTime > {$check_time} and orderStatus not in (0,1) and orderType = 2";
     	$this->db->start_cache();
     	$this->db->from('order');
-    	$this->db->select('orderTime, userId, payPrice');
+    	$this->db->select('orderTime, userId, payPrice, condition_rate, isChecked');
     	$this->db->where($whr);
     	$this->db->where_in('userId',$friendsUserIds);
     	$this->db->stop_cache();
@@ -471,15 +523,15 @@ class M_promoter extends My_Model
     	{
     		$this->db->limit($num, $startIndex);
     	}
-    	$orders = $this->db->order_by('orderTime desc')->get()->result_array();
+    	$orders = $this->db->order_by('isChecked asc, orderTime desc')->get()->result_array();
     	$this->db->flush_cache();
     	foreach ($orders as &$v) 
     	{
     		$user = $this->m_user->getUserObj(USER_TYPE_USER, $v['userId']);
     		$v['from'] = $user->name;
-    		$v['isChecked'] = false;
-    		if ($v['orderTime'] <= $check_time) $v['isChecked'] = true;
-    		$v['returnFee'] = $this->getSingleOrderReturnMoney($condition, $v['payPrice']);
+    		//$v['isChecked'] = false;
+    		//if ($v['orderTime'] <= $check_time) $v['isChecked'] = true;
+    		$v['returnFee'] = $this->getSingleOrderReturnMoney($condition, $v);
     		$data[] = $v;
     	}
     }

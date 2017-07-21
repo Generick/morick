@@ -149,3 +149,9 @@ ERROR - 2017-07-20 18:56:53 --> [methodError]:[会话不存在！]:F:\work\progr
 ERROR - 2017-07-20 18:56:59 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":""}
 ERROR - 2017-07-20 18:57:30 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":""}
 ERROR - 2017-07-20 19:01:24 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":""}
+ERROR - 2017-07-20 19:03:21 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":""}
+ERROR - 2017-07-20 19:03:24 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":""}
+ERROR - 2017-07-20 19:03:40 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":""}
+ERROR - 2017-07-20 19:03:57 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getWaitCheckBill:{"userId":"","num":"15","startIndex":"0"}
+ERROR - 2017-07-20 19:04:11 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:myPromptUsers:{"userId":"","num":"10","startIndex":"0"}
+ERROR - 2017-07-20 19:04:23 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromptUserInfo:{"friendUserId":"","userId":"","num":"10","startIndex":"0"}

@@ -194,7 +194,7 @@ class A_promoter extends Admin_Controller
    		$num = $this->input->post('num');
    		$startTime = $this->input->post('startTime');
    		$endTime = $this->input->post('endTime');
-   		$whr = "orderStatus not in (0,1) ";
+   		$whr = "orderStatus not in (0,1) and orderType = 2";
    		if (!empty($startTime) && !empty($endTime)) 
    		{
    			$whr .= "and orderTime >= {$startTime} and orderTime <= {$endTime}";
