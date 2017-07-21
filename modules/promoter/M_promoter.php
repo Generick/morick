@@ -187,7 +187,7 @@ class M_promoter extends My_Model
 		$check_time = 0;
 		$lastCheckBill = $this->db->select('check_time')->where('userId', $userId)->order_by('check_time desc')->get('check')->row_array();
 		if (!empty($lastCheckBill)) $check_time = $lastCheckBill['check_time'];
-		$condition = $this->db->where('userId', $userId)->order_by('condition_money desc')->get('prompt_condition')->result_array();
+		$condition = $this->getPMTCondition($userId);
 		$whr = "orderTime > {$check_time} and orderStatus not in (0,1) and orderType = 2";
 		$this->db->start_cache();
 		$this->db->from('order');
@@ -287,7 +287,7 @@ class M_promoter extends My_Model
     	$lastCheckBill = $this->db->select('check_time')->where('userId', $userId)->order_by('check_time desc')->get('check')->row_array();
     	if (!empty($lastCheckBill)) $check_time = $lastCheckBill['check_time'];
     	$hisFriends = $this->db->select('userId')->where('PMTID', $userId)->get('user')->result_array();
-    	$condition = $this->db->select('condition_money, condition_rate')->where('userId', $userId)->get('prompt_condition')->result_array();
+    	$condition = $this->getPMTCondition($userId);
     	if (!empty($hisFriends)) 
     	{
     		$friendsUserId = array_column($hisFriends, 'userId');
@@ -319,7 +319,7 @@ class M_promoter extends My_Model
     	$lastCheckBill = $this->db->select('check_time')->where('userId', $userId)->order_by('check_time desc')->get('check')->row_array();
     	if (!empty($lastCheckBill)) $check_time = $lastCheckBill['check_time'];
     	$hisFriends = $this->db->select('userId')->where('PMTID', $userId)->get('user')->result_array();
-    	$condition = $this->db->select('condition_money, condition_rate')->where('userId', $userId)->get('prompt_condition')->result_array();
+    	$condition = $this->getPMTCondition($userId);
     	if (!empty($hisFriends)) 
     	{
     		$friendsUserId = array_column($hisFriends, 'userId');
@@ -354,7 +354,7 @@ class M_promoter extends My_Model
     	$userIds = $this->db->get()->result_array();
     	$this->db->flush_cache();
     	if (empty($userIds)) return ERROR_OK;
-    	$condition = $this->db->select('condition_money, condition_rate')->where('userId', $userId)->get('prompt_condition')->result_array();
+    	$condition = $this->getPMTCondition($userId);
     	foreach ($userIds as $v) 
     	{
     		$data[] = $this->getSingleUserInfo($userId, $v['userId'], $condition);
@@ -366,7 +366,7 @@ class M_promoter extends My_Model
     {
     	if (empty($condition)) 
     	{
-    		$condition = $this->db->select('condition_money, condition_rate')->where('userId', $userId)->get('prompt_condition')->result_array();
+    		$condition = $this->getPMTCondition($userId);
     	}
     	$one = array();
 		$one['userId'] = $friendUserId;
@@ -458,7 +458,7 @@ class M_promoter extends My_Model
     	$this->db->flush_cache();
     	if (empty($data)) return ERROR_OK;
     	$lastCheckBill = $this->db->select('check_time')->where('userId', $userId)->order_by('check_time desc')->get('check')->row_array();
-    	$condition = $this->db->select('condition_money,condition_rate')->where('userId', $userId)->order_by('id desc')->get('prompt_condition')->result_array();
+    	$condition = $this->getPMTCondition($userId);
     	foreach ($data as &$v) 
     	{
     		$userObj = $this->m_user->getUserObj(USER_TYPE_USER, $v['userId']);
@@ -473,7 +473,7 @@ class M_promoter extends My_Model
     //获取单个好友下单记录
     function getSingleUserOrders($startIndex, $num, $userId, $friendUserId, &$data, &$count)
     {
-    	$condition = $this->db->select('condition_money,condition_rate')->where('userId', $userId)->order_by('id desc')->get('prompt_condition')->result_array();
+    	$condition = $this->getPMTCondition($userId);
     	$lastCheckBill = $this->db->select('check_time')->where('userId', $userId)->order_by('check_time desc')->get('check')->row_array();
     	$whr = "userId = {$friendUserId} and orderStatus not in (0,1) and orderType = 2";
     	$this->db->start_cache();
@@ -510,7 +510,7 @@ class M_promoter extends My_Model
     	$lastCheckBill = $this->db->select('check_time')->where('userId', $userId)->order_by('check_time desc')->get('check')->row_array();
     	$check_time = 0;
     	if($lastCheckBill && $lastCheckBill['check_time'] > 0) $check_time = $lastCheckBill['check_time'];
-    	$condition = $this->db->select('condition_money,condition_rate')->where('userId', $userId)->order_by('id desc')->get('prompt_condition')->result_array();
+    	$condition = $this->getPMTCondition($userId);
     	$whr = "orderTime > {$check_time} and orderStatus not in (0,1) and orderType = 2";
     	$this->db->start_cache();
     	$this->db->from('order');
@@ -534,6 +534,13 @@ class M_promoter extends My_Model
     		$v['returnFee'] = $this->getSingleOrderReturnMoney($condition, $v);
     		$data[] = $v;
     	}
+    }
+
+    function getPMTCondition($userId)
+    {
+    	$select = 'condition_money,condition_rate';
+    	$condition = $this->db->select($select)->where('userId', $userId)->order_by('condition_money desc')->get('prompt_condition')->result_array();
+    	return $condition;
     }
 
 
