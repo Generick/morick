@@ -68,10 +68,19 @@ class A_order extends Admin_Controller
             $likeStr = trim($this->input->post("likeStr"));
         }
 
-        $deliveryType = $this->input->post('deliveryType');
-        if($deliveryType != null && $deliveryType != '')
+        // $deliveryType = $this->input->post('deliveryType');
+        // if($deliveryType != null && $deliveryType != '')
+        // {
+        //     $whereArr["deliveryType"] = intval($this->input->post("deliveryType"));
+        // }
+        $online = $this->input->post('online');
+        if (!empty($online)) 
         {
-            $whereArr["deliveryType"] = intval($this->input->post("deliveryType"));
+            $str = 'payType <=';
+            //online
+            if ($online == 1) $str = 'payType >';
+            
+            $whereArr[$str] = 3;
         }
 
         $orderType = $this->input->post('orderType');

@@ -13,6 +13,7 @@ class M_account extends My_Model{
         parent::__construct();
         $this->load->helper('my_md5');
         $this->load->library('session');
+        $this->load->model('m_promoter');
     }
     /**
      * @param $userType
@@ -117,6 +118,7 @@ class M_account extends My_Model{
 
         $this->load->model("m_user");
         $errCode = $this->m_user->createNormalUser($userId, $platformId, $PMTID);
+        if($PMTID > 0) $this->m_promoter->updateUserOrderStatistics($userId);
         if ($errCode != ERROR_OK)
         {
             return $errCode;
@@ -194,8 +196,46 @@ class M_account extends My_Model{
             $userId = $this->db->insert_id();
         }
 
-        $this->load->model("m_promoter");
         $errCode = $this->m_promoter->createNormalPMT($userId, $platformId, $name);
+        if ($errCode != ERROR_OK)
+        {
+            return $errCode;
+        }
+
+        return ERROR_OK;
+    }
+
+    public function createNormalSRV($accountId, &$userId, $platformId, $name)
+    {
+        $nowTime = now();
+        // 首先判断在user_relation表中是否已经存在
+        $whereArr = array(
+            'userType' => USER_TYPE_SRV,
+            'accountId' => $accountId
+        );
+
+        $dbData = $this->m_common->get_one("user_relation", $whereArr);
+        if($dbData)
+        {
+            // 如果已经存在，则获取userId
+            $userId = $dbData['id'];
+        }
+        else
+        {
+            // 如果不存在则插入新数据
+            $userRelationData = array(
+                'userType' => USER_TYPE_SRV,
+                'accountId' => $accountId,
+                'lastLoginTime' => $nowTime,
+                'registerTime' => $nowTime,
+            );
+
+            $this->m_common->insert("user_relation", $userRelationData);
+
+            $userId = $this->db->insert_id();
+        }
+        $this->load->model('m_customService');
+        $errCode = $this->m_customService->createNormalSRV($userId, $platformId, $name);
         if ($errCode != ERROR_OK)
         {
             return $errCode;

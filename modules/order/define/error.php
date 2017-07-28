@@ -36,4 +36,5 @@ Error::registerErrors(array(
     array('errDefine' => 'ERROR_API_RETURN_NULL', 'errMsg' => '支付接口返回为空'),
     array('errDefine' => 'ERROR_ORDER_GOODS_ERROR', 'errMsg' => '订单商品错误'),
     array('errDefine' => 'ERROR_TRADE_FAIL', 'errMsg' => '交易失败'),
+    array('errDefine' => 'ERROR_OPEN_ID_NULL', 'errMsg' => 'openId不能为空'),
 ));

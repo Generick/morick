@@ -41,6 +41,7 @@ class Error
         //用户相关错误
         array('errDefine' => 'ERROR_USER_NOT_FOUND', 'index' => 201, 'errMsg' => '用户未找到！'),
         array('errDefine' => 'ERROR_NO_USE_PHONE_CODE_TO_LOGIN', 'errMsg' => '不能使用手机验证登陆。'),
+        array('errDefine' => 'ERROR_THE_ACCOUNT_IS_DELETE', 'errMsg' => '该账号已被删除'),
 
         //验证码相关错误
         array('errDefine' => 'ERROR_GET_CODE_FAILED', 'index' => 401, 'errMsg' => '获取短信验证码失败！'),

@@ -28,6 +28,7 @@ class U_messagePush extends User_Controller
     	$num = $this->input->post('num');
     	$data = array();
     	$count = 0;
+        $unReadNum;
 
     	$isVIP = $this->db->select('isVIP')->from('user')->where('userId', $userId)->get()->row_array();//$isVIP['isVIP']
     	
@@ -39,7 +40,10 @@ class U_messagePush extends User_Controller
          }
 
     	$this->m_messagePush->getUserMsgList($startIndex, $num, $userId, $data, $count, $whr);
-    	$this->responseSuccess(array('data' => $data, 'count' => $count));
+        $msg = array();
+        $or_whr = array('user_id' => $userId, 'push_type' => 2);
+        $this->m_messagePush->getUnReadMSG(0,1,$whr,$or_whr,$msg,$unReadNum);
+    	$this->responseSuccess(array('data' => $data, 'count' => $count, 'unReadNum' => $unReadNum));
     }
 
     //获取用户未批阅的消息

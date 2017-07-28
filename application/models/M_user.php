@@ -12,6 +12,7 @@ class M_user extends My_Model{
         USER_TYPE_ADMIN => array('className' => 'CAdmin', 'tableName' => 'admin', 'keyField' => 'userId'),
         USER_TYPE_MCH => array('className' => 'CMch', 'tableName' => 'mch', 'keyField' => 'userId'),
         USER_TYPE_PMT => array('className' => 'CPmt', 'tableName' => 'pmt', 'keyField' => 'userId'),
+        USER_TYPE_SRV => array('className' => 'CSrv', 'tableName' => 'srv', 'keyField' => 'userId'),
     );
 
     static $loadedItems = array();

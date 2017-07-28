@@ -379,6 +379,9 @@ class M_merchant extends My_Model
 	    		$data['add_time'] = time();
 	    		$data['sold_time'] = '';
 	    		$data['CID'] = $commodity_id;
+	    		$data['pos'] = 1;
+        		$maxPos = $this->db->select_max('pos')->get('commodity')->row_array();
+        		if(isset($maxPos['pos']) && !empty($maxPos['pos'])) $data['pos'] = (int)$maxPos['pos']+1;
 				$this->db->insert('commodity', $data);
 				$commodityId = $this->db->insert_id();
     		}

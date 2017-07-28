@@ -230,6 +230,7 @@ class M_goods extends My_Model
         {
             return ERROR_GOODS_NOT_FOUND;
         }
+        return $this->modGoods($goodsId, array('outLibrary' => 1));
         if($this->db->where('goods_id', $goodsId)->update('goods', array('outLibrary' => 1)))
         {
             return ERROR_OK;

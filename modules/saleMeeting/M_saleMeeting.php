@@ -26,6 +26,9 @@ class M_saleMeeting extends My_Model
         {
             $info['stock_num'] = 1;
         }
+        $info['pos'] = 1;
+        $maxPos = $this->db->select_max('pos')->get('commodity')->row_array();
+        if(isset($maxPos['pos']) && !empty($maxPos['pos'])) $info['pos'] = (int)$maxPos['pos']+1;
     	$res = $this->db->insert('commodity', $info);
     	if (!$res) 
     	{
@@ -71,7 +74,7 @@ class M_saleMeeting extends My_Model
     	{
     		$this->db->limit($num, $startIndex);
     	}
-    	$ids = $this->db->order_by('add_time desc')->get()->result_array();
+    	$ids = $this->db->order_by('pos desc')->get()->result_array();
     	$this->db->flush_cache();
     	return $ids;
     }
@@ -227,6 +230,17 @@ class M_saleMeeting extends My_Model
     	return ERROR_SYSTEM;
     }
 
+    //移动商品顺序
+    function moveCommodityOrder($commodityIdA, $commodityIdB)
+    {
+        $infoA = $this->getCommodityInfo($commodityIdA);
+        $infoB = $this->getCommodityInfo($commodityIdB);
+        if (empty($infoA) || empty($infoB)) return ERROR_NO_COMMODITY;
+        $this->modCommodity($commodityIdA, array('pos' => $infoB->pos));
+        $this->modCommodity($commodityIdB, array('pos' => $infoA->pos));
+        return ERROR_OK;
+    }
+
     //上架商品到特卖会
     function upCommodityToTMH($id)
     {
@@ -347,7 +361,7 @@ class M_saleMeeting extends My_Model
     	{
     		$this->db->limit($num, $startIndex);
     	}
-    	$ids = $this->db->order_by('sale_meeting.add_time desc')->get()->result_array();
+    	$ids = $this->db->order_by('commodity.pos desc')->get()->result_array();
     	$this->db->flush_cache();
     	return $ids;
     }
@@ -356,6 +370,7 @@ class M_saleMeeting extends My_Model
     function getTMHCommodityInfo($id)
     {
     	$info = $this->getCommodityInfo($id);
+        if(empty($info)) return "";
         $up_time = $this->db->select('add_time')->where('commodity_id', $id)->get('sale_meeting')->row_array();
         $info->up_time = $up_time['add_time'];
         return $info;

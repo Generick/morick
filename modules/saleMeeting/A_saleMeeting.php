@@ -128,6 +128,25 @@ class A_saleMeeting extends Admin_Controller
     	$this->responseSuccess($res);
     }
 
+    //调整商品顺讯
+    function moveCommodityOrder()
+    {
+        if (!$this->checkParam(array('commodityIdA', 'commodityIdB'))) 
+        {
+            $this->responseError(ERROR_PARAM);
+            return;
+        }
+        $commodityIdA = $this->input->post('commodityIdA');
+        $commodityIdB = $this->input->post('commodityIdB');
+        $res = $this->m_saleMeeting->moveCommodityOrder($commodityIdA, $commodityIdB);
+        if ($res !== ERROR_OK) 
+        {
+            $this->responseError($res);
+            return;
+        }
+        $this->responseSuccess($res);
+    }
+
     //上架商品到特卖会
     function upCommodityToTMH()
     {

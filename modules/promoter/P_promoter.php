@@ -11,6 +11,7 @@ class P_promoter extends Pmt_Controller
     {
         parent::__construct();
         $this->load->model('m_promoter');
+        $this->load->model('m_user');
     }
 
     //推广员获取个人信息
@@ -43,9 +44,11 @@ class P_promoter extends Pmt_Controller
     	$userId = $this->input->post('userId');
     	$startIndex = $this->input->post('startIndex');
     	$num = $this->input->post('num');
+    	$sort = $this->input->post('sort');
+    	$direction = $this->input->post('direction');
     	$data = array();
     	$count = 0;
-    	$this->m_promoter->getFriends($startIndex, $num, $userId, $data, $count);
+    	$this->m_promoter->getFriends($startIndex, $num, $userId, $data, $count, $sort, $direction);
     	$this->responseSuccess(array('userList' => $data, 'count' => $count));
     }
 
@@ -85,5 +88,30 @@ class P_promoter extends Pmt_Controller
     	$this->m_promoter->getWaitCheckBill($startIndex, $num, $userId, $data, $count);
     	$this->m_promoter->getPromoterInfo($userId, $info);
     	$this->responseSuccess(array('bills' => $data, 'count' => $count, 'historyReturnTotal' => $info->historyReturnTotal, 'waitCheckAmount' => $info->waitCheckAmount));
+    }
+
+    //推广员给用户设置备注
+    function setRemark()
+    {
+    	if (!$this->checkParam(array('userId', 'remark'))) 
+    	{
+    		$this->responseError(ERROR_PARAM);
+    		return;
+    	}
+    	$userId = $this->input->post('userId');
+    	$remark = $this->input->post('remark');
+    	$userObj = $this->m_user->getUserObj(USER_TYPE_USER, $userId);
+    	if (!$userObj)
+    	{
+    		$this->responseError(ERROR_USER_NOT_FOUND);
+    		return;
+    	}
+    	$res = $userObj->modInfoWithPrivilege(array('remark' => $remark));
+    	if ($res) 
+    	{
+    		$this->responseError($res);
+    		return;
+    	}
+    	$this->responseSuccess(ERROR_OK);
     }
 }

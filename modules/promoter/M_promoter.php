@@ -339,26 +339,70 @@ class M_promoter extends My_Model
     }
 
     //获取好友
-    function getFriends($startIndex, $num, $userId, &$data, &$count)
+    function getFriends($startIndex, $num, $userId, &$data, &$count, $sort = '', $direction = 0)
     {
+    	$whr = array(
+    		'PMTID' => $userId,
+    		);
+    	$select = 'user.userId';
+    	$p = 'desc';
+    	if ($direction == 1) $p = 'asc';
+    	$order = "registerTime {$p}";
+    	if ($sort == 1) 
+    	{
+    		//$select .= ', sum(order.payPrice) as total';
+    		$order = "user_order_statistics.orderSumMoney {$p}";
+    	}else if ($sort == 2) 
+    	{
+    		//$select .= ', max(order.orderTime) as maxTime';
+    		$order = "user_order_statistics.recentOrderTime {$p}";
+    	}
     	$this->db->start_cache();
     	$this->db->from('user');
-    	$this->db->select('userId');
-    	$this->db->where(array('PMTID' => $userId));
+    	$this->db->select($select);
+    	//$this->db->distinct();
+    	$this->db->where($whr);
+    	$this->db->join('user_order_statistics', 'user_order_statistics.userId = user.userId');
     	$this->db->stop_cache();
     	$count = $this->db->count_all_results();
     	if ($num > 0) 
     	{
     		$this->db->limit($num, $startIndex);
     	}
-    	$userIds = $this->db->get()->result_array();
+    	//$this->db->distinct();
+    	$userIds = $this->db->order_by($order)->get()->result_array();
     	$this->db->flush_cache();
     	if (empty($userIds)) return ERROR_OK;
     	$condition = $this->getPMTCondition($userId);
     	foreach ($userIds as $v) 
     	{
     		$data[] = $this->getSingleUserInfo($userId, $v['userId'], $condition);
+    		//$this->updateUserOrderStatistics($v);
     	}
+    }
+
+    //更新用户下单总金额以及最近下单时间
+    function updateUserOrderStatistics($userId)
+    {
+    	$statistics = $this->db->where('userId', $userId)->get('user_order_statistics')->row_array();
+    	$whr = "userId = {$userId} and orderStatus not in (0,1) and orderType = 2";
+		$sum = $this->db->select_sum('payPrice')->where($whr)->get('order')->row_array();
+		$recent = $this->db->select_max('orderTime')->where($whr)->get('order')->row_array();
+		$orderSumMoney = 0;
+		$recentOrderTime = 0;
+		if (isset($sum['payPrice']) && !empty($sum['payPrice'])) $orderSumMoney = $sum['payPrice'];
+		if (isset($recent['orderTime']) && !empty($recent['orderTime'])) $recentOrderTime = $recent['orderTime'];
+		$data = array(
+    			'orderSumMoney' => $orderSumMoney,
+    			'recentOrderTime' => $recentOrderTime,
+    			);
+    	if (!$statistics) 
+    	{
+    		$data['userId'] = $userId;
+    		$this->db->insert('user_order_statistics', $data);
+    		return;
+    	}
+    	$this->db->where('userId', $userId)->update('user_order_statistics',$data);
     }
 
     //获取单个好友个人信息
@@ -378,6 +422,7 @@ class M_promoter extends My_Model
 		$one['totalFee'] = '';
 		$one['returnFee'] = '';
 		$one['recentOrderTime'] = '';
+		$one['remark'] = '';
 		$userObj = $this->m_user->getUserObj(USER_TYPE_USER, $friendUserId);
 		if ($userObj)
 		{
@@ -385,10 +430,11 @@ class M_promoter extends My_Model
 			$one['telephone'] = $userObj->telephone;
 			$one['registerTime'] = $userObj->registerTime;
 			$one['smallIcon'] = $userObj->smallIcon;
+			$one['remark'] = $userObj->remark;
 		}
-		$lastOrder = $this->db->select('orderTime')->where('userId', $friendUserId)->order_by('orderTime desc')->get('order')->row_array();
-		if(isset($lastOrder['orderTime']) && !empty($lastOrder['orderTime'])) $one['recentOrderTime'] = $lastOrder['orderTime'];
 		$whr = "userId = {$friendUserId} and orderStatus not in (0,1) and orderType = 2";
+		$lastOrder = $this->db->select_max('orderTime')->where($whr)->get('order')->row_array();
+		if(isset($lastOrder['orderTime']) && !empty($lastOrder['orderTime'])) $one['recentOrderTime'] = $lastOrder['orderTime'];
 		$one['tradeNum'] = $this->db->where($whr)->count_all_results('order');
 		$totalFee = $this->db->select_sum('payPrice')->where($whr)->get('order')->row_array();
 		$one['totalFee'] = $totalFee['payPrice'];

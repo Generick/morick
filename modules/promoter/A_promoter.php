@@ -197,7 +197,7 @@ class A_promoter extends Admin_Controller
    		$whr = "orderStatus not in (0,1) and orderType = 2";
    		if (!empty($startTime) && !empty($endTime)) 
    		{
-   			$whr .= "and orderTime >= {$startTime} and orderTime <= {$endTime}";
+   			$whr .= " and orderTime >= {$startTime} and orderTime <= {$endTime}";
    		}
    		$count = 0;
    		$data = array();
@@ -221,9 +221,11 @@ class A_promoter extends Admin_Controller
    		$userId = $this->input->post('userId');
    		$startIndex = $this->input->post('startIndex');
    		$num = $this->input->post('num');
+   		$sort = $this->input->post('sort');
+   		$direction = $this->input->post('direction');
    		$data = array();
    		$count = 0;
-   		$this->m_promoter->getFriends($startIndex, $num, $userId, $data, $count);
+   		$this->m_promoter->getFriends($startIndex, $num, $userId, $data, $count, $sort, $direction);
    		$this->responseSuccess(array('friends' => $data, 'count' => $count));
    	}
 

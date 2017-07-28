@@ -32,9 +32,11 @@
             "u_user/bindAccount" : {"bindType" : 0, "bindAccount" : "", "说明" : "绑定账号", "备注" : "bindType 0QQ 1微信 2邮箱"},
 
             //商户
-            'x_mch/getSelfInfo' : {"说明":"获取自己的数据"},
+            'x_mch/getSelfInfo' : {"说明":"商户 获取自己的数据"},
             //推广员
-            'p_pmt/getSelfInfo' : {"说明":"获取自己的数据"},
+            'p_pmt/getSelfInfo' : {"说明":"推广员 获取自己的数据"},
+            //客服
+            'S_srv/getSelfInfo' : {"说明":"客服 获取自己的数据"},
 
             // 管理员的操作
             'a_admin/getSelfInfo' : {"说明":"获取自己的数据"},
@@ -171,7 +173,7 @@
 
             //region 订单列表
             "order/A_order/getPersonalOrderList" :  {"startIndex" : 0, "num" : 10, "userId" : "", "说明" : "分页获取个人购买记录"},
-            "order/A_order/getOrderList" : {"startIndex" : 0, "num" : 10, "orderStatus" : 0, "deliveryType" : 0 , "likeStr" : "", "orderType":1,"说明" : "获取订单列表 orderType订单类型1拍品订单 2商品订单"},
+            "order/A_order/getOrderList" : {"startIndex" : 0, "num" : 10, "orderStatus" : 0, "online" : 1 , "likeStr" : "", "orderType":1,"说明" : "获取订单列表 online 线上线下1线上2线下 orderType订单类型1拍品订单 2商品订单"},
             "order/A_order/deliverOrder" : {"order_no" : "", "logistics_no" : "", "说明" : "发货"},
             "order/A_order/orderStatistical" : {"startTime" : "", "endTime" : "", "startIndex" : 0, "num" : 10, "说明" : "销售统计"},
             "order/A_order/getLogisticsInfo" : {"order_no" : "", "说明" : "获取物流信息"},
@@ -182,8 +184,10 @@
             "order/U_order/confirmReceipt" : {"order_no" : "", "说明" : "确认收货"},
             "order/U_order/payOrder" :{"order_no" : "", "deliveryType" : "0", "说明" : "支付订单"},
             "order/U_order/payTMH" :{"userId" : "0", "commodity_id" : "0", "clientPrice":0, "clientTime":0,"buyNum":1,"说明" : "支付特卖会订单 clientPrice前端计算的价格clientTime前端传入的时间 buyNum购买数量"},
-            "order/U_order/wxPayTMH":{"userId":'3', "commodity_id":'88', "clientPrice":'', "clientTime":'1498647944', "buyNum":1, "payEnv":7, "returnUrl":'', "说明":"微信支付商品 payEnv支付环境5微信H5支付6支付宝7微信公众号支付"},
-            "order/U_order/continuePay":{'order_no':'', "returnUrl":"http://www.baidu.com", "说明":"继续支付 order_no订单号 returnUrl跳转链接"},
+            "order/U_order/wxPayTMH":{"userId":'3', "commodity_id":'88', "clientPrice":'', "clientTime":'1498647944', "buyNum":1, "payEnv":1, "returnUrl":'','openId':'', "说明":"微信支付商品 payEnv支付方式 当支付方式为微信公众号时openId必传"},
+            "order/U_order/continuePay":{'order_no':'', "returnUrl":"http://www.baidu.com",'openId':'', "说明":"继续支付 order_no订单号 returnUrl跳转链接"},
+            "order/Order/continuePayTest":{'openId':'', "说明":"测试支付接口"},
+            "order/Order/userOrderStatistics":{"说明":"用户订单总额以及最新下单时间更新"},
             //endregion
 
             //region 充值
@@ -228,6 +232,7 @@
             "saleMeeting/A_saleMeeting/getCommodityInfo": {'id':1,'说明':'获取商品信息'},
             "saleMeeting/A_saleMeeting/commodityDelRec": {'startIndex':0,'num':10,'startTime':'','endTime':'','说明':'获取商品删除记录'},
             "saleMeeting/A_saleMeeting/saleRecord": {'startIndex':0,'num':10,'startTime':'','endTime':'','fields':'','说明':'获取商品销售记录'},
+            "saleMeeting/A_saleMeeting/moveCommodityOrder": {'commodityIdA':1,'commodityIdB':2,'说明':'移动商品顺序'},
             "saleMeeting/SaleMeeting/getTMHList": {'startIndex':0, 'num':10, 'fields':'','说明':'获取特卖会列表'},
             "saleMeeting/SaleMeeting/getTMHCommodityInfo": {'commodity_id':1,'说明':'获取特卖会商品信息'},
 
@@ -263,13 +268,25 @@
             'promoter/A_promoter/adminAddCondition':{'userId':'1','condition_money':50000,'condition_rate':5,"说明":"添加推广员的分成条件 condition_money消费金额 condition_rate分成比例"},
             'promoter/A_promoter/adminDelCondition':{'id':'1',"说明":"删除推广员的分成条件"},
             'promoter/A_promoter/getFriendsOrders':{'userId':'1','startIndex':0,'num':10,'startTime':'','endTime':'',"说明":"好友下单记录"},
-            'promoter/A_promoter/getFriends':{'userId':'1','startIndex':0,'num':10,"说明":"好友列表"},
+            'promoter/A_promoter/getFriends':{'userId':'41','startIndex':0,'num':10,'sort':0,'direction':0,"说明":"好友列表 sort排序方式0按照好友注册时间1按照消费金额2按照最近下单时间 direction 0倒序1正序"},
             'promoter/A_promoter/getCheckBillRecords':{'userId':'1','startIndex':0,'num':10,"说明":"结账记录"},
             'promoter/A_promoter/getPromoterInfo':{'userId':'1',"说明":"获取推广员信息"},
             'promoter/P_promoter/getPromoterInfo':{'userId':'1',"说明":"推广员获取自己的信息"},
-            'promoter/P_promoter/myPromptUsers':{'userId':'1','startIndex':0,'num':10,"说明":"获取自己推荐的用户"},
+            'promoter/P_promoter/myPromptUsers':{'userId':'1','startIndex':0,'num':10,'sort':0,'direction':0,"说明":"获取自己推荐的用户 sort排序方式0按照好友注册时间1按照消费金额2按照最近下单时间 direction 0倒序1正序"},
             'promoter/P_promoter/getPromptUserInfo':{'userId':'1','friendUserId':15,'startIndex':0,'num':10,"说明":"获取推荐的用户详情"},
             'promoter/P_promoter/getWaitCheckBill':{'userId':'1','startIndex':0,'num':10,"说明":"获取待结账金额详情"},
+            'promoter/P_promoter/setRemark':{'userId':1,'remark':'这是备注内容',"说明":"推广员给用户设置备注 userId为用户id"},
+
+            //客服
+            'customerService/A_customService/getServices':{'startIndex':0,'num':10,'说明':'获取客服账号列表'},
+            'customerService/A_customService/addService':{'accountName':'kf001','name':'客服一号','password':'123456','说明':'添加客服账号'},
+            'customerService/A_customService/modServicePassword':{'accountName':'kf001','newPWD':'654321','说明':'修改客服账号密码'},
+            'customerService/A_customService/delService':{'ids':'[1,2]','说明':'删除客服账号'},
+            'customerService/A_customService/getOPREC':{'startIndex':0,'num':10,'startTime':'','endTime':'','说明':'获取客服操作记录'},
+            'customerService/S_customService/getOrders':{'startIndex':'0','num':'10','orderStatus':'','说明':'客服获取订单列表'},
+            'customerService/S_customService/getOrderInfo':{'order_no':'','说明':'客服获取订单详情'},
+            'customerService/S_customService/sureOrCancelOrder':{'userId':'','order_no':'','type':0,'说明':'客服确定或者取消订单0确认完成1取消'},
+            'customerService/S_customService/deliverOrder':{'userId':'','order_no':'','logistics_no':0,'说明':'客服发货 logistics_no物流单号'},
             //endregion
         };
 

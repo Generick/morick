@@ -16,6 +16,7 @@ class M_order extends My_Model
         $this->load->model('m_saleMeeting');
         $this->load->model('m_messagePush');
         $this->load->model('m_merchant');
+        $this->load->model('m_promoter');
         if(!$this->cache->redis->is_supported())
         {
             $this->log->write_log('error', "redis not supported!!!");
@@ -455,7 +456,7 @@ class M_order extends My_Model
     }
 
     //微信支付宝支付商品
-    function wxPayTMH($userId, $commodity_id, $clientPrice, $clientTime, $buyNum, &$ret, $payEnv, $returnUrl)
+    function wxPayTMH($userId, $commodity_id, $clientPrice, $clientTime, $buyNum, &$ret, $payEnv, $returnUrl, $openId = '')
     {
         $this->load->model('m_user');
         $this->load->model('m_shippingAddress');
@@ -465,6 +466,7 @@ class M_order extends My_Model
         $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $userId);
         $commodityObj = $this->m_saleMeeting->getCommodityInfo($commodity_id);
         if ($commodityObj->stock_num <= 0) return ERROR_STOCK_NUM_NOT_ENOUGH;
+        if ($payEnv == 5 && empty($openId)) return ERROR_OPEN_ID_NULL;
         $price = $this->priceJudge($commodityObj, $clientPrice, $clientTime);
         //var_dump($price);die;
         if (!$price) return ERROR_TIME_OUT;
@@ -479,7 +481,7 @@ class M_order extends My_Model
             'payPrice' => $totalPrice,
             'orderType' => 2,
             'orderStatus' => 1,
-            'payType' => $payEnv,//weixin pay
+            'payType' => $payEnv+10,//pay method + 10
             );
 
         //获取用户的默认收货地址
@@ -502,6 +504,7 @@ class M_order extends My_Model
             $ret['url'] = '';
             $orderInfo['buyNum'] = $buyNum;
             //$res = $this->callPayAPI($orderInfo, $commodityObj, $payEnv, $returnUrl, $ret);
+            //$res = $this->otherThirdPay($orderInfo['order_no'], $totalPrice, $payEnv, $openId, $ret);
             $this->m_transaction->addTransaction($userId, TRANSACTION_COMMODITY, $totalPrice);
             //contact with custom service and pay for the bill, don't use balance
             // $newBalance = $userObj->balance - $commodityObj->commodity_price;
@@ -524,18 +527,46 @@ class M_order extends My_Model
             $ret['order_no'] = $orderInfo['order_no'];
             return ERROR_OK;
             //return $res;
-            // $payInfo['payId'] = $orderInfo['order_no'];
-            // $this->load->library('Wxpay');
-            // $wxPrePayInfo = $this->wxpay->WXPrePayInfo($payInfo['payId'], $price*100, $commodity_name);
-            // if (empty($wxPrePayInfo)) 
-            // {
-            //     return ERROR_GET_WEIXI_PREPAYINFO_FAILED;
-            // }
-            // $payInfo['price'] = $price;
         }
         return ERROR_SYSTEM;
         
     }
+
+    //另一家第三方支付-_-||
+    function otherThirdPay($order_no, $money, $payType, $openId = '', &$ret)
+    {
+        //md5(payUserId + appId + money + time + key),
+        $money = 1;
+        $payUserId = 2;
+        $appId = 8;
+        $key = 'A85CE8F77D2917013D4963CEC6B7522E';
+        //test params above
+        $time = time();
+        $sign = md5($payUserId.$appId.$money.$time.$key);
+        $params = array(
+            'payUserId' => 2,
+            'appId' => 8,
+            'money' => $money,
+            'time' => $time,
+            'payType' => $payType,
+            'sign' => $sign,
+            'userOrderNo' => $order_no,
+            );
+        if ($payType == 5) 
+        {
+            $params['openId'] = $openId;
+        }
+        $url = "http://pay.uerbx.com/xqh/financial/pay?";
+        // example url
+        //http://host/xqh/financial/pay?payUserId=1&appId=1&money=1&time=1494252321&payType=1&sign=7ceb9f192d455868e9353f297f320c97&userOrderNo=3&userParam=param3
+        foreach ($params as $k => $v) 
+        {
+            $url .= $k."=".$v.'&';
+        }
+        $url = rtrim($url, '&');
+        $ret['url'] = $url;
+    }
+
 
     //调用支付API
     function callPayAPI($orderInfo, $commodityObj, $payEnv, $returnUrl, &$ret)
@@ -816,6 +847,8 @@ class M_order extends My_Model
     function callbackFunc()
     {
         log_message('error', '---|----|----|----start pay API call back--|-----|----|----');
+        $this->otherCallBack();
+        return;
         $raw_data = $_REQUEST['msg'];
         log_message('error', 'raw_data---->:'.$raw_data);
         if (empty($raw_data)) 
@@ -858,10 +891,23 @@ class M_order extends My_Model
         echo "Y";
     }
 
+    function otherCallBack()
+    {
+        log_message('error', '-------r-eceived data-------:'.json_encode($_REQUEST));
+        $order_no = isset($_REQUEST['userOrderNo'])?$_REQUEST['userOrderNo']:'';
+        log_message('error', '-|-|-|-|receive order_no:'.$order_no);
+        if (empty($order_no))
+        {
+            return;
+        } 
+        $this->wxPaySuccess($order_no);
+    }
+
     //支付成功处理
     function wxPaySuccess($orderId)
     {
         $orderInfo = $this->getOrderAll($orderId);
+        if (empty($orderInfo)) return;
         if ($orderInfo->orderStatus > 1) return;
         $this->modOrderInfo($orderId, array('orderStatus'=>2));
         $commodityObj = $this->m_saleMeeting->getCommodityInfo($orderInfo->orderGoods[0]->id);
@@ -871,6 +917,7 @@ class M_order extends My_Model
             $mchCommodityObj = $this->m_merchant->getCommodityInfo($commodityObj->CID);
             $this->m_messagePush->createUserMsg($mchCommodityObj->userId, MP_MSG_TYPE_MCH_C_ORDER, $commodityObj->CID, $mchCommodityObj->mch_commodity_name);
         }
+        $this->m_promoter->updateUserOrderStatistics($orderInfo->userId);
     }
 
     //支付失败处理
@@ -883,7 +930,7 @@ class M_order extends My_Model
     }
 
     //继续支付
-    function continuePay($order_no, $returnUrl, &$res)
+    function continuePay($order_no, $returnUrl, $openId = '', &$res)
     {
         log_message('error', '---|----|---start continue pay---|------|----');
         $orderObj = $this->getOrderAll($order_no);
@@ -905,7 +952,7 @@ class M_order extends My_Model
             'deliveryType' => $orderObj->deliveryType,
             'orderTime' => $orderObj->orderTime,
             'goodsPrice' => $commodityObj->commodity_price,
-            'payPrice' => $totalPrice,
+            'payPrice' => $totalPrice*100,
             //'payPrice' => 0.01,
             'orderType' => 2,
             'orderStatus' => 1,
@@ -913,7 +960,18 @@ class M_order extends My_Model
             'buyNum' => $orderObj->orderGoods[0]->goodsNum,
             );
         log_message('error', 'continue pay order params:-------->'.json_encode($orderInfo));
-        return $this->callPayAPI($orderInfo, $commodityObj, $orderInfo['payType'], $returnUrl, $res);
+        if ($orderObj->payType-10 == 5 && empty($openId)) return ERROR_OPEN_ID_NULL;
+        $this->otherThirdPay($order_no, $totalPrice, $orderObj->payType-10, $openId, $res);
+        return ERROR_OK;
+        //return $this->callPayAPI($orderInfo, $commodityObj, $orderInfo['payType'], $returnUrl, $res);
+    }
+
+    function continuePayTest($openId, &$res)
+    {
+        if(empty($openId)) return ERROR_OPEN_ID_NULL;
+        $order_no = date("YmdHis").mt_rand(100000, 999999);
+        $this->otherThirdPay($order_no, 1, 5, $openId, $res);
+        return ERROR_OK;
     }
 
     //特卖会订单详情

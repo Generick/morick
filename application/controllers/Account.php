@@ -69,16 +69,22 @@ class Account extends My_Controller{
     {
         $this->load->model("m_user");
         $userObj = $this->m_user->getUserObj($userType, $userId);
-        if ($userType == USER_TYPE_MCH && $userObj->is_delete == DELETE_YES) 
+        $uTypes = array(USER_TYPE_MCH,USER_TYPE_PMT,USER_TYPE_SRV);
+        if (in_array($userType, $uTypes) && $userObj->is_delete == DELETE_YES) 
         {
-            $this->responseError(ERROR_MCH_DELETE);
+            $this->responseError(ERROR_THE_ACCOUNT_IS_DELETE);
             return;
         }
-        if ($userType == USER_TYPE_PMT && $userObj->is_delete == DELETE_YES) 
-        {
-            $this->responseError(ERROR_PMT_DELETE);
-            return;
-        }
+        // if ($userType == USER_TYPE_MCH && $userObj->is_delete == DELETE_YES) 
+        // {
+        //     $this->responseError(ERROR_MCH_DELETE);
+        //     return;
+        // }
+        // if ($userType == USER_TYPE_PMT && $userObj->is_delete == DELETE_YES) 
+        // {
+        //     $this->responseError(ERROR_PMT_DELETE);
+        //     return;
+        // }
         $nowTime = now();
 
         $token = generate_token();

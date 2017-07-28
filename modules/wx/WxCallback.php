@@ -10,7 +10,7 @@ class WxCallback extends My_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->library('Wxpay');
+        //$this->load->library('Wxpay');
         $this->load->model('m_recharge');
         $this->load->model('m_order');
     }
