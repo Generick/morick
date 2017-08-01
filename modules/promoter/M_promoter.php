@@ -377,7 +377,7 @@ class M_promoter extends My_Model
     	foreach ($userIds as $v) 
     	{
     		$data[] = $this->getSingleUserInfo($userId, $v['userId'], $condition);
-    		//$this->updateUserOrderStatistics($v);
+    		//$this->updateUserOrderStatistics($v['userId']);
     	}
     }
 

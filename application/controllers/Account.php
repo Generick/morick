@@ -75,6 +75,11 @@ class Account extends My_Controller{
             $this->responseError(ERROR_THE_ACCOUNT_IS_DELETE);
             return;
         }
+        if (isset($userObj->PMTID) && $userObj->PMTID > 0) 
+        {
+            $this->load->model('m_promoter');
+            $this->m_promoter->updateUserOrderStatistics($userId);
+        }
         // if ($userType == USER_TYPE_MCH && $userObj->is_delete == DELETE_YES) 
         // {
         //     $this->responseError(ERROR_MCH_DELETE);
@@ -149,7 +154,8 @@ class Account extends My_Controller{
         $password = $this->input->post("password");
         $PMTID = $this->input->post("PMTID");
 
-        if (($userType == USER_TYPE_PMT || $userType == USER_TYPE_MCH) && $platform == 5) 
+        $uTypes = array(USER_TYPE_MCH, USER_TYPE_PMT, USER_TYPE_SRV);
+        if (in_array($userType, $uTypes) && $platform == 5) 
         {
             $this->responseError(ERROR_NO_USE_PHONE_CODE_TO_LOGIN);
             return;

@@ -118,7 +118,12 @@ class M_account extends My_Model{
 
         $this->load->model("m_user");
         $errCode = $this->m_user->createNormalUser($userId, $platformId, $PMTID);
-        if($PMTID > 0) $this->m_promoter->updateUserOrderStatistics($userId);
+        if($PMTID > 0)
+        {
+            $this->m_promoter->updateUserOrderStatistics($userId);
+            log_message('error', 'running--------'.$PMTID.'-----'.$userId);
+        } 
+            
         if ($errCode != ERROR_OK)
         {
             return $errCode;

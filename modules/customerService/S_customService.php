@@ -12,6 +12,7 @@ class S_customService extends Srv_Controller
         parent::__construct();
         $this->load->model('m_customService');
         $this->load->model('m_order');
+        $this->load->model('m_user');
     }
 
     //获取订单列表
@@ -44,6 +45,11 @@ class S_customService extends Srv_Controller
     	}
     	$order_no = $this->input->post('order_no');
     	$info = $this->m_order->getOrderObj($order_no);
+    	if (!$info)
+    	{
+    		$this->responseError(ERROR_ORDER_NOT_FOUND);
+    		return;
+    	}
     	$this->responseSuccess(array('orderInfo' => $info));
     }
 
@@ -58,12 +64,19 @@ class S_customService extends Srv_Controller
     	$userId = $this->input->post('userId');
     	$order_no = $this->input->post('order_no');
     	$type = $this->input->post('type');
+
     	$orderObj = $this->m_order->getOrderObj($order_no);
     	if (!$orderObj)
     	{
     		$this->responseError(ERROR_ORDER_NOT_FOUND);
     		return;
-    	} 
+    	}
+    	$srv = $this->m_user->getUserObj(USER_TYPE_SRV, $userId);
+    	if (!$srv)
+    	{
+    		$this->responseError(ERROR_NO_SERVICE);
+    		return;
+    	}
     	$res = $this->m_order->sure_cancel_order($order_no, $type);
     	if ($res !== ERROR_OK) 
     	{
@@ -72,8 +85,13 @@ class S_customService extends Srv_Controller
     	}
     	$toStatus = ORDER_STATUS_RECEIVE;
     	if ($type == 1) $toStatus = ORDER_STATUS_CANCEL;
-    	$this->m_customService->addOPREC($userId, $orderObj->orderStatus,$toStatus);
-    	$this->responseSuccess($res);
+    	$ret = $this->m_customService->addOPREC($userId, $orderObj->orderStatus,$toStatus);
+    	if ($ret == ERROR_OK)
+    	{
+    		$this->responseSuccess($ret);
+    		return;
+    	} 
+    	$this->responseError($ret);
     }
 
     //发货
@@ -87,27 +105,35 @@ class S_customService extends Srv_Controller
     	$order_no = $this->input->post('order_no');
     	$logistics_no = $this->input->post('logistics_no');
     	$userId = $this->input->post('userId');
+
     	$orderObj = $this->m_order->getOrderObj($order_no);
     	if (!$orderObj)
     	{
     		$this->responseError(ERROR_ORDER_NOT_FOUND);
     		return;
+    	}
+    	$srv = $this->m_user->getUserObj(USER_TYPE_SRV, $userId);
+    	if (!$srv)
+    	{
+    		$this->responseError(ERROR_NO_SERVICE);
+    		return;
     	} 
     	$retCode = $this->m_order->modOrderInfo($order_no, array("logistics_no" => $logistics_no, "orderStatus" => ORDER_STATUS_WAIT_RECEIVE));
-    	$this->m_customService->addOPREC($userId, $orderObj->orderStatus, ORDER_STATUS_WAIT_RECEIVE);
         //创建发货信息
         //user id ,msg type, href id=> order id
         if ($retCode == ERROR_OK) 
         {
+        	$this->m_customService->addOPREC($userId, $orderObj->orderStatus, ORDER_STATUS_WAIT_RECEIVE);
             $this->load->model('m_messagePush');
             //user id 
             $user_id = $this->db->select('userId, orderType')->from('order')->where('order_no', $order_no)->get()->row_array();
             $msgType = $user_id['orderType'] == 2 ? MP_MSG_TYPE_COMMODITY_ORDER : MP_MSG_TYPE_ORDER;
             $res = $this->m_messagePush->createUserMsg($user_id['userId'], $msgType, $order_no);
-            if (empty($res)) 
+            if (empty($res))
             {
-                $this->responseError(MP_MSG_CREATE_FAIL);
-            }
+            	$this->responseError(MP_MSG_CREATE_FAIL);
+            	return;
+            } 
             $this->responseSuccess(ERROR_OK);
         }
         

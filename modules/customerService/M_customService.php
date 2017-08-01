@@ -135,7 +135,14 @@ class M_customService extends My_Model
     	if (empty($userIds)) return;
     	foreach ($userIds as $v) 
     	{
-    		$data[] = $this->m_user->getUserObj(USER_TYPE_SRV, $v['userId']);
+    		$oneSrv = $this->m_user->getUserObj(USER_TYPE_SRV, $v['userId']);
+    		if (!$oneSrv) 
+    		{
+    			$oneSrv->lastLoginTime = '';
+    			$lastLoginTime = $this->db->select('lastLoginTime')->where('id', $v['userId'])->get('user_relation')->row_array();
+    			if (!empty($lastLoginTime)) $oneSrv->lastLoginTime = $lastLoginTime['lastLoginTime'];
+    		}
+    		$data[] = $oneSrv;
     	}
     }
 
@@ -148,7 +155,9 @@ class M_customService extends My_Model
     		'toStatus' => $toStatus,
     		'opTime' => time(),
     		);
-    	$this->db->insert('srv_op_rec', $data);
+    	$res = $this->db->insert('srv_op_rec', $data);
+    	if ($res) return ERROR_OK;
+    	return ERROR_ADD_OP_REC_FAIL;
     }
 
     //获取操作记录

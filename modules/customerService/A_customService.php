@@ -112,6 +112,6 @@ class A_customService extends Admin_Controller
         $data = array();
         $count = 0;
         $this->m_customService->getOPREC($startIndex, $num, $whr, $data, $count);
-        $this->responseSuccess(array('RECList' => $data, 'count' => $count));
+        $this->responseSuccess(array('OPList' => $data, 'count' => $count));
     }
 }
