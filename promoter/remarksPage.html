@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>备注</title>
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="css/popUp.css" />
+        <link href="layer.css">
+        <script src="js/base64.js"></script>
+        <script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+       
+	</head>
+
+	<body ng-controller="remarkCtr" style="background-color: #F2F2F2;">
+		 <div class="animation3">
+			        <img src="img/loading.gif"/>
+		    </div>
+		 <div class="container3">
+		 	 <div class="remark-text-box">
+		 	 	<textarea class="remark-text" ng-model="inputWord" ng-change="subString()"></textarea>
+		 	 	<div class="remark-text-word">50字以内</div>
+		 	 </div>
+		     <div class="tosubWord" ng-click="subSmit()">保存</div>
+			 
+		 </div>
+	</body>
+    
+	<!--系统js-->
+	
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/layer.js"></script>
+    <script src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/confirmTip.js" ></script>
+     <script src="js/app.js"></script>
+     
+	<script>
+		
+		  
+			if (typeof localStorage === 'object') {
+			    try {
+					localStorage.setItem('localStorage', 1);
+					localStorage.removeItem('localStorage');
+				} catch (e) {
+					Storage.prototype._setItem = Storage.prototype.setItem;
+					Storage.prototype.setItem = function() {};
+					$dialog.msg('为了正常访问，请关闭无痕模式');
+				}
+			}
+
+
+	</script>
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/remarksController.js" ></script>
+	<script>
+		if(window.screen.width < 375){
+			$('.user-input').css('margin-top','5vh');
+		}
+		
+		
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		
+//		    		location.href = pageUrl.LOGIN_PAGE;
+		    		location.href = pageUrl.PUSHER_DETAIL;
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+		
+	</script>
+</html>
+
+

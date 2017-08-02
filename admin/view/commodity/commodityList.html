@@ -46,7 +46,7 @@
                 <td style="text-align: center" ng-bind="item.stock_num+ '件'"></td>
                 <td style="text-align: center">
                  	<span ng-show="item.CID == 0">自营</span>
-                 	<span ng-show="item.CID == 1" ng-bind="item.comeFrom"></span>
+                 	<span ng-show="item.CID != 0" ng-bind="item.comeFrom"></span>
                 </td>
                 <td style="text-align: center">
                 	
@@ -61,6 +61,12 @@
                     <a class="btn btn-warning" ng-show="isGrounding == 0 && (item.mch_is_delete != 1)"  ng-click="uploadCommodity(item,1)">上架</a>
                     <a class="btn btn-warning" ng-show="isGrounding == 1 && (item.mch_is_delete != 1)"  ng-click="uploadCommodity(item,0)">下架</a>
                     <div style="background: #E3E3E3;line-height:35px;width:160px !important;margin:0 auto" ng-show="item.CID != 0 && item.mch_is_delete == 1">该商品已被商户删除</div>
+                    <span ng-click="toMoveItem(item,1)" ng-show="item.mch_is_delete != 1" style="width:43px;height:33px;padding-left:18px;padding-right:10px;;line-height:45px;margin-top:6px;font-weight:700;text-align:center;font-size:30px;color:#B89A7B">
+                    	↑
+                    </span>
+                    <span ng-click="toMoveItem(item,0)" ng-show="item.mch_is_delete != 1" style="width:43px;padding-left:10px;padding-right:10px;;height:33px;line-height:45px;text-align:center;font-weight:700;margin-top:6px;font-size:30px;color:#B89A7B">
+                    	↓
+                    </span>
                 </td>
                 <!--<td style="text-align: center"><span ng-click="oneSel(item.id)" ng-class="{true: 'has-sel', false: 'un-sel'}[item.selected]"></span></td>-->
                  <td style="text-align: center"><span ng-click="oneSel(item)" ng-class="{true: 'has-sel', false: 'un-sel'}[item.selected]"></span></td>

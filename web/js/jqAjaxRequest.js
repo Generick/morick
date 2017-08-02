@@ -46,9 +46,11 @@ var jqAjaxRequest =
 					if(err == '800')
 					{
 					    localStorage.setItem(localStorageKey.DEFAULT, location.href); //存储当前页面地址
-					    setTimeout(function(){
-					    	location.href = pageUrl.ACCOUNT_RECHARGE;
-					    },1600)
+//					   $dialog.msg("余额不足，前去充值", 1);
+//					   setTimeout(function(){
+//					    	location.href = pageUrl.ACCOUNT_RECHARGE;
+   							location.href = pageUrl.TOCUSTOMER_PAGE;
+//					    },1200)
                  		
 					}
 
@@ -56,6 +58,16 @@ var jqAjaxRequest =
 				else if(err == '2304')
 				{
 					$dialog.msg(errMsg);
+				}
+				else if(err == 6)
+				{
+					$dialog.msg(errMsg);
+					setTimeout(function(){
+//                  	alert("ajax555"+JSON.stringify(data))
+                  	location.href = pageUrl.LOGIN_PAGE;
+                    	
+                    	
+                    },1300)
 				}
 				else if(commonFu.equal(err,errCode.CODEERR))
 				{
@@ -68,7 +80,7 @@ var jqAjaxRequest =
                     $dialog.msg("会话过期，请先登录");
                     setTimeout(function(){
 //                  	alert("ajax555"+JSON.stringify(data))
-                    	location.href = pageUrl.LOGIN_PAGE;
+                  	location.href = pageUrl.LOGIN_PAGE;
                     	
                     	
                     },1300)
@@ -115,7 +127,7 @@ var jqAjaxRequest =
 //					alert("ajax9999"+JSON.stringify(data))
 //					alert(localStorage.getItem(localStorageKey.orderNo));
 //					alert(s_url)
-                  location.href = pageUrl.LOGIN_PAGE;
+                location.href = pageUrl.LOGIN_PAGE;
             }
 		});
 	},

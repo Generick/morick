@@ -175,7 +175,8 @@ var PaidServicesCtrl = {
     				$confirmTip.show("余额不足，请及时充值");
     				setTimeout(function()
     				{
-    					location.href = pageUrl.ACCOUNT_RECHARGE;
+//  					location.href = pageUrl.ACCOUNT_RECHARGE;
+ 						location.href = pageUrl.TOCUSTOMER_PAGE;
     				},1000)
     			}
 	    		

@@ -528,9 +528,9 @@ var commodityAskListController = {
 				 $dialog.msg("请上传商品图片", 1.6);
 				  return;
 			}
-			if(_utility.isEmpty(self.scope.CommodityBid_price))
+			if(self.scope.CommodityBid_price < 0)
 			{
-				 $dialog.msg("请输入商品进价", 1.6);
+				 $dialog.msg("商品进价不能小于0！", 1.6);
 				  return;
 			}
 			

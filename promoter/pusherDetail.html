@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>推荐人员</title>
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="css/popUp.css" />
+        <link href="layer.css">
+        <script src="js/base64.js"></script>
+        <script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+       
+	</head>
+
+	<body ng-controller="pusherCtr" style="background-color: #fff;">
+		<div class="animation3">
+			        <img src="img/loading.gif"/>
+		    </div>
+		
+		<div class="container3">
+			<div class="hisDetail-icon">
+				<div class="remark-person-box" ng-click="setRemark()">
+					<div class="remark-person-img">
+						<img src="img/remark-per.png" /> 
+					</div>
+					<div class="remark-person-word">
+						备注
+					</div>
+				</div>
+			<div class="his-detail-icon-img">
+				<img ng-if="frinedModel.smallIcon != '' && frinedModel.smallIcon != null" ng-show="frinedModel.smallIcon != '' && frinedModel.smallIcon != null" ng-src="{{frinedModel.smallIcon}}" />
+				<img ng-if="frinedModel.smallIcon == '' || frinedModel.smallIcon == null" ng-show="frinedModel.smallIcon == '' || frinedModel.smallIcon == null" src="img/default-icon.png" />
+			</div>
+			<div class="his-detail-icon-name" ng-bind="frinedModel.name">
+				是打发是的范德萨
+			</div>
+			<div class="remark-div" ng-bind="frinedModel.remarkWord" ng-show="frinedModel.isHasRemark" ng-click="setRemark()">
+				dsfdsfdsfdsfdsfdgfhdfghfghjdgfhdgfhgfhdfshdgfhfdhfggfdshgdsfdsfdgfdfsgdfsgdfsgdfgfdgdfgdfsgdfgdfsgdfsgdfsgdfsgdsfgdfsgdfsgdfgdfsgdfgdfsgdfsgdfsgdfsgfhdfgsgfshgfs
+			</div>
+			<div class="his-detail-icon-time">
+				<span>加入时间：</span>
+				<span ng-bind="frinedModel.joinTime*1000 | date:'yyyy-MM-dd'"></span>
+				<span ng-bind="frinedModel.joinTime*1000 | date:'HH:mm:ss'"> </span>
+			</div>
+		</div>
+		<div class="his-fl-lt">
+		 	<span>消费</span>
+		 	<span ng-bind="frinedModel.count+' 笔'"></span>
+		 </div>
+		 <div class="has-no-data">
+		 	<img src="img/icon-empty-1.png" /> 
+		 	<span style="width:100%;line-height:25px;text-align: center;display: block;font-size:16px">暂无记录</span>
+		 </div>
+		 <div class="myWaitPayBox">
+		 	<div class="mydetail-item his-detail" ng-repeat="item in frinedModel.payForArr">
+		 		<div class="his-detail-top">
+		 			<span ng-bind="item.orderTime*1000 | date:'yyyy-MM-dd'"></span>
+		 			<span ng-bind="item.orderTime*1000 | date:'HH:mm:ss'"></span>
+		 		</div>
+		 		<div class="his-detail-middle">
+		 			<div class="his-detail-middle-left">
+		 				<span>消费:</span>
+		 				<span ng-bind="item.payPrice + '元'"></span>
+		 			</div>
+		 			<div class="his-detail-middle-right">
+		 				
+		 				<span>返现:</span>
+		 				<span ng-bind="item.returnFee + '元'"></span>
+		 				<span  ng-show="item.isChecked == 0" style="color:#FF6666">(待结)</span>
+		 				<span ng-show="item.isChecked == 1">(已结)</span>
+		 			</div>
+		 		</div>
+		 		
+		 	</div>
+		 	<div class="chrysanthemums">
+			        <img src="img/loading.gif"/>
+		       </div>
+		 </div>
+		</div>
+		
+	</body>
+    
+	<!--系统js-->
+	
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/layer.js"></script>
+    <script src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/confirmTip.js" ></script>
+     <script src="js/app.js"></script>
+     
+	<script>
+		
+		  
+			if (typeof localStorage === 'object') {
+			    try {
+					localStorage.setItem('localStorage', 1);
+					localStorage.removeItem('localStorage');
+				} catch (e) {
+					Storage.prototype._setItem = Storage.prototype.setItem;
+					Storage.prototype.setItem = function() {};
+					$dialog.msg('为了正常访问，请关闭无痕模式');
+				}
+			}
+
+
+	</script>
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/pusherController.js" ></script>
+	<script>
+		if(window.screen.width < 375){
+			$('.user-input').css('margin-top','5vh');
+		}
+		
+		
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		
+//		    		location.href = pageUrl.LOGIN_PAGE;
+		    		location.href = pageUrl.PUSH_LIST;
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+		
+	</script>
+</html>
+
+

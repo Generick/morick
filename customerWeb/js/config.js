@@ -3,16 +3,39 @@
  */
 
 /**************服务器基地址*******************/
+var API_BASE_URL = '';
+var BASE_PAGE_URL = '';
 
-//var API_BASE_URL =  "http://192.168.0.121:8088/auction/index.php/";//苗佳亮接口
+if(location.href.indexOf("yawan365") == -1)
+{
+	    			    	
+//	BASE_PAGE_URL = "http://192.168.0.163/customerWeb/";  
+	BASE_PAGE_URL = "http://192.168.0.163/commercialTenant/";
+    API_BASE_URL =  "http://192.168.0.121:8088/auction/index.php/";//苗佳亮接口
+}
+else{
+	
+	    if(location.href.indexOf("8080") == -1)
+		{
+			
+			API_BASE_URL = "http://auction.yawan365.com/index.php/";//正式接口路径
+			BASE_PAGE_URL = "http://qian.yawan365.com/";//正式跳转路径
+		}
+		else
+		{
+		    API_BASE_URL = "http://auction.yawan365.com:8080/index.php/";//测试接口路径
+		    BASE_PAGE_URL = "http://qian.yawan365.com:8080/";//测试跳转路径
+		}
+}
+
+//const API_BASE_URL =  "http://192.168.0.121:8088/auction/index.php/";//苗佳亮接口
 //var API_BASE_URL =  "http://192.168.0.88:8082/auction/index.php/";//明哥接口
 
 //const API_BASE_URL = "http://auction.yawan365.com:8080/index.php/";//测试接口路径
-const API_BASE_URL = "http://auction.yawan365.com/index.php/";//正式接口路径
-
+//const API_BASE_URL = "http://auction.yawan365.com/index.php/";//正式接口路径
 
 //const BASE_PAGE_URL = "http://shang.yawan365.com:8080/";//测试跳转路径
-const BASE_PAGE_URL = "http://shang.yawan365.com/";//正式跳转路径
+//const BASE_PAGE_URL = "http://shang.yawan365.com/";//正式跳转路径
 
 //const BASE_PAGE_URL = "http://192.168.0.163/customerWeb/";
 //const BASE_PAGE_URL = "http://192.168.0.163/commercialTenant/";
@@ -42,9 +65,9 @@ var apiUrl =
 
 var localStorageKey =
 {
-	SESSIONID : "sessionId",
-	TOKEN : "token",
-	userId : "userId",
+	SESSIONID : "comSessionId",
+	TOKEN : "comToken",
+	userId : "comUserId",
 	
 };
 

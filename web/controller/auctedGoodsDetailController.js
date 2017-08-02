@@ -234,7 +234,7 @@ var specialSellController =
 //  		self.scope.specialDetail = self.specialDetail;
 
 			//李小波 改动
-			if (self.specialNumber == 0)
+			if (self.specialNumber == 0 || data.info.mch_is_delete == 1)
 			{
 //				self.specialNumber = '已售罄';
 				self.specialNumber = '';
@@ -485,6 +485,7 @@ var specialSellController =
                 pagination: '.swiper-pagination',
                 paginationClickable: true,
                 autoplay: 3000,
+                loop:true,
                 autoplayDisableOnInteraction: false
             });
         });

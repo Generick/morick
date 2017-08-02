@@ -10,6 +10,8 @@ var addGoodsCtr = {
 	
 	scope:null,
 	
+	isAgainUp : false,
+	
 	goodsModel : {
 		goodsName : '',
 	
@@ -232,7 +234,18 @@ var addGoodsCtr = {
 		
 		self.scope.addGoods = function(){
 			
+			if(self.isAgainUp)
+			{   
+				$dialog.msg("不能在10秒内连续提交商品！");
+				return;
+			}
+			self.isAgainUp = true;
 			
+			setTimeout(function(){
+				
+				self.isAgainUp = false;
+				
+			},10000);
 			if(commonFu.isEmpty(self.goodsModel.goodsName))
 			{
 				$dialog.msg("请输入商品名！");
@@ -351,7 +364,7 @@ var addGoodsCtr = {
 //				alert(JSON.stringify(param))
 	//			return;
 				jqAjaxRequest.asyncAjaxRequest(apiUrl.API_USER_ADD_GOOD, param,function(data){
-	        	
+	        	            
 	                        $dialog.msg("商品添加成功！");
 	                        setTimeout(function(){
 	                        	location.href = pageUrl.MY_GOODS_LIST;
@@ -419,7 +432,8 @@ var addGoodsCtr = {
 //				alert(JSON.stringify(param))
 	//			return;
 				jqAjaxRequest.asyncAjaxRequest(apiUrl.API_USERT_MOD_GOOD, param,function(data){
-	        	
+	        	          
+	        	        
 	                      $dialog.msg("商品修改成功！");
 	                      setTimeout(function(){
 	                      	   location.href = pageUrl.MY_GOODS_LIST;
@@ -428,6 +442,7 @@ var addGoodsCtr = {
 	        	 })
 			}
 			
+	        	          
 			
 			
 		};

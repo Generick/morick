@@ -125,3 +125,9 @@ app.controller('tenantCtrl', function($scope){ //商品
 	tenantCtrl.init($scope);
 
 })
+
+app.controller('spreadPersonsCtr', function($scope){ //商品
+	
+	spreadPersonsCtr.init($scope);
+
+})

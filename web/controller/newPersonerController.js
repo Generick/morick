@@ -51,7 +51,7 @@ var newPersonCenterCtrl =
     init : function ($scope)
     {
     	this.scope = $scope;
-    	
+    	$(".animation-2").css({"display":"block","background":"#ffffff"});
         this.scope.unReadCount = this.unReadCount;
         
         this.getSelfData();
@@ -86,7 +86,7 @@ var newPersonCenterCtrl =
 	        
 	        self.userId = data.userInfo.userId;
 	        
-            self.getTabUnMessList();
+            self.getUnMessList();
             $('.container').css('opacity','1');
     		
     	})
@@ -96,105 +96,105 @@ var newPersonCenterCtrl =
     },
      
      
-     //获取未读消息
-    getTabUnMessList : function(){
-    	
-    	var self = this;
-    	
-        $(".animation-2").css({"display":"block","background":"#ffffff"});
-        
-    	var params = {};
-    	params.userId = self.userId;
-    	params.num = 30;
-    	params.startIndex = 0;
-    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_UN_READ_MESSAGE, params, function(data){
-    		if(data.count == 0){
-    			$(".there-is-no-data-word").html("没有待批阅的消息哦");
-	            $(".there-is-no-data").css("display","block");
-    		}
-    		else
-    		{
-    			 $(".there-is-no-data").css("display","none");
-    		}
-    		self.messageList = [];
-    		self.page = {
-				currentPage : 1,
-				totalPage : null,
-				timeNum : 30,
-				totalCount : 0
-			};
-			self.unReadCount = data.count;
-			self.scope.unReadCount = self.unReadCount;
-    		self.page.totalCount = data.count;
-    		self.messageList = data.msgList;
-    		self.page.currentPage = self.page.currentPage + 1;
-    		self.scope.messageList = self.messageList;
-    	
-    		self.scope.$apply();
-    		
-//  		$(".the-big-scroll-content").css("height","auto")
-//  		$(".new-pre-message-box").css("height","auto")
-    	    var top = (window.screen.width * 0.62);
-//  	    $(".new-pre-message-box").css("margin-top",top + "px")
-//  	    alert(top)
-//          $(".the-big-scroll-content").scrollTo({toT:0});
-    		$(".new-pre-message-box").scrollTo({toT:top});
-    		$(".animation-2").css({"display":"none","background":"#F0EFF5"});
-    		
-//  		alert(JSON.stringify(data))
-    	})
-    	
-    },
+//   //获取未读消息
+//  getTabUnMessList : function(){
+//  	
+//  	var self = this;
+//  	
+//      $(".animation-2").css({"display":"block","background":"#ffffff"});
+//      
+//  	var params = {};
+//  	params.userId = self.userId;
+//  	params.num = 30;
+//  	params.startIndex = 0;
+//  	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_UN_READ_MESSAGE, params, function(data){
+//  		if(data.count == 0){
+//  			$(".there-is-no-data-word").html("没有待批阅的消息哦");
+//	            $(".there-is-no-data").css("display","block");
+//  		}
+//  		else
+//  		{
+//  			 $(".there-is-no-data").css("display","none");
+//  		}
+//  		self.messageList = [];
+//  		self.page = {
+//				currentPage : 1,
+//				totalPage : null,
+//				timeNum : 30,
+//				totalCount : 0
+//			};
+//			self.unReadCount = data.count;
+//			self.scope.unReadCount = self.unReadCount;
+//  		self.page.totalCount = data.count;
+//  		self.messageList = data.msgList;
+//  		self.page.currentPage = self.page.currentPage + 1;
+//  		self.scope.messageList = self.messageList;
+//  	
+//  		self.scope.$apply();
+//  		
+////  		$(".the-big-scroll-content").css("height","auto")
+////  		$(".new-pre-message-box").css("height","auto")
+//  	    var top = (window.screen.width * 0.62);
+////  	    $(".new-pre-message-box").css("margin-top",top + "px")
+////  	    alert(top)
+////          $(".the-big-scroll-content").scrollTo({toT:0});
+//  		$(".new-pre-message-box").scrollTo({toT:top});
+//  		$(".animation-2").css({"display":"none","background":"#F0EFF5"});
+//  		
+////  		alert(JSON.stringify(data))
+//  	})
+//  	
+//  },
+//   
      
-     
-     //获取已读消息
-     getTabHasMessList : function(){
-    	
-    	var self = this;
-    	
-    	
-        $(".animation-2").css({"display":"block","background":"#ffffff"});
-    	var params = {};
-    	params.userId = self.userId;
-    	params.num = 30;
-    	params.startIndex = 0;
-    	
-    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_HAS_READ_MESSAGE, params, function(data){
-    		self.messageList = [];
-    		if(data.count == 0){
-    			$(".there-is-no-data-word").html("没有已批阅的消息哦");
-	            $(".there-is-no-data").css("display","block");
-    		}
-    		else
-    		{
-    			 $(".there-is-no-data").css("display","none");
-    		}
-    		self.page2 = {
-				currentPage : 1,
-				totalPage : null,
-				timeNum : 30,
-				totalCount : 0
-			};
-    		self.messageList = data.msgList;
-    		self.page2.totalCount = data.count;
-    		self.page2.currentPage = self.page2.currentPage + 1;
-    		
-    		self.scope.messageList = self.messageList;
-    		self.scope.$apply();
-//  		$(".the-big-scroll-content").css("height","auto")
-//  		$(".new-pre-message-box").css("height","auto")
-    	    var top = (window.screen.width * 0.62);
-//  	    $(".new-pre-message-box").css("margin-top",top + "px")
-//  	    alert(top)
-//  	    $(".the-big-scroll-content").scrollTo({toT:0});
-    		$(".new-pre-message-box").scrollTo({toT:top});
-    		$(".animation-2").css({"display":"none","background":"#F0EFF5"});
-    		
-//  		alert(JSON.stringify(data))
-    	})
-    	
-    },
-    
+//   //获取已读消息
+//   getTabHasMessList : function(){
+//  	
+//  	var self = this;
+//  	
+//  	
+//      $(".animation-2").css({"display":"block","background":"#ffffff"});
+//  	var params = {};
+//  	params.userId = self.userId;
+//  	params.num = 30;
+//  	params.startIndex = 0;
+//  	
+//  	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_HAS_READ_MESSAGE, params, function(data){
+//  		self.messageList = [];
+//  		if(data.count == 0){
+//  			$(".there-is-no-data-word").html("没有已批阅的消息哦");
+//	            $(".there-is-no-data").css("display","block");
+//  		}
+//  		else
+//  		{
+//  			 $(".there-is-no-data").css("display","none");
+//  		}
+//  		self.page2 = {
+//				currentPage : 1,
+//				totalPage : null,
+//				timeNum : 30,
+//				totalCount : 0
+//			};
+//  		self.messageList = data.msgList;
+//  		self.page2.totalCount = data.count;
+//  		self.page2.currentPage = self.page2.currentPage + 1;
+//  		
+//  		self.scope.messageList = self.messageList;
+//  		self.scope.$apply();
+////  		$(".the-big-scroll-content").css("height","auto")
+////  		$(".new-pre-message-box").css("height","auto")
+//  	    var top = (window.screen.width * 0.62);
+////  	    $(".new-pre-message-box").css("margin-top",top + "px")
+////  	    alert(top)
+////  	    $(".the-big-scroll-content").scrollTo({toT:0});
+//  		$(".new-pre-message-box").scrollTo({toT:top});
+//  		$(".animation-2").css({"display":"none","background":"#F0EFF5"});
+//  		
+////  		alert(JSON.stringify(data))
+//  	})
+//  	
+//  },
+//  
      
      
      
@@ -203,12 +203,13 @@ var newPersonCenterCtrl =
     getUnMessList : function(){
     	
     	var self = this;
-    	
+    	  
     	if(self.isFinished)
     	{
     		return;
     	}
     	self.isFinished = true;
+    	
     	$('.chrysanthemums').css("display","block");
     	var params = {};
     	params.userId = self.userId;
@@ -216,15 +217,27 @@ var newPersonCenterCtrl =
     	params.startIndex = (self.page.currentPage - 1) * self.page.timeNum;
     	self.page.currentPage = self.page.currentPage + 1;
 //  	alert(JSON.stringify(params))
-    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_UN_READ_MESSAGE, params, function(data){
-    	    self.unReadCount = data.count;
+    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_MY_MESSAGELIST, params, function(data){
+    	    if(data.count == 0)
+    	    {
+			
+				$(".there-is-no-data-word").html("没有已批阅的消息哦");
+	            $(".there-is-no-data").css("display","block");
+	  		}
+	  		else
+	  		{
+	 			 $(".there-is-no-data").css("display","none");
+	  		}
+    	    
+    	    self.unReadCount = data.unReadNum;
 			self.scope.unReadCount = self.unReadCount;
     		self.page.totalCount = data.count;
-    		self.messageList = self.messageList.concat(data.msgList);
+    		self.messageList = self.messageList.concat(data.data);
     		
     		self.scope.messageList = self.messageList;
 //  		alert(444222)
     		self.isFinished = false;
+    		$(".animation-2").css({"display":"none","background":"#F0EFF5"});
     		$('.chrysanthemums').css("display","none");
     		self.scope.$apply()
 //  		alert(JSON.stringify(data))
@@ -233,38 +246,38 @@ var newPersonCenterCtrl =
     },
      
      
-     //获取已读消息
-     getHasMessList : function(){
-    	
-    	var self = this;
-    	
-    	if(self.isFinished2)
-    	{
-    		return;
-    	}
-    	self.isFinished2 = true;
-    	
-    	var params = {};
-    	params.userId = self.userId;
-    	params.num = self.page2.timeNum;
-    	params.startIndex = (self.page2.currentPage - 1) * self.page2.timeNum;
-//  	alert(JSON.stringify(params))
-    	$('.chrysanthemums').css("display","block");
-    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_HAS_READ_MESSAGE, params, function(data){
-    		
-    		self.page2.totalCount = data.count;
-    		self.messageList = self.messageList.concat(data.msgList);
-    		
-    		self.page2.currentPage = self.page2.currentPage + 1;
-    		self.isFinished2 = false;
-    		self.scope.messageList = self.messageList;
-    		self.scope.$apply();
-    		$('.chrysanthemums').css("display","none");
-//  		alert(JSON.stringify(data))
-    	})
-    	
-    },
-    
+//   //获取已读消息
+//   getHasMessList : function(){
+//  	
+//  	var self = this;
+//  	
+//  	if(self.isFinished2)
+//  	{
+//  		return;
+//  	}
+//  	self.isFinished2 = true;
+//  	
+//  	var params = {};
+//  	params.userId = self.userId;
+//  	params.num = self.page2.timeNum;
+//  	params.startIndex = (self.page2.currentPage - 1) * self.page2.timeNum;
+////  	alert(JSON.stringify(params))
+//  	$('.chrysanthemums').css("display","block");
+//  	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_HAS_READ_MESSAGE, params, function(data){
+//  		
+//  		self.page2.totalCount = data.count;
+//  		self.messageList = self.messageList.concat(data.msgList);
+//  		
+//  		self.page2.currentPage = self.page2.currentPage + 1;
+//  		self.isFinished2 = false;
+//  		self.scope.messageList = self.messageList;
+//  		self.scope.$apply();
+//  		$('.chrysanthemums').css("display","none");
+////  		alert(JSON.stringify(data))
+//  	})
+//  	
+//  },
+//  
     bindClick  : function ()
     {
     	var self = this;
@@ -330,7 +343,7 @@ var newPersonCenterCtrl =
         self.scope.readMessage = function(item){
         	localStorage.setItem(localStorageKey.TO_ADDRESS_TYPE, 1); //判断从哪里进入地址列表
         	localStorage.setItem("comewidthgoto",1);
-            if(self.isUnReadTab){
+            if(item.isRead == 0){
             	self.userHasReadMessage(item)
             }
             if(item.msg_type !=0 && item.msg_type !=1)

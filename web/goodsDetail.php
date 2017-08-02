@@ -357,20 +357,33 @@
 		    		}
 
 		    		else
-		    		{
+		    		{  
 		    			if(!commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
 		    			{
 		    				if(localStorage.getItem(localStorageKey.FROM_LOCATION) == 1)//0:表示从主页进，1:表示从我的竞拍进入，2:表示从浏览记录进入
-		    				{   
+		    				{  
 		    					location.href = pageUrl.MY_BIDDING + "?userId=" + localStorage.getItem(localStorageKey.userId);
 		    				}
 		    				else if(localStorage.getItem(localStorageKey.FROM_LOCATION) == 2)//0:表示从主页进，1:表示从我的竞拍进入，2:表示从浏览记录进入
-			        	    {
+			        	    { 
 			        			location.href = pageUrl.SCAN_RECORDS;
 			        	    }
 			        	    else
 			        	    {
-			        	    	
+			        	    	var obj = new Base64();
+								   	
+								var id_base64 = obj.encode(GoodsInfoCtrl.thisDataId);
+									    	
+								var thisPage_base64 = obj.encode(GoodsInfoCtrl.thisDetailPage);
+									
+							    var str = pageUrl.SELECTED_GOODS +"?backPage=" + thisPage_base64 + "&thisDataId=" + id_base64;		    	
+								
+								location.href = encodeURI(str);
+		//		    			
+		//		    			
+		//		    			
+		//		    			location.href = pageUrl.SELECTED_GOODS +"?backPage=" + GoodsInfoCtrl.thisDetailPage + "&thisDataId=" + GoodsInfoCtrl.thisDataId;
+		                         sessionStorage.setItem("needPage",1)
 			        	    }
 		    			}
 		    		}

@@ -71,7 +71,8 @@ var myAccountController =
     	//充值
     	self.scope.onClickRechargeAccount = function()
     	{
-    		location.href = pageUrl.ACCOUNT_RECHARGE;
+//  		location.href = pageUrl.ACCOUNT_RECHARGE;
+    		location.href = pageUrl.TOCUSTOMER_PAGE;
     	};
     	
     	//账户明细

@@ -1,0 +1,319 @@
+
+<script src="libs/base64.js"></script>
+<script src="libs/qrodecopy.js"></script>
+
+<div  class="item" ng-show="!goodsModel.isShowInfo">
+<div class="mn-header fix">
+    <div class="f"><i class="fa fa-th m-color-0"></i><span>推广员账号列表</span></div>
+    <div class="r m-g-l-10"><a class="btn btn-danger" ng-click="deletePersons()"><i class="ti-trash"></i>删除</a></div>
+    <div class="r"><a class="btn btn-default" ng-click="addPersons('添加推广员')"><i class="ti-plus"></i>添加</a></div>
+</div>
+
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <td style="text-align: center">序号</td>
+                <td style="text-align: center">昵称</td>
+                <td style="text-align: center">手机号</td>
+                <td style="text-align: center">已邀请人数</td>
+                <td style="text-align: center">待结金额</td>
+                <td style="text-align: center">操作</td>
+                <td><div class="all-sel-txt">全选</div><span ng-click="allSel()" ng-class="{true: 'has-sel', false: 'un-sel'}[goodsModel.isSelectAll]"></span></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in goodsModel.speradList">
+                <td style="text-align: center">{{$index + 1 + (page.currentPage - 1)*page.selectPageNum}}</td>
+                <td style="text-align: center">{{item.name}}</td>
+                <td style="text-align: center">{{item.telephone}}</td>
+                <td style="text-align: center">{{item.invitedNum}}</td>
+                <td style="text-align: center">{{item.waitCheckAmount+'元'}}</td>
+                <td style="text-align: center">
+                	<a class="btn btn-inverse" ng-click="toSeeDetail(item)">查看</a>
+                	<a class="btn btn-inverse" ng-click="generateQr(item)">生成二维码</a>
+                	<a class="btn btn-inverse" ng-click="settleAccounts(item)">结账</a>
+                    <a class="btn btn-primary" ng-click="modPwd(item)">修改密码</a>
+                	
+                </td>
+                <td><span ng-click="oneSel(item)" ng-class="{true: 'has-sel', false: 'un-sel'}[item.selected]"></span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div ng-include="'modules/page/page.html'"></div>
+<script src="view/admin/spreadPersonsController.js"></script>
+
+
+
+<div class="layer-box" id="layerBoxtenadd" style="display: none">
+    <div class="fix">
+        <div class="f layer-box-title">昵称：</div>
+        <div class="f layer-full-input"><input type="text" maxlength="14" class="form-control" ng-model="goodsModel.addUserName"></div>
+      
+    </div>
+    <div class="fix m-g-t-10">
+        <div class="f layer-box-title">手机号：</div>
+        <div class="f layer-full-input"><input type="text" maxlength="11" class="form-control" onkeyup="value=value.replace(/[^\d]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" ng-model="goodsModel.addUserAccount"></div>
+    </div>
+    <div class="fix m-g-t-10">
+        <div class="f layer-box-title">密码：</div>
+        <div class="f user-sel-none layer-box-con">
+            <div class="f layer-full-input"><input type="text" maxlength="16" class="form-control" onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" ng-model="goodsModel.addUserPassword"></div>
+        </div>
+    </div>
+                    
+</div>
+<!--修改密码-->
+<div class="layer-box" id="layerBoxtenmod" style="display: none">
+     <div class="fix" style="margin-bottom: 15px">
+        <div class="f layer-box-title">手机号：</div>
+        <div class="f layer-box-con" ng-bind="goodsModel.modUserAccount"></div>
+    </div>
+    <div class="fix m-g-t-10">
+        <div class="f layer-box-title">新密码：</div>
+        <div class="f user-sel-none layer-box-con">
+            <div class="f layer-full-input"><input type="text" maxlength="16" onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" class="form-control" ng-model="goodsModel.modUserPassword"></div>
+        </div>
+    </div>
+
+</div>
+<div class="erWeiCode-fix" ng-click="hideErWei()"></div>
+<div class="erWeiCode">
+	<div class="erWeiCode-top">
+		<div class="erWeiCode-top-left">二维码</div>
+		<div class="erWeiCode-top-right"  ng-click="hideErWei()">X</div>
+	</div>
+	<div class="erWeiCode-middle">
+		<div  id="qrcode"></div>
+		 <a id="download" download="qrcode.jpg"></a>
+		<!--<img src="assets/images/public/default.png" />-->
+		<div class="toDownLoad-erWei" ng-click="saveQrCode()">下载二维码</div>
+	</div>
+</div>
+<script src="plugIn/floatBug/floatBug.js"></script>
+</div>
+
+
+
+
+
+<div class="item" style="width:100%;overflow: hidden;" ng-show="goodsModel.isShowInfo">
+<div class="mn-header fix">
+    <div class="f"><i class="fa fa-th m-color-0"></i><span>推广员详情</span></div>
+    <div class="r"><a class="btn btn-white" ng-click="back2UserList()"><i class="ti-back-left"></i>返回</a></div>
+</div>
+
+<div class="user-info">
+    <h2>基本信息</h2>
+    <div class="detail fix">
+       
+        <div class="brief-txt f">
+            <div style="margin-bottom: 0px;" ><span class="title" style="width:105px;">推广员昵称：</span><span>{{goodsModel.userName}}</span></div>
+            <div style="margin-bottom: 0px;" ><span class="title" style="width:105px;">推广员手机号：</span>
+                <span>{{goodsModel.userTelephone}}</span>
+            </div>
+            <div style="margin-bottom: 0px;" >
+            	<span class="title" style="width:105px;float:left;">推广员二维码：</span>
+                <div class="brief-img f" style="width:120px;height:120px;">
+                	 <div  id="qrcodeInner"></div>
+					 <a id="downloadInner" download="qrcodeInner.jpg"></a>
+					<!--<img src="assets/images/public/default.png" />-->
+					
+                </div>
+                <div class="toDownErWeiCode" ng-click="saveQrCodeInner()" style="background: #5FBEAA;color:#FFFFFF;text-align: center;float:left;padding:0 25px;line-height:30px;margin-left:15px;margin-top:90px;;">下载</div>
+            </div>
+        </div>
+        <div class="brief-txt f">
+            <div style="margin-bottom: 0px;" ><span class="title" style="width:105px;">待结金额：</span><span>{{goodsModel.userWaitCheckAmount+'元'}}</span><span style="padding:5px 15px;background: #5FBEAA;color:#FFFFFF;margin-left:15px;" ng-click="jiezhangInner()">结账</span></div>
+            <div style="margin-bottom: 0px;" ><span class="title" style="width:105px;">历史返现总额：</span><span>{{goodsModel.userHistoryReturnTotal+'元'}}</span></div>
+            <div style="margin-bottom: 0px;" ><span class="title" style="width:105px;">好友消费总额：</span><span>{{goodsModel.userFriendsTotalFee+'元'}}</span></div>
+        </div>
+         
+    </div>
+</div>
+<div class="user-info" style="overflow: hidden;">
+	<h2>设置分成比例</h2>
+	<div class="detail fix" style="width:450px">
+	    <div class="addEvery-Item" style="float:left;overflow: hidden;margin-bottom:10px" ng-repeat="item in goodsModel.conditionsArr">
+	    	<span style="float:left;line-height:24px;text-align: center;">订单消费满</span>
+	    	<input class="canBeDis" style="float:left;line-height:24px;text-align: center;width:80px;margin:0 10px;border:1px solid #DDDDDD" type="number" ng-model="item.numb" />
+	    	<span style="float:left;line-height:24px;text-align: center;">元，分成比例</span>
+	    	<input class="canBeDis" style="float:left;line-height:24px;text-align: center;width:80px;margin:0 10px;border:1px solid #DDDDDD" type="number" ng-model="item.persent">
+	    	<span style="float:left;line-height:24px;text-align: center;">%</span>
+	    	<div style="width:24px;height:24px;line-height:25px;text-align: center;padding-right:1px;background: #5FBEAA;color:#FFFFFF;border-radius: 50%;float:left;margin-left:15px" ng-click="deleteCondition(item,$index)">X</div>
+	    </div>
+	</div>
+	<div style="background: #5FBEAA;line-height:30px;text-align: center;padding:0 20px;color:#FFFFFF;float:left;margin-right:30px;margin-left:90px" ng-click="addConditions()">添加条件</div>
+	<div style="background: #5FBEAA;line-height:30px;text-align: center;padding:0 30px;color:#FFFFFF;float:left;" ng-click="setConditionsOk()">保存</div>
+</div>
+<div style="overflow: hidden;background: #FFFFFF;margin-top:15px">
+	<div class="tab-top-index" style="float:left;margin:10px;">
+		<div class="firstTab" style="float:left;line-height:30px;background: #EDEDED;text-align: center;padding:5px 10px;margin: 0 20px 0 10px;font-size:18px" ng-click="chooseWhichTab(1)">好友下单记录</div>
+		<div class="firstTab" style="float:left;line-height:30px;background: #EDEDED;text-align: center;padding:5px 10px;margin: 0 20px 0 0px;font-size:18px" ng-click="chooseWhichTab(2)">推荐好友信息列表</div>
+		<div class="firstTab" style="float:left;line-height:30px;background: #EDEDED;text-align: center;padding:5px 10px;margin: 0 20px 0 0px;font-size:18px"  ng-click="chooseWhichTab(3)">结账记录</div>
+	</div>
+	
+</div>
+<div style="float:left;background: #FFFFFF;width:100% !important;;padding-left:20px;padding-bottom:40px;" ng-show="goodsModel.isTabIndex == 1">
+    <h3 style="line-height:40px;font-size:20px">好友下单记录</h3>
+   
+    <div class="table-search fix" style="margin-top:0">
+	    <div class="f">开始时间：</div>
+	    <div class="f m-g-l-10"><input type="text" class="form-control wicon" id="sTime" readonly></div>
+	    <div class="f m-g-l-20">结束时间：</div>
+	    <div class="f m-g-l-10"><input type="text" class="form-control wicon" id="eTime" readonly></div>
+	    <div class="f m-g-l-20"><a class="btn btn-default" ng-click="searchFriendOrder()">查询</a></div>
+	</div>
+    <div style="float:left;overflow: hidden;margin-bottom: 20px;">
+    	<span style="font-size:19px">好友消费总额：</span>
+    	<span  style="font-size:19px;color:#FF0000" ng-bind="goodsModel.userFriendsTotalFee+'元'"></span>
+    	<span style="margin-left:40px;font-size:19px">返现总额：</span>
+    	<span  style="font-size:19px;color:#FF0000" ng-bind="goodsModel.userHistoryReturnTotal+'元'"></span>
+    </div>
+    <div class="detail">
+        <table class="table">
+            <thead><tr>
+                <td style="text-align: center;">序号</td>
+                <td style="text-align: center;">订单编号</td>
+                <td style="text-align: center;">下单用户手机</td>
+                <td style="text-align: center;">消费金额</td>
+                <td style="text-align: center;">返现金额</td>
+                <td style="text-align: center;">状态</td>
+                <td style="text-align: center;">付款时间</td>
+            </tr></thead>
+            <tbody>
+            <tr ng-repeat="item in getListModel.friendOrders">
+                <td style="text-align: center;">{{$index + 1 + (getListModel.currentPage1 - 1)*10}}</td>
+                <td style="text-align: center;">{{item.order_no}}</td>
+                <td style="text-align: center;">{{item.friendTelephone}}</td>
+                <td style="text-align: center;">
+                	<span  ng-show="item.payPrice == null">0元</span>
+                	<span  ng-show="item.payPrice != null">{{item.payPrice+'元'}}</span>
+                	
+                </td>
+                <td style="text-align: center;">
+                	<span  ng-show="item.returnFee == null">0元</span>
+                	<span  ng-show="item.returnFee != null">{{item.returnFee+'元'}}</span>
+                </td>
+                <td style="text-align: center;">
+                   <span ng-show="item.isChecked == 1">已结</span>
+                    <span ng-show="item.isChecked == 0">待结</span>
+                    
+                </td>
+                <td style="text-align: center;">{{item.orderTime*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="simplePage_64" class="simplePage user-sel-none" style="text-align: right; margin: 0 12px;"></div>
+</div>
+
+<div style="float:left;overflow: hidden;background: #FFFFFF;width:100% ;padding-left:20px;padding-bottom:40px;" ng-show="goodsModel.isTabIndex == 2">
+    <h3 style="line-height:40px;font-size:20px">推荐好友信息列表</h3>
+    
+    <div style="width:100%;float:left;margin:15px 0">
+    	
+    	<div class="pay-way-box"  style="float:left;">
+	        	<div class="pay-way-title" style="width:80px;line-height:35px;float:left;text-align: center;font-size:16px">筛选类型：</div>
+	             <div  class="select-div">
+					<div class="select-top">
+						<div class="select-content" ng-bind="tabModel.name"></div>
+						<div class="select-arrow" ng-click="toTab()"><img src="assets/images/public/down.png" /> </div>
+					</div>
+					<div id="online-div-22">
+						<div ng-click="chooseTab(0)" >注册时间</div>
+						<div ng-click="chooseTab(1)" >消费金额</div>
+						<div ng-click="chooseTab(2)" >最近消费时间</div>
+					</div>
+			     </div>
+        	
+        </div>
+    	<div class="pay-way-box"  style="float:left;">
+	        	<div class="pay-way-title" style="width:80px;line-height:35px;float:left;text-align: center;font-size:16px">排序方式：</div>
+	             <div  class="select-div">
+					<div class="select-top">
+						<div class="select-content" ng-bind="sortModel.name"></div>
+						<div class="select-arrow" ng-click="toSort()"><img src="assets/images/public/down.png" /> </div>
+					</div>
+					<div id="online-div-33" style="height:70px">
+						<div ng-click="chooseSort(1)" >顺序</div>
+						<div ng-click="chooseSort(0)" >倒序</div>
+					</div>
+			     </div>
+        	
+        </div>
+    	 <div class="f m-g-l-20"><a class="btn btn-default" ng-click="searchFriends()">查询</a></div>
+    	
+    </div>
+    <div class="detail">
+        <table class="table">
+            <thead><tr>
+                <td style="text-align: center;">序号</td>
+                <td style="text-align: center;">用户昵称</td>
+                <td style="text-align: center;">手机号</td>
+                <td style="text-align: center;">加入时间</td>
+                <td style="text-align: center;">交易笔数</td>
+                <td style="text-align: center;">消费金额</td>
+                <td style="text-align: center;">返现金额</td>
+                <td style="text-align: center;">最近消费时间</td>
+            </tr></thead>
+            <tbody>
+            <tr ng-repeat="item in getListModel.friendList">
+                <td style="text-align: center;">{{$index + 1 + (getListModel.currentPage2 - 1)*10}}</td>
+                <td style="text-align: center;">{{item.nickname}}</td>
+                <td style="text-align: center;">{{item.telephone}}</td>
+                <td style="text-align: center;">{{item.registerTime*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td style="text-align: center;">{{item.tradeNum}}</td>
+                <td style="text-align: center;">
+                	<span ng-show="item.totalFee == null">0元</span>
+                	<span ng-show="item.totalFee != null">{{item.totalFee+'元'}}</span>
+                	
+                </td>
+                <td style="text-align: center;">
+                	<span ng-show="item.returnFee == null">0元</span>
+                	<span ng-show="item.returnFee != null">{{item.returnFee+'元'}}</span>
+                	
+                </td>
+                <td style="text-align: center;" ng-show="item.recentOrderTime != null && item.recentOrderTime != ''">{{item.recentOrderTime*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td style="text-align: center;" ng-show="item.recentOrderTime == null || item.recentOrderTime == ''">无</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="simplePage_65" class="simplePage user-sel-none" style="text-align: right; margin: 0 12px;"></div>
+</div>
+
+<div style="float:left;overflow: hidden;background: #FFFFFF;width:100%;padding-left:20px;padding-bottom:40px;" ng-show="goodsModel.isTabIndex == 3">
+    <h3 style="line-height:40px;font-size:20px">结账记录</h3>
+    <div class="detail">
+        <table class="table">
+            <thead><tr>
+                <td style="text-align: center;">序号</td>
+                <td style="text-align: center;">结账金额</td>
+                <td style="text-align: center;">结账时间</td>
+                
+            </tr></thead>
+            <tbody>
+            <tr ng-repeat="item in getListModel.payDataList">
+                <td style="text-align: center;">{{$index + 1 + (getListModel.currentPage3 - 1)*10}}</td>
+                <td style="text-align: center;">
+                	<span ng-show="item.amount == null">0元</span>
+                	<span ng-show="item.amount ！= null">{{item.amount+'元'}}</span>
+                	</td>
+                <td style="text-align: center;">{{item.check_time*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+           
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="simplePage_66" class="simplePage user-sel-none" style="text-align: right; margin: 0 12px;"></div>
+</div>
+<script src="plugIn/floatBug/floatBug.js"></script>
+
+</div>

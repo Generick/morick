@@ -37,6 +37,13 @@ app.config(function($stateProvider, $urlRouterProvider){
             templateUrl: 'view/admin/tenant.html',
             controller: 'tenantCtrl'
         })
+         
+        .state('spreadPersons', {
+        	url: '/spreadPersons',
+        	templateUrl: 'view/admin/spreadPersons.html',
+        	controller: 'spreadPersonsCtr'
+        })
+        
         .state('user', {
             url: '/user',
             templateUrl: 'view/user/mn.user.html',
@@ -152,4 +159,5 @@ app.config(function($stateProvider, $urlRouterProvider){
         	templateUrl: 'view/data/commodifySaleList.html',
         	controller: 'commidifySaleController'
         })
+        
 });

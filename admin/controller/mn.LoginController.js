@@ -75,9 +75,12 @@ var adminLogin = function(){
                 {
                     localStorage.setItem(strKey.K_PWD, "");
                 }
-
+                 
                 location.href = "index.html";
+                
             }
         );
+        
+        
     }
 };

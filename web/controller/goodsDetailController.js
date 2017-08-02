@@ -10,6 +10,8 @@ var GoodsInfoCtrl = {
     
     thisDetailPage : null,
     
+    isEnded :false,
+    
     wxParams : {},
     
     shareInfo : {},
@@ -247,7 +249,8 @@ var GoodsInfoCtrl = {
 	                var time = (parseFloat(self.goodsDetailModel.allInfo.endTime) - second1);
 	                var time1 = (second1 - parseFloat(self.goodsDetailModel.allInfo.startTime));
 	                if (time <= 0 || time1 <= 0)
-	                {
+	                {   
+	                	self.isEnded = true;
 	                    $('#endTime').hide();
 	                    $('.endtime-text').html("");
 	                    $('.endtime-time').html("竞拍已结束");
@@ -293,7 +296,8 @@ var GoodsInfoCtrl = {
 		self.timer = setInterval(function ()
 		{
 			if(time <= 0 || time1 <= 0)
-			{
+			{   
+				self.isEnded = true;
 				$('#endTime').hide();
 				$('.endtime-text').html("");
 				$('.endtime-time').html("竞拍已结束");
@@ -533,10 +537,16 @@ var GoodsInfoCtrl = {
 			    		if (parseFloat(self.balance)  < parseFloat(self.goodsDetailModel.allInfo.margin))
 	                    {
 	                        $dialog.msg("余额不足，前去充值", 1);
-	
-	                        setTimeout(function() {
-	                            location.href = pageUrl.ACCOUNT_RECHARGE;
-	                        }, 1500);
+							   setTimeout(function(){
+		//					    	location.href = pageUrl.ACCOUNT_RECHARGE;
+		 							location.href = pageUrl.TOCUSTOMER_PAGE;
+							    },1200)
+	                       
+//	                        setTimeout(function() {
+//	                            alert(pageUrl.TOCUSTOMER_PAGE)
+//	                            location.href = pageUrl.TOCUSTOMER_PAGE;
+//	                            location.href = pageUrl.ACCOUNT_RECHARGE;
+//	                        }, 1300);
 	                    }
 			    	})
                 
@@ -788,6 +798,12 @@ var GoodsInfoCtrl = {
     	//出价支付
     	self.scope.onClickPayNow = function()
     	{
+    		
+    		if(self.isEnded)
+    		{
+    			$dialog.msg("该拍品竞拍截止时间已到！")
+    			return;
+    		}
             var $payPrice =commonFu.toDecimals(parseFloat($('#payPrice').html())) ;
             
     		if ($payPrice.length != 0)
@@ -877,6 +893,8 @@ var GoodsInfoCtrl = {
             var swiper = new Swiper('.swiper-container', {
                 pagination: '.swiper-pagination',
                 paginationClickable: true,
+                autoplay: 3000,
+                loop:true,
                 autoplayDisableOnInteraction: false
             });
             self.showOrHide(self.isListLengthZero);

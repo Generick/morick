@@ -20,16 +20,35 @@ var LoginCtrl =
     	status : true
     },
     
+    PMTID : null,
+    
     init: function ($scope)
     {
         this.scope = $scope;
+        
+        this.initUrlData();
+        
         var self = this; 
         
         self.scope.loginModel = self.loginModel;
         
         self.onEvent();
     },
-
+    
+    initUrlData : function(){
+    	
+    	var self = this;
+    	if(location.href.indexOf("?") > 0)
+    	{    
+    		var obj = new Base64();
+    		
+		    self.PMTID = obj.decode(commonFu.getQueryStringByKey("PMTID"));
+		 
+    	}
+    	
+		
+    },
+    
     //检查参数
     checkParams: function(type){
         var self = this;
@@ -113,7 +132,7 @@ var LoginCtrl =
         	param.platform = self.loginModel.platform;
         	param.platformId = self.loginModel.platformId;
         	param.password = self.loginModel.password;
-            
+            param.PMTID = self.PMTID;
           
             if(self.checkParams(1))
             {

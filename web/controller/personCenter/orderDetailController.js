@@ -1,12 +1,14 @@
 /*
  * 订单详情
  */
-app.controller("ctrl", function($scope) {
-    OrderDetailCtrl.init($scope);
-});
+//app.controller("ctrl", function($scope) {
+//  OrderDetailCtrl.init($scope);
+//});
       
 var OrderDetailCtrl = {
     scope : null,
+    
+    openId : null,
     
     isShowPayWay : true,
     orderDetailModel: {
@@ -36,8 +38,10 @@ var OrderDetailCtrl = {
     traces: [],//物流信息
     
     
-    init: function ($scope) {
+    init: function ($scope,openId) {
     	this.scope = $scope;
+         
+        this.openId = openId;
          
         this.scope.orderDetailModel = this.orderDetailModel;
         
@@ -210,7 +214,7 @@ var OrderDetailCtrl = {
      setTimeToSeeOrDer : function()
     {
     	var self = this;
-    	if(self.orderDetailModel.orderInfo.orderType == 2 && (self.orderDetailModel.orderInfo.payType == 6 || self.orderDetailModel.orderInfo.payType == 7 || self.orderDetailModel.orderInfo.payType == 5))
+    	if(self.orderDetailModel.orderInfo.orderType == 2 && (self.orderDetailModel.orderInfo.payType == 11 || self.orderDetailModel.orderInfo.payType == 12 || self.orderDetailModel.orderInfo.payType == 15 || self.orderDetailModel.orderInfo.payType == 6 || self.orderDetailModel.orderInfo.payType == 7 || self.orderDetailModel.orderInfo.payType == 5))
     	{
 	    		    self.timer6 =  setInterval(function(){
 	    		    var param = {
@@ -385,20 +389,20 @@ var OrderDetailCtrl = {
         
         //选择地址
         self.scope.selAddress = function(){
-            if (self.orderDetailModel.orderIsDone) //订单已生成并且未发货之前都可以修改地址
-            {
-               
-                localStorage.setItem(localStorageKey.IS_ADDRESS, 1); //设置地址标志
-                var obj = new Base64();
-//              alert(self.orderDetailModel.userId)
-                var thisDataId = obj.encode(self.orderDetailModel.userId);
-                
-			    var str = pageUrl.MY_ADDRESS_LIST + "?userId=" + thisDataId;
-                location.href = encodeURI(str);
-                
-                
-//              location.href = pageUrl.MY_ADDRESS_LIST + "?userId=" + self.orderDetailModel.userId;
-            }
+//          if (self.orderDetailModel.orderIsDone) //订单已生成并且未发货之前都可以修改地址
+//          {
+//             
+//              localStorage.setItem(localStorageKey.IS_ADDRESS, 1); //设置地址标志
+//              var obj = new Base64();
+////              alert(self.orderDetailModel.userId)
+//              var thisDataId = obj.encode(self.orderDetailModel.userId);
+//              
+//			    var str = pageUrl.MY_ADDRESS_LIST + "?userId=" + thisDataId;
+//              location.href = encodeURI(str);
+//              
+//              
+////              location.href = pageUrl.MY_ADDRESS_LIST + "?userId=" + self.orderDetailModel.userId;
+//          }
         };
 
         //支付订单
@@ -435,7 +439,7 @@ var OrderDetailCtrl = {
 	    				var str = pageUrl.MY_PAY_ORDER_PAGE + "?comfromSpecial=" + ids;
 	    				location.href = encodeURI(str);
     				}
-    				else if(self.orderDetailModel.orderInfo.payType == 5 || self.orderDetailModel.orderInfo.payType == 6 || self.orderDetailModel.orderInfo.payType == 7)
+    				else if(self.orderDetailModel.orderInfo.payType == 11 || self.orderDetailModel.orderInfo.payType == 12 || self.orderDetailModel.orderInfo.payType == 15 || self.orderDetailModel.orderInfo.payType == 5 || self.orderDetailModel.orderInfo.payType == 6 || self.orderDetailModel.orderInfo.payType == 7)
     				{
 		    					jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_PERSONALDATA, {}, function(data){
     			
@@ -483,7 +487,7 @@ var OrderDetailCtrl = {
 											if(self.isWeiXin())
 											{
 												
-												if(self.orderDetailModel.orderInfo.payType == 7)
+												if(self.orderDetailModel.orderInfo.payType == 7 || self.orderDetailModel.orderInfo.payType == 15)
 												{
 													
 													var params = {};
@@ -492,32 +496,41 @@ var OrderDetailCtrl = {
 	//												
 													jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GO_ON_PAY, params, function(data){
 														
-														   if(!commonFu.isEmpty(data.params))
-														   {
-//														   	    alert("1111111-fff"+params.order_no)
-//														   	    alert(JSON.stringify(data))
-	 															localStorage.setItem(localStorageKey.orderNo,data.order_no)
-															    sessionStorage.setItem("payOrderId",data.order_no);
-														   	    document.fm.version.value = data.params.version;
-														   	    document.fm.merchantId.value = data.params.merchantId;
-														   	    document.fm.merchantTime.value = data.params.merchantTime;
-														   	    document.fm.traceNO.value = data.params.traceNO;
-														   	    document.fm.requestAmount.value = data.params.requestAmount;
-														   	    document.fm.paymentCount.value = data.params.paymentCount;
-														   	    document.fm.payment_1.value = data.params.payment_1;
-														   	    document.fm.payment_2.value = data.params.payment_2;
-														   	    document.fm.returnUrl.value = data.params.returnUrl;
-														   	    document.fm.notifyUrl.value = data.params.notifyUrl;
-														   	    document.fm.goodsName.value = data.params.goodsName;
-														   	    document.fm.goodsCount.value = data.params.goodsCount;
-														   	    document.fm.ip.value = data.params.ip;
-														   	    document.fm.extend.value = data.params.extend;
-														   	    document.fm.sign.value = data.params.sign;
-													   	       
-														   	    document.fm.submit();
-														   	   
-						                                        
-														   }
+														
+														if(!commonFu.isEmpty(data.url))
+														{
+																
+															location.href = data.url;
+																
+//																sessionStorage.setItem("payOrderId",data.order_no)
+														}
+														
+//														   if(!commonFu.isEmpty(data.params))
+//														   {
+													   	        
+//	 															localStorage.setItem(localStorageKey.orderNo,data.order_no)
+															    
+//															    sessionStorage.setItem("payOrderId",data.order_no);
+														   	    
+//														   	    document.fm.version.value = data.params.version;
+//														   	    document.fm.merchantId.value = data.params.merchantId;
+//														   	    document.fm.merchantTime.value = data.params.merchantTime;
+//														   	    document.fm.traceNO.value = data.params.traceNO;
+//														   	    document.fm.requestAmount.value = data.params.requestAmount;
+//														   	    document.fm.paymentCount.value = data.params.paymentCount;
+//														   	    document.fm.payment_1.value = data.params.payment_1;
+//														   	    document.fm.payment_2.value = data.params.payment_2;
+//														   	    document.fm.returnUrl.value = data.params.returnUrl;
+//														   	    document.fm.notifyUrl.value = data.params.notifyUrl;
+//														   	    document.fm.goodsName.value = data.params.goodsName;
+//														   	    document.fm.goodsCount.value = data.params.goodsCount;
+//														   	    document.fm.ip.value = data.params.ip;
+//														   	    document.fm.extend.value = data.params.extend;
+//														   	    document.fm.sign.value = data.params.sign;
+//													   	        
+//														   	    document.fm.submit();
+														   	    
+//														   }
 														
 													})
 												}
@@ -531,7 +544,7 @@ var OrderDetailCtrl = {
 											{
 												
 												
-												if(self.orderDetailModel.orderInfo.payType == 5)
+												if(self.orderDetailModel.orderInfo.payType == 5 || self.orderDetailModel.orderInfo.payType == 11)
 												{
 													 	var params = {};
 														params.order_no = self.orderDetailModel.order_no;
@@ -539,10 +552,10 @@ var OrderDetailCtrl = {
 							
 														jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GO_ON_PAY, params, function(data){
 															
-															
+//															alert(JSON.stringify(data))
 															if(!commonFu.isEmpty(data.url))
 															{
-//																alert(data.url)
+																
 																location.href = data.url;
 																
 //																sessionStorage.setItem("payOrderId",data.order_no)
@@ -552,7 +565,7 @@ var OrderDetailCtrl = {
 							//								alert(JSON.stringify(data))
 														})
 												}
-												else if(self.orderDetailModel.orderInfo.payType == 6)
+												else if(self.orderDetailModel.orderInfo.payType == 6 || self.orderDetailModel.orderInfo.payType == 12)
 												{
 													    var params = {};
 														params.order_no = self.orderDetailModel.order_no;
@@ -560,7 +573,7 @@ var OrderDetailCtrl = {
 							
 														jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GO_ON_PAY, params, function(data){
 															
-							
+//							                                 alert(JSON.stringify(data))
 															if(!commonFu.isEmpty(data.url))
 															{
 //																alert(data.url)
@@ -607,6 +620,7 @@ var OrderDetailCtrl = {
 //	                else
 //	                {
 //	                    location.href = pageUrl.ACCOUNT_RECHARGE;
+//                       location.href = pageUrl.TOCUSTOMER_PAGE;
 //	                }
 //	            }
     		}

@@ -20,6 +20,12 @@ var addAddressController =
 {
     scope : null,
     
+    addressModel : {
+    	userId : null,
+    	addressArr : [],
+    	hasCommonAdress : false,
+    },
+   
     addAddressModel : 
     {
     	id : null,
@@ -39,11 +45,77 @@ var addAddressController =
     init : function ($scope)
     {
         this.scope = $scope;
-
+        
+        this.scope.addressModel = this.addressModel;
+        
     	this.initArea();
+    	
+    	this.getAdressList();
     	
     	this.bindClick();
     },
+    
+    
+    getAdressList : function(){
+    	
+    	var self = this;
+    
+        var obj = new Base64();
+        self.addressModel.userId=  sessionStorage.getItem("linshiId");
+    	
+    	var params = 
+    	{
+    		startIndex : 0,
+    		num : 0,
+    		userId : self.addressModel.userId
+    	};
+    	
+    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SHIPPING_ADDRESS, params,
+            /**
+             * 地址列表
+             * @param data.shippingAddressList 列表
+             */
+            function(data)
+            {
+                self.addressModel.addressArr = [];
+                self.addressModel.addressArr = data.shippingAddressList;
+          
+                if (self.addressModel.addressArr.length > 0)
+                {
+                    
+                    var jud = false;
+                    for (var i = 0; i < self.addressModel.addressArr.length; i++)
+                    {
+                        if(self.addressModel.addressArr[i].isCommon == 1)
+                        {
+                        	jud = true;
+                        }
+                    
+                    }
+                    if(jud == false)
+                    {   
+                    	self.addressModel.hasCommonAdress = false;
+                    	
+                    }
+                    else{
+                    	self.addressModel.hasCommonAdress = true;
+                    }
+                   
+                }
+                 else
+                 {
+                 	self.addressModel.hasCommonAdress = false;
+                 }
+               
+                self.scope.addressModel = self.addressModel;
+                self.scope.$apply();
+            }
+        );
+
+    	
+    	
+    },
+    
     
     initArea : function()
     {
@@ -183,7 +255,16 @@ var addAddressController =
 			params.district = self.addAddressModel.totalAddress.district;
     		params.address = self.addAddressModel.address;
     		params.isCommon = self.addAddressModel.isCommon;
-    		
+    		if(!self.addressModel.hasCommonAdress)
+    		{
+    			params.isCommon = 1;
+//  			self.showOrHide(1);
+    		}
+    		else{
+    			
+    			params.isCommon = 0;
+//  			self.showOrHide(0);
+    		}
     		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_ADD_SHIPPING_ADDRESS, params, function(data)
     		{
     			$dialog.msg("添加成功");

@@ -447,8 +447,8 @@ var GuessInnerCtrl = {
 	
 	        setTimeout(function() {
 	          
-	           location.href = pageUrl.ACCOUNT_RECHARGE;
-	         
+//	           location.href = pageUrl.ACCOUNT_RECHARGE;
+	            location.href = pageUrl.TOCUSTOMER_PAGE;
 	        }, 1200);
 	        
 	    }
@@ -479,8 +479,8 @@ var GuessInnerCtrl = {
     	//去充值
     	self.scope.goToAddMoney = function(){
     		
-    		location.href = pageUrl.ACCOUNT_RECHARGE;
-    		
+//  		location.href = pageUrl.ACCOUNT_RECHARGE;
+    		 location.href = pageUrl.TOCUSTOMER_PAGE;
     	}
     	
     	//隐藏出价框

@@ -227,7 +227,8 @@ var userInfoController = {
                 {
                 	self.infoModel.orderArr = data.orderList;
 	                for(var i = 0; i < self.infoModel.orderArr.length; i++)
-	                {
+	                {   
+	                	
                         if(_utility.isEmpty(self.infoModel.orderArr[i].orderGoods))
                         {
                             continue;

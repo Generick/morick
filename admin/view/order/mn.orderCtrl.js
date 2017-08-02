@@ -13,7 +13,7 @@ var OrderCtrl = {
         isRelease: false, //是否发货
         curOrderIdx: null, //当前发货订单index
         keywords: null, //搜索关键字
-        deliveryType : null,
+        online : null,
         isShowBtn : true,
     },
    
@@ -100,9 +100,9 @@ var OrderCtrl = {
         if(!_utility.isEmpty(self.orderModel.keywords)){
             params.likeStr = self.orderModel.keywords
         }
-        if(self.orderModel.deliveryType != null){
+        if(self.orderModel.online != null){
         	
-        	params.deliveryType = self.orderModel.deliveryType;
+        	params.online = self.orderModel.online;
         }
 //     alert(self.orderModel.curOrderType)
 //      alert(JSON.stringify(params))
@@ -189,18 +189,18 @@ var OrderCtrl = {
         		self.payWayModel.name = "全部";
         		self.payWayModel.id = 0;
         		self.orderModel.isShowBtn = true;
-            	self.orderModel.deliveryType = null;
+            	self.orderModel.online = null;
             	self.scope.tabs[2].isShowTitle = true;
             	self.scope.tabs[3].isShowTitle = true;
         	}
         	else if (type == 1)
         	{
-        		self.payWayModel.name = "当面支付";
+        		self.payWayModel.name = "线下支付";
         		self.payWayModel.id = 1;
         		self.orderModel.isShowBtn = true;
         		self.scope.tabs[2].isShowTitle = false;
             	self.scope.tabs[3].isShowTitle = false;
-        		self.orderModel.deliveryType = 1;
+        		self.orderModel.online = 2;
         	}
         	else
         	{
@@ -211,7 +211,7 @@ var OrderCtrl = {
         		self.orderModel.isShowBtn = false;
         		self.scope.tabs[2].isShowTitle = true;
             	self.scope.tabs[3].isShowTitle = true;
-        		self.orderModel.deliveryType = 0;
+        		self.orderModel.online = 1;
         	}
         	$("#online-div-3").css("display","none")
         	self.scope.payWayModel = self.payWayModel;

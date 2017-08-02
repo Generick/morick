@@ -15,8 +15,8 @@
             <div class="f order-info-box">支付方式：
             	<span ng-show="orderInfoModel.info.payType == 0">余额</span>
             	<span ng-show="orderInfoModel.info.payType == 3">人工支付</span>
-            	<span ng-show="orderInfoModel.info.payType == 5 || orderInfoModel.info.payType == 7">微信支付</span>
-            	<span ng-show="orderInfoModel.info.payType == 6">支付宝支付</span>
+            	<span ng-show="orderInfoModel.info.payType == 5 || orderInfoModel.info.payType == 7 || orderInfoModel.info.payType == 11 || orderInfoModel.info.payType == 15">微信支付</span>
+            	<span ng-show="orderInfoModel.info.payType == 6 || orderInfoModel.info.payType == 12">支付宝支付</span>
             </div>
             <div class="f order-info-box" ng-show="orderInfoModel.info.deliveryType == '0'">付款时间：<span>{{orderInfoModel.info.orderTime*1000|date: 'yyyy-MM-dd HH:mm:ss'}}</span></div>
         </div>

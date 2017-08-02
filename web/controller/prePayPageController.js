@@ -1,9 +1,9 @@
 
-app.controller('specialctrl',function($scope){
-	localStorage.removeItem("wxAddressEmpty");
-	specialPageController.init($scope);
-	
-})
+//app.controller('specialctrl',function($scope){
+//	localStorage.removeItem("wxAddressEmpty");
+//	specialPageController.init($scope);
+//	
+//})
 //   alert(444)
      
         			
@@ -16,7 +16,7 @@ var specialPageController =
 	
 	buyGoodsName : '',
 	
-	isShowZhiFuBao : false,
+//	isShowZhiFuBao : false,
 	
 	hasAddress : false,
 	
@@ -28,21 +28,23 @@ var specialPageController =
 	
 	userId : null,
 	
-	underPay : 0,
+	underPay : 2,
 	
 	detailPage : null,
 	
 	commPrice : null,
 	
+	openId : null,
 	
-	
-	init : function($scope){
+	init : function($scope,openId){
 		
 		this.scope = $scope;
 		
+		this.openId = openId;
+		
 		this.isWeiXin();
 		
-		this.scope.isShowZhiFuBao = this.isShowZhiFuBao;
+//		this.scope.isShowZhiFuBao = this.isShowZhiFuBao;
 		
 		this.getUrlAndId();
 		
@@ -50,7 +52,7 @@ var specialPageController =
 		
 		this.eventBind();
 		
-
+      
 	},
 	
 	  getUrlAndId : function(){
@@ -157,6 +159,7 @@ var specialPageController =
 				$("#zhifubaopay").removeClass("check-add-class");
 			}
 
+			
 		};
 		
 		self.scope.underLinePay = function(){
@@ -247,7 +250,7 @@ var specialPageController =
     		    	
     		    	
     		    }
-    		    
+    		 
     		    if(self.hasAddress)
 	    		{       
 	    			    
@@ -283,9 +286,9 @@ var specialPageController =
 							params.clientPrice = Math.floor(self.commPrice);
 							params.clientTime = stampTime;
 							params.buyNum = self.buyNumber;
-							params.payEnv = 7;
+							params.payEnv = 5;
 							params.returnUrl = returnurl;
-
+                            params.openId = self.openId;
                             
 							jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PAY_COMMDIFY, params, function(data){
 								
@@ -337,15 +340,15 @@ var specialPageController =
 								params.clientPrice = Math.floor(self.commPrice);
 								params.clientTime = stampTime;
 								params.buyNum = self.buyNumber;
-								params.payEnv = 5;
+								params.payEnv = 1;
 								params.returnUrl = returnurl;
 
 								
 								jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PAY_COMMDIFY, params, function(data){
 									
-
-									if(!commonFu.isEmpty(data.url))
-									{ 
+                                   
+//									if(!commonFu.isEmpty(data.url))
+//									{ 
 
 //										sessionStorage.setItem("dataurl",data.url);
 										localStorage.removeItem(localStorageKey.orderNo);
@@ -353,7 +356,7 @@ var specialPageController =
 										sessionStorage.setItem("payOrderId",data.order_no);
 										location.href = pageUrl.ORDER_DETAIL;
 										localStorage.setItem("comewidthgoto",8)
-									}
+//									}
 									
 								
 
@@ -369,13 +372,13 @@ var specialPageController =
 								params.clientPrice = Math.floor(self.commPrice);
 								params.clientTime = stampTime;
 								params.buyNum = self.buyNumber;
-								params.payEnv = 6;
+								params.payEnv = 2;
 								params.returnUrl = returnurl;
-						
+//						        alert(JSON.stringify(params))
 								jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PAY_COMMDIFY, params, function(data){
-
-									if(!commonFu.isEmpty(data.url))
-									{
+//                                  alert(JSON.stringify(data))
+//									if(!commonFu.isEmpty(data.url))
+//									{
 
 //										sessionStorage.setItem("dataurl",data.url);
 										localStorage.removeItem(localStorageKey.orderNo);
@@ -383,7 +386,7 @@ var specialPageController =
 										sessionStorage.setItem("payOrderId",data.order_no);
 										location.href = pageUrl.ORDER_DETAIL;
 										localStorage.setItem("comewidthgoto",8);
-									}
+//									}
 									
 
 								})
@@ -401,6 +404,7 @@ var specialPageController =
 	    		
 	    		        self.userId = data.userInfo.userId;
 	    	            $dialog.msg("请先设置您的默认地址！");
+	    	            
 		    			setTimeout(function(){
 		    				
 		    				sessionStorage.removeItem("payOrderId");
@@ -432,13 +436,13 @@ var specialPageController =
 			var ua = window.navigator.userAgent.toLowerCase(); 
 			
 			if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-				self.isShowZhiFuBao = false;
-				self.scope.isShowZhiFuBao = self.isShowZhiFuBao;
+//				self.isShowZhiFuBao = false;
+//				self.scope.isShowZhiFuBao = self.isShowZhiFuBao;
 				return true;
 			}else
 			{   
-				self.isShowZhiFuBao = true;
-				self.scope.isShowZhiFuBao = self.isShowZhiFuBao;
+//				self.isShowZhiFuBao = true;
+//				self.scope.isShowZhiFuBao = self.isShowZhiFuBao;
 				return false; 
 			} 
 	    },

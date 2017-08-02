@@ -27,7 +27,7 @@
                         </div>
                     </div>
 					<div class="address-operate fix">
-						<div class="clear" style="display: inline-block;" ng-click="onClickListSetDefaultAddress(item.id)">
+						<div class="clear" style="display: inline-block;" ng-click="onClickListSetDefaultAddress(item)">
 							
 							<!--<i class="default-address" style="background-image: url({{item.defaultAddressIcon}});"></i>-->
 							<i class="default-address">
@@ -80,12 +80,15 @@
 			        {
                         var tt = localStorage.getItem(localStorageKey.TO_ADDRESS_TYPE);
                        
-                        
+//                      alert(localStorage.getItem("hereComeFromAuc"))
+                       
+                       
                         if(localStorage.getItem("hereComeFromAuc") == 1)
                         {
-               
+                             
                             if(localStorage.getItem("wxAddressEmpty") == 1)
-                            {
+                            {  
+//                          	lert(6)
                             	var commodifyId = localStorage.getItem("commodifyId");
 			                    var specialPrice =  localStorage.getItem("specialPrice");
 			                    var thisAcPage =  localStorage.getItem("thisAcPage");
@@ -100,6 +103,7 @@
                             }
                             else
                             { 
+//                          	alert(4)
                             	localStorage.removeItem("wxAddressEmpty");
                             	var specialPrice = localStorage.getItem("specialPrice");
                             	location.href = pageUrl.ORDER_DETAIL;
@@ -107,16 +111,29 @@
                             localStorage.removeItem("hereComeFromAuc")
                         }
                         else
-                        {
-                        	if (tt != 2)
-				        	{  
-	                            localStorage.removeItem(localStorageKey.TO_ADDRESS_TYPE);
-					        	location.href = pageUrl.ORDER_DETAIL;
-				        	}
-				        	else
-				        	{  
-	                            location.href = pageUrl.PERSON_INFO;
-				        	}
+                        { 
+                        	
+ 							if(localStorage.getItem("comewidthgoto") == 2)
+                        	{   
+                        	
+                        		localStorage.removeItem("wxAddressEmpty");
+                           	    var specialPrice = localStorage.getItem("specialPrice");
+                            	location.href = pageUrl.ORDER_DETAIL;
+                       		 }
+                        	else{
+                        		if (tt != 2)
+					        	{  
+	//				        		alert(8)
+		                            localStorage.removeItem(localStorageKey.TO_ADDRESS_TYPE);
+						        	location.href = pageUrl.ORDER_DETAIL;
+					        	}
+					        	else
+					        	{  
+	//				        		alert(9)
+		                            location.href = pageUrl.PERSON_INFO;
+					        	}
+                        	}
+                        	
                         }
 			        	
 			        }

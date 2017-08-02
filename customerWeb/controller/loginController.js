@@ -24,18 +24,18 @@ var  LoginCtrl = {
 		
 		this.scope.loginModel = this.loginModel;
 		
-		this.initData();
+//		this.initData();
 		
 		this.bindClick();
 	},
 	
-	initData : function(){
-		
-		var self = this;
-
-        
-	},
-	
+//	initData : function(){
+////		alert(localStorage.getItem(localStorageKey.userId))
+//		var self = this;
+//
+//      
+//	},
+//	
 	
 	bindClick : function(){
 		

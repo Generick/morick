@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>推广图片</title>
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="css/popUp.css" />
+        <link href="layer.css">
+        <script src="js/base64.js"></script>
+        <script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+        <link rel="stylesheet" href="swiper/swiper.css"  />
+        <script src="js/base64.js"></script>
+     	<script src="js/qrodecopy.js"></script>
+	</head>
+    
+	<body ng-controller="myPushPicCtr" style="background: #F2F2F2;">
+		 <div class="animation3">
+			        <img src="img/loading.gif"/>
+		  </div>
+		 <div class="container3" style="background: #F2F2F2;">
+		 	  <div class="swiper-container" style="top:45%;margin-top:130px;">
+		        <div class="swiper-wrapper" id="preImages">
+		            <div class="swiper-slide item-img">
+		            	<div id="qrcodefir"></div>
+		            	<img src="img/fir.png" style="height:auto;margin:0 auto">
+		            		<!--<div class="swiper-imgs" style="background-image: url({{item}})"></div>-->
+		            </div>
+		            <div class="swiper-slide item-img">
+		            	<div id="qrcodesec"></div>
+		            	<img src="img/sec.png" style="height:auto;margin:0 auto">
+		            		<!--<div class="swiper-imgs" style="background-image: url({{item}})"></div>-->
+		            </div>
+		            <div class="swiper-slide item-img"s>
+		            	<div id="qrcodethi"></div>
+		            	<img src="img/thi.png" style="height:auto;margin:0 auto">
+		            		<!--<div class="swiper-imgs" style="background-image: url({{item}})"></div>-->
+		            </div>
+		            <div class="swiper-slide item-img">
+		            	<div id="qrcodefou"></div>
+		            	<img src="img/fou.png" style="height:auto;margin:0 auto">
+		            		<!--<div class="swiper-imgs" style="background-image: url({{item}})"></div>-->
+		            </div>
+		            <div class="swiper-slide item-img">
+		            	<div id="qrcodefiv"></div>
+		            	<img src="img/fiv.png" style="height:auto;margin:0 auto">
+		            		<!--<div class="swiper-imgs" style="background-image: url({{item}})"></div>-->
+		            </div>
+		        </div>
+ 
+                <!-- Add Pagination -->
+                 
+                <!--<div class="swiper-pagination"></div>-->
+            </div>
+            <div class="swiper-button-prev" ng-click="toInit()" id="predivbtn" style="top:52%;margin-top:120px;left:26%;height:35px;line-height:35px;text-align: center; background-image: url()">上一张</div>
+            <div class="swiper-button-next" ng-click="toInit()" id="nexdivbtn" style="top:52%;margin-top:120px;right:26%;height:35px;line-height:35px;text-align: center;background-image: url()">下一张</div>
+		 </div>
+	</body>
+    
+	<!--系统js-->
+	
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/layer.js"></script>
+    <script src="js/dialog.js"></script>
+     <script src="swiper/swiper.min.js"></script>
+	<script type="text/javascript" src="js/confirmTip.js" ></script>
+     <script src="js/app.js"></script>
+     
+	<script>
+		
+		  
+			if (typeof localStorage === 'object') {
+			    try {
+					localStorage.setItem('localStorage', 1);
+					localStorage.removeItem('localStorage');
+				} catch (e) {
+					Storage.prototype._setItem = Storage.prototype.setItem;
+					Storage.prototype.setItem = function() {};
+					$dialog.msg('为了正常访问，请关闭无痕模式');
+				}
+			}
+
+
+	</script>
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/myPushPicController.js" ></script>
+	<script>
+		if(window.screen.width < 375){
+			$('.user-input').css('margin-top','5vh');
+		}
+		
+		
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+
+		    		location.href = pageUrl.HOME_PAGE
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+		
+	</script>
+</html>
+
+

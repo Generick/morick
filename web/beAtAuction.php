@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="css/selected.css" />
         <link rel="stylesheet" href="popUpModal/popUp.css" />
 	</head>
-	<body ng-controller="ctrl">
+	<body ng-controller="ctrl" style="background: #FFFFFF;">
 		<div id="myself-head" ng-click="jumpToSelfZone2()" style="position: fixed;top:10px;left:10px;width:16vw;height:16vw;display: block;z-index: 99999;">
 			<img src="img/personal-enter.png"> 
 		</div>
@@ -30,28 +30,51 @@
 		</div>
 		
 		<!--style="position:absolute; overflow:auto;-webkit-overflow-scrolling: touch; margin-bottom:52px;top:0;left:0;right:0"-->
-        <div id="container" class="container scroll">
+        <div id="container" class="container scroll" style="background: #FFFFFF;">
             <div class="xzlDown"></div>
-            <div class="list" id="list-empty" style="background-color: #fff;">
+            <div class="list" id="list-empty" style="background-color: #fff;width:98%;margin-left:1%;padding:10px 1%;">
 				<ul id="selected-ul">
-					<li class="oneList" ng-repeat = "item in auctionItems" id="sel_{{item.id}}" ng-click = "onClickToGoodsDetail(item)" on-finish-render-filters>
+					<li class="oneList" style="margin-bottom: 2.5vw;box-shadow: 0 0 6px 0 #bebebe;padding-bottom: 1vw;" ng-repeat = "item in auctionItems" id="sel_{{item.id}}" ng-click = "onClickToGoodsDetail(item)" on-finish-render-filters>
                         <div class="item-img">
                         	<img style="position: absolute;top:1vw;left:0px;z-index: 5;width:14vw;height:14vw;" class="smallvippic" ng-show="(item.isVIP == 1)" src="img/newVip.png">
                             <b  ng-show="item.itHasBeenOk">
                             	<img src="img/aucted0.png"> 
                             </b>
-                            <img ng-src="{{item.goodsInfo.goodsPicsShow}}">
+                            <img style="width:98%;margin-left:1%" ng-src="{{item.goodsInfo.goodsPicsShow}}">
                         </div>
-						<div class="price">
+						<div class="price" style="border-bottom: none;">
 							<div ng-bind="item.goodsInfo.goods_name"></div>
 							<div style="float: right;" class="clear"  ng-show="!item.itHasBeenOk">
-								<span style="margin-top: 4px;"  ng-show = 'item.isShowPrice || item.initialPrice != 0'>当前出价</span>
-								<span ng-show = 'item.isShowPrice || item.initialPrice != 0'>￥{{item.isShowPrice?item.currentPrice: item.initialPrice}}</span>
-								<span ng-show = '!item.isShowPrice && item.initialPrice == 0'>零起拍</span>
+								<span style="margin-top: 4px;"  ng-show = 'item.isShowPrice || item.initialPrice != 0'>当前价</span>
+								<span ng-show = 'item.isShowPrice || item.initialPrice != 0'>
+									<span style="color:#d56161;font-size:12px;">￥</span>
+								    <span style="color:#d56161;font-size:16px;">{{item.isShowPrice?item.currentPrice: item.initialPrice}}</span>
+									
+									</span>
+								<span ng-show = '!item.isShowPrice && item.initialPrice == 0' style="color:#d56161;font-size:16px;">零起拍</span>
 							</div>
 							<div class="aucted-content" ng-show="item.itHasBeenOk">
-								<span>{{item.status==1?"流拍":item.isAucted?"成交价￥":"流拍"}}</span>
-								 <span ng-show="item.status==0 && item.isAucted" ng-bind="item.currentPrice"></span>
+								<span style="color:#d56161;font-size:16px;">{{item.status==1?"流拍":item.isAucted?"成交价":"流拍"}}</span>
+								<span style="color:#d56161;font-size:12px;" ng-show="item.status!=1 && item.isAucted">￥</span>
+								 <span style="color:#d56161;font-size:16px;" ng-show="item.status==0 && item.isAucted" ng-bind="item.currentPrice"></span>
+							</div>
+						</div>
+						<div ng-show="!item.itHasBeenOk" style="width:100%;overflow: hidden;" class="far-from-end-box">
+							<span style="font-size:12px">距离截拍：</span>
+							<span  id="sel_day{{item.id}}" style="color:#d56161;font-size:14px;padding-right:3px;"></span>天
+							<span  id="sel_hour{{item.id}}" style="color:#d56161;font-size:14px;padding-right:3px;"></span>时
+							<span  id="sel_min{{item.id}}" style="color:#d56161;font-size:14px;padding-right:3px;"></span>分
+							<span  id="sel_sec{{item.id}}" style="color:#d56161;font-size:14px;padding-right:3px;"></span>秒
+							
+						</div>
+						<div style="width:100%;overflow: hidden;" class="bottom-item-add">
+							<div class="bottom-item-add-left">
+								<img src="img/start-icon-img.png"  />
+								<span ng-bind="item.initialPrice"></span>
+							</div>
+							<div style="margin-left:3vw" class="bottom-item-add-left">
+								<img src="img/add-icon-img.png"/>
+								<span  ng-bind="item.lowestPremium"></span>
 							</div>
 						</div>
 					</li>

@@ -3,28 +3,36 @@
  */
 
 /**************服务器基地址*******************/
-//const API_BASE_URL = "http://meeno.f3322.net:8082/auction_dev/index.php/";//开发
-
-
-//const API_BASE_URL = "http://meeno.f3322.net:8082/auction/index.php/";//测试
-
-
-//const API_BASE_URL = "http://192.168.2.128/auction/index.php/";//测试
-//const API_BASE_URL = "http://192.168.0.110:8088/auction/index.php/";
-
-//var API_BASE_URL =  "http://192.168.0.110:8088/auction/index.php/";
-var API_BASE_URL =  "http://192.168.0.88:8082/auction/index.php/";
-//const API_BASE_URL = "http://auction.yawan365.com/index.php/";//正式
-//const BASE_PAGE_URL = "http://auction.yawan365.com/";//正式
-//const BASE_PAGE_URL = "http://meeno.f3322.net:8082/auction/web/";//测试
-//const BASE_PAGE_URL = "http://www.yawan365.com:8080/";//测试
-// const API_BASE_URL = "http://auction.yawan365.com:8080/index.php/";//测试
-//const BASE_PAGE_URL = "http://192.168.0.168:8020/web/";
-
-const BASE_PAGE_URL = "http://192.168.0.163/auction/";
-//const BASE_PAGE_URL = "http://127.0.0.1:8020/paimai-web/";
 
 /***************API 配置接口****************/
+
+
+var API_BASE_URL =  "";
+var  BASE_PAGE_URL = "";
+
+if(location.href.indexOf("yawan365") == -1)
+{
+	    			    	
+
+	BASE_PAGE_URL = "http://192.168.0.163/auction/";
+    API_BASE_URL =  "http://192.168.0.121:8088/auction/index.php/";//苗佳亮接口
+//    var API_BASE_URL =  "http://192.168.0.88:8082/auction/index.php/";
+}
+else{
+	
+	    if(location.href.indexOf("8080") == -1)
+		{
+			
+			API_BASE_URL = "http://auction.yawan365.com/index.php/";//正式接口路径
+			BASE_PAGE_URL = "http://www.yawan365.com/";//正式跳转路径
+		}
+		else
+		{
+		    API_BASE_URL = "http://auction.yawan365.com:8080/index.php/";//测试接口路径
+		    BASE_PAGE_URL = "http://www.yawan365.com:8080/";//测试跳转路径
+		}
+}
+
 
 var apiUrl = 
 {
@@ -157,7 +165,7 @@ var pageUrl =
 	AUCTION_HISTORY : BASE_PAGE_URL + "auctionHistory.php",//拍卖历史
 	AUCTION_HISTORY_INFO : BASE_PAGE_URL + "auctedGoodsDetail.php",//拍卖历史拍品详情
 //	PERSON_CENTER : BASE_PAGE_URL + "personCenter.html",//个人中心
-    PERSON_CENTER : BASE_PAGE_URL + "newPersoner.html",//个人中心
+    PERSON_CENTER : BASE_PAGE_URL + "newPersoner.php",//个人中心
     TO_PAY_SPECILA_PAGE : BASE_PAGE_URL + "personCenter/specialPage.html",//跳到商品支付页面
 	PERSON_INFO : BASE_PAGE_URL + "personCenter/personInfo.html",//个人信息
 	MOD_NAME : BASE_PAGE_URL + "personCenter/modName.html",//修改昵称
@@ -184,7 +192,7 @@ var pageUrl =
 	
 	MY_ORDER_LIST : BASE_PAGE_URL + "personCenter/orderList.html",//我的订单
 	
-	ORDER_DETAIL : BASE_PAGE_URL + "personCenter/orderDetail.html",//订单详情
+	ORDER_DETAIL : BASE_PAGE_URL + "personCenter/orderDetail.php",//订单详情
 	
 	MOD_ADDRESS_LIST : BASE_PAGE_URL + "personCenter/addressListMod.html",//地址列表修改地址
 	ADD_ADDRESS : BASE_PAGE_URL + "personCenter/addAddress.html",//添加地址
@@ -199,5 +207,7 @@ var pageUrl =
 	
 	NEW_NEW_DETAIL : BASE_PAGE_URL + "new-news-detail.html",
 	
-	PRE_PAY_PAGE : BASE_PAGE_URL + "prePayPage.html"//支付选择页面
+	PRE_PAY_PAGE : BASE_PAGE_URL + "prePayPage.php",//支付选择页面
+	
+	TOCUSTOMER_PAGE : BASE_PAGE_URL + "personCenter/toCustomerPay.html"
 };

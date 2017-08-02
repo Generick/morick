@@ -1,0 +1,21 @@
+<div class="goods-pics-box fix">
+    <div class="goods-img-1 f" ng-repeat="item in url track by $index">
+        <span class="fa fa-minus-circle" ng-click="delPic($index)">-</span>
+        <img ng-if="item" ng-src="{{item}}">
+        <!--<div class="set-face-img-1" title="未选择时默认第一张为封面" ng-click="setFaceImg($index)">设为封面</div>
+        <div class="select-round-1" ng-click="setFaceImg($index)"></div>-->
+    </div>
+     
+    <div id="upload-icon2" class="upload-icon f">
+    	
+    	
+        <div class="upload-goods-form">
+            <img src="img/add-icicon.png" class="plus-add" />
+            <form id="file-form-1">
+            	<input type="file" name="file" multiple="multiple" onchange="angular.element(this).scope().imgUpload(this.files)">
+            </form>
+        </div>
+      
+      
+    </div>
+</div>

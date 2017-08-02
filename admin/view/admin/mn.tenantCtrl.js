@@ -43,15 +43,7 @@ var tenantCtrl = {
     	var self = this;
     
         pageController.pageInit(self.scope, api.API_GET_TENANTlIST, {},
-            /**
-             * 管理员列表
-             * @param data
-             * @param data.totalNum
-             * @param data.adminList 用户列表
-             * @param data.adminList.lastLoginTime 最近登录
-             * @param data.adminList.name 昵称
-             * @param data.adminList.accountId 用户名
-             */
+           
             function(data){
 //          	console.log(JSON.stringify(data))
 

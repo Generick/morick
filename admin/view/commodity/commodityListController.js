@@ -65,7 +65,7 @@ var commodityListController = {
 		
 		this.scope.fields = this.fields;
 		
-		this.scope.singleNumber = this.singleNumber;
+//		this.scope.singleNumber = this.singleNumber;
 		
 		this.scope.isGrounding = this.isGrounding;
 		
@@ -130,7 +130,54 @@ var commodityListController = {
 		
 		var self = this;
 		
-		
+		self.scope.toMoveItem = function(item,type){
+			
+//			alert(JSON.stringify(item))
+			
+//			commodityIdA
+//			commodityIdB
+            var preId = null;
+            var nexId = null;
+			if(type == 0)//向下移动
+			{
+				if(item.id == self.CommodityList[self.CommodityList.length -1].id)
+	            {
+	            		$dialog.msg("当前商品已经在最底部！", 1.6);
+	            		return;
+	            }
+			}
+			if(type == 1){
+				
+				if(item.id == self.CommodityList[0].id)//向上移动
+	            {
+	            		$dialog.msg("当前商品已经在最顶部！", 1.6);
+	            		return;
+	            }
+			}
+            
+            for(var i = 0; i < self.CommodityList.length; i ++)
+            {
+            	if(item.id == self.CommodityList[i].id)
+            	{
+            		if(type == 0)
+            		{
+            			preId = self.CommodityList[i].id;
+            			nexId = self.CommodityList[i+1].id;
+            		}
+            		else{
+            			preId = self.CommodityList[i].id;
+            			nexId = self.CommodityList[i-1].id;
+            		}
+            	}
+            }
+            var params = {};
+            params.commodityIdA = preId;
+            params.commodityIdB = nexId;
+            $data.httpRequest("post", api.API_MOVE_COMMIDITY, params,function(data){
+			 	$dialog.msg("操作成功！", 1.6);
+			    self.getData();
+			});
+		};
 		
 		self.scope.preViewCommodity = function(item){
 			
@@ -166,12 +213,13 @@ var commodityListController = {
 				
 			};
 			self.scope.swiperModel = self.swiperModel;
+		  
 		};
 		
 		
 		self.scope.addCommodity = function(){
 			self.singleNumber = true;
-		    self.scope.singleNumber = self.singleNumber;
+//		    self.scope.singleNumber = self.singleNumber;
 		    $(".singleNumber").eq(1).removeClass("complexOrsingle");
 		    $("#singleNub").attr("disabled",true);
 		    $("#singleNub").css("background","#E9E9E9");
@@ -207,14 +255,14 @@ var commodityListController = {
 		    	self.CommodityNumber = 1;
 		    	self.scope.CommodityNumber = self.CommodityNumber;
 		    	self.singleNumber = true;
-		    	self.scope.singleNumber = self.singleNumber;
+//		    	self.scope.singleNumber = self.singleNumber;
 		    	$(".singleNumber").eq(1).removeClass("complexOrsingle");
 		    	$("#singleNub").attr("disabled",true);
 		    	$("#singleNub").css("background","#E9E9E9");
 		    }
 		    else{
 		    	self.singleNumber = false;
-		    	self.scope.singleNumber = self.singleNumber;
+//		    	self.scope.singleNumber = self.singleNumber;
 		    	$(".singleNumber").eq(0).removeClass("complexOrsingle");
 		    	$("#singleNub").attr("disabled",false);
 		    	$("#singleNub").css("background","#ffffff");
@@ -224,7 +272,7 @@ var commodityListController = {
 			
 		self.scope.modCommodity = function(item){
 			self.singleNumber = true;
-		    self.scope.singleNumber = self.singleNumber;
+//		    self.scope.singleNumber = self.singleNumber;
 		    $(".singleNumber").eq(1).removeClass("complexOrsingle");
 		    $("#singleNub").attr("disabled",true);
 		    $("#singleNub").css("background","#E9E9E9");
@@ -415,9 +463,9 @@ var commodityListController = {
 				 $dialog.msg("请上传商品图片", 1.6);
 				  return;
 			}
-			if(_utility.isEmpty(self.scope.CommodityBid_price))
+			if(self.scope.CommodityBid_price < 0)
 			{
-				 $dialog.msg("请输入商品进价", 1.6);
+				 $dialog.msg("商品进价不能小于0!", 1.6);
 				  return;
 			}
 			
@@ -426,9 +474,9 @@ var commodityListController = {
 				 $dialog.msg("请输入商品价格", 1.6);
 				  return;
 			}
-			if(parseInt(self.scope.CommodityPrice) >= 1000000)
+			if(parseInt(self.scope.CommodityPrice) >= 10000000)
 			{
-				 $dialog.msg("商品价格应小于一百万", 1.6);
+				 $dialog.msg("商品价格应小于一千万", 1.6);
 				  return;
 			}
 			if(!_utility.isEmpty(self.scope.CommodityYearYield) && (self.scope.CommodityYearYield <= 0))
@@ -545,7 +593,7 @@ var commodityListController = {
 //		        alert(params.modInfo.commodity_cover)
 		        
 		       
-		        params.modInfo = JSON.stringify(params.modInfo);
+		        
 				if(self.singleNumber)
 				{
 					params.modInfo.commodity_attr = 0;
@@ -554,8 +602,9 @@ var commodityListController = {
 				{
 					params.modInfo.commodity_attr = 1;
 				}
-//				alert("EEE"+JSON.stringify(params))
+			  
 //				 return;
+				params.modInfo = JSON.stringify(params.modInfo);
 				$data.httpRequest("post", api.API_MOD_SALE_COMMIDIFY, params,function(data){
 			 	
 			 	    $dialog.msg("商品修改成功！", 1.6);
@@ -576,6 +625,8 @@ var commodityListController = {
 		params.id = item.id;
 		$data.httpRequest("post", api.API_GET_SALE_COMMIDIFY_DETAIL, params,function(data){
 //			  alert(JSON.stringify(data))
+            self.swiperModel.swiperImgs = [];
+            self.scope.swiperModel.swiperImgs = self.swiperModel.swiperImgs;
 			self.swiperModel.swiperName = data.info.commodity_name;
 			self.swiperModel.swiperImgs = JSON.parse(data.info.commodity_pic);
 //          self.swiperModel.swiperImgs = ["assets/images/public/default.png","assets/images/public/default-fmale.png","assets/images/public/default-male.png"];
@@ -590,15 +641,24 @@ var commodityListController = {
     			self.swiperModel.swiperName = self.swiperModel.swiperName.substring(0,12) + "...";
     		}
 			self.scope.swiperModel = self.swiperModel;
+			self.scope.$apply();
 			
-			self.scope.$apply()
-	        $("#commidify-rich-content").html(data.info.commodity_detail);
-			var swiper = new Swiper('.swiper-container', {
-	            pagination: '.swiper-pagination',
+			
+//			setTimeout(function(){
+				$("#commidify-rich-content").html(data.info.commodity_detail);
+				var swiper = new Swiper('.swiper-container', {
+					
+	                pagination: '.swiper-pagination',
 	                paginationClickable: true,
 	                autoplay: 3000,
-	                autoplayDisableOnInteraction: false
-	        });
+	                autoplayDisableOnInteraction: true,
+	                activeIndex: 0,
+	                observer:true,
+	            });
+//			},1000)
+			
+			
+//	        
 		})
 		
 	},

@@ -647,7 +647,7 @@ var elegantController =
 			$(".close-fixed").css("display","none")
 			$(".preview-box").css("display","none")
 		};
-		
+			
 	},
 	
 	

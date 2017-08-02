@@ -73,6 +73,7 @@ var goToPayAppController =
 			
 			var href_id = localStorage.getItem("toseeOrder");
 			localStorage.setItem("comewidthgoto",2);
+			
 			localStorage.setItem(localStorageKey.orderNo,href_id);
 	       		setTimeout(function(){
 	       		 	

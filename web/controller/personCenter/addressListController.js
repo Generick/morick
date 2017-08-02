@@ -51,9 +51,8 @@ var AddressListCtrl = {
     	var self = this;
         var obj = new Base64();
         self.addressModel.userId= obj.decode(commonFu.getQueryStringByKey("userId"));
-//  	self.addressModel.userId = commonFu.getQueryStringByKey("userId");
     	self.addressModel.type = localStorage.getItem(localStorageKey.IS_ADDRESS);
-
+        sessionStorage.setItem("linshiId",self.addressModel.userId);
     	var params = 
     	{
     		startIndex : 0,
@@ -74,19 +73,24 @@ var AddressListCtrl = {
                 if (self.addressModel.addressArr.length > 0)
                 {
                     $(".no-data").hide();
+                    var jud = false;
                     for (var i = 0; i < self.addressModel.addressArr.length; i++)
                     {
                         self.addressModel.addressArr[i].mobile = commonFu.telephoneDispose(self.addressModel.addressArr[i].mobile);
-//                      self.addressModel.addressArr[i].defaultAddressIcon = "../img/personCenter/no.png";
-//
-//                      if (self.addressModel.addressArr[i].isCommon == 1)
-//                      {
-//                          self.addressModel.addressArr[i].defaultAddressIcon = "../img/personCenter/yes.png";
-//                      }
 
                         var str = self.addressModel.addressArr[i].province + self.addressModel.addressArr[i].city + self.addressModel.addressArr[i].district;
                         self.addressModel.addressArr[i].allAddress = str.replace(" ","") + self.addressModel.addressArr[i].address;
+                        if(self.addressModel.addressArr[i].isCommon == 1)
+                        {
+                        	jud = true;
+                        }
+                    
                     }
+                    if(jud == false)
+                    {
+                    	self.setAdressDefault(self.addressModel.addressArr[0])
+                    }
+                   
                 }
                 else
                 {
@@ -119,43 +123,40 @@ var AddressListCtrl = {
         };
 
     	//是否设为默认
-    	self.scope.onClickListSetDefaultAddress = function(id) {
-    		for (var i = 0;i < self.addressModel.addressArr.length;i ++)
-    		{
-    			if (self.addressModel.addressArr[i].id == id)
-	    		{
-	    			if (self.addressModel.addressArr[i].isCommon == 0)
-		    		{
-		    			//self.addressModel.addressArr[i].defaultAddressIcon = "../img/personCenter/yes.png";
-		    			self.addressModel.addressArr[i].isCommon = 1;
-		    		}
-		    		else
-		    		{
-		    			//self.addressModel.addressArr[i].defaultAddressIcon = "../img/personCenter/no.png";
-		    			self.addressModel.addressArr[i].isCommon = 0;
-		    		}
-	    		}
+    	self.scope.onClickListSetDefaultAddress = function(item) {
+    	
+	    		if (item.isCommon == 0)
+		    	{
+		    		
+		    		item.isCommon = 1;
+		    	}
+		    	else
+		    	{
+		    	
+		    		item.isCommon = 0;
+		    	}
+	    	
 	    		
 	    		var modInfo = {};
-	    		modInfo.acceptName = self.addressModel.addressArr[i].acceptName;
-	    		modInfo.mobile = self.addressModel.addressArr[i].mobile;
-	    		modInfo.province = self.addressModel.addressArr[i].province;
-    			modInfo.city = self.addressModel.addressArr[i].city;
-    			modInfo.district = self.addressModel.addressArr[i].district;
-    			modInfo.address = self.addressModel.addressArr[i].address;
-    			modInfo.isCommon = self.addressModel.addressArr[i].isCommon;
+	    		modInfo.acceptName = item.acceptName;
+	    		modInfo.mobile = item.mobile;
+	    		modInfo.province = item.province;
+    			modInfo.city = item.city;
+    			modInfo.district = item.district;
+    			modInfo.address = item.address;
+    			modInfo.isCommon = item.isCommon;
     			
     			var params = {
-	    			addressId: self.addressModel.addressArr[i].id,
+	    			addressId: item.id,
 	    			modInfo: JSON.stringify(modInfo)
 	    		};
 
 	    		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_MOD_SHIPPING_ADDRESS, params, function() {
 	    			self.initData();
 	    		})
-    		}
+    
     		
-    		self.scope.addressModel = self.addressModel;
+//  		self.scope.addressModel = self.addressModel;
     	};
 
     	//编辑
@@ -194,6 +195,45 @@ var AddressListCtrl = {
     		location.href = pageUrl.ADD_ADDRESS;
     	}
     },
+    
+    setAdressDefault : function(item){
+    	
+    	var self = this;
+    	if (item.isCommon == 0)
+		    	{
+		    		
+		    		item.isCommon = 1;
+		    	}
+		    	else
+		    	{
+		    	
+		    		item.isCommon = 0;
+		    	}
+	    	
+	    		
+	    		var modInfo = {};
+	    		modInfo.acceptName = item.acceptName;
+	    		modInfo.mobile = item.mobile;
+	    		modInfo.province = item.province;
+    			modInfo.city = item.city;
+    			modInfo.district = item.district;
+    			modInfo.address = item.address;
+    			modInfo.isCommon = item.isCommon;
+    			
+    			var params = {
+	    			addressId: item.id,
+	    			modInfo: JSON.stringify(modInfo)
+	    		};
+
+	    		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_MOD_SHIPPING_ADDRESS, params, function() {
+	    			self.initData();
+	    		})
+    
+//  		
+//  		self.scope.addressModel = self.addressModel;
+    	
+    },
+    
     
     ngRepeatFinish: function() { //ng-repeat完成后执行的操作
 

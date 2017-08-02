@@ -21,7 +21,7 @@
 					</div>
 					<div id="online-div-3">
 						<div ng-click="choosePay(0)" >全部</div>
-						<div ng-click="choosePay(1)" >当面支付</div>
+						<div ng-click="choosePay(1)" >线下支付</div>
 						<div ng-click="choosePay(2)" >线上支付</div>
 					</div>
 			     </div>
@@ -85,7 +85,16 @@
 						<div ng-if="item.acceptName" style="width: 300px;margin:0 auto">
 							<span>收货人：{{item.acceptName}}</span>
 							<span class="m-g-l-10">电话：{{item.mobile}}</span>
-							<span class="m-g-l-10">收货地址：{{item.province + item.city + item.district + item.address}}</span>
+							<span class="m-g-l-10">收货地址：
+								
+							    {{item.province + item.city + item.district + item.address}}
+							</span>
+						</div>
+						<div ng-if="item.acceptName == ''" style="width: 300px;margin:0 auto;text-align: center;">
+							
+								<span>暂无地址</span>
+							 
+							</span>
 						</div>
 					</td>
 					<td style="text-align: center">
@@ -95,8 +104,16 @@
 					<td style="text-align: center">{{"￥"+item.payPrice}}</td>
 					<td style="text-align: center">{{item.orderStatusCopy}}</td>
 					<td style="text-align: center">
-						<div ng-show="item.deliveryType == '0'">线上支付</div>
-						<div ng-show="item.deliveryType == '1'">当面付</div>
+						<div ng-show="item.orderType == 2">
+							<div ng-show="item.payType != 3">线上支付</div>
+						    <div ng-show="item.payType == '3'">线下支付</div>
+						</div>
+						<div ng-show="item.orderType == 1">
+							<div ng-show="item.deliveryType == '1'">线下支付</div>
+							<div ng-show="item.deliveryType == '0'">线上支付</div>
+						</div>
+						
+						
 					</td>
 					<td style="text-align: center">
 						<a class="btn btn-white" ng-click="checkInfo(item)">查看</a>
@@ -104,22 +121,22 @@
 						<span ng-show="item.isRelease && item.deliveryType == '0'" class="m-g-l-10"><a class="btn btn-default" ng-click="deliverGoods(item, $index)">发货</a></span>
 						<span id="click-make-sure" ng-show="item.orderType == '1' &&(item.orderStatus == '1' || item.orderStatus == '4')" class="m-g-l-10">
                     	<button class="btn" ng-show="item.orderType == '1' && item.orderStatus == '1'" ng-class="{true:'orderChange',false:'btn-white'}[item.orderStatus == '4']" ng-click="toAgreeOrCancle(item, 0)">确认完成</button>
-                    	<button class="btn orderChange" class="orderChange" ng-show="item.orderType == '1' && item.orderStatus == '4'">已完成 </button>
+                    	<!--<button class="btn orderChange" class="orderChange" ng-show="item.orderType == '1' && item.orderStatus == '4'">已完成 </button>-->
 	                    
 	                    
 						</span>
 						<span id="click-make-cancle" ng-show="item.orderType == '1' &&(item.orderStatus == '0' || item.orderStatus == '1')" class="m-g-l-10">
 	                    	<button class="btn" ng-show="item.orderType == '1' && item.orderStatus == '1'" ng-class="{true:'orderChange',false:'btn-white'}[item.orderStatus == '0']"  ng-click="toAgreeOrCancle(item, 1)">取消订单</button>
-	                        <button class="btn orderChange" ng-show="item.orderType == '1' && item.orderStatus == '0'">已取消 </button>
+	                        <!--<button class="btn orderChange" ng-show="item.orderType == '1' && item.orderStatus == '0'">已取消 </button>-->
 	                        
 	                        
 	                    </span>
-						<button class="btn" ng-show="(item.payType == '3') && item.orderType == '2'" ng-class="{true:'orderChange',false:'btn-white'}[item.orderStatus == '4']" ng-click="commodityAgree(item, 0)">确认完成</button>
-                    	<button class="btn orderChange" class="orderChange" ng-show="item.orderType == '2' && item.orderStatus == '4'">已完成 </button>
+						<button class="btn" ng-show="(item.payType == '3') && item.orderType == '2' && item.orderStatus == 1" ng-class="{true:'orderChange',false:'btn-white'}[item.orderStatus == '4']" ng-click="commodityAgree(item, 0)">确认完成</button>
+                    	<!--<button class="btn orderChange" class="orderChange" ng-show="item.orderType == '2' && item.orderStatus == '4'">已完成 </button>-->
 						
 						
-	                    <button class="btn" ng-show="item.orderType == '2' && item.orderStatus == '1'" ng-class="{true:'orderChange',false:'btn-white'}[item.orderStatus == '0']"  ng-click="commodityAgree(item, 1)">取消订单</button>
-	                    <button class="btn orderChange" ng-show="item.orderType == '2' && item.orderStatus == '0'">已取消 </button>
+	                    <button class="btn" ng-show="(item.payType == '3') &&  item.orderType == '2' && item.orderStatus == 1" ng-class="{true:'orderChange',false:'btn-white'}[item.orderStatus == '0']"  ng-click="commodityAgree(item, 1)">取消订单</button>
+	                    <!--<button class="btn orderChange" ng-show="item.orderType == '2' && item.orderStatus == '0'">已取消 </button>-->
 					</td>
 				</tr>
 			</tbody>

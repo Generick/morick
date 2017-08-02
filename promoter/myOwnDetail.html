@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>待结金额</title>
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="css/popUp.css" />
+        <link href="layer.css">
+        <script src="js/base64.js"></script>
+        <script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+       
+	</head>
+
+	<body ng-controller="myOwnListCtr" style="background-color: #fff;">
+		<div class="animation3">
+			        <img src="img/loading.gif"/>
+		</div>
+		<div class="container3">
+			
+		    
+		    <div class="personalMiddle owndetail" style="position: relative;">
+		    	<div style="position: absolute;width:0px;border:1px dashed #eaeaea;height:70px;top:8.5vw;left:50vw;color: #dedede;"></div>
+				<div class="personalMiddle-item" style="padding-top:0px;" ng-click="toMyOwn()">
+					<div class="com-item-fir-icon" ng-bind="waitCheckAmount +' 元'">
+						  
+					</div>
+					<div class="com-item-fir-word">
+						待结金额
+					</div>
+				</div>
+				<div class="personalMiddle-item" style="padding-top:0px;margin-right:5%;float:right"  ng-click="toPushList()">
+					<div class="com-item-fir-icon" ng-bind="historyReturnTotal + ' 元'">
+						
+					</div>
+					<div class="com-item-fir-word">
+						历史结算总额
+					</div>
+				</div>
+				
+		</div>
+		<div class="fl-lt" style="background: #F2F2F2;color:#555555;">
+		 	<span>待结</span>
+		 	<span ng-bind="count+' 笔'"></span>
+		 </div>	
+		 <div class="myWaitPayBox">
+		 	<div class="has-no-data">
+				 	<img src="img/icon-empty-1.png" /> 
+				 	<span style="width:100%;line-height:25px;text-align: center;display: block;font-size:16px">暂无记录</span>
+				 </div>
+		 	<div class="mydetail-item" ng-repeat="item in bills">
+		 		<div class="mydetail-top">
+		 			<span ng-bind="item.orderTime*1000 | date:'yyyy-MM-dd'"></span>
+		 			<span ng-bind="item.orderTime*1000 | date:'HH:mm:ss'"></span>
+		 		</div>
+		 		<div class="mydetail-middle">
+		 			<div class="mydetail-middle-left">
+		 				<span>消费:</span>
+		 				<span ng-bind="item.payPrice + '元'"></span>
+		 			</div>
+		 			<div class="mydetail-middle-right">
+		 				
+		 				<span>返现:</span>
+		 				<span  ng-bind="item.returnFee + '元'"></span>
+		 				<span style="color:#FF6666" ng-show="item.isChecked == 0">(待结)</span>
+		 				
+		 			</div>
+		 		</div>
+		 		<div class="mydetail-bottom">
+		 		   <span>来自：</span>
+		 		   <span ng-bind="item.from"></span>
+		 		</div>
+		 	</div>
+		 	<div class="chrysanthemums">
+			        <img src="img/loading.gif"/>
+		       </div>
+		 </div>
+		</div>
+		 
+	</body>
+    
+	<!--系统js-->
+	
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/layer.js"></script>
+    <script src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/confirmTip.js" ></script>
+     <script src="js/app.js"></script>
+     
+	<script>
+		
+		  
+			if (typeof localStorage === 'object') {
+			    try {
+					localStorage.setItem('localStorage', 1);
+					localStorage.removeItem('localStorage');
+				} catch (e) {
+					Storage.prototype._setItem = Storage.prototype.setItem;
+					Storage.prototype.setItem = function() {};
+					$dialog.msg('为了正常访问，请关闭无痕模式');
+				}
+			}
+
+
+	</script>
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/myOwnDetailController.js" ></script>
+	<script>
+		if(window.screen.width < 375){
+			$('.user-input').css('margin-top','5vh');
+		}
+		
+		
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		
+//		    		location.href = pageUrl.LOGIN_PAGE;
+		    		location.href = pageUrl.HOME_PAGE;
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+		
+	</script>
+</html>
+

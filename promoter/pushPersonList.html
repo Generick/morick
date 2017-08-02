@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title></title>
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="css/popUp.css" />
+        <link href="layer.css">
+        <script src="js/base64.js"></script>
+        <script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+       
+	</head>
+
+	<body ng-controller="pushListCtr" style="background-color: #F5F5F5;">
+		 <div class="animation3">
+			        <img src="img/loading.gif"/>
+		    </div>
+		 <div class="container3" style="background-color: #F5F5F5;">
+		 	
+<!--		 
+			 <div class="push-top-title" style="background: #F2F2F2;color:#555555">
+			 	<span>已推荐</span>
+			 	<span ng-bind="count+' 人'"></span>
+			 </div>-->
+			 
+			 <div class="push-top-title">
+			 	<div id="item-select-fir" style="margin-left:3vw" class="item-select" ng-click="toChangeArror(0)">
+			 		<div class="item-select-word">
+			 			注册时间
+			 		</div>
+			 		<div class="item-select-icon item-select-yellow_down">
+			 			
+			 		</div>
+			 	</div>
+			 	<div class="friend-middle-line"></div>
+			 	<div id="item-select-sec" style="padding-left:2vw"  class="item-select" ng-click="toChangeArror(1)">
+			 		<div class="item-select-word">
+			 			消费金额
+			 		</div>
+			 		<div class="item-select-icon item-select-black_up">
+			 			
+			 		</div>
+			 	</div>
+			 	<div class="friend-middle-line"></div>
+			 	<div id="item-select-thi" class="item-select" ng-click="toChangeArror(2)">
+			 		<div class="item-select-word">
+			 			最近消费时间
+			 		</div>
+			 		<div class="item-select-icon item-select-black_up">
+			 			
+			 		</div>
+			 	</div>
+			 </div>
+			 <div class="push-list-box">
+			 	 <div class="has-no-data"  style="padding-top:25vw;" >
+				 	<img src="img/icon-empty-1.png"/> 
+				 	<span style="width:100%;line-height:25px;text-align: center;display: block;font-size:16px">暂无记录</span>
+				 </div>
+			 	<div class="push-item" ng-repeat="item in userList">
+			 		<div class="push-friend-name-box">
+			 			<div class="push-friend-name" ng-bind="item.nickname">
+			 				
+			 			</div>
+			 			<div class="push-friend-time">
+			 				<span  ng-bind="item.registerTime*1000 | date:'yyyy/MM/dd'"></span>
+			 				<span  ng-bind="item.registerTime*1000 | date:'HH:mm:ss'"></span>
+			 			</div>
+			 		</div>
+			 		<div class="push-icon">
+			 			<!--<img ng-src="{{item.smallIcon}}"  />-->
+			 			<img ng-if="item.smallIcon != '' && item.smallIcon != null" ng-show="item.smallIcon != '' && item.smallIcon != null" ng-src="{{item.smallIcon}}" />
+			 			<img ng-if="item.smallIcon == '' || item.smallIcon == null" ng-show="item.smallIcon == '' || item.smallIcon == null" src="img/default-icon.png" />
+			 		</div>
+			 		<div class="push-detail"  ng-click="toHisDetail(item)">
+			 			
+			 			<div class="push-title">
+			 				<span style="font-size:14px;color:#999999">消费金额：</span>
+			 				<span style="font-size:15px;color:#d56161"  ng-show="item.totalFee != null && item.totalFee != ''" ng-bind="item.totalFee"></span>
+			 				<span style="font-size:15px;color:#d56161" ng-show="item.totalFee == null || item.totalFee == ''" >0</span>
+			 				<span style="font-size:14px;color:#666666">元</span>
+			 			</div>
+			 			<div class="push-time-box">
+			 				<div class="push-item-time">
+			 					<span style="font-size:14px;color:#999999">最近消费时间：</span>
+			 					<span ng-show="item.recentOrderTime != '' && item.recentOrderTime != null" style="font-size:14px;color:#777777" ng-bind="item.recentOrderTime*1000 | date:'yyyy/MM/dd'"></span>
+			 					<span ng-show="item.recentOrderTime != '' && item.recentOrderTime != null" style="font-size:14px;color:#777777" ng-bind="item.recentOrderTime*1000 | date:'HH:mm:ss'"></span>
+			 					<span ng-show="item.recentOrderTime == '' || item.recentOrderTime == null" style="font-size:14px;color:#666666">无</span>
+			 				</div>
+			 				<!--<div class="push-item-btn" ng-click="toHisDetail(item)">查看详情</div>-->
+			 			</div>
+			 			<!--<div class="push-num-box" style="color:#333333;">
+			 				<span>消费</span>
+			 				<span ng-bind="item.tradeNum"></span>
+			 				<span>笔</span>
+			 			</div>-->
+			 		</div>
+			 		<div class="to-bt-icon" ng-click="toHisDetail(item)">
+			 			<img src="img/to-friend-det.png"/> 
+			 		</div>
+			 	</div>
+			 	<div class="chrysanthemums">
+			        <img src="img/loading.gif"/>
+		       </div>
+			 	
+			 </div>
+		 </div>
+	</body>
+    
+	<!--系统js-->
+	
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/layer.js"></script>
+    <script src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/confirmTip.js" ></script>
+     <script src="js/app.js"></script>
+     
+	<script>
+		
+		  
+			if (typeof localStorage === 'object') {
+			    try {
+					localStorage.setItem('localStorage', 1);
+					localStorage.removeItem('localStorage');
+				} catch (e) {
+					Storage.prototype._setItem = Storage.prototype.setItem;
+					Storage.prototype.setItem = function() {};
+					$dialog.msg('为了正常访问，请关闭无痕模式');
+				}
+			}
+
+
+	</script>
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/pushPersonList.js" ></script>
+	<script>
+		if(window.screen.width < 375){
+			$('.user-input').css('margin-top','5vh');
+		}
+		
+		
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		
+//		    		location.href = pageUrl.LOGIN_PAGE;
+		    		location.href = pageUrl.HOME_PAGE
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+		
+	</script>
+</html>
+

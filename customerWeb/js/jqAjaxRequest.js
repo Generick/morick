@@ -30,7 +30,10 @@ var jqAjaxRequest =
 				{   
 					callback(data.data);
 				}
-			
+			    else if(err == '201')
+				{
+					$dialog.msg(errMsg);
+				}
 				else if(err == '5' || err == '6')
 				{
 					$dialog.msg("您还未登录，请先登录！");
@@ -53,6 +56,10 @@ var jqAjaxRequest =
 					$dialog.msg("密码错误！");
 				}
 				else if(err == '49004')
+				{
+					$dialog.msg(errMsg);
+				}
+				else if(err == '49001')
 				{
 					$dialog.msg(errMsg);
 				}
@@ -92,7 +99,7 @@ var jqAjaxRequest =
     reLogin: function() {
         var params =
         {
-            userType : 1,
+            userType : 3,
             token : localStorage.getItem(localStorageKey.TOKEN)
         };
     

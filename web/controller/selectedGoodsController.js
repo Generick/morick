@@ -16,6 +16,8 @@ var SelectCtrl =
    
     shareInfo : {},
     
+    timer : null,
+    
     page : {
 		currentPage : 1,
 		totalPage : null,
@@ -375,18 +377,164 @@ var SelectCtrl =
 	            self.shareInfo.content = "文化收藏，雅玩之家，每晚十点，欢迎回家";
 	          
     		    commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
-               
-	    		self.scope.auctionItems = self.selectedModel.auctionItems;
-	    		$('.animation').css("display","none");
-	    		$('.container').css('opacity','1');
+                
 	            self.isFinsh = false;
-	            self.scope.$apply();
+	            
+//	            var currentDate = new Date().getTime();
+//		        var second1 = Math.ceil(currentDate/1000);
+//		
+//			    var dataArr = deepCopy(self.selectedModel.auctionItems);
+//				for(var j = 0; j < dataArr.length; j++)
+//				{
+//					var time = parseInt(dataArr[j].endTime) - parseInt(second1);
+//					
+//					if(time > 0)
+//					{
+//						
+//						var day = Math.floor(time/(3600*24));
+//			            var hour = Math.floor((time/3600)%24);
+//			            var min = Math.floor((time%3600)/60);
+//			            var sec =  Math.floor(time%60);
+//			            if(parseInt(hour)  < 10)
+//			            {
+//			            	hour = '0' + hour;
+//			            }
+//			            if(parseInt(min)  < 10)
+//			            {
+//			            	min = '0' + min;
+//			            }
+//			            if(parseInt(sec)  < 10)
+//			            {
+//			            	sec = '0' + sec;
+//			            }
+//			            
+//						$("#sel_day" + dataArr[j].id).html(day);
+//						$("#sel_hour" + dataArr[j].id).html(hour);
+//						$("#sel_min" + dataArr[j].id).html(min);
+//						$("#sel_sec" + dataArr[j].id).html(sec);
+//	
+//					}
+//					else{
+//						var day = Math.floor(time/(3600*24));
+//			            var hour = Math.floor((time/3600)%24);
+//			            var min = Math.floor((time%3600)/60);
+//			            var sec =  Math.floor(time%60);
+//			            if(parseInt(hour)  < 10)
+//			            {
+//			            	hour = '0' + hour;
+//			            }
+//			            if(parseInt(min)  < 10)
+//			            {
+//			            	min = '0' + min;
+//			            }
+//			            if(parseInt(sec)  < 10)
+//			            {
+//			            	sec = '0' + sec;
+//			            }
+//			            $("#sel_day" + dataArr[j].id).html('00');
+//						$("#sel_hour" + dataArr[j].id).html('00');
+//						$("#sel_min" + dataArr[j].id).html('00');
+//						$("#sel_sec" + dataArr[j].id).html('00');
+//	
+//					}
+//				
+//				}
+			
+//				self.scope.auctionItems = self.selectedModel.auctionItems;
+//			    self.scope.$apply();
+	
+	            self.countDown();
+	           
 	    		
 	    	})
 
     },
   
- 
+    countDown : function()
+	{
+        var self = this;
+		
+		self.timer = setInterval(function(){
+			var currentDate = new Date().getTime();
+		    var second1 = Math.ceil(currentDate/1000);
+		
+			var dataArr = deepCopy(self.selectedModel.auctionItems);
+			for(var j = 0; j < dataArr.length; j++)
+			{
+				var time = parseInt(dataArr[j].endTime) - parseInt(second1);
+				
+				if(time > 0)
+				{
+					time--;
+					
+					var day = Math.floor(time/(3600*24));
+		            var hour = Math.floor((time/3600)%24);
+		            var min = Math.floor((time%3600)/60);
+		            var sec =  Math.floor(time%60);
+		            if(parseInt(hour)  < 10)
+		            {
+		            	hour = '0' + hour;
+		            }
+		            if(parseInt(min)  < 10)
+		            {
+		            	min = '0' + min;
+		            }
+		            if(parseInt(sec)  < 10)
+		            {
+		            	sec = '0' + sec;
+		            }
+		            
+					$("#sel_day" + dataArr[j].id).html(day);
+					$("#sel_hour" + dataArr[j].id).html(hour);
+					$("#sel_min" + dataArr[j].id).html(min);
+					$("#sel_sec" + dataArr[j].id).html(sec);
+//		            dataArr[j].dayTime = day;
+//		            dataArr[j].hourTime = hour;
+//		            dataArr[j].minTime = min;
+//		            dataArr[j].secTime = sec;
+		             
+		  
+				}
+				else{
+					var day = Math.floor(time/(3600*24));
+		            var hour = Math.floor((time/3600)%24);
+		            var min = Math.floor((time%3600)/60);
+		            var sec =  Math.floor(time%60);
+		            if(parseInt(hour)  < 10)
+		            {
+		            	hour = '0' + hour;
+		            }
+		            if(parseInt(min)  < 10)
+		            {
+		            	min = '0' + min;
+		            }
+		            if(parseInt(sec)  < 10)
+		            {
+		            	sec = '0' + sec;
+		            }
+		            $("#sel_day" + dataArr[j].id).html('00');
+					$("#sel_hour" + dataArr[j].id).html('00');
+					$("#sel_min" + dataArr[j].id).html('00');
+					$("#sel_sec" + dataArr[j].id).html('00');
+//		            dataArr[j].dayTime = 0;
+//		            dataArr[j].hourTime = 0;
+//		            dataArr[j].minTime = 0;
+//		            dataArr[j].secTime = 0;
+				}
+				
+
+			}
+			
+	    	$('.animation').css("display","none");
+	    	$('.container').css('opacity','1');
+			self.scope.auctionItems = self.selectedModel.auctionItems;
+			 self.scope.$apply();
+//		    console.log(JSON.stringify(self.selectedModel.auctionItems))
+		},1000)
+		
+		
+	
+    },
     
     
     //获取当前数据模型最大加载到了第几页
@@ -439,38 +587,67 @@ var SelectCtrl =
     		    
     		    
     		            if(parseInt(item.isVIP) == 1)
-		    			{
-		    				jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
-	            				localStorage.setItem(localStorageKey.vipOrNot,data.userInfo.isVIP)
-				    		    var isMySelfVip = data.userInfo.isVIP;
-	            				if(parseInt(isMySelfVip) == 0)
-	            				{
-	            					$("#fixed-shade").css("display","block");
-						    		$("html,body").css("overflow","hidden");
-						    		$('#fixed-shade').bind("touchmove",function(e){
-						              	e.preventDefault();
-									});
-					    			return;
-	            				}else{
-	            					
-	            					localStorage.setItem(localStorageKey.FROM_LOCATION,0);
-							    	sessionStorage.setItem("selDisId","sel_"+id);
-							    	self.getInterPage(id);
-							    	var thisPage = sessionStorage.getItem("interPage");
-							    	var obj = new Base64();
-							    	
-							    	var id_base = obj.encode(id);
-							    	
-							    	var thispage_base = obj.encode(thisPage);
-							    	
-							    	var ste =  pageUrl.GOODS_DETAIL + "?id=" + id_base + "&thisPage=" + thispage_base;
-//							    	location.href = encodeURI(str);   pageUrl.GOODS_DETAIL + "?id=" + id + "&thisPage=" + thisPage;
-//					    	        
-					    	        location.href = encodeURI(str);
-
-//							    	 pageUrl.GOODS_DETAIL + "?id=" + id + "&thisPage=" + thisPage;
-	            				}
-            			    })
+		    			{  
+		    				
+		    				
+		    				jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+    			   
+				    			if(JSON.stringify(data) == 'true'){
+				    				
+				    				 
+				    				 jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data) {
+	            				        
+							    		    var isMySelfVip = data.userInfo.isVIP;
+				            				if(parseInt(isMySelfVip) == 0)
+				            				{   
+				            					$("#fixed-shade").css("display","block");
+									    		$("html,body").css("overflow","hidden");
+									    		$('#fixed-shade').bind("touchmove",function(e){
+									              	e.preventDefault();
+												});
+								    			return;
+				            				}else{
+				            					
+				            					localStorage.setItem(localStorageKey.FROM_LOCATION,0);
+										    	sessionStorage.setItem("selDisId","sel_"+id);
+										    	self.getInterPage(id);
+										    	var thisPage = sessionStorage.getItem("interPage");
+										    	var obj = new Base64();
+										    	
+										    	var id_base = obj.encode(id);
+										    	
+										    	var thispage_base = obj.encode(thisPage);
+										    	
+										    	var str =  pageUrl.GOODS_DETAIL + "?id=" + id_base + "&thisPage=" + thispage_base;
+			//							    	location.href = encodeURI(str);   pageUrl.GOODS_DETAIL + "?id=" + id + "&thisPage=" + thisPage;
+			//					    	        
+								    	        location.href = encodeURI(str);
+			
+			//							    	 pageUrl.GOODS_DETAIL + "?id=" + id + "&thisPage=" + thisPage;
+				            				}
+			            			    })
+				    				
+			        				
+			        				
+				    			}
+				    			else{
+				    				
+						       		$dialog.msg("当前为Vip拍品，请先登录！");
+				    				setTimeout(function(){
+				    					
+				    					location.href = pageUrl.LOGIN_PAGE;
+				    				},1000)
+				    			}
+			    		
+			    		    });
+		    				
+		    				
+		    				
+		    				
+		    				
+		    				
+		    				
+		    				
 		    			}
 		    			else{
 		    				       

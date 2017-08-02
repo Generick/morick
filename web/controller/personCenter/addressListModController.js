@@ -20,6 +20,12 @@ var addressListModController =
 {
     scope : null,
     
+    addressModel : {
+    	userId : null,
+    	addressArr :[],
+    	hasCommonAdress : false,
+    },
+    
     addressListModModel : 
     {
     	addressInfo : {},
@@ -41,20 +47,82 @@ var addressListModController =
     {
     	this.scope = $scope; 
     	
+    	this.scope.addressModel = this.addressModel;
+    	
     	this.bindClick();
+    	
+    	this.getAdressList();
     	
     	this.initData();
     	
     },
     
+    
+    
+      getAdressList : function(){
+    	
+    	var self = this;
+    
+        self.addressModel.userId= sessionStorage.getItem("linshiId");
+    	
+    	var params = 
+    	{
+    		startIndex : 0,
+    		num : 0,
+    		userId : self.addressModel.userId
+    	};
+    	
+    	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SHIPPING_ADDRESS, params,
+            /**
+             * 地址列表
+             * @param data.shippingAddressList 列表
+             */
+            function(data)
+            {
+                self.addressModel.addressArr = [];
+                self.addressModel.addressArr = data.shippingAddressList;
+          
+                if (self.addressModel.addressArr.length > 0)
+                {
+                    
+                    var jud = false;
+                    for (var i = 0; i < self.addressModel.addressArr.length; i++)
+                    {
+                        if(self.addressModel.addressArr[i].isCommon == 1)
+                        {
+                        	jud = true;
+                        }
+                    
+                    }
+                    if(jud == false)
+                    {   
+                    	self.addressModel.hasCommonAdress = false;
+                    	
+                    }
+                    else{
+                    	self.addressModel.hasCommonAdress = true;
+                    }
+                   
+                }
+                 else
+                 {
+                 	self.addressModel.hasCommonAdress = false;
+                 }
+               
+                self.scope.addressModel = self.addressModel;
+                self.scope.$apply();
+            }
+        );
+
+    	
+    	
+    },
     initData : function()
     {
     	var self = this;
     	var obj = new Base64();
     	self.addressListModModel.id = obj.decode(commonFu.getQueryStringByKey("id"));
-//  	alert(self.addressListModModel.id)
-//  	self.addressListModModel.id = commonFu.getQueryStringByKey("id");
-    	
+
     	var param = 
     	{
     		addressId : self.addressListModModel.id,
@@ -195,7 +263,15 @@ var addressListModController =
     		modInfo.mobile = self.addressListModModel.mobile;
     		modInfo.address = self.addressListModModel.address;
     		modInfo.isCommon = self.addressListModModel.isCommon;
-    		
+    		if(!self.addressModel.hasCommonAdress)
+    		{
+//  			self.showOrHide(1);
+    			modInfo.isCommon = 1;
+    		}
+    		else{
+//  			self.showOrHide(0);
+    			modInfo.isCommon =0;
+    		}
     		var params =
     		{
     			addressId : self.addressListModModel.id,

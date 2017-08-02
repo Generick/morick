@@ -3,14 +3,10 @@
  */
 
 //基础接口url
-//var BASE_URL = "http://meeno.f3322.net:8082/auction_dev/index.php/"; //开发
-//var BASE_URL = "http://meeno.f3322.net:8082/auction/index.php/"; //测试
-//var BASE_URL = "http://auction.yawan365.com/index.php/"; //正式
-var BASE_URL = "http://192.168.0.88:8082/auction/index.php/"; //内网Url
 
-//var BASE_JUMP_URL = "../admin/index.html#/";
-//var BASE_URL = "http://192.168.0.110/auction/index.php/"
-//var BASE_URL = "http://192.168.0.110:8088/auction/index.php/"; //内网Url
+//var BASE_URL = "http://192.168.0.88:8082/auction/index.php/"; //内网Url
+
+var BASE_URL = "http://192.168.0.121:8088/auction/index.php/"; //内网Url
 var BASE_JUMP_URL = "../admin/index.html#/";
 
 //api
@@ -156,6 +152,35 @@ var api = {
     
     API_MOD_AND_UP_GOOD : BASE_URL + "merchant/A_merchant/adminSaveCInfoInRequest",//修改并上架商品
 
+
+
+    API_ADD_SPREAD : BASE_URL + "promoter/A_promoter/addPromoter",//添加推广员
+    
+    API_GET_SPREAD_LIST : BASE_URL + "promoter/A_promoter/getPromoters",//获取推广员列表
+      
+    API_GET_SPREAD_DETAIL : BASE_URL + "promoter/A_promoter/getPromoterInfo",//获取推广员详情
+    
+    API_DELETE_SPREAD : BASE_URL + "promoter/A_promoter/delPromoter",//删除推广员
+    
+    API_MOD_SPERAD_PWD :BASE_URL + "promoter/A_promoter/modPMTPassword",//修改推广员密码
+    
+    API_SETTLE_ACCOUNTS :BASE_URL + "promoter/A_promoter/adminCheckBill",//结账
+    
+    API_MOD_SPERAD_ADRESS : BASE_URL + "promoter/A_promoter/modPromoter",//生成二维码之后修改推广员的二维码地址
+    
+    API_GET_SPREAD_CONDTIONS : BASE_URL + "promoter/A_promoter/getPromoterConditions",//获取推广员的分成条件
+    
+    API_ADD_SPREAD_CONDITIONS : BASE_URL + "promoter/A_promoter/adminAddCondition",//设置推广员条件
+    
+    API_DELETE_SPREAD_CONDITIONS : BASE_URL + "promoter/A_promoter/adminDelCondition",//删除推广员的分成条件
+    
+    API_FRIEND_ORDERS : BASE_URL + "promoter/A_promoter/getFriendsOrders",//好友下单记录
+    
+    API_FREIND_LIST : BASE_URL + "promoter/A_promoter/getFriends",//好友列表
+    
+    API_COMDITIONS_LIST : BASE_URL + "promoter/A_promoter/getCheckBillRecords",//结账记录
+    
+    API_MOVE_COMMIDITY : BASE_URL + 'saleMeeting/A_saleMeeting/moveCommodityOrder', //移动商品
 };
 
 //errType
