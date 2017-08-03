@@ -37,9 +37,33 @@ class saleMeeting extends My_Controller
     	}
     	$startIndex = $this->input->post('startIndex');
     	$num = $this->input->post('num');
-    	$fields = $this->input->post('fields');
+        $fields = $this->input->post('fields');
+    	$priceRange = $this->input->post('priceRange');
 
     	$whr = array('commodity.is_delete' => DELETE_NO, 'commodity.is_up' => UP_ON);
+        if (!empty($priceRange)) 
+        {
+            switch ((int)$priceRange) 
+            {
+                //百元区
+                case 1:
+                    $whr['commodity.commodity_price <='] = 999;
+                    break;
+                //千元区
+                case 2:
+                    $whr['commodity.commodity_price >='] = 1000;
+                    $whr['commodity.commodity_price <='] = 9999;
+                    break;
+                //万元区
+                case 3:
+                    $whr['commodity.commodity_price >='] = 10000;
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        }
 
     	$data = array();
     	$count = 0;

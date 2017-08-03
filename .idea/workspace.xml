@@ -27,8 +27,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$" afterPath="$PROJECT_DIR$" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/alter_20170719.sql" afterPath="$PROJECT_DIR$/database/alter_20170719.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/alter_20170721.sql" afterPath="$PROJECT_DIR$/database/alter_20170721.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/customerService/A_customService.php" afterPath="$PROJECT_DIR$/modules/customerService/A_customService.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/customerService/M_customService.php" afterPath="$PROJECT_DIR$/modules/customerService/M_customService.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/customerService/S_customService.php" afterPath="$PROJECT_DIR$/modules/customerService/S_customService.php" />
     </list>
     <ignored path="server.iws" />
@@ -82,8 +80,8 @@
       <file leaf-file-name="srvclass.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/models/class/srvclass.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="163" column="5" lean-forward="false" selection-start-line="163" selection-start-column="5" selection-end-line="163" selection-end-column="5" />
+            <state relative-caret-position="305">
+              <caret line="139" column="24" lean-forward="true" selection-start-line="139" selection-start-column="24" selection-end-line="139" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -644,12 +642,12 @@
       <workItem from="1500605092801" duration="78000" />
       <workItem from="1500605274986" duration="11243000" />
       <workItem from="1501073317571" duration="5425000" />
-      <workItem from="1501232299772" duration="3129000" />
+      <workItem from="1501232299772" duration="3135000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="537835000" />
+    <option name="totallyTimeSpent" value="537841000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -946,7 +944,7 @@
         <state relative-caret-position="57">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="46" selection-end-column="1" />
           <folding>
-            <element signature="e#6#87#0#PHP" expanded="true" />
+            <element signature="e#6#87#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1086,15 +1084,15 @@
         <state relative-caret-position="380">
           <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
           <folding>
-            <element signature="e#6#92#0#PHP" expanded="true" />
+            <element signature="e#6#92#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/class/srvclass.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="163" column="5" lean-forward="false" selection-start-line="163" selection-start-column="5" selection-end-line="163" selection-end-column="5" />
+        <state relative-caret-position="305">
+          <caret line="139" column="24" lean-forward="true" selection-start-line="139" selection-start-column="24" selection-end-line="139" selection-end-column="24" />
           <folding />
         </state>
       </provider>
