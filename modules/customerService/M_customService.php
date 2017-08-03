@@ -112,7 +112,7 @@ class M_customService extends My_Model
     function delService($userId)
     {
     	$srv = $this->m_user->getUserObj(USER_TYPE_SRV, $userId);
-    	if (!$pmt) return ERROR_NO_SERVICE;
+    	if (!$srv) return ERROR_NO_SERVICE;
     	$srv->modInfoWithPrivilege(array('is_delete' => DELETE_YES));
     	return ERROR_OK;
     }

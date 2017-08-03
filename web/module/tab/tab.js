@@ -174,6 +174,25 @@ var initTab = {
             	}
              
             }
+            else{
+            	
+            	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+    			   
+	    			if(JSON.stringify(data) == 'true'){
+	    				
+        				location.href = pageUrl.PERSON_CENTER;
+        				
+	    			}
+	    			else{
+	    				
+			       		 	localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+		        			
+		        			location.href = pageUrl.LOGIN_PAGE;
+	    			}
+    		
+    		    });
+    		
+            }
         }
     }
 };

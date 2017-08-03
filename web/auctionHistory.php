@@ -20,9 +20,9 @@
         <link rel="stylesheet" href="css/newPersonal.css" />
 	</head>
 	<body ng-controller="ctrl" style="background: #FFFFFF;">
-		<div id="myself-head"  ng-click="jumpToSelfZone3()" style="position: fixed;top:10px;left:10px;width:16vw;height:16vw;display: block;z-index: 99999;">
+		<!--<div id="myself-head"  ng-click="jumpToSelfZone3()" style="position: fixed;top:10px;left:10px;width:16vw;height:16vw;display: block;z-index: 99999;">
 			<img src="img/personal-enter.png"> 
-		</div>
+		</div>-->
 		<!--加载动画-->
 		<div class="animation">
 			<img src="img/loading.gif" />
@@ -74,7 +74,7 @@
 								
 							</div>-->
 							<div style="line-height: 25px;height:25px;text-align: center;color:#C4996D" ng-show="item.info.stock_num == 0" ng-if="item.info.stock_num == 0">已售</div>
-							<span style="color:#C4996D;font-size:13px;display:block;line-height: 25px;height:25px" ng-show="item.info.stock_num != 0">￥</span>
+							<span style="color:#C4996D;font-size:13px;display:block;line-height: 25px;height:25px;width:12px;text-align: center;" ng-show="item.info.stock_num != 0">￥</span>
 							<div class="sell-list-item-price-word" id="sb_{{item.commodity_id}}" ng-show="item.info.stock_num != 0">
 							    <div class="flip" ng-class = "item.newName">
 							      
@@ -89,10 +89,10 @@
 							          <div class="t number"></div>
 							          <div class="single number"></div>
 							          <div class="sign dot">.</div>
-							          <div class="t-d number" style="width:7px;-webkit-transform: scaleX(0.9);font-size:12px"></div>
-							          <div class="h-d number" style="width:7px;-webkit-transform: scaleX(0.9);font-size:12px;"></div>
-							          <div class="q-d number" style="width:7px;-webkit-transform: scaleX(0.9);font-size:12px"></div>
-							          <div class="w-d number" style="width:7px;-webkit-transform: scaleX(0.9);font-size:12px"></div>
+							          <div class="t-d number" style="width:8px;-webkit-transform: scaleX(0.9);font-size:12px"></div>
+							          <div class="h-d number" style="width:8px;-webkit-transform: scaleX(0.9);font-size:12px;"></div>
+							          <div class="q-d number" style="width:8px;-webkit-transform: scaleX(0.9);font-size:12px"></div>
+							          <div class="w-d number" style="width:8px;-webkit-transform: scaleX(0.9);font-size:12px"></div>
 							        </div>
 							      </div>
 							</div>	

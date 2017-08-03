@@ -536,16 +536,16 @@ class M_order extends My_Model
     function otherThirdPay($order_no, $money, $payType, $openId = '', &$ret)
     {
         //md5(payUserId + appId + money + time + key),
-        $money = 1;
-        $payUserId = 2;
-        $appId = 8;
-        $key = 'A85CE8F77D2917013D4963CEC6B7522E';
+        $money = 1;//测试用的支付金额，单位是分
+        $payUserId = T_PAY_USER_ID; //2
+        $appId = T_APP_ID;//8
+        $key = T_KEY;//A85CE8F77D2917013D4963CEC6B7522E
         //test params above
         $time = time();
         $sign = md5($payUserId.$appId.$money.$time.$key);
         $params = array(
-            'payUserId' => 2,
-            'appId' => 8,
+            'payUserId' => $payUserId,
+            'appId' => $appId,
             'money' => $money,
             'time' => $time,
             'payType' => $payType,
@@ -952,7 +952,7 @@ class M_order extends My_Model
             'deliveryType' => $orderObj->deliveryType,
             'orderTime' => $orderObj->orderTime,
             'goodsPrice' => $commodityObj->commodity_price,
-            'payPrice' => $totalPrice*100,
+            'payPrice' => $totalPrice*100,//以分为单位
             //'payPrice' => 0.01,
             'orderType' => 2,
             'orderStatus' => 1,

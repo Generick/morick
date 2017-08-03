@@ -21,9 +21,9 @@
         <link rel="stylesheet" href="popUpModal/popUp.css" />
 	</head>
 	<body ng-controller="ctrl" style="background: #FFFFFF;">
-		<div id="myself-head" ng-click="jumpToSelfZone2()" style="position: fixed;top:10px;left:10px;width:16vw;height:16vw;display: block;z-index: 99999;">
+		<!--<div id="myself-head" ng-click="jumpToSelfZone2()" style="position: fixed;top:10px;left:10px;width:16vw;height:16vw;display: block;z-index: 99999;">
 			<img src="img/personal-enter.png"> 
-		</div>
+		</div>-->
 		<!--加载动画-->
 		<div class="animation" style="position:absolute;">
 			<img src="img/loading.gif"/>
@@ -32,15 +32,15 @@
 		<!--style="position:absolute; overflow:auto;-webkit-overflow-scrolling: touch; margin-bottom:52px;top:0;left:0;right:0"-->
         <div id="container" class="container scroll" style="background: #FFFFFF;">
             <div class="xzlDown"></div>
-            <div class="list" id="list-empty" style="background-color: #fff;width:98%;margin-left:1%;padding:10px 1%;">
+            <div class="list" id="list-empty" style="background-color: #fff;width:93%;margin-left:3.5%;padding:12px 0;">
 				<ul id="selected-ul">
-					<li class="oneList" style="margin-bottom: 2.5vw;box-shadow: 0 0 6px 0 #bebebe;padding-bottom: 1vw;" ng-repeat = "item in auctionItems" id="sel_{{item.id}}" ng-click = "onClickToGoodsDetail(item)" on-finish-render-filters>
+					<li class="oneList" style="margin-bottom: 3.5vw;box-shadow: 0 0 1.5vw 0 #bebebe;padding-bottom: 1.2vw;" ng-repeat = "item in auctionItems" id="sel_{{item.id}}" ng-click = "onClickToGoodsDetail(item)" on-finish-render-filters>
                         <div class="item-img">
                         	<img style="position: absolute;top:1vw;left:0px;z-index: 5;width:14vw;height:14vw;" class="smallvippic" ng-show="(item.isVIP == 1)" src="img/newVip.png">
                             <b  ng-show="item.itHasBeenOk">
                             	<img src="img/aucted0.png"> 
                             </b>
-                            <img style="width:98%;margin-left:1%" ng-src="{{item.goodsInfo.goodsPicsShow}}">
+                            <img style="width:100%;" ng-src="{{item.goodsInfo.goodsPicsShow}}">
                         </div>
 						<div class="price" style="border-bottom: none;">
 							<div ng-bind="item.goodsInfo.goods_name"></div>
@@ -69,11 +69,11 @@
 						</div>
 						<div style="width:100%;overflow: hidden;" class="bottom-item-add">
 							<div class="bottom-item-add-left">
-								<img src="img/start-icon-img.png"  />
+								<img src="img/add-icon-img_1.png"  />
 								<span ng-bind="item.initialPrice"></span>
 							</div>
 							<div style="margin-left:3vw" class="bottom-item-add-left">
-								<img src="img/add-icon-img.png"/>
+								<img src="img/start-icon-img_1.png"/>
 								<span  ng-bind="item.lowestPremium"></span>
 							</div>
 						</div>

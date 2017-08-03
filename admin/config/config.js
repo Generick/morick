@@ -6,8 +6,33 @@
 
 //var BASE_URL = "http://192.168.0.88:8082/auction/index.php/"; //内网Url
 
-var BASE_URL = "http://192.168.0.121:8088/auction/index.php/"; //内网Url
-var BASE_JUMP_URL = "../admin/index.html#/";
+var  BASE_URL =  "";
+var  BASE_JUMP_URL = "";
+
+if(location.href.indexOf("yawan365") == -1)
+{
+	    			    	
+
+	BASE_JUMP_URL =  "../admin/index.html#/";
+    BASE_URL =  "http://192.168.0.121:8088/auction/index.php/";//苗佳亮接口
+
+}
+else{
+	
+	    if(location.href.indexOf("8080") == -1)
+		{
+			BASE_URL = "http://auction.yawan365.com/";//正式接口路径
+			BASE_JUMP_URL = "http://auction.yawan365.com/admin/index.html#/";//正式跳转路径
+		}
+		else
+		{
+		    BASE_URL = "http://auction.yawan365.com:8080/";//正式接口路径
+			BASE_JUMP_URL = "http://auction.yawan365.com:8080/admin/index.html#/";//正式跳转路径
+		}
+}
+
+
+
 
 //api
 var api = {
@@ -181,6 +206,22 @@ var api = {
     API_COMDITIONS_LIST : BASE_URL + "promoter/A_promoter/getCheckBillRecords",//结账记录
     
     API_MOVE_COMMIDITY : BASE_URL + 'saleMeeting/A_saleMeeting/moveCommodityOrder', //移动商品
+    
+    
+    
+    API_GET_CUSTOMSERVICE_LIST : BASE_URL + "customerService/A_customService/getServices",//获取客服账号列表
+    
+    API_ADD_CUSTOMSERVICE : BASE_URL + "customerService/A_customService/addService",//添加客服
+    
+    API_MOD_CUSTOMSERVICE : BASE_URL + "customerService/A_customService/modServicePassword",//修改客服密码
+    
+    API_DEL_CUSTOMSERVICE : BASE_URL + "customerService/A_customService/delService",//删除客服账号
+    
+    API_GET_CUSTOMSERVICE_HAS_DONE : BASE_URL + "customerService/A_customService/getOPREC",//获取客服操作记录
+    
+    
+    
+    
 };
 
 //errType

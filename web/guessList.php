@@ -23,9 +23,9 @@
       
 	</head>
 	<body ng-controller="ctrl">
-		<div id="myself-head"  ng-click="jumpToSelfZone1()" style="position: fixed;top:10px;left:10px;width:16vw;height:16vw;display: block;z-index: 99999;">
+		<!--<div id="myself-head"  ng-click="jumpToSelfZone1()" style="position: fixed;top:10px;left:10px;width:16vw;height:16vw;display: block;z-index: 99999;">
 			<img src="img/personal-enter.png"> 
-		</div>
+		</div>-->
 		<!--加载动画-->
 		<div class="animation" style="position:absolute;">
 			<img src="img/loading.gif"/>

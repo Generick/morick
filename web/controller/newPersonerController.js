@@ -1,13 +1,13 @@
 /*
  * 账户中心
  */
-app.controller("ctrl", function ($scope)
-{  
-	
-	localStorage.removeItem("comeIntoOrder")
-    newPersonCenterCtrl.init($scope);
-   
-});
+//app.controller("ctrl", function ($scope)
+//{  
+//	
+//	localStorage.removeItem("comeIntoOrder")
+//  newPersonCenterCtrl.init($scope);
+// 
+//});
 
 var newPersonCenterCtrl =
 {
@@ -16,6 +16,8 @@ var newPersonCenterCtrl =
     isUnReadTab : true,
     
     unReadCount : 0,
+    
+    shareInfo : {},
     
     page : {
 		currentPage : 1,
@@ -35,6 +37,8 @@ var newPersonCenterCtrl =
 	
     userId : null,
     
+    wxParams : {},
+    
     isFinished : false,
     
     isFinished2 : false,
@@ -48,25 +52,34 @@ var newPersonCenterCtrl =
     frizenMoney : 0,
     
    
-    init : function ($scope)
-    {
+    init : function ($scope,wxParams)
+    {   
     	this.scope = $scope;
     	$(".animation-2").css({"display":"block","background":"#ffffff"});
         this.scope.unReadCount = this.unReadCount;
+        
+        this.wxParams = wxParams;
         
         this.getSelfData();
         
     	this.bindClick();
         
-        initTab.start(this.scope, -1); //底部导航
+        initTab.start(this.scope, 3); //底部导航
     },
     
    
     getSelfData : function(){
     	
+    	
+    	
     	$('.container').css('opacity','0');
     	var self = this;
     	
+    	self.shareInfo.title = "雅玩之家精选店";
+        self.shareInfo.img = "http://auction.yawan365.com/web/img/share-to-other.jpg";
+        self.shareInfo.content = "明码标价，童叟无欺";
+        
+        commonFu.setShareTimeLine(self.wxParams,self.shareInfo,location.href);
     	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SELFINFO, {}, function(data){
 //  		alert(JSON.stringify(data))

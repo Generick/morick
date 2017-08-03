@@ -40,3 +40,8 @@ define('THIRD_APPSECRET','ec8ej6Vu7eOeEE6lCzP1gBWAxsHyDwEudBVPEanYgVmT0zcJzRPw')
 define("WX_KEY","dbb9062df2fd9a7650fc5961da05129f");
 define("WX_APPSECRET","620937dd20bdecf9e84f369d2ef64305");
 define("NOTICE_URL","http://meeno.f3322.net:8082/auction/index.php/wx/WxCallback/notify");
+
+//另一个第三方支付参数
+define('T_PAY_USER_ID', 6);//test 2
+define('T_APP_ID', 19);//test 8
+define('T_KEY', 'DA5FC0DA0AFA50826750E4B49A9F204B');//test A85CE8F77D2917013D4963CEC6B7522E

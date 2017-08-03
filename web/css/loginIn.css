@@ -54,7 +54,7 @@ button{
 .code-input input{
 	padding: 10px 0 10px 10px;
 	float: left;
-	width: 50%;
+	width: 66%;
 	color: white;
 	border-radius: 5px;
 	font-size: 16px;
@@ -70,7 +70,7 @@ button{
 	line-height: 24px;
 	position: relative;
 	margin-top: 8px;
-	margin-right: 10px;
+	margin-right: 2%;
 	color: white;
 	text-align: center;
 	border: 1px solid #E8E8E8;
@@ -105,3 +105,195 @@ button{
 	background: url(../img/btn2.png) center no-repeat;
 	background-size: 100% 100%;
 }
+
+
+
+.input-tel-shade{ 
+-webkit-animation: inputchange 3.5s infinite ease-in-out ;
+} 
+/*.animated{ 
+-webkit-animation-duration: 1s; 
+animation-duration: 1s; 
+-webkit-animation-fill-mode: both; 
+animation-fill-mode: both 
+} */
+@-webkit-keyframes inputchange{ 
+	/*transform:scaleX(1.1);
+    -ms-transform:scaleX(1.1); 
+    -moz-transform:scaleX(1.1);*/
+   0%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1,1);*/ 
+		 opacity: 1;
+	}
+	5%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1,1);*/ 
+		 opacity: 0.9;
+	}
+	10%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.05,1.05);*/ 
+		 opacity: 0.8;
+	}
+	20%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		  /*transform: scale(1.1,1.1);*/ 
+		  opacity: 0.7;
+	}
+	30%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.15,1.15);*/ 
+		 opacity: 0.6;
+	}
+	40%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.1,1.1);*/ 
+		 opacity: 0.5;
+	}
+	50%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.05,1.05);*/ 
+		 opacity: 0.4;
+	}
+	60%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.05,1.05);*/ 
+		 opacity: 0.5;
+	}
+	70%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		  /*transform: scale(1.1,1.1);*/ 
+		  opacity: 0.6;
+	}
+	80%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.15,1.15);*/ 
+		 opacity: 0.7;
+	}
+	90%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.1,1.1);*/ 
+		 opacity: 0.8;
+	}
+	95%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.05,1.05);*/ 
+		 opacity: 0.9;
+	}
+	100%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1,1);*/ 
+		 opacity: 1;
+	}
+	
+} 
+
+
+
+.input-code-shade{ 
+-webkit-animation: inputchange 3s infinite ease-in-out ;
+} 
+/*.animated{ 
+-webkit-animation-duration: 1s; 
+animation-duration: 1s; 
+-webkit-animation-fill-mode: both; 
+animation-fill-mode: both 
+} */
+@-webkit-keyframes inputchange{ 
+	/*transform:scaleX(1.1);
+    -ms-transform:scaleX(1.1); 
+    -moz-transform:scaleX(1.1);*/
+   0%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1,1);*/ 
+		 opacity: 1;
+	}
+	5%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1,1);*/ 
+		 opacity: 0.9;
+	}
+	10%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.05,1.05);*/ 
+		 opacity: 0.8;
+	}
+	20%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		  /*transform: scale(1.1,1.1);*/ 
+		  opacity: 0.7;
+	}
+	30%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.15,1.15);*/ 
+		 opacity: 0.5;
+	}
+	40%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.1,1.1);*/ 
+		 opacity: 0.4;
+	}
+	50%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.05,1.05);*/ 
+		 opacity: 0.3;
+	}
+	60%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.05,1.05);*/ 
+		 opacity: 0.4;
+	}
+	70%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		  /*transform: scale(1.1,1.1);*/ 
+		  opacity: 0.5;
+	}
+	80%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.15,1.15);*/ 
+		 opacity: 0.7;
+	}
+	90%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.1,1.1);*/ 
+		 opacity: 0.8;
+	}
+	95%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1.05,1.05);*/ 
+		 opacity: 0.9;
+	}
+	100%{ 
+		/*font-size:13px;*/
+		/*transform: scale(1,1);*/
+		 /*transform: scale(1,1);*/ 
+		 opacity: 1;
+	}
+	
+} 

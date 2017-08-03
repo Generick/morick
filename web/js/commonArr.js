@@ -3,10 +3,19 @@
  */
 /*底部导航栏*/
 var tab = [
-    //{title: '有奖竞猜', isActive: false, pic: ["img/bottom/under_auction.png","img/bottom/under_auction_active.png"]},
-    {title: '雅学院', isActive: false, pic: ["img/pre-see.png","img/pre-see-color.png"],id:1},
-    {title: '精品拍', isActive: false, pic: ["img/bottom/under_auction.png","img/bottom/under_auction_active.png"],id:2},
-    {title: '精选店', isActive: false, pic: ["img/sellUn.png","img/sellActive.png"],id:3}
+ 
+//  {title: '学', isActive: false, pic: ["img/pre-see.png","img/pre-see-color.png"],id:1},
+//  {title: '拍', isActive: false, pic: ["img/bottom/under_auction.png","img/bottom/under_auction_active.png"],id:2},
+//  {title: '淘', isActive: false, pic: ["img/sellUn.png","img/sellActive.png"],id:3},
+//  {title: '我', isActive: false, pic: ["img/bottom/myself-usel.png","img/bottom/myself-sel.png"],id:4},
+    
+    
+    
+    
+    {title: '学', isActive: false, pic: ["img/bottom/schUn.png","img/bottom/schHas.png"],id:1},
+    {title: '拍', isActive: false, pic: ["img/bottom/paiUn2.png","img/bottom/paiHas.png"],id:2},
+    {title: '淘', isActive: false, pic: ["img/bottom/taoUn.png","img/bottom/taoHas.png"],id:3},
+    {title: '我', isActive: false, pic: ["img/bottom/mineUn.png","img/bottom/mineHas.png"],id:4}
    
 ];
 

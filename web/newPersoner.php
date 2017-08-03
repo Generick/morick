@@ -1,60 +1,71 @@
 <?php
-
-        session_start();
 /**
  * Created by PhpStorm.
  * User: MXL
  * Date: 7/24/2017
  * Time: 5:52 PM
  */
+    require_once "wx/jssdk.php";
+	$jssdk = new JSSDK("wx8aa4883c737caaaa", "620937dd20bdecf9e84f369d2ef64305");
+	$signPackage = $jssdk->GetSignPackage();
+    session_start();
+
 	
 	$currentUrl = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+	$_SESSION['id'] = isset($_GET['id'])?$_GET['id']:'';
+	$_SESSION['thisAcPage'] = isset($_GET['thisAcPage'])?$_GET['thisAcPage']:'';
 	$flag = strpos($_SERVER['HTTP_HOST'],'yawan365.com')>0?($_SERVER['SERVER_PORT'] == 80? true:false):false;
-        if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') == true && $flag) {
+	$flag = false;
+    if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') == true && $flag) 
+    {
 
-            //配置参数的数组
-            $CONF =  array(
-                '__APPID__' =>'wx8aa4883c737caaaa',
-                '__SERECT__' =>'620937dd20bdecf9e84f369d2ef64305',
-                '__CALL_URL__' =>$currentUrl //当前页地址
-            );
-            //没有传递code的情况下，先登录一下
-            if(!isset($_REQUEST['code']) || empty($_REQUEST['code'])){
+	    //配置参数的数组
+	    $CONF =  array(
+	        '__APPID__' =>'wx8aa4883c737caaaa',
+	        '__SERECT__' =>'620937dd20bdecf9e84f369d2ef64305',
+	        '__CALL_URL__' =>$currentUrl, //当前页地址
+	    );
+	    //没有传递code,先获取code
+	    if(!isset($_REQUEST['code']) || empty($_REQUEST['code']))
+	    {
 
-                $getCodeUrl  =  "https://open.weixin.qq.com/connect/oauth2/authorize".
-                    "?appid=" . $CONF['__APPID__'] .
-                    "&redirect_uri=" . $CONF['__CALL_URL__']  .
-                    "&response_type=code".
-                    "&scope=snsapi_base". #!!!scope设置为snsapi_base !!!
-                    "&state=1";
+	        $getCodeUrl  =  "https://open.weixin.qq.com/connect/oauth2/authorize".
+	            "?appid=" . $CONF['__APPID__'] .
+	            "&redirect_uri=" . urlencode($CONF['__CALL_URL__']).//需要encode url
+	            "&response_type=code".
+	            "&scope=snsapi_base". //scope设置为snsapi_base
+	            "&state=1";
 
-                //跳转微信获取code值,去登陆
-                header('Location:' . $getCodeUrl);
-                exit;
-            }
+	        //跳转微信获取code值,去登陆
+	        header('Location:' . $getCodeUrl);
+	        exit;
+	    }
 
-            $code     		=	trim($_REQUEST['code']);
-	    if($code == $_SESSION['code']){
-		header('Location:'.'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
-	}
-            //使用code，拼凑链接获取用户openid
-            $getTokenUrl    =  "https://api.weixin.qq.com/sns/oauth2/access_token".
-                "?appid={$CONF['__APPID__']}".
-                "&secret={$CONF['__SERECT__']}".
-                "&code={$code}".
-                "&grant_type=authorization_code";
+        $code = trim($_REQUEST['code']);
+	    if($code == $_SESSION['code'])
+	    {
+			$params = "?id=".$_SESSION['id'].'&thisAcPage='.$_SESSION['thisAcPage'];
+			header('Location:'.'http://'.$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'].$params);die;
+		}
+        //使用code，拼凑链接获取用户openid
+        $getTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token".
+            "?appid={$CONF['__APPID__']}".
+            "&secret={$CONF['__SERECT__']}".
+            "&code={$code}".
+            "&grant_type=authorization_code";
 
-            $data = https_request($getTokenUrl);
-            $token_get_all = json_decode($data);
-            $openid 		=	$token_get_all->openid;
-            echo $openid;
+        $data = https_request($getTokenUrl);
+        $token_get_all = json_decode($data);
+        $openid = $token_get_all->openid;
+        // echo $openid;
 	    $_SESSION['openId'] = $openid;
 	    $_SESSION['code'] = $code;
 
-        }else{
-//echo 'not in wechat';
-
-}
+    }
+    else
+    {
+		//echo 'not in wechat';
+	}
 
     function https_request($url, $data = null)
     {
@@ -62,7 +73,8 @@
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-        if (!empty($data)){
+        if (!empty($data))
+        {
             curl_setopt($curl, CURLOPT_POST, 1);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         }
@@ -72,6 +84,7 @@
         return $output;
     }
 ?>
+
 <!DOCTYPE html>
 <html ng-app="app">
 	<head>
@@ -290,6 +303,7 @@
 	<!--系统js-->
 	<script type="text/javascript" src="js/zepto.min.js" ></script>
 	<!--<script type="text/javascript" src="js/jquery.min.js"></script>-->
+	<script type="text/javascript" src="js/weixin.js"></script> 
 	<script type="text/javascript" src="js/angular.min.js" ></script>
 	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
 	<script type="text/javascript" src="js/common.js" ></script>
@@ -308,7 +322,23 @@
    
 	<!--controller-->
 	<script type="text/javascript" src="controller/newPersonerController.js"></script>
-	
+	<script>
+		
+		
+		app.controller("ctrl", function ($scope)
+		{   
+			
+			localStorage.removeItem("comeIntoOrder");
+			var wxParams = {};
+	        wxParams.appId =  '<?php echo $signPackage["appId"];?>';
+	        wxParams.timestamp =  '<?php echo $signPackage["timestamp"];?>';
+	        wxParams.nonceStr =  '<?php echo $signPackage["nonceStr"];?>';
+	        wxParams.signature =  '<?php echo $signPackage["signature"];?>';
+	       
+		    newPersonCenterCtrl.init($scope,wxParams);
+		   
+		});
+	</script>
    
 	 <script>
 		$(function() {

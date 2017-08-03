@@ -577,8 +577,8 @@ html,body{
 	display: -webkit-box;
 	-webkit-box-align: center;
 	-webkit-box-pack: center;
-	width:75%;
-	margin-left:12.5%;
+	width:76%;
+	margin-left:12%;
 	/*height:6.8vw;*/
 	height:25px;
 	/*overflow: hidden;*/
@@ -1425,32 +1425,32 @@ animation-fill-mode: both
     }*/
    
 .t-d,.h-d,.q-d,.w-d{
-	width:7px;
+	width:8px;
 }
 .t-d>div,.h-d>div,.q-d>div,.w-d>div{
-	width:7px;
+	width:8px;
 }
 .t-d>div>div{
-	width:7px;
+	width:8px;
 	line-height: 27px;
 	height:25px;
 }
 
 .h-d>div>div{
-	width:7px;
+	width:8px;
 	line-height: 27px;
 	height:25px;
 		
 }
 
 .q-d>div>div{
-	width:7px;
+	width:8px;
 	line-height: 27px;
 	height:25px;
 }
 
 .w-d>div>div{
-	width:7px;
+	width:8px;
 	line-height: 27px;
 	height:25px;
 }

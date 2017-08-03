@@ -59,7 +59,7 @@ class A_customService extends Admin_Controller
             return;
         }
         $accountName = $this->input->post('accountName');
-        $password = $this->input->post('password');
+        $newPWD = $this->input->post('newPWD');
         $res = $this->m_customService->modServicePassword($accountName, $newPWD);
         if ($res !== ERROR_OK) 
         {
