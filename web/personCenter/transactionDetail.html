@@ -14,8 +14,14 @@
 		<div class="animation">
 			<img src="../img/loading.gif" />
 		</div>
+		<div class="has-no-data2">
+				 	<img src="../img/icon-empty-1.png" /> 
+				 	<span style="width:100%;line-height:25px;text-align: center;display: block;font-size:16px">暂无数据！</span>
+		</div>
 		<div class="container">
-			<ul class="list list-up-down-line">
+			
+			<ul class="list-up-down-line" style="width: 100%;padding: 0px 5px;background-color: #fff;">
+				
 				<li class="ub line list-detail" ng-repeat="item in transactionModel.transactionList track by $index">
 					<div class="ub-f1 mgt-10">
 						<div class="list-head" ng-bind="item.transactionText"></div>
@@ -25,9 +31,9 @@
 				</li>
 			</ul>
 			<!--暂无数据-->
-			<div class="no-data">
+			<!--<div class="no-data">
 				暂无数据！
-			</div>
+			</div>-->
 		</div>
 	</body>
 	<!--系统js-->

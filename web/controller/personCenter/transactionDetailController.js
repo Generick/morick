@@ -51,7 +51,7 @@ var transactionController =
     		self.transactionModel.transactionList = data.transactionList;
     		if (self.transactionModel.transactionList.length > 0)
     		{
-    			$(".no-data").css("display","none");
+    			$(".has-no-data2").css("display","none");
     			for (var i = 0;i < self.transactionModel.transactionList.length; i++)
     			{
     				var transactionArr = self.transactionTypeTransform(self.transactionModel.transactionList[i].transactionType);
@@ -63,8 +63,14 @@ var transactionController =
     			
     		}
     		else
-    		{
-    			$(".no-data").css("display","block");
+    		{   
+    			
+		    		$(".has-no-data2").css("display","block");
+		    		var dealTop = dealTop -  parseInt(document.body.clientWidth*0.12);
+	    
+	             	$(".container").scrollTo({toT:dealTop});
+		    
+//  			$(".no-data").css("display","block");
     		}
     		
     		$('.animation').css('display','none');

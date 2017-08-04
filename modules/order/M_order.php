@@ -69,6 +69,11 @@ class M_order extends My_Model
             $orderObj->itemId = $orderId;
             $orderObj->initWithDBData($result);
             $orderObj->saveCache();
+            if (empty($orderObj->acceptName)) 
+            {
+                $userObj = $this->m_user->getUserObj(USER_TYPE_USER, $orderObj->userId);
+                $orderObj->telephone = $userObj->telephone;
+            }
             self::$loadedItems[$orderId] = $orderObj;
             return $orderObj;
         }

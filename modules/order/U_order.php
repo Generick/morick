@@ -84,6 +84,7 @@ class U_order extends User_Controller
         {
             $this->load->model("m_logistics");
             $logisticsInfo = json_decode($this->m_logistics->getOrderTraces("SF", $orderData->logistics_no), true);
+            //$logisticsInfo = json_decode($this->m_logistics->getOrderTraces("SF", '040002319532'), true);
             if($logisticsInfo["Success"])
             {
                 $traces = $logisticsInfo["Traces"];

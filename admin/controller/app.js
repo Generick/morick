@@ -131,3 +131,17 @@ app.controller('spreadPersonsCtr', function($scope){ //商品
 	spreadPersonsCtr.init($scope);
 
 })
+
+
+app.controller('customServiceCtr', function($scope){ //商品
+	
+	customServiceCtr.init($scope);
+
+})
+
+app.controller('getCustomHasDone', function($scope){ //商品
+	
+	getCustomHasDone.init($scope);
+
+})
+

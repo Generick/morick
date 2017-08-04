@@ -80,8 +80,8 @@
       <file leaf-file-name="srvclass.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/models/class/srvclass.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="139" column="24" lean-forward="true" selection-start-line="139" selection-start-column="24" selection-end-line="139" selection-end-column="24" />
+            <state relative-caret-position="457">
+              <caret line="153" column="17" lean-forward="true" selection-start-line="153" selection-start-column="17" selection-end-line="153" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -296,7 +296,7 @@
     <servers />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="-7" />
     <option name="width" value="1932" />
     <option name="height" value="1057" />
@@ -642,12 +642,12 @@
       <workItem from="1500605092801" duration="78000" />
       <workItem from="1500605274986" duration="11243000" />
       <workItem from="1501073317571" duration="5425000" />
-      <workItem from="1501232299772" duration="3135000" />
+      <workItem from="1501232299772" duration="4362000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="537841000" />
+    <option name="totallyTimeSpent" value="539068000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -659,7 +659,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1932" height="1057" extended-state="0" />
+    <frame x="-7" y="0" width="1932" height="1057" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10844017" sideWeight="0.49624866" order="0" side_tool="false" content_ui="combo" />
@@ -1091,8 +1091,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/class/srvclass.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="139" column="24" lean-forward="true" selection-start-line="139" selection-start-column="24" selection-end-line="139" selection-end-column="24" />
+        <state relative-caret-position="457">
+          <caret line="153" column="17" lean-forward="true" selection-start-line="153" selection-start-column="17" selection-end-line="153" selection-end-column="17" />
           <folding />
         </state>
       </provider>

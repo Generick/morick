@@ -24,34 +24,82 @@
 		        <div class="swiper-wrapper" id="preImages">
 		            <div class="swiper-slide item-img">
 		            	<div id="qrcodefir"></div>
-		            	<img src="img/fir.png" style="height:auto;margin:0 auto">
-		            		<!--<div class="swiper-imgs" style="background-image: url({{item}})"></div>-->
+		            	<img src="" id="img_01" style="display: none;" />
+		            	<!--<img src="img/fir.png" style="height:auto;margin:0 auto">-->
+		                <img class="preView-img" id="img1" src="" alt="" style="vertical-align: top;">
 		            </div>
 		            <div class="swiper-slide item-img">
 		            	<div id="qrcodesec"></div>
+		            	<!--<img src="img/sec.png" style="height:auto;margin:0 auto">-->
+		            	<img src="" id="img_02" style="display: none;" />
+		                <img class="preView-img" id="img2" src="" alt="" style="vertical-align: top;">
+		            </div>
+		            
+		             <div class="swiper-slide item-img">
+		            	<div id="qrcodethi"></div>
+		            	<!--<img src="img/thi.png" style="height:auto;margin:0 auto">-->
+		            	<img src="" id="img_03" style="display: none;" />
+		                <img class="preView-img" id="img3" src="" alt="" style="vertical-align: top;">
+		            </div>
+		            
+		             <div class="swiper-slide item-img">
+		            	<div id="qrcodefou"></div>
+		            	<!--<img src="img/fou.png" style="height:auto;margin:0 auto">-->
+		            	<img src="" id="img_04" style="display: none;" />
+		                <img class="preView-img" id="img4" src="" alt="" style="vertical-align: top;">
+		            </div>
+		            
+		             <div class="swiper-slide item-img">
+		            	<div id="qrcodefiv"></div>
+		            	<!--<img src="img/fiv.png" style="height:auto;margin:0 auto">-->
+		            	<img src="" id="img_05" style="display: none;" />
+		                <img class="preView-img" id="img5" src="" alt="" style="vertical-align: top;">
+		            </div>
+		            <img id="showIds_01" style="display: none;" src="" style="width:200px;height:100px;margin-top:300px;display: none;"  />
+		            <canvas width="2000" height="1000" style="display: none;width:100%;height:auto" id="canvas1"></canvas>
+		          
+		            
+		            <img id="showIds_02" style="display: none;" src="" style="width:200px;height:100px;margin-top:300px;display: none;"  />
+		            <canvas width="2000" height="1000" style="display: none;width:100%;height:auto" id="canvas2"></canvas>
+		          
+		            
+		            <img id="showIds_03" style="display: none;" src="" style="width:200px;height:100px;margin-top:300px;display: none;"  />
+		            <canvas width="2000" height="1000" style="display: none;width:100%;height:auto" id="canvas3"></canvas>
+		           
+		            
+		            <img id="showIds_04" style="display: none;" src="" style="width:200px;height:100px;margin-top:300px;display: none;"  />
+		            <canvas width="2000" height="1000" style="display: none;width:100%;height:auto" id="canvas4"></canvas>
+		           
+		           
+		           <img id="showIds_05" style="display: none;" src="" style="width:200px;height:100px;margin-top:300px;display: none;"  />
+		            <canvas width="2000" height="1000" style="display: none;width:100%;height:auto" id="canvas5"></canvas>
+		            
+		            <!--<div style="display: none;width:100%;height:230px;overflow: hidden;">-->
+		           
+		            <!--</div>-->
+		            
+		            <!--<div class="swiper-slide item-img">
+		            	<div id="qrcodesec"></div>
 		            	<img src="img/sec.png" style="height:auto;margin:0 auto">
-		            		<!--<div class="swiper-imgs" style="background-image: url({{item}})"></div>-->
+		            	
 		            </div>
 		            <div class="swiper-slide item-img"s>
 		            	<div id="qrcodethi"></div>
 		            	<img src="img/thi.png" style="height:auto;margin:0 auto">
-		            		<!--<div class="swiper-imgs" style="background-image: url({{item}})"></div>-->
+		            	
 		            </div>
 		            <div class="swiper-slide item-img">
 		            	<div id="qrcodefou"></div>
 		            	<img src="img/fou.png" style="height:auto;margin:0 auto">
-		            		<!--<div class="swiper-imgs" style="background-image: url({{item}})"></div>-->
+		            		
 		            </div>
 		            <div class="swiper-slide item-img">
 		            	<div id="qrcodefiv"></div>
 		            	<img src="img/fiv.png" style="height:auto;margin:0 auto">
-		            		<!--<div class="swiper-imgs" style="background-image: url({{item}})"></div>-->
-		            </div>
+		            		
+		            </div>-->
 		        </div>
  
-                <!-- Add Pagination -->
-                 
-                <!--<div class="swiper-pagination"></div>-->
             </div>
             <div class="swiper-button-prev" ng-click="toInit()" id="predivbtn" style="top:52%;margin-top:120px;left:26%;height:35px;line-height:35px;text-align: center; background-image: url()">上一张</div>
             <div class="swiper-button-next" ng-click="toInit()" id="nexdivbtn" style="top:52%;margin-top:120px;right:26%;height:35px;line-height:35px;text-align: center;background-image: url()">下一张</div>
@@ -89,7 +137,7 @@
 	<!--插件-->
 	<script type="text/javascript" src="js/fastclick.js" ></script>
 	<!--controller-->
-	<script type="text/javascript" src="controller/myPushPicController.js" ></script>
+	<script type="text/javascript" src="controller/myPushPicCtr.js" ></script>
 	<script>
 		if(window.screen.width < 375){
 			$('.user-input').css('margin-top','5vh');

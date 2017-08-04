@@ -13,6 +13,7 @@ class S_customService extends Srv_Controller
         $this->load->model('m_customService');
         $this->load->model('m_order');
         $this->load->model('m_user');
+        $this->load->model('m_promoter');
     }
 
     //获取订单列表
@@ -77,6 +78,15 @@ class S_customService extends Srv_Controller
     		$this->responseError(ERROR_NO_SERVICE);
     		return;
     	}
+    	$status = array(ORDER_STATUS_CANCEL, ORDER_STATUS_RECEIVE);
+    	if (in_array($orderObj->orderStatus, $status)) 
+    	{
+    		$re = ERROR_ORDER_HAS_RECEIVE;
+    		if($type == 1) $re = ERROR_ORDER_HAS_CANCEL;
+    		$this->responseError($re);
+    		return;
+    	}
+    	$fromStatus = $orderObj->orderStatus;
     	$res = $this->m_order->sure_cancel_order($order_no, $type);
     	if ($res !== ERROR_OK) 
     	{
@@ -85,7 +95,8 @@ class S_customService extends Srv_Controller
     	}
     	$toStatus = ORDER_STATUS_RECEIVE;
     	if ($type == 1) $toStatus = ORDER_STATUS_CANCEL;
-    	$ret = $this->m_customService->addOPREC($userId, $orderObj->orderStatus,$toStatus);
+    	$ret = $this->m_customService->addOPREC($userId, $order_no, $fromStatus,$toStatus);
+    	$this->m_promoter->updateUserOrderStatistics($orderObj->userId);
     	if ($ret == ERROR_OK)
     	{
     		$this->responseSuccess($ret);
@@ -94,7 +105,7 @@ class S_customService extends Srv_Controller
     	$this->responseError($ret);
     }
 
-    //发货
+    //客服发货
     function deliverOrder()
     {
     	if (!$this->checkParam(array('userId','order_no', 'logistics_no'))) 
@@ -117,13 +128,20 @@ class S_customService extends Srv_Controller
     	{
     		$this->responseError(ERROR_NO_SERVICE);
     		return;
-    	} 
+    	}
+    	if ($orderObj->orderStatus == ORDER_STATUS_WAIT_RECEIVE) 
+    	{
+    	 	$this->responseError(ERROR_ORDER_HAS_DELIVERED);
+    	 	return;
+    	 } 
+    	$fromStatus = $orderObj->orderStatus;
     	$retCode = $this->m_order->modOrderInfo($order_no, array("logistics_no" => $logistics_no, "orderStatus" => ORDER_STATUS_WAIT_RECEIVE));
         //创建发货信息
         //user id ,msg type, href id=> order id
         if ($retCode == ERROR_OK) 
         {
-        	$this->m_customService->addOPREC($userId, $orderObj->orderStatus, ORDER_STATUS_WAIT_RECEIVE);
+        	$this->m_customService->addOPREC($userId, $order_no, $fromStatus, ORDER_STATUS_WAIT_RECEIVE);
+        	$this->m_promoter->updateUserOrderStatistics($orderObj->userId);
             $this->load->model('m_messagePush');
             //user id 
             $user_id = $this->db->select('userId, orderType')->from('order')->where('order_no', $order_no)->get()->row_array();

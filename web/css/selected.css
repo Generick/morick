@@ -3,6 +3,7 @@
  * 精选
  */
 .animation{
+	
 	height: 100%;
 	width: 100%;
 	display: none;
@@ -17,6 +18,28 @@
 	left: 45%;
 	top: 45%;
 }
+
+
+
+.animation66{
+	position: fixed;
+	top:10vw;
+	left:0;
+	background: #FFFFFF;
+	height: 100%;
+	width: 100%;
+	display: none;
+}
+.animation66 img{
+	width: 25px;
+	height: 25px;
+	margin-left: auto;
+	margin-right: auto;
+	position: absolute;
+	left: 45%;
+	top: 41%;
+}
+
 
 .chrysanthemums{
 	display: none;

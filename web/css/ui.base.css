@@ -624,3 +624,62 @@ input,textarea:focus{
   83% {opacity: 1;}
   100%{opacity: 1;}
 }
+
+.has-no-data{
+	display: none;
+	
+	width:100%;
+	height:178;
+	padding-top:25vw;
+	padding-bottom:15vw;
+	text-align: center;
+	float:left;
+	background: #FFFFFF;
+}
+
+.has-no-data img{
+	
+	width:140px;
+	height:140px;
+	margin:0 auto;
+}
+
+.has-no-data2{
+	display: none;
+	position: relative;
+	width:100%;
+	height:178px;
+	padding-top:25vw;
+	padding-bottom:15vw;
+	text-align: center;
+	float:left;
+	/*background: #FFFFFF;*/
+}
+
+.has-no-data2 img{
+	
+	width:140px;
+	height:140px;
+	margin:0 auto;
+}
+
+.shade-div-nodata{
+	display: none;
+	position: fixed;
+	z-index: 9999;
+	bottom: 54px;
+	left:0;
+	width:100%;
+	background: #FFFFFF;
+	height:22px;
+	text-align: center;
+	color:#999999;
+	
+}
+.shade-div-nodata img{
+	margin:0 auto;
+	width:20px;
+	height:20px;
+	text-align: center;
+
+}

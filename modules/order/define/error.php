@@ -37,4 +37,7 @@ Error::registerErrors(array(
     array('errDefine' => 'ERROR_ORDER_GOODS_ERROR', 'errMsg' => '订单商品错误'),
     array('errDefine' => 'ERROR_TRADE_FAIL', 'errMsg' => '交易失败'),
     array('errDefine' => 'ERROR_OPEN_ID_NULL', 'errMsg' => 'openId不能为空'),
+    array('errDefine' => 'ERROR_ORDER_HAS_DELIVERED', 'errMsg' => '该订单已经发货'),
+    array('errDefine' => 'ERROR_ORDER_HAS_CANCEL', 'errMsg' => '该订单已经取消'),
+    array('errDefine' => 'ERROR_ORDER_HAS_RECEIVE', 'errMsg' => '该订单已经完成'),
 ));

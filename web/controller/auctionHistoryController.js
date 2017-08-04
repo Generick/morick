@@ -30,6 +30,8 @@ var AuctionHistoryCtrl =
 {
     scope : null,
     
+//  isAgainUp : false,
+    
     isFinsh : false,
     
     thisJumpPage :null,
@@ -37,6 +39,8 @@ var AuctionHistoryCtrl =
     thisJumpId : null,
     
     timer : null,
+    
+    priceRange : 0,
     
     timer2 : null,
     
@@ -86,7 +90,42 @@ var AuctionHistoryCtrl =
     	$(".fix-clock").css("display","none");
     	$(".fix-round").css("display","none");
     	$('.container').css('opacity','0');
-    	
+    	$('.animation').css('display','block');
+    	if(sessionStorage.getItem("priceRange") != null && sessionStorage.getItem("priceRange") != undefined && sessionStorage.getItem("priceRange") != '')
+        {   
+        	$('.animation').css('display','block');
+        	this.priceRange = sessionStorage.getItem("priceRange");
+        	
+        	$(".tab-choose-hundred-item").eq(this.priceRange).addClass("add-hundre-tab").siblings().removeClass("add-hundre-tab");
+    		if(this.priceRange == 0)
+    		{  
+    			this.priceRange = 0;
+    			$(".tab-under-line").css({"left":"5vw"});
+    		}
+    		else if(this.priceRange == 1)
+    		{
+    			this.priceRange = 1;
+    			$(".tab-under-line").css({"left":"30vw"});
+    		}
+    		else if(this.priceRange == 2)
+    		{
+    			this.priceRange = 2;
+    			$(".tab-under-line").css({"left":"55vw"});
+    		}
+    		else if(this.priceRange == 3){
+    			
+    			this.priceRange = 3;
+    			$(".tab-under-line").css({"left":"80vw"});
+    		}
+    		else{
+    			
+    		}
+        	
+        	
+//      	this.changeTabColor(this.priceRange);
+        }
+        $(".tab-choose-hundred").css("display","block")
+      
     	this.initData(2);
     	
         this.ngRepeatFinish();
@@ -172,17 +211,17 @@ var AuctionHistoryCtrl =
     initData : function(type){
     	
     	var self = this;
-       
+        
         if(self.isFinsh){
             	
             return;
         }
         self.isFinsh = true;
-  
+       
     	var params = 
     	{
     		num : self.page.timeNum,
-    	
+    	    priceRange : self.priceRange,
     	};
     		
     	if(commonFu.isEmpty(sessionStorage.getItem("hasGetData")))
@@ -268,13 +307,11 @@ var AuctionHistoryCtrl =
 	    	}
 	    }		
     	
-    	
-    	$('.animation').css('display','block');
-    	
     	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_SPECIAL_SALE_LIST, params, function(data){
 //  	    console.log(JSON.stringify(data))
     		//在回调里拿到总数据条数，给全局变量
 	    	self.totalCount = data.count;
+	    	
 	    	//设置总页数
 	    	self.setTotalPage(self.totalCount);
     		
@@ -396,7 +433,8 @@ var AuctionHistoryCtrl =
     		
     		if (self.auctionHistoryModel.TMHList.length > 0)
     		{
-    			$(".no-data").css('display','none');
+//  			$(".no-data").css('display','none');
+				$(".has-no-data").css("display","none");
     			var goods = self.auctionHistoryModel.TMHList;
                 
 	    		for (var i = 0;i < goods.length; i++)
@@ -418,8 +456,13 @@ var AuctionHistoryCtrl =
 	    		}
     		}
     		else
-    		{
-    			$(".no-data").css('display','block');
+    		{   
+    			
+		    		$(".has-no-data").css("display","block");
+		    		var dealTop = dealTop -  parseInt(document.body.clientWidth*0.12);
+	             	$(".container").scrollTo({toT:dealTop});
+		    
+//  			$(".no-data").css('display','block');
     		}
 
             for(var a = 0; a < self.auctionHistoryModel.TMHList.length; a ++)
@@ -462,6 +505,7 @@ var AuctionHistoryCtrl =
             self.isFinsh = false;
             
     		self.scope.$apply();
+    		
     		$(".fix-round").css("display","flex");
     		$(".fix-clock").css("display","block");
     	    $("#changing-number").css("display","inline-block");
@@ -956,8 +1000,8 @@ var AuctionHistoryCtrl =
 	 		    	$.animateToPrice2(priceStr, c,self.auctionHistoryModel.TMHList);
             	
             }
-    	
-           
+    	    $(".animation66").css("display","none")
+          
     	})
     },
     
@@ -995,7 +1039,7 @@ var AuctionHistoryCtrl =
                              { 
                              	 if(self.auctionHistoryModel.TMHList[s].info.viewPrice.length  != dataCopy[s].info.viewPrice.length)
 		                         {  
-	
+	                              
 		                         	self.initData(2);
 		                         }
 		                         else
@@ -1017,7 +1061,7 @@ var AuctionHistoryCtrl =
 	    	    
 		    	self.scope.auctionHistoryModel = self.auctionHistoryModel;
 		    	self.scope.$apply();
-	    	    
+	    	    sessionStorage.removeItem("priceRange");
 	    },3000);
 	  
     },
@@ -1194,11 +1238,14 @@ var AuctionHistoryCtrl =
 		    }
 		    else
 		    {
+
 		        dealTop = $("#test_"+ self.auctionHistoryModel.TMHList[0].commodity_id).offset().top ;
 		    }
 		
         }
-      	
+
+      	dealTop = dealTop -  parseInt(document.body.clientWidth*0.12);
+    
       	$("html,body").scrollTo({toT:dealTop});
         $('.animation').css('display','none');
     	$('.container').css('opacity','1');
@@ -1210,6 +1257,63 @@ var AuctionHistoryCtrl =
     bindClick  : function ()
     {
     	var self = this;
+    	
+   
+    	
+    	self.scope.toChooseTab = function(type){
+    		
+//  		if(self.isAgainUp)
+//			{   
+//				$dialog.msg("不能在1秒内连续提交商品！");
+//				return;
+//			}
+//			self.isAgainUp = true;
+//			
+//			setTimeout(function(){
+//				
+//				self.isAgainUp = false;
+//				
+//			},1000);
+    		$(".animation66").css("display","block")
+    		
+    		$(".tab-choose-hundred-item").eq(type).addClass("add-hundre-tab").siblings().removeClass("add-hundre-tab");
+    		if(type == 0)
+    		{  
+    			self.priceRange = 0;
+    			
+    			
+    			
+    			$(".tab-under-line").css({"left":"5vw"});
+    		}
+    		else if(type == 1)
+    		{
+    			self.priceRange = 1;
+    			
+    			$(".tab-under-line").css({"left":"30vw"});
+    		}
+    		else if(type == 2)
+    		{
+    			self.priceRange = 2;
+    			
+    			$(".tab-under-line").css({"left":"55vw"});
+    		}
+    		else if(type == 3){
+    			
+    			self.priceRange = 3;
+    		
+    			$(".tab-under-line").css({"left":"80vw"});
+    		}
+    		else{}
+    		sessionStorage.removeItem("hasGetData");
+    		self.page.currentPage = 1;
+    		self.page = {
+				currentPage : 1,
+				totalPage : null,
+				timeNum : 20,
+			};
+			
+    		self.initData(2);
+    	};
     	
     	
     	//跳转到个人中心
@@ -1259,8 +1363,8 @@ var AuctionHistoryCtrl =
     		var id = item.commodity_id;
     	    localStorage.setItem("comeWithGuess",2);
     	    localStorage.setItem("messlistOrauction",0)
-    		
-
+    		sessionStorage.setItem("priceRange",self.priceRange);
+           
 		    			sessionStorage.setItem("aucDisId","test_"+id);
 		    			self.getInterPage(id);
 		    			var thisAcPage = sessionStorage.getItem("intoPage");
@@ -1296,6 +1400,34 @@ var AuctionHistoryCtrl =
     	};
     },
    
+     
+//   changeTabColor : function(type){
+//   	
+//   	var self = this;
+//   	$(".tab-choose-hundred-item").eq(type).addClass("add-hundre-tab").siblings().removeClass("add-hundre-tab");
+//  		if(type == 0)
+//  		{  
+//  			self.priceRange = 0;
+//  			$(".tab-under-line").css({"left":"5vw"});
+//  		}
+//  		else if(type == 1)
+//  		{
+//  			self.priceRange = 1;
+//  			$(".tab-under-line").css({"left":"30vw"});
+//  		}
+//  		else if(type == 2)
+//  		{
+//  			self.priceRange = 2;
+//  			$(".tab-under-line").css({"left":"55vw"});
+//  		}
+//  		else if(type == 3){
+//  			
+//  			self.priceRange = 3;
+//  			$(".tab-under-line").css({"left":"80vw"});
+//  		}
+//  		else{}
+//  		
+//   },
      
     //设置当前点击的id所在的页面数
     getInterPage : function(id){
@@ -1462,26 +1594,32 @@ var AuctionHistoryCtrl =
 //                      clearInterval(AuctionHistoryCtrl.timer2);
 //                      AuctionHistoryCtrl.initClock();
 //                      $(".temp").css("display","none")
+
             	        AuctionHistoryCtrl.initData(1);
 					}
 					else if((AuctionHistoryCtrl.page.currentPage == AuctionHistoryCtrl.page.totalPage) || (AuctionHistoryCtrl.auctionHistoryModel.TMHList.length == AuctionHistoryCtrl.totalCount))
 					{ 
+						
+						
 						$('.acu-chrysanthemums').css("display","block");
 						setTimeout(function(){
 							$('.acu-chrysanthemums').css("display","none");
-
+						    $(".shade-div-nodata").css("display","block");
+							
+                             
 						},500);
 						setTimeout(function(){
-							$(".ac-no-more-data").css("display","block");
-
-
-						},500)
+							
+                             $(".shade-div-nodata").css("display","none");
+                            
+						},1000)
+						
 					}
 			    }
             }    
             else
             {   
-                $(".ac-no-more-data").css("display","none");
+                $(".shade-div-nodata").css("display","none");
                 $('.acu-chrysanthemums').css("display","none");
             }  
             setTimeout(function(){d = a;},0);         

@@ -246,8 +246,16 @@ class M_saleMeeting extends My_Model
     {
     	$info = $this->getCommodityInfo($id);
     	if (empty($info)) return ERROR_NO_COMMODITY;
-        $hasUp = $this->db->where('commodity_id', $id)->get('sale_meeting')->row_array();
-        if ($hasUp) return ERROR_HAS_UP;
+        $hasUp = $this->db->select('commodity_id')->where('commodity_id', $id)->get('sale_meeting')->result_array();
+        if ($hasUp)
+        {
+            $upCommodityId = array_column($hasUp, 'commodity_id');
+            foreach ($upCommodityId as $v) 
+            {
+                $this->db->where('commodity_id', $v)->delete('sale_meeting');
+            }
+           //return ERROR_OK; 
+        } 
     	$data = array('commodity_id' => $id, 'add_time' => time());
     	if ($this->db->insert('sale_meeting', $data)) 
     	{

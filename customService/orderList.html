@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title style="color:#333333">订单列表</title>
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="css/popUp.css" />
+        <link href="layer.css">
+        <script src="js/base64.js"></script>
+        <script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+     <script src="js/qrodecopy.js"></script>
+	</head>
+
+	<body ng-controller="erWeiCtr" style="background: #FFFFFF;">
+		  <div class="animation3"  style="background: #FFFFFF;">
+		  	<img src="img/loading.gif"/>
+		  </div>
+		  <div class="animation7"  style="background: #FFFFFF;">
+		  	<img src="img/loading.gif"/>
+		  </div>
+		  <div class="container3" style="background-color: #FFFFFF;overflow: hidden;float:left;padding-top:12vw;">
+		  	 <div class="cus-order-top">
+		  	 	<div class="tab-line-order"></div>
+		  	 	<div class="cus-order-top-item top-item-active" ng-click="tabOnClick(9)">全部</div>
+		  	 	<div class="cus-order-top-item"  ng-click="tabOnClick(1)">待付款</div>
+		  	 	<div class="cus-order-top-item"  ng-click="tabOnClick(2)">待发货</div>
+		  	 	<div class="cus-order-top-item"  ng-click="tabOnClick(3)">待收货</div>
+		  	 	<div class="cus-order-top-item"  ng-click="tabOnClick(4)">已完成</div>
+		  	 	<div class="cus-order-top-item"  ng-click="tabOnClick(0)">已取消</div>
+		  	 </div>
+		  	 <div class="cus-order-item-box">
+		  	 	<div class="has-no-data"  style="padding-top:25vw;padding-bottom: 25vw;" >
+				 	<img src="img/icon-empty-1.png"/> 
+				 	<span style="width:100%;line-height:25px;text-align: center;display: block;font-size:16px">暂无记录</span>
+				 </div>
+		  	 	<div class="cus-order-item" ng-repeat="item in orderList">
+		  	 		<div class="cus-order-item-top">
+		  	 			<span class="cus-order-title-word">订单编号：</span>
+		  	 			<span class="cus-order-title-num" ng-bind="item.order_no">1999922</span>
+		  	 			<span class="cus-order-title-status" ng-show="item.orderStatus == 1" style="color: #d56161;">待付款</span>
+		  	 			<span class="cus-order-title-status" ng-show="item.orderStatus == 2" style="color: #d56161;">待发货</span>
+		  	 			<span class="cus-order-title-status" ng-show="item.orderStatus == 3" style="color:#4b97c4;">待收货</span>
+		  	 			<span class="cus-order-title-status" ng-show="item.orderStatus == 4" style="color:#4b97c4;">已完成</span>
+		  	 			<span class="cus-order-title-status" ng-show="item.orderStatus == 0" style="color:#999999;">已取消</span>
+		  	 		</div>
+		  	 		<div class="cus-order-item-middle">
+		  	 		    <div class="cus-order-item-middle-left">
+		  	 		    	<img ng-src="{{item.orderGoods[0].commodity_cover}}"  />
+		  	 		    </div>
+		  	 		    <div class="cus-order-item-middle-center">
+		  	 		    	<div class="cus-order-item-middle-top"  ng-bind="item.orderGoods[0].commodity_name">从范德萨发大水发大师傅大师分的说法撒旦法</div>
+		  	 		    	<div class="cus-order-item-middle-bottom"  ng-bind=" 'X' + item.orderGoods[0].goodsNum">132143</div>
+		  	 		    </div>
+		  	 		    <div class="cus-order-item-middle-right" ng-click="toOrderDetail(item)">
+		  	 		    	
+		  	 		    	<span style="line-height:20vw;float:right;overflow: hidden;">
+		  	 		    		<img src="img/cusImg/enter-order.png" style="width:2vw;height:4.6vw;margin-top:7.7vw;margin-left:2vw"/>
+		  	 		    	</span>
+		  	 		    	<span style="line-height:20vw;float:right;font-size: 3.9vw;" ng-bind="'￥'+item.payPrice">666666</span>
+		  	 		    </div>
+		  	 		</div>
+		  	 		<div class="cus-order-item-bottom-up">
+		  	 		    <span style="float:left;color:#999999;font-size: 3.9vw;" ng-bind="item.orderTime*1000 | date:'yyyy/MM/dd'">2017/08/03</span>
+		  	 		    <span style="float:left;margin-left:3vw;color:#999999;font-size:3.9vw;" ng-bind="item.orderTime*1000 | date:'HH:mm:ss'">09:37:22</span>
+		  	 		    <span style="float:right;margin-left:1vw;color:#D56161;font-size: 4.2vw;" ng-bind="'￥'+item.payPrice">￥55667</span>
+		  	 		    <span style="float:right;margin-left:3vw;font-size: 4.2vw;">实付</span>
+		  	 		    <span style="float:right;font-size: 4.2vw;">共{{item.orderGoods[0].goodsNum}}件商品</span>
+		  	 		   
+		  	 		   
+		  	 		</div>
+		  	 		<div class="cus-order-item-bottom-down" ng-show="item.orderStatus != 4">
+		  	 			<div class="cus-order-item-btn add-color-btn" ng-show="item.orderStatus == 1" ng-click="sureOrCancle(item,0)">
+		  	 				确认完成
+		  	 			</div>
+		  	 			<div class="cus-order-item-btn add-color-btn" ng-show="item.orderStatus == 2" ng-click="sendGood(item)">
+		  	 				发货
+		  	 			</div>
+		  	 			<div class="cus-order-item-btn add-color-btn" ng-show="item.orderStatus == 1"  ng-click="sureOrCancle(item,1)">
+		  	 				取消订单
+		  	 			</div>
+		  	 			
+		  	 			
+		  	 		</div>
+		  	 	</div>
+		  	 	
+		  	 	
+		  	 	
+		  	 	
+		  	 	
+		  	 	<div class="chrysanthemums">
+			        <img src="img/loading.gif"/>
+		       </div>
+		  	 </div>
+		  </div>
+		    <div  class="order-number-box-shade"></div>
+		  	<div class="order-number-box">
+		  	 		<div class="order-number-box-top">请输入运单号</div>
+		  	 		<div class="order-number-box-input">
+		  	 			<input type="text" ng-model="logNumber" onkeyup="value=value.replace(/[^\w\/]/ig,'')"/>
+		  	 		</div>
+		  	 		<div class="order-number-box-btns">
+		  	 			<div class="order-number-box-btnrig" ng-click="sureSend(0)">取消</div>
+		  	 			<div class="order-number-box-btnrig" ng-click="sureSend(1)">确定</div>
+		  	 		</div>
+		  	</div>
+	</body>
+    
+	<!--系统js-->
+	
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/layer.js"></script>
+    <script src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/confirmTip.js" ></script>
+     <script src="js/app.js"></script>
+     
+	<script>
+		
+		  
+			if (typeof localStorage === 'object') {
+			    try {
+					localStorage.setItem('localStorage', 1);
+					localStorage.removeItem('localStorage');
+				} catch (e) {
+					Storage.prototype._setItem = Storage.prototype.setItem;
+					Storage.prototype.setItem = function() {};
+					$dialog.msg('为了正常访问，请关闭无痕模式');
+				}
+			}
+
+
+	</script>
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/orderListController.js" ></script>
+	<script>
+		if(window.screen.width < 375){
+			$('.user-input').css('margin-top','5vh');
+		}
+		
+		
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		
+//		    		location.href = pageUrl.LOGIN_PAGE;
+		    		location.href = pageUrl.HOME_PAGE;
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+		
+	</script>
+</html>
+

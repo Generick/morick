@@ -39,7 +39,7 @@ var HomeCtr = {
 	
 		jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PROMOTER_GET_SELF, params,function(data){
         	 	
-                console.log(JSON.stringify(data))
+//              console.log(JSON.stringify(data))
         	    self.personalName = data.info.name;
         	    self.waitCheckAmount = data.info.waitCheckAmount;
         	    self.invitedNum = data.info.invitedNum;

@@ -159,5 +159,14 @@ app.config(function($stateProvider, $urlRouterProvider){
         	templateUrl: 'view/data/commodifySaleList.html',
         	controller: 'commidifySaleController'
         })
-        
+         .state('customService', {
+        	url: '/customService',
+        	templateUrl: 'view/admin/customService.html',
+        	controller: 'customServiceCtr'
+        })
+         .state('customHasDone', {
+        	url: '/customHasDone',
+        	templateUrl: 'view/data/getCustomHasDone.html',
+        	controller: 'getCustomHasDone'
+        })
 });

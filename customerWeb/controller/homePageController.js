@@ -73,6 +73,7 @@ var HomeCtr = {
 			var commId = obj.encode(ids);
 			var addType = obj.encode('1');//添加
 			var str = pageUrl.ADD_GOODS_PAGE + "?id=" + commId + "&isAdd=" + addType;
+		
 			location.href = encodeURI(str);
 
 		};

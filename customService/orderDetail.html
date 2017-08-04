@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>订单详情</title>
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/loginIn.css" />
+        <link rel="stylesheet" href="css/popUp.css" />
+        <link href="layer.css">
+        <script src="js/base64.js"></script>
+        <script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+       
+	</head>
+
+	<body ng-controller="pusherCtr" style="background-color: #F5F5F5;">
+		<div class="animation3">
+			        <img src="img/loading.gif"/>
+		    </div>
+		
+		<div class="container3">
+			<div class="cus-order-item" style="margin-bottom: 0;">
+		  	 		<div class="cus-order-item-top" style="border-bottom: 1vw solid #F5F5F5;">
+		  	 			<span class="cus-order-title-word">订单编号：</span>
+		  	 			<span class="cus-order-title-num" ng-bind="orderModel.orderNum">1999922</span>
+		  	 			<span class="cus-order-title-status" ng-show="orderModel.orderStatus == 0">已取消</span>
+		  	 			<span class="cus-order-title-status" ng-show="orderModel.orderStatus == 1">待付款</span>
+		  	 			<span class="cus-order-title-status" ng-show="orderModel.orderStatus == 2">待发货</span>
+		  	 			<span class="cus-order-title-status" ng-show="orderModel.orderStatus == 3">待收货</span>
+		  	 			<span class="cus-order-title-status" ng-show="orderModel.orderStatus == 4">已完成</span>
+		  	 		</div>
+		  	 		<div class="person-adress-box">
+		  	 			<img src="img/cusImg/adress-icon.png" />
+		  	 			<div class="person-adress-box-right" ng-show="orderModel.addRess != null && orderModel.addRess != ''">
+		  	 				<div class="person-adress-box-top">
+		  	 					<span style="float:left;font-size:4.2vw;color: #999999;">收货人：</span>
+		  	 					<span style="float:left;font-size:4.2vw;color: #666666;" ng-bind="orderModel.personName">第三方大师发</span>
+		  	 					<span style="float:right;font-size:3.9vw;color: #999999;" ng-bind="orderModel.telePhone"></span>
+		  	 				</div>
+		  	 				<div style="font-size:3.9vw;" class="person-adress-box-bottom" ng-bind="'收货地址：'+ orderModel.addRess">
+		  	 				
+		  	 				</div>
+		  	 			</div>
+		  	 			<div  ng-show="orderModel.addRess == null || orderModel.addRess == ''" style="float:left;width:100%;height:16vw;line-height:16vw;text-align: left;font-size: 4.2vw;padding-left:22vw;color:#666666">
+		  	 				暂无
+		  	 			</div>
+		  	 		</div>
+		  	 		<div class="detail-mes-title">
+		  	 			商品信息
+		  	 		</div>
+		  	 		<div class="cus-order-item-middle">
+		  	 		    <div class="cus-order-item-middle-left">
+		  	 		    	<img ng-src="{{orderModel.imgCover}}"  />
+		  	 		    </div>
+		  	 		    <div class="cus-order-item-middle-center">
+		  	 		    	<div class="cus-order-item-middle-top" ng-bind="orderModel.goodName">从范德萨发大水发大师傅大师分的说法撒旦法</div>
+		  	 		    	<div class="cus-order-item-middle-bottom" ng-bind="'X'+orderModel.buyNumber">132143</div>
+		  	 		    </div>
+		  	 		    <div class="cus-order-item-middle-right" ng-click="toOrderDetail()">
+		  	 		    	
+		  	 		    	<span style="line-height:20vw;float:right;font-size: 3.9vw;" ng-bind="orderModel.goodsPrice">666666</span>
+		  	 		    </div>
+		  	 		</div>
+		  	 		<div class="cus-order-item-bottom-up" style="border-bottom:none;border-top:1vw solid #F5F5F5">
+		  	 		    
+		  	 		    <span style="float:right;margin-left:1vw;color:#D56161;font-size: 4.2vw;" ng-bind="orderModel.payPrice">￥55667</span>
+		  	 		    <span style="float:right;margin-left:3vw;font-size: 4.2vw;">实付</span>
+		  	 		    <span style="float:right;font-size: 4.2vw;">共{{orderModel.buyNumber}}件商品</span>
+		  	 		   
+		  	 		   
+		  	 		</div>
+		  	 		<div class="cus-order-detail-bottom">
+		  	 			
+		  	 			<div class="cus-order-detail-bottom-item">
+		  	 				<span class="cus-order-details-left">
+		  	 					下单用户：
+		  	 				</span>
+		  	 				<span class="cus-order-details-right" ng-show="orderModel.personName != null && orderModel.personName != ''"  ng-bind="orderModel.personName">
+		  	 					423423424
+		  	 				</span>
+		  	 				<span class="cus-order-details-right" ng-show="orderModel.personName == null || orderModel.personName == ''"  ng-bind="orderModel.telePhone">
+		  	 					423423424
+		  	 				</span>
+		  	 				
+		  	 			</div>
+		  	 			<div class="cus-order-detail-bottom-item">
+		  	 				<span class="cus-order-details-left">
+		  	 					支付方式：
+		  	 				</span>
+		  	 				<span class="cus-order-details-right"  ng-show="orderModel.payType == 3">
+		  	 					线下支付
+		  	 				</span>
+		  	 				<span class="cus-order-details-right"  ng-show="orderModel.payType != 3">
+		  	 					线上支付
+		  	 				</span>
+		  	 			</div>
+		  	 			<div class="cus-order-detail-bottom-item">
+		  	 				<span class="cus-order-details-left">
+		  	 					订单类型：
+		  	 				</span>
+		  	 				<span class="cus-order-details-right" ng-show="orderModel.orderType == 2">
+		  	 					商品订单
+		  	 				</span>
+		  	 				<span class="cus-order-details-right" ng-show="orderModel.orderType == 1">
+		  	 					拍品订单
+		  	 				</span>
+		  	 			</div>
+		  	 			<div class="cus-order-detail-bottom-item">
+		  	 				<span class="cus-order-details-left">
+		  	 					创建时间：
+		  	 				</span>
+		  	 				<span class="cus-order-details-right" ng-bind="orderModel.orderTime*1000 | date :'yyyy/MM/dd'">
+		  	 					
+		  	 				</span>
+		  	 				<span class="cus-order-details-right"  ng-bind="orderModel.orderTime*1000 | date :'HH:mm:ss'">
+		  	 					
+		  	 				</span>
+		  	 			</div>
+		  	 			<!--<div class="cus-order-detail-bottom-item">
+		  	 				<span class="cus-order-details-left">
+		  	 					物流公司：
+		  	 				</span>
+		  	 				<span class="cus-order-details-right">
+		  	 					韵达快递
+		  	 				</span>
+		  	 			</div>-->
+		  	 			<div class="cus-order-detail-bottom-item" ng-show="orderModel.orderStatus == 3 || orderModel.orderStatus == 4">
+		  	 				<span class="cus-order-details-left">
+		  	 					运单编号：
+		  	 				</span>
+		  	 				<span class="cus-order-details-right" ng-show="orderModel.logistics_no != null && orderModel.logistics_no != ''" ng-bind="orderModel.logistics_no">
+		  	 					34234234355425
+		  	 				</span>
+		  	 				<span class="cus-order-details-right" ng-show="orderModel.logistics_no == null || orderModel.logistics_no == ''" >
+		  	 					暂无
+		  	 				</span>
+		  	 			</div>
+		  	 			<div class="cus-order-detail-bottom-item" ng-show="orderModel.orderStatus == 2">
+		  	 				<span class="cus-order-details-left">
+		  	 					运单编号：
+		  	 				</span>
+		  	 				<input ng-model="logNumber" type="text" onkeyup="value=value.replace(/[^\w\/]/ig,'')" />
+		  	 			</div>
+		  	 			
+		  	 		
+		  	 		
+		  	 		</div>
+		  	 		<!--<div class="logistics-box">
+		  	 				<div class="logistics-items">
+		  	 					<div class="round-loistics-left">
+		  	 						<div class="top-round-circle">
+		  	 							<img src="img/cusImg/logistics-un.png" />
+		  	 							
+		  	 						</div>
+		  	 						<div class="bot-icon-line-big bot-icon-line-active">
+		  	 							<img  src="img/cusImg/logistics-has.png" />
+		  	 						</div>
+		  	 						<img class="bot-icon-line" src="img/cusImg/logistics-un.png" />
+		  	 						<div class="cus-middle-line"></div>
+		  	 					</div>
+		  	 					<div class="round-loistics-right">
+		  	 						<div class="round-loistics-right-top">
+		  	 							范德萨发大水范德萨发大水发大师傅大师是打发打发阿斯ertretretretretretretretrretretretrete蒂芬阿斯蒂芬上大夫大夫阿斯蒂芬是
+		  	 						</div>
+		  	 						<div class="round-loistics-right-bottom">
+		  	 							2017/08/03  15:22:33
+		  	 						</div>
+		  	 					</div>
+		  	 				</div>
+		  	 				
+		  	 				
+		  	 			</div>-->
+		  	 			<div class="cus-order-item-bottom-down" style="padding-right:6vw;border-top:1vw solid #F5F5F5;margin-bottom:5vw;padding-bottom: 1vw;;">
+			  	 			<div class="cus-order-item-btn add-color-btn" ng-show="orderModel.orderStatus == 1" ng-click="cancleOrSure(0)">
+			  	 				确认完成
+			  	 			</div>
+			  	 			<div class="cus-order-item-btn  add-color-btn" ng-show="orderModel.orderStatus == 1" ng-click="cancleOrSure(1)">
+			  	 				取消订单
+			  	 			</div>
+		  	 			    <div class="cus-order-item-btn add-color-btn" ng-show="orderModel.orderStatus == 2" ng-click="sendGoods()">
+			  	 				发货
+			  	 			</div>
+		  	 			
+		  	 		    </div>
+		  	 	</div>
+		</div>
+		
+	</body>
+    
+	<!--系统js-->
+	
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+    <script src="js/layer.js"></script>
+    <script src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/confirmTip.js" ></script>
+     <script src="js/app.js"></script>
+     
+	<script>
+		
+		  
+			if (typeof localStorage === 'object') {
+			    try {
+					localStorage.setItem('localStorage', 1);
+					localStorage.removeItem('localStorage');
+				} catch (e) {
+					Storage.prototype._setItem = Storage.prototype.setItem;
+					Storage.prototype.setItem = function() {};
+					$dialog.msg('为了正常访问，请关闭无痕模式');
+				}
+			}
+
+
+	</script>
+	<!--插件-->
+	<script type="text/javascript" src="js/fastclick.js" ></script>
+	<!--controller-->
+	<script type="text/javascript" src="controller/orderDetailController.js" ></script>
+	<script>
+		if(window.screen.width < 375){
+			$('.user-input').css('margin-top','5vh');
+		}
+		
+		
+		$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		
+//		    		location.href = pageUrl.LOGIN_PAGE;
+		    		location.href = pageUrl.ORDER_LIST;
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+		
+	</script>
+</html>
+
+

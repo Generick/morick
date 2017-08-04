@@ -139,3 +139,18 @@ button{
     transition: 0s
 }
 
+.has-no-data{
+	display: none;
+	width:100%;
+	height:178;
+	padding-top:25vw;
+	padding-bottom:15vw;
+	text-align: center;
+	float:left;
+}
+
+.has-no-data img{
+	width:140px;
+	height:140px;
+	margin:0 auto;
+}

@@ -24,7 +24,10 @@
 			<img src="img/personal-enter.png"> 
 		</div>-->
 		<!--加载动画-->
-		<div class="animation">
+		<div class="animation" style="position: fixed;z-index: 6666;left:0;top:0;background: #FFFFFF;">
+			<img src="img/loading.gif" />
+		</div>
+		<div class="animation66" style="z-index: 6666;">
 			<img src="img/loading.gif" />
 		</div>
 		<!--<div class="fix-clock">
@@ -42,26 +45,28 @@
 			<span id="changing-number">10</span>
 			<span id="changing-words">s</span>
 	    </div>-->
-		<div class="container scroll fullwidthHtml" style="background-color: #fff !important;padding:0.8%;margin-bottom: 60px;overflow:hidden;height:100%;">
-			<div class="list" id="list-empty" style="background-color: #fff;overflow: hidden;padding-bottom: 0;">
+	    <div class="tab-choose-hundred">
+	    	<div class="tab-under-line"></div>
+	    	<div class="tab-choose-hundred-item" ng-click="toChooseTab(0)">全部</div>
+	    	<div class="tab-choose-hundred-item" ng-click="toChooseTab(1)">百元品</div>
+	    	<div class="tab-choose-hundred-item" ng-click="toChooseTab(2)">千元品</div>
+	    	<div class="tab-choose-hundred-item" ng-click="toChooseTab(3)">万元品</div>
+	    </div>
+		<div class="container scroll fullwidthHtml" style="background-color: #fff !important;padding:0.8%;margin-bottom: 60px;overflow:hidden;height:100%;padding-top:11vw">
+			
+			<div class="has-no-data">
+				 	<img src="img/icon-empty-1.png" /> 
+				 	<span style="width:100%;line-height:25px;text-align: center;display: block;font-size:16px">暂无商品</span>
+		    </div>
+			<div class="list" id="list-empty" style="background-color: #fff;overflow: hidden;padding-bottom: 0;padding: 1vw 5px 10px 5px;">
 				<ul id="selected-ul">
 					<div on-finish-render-filters class="oneList sell-list-item" style="position: relative;"  id="test_{{item.commodity_id}}"  ng-click="onClickToAuctionHistoryDetail(item)" ng-repeat="item in auctionHistoryModel.TMHList">
-						<!--李小波 改动-->
 						
-						<!--<div class="sell-list-item-img" style="background-image: url({{item.pictures}})">
-						
-						</div>-->
 						<div class="sell-list-item-img" style="position: relative;">
-							<!--<img ng-src="{{item.pictures}}" style="border-radius: 1px;"/>-->
-							<!--<div  class="shade-pic" ng-show="item.info.stock_num == 0">
-								<img src="img/newPic/sell-out-i.png">
-							</div>-->
 							
 							<div class="create-img-box">
 								<img ng-src="{{item.pictures}}">
-								<!--<div class="masking">
-									<img src="img/newPic/sell-out-i.png"> 
-								</div>	-->
+								
 							</div>
 							
 						</div>
@@ -70,21 +75,19 @@
 						</div>
 						<div class="sell-list-item-price-box">
 							
-							<!--<div class="sell-list-item-price-word" ng-bind="'￥'+item.info.viewPrice">
-								
-							</div>-->
+							
 							<div style="line-height: 25px;height:25px;text-align: center;color:#C4996D" ng-show="item.info.stock_num == 0" ng-if="item.info.stock_num == 0">已售</div>
 							<span style="color:#C4996D;font-size:13px;display:block;line-height: 25px;height:25px;width:12px;text-align: center;" ng-show="item.info.stock_num != 0">￥</span>
 							<div class="sell-list-item-price-word" id="sb_{{item.commodity_id}}" ng-show="item.info.stock_num != 0">
 							    <div class="flip" ng-class = "item.newName">
 							      
 							        <div class="price-div">
-							          <!--<div class="w-k number"></div>-->
+							          
 							          <div class="q-k number"></div>
 							          <div class="h-k number"></div>
 							          <div class="t-k number"></div>
 							          <div class="k number"></div>
-							          <!--<div class="comma sign">,</div>-->
+							        
 							          <div class="h number"></div>
 							          <div class="t number"></div>
 							          <div class="single number"></div>
@@ -99,6 +102,7 @@
 						</div>
 					</div>
 			   </ul>
+			  
             </div>
 
 <!--			<div class="sell-list-item"  ng-click="onClickToAuctionHistoryDetail()">
@@ -146,13 +150,15 @@
 					</div>
 				</div>
 			</div>-->
-			<div class="no-data" style="height:70vh">暂无数据！</div>
+			<!--<div class="no-data" style="height:70vh">暂无数据！</div>-->
 		</div>
         
         <div class="goods-cars">
         	
         </div>
-        
+         <div class="shade-div-nodata">
+					没有更多数据了！
+				</div>
         <div id="acfixed-shade"  ng-click="acOkToShut()">
         	<div class="acmodied-box" id="acsure-remark">
 			    <div class="acvipMark-box">

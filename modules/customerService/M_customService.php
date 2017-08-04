@@ -147,10 +147,11 @@ class M_customService extends My_Model
     }
 
     //添加操作记录
-    function addOPREC($userId, $fromStatus, $toStatus)
+    function addOPREC($userId, $order_no, $fromStatus, $toStatus)
     {
     	$data = array(
     		'userId' => $userId,
+    		'order_no' => $order_no,
     		'fromStatus' => $fromStatus,
     		'toStatus' => $toStatus,
     		'opTime' => time(),

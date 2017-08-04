@@ -176,21 +176,55 @@ var initTab = {
             }
             else{
             	
+//          	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
+//  			   
+//	    			if(JSON.stringify(data) == 'true'){
+//	    				
+//      				location.href = pageUrl.PERSON_CENTER;
+//      				
+//	    			}
+//	    			else{
+//	    				
+//			       		 	localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+//		        			
+//		        			location.href = pageUrl.LOGIN_PAGE;
+//	    			}
+//  		
+//  		    });
+    		    
+    		    
+    		if(commonFu.isEmpty(localStorage.getItem(localStorageKey.TOKEN)))
+			{   
+				
+	       		localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+        		location.href = pageUrl.LOGIN_PAGE;
+        		
+			}
+            else
+            {   
+            	
             	jqAjaxRequest.asyncAjaxRequest(apiUrl.API_JUDGE_ISLOGIN, {}, function(data){
     			   
-	    			if(JSON.stringify(data) == 'true'){
+	    			if(JSON.stringify(data)  == 'true'){
 	    				
         				location.href = pageUrl.PERSON_CENTER;
         				
 	    			}
 	    			else{
 	    				
-			       		 	localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+			       		localStorage.setItem(localStorageKey.DEFAULT, pageUrl.PERSON_CENTER);
+		        		$dialog.msg("会话过期，请先登录！");
+		        		setTimeout(function(){
 		        			
 		        			location.href = pageUrl.LOGIN_PAGE;
+		        		},1000)
+		        		
+		        		
 	    			}
     		
     		    });
+
+            }
     		
             }
         }

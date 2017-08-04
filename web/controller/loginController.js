@@ -10,6 +10,8 @@ var LoginCtrl =
 {
     scope : null,
     
+    isClickedCode : false,
+    
     loginModel : 
     {
     	userType : 1,
@@ -87,7 +89,54 @@ var LoginCtrl =
     onEvent: function()
     {
     	var self = this;
-
+        
+        self.scope.toShadeTel = function(){
+        	
+        	if(parseInt(self.loginModel.platformId.length)  == 11)
+        	{   
+        		if(commonFu.isLegalPhone(self.loginModel.platformId))
+        		{
+        			$(".login-input input").removeClass("input-tel-shade");
+        			$(".mobile-code").addClass("input-code-shade");
+        		}
+        		
+        	}
+        	
+        	
+        };
+        
+        
+        self.scope.toShadePass = function(){
+        	
+        	
+        	if(parseInt(self.loginModel.platformId.length)  == 11)
+	        {   
+	        	if(commonFu.isLegalPhone(self.loginModel.platformId))
+	        	{
+	        		$(".login-input input").removeClass("input-tel-shade");
+	        		if(self.isClickedCode)
+	        		{
+	        			$(".mobile-code").removeClass("input-code-shade");
+	        			if(parseInt(self.loginModel.password.length)==4)
+	        			{
+	        				$("#login-pass-input").removeClass("input-code-shade");
+	        				$("#download-btn").addClass("input-tel-shade");
+	        			}
+	        			
+	        		}
+	        	
+	        		
+	        			
+	        		
+	        	}
+	        		
+	        }
+        	
+        };
+        
+        
+     
+        
     	//获取验证码
 		self.scope.onClickGetCode = function()
 		{
@@ -119,14 +168,26 @@ var LoginCtrl =
                     mobile : self.loginModel.platformId,
                     type : 2
                 };
-
+              
+                if(parseInt(self.loginModel.platformId.length)  == 11)
+	        	{   
+	        		if(commonFu.isLegalPhone(self.loginModel.platformId))
+	        		{
+	        			$(".login-input input").removeClass("input-tel-shade");
+	        			self.isClickedCode = true;
+	        			$(".mobile-code").removeClass("input-code-shade");
+	        			
+	        			$("#login-pass-input").addClass("input-code-shade");
+	        		}
+	        		
+	        	}
                 jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_MOBILE_CODE, params, function(data){})
             }
 		};
     	
     	//登录
     	self.scope.onClickLogin = function ()
-        {
+        {   
         	var param = {}; 
         	param.userType = self.loginModel.userType;
         	param.platform = self.loginModel.platform;
