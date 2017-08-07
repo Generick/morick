@@ -95,7 +95,8 @@ var OrderCtrl = {
         	 params.orderStatus = self.orderModel.curOrderType;
         }
         if(self.orderTypeModel.id != 0){    
-            params.orderType = self.orderTypeModel.id;
+//          params.orderType = self.orderTypeModel.id;
+ 			params.orderType = 2;
         }
         if(!_utility.isEmpty(self.orderModel.keywords)){
             params.likeStr = self.orderModel.keywords
@@ -179,6 +180,7 @@ var OrderCtrl = {
         self.scope.toSearchOrder = function(){
         	
         	self.getOrders();
+        	
         };
         
         

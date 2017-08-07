@@ -12,9 +12,9 @@ var tab = [
     
     
     
-    {title: '学', isActive: false, pic: ["img/bottom/schUn.png","img/bottom/schHas.png"],id:1},
-    {title: '拍', isActive: false, pic: ["img/bottom/paiUn2.png","img/bottom/paiHas.png"],id:2},
-    {title: '淘', isActive: false, pic: ["img/bottom/taoUn.png","img/bottom/taoHas.png"],id:3},
+    {title: '雅学院', isActive: false, pic: ["img/bottom/schUn.png","img/bottom/schHas.png"],id:1},
+    {title: '拍场', isActive: false, pic: ["img/bottom/paiUn2.png","img/bottom/paiHas.png"],id:2},
+    {title: '优选', isActive: false, pic: ["img/bottom/taoUn.png","img/bottom/taoHas.png"],id:3},
     {title: '我', isActive: false, pic: ["img/bottom/mineUn.png","img/bottom/mineHas.png"],id:4}
    
 ];

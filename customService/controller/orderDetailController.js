@@ -25,7 +25,8 @@ var pusherCtr = {
 		orderTime : null,
 		orderStatus : null,
 		userId : null,
-		logistics_no : null
+		logistics_no : null,
+		telePhoneNum : null
 	},
 	
 	
@@ -66,6 +67,7 @@ var pusherCtr = {
 				self.orderModel.orderNum = data.orderInfo.order_no;
 				self.orderModel.personName = data.orderInfo.acceptName;
 				self.orderModel.telePhone = data.orderInfo.mobile;
+				self.orderModel.telePhoneNum = data.orderInfo.telephone;
 				self.orderModel.addRess = data.orderInfo.province + data.orderInfo.city + data.orderInfo.district + data.orderInfo.address;
 				self.orderModel.goodName = data.orderInfo.orderGoods[0].commodity_name;
 				self.orderModel.buyNumber = data.orderInfo.orderGoods[0].goodsNum;

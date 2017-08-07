@@ -88,6 +88,8 @@ class A_order extends Admin_Controller
         {
             $whereArr['orderType'] = $this->input->post('orderType');
         }
+        //需求更改 只需要商品订单，不需要拍品订单
+        $whereArr['orderType'] = 2;//2商品订单 1拍品订单
 
         $orderList = array();
         $count = 0;

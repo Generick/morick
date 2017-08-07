@@ -570,6 +570,30 @@ class M_order extends My_Model
         }
         $url = rtrim($url, '&');
         $ret['url'] = $url;
+        if ($payType == 5) 
+        {
+            $result = $this->sendHTTP($url);
+            log_message('error', '----------third pay return data--------:'.$result);
+            $arr = json_decode($ret, true);
+            $ret['prepayInfo'] = $arr;
+        }
+    }
+
+    //发送HTTP请求
+    function sendHTTP($url, $data = array())
+    {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+        if (!empty($data)){
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        }
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($curl);
+        curl_close($curl);
+        return $output;
     }
 
 
@@ -900,7 +924,7 @@ class M_order extends My_Model
     {
         log_message('error', '-------r-eceived data-------:'.json_encode($_REQUEST));
         $order_no = isset($_REQUEST['userOrderNo'])?$_REQUEST['userOrderNo']:'';
-        log_message('error', '-|-|-|-|receive order_no:'.$order_no);
+        log_message('error', '-|-|-|-|receive order_no-----------:'.$order_no);
         if (empty($order_no))
         {
             return;
