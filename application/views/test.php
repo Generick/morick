@@ -251,7 +251,7 @@
             "merchant/U_merchant/modCommodity":{'commodity_id':1,'modInfo':'{"mch_commodity_name":"modName"}',"说明":"商户修改自己商品"},
             "merchant/U_merchant/delCommodity":{'commodity_id':1,"说明":"商户删除自己商品"},
             "merchant/U_merchant/merchantRequest":{'commodity_id':1,'requestType':1,'userId':23,"说明":"商户请求接口 requestType请求类型1上架申请2下架申请3商品同步申请"},
-            "merchant/U_merchant/addCommodity":{'userId':'23','info':'{"mch_commodity_name":"new name","mch_commodity_desc":"new desc", "mch_commodity_cover":"htttp://xxx.jpg","mch_commodity_detail":"new detail", "mch_commodity_price":100, "mch_bid_price":50,"mch_stock_num":5000, "mch_commodity_pic":["http://xxx.jpg","http://123.jpg"],"mch_annualized_return":"20","mch_commodity_attr":0}',"说明":"商户添加商品"},
+            "merchant/U_merchant/addCommodity":{'userId':'23','info':'{"mch_commodity_name":"new name","mch_commodity_desc":"new desc", "mch_commodity_cover":"htttp://xxx.jpg","mch_commodity_detail":"new detail", "mch_commodity_price":100, "mch_bid_price":50,"mch_stock_num":5000, "mch_commodity_pic":["http://xxx.jpg","http://123.jpg"],"mch_annualized_return":"20","mch_commodity_attr":0,"videoURL":""}',"说明":"商户添加商品 videoURL 商品视频地址"},
             "merchant/U_merchant/getUnReadMSGList":{'startIndex':0,'num':10,'userId':23,'说明':'商户获取未读消息'},
             "merchant/U_merchant/getHasReadMSGList":{'startIndex':0,'num':10,'userId':23,'说明':'商户获取已读消息'},
             "merchant/U_merchant/viewMSG":{'userId':23,'msg_id':10,'说明':'商户阅读消息'},

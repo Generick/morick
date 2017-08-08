@@ -561,7 +561,8 @@ class M_order extends My_Model
         {
             $params['openId'] = $openId;
         }
-        $url = "http://pay.uerbx.com/xqh/financial/pay?";
+        //$url = "http://pay.uerbx.com/xqh/financial/pay?";
+        $url = "http://139.196.51.152:8080/xqh/financial/pay?";
         // example url
         //http://host/xqh/financial/pay?payUserId=1&appId=1&money=1&time=1494252321&payType=1&sign=7ceb9f192d455868e9353f297f320c97&userOrderNo=3&userParam=param3
         foreach ($params as $k => $v) 
@@ -573,8 +574,9 @@ class M_order extends My_Model
         if ($payType == 5) 
         {
             $result = $this->sendHTTP($url);
-            log_message('error', '----------third pay return data--------:'.$result);
-            $arr = json_decode($ret, true);
+            log_message('error', '----------request URL--------:'.$url);
+            log_message('error', '----------third pay PUBLIC PAY return data--------:'.$result);
+            $arr = is_array($result)?$result:json_decode($result, true);
             $ret['prepayInfo'] = $arr;
         }
     }

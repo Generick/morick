@@ -42,3 +42,52 @@ ERROR - 2017-08-07 16:31:44 --> [methodError]:[]:F:\work\program\server\applicat
 ERROR - 2017-08-07 16:32:09 --> user:15balance change. the transactionType:12before:6667.50 after:6667.50
 ERROR - 2017-08-07 16:32:10 --> Update user failed: 15
 ERROR - 2017-08-07 16:32:10 --> Save user failed: 15
+ERROR - 2017-08-07 16:32:11 --> ---|----|---start continue pay---|------|----
+ERROR - 2017-08-07 16:32:11 --> continue pay order params:-------->{"order_no":"wx20170807990153","userId":"15","deliveryType":"0","orderTime":"1502094777","goodsPrice":"4","payPrice":400,"orderType":2,"orderStatus":1,"payType":"11","buyNum":"1"}
+ERROR - 2017-08-07 16:33:19 --> user:15balance change. the transactionType:12before:6667.50 after:6667.50
+ERROR - 2017-08-07 16:33:19 --> Update user failed: 15
+ERROR - 2017-08-07 16:33:19 --> Save user failed: 15
+ERROR - 2017-08-07 16:39:34 --> ---|----|---start continue pay---|------|----
+ERROR - 2017-08-07 16:39:34 --> continue pay order params:-------->{"order_no":"wx20170807469594","userId":"15","deliveryType":"0","orderTime":"1502094849","goodsPrice":"4","payPrice":400,"orderType":2,"orderStatus":1,"payType":"11","buyNum":"1"}
+ERROR - 2017-08-07 16:42:20 --> user:15balance change. the transactionType:12before:6667.50 after:6667.50
+ERROR - 2017-08-07 16:42:20 --> Update user failed: 15
+ERROR - 2017-08-07 16:42:20 --> Save user failed: 15
+ERROR - 2017-08-07 16:42:22 --> ---|----|---start continue pay---|------|----
+ERROR - 2017-08-07 16:42:22 --> continue pay order params:-------->{"order_no":"wx20170807376045","userId":"15","deliveryType":"0","orderTime":"1502095393","goodsPrice":"1","payPrice":100,"orderType":2,"orderStatus":1,"payType":"11","buyNum":"1"}
+ERROR - 2017-08-07 16:43:24 --> user:15balance change. the transactionType:12before:6667.50 after:6667.50
+ERROR - 2017-08-07 16:43:24 --> Update user failed: 15
+ERROR - 2017-08-07 16:43:24 --> Save user failed: 15
+ERROR - 2017-08-07 16:44:18 --> ---|----|---start continue pay---|------|----
+ERROR - 2017-08-07 16:44:18 --> continue pay order params:-------->{"order_no":"wx20170807619571","userId":"15","deliveryType":"0","orderTime":"1502095444","goodsPrice":"11","payPrice":1100,"orderType":2,"orderStatus":1,"payType":"11","buyNum":"1"}
+ERROR - 2017-08-07 16:44:27 --> ---|----|---start continue pay---|------|----
+ERROR - 2017-08-07 16:44:27 --> continue pay order params:-------->{"order_no":"wx20170807619571","userId":"15","deliveryType":"0","orderTime":"1502095444","goodsPrice":"11","payPrice":1100,"orderType":2,"orderStatus":1,"payType":"11","buyNum":"1"}
+ERROR - 2017-08-07 16:46:39 --> [methodError]:[]:F:\work\program\server\application\controllers/account.php:getMobileCode:{"mobile":"15877390255","type":"2"}
+ERROR - 2017-08-07 16:48:16 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:48:26 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:48:32 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:48:34 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:48:35 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:48:35 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:48:37 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:48:38 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:48:38 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:49:34 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:49:35 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:49:56 --> user:15balance change. the transactionType:12before:6667.50 after:6667.50
+ERROR - 2017-08-07 16:49:56 --> Update user failed: 15
+ERROR - 2017-08-07 16:49:57 --> Save user failed: 15
+ERROR - 2017-08-07 16:50:01 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:50:04 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:50:04 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:50:05 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:50:05 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:50:05 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:50:05 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:50:34 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095664","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 16:53:24 --> ---|----|---start continue pay---|------|----
+ERROR - 2017-08-07 16:53:24 --> continue pay order params:-------->{"order_no":"wx20170807579951","userId":"15","deliveryType":"0","orderTime":"1502095688","goodsPrice":"4","payPrice":400,"orderType":2,"orderStatus":1,"payType":"11","buyNum":"1"}
+ERROR - 2017-08-07 16:54:43 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502095688","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-07 17:04:12 --> user:15balance change. the transactionType:12before:6667.50 after:6667.50
+ERROR - 2017-08-07 17:04:12 --> Update user failed: 15
+ERROR - 2017-08-07 17:04:12 --> Save user failed: 15
+ERROR - 2017-08-07 18:40:14 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/Order.php:continuePayTest:{"openId":""}

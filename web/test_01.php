@@ -1,3 +1,5 @@
+
+
 <?php
 require_once "wx/jssdk.php";
 		$jssdk = new JSSDK("wx8aa4883c737caaaa", "620937dd20bdecf9e84f369d2ef64305");
@@ -70,6 +72,7 @@ echo 'not in wechat';
     }
 ?>
 
+
 <!DOCTYPE html>
 <html ng-app="app">
 	<head>
@@ -87,9 +90,9 @@ echo 'not in wechat';
 		<!--加载动画-->
 		
 		     <div>dsfdsgdgdfsgdsgdfsgdfsgdfsgdfsgdfgdfgdgdgdfgdfgdfgdfgdfgdfgdfgdfgdfgdsgdf</div>
-		     <div ng-click="to()">下订单</div>
+		     <div ng-click="to()" style="width:100px;height:30px;line-height:30px;text-align: center;">下订单</div>
 		<!--底部tab-->
-	    <div ng-include="'module/tab/tab.html'" style="z-index: 666;position: fixed;bottom:0px;left:0px;width:100%;height:54px;overflow: hidden;"></div>
+	  
 	</body>
     
 	<!--系统js-->
@@ -124,74 +127,13 @@ echo 'not in wechat';
 	<script src="js/commonArr.js"></script>
 	<script src="module/tab/tab.js"></script>   
 	
-	<script>
-		$(function(){
-			
-			//监听微信返回按钮
-			pushHistory();
-			var bool=false;  
-            setTimeout(function(){  
-                bool=true;  
-            },1000);
-		    window.addEventListener("popstate", function(e) {
-
-		    	if (bool)
-		    	{    
-		    		if(localStorage.getItem("comeWithGuess") == 4)//表示从个人中心跳转过来的
-			        {   
-			        
-			        	location.href = pageUrl.PERSON_CENTER;
-			        }
-			        else if(localStorage.getItem("comeWithGuess") == 5)//表示从个人信息跳转过来的
-			        {   
-			        	
-			        	location.href = pageUrl.MY_MESSAGE;
-			        }
-		    		else
-		    		{       
-		    			 
-		    			    sessionStorage.setItem("needPageId",1)
-		    			  
-			        	    if(localStorage.getItem("messlistOrauction") == 1)//表示从从消息中心跳转过来的
-			        	    {
-			        	    	
-			        	    	location.href = pageUrl.MY_MESSAGE;
-			        	    }
-			    			else{
-			    				
-			    				
-			    				var obj = new Base64();
-						   	
-								var id_base64 = obj.encode(specialSellController.thisDataId);
-										    	
-								var thisPage_base64 = obj.encode(specialSellController.thisDetailPage);
-										
-								var str =  pageUrl.AUCTION_HISTORY  +"?backPage=" +thisPage_base64 + "&thisDataId=" + id_base64;		    	
-									
-								location.href = encodeURI(str);
-//			    				
-//			    				location.href = pageUrl.AUCTION_HISTORY + "?backPage=" + specialSellController.thisDetailPage + "&thisDataId=" + specialSellController.thisDataId;
-			    			}
-			    		   
-		    		}
-		    	}
-		    	pushHistory();
-		        
-		    }, false); 
-		    function pushHistory(){
-		        var state = {
-		            title: "title",
-		            url: "#"
-		        }; 
-		        window.history.pushState(state, "title", "#");
-		    }
-		})
-	</script>
+	
 	<!--插件-->
 	<script type="text/javascript" src="js/fastclick.js" ></script>
 	<script type="text/javascript" src="swiper/swiper.min.js" ></script>
 	<!--controller-->
 	<script src="controller/test_01_Ctr.js" ></script>
+	
 	<script>
 
 		app.controller("ctrl", function ($scope)
@@ -199,16 +141,38 @@ echo 'not in wechat';
 			
 			sessionStorage.setItem("itIsAuctionPage",1);
 		    
-		    var wxParams = {};
-	        wxParams.appId =  '<?php echo $signPackage["appId"];?>';
-	        wxParams.timestamp =  '<?php echo $signPackage["timestamp"];?>';
-	        wxParams.nonceStr =  '<?php echo $signPackage["nonceStr"];?>';
-	        wxParams.signature =  '<?php echo $signPackage["signature"];?>';
-	       
-		    ctrl.init($scope,wxParams); 
+		    ctrl.init($scope); 
 		  
 		});
-
+		
+		
+        var ctrl = {
+        	
+        	scope : null,
+        	
+        	init : function($scope){
+        		
+        		
+        		this.scope = $scope;
+        		
+        		this.eventBind()
+        	},
+        	
+        	eventBind : function(){
+        		var self = this;
+        		
+        		
+        		self.scope.to = function(){
+        			
+        			location.href = "testPay.php";
+        			
+        		}
+        		
+        	}
+        }
+        
+        
+        
 	</script>
 	
 </html>
