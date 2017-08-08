@@ -37,3 +37,32 @@ ERROR - 2017-08-08 16:46:07 --> [methodError]:[openId不能为空]:F:\work\progr
 ERROR - 2017-08-08 16:46:07 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"143","clientPrice":"1","clientTime":"1502181920","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
 ERROR - 2017-08-08 16:46:07 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"143","clientPrice":"1","clientTime":"1502181920","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
 ERROR - 2017-08-08 16:46:48 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"145","clientPrice":"4","clientTime":"1502181120","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-08 18:10:15 --> [methodError]:[]:F:\work\program\server\application\controllers/merchant/U_merchant.php:merchantRequest:{"commodity_id":"99","userId":"34","requestType":"1"}
+ERROR - 2017-08-08 18:25:32 --> [methodError]:[]:F:\work\program\server\application\controllers/account.php:getMobileCode:{"mobile":"15877390255","type":"2"}
+ERROR - 2017-08-08 18:25:59 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"148","clientPrice":"3","clientTime":"1502187998","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-08 18:26:09 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"148","clientPrice":"3","clientTime":"1502187998","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-08 18:26:12 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"148","clientPrice":"3","clientTime":"1502187998","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-08 18:26:12 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"148","clientPrice":"3","clientTime":"1502187998","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-08 18:26:12 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"148","clientPrice":"3","clientTime":"1502187998","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-08 18:26:50 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":"41"}
+ERROR - 2017-08-08 18:27:14 --> [methodError]:[]:F:\work\program\server\application\controllers/account.php:getMobileCode:{"mobile":"15877390255","type":"2"}
+ERROR - 2017-08-08 18:27:55 --> user:15balance change. the transactionType:12before:6667.50 after:6667.50
+ERROR - 2017-08-08 18:27:55 --> Update user failed: 15
+ERROR - 2017-08-08 18:27:55 --> Save user failed: 15
+ERROR - 2017-08-08 18:27:57 --> ---|----|---start continue pay---|------|----
+ERROR - 2017-08-08 18:27:57 --> continue pay order params:-------->{"order_no":"wx20170808571435","userId":"15","deliveryType":"0","orderTime":"1502188095","goodsPrice":"4","payPrice":400,"orderType":2,"orderStatus":1,"payType":"11","buyNum":"1"}
+ERROR - 2017-08-08 18:28:06 --> user:15balance change. the transactionType:12before:6667.50 after:6667.50
+ERROR - 2017-08-08 18:28:06 --> Update user failed: 15
+ERROR - 2017-08-08 18:28:06 --> Save user failed: 15
+ERROR - 2017-08-08 18:28:09 --> ---|----|---start continue pay---|------|----
+ERROR - 2017-08-08 18:28:09 --> continue pay order params:-------->{"order_no":"wx20170808493705","userId":"15","deliveryType":"0","orderTime":"1502188095","goodsPrice":"4","payPrice":400,"orderType":2,"orderStatus":1,"payType":"12","buyNum":"1"}
+ERROR - 2017-08-08 18:28:23 --> user:15balance change. the transactionType:12before:6667.50 after:6667.50
+ERROR - 2017-08-08 18:28:23 --> Update user failed: 15
+ERROR - 2017-08-08 18:28:23 --> Save user failed: 15
+ERROR - 2017-08-08 18:28:36 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"148","clientPrice":"3","clientTime":"1502188158","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-08 18:28:37 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"148","clientPrice":"3","clientTime":"1502188158","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-08 18:28:38 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"148","clientPrice":"3","clientTime":"1502188158","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-08 18:28:38 --> [methodError]:[openId不能为空]:F:\work\program\server\application\controllers/order/U_order.php:wxPayTMH:{"userId":"15","commodity_id":"148","clientPrice":"3","clientTime":"1502188158","buyNum":"1","payEnv":"5","returnUrl":"http:\/\/192.168.0.163\/auction\/personCenter\/orderDetail.html","openId":""}
+ERROR - 2017-08-08 18:28:39 --> user:15balance change. the transactionType:12before:6667.50 after:6667.50
+ERROR - 2017-08-08 18:28:39 --> Update user failed: 15
+ERROR - 2017-08-08 18:28:39 --> Save user failed: 15

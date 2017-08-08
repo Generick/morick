@@ -541,7 +541,7 @@ class M_order extends My_Model
     function otherThirdPay($order_no, $money, $payType, $openId = '', &$ret)
     {
         //md5(payUserId + appId + money + time + key),
-        $money = 1;//测试用的支付金额，单位是分
+        //$money = 1;//测试用的支付金额，单位是分
         $payUserId = T_PAY_USER_ID; //2
         $appId = T_APP_ID;//8
         $key = T_KEY;//A85CE8F77D2917013D4963CEC6B7522E
@@ -992,7 +992,7 @@ class M_order extends My_Model
             );
         log_message('error', 'continue pay order params:-------->'.json_encode($orderInfo));
         if ($orderObj->payType-10 == 5 && empty($openId)) return ERROR_OPEN_ID_NULL;
-        $this->otherThirdPay($order_no, $totalPrice, $orderObj->payType-10, $openId, $res);
+        $this->otherThirdPay($order_no, $totalPrice*100, $orderObj->payType-10, $openId, $res);
         return ERROR_OK;
         //return $this->callPayAPI($orderInfo, $commodityObj, $orderInfo['payType'], $returnUrl, $res);
     }
