@@ -15,7 +15,7 @@
 	$_SESSION['id'] = isset($_GET['id'])?$_GET['id']:'';
 	$_SESSION['thisAcPage'] = isset($_GET['thisAcPage'])?$_GET['thisAcPage']:'';
 	$flag = strpos($_SERVER['HTTP_HOST'],'yawan365.com')>0?($_SERVER['SERVER_PORT'] == 80? true:false):false;
-	$flag = false;
+//	$flag = false;
     if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') == true && $flag) 
     {
 

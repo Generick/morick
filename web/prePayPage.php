@@ -45,7 +45,7 @@ $openId = isset($_SESSION['openId'])?$_SESSION['openId']:'';
 		    </div>
 		    
 		    
-		    <!--<div class="every-pay-way">
+		    <div class="every-pay-way">
 		    	<div class="every-pay-way-left">
 		    		<div class="every-pay-way-left-icon">
 		    			<img src="img/newPic/weixinpaytype.png"/>
@@ -66,7 +66,7 @@ $openId = isset($_SESSION['openId'])?$_SESSION['openId']:'';
 		    		</div>
 		    	</div>
 		    	<div class="every-pay-way-right" id="zhifubaopay"  ng-click="chooseIt(1)"></div>
-		    </div>-->
+		    </div>
 		    
 		    <div class="every-pay-way">
 		    	<div class="every-pay-way-left">
@@ -77,12 +77,13 @@ $openId = isset($_SESSION['openId'])?$_SESSION['openId']:'';
 		    			人工服务
 		    		</div>
 		    	</div>
-		    	<div class="every-pay-way-right  check-add-class" id="peoplepay" ng-click="chooseIt(2)"></div>
+		    	<div class="every-pay-way-right" id="peoplepay" ng-click="chooseIt(2)"></div>
 		    </div>
 		    <div class="bottom-pay-button" ng-click="underLinePay()">
 			    下订单
 			
 		   </div>
+		   <div style="width:100%;line-height:13vw;text-align: center;color:#C4996D;font-size:14px;float:left;">提醒：不包邮，运费到付</div>
 		    <!--<div class="big-pre-pay-box">
 		    	<div class="offline-payment">
 		    	<div class="payment-way-title">

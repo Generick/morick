@@ -359,7 +359,7 @@ var newPersonCenterCtrl =
             if(item.isRead == 0){
             	self.userHasReadMessage(item)
             }
-            if(item.msg_type !=0 && item.msg_type !=1)
+            if(item.msg_type !=0 && item.msg_type !=1 && item.msg_type !=2)
             {
             	
             
@@ -370,7 +370,7 @@ var newPersonCenterCtrl =
         				
         		},250)
             }
-            else if(item.msg_type == 0)
+            else if(item.msg_type == 0 || item.msg_type == 2)
             {   
 //          	alert(JSON.stringify(item))
             	var param = {};

@@ -40,4 +40,5 @@ Error::registerErrors(array(
     array('errDefine' => 'ERROR_ORDER_HAS_DELIVERED', 'errMsg' => '该订单已经发货'),
     array('errDefine' => 'ERROR_ORDER_HAS_CANCEL', 'errMsg' => '该订单已经取消'),
     array('errDefine' => 'ERROR_ORDER_HAS_RECEIVE', 'errMsg' => '该订单已经完成'),
+    array('errDefine' => 'ERROR_DELIVERY_INFO_NULL', 'errMsg' => '发货信息不能为空'),
 ));

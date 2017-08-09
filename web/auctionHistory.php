@@ -11,8 +11,8 @@
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<meta name="format-detection" content="telephone=no">
 		<meta name="format-detection" content="email=no">
-        <title>雅玩之家精选店，明码标价，童叟无欺</title>
-       
+        <!--<title>雅玩之家精选店，明码标价，童叟无欺</title>-->
+        <title>雅玩之家</title>
         <link rel="stylesheet" href="css/ui.base.css" />
         <link rel="stylesheet" href="css/selected.css" />
         <link rel="stylesheet" href="popUpModal/popUp.css" />
@@ -83,7 +83,7 @@
 							      
 							        <div class="price-div">
 							          
-							          <div class="q-k number"></div>
+							          <!--<div class="q-k number"></div>-->
 							          <div class="h-k number"></div>
 							          <div class="t-k number"></div>
 							          <div class="k number"></div>

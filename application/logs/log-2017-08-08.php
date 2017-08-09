@@ -66,3 +66,9 @@ ERROR - 2017-08-08 18:28:38 --> [methodError]:[openId不能为空]:F:\work\progr
 ERROR - 2017-08-08 18:28:39 --> user:15balance change. the transactionType:12before:6667.50 after:6667.50
 ERROR - 2017-08-08 18:28:39 --> Update user failed: 15
 ERROR - 2017-08-08 18:28:39 --> Save user failed: 15
+ERROR - 2017-08-08 19:10:14 --> [methodError]:[]:F:\work\program\server\application\controllers/account.php:getMobileCode:{"mobile":"13142434234","type":"2"}
+ERROR - 2017-08-08 19:11:02 --> [methodError]:[]:F:\work\program\server\application\controllers/account.php:getMobileCode:{"mobile":"13154050255","type":"2"}
+ERROR - 2017-08-08 19:28:52 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/u_user.php:getSelfInfo:[]
+ERROR - 2017-08-08 19:28:52 --> [methodError]:[重登录失败：令牌已超时!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":""}
+ERROR - 2017-08-08 19:40:12 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/u_user.php:getSelfInfo:[]
+ERROR - 2017-08-08 19:40:12 --> [methodError]:[重登录失败：令牌错误!]:F:\work\program\server\application\controllers/account.php:reLogin:{"userType":"1","token":"17fa045cfd9996274b475e99a1af0c43"}

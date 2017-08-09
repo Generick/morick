@@ -909,6 +909,12 @@ animation-fill-mode: both
 	
 }
 
+
+.special-sell-rich video{
+	width:100% !important;
+	height:auto !important;
+	
+}
 /*.special-sell-rich-title{
 	width:100%;
 	line-height:30px;

@@ -16,7 +16,8 @@ var specialPageController =
 	
 	buyGoodsName : '',
 	
-//	isShowZhiFuBao : false,
+	isShowZhiFuBao : false,
+	
 	
 	hasAddress : false,
 	
@@ -28,7 +29,7 @@ var specialPageController =
 	
 	userId : null,
 	
-	underPay : 2,
+	underPay : 0,
 	
 	detailPage : null,
 	
@@ -44,7 +45,7 @@ var specialPageController =
 		
 		this.isWeiXin();
 		
-//		this.scope.isShowZhiFuBao = this.isShowZhiFuBao;
+		this.scope.isShowZhiFuBao = this.isShowZhiFuBao;
 		
 		this.getUrlAndId();
 		
@@ -56,10 +57,13 @@ var specialPageController =
 	},
 	
 	  getUrlAndId : function(){
+	  	
+	  	
     	$('.container').css('opacity','0');
     	
     	$('.animation').css('display','block');
     	var self = this;
+    	
     	self.detailPage = localStorage.getItem("thisAcPage");
 		self.commId = localStorage.getItem("commodifyId");
 		if(sessionStorage.getItem("buyGoodsNumber") == null || sessionStorage.getItem("buyGoodsNumber") == undefined)
@@ -289,11 +293,12 @@ var specialPageController =
 							params.payEnv = 5;
 							params.returnUrl = returnurl;
                             params.openId = self.openId;
-                            
+                          
 							jqAjaxRequest.asyncAjaxRequest(apiUrl.API_PAY_COMMDIFY, params, function(data){
-								
-								   if(!commonFu.isEmpty(data.params))
+								    
+								   if(!commonFu.isEmpty(data))
 								   {
+								  
 								   	    self.underPay = 0;
 //								   	    console.log(JSON.stringify(data))
 //								   	    document.fm.version.value = data.params.version;
@@ -349,7 +354,7 @@ var specialPageController =
                                    
 //									if(!commonFu.isEmpty(data.url))
 //									{ 
-
+                                        
 //										sessionStorage.setItem("dataurl",data.url);
 										localStorage.removeItem(localStorageKey.orderNo);
 								   	    localStorage.setItem(localStorageKey.orderNo,data.order_no);
@@ -379,7 +384,7 @@ var specialPageController =
 //                                  alert(JSON.stringify(data))
 //									if(!commonFu.isEmpty(data.url))
 //									{
-
+                                       
 //										sessionStorage.setItem("dataurl",data.url);
 										localStorage.removeItem(localStorageKey.orderNo);
 								   	    localStorage.setItem(localStorageKey.orderNo,data.order_no);
@@ -436,13 +441,13 @@ var specialPageController =
 			var ua = window.navigator.userAgent.toLowerCase(); 
 			
 			if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-//				self.isShowZhiFuBao = false;
-//				self.scope.isShowZhiFuBao = self.isShowZhiFuBao;
+				self.isShowZhiFuBao = false;
+				self.scope.isShowZhiFuBao = self.isShowZhiFuBao;
 				return true;
 			}else
 			{   
-//				self.isShowZhiFuBao = true;
-//				self.scope.isShowZhiFuBao = self.isShowZhiFuBao;
+				self.isShowZhiFuBao = true;
+				self.scope.isShowZhiFuBao = self.isShowZhiFuBao;
 				return false; 
 			} 
 	    },

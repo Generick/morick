@@ -312,11 +312,11 @@ var OrderDetailCtrl = {
     		if (!commonFu.isEmpty(self.traces) && self.traces.length > 0)
     		{
     			self.traces[0].lastLogStyle = "logistics-active";
-    			self.traces[0].logisticsPic = "../img/personCenter/logistics_active.png";
+    			self.traces[0].logisticsPic = "img/personCenter/logistics_active.png";
     			for (var i = 1 ; i < self.traces.length; i ++)
 	    		{
 	    			self.traces[i].lastLogStyle = '';
-	    			self.traces[i].logisticsPic = "../img/personCenter/logistics_noactive.png";
+	    			self.traces[i].logisticsPic = "img/personCenter/logistics_noactive.png";
 	    		}
 	    		self.scope.traces = self.traces;
     			self.scope.$apply();
@@ -442,7 +442,7 @@ var OrderDetailCtrl = {
     				else if(self.orderDetailModel.orderInfo.payType == 11 || self.orderDetailModel.orderInfo.payType == 12 || self.orderDetailModel.orderInfo.payType == 15 || self.orderDetailModel.orderInfo.payType == 5 || self.orderDetailModel.orderInfo.payType == 6 || self.orderDetailModel.orderInfo.payType == 7)
     				{
 		    					jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GET_PERSONALDATA, {}, function(data){
-    			
+    			                    
     			                    var  hasAddress = false;
 					    			if(commonFu.isEmpty(data.shippingAddress))
 					    			{
@@ -494,17 +494,53 @@ var OrderDetailCtrl = {
 													params.order_no = self.orderDetailModel.order_no;
 													params.returnUrl = returnurl;
 	//												
+	                                                params.openId = self.openId;
+	
 													jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GO_ON_PAY, params, function(data){
 														
-														
-														if(!commonFu.isEmpty(data.url))
-														{
-																
-															location.href = data.url;
-																
-//																sessionStorage.setItem("payOrderId",data.order_no)
+														if(!commonFu.isEmpty(data.prepayInfo))
+														{      
+															
+															   function onBridgeReady(){
+															   	
+																    WeixinJSBridge.invoke(
+																        'getBrandWCPayRequest', {
+																            "appId":data.prepayInfo.payInfo.appId,     //公众号名称，由商户传入     
+																            "timeStamp":data.prepayInfo.payInfo.timeStamp,         //时间戳，自1970年以来的秒数     
+																            "nonceStr":data.prepayInfo.payInfo.nonceStr, //随机串     
+																            "package":data.prepayInfo.payInfo.package,     
+																            "signType":data.prepayInfo.payInfo.signType,         //微信签名方式：     
+																            "paySign":data.prepayInfo.payInfo.paySign //微信签名 
+																        },
+																        function(res){     
+																            if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+																            	
+																            	self.getOrderInfo()
+																            }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+																        }
+																    ); 
+																 };
+																if (typeof WeixinJSBridge == "undefined"){
+																    if( document.addEventListener ){
+																        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+																    }else if (document.attachEvent){
+																        document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+																        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+																    }
+													               
+																 }else{
+																    onBridgeReady();
+																 } 
 														}
-														
+//														if(!commonFu.isEmpty(data.url))
+//														{
+//															
+//														
+//															location.href = data.url;
+//																
+////																sessionStorage.setItem("payOrderId",data.order_no)
+//														}
+//														
 //														   if(!commonFu.isEmpty(data.params))
 //														   {
 													   	        
@@ -549,7 +585,7 @@ var OrderDetailCtrl = {
 													 	var params = {};
 														params.order_no = self.orderDetailModel.order_no;
 														params.returnUrl = returnurl;
-							
+							                             
 														jqAjaxRequest.asyncAjaxRequest(apiUrl.API_GO_ON_PAY, params, function(data){
 															
 //															alert(JSON.stringify(data))
@@ -665,5 +701,7 @@ var OrderDetailCtrl = {
     ngRepeatFinish: function() {
     	
 		this.scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent){});
-    }
+    },
+    
+   
 };

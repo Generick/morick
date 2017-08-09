@@ -113,13 +113,18 @@
 		  obj.k = parseInt((price.div(1000)) % 10);
 		  obj.tk = parseInt((price.div(10000)) % 10);
 		  obj.hk = parseInt((price.div(100000)) % 10);
-		  obj.qk = parseInt((price.div(1000000)) % 10);
+//		  obj.qk = parseInt((price.div(1000000)) % 10);
 //		  obj.wk = parseInt((price.div(10000000)) % 10);
 		  return obj;
 		};
 		
 		function objToPrice(obj) {
-		  return obj.qk.mul(1000000).obj.hk.mul(100000).add(obj.tk.mul(10000))
+//		  return obj.qk.mul(1000000).obj.hk.mul(100000).add(obj.tk.mul(10000))
+//		      .add(obj.k.mul(1000)).add(obj.h.mul(100))
+//		      .add(obj.t.mul(10)).add(obj.single)
+//		      .add(obj.td.div(10)).add(obj.hd.div(100)).add(obj.qd.div(1000)).add(obj.wd.div(10000));
+		      
+		       return obj.hk.mul(100000).add(obj.tk.mul(10000))
 		      .add(obj.k.mul(1000)).add(obj.h.mul(100))
 		      .add(obj.t.mul(10)).add(obj.single)
 		      .add(obj.td.div(10)).add(obj.hd.div(100)).add(obj.qd.div(1000)).add(obj.wd.div(10000));
@@ -209,18 +214,23 @@
 		  obj.k = parseInt((price.div(1000)) % 10);
 		  obj.tk = parseInt((price.div(10000)) % 10);
 		  obj.hk = parseInt((price.div(100000)) % 10);
-		  obj.qk = parseInt((price.div(1000000)) % 10);
+//		  obj.qk = parseInt((price.div(1000000)) % 10);
 //		  obj.wk = parseInt((price.div(10000000)) % 10);
 		  return obj;
 		};
 		
 		function objToPrice2(obj) {
-		  return 
-		      obj.qk.mul(1000000).obj.hk.mul(100000).add(obj.tk.mul(10000))
+		  
+//		  return obj.qk.mul(1000000).obj.hk.mul(100000).add(obj.tk.mul(10000))
+//		      .add(obj.k.mul(1000)).add(obj.h.mul(100))
+//		      .add(obj.t.mul(10)).add(obj.single)
+//		      .add(obj.td.div(10)).add(obj.hd.div(100)).add(obj.qd.div(1000)).add(obj.wd.div(10000));
+		   
+		   
+		    return obj.hk.mul(100000).add(obj.tk.mul(10000))
 		      .add(obj.k.mul(1000)).add(obj.h.mul(100))
 		      .add(obj.t.mul(10)).add(obj.single)
 		      .add(obj.td.div(10)).add(obj.hd.div(100)).add(obj.qd.div(1000)).add(obj.wd.div(10000));
-		      
 //		       obj.wk.mul(10000000).obj.qk.mul(1000000).obj.hk.mul(100000).add(obj.tk.mul(10000))
 //		      .add(obj.k.mul(1000)).add(obj.h.mul(100))
 //		      .add(obj.t.mul(10)).add(obj.single)

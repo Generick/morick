@@ -64,6 +64,7 @@ var jqAjaxRequest =
 					$dialog.msg(errMsg);
 					setTimeout(function(){
 //                  	alert("ajax555"+JSON.stringify(data))
+					localStorage.setItem(localStorageKey.DEFAULT, location.href); //存储当前页面地址
                   	location.href = pageUrl.LOGIN_PAGE;
                     	
                     	
@@ -127,6 +128,7 @@ var jqAjaxRequest =
 //					alert("ajax9999"+JSON.stringify(data))
 //					alert(localStorage.getItem(localStorageKey.orderNo));
 //					alert(s_url)
+				localStorage.setItem(localStorageKey.DEFAULT, location.href); //存储当前页面地址
                 location.href = pageUrl.LOGIN_PAGE;
             }
 		});

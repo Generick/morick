@@ -18,16 +18,16 @@
         		display: none;
         	}
         </style>
-        <link rel="stylesheet" href="../css/ui.base.css" />
-        <link rel="stylesheet" href="../css/selected.css" />
-        <link rel="stylesheet" href="../css/person_center.css" />
-        <link rel="stylesheet" href="../popUpModal/popUp.css" />
-        <link href="../plugin/layerMobile/need/layer.css">
+        <link rel="stylesheet" href="css/ui.base.css" />
+        <link rel="stylesheet" href="css/selected.css" />
+        <link rel="stylesheet" href="css/person_center.css" />
+        <link rel="stylesheet" href="popUpModal/popUp.css" />
+        <link href="plugin/layerMobile/need/layer.css">
 	</head>
 	<body ng-controller="ctrl">
 		<!--加载动画-->
 		<div class="animation">
-			<img src="../img/loading.gif" />
+			<img src="img/loading.gif" />
 		</div>
 		<div class="container">
 			<div class="order-detail-title">
@@ -36,7 +36,7 @@
 			    <p ng-show="orderDetailModel.unPay && orderDetailModel.orderInfo.orderType == 2" style="text-align: justify;">请在72小时内完成付款，逾期未付款的订单将自动取消，但会影响您在「雅玩之家」的信用。</p>
 			</div>
 			<div ng-show="orderDetailModel.orderInfo.deliveryType == 0" class="accept-detail clear" ng-click="selAddress()">
-				<div class="accept-lf"><img src="../img/personCenter/address-icon.png" /></div>
+				<div class="accept-lf"><img src="img/personCenter/address-icon.png" /></div>
 				<div class="accept-mid">
 					<div>收货人: <span ng-bind="orderDetailModel.orderInfo.acceptName"></span><span ng-bind="orderDetailModel.orderInfo.mobile" style="margin-left: 10px;"></span></div>
 					<div>收货地址: <span ng-bind="orderDetailModel.orderInfo.addressAll"></span></div>
@@ -199,22 +199,22 @@
 				</form>	-->
 	</body>
 	<!--系统js-->
-	<script type="text/javascript" src="../js/weixin.js"></script> 
-	<script type="text/javascript" src="../js/zepto.min.js" ></script>
-	<script type="text/javascript" src="../js/angular.min.js" ></script>
-	<script type="text/javascript" src="../js/jqAjaxRequest.js" ></script>
-	<script type="text/javascript" src="../js/common.js" ></script>
-	<script type="text/javascript" src="../js/config.js" ></script>
-	<script type="text/javascript" src="../popUpModal/confirmTip.js" ></script>
-    <script src="../plugin/layerMobile/layer.js"></script>
-    <script src="../module/dialog/dialog.js"></script>
-    <script src="../controller/app.js"></script>
-    <script src="../popUpModal/confirmDialog.js"></script> 
+	<script type="text/javascript" src="js/weixin.js"></script> 
+	<script type="text/javascript" src="js/zepto.min.js" ></script>
+	<script type="text/javascript" src="js/angular.min.js" ></script>
+	<script type="text/javascript" src="js/jqAjaxRequest.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+	<script type="text/javascript" src="popUpModal/confirmTip.js" ></script>
+    <script src="plugin/layerMobile/layer.js"></script>
+    <script src="module/dialog/dialog.js"></script>
+    <script src="controller/app.js"></script>
+    <script src="popUpModal/confirmDialog.js"></script> 
 	<!--controller-->
-	<script type="text/javascript" src="../controller/personCenter/orderDetailController.js" ></script>
+	<script type="text/javascript" src="controller/personCenter/orderDetailController.js" ></script>
 	
 	<!--插件-->
-	<script type="text/javascript" src="../js/fastclick.js" ></script>
+	<script type="text/javascript" src="js/fastclick.js" ></script>
     <script>
         $(function(){
             //监听微信返回按钮

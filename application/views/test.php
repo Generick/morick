@@ -174,7 +174,7 @@
             //region 订单列表
             "order/A_order/getPersonalOrderList" :  {"startIndex" : 0, "num" : 10, "userId" : "", "说明" : "分页获取个人购买记录"},
             "order/A_order/getOrderList" : {"startIndex" : 0, "num" : 10, "orderStatus" : 0, "online" : 1 , "likeStr" : "", "orderType":1,"说明" : "获取订单列表 online 线上线下1线上2线下 orderType订单类型1拍品订单 2商品订单"},
-            "order/A_order/deliverOrder" : {"order_no" : "", "logistics_no" : "", "说明" : "发货"},
+            "order/A_order/deliverOrder" : {"order_no" : "", "logistics_no" : "",'note':'', "说明" : "发货 note当没有运单号时填写备注信息"},
             "order/A_order/orderStatistical" : {"startTime" : "", "endTime" : "", "startIndex" : 0, "num" : 10, "说明" : "销售统计"},
             "order/A_order/getLogisticsInfo" : {"order_no" : "", "说明" : "获取物流信息"},
             "order/A_order/operateOrder":{"order_no":"","type":'',"说明":'type操作类型0确认完成 1取消订单'},
@@ -286,7 +286,7 @@
             'customerService/S_customService/getOrders':{'startIndex':'0','num':'10','orderStatus':'','说明':'客服获取订单列表'},
             'customerService/S_customService/getOrderInfo':{'order_no':'','说明':'客服获取订单详情'},
             'customerService/S_customService/sureOrCancelOrder':{'userId':'','order_no':'','type':0,'说明':'客服确定或者取消订单0确认完成1取消'},
-            'customerService/S_customService/deliverOrder':{'userId':'','order_no':'','logistics_no':0,'说明':'客服发货 logistics_no物流单号'},
+            'customerService/S_customService/deliverOrder':{'userId':'','order_no':'','logistics_no':0,'note':'','说明':'客服发货 logistics_no物流单号 note当没有运单号时填写备注信息'},
             //endregion
         };
 

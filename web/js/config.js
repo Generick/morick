@@ -192,7 +192,7 @@ var pageUrl =
 	
 	MY_ORDER_LIST : BASE_PAGE_URL + "personCenter/orderList.html",//我的订单
 	
-	ORDER_DETAIL : BASE_PAGE_URL + "personCenter/orderDetail.php",//订单详情
+	ORDER_DETAIL : BASE_PAGE_URL + "orderDetail.php",//订单详情
 	
 	MOD_ADDRESS_LIST : BASE_PAGE_URL + "personCenter/addressListMod.html",//地址列表修改地址
 	ADD_ADDRESS : BASE_PAGE_URL + "personCenter/addAddress.html",//添加地址

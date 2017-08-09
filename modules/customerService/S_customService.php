@@ -118,6 +118,7 @@ class S_customService extends Srv_Controller
     	$order_no = $this->input->post('order_no');
     	$logistics_no = $this->input->post('logistics_no');
     	$userId = $this->input->post('userId');
+    	$note = $this->input->post('note');
 
     	$orderObj = $this->m_order->getOrderObj($order_no);
     	if (!$orderObj)
@@ -135,9 +136,24 @@ class S_customService extends Srv_Controller
     	{
     	 	$this->responseError(ERROR_ORDER_HAS_DELIVERED);
     	 	return;
-    	 } 
+    	}
+
+    	$modInfo = array('orderStatus' => ORDER_STATUS_WAIT_RECEIVE);
+        // if (empty($logistics_no) && empty($note)) 
+        // {
+        //     $this->responseError(ERROR_DELIVERY_INFO_NULL);
+        //     return;
+        // }
+        if ($logistics_no)
+        {
+            $modInfo['logistics_no'] = $logistics_no;
+        } else
+        {
+            $modInfo['note'] = $note;
+        }
+
     	$fromStatus = $orderObj->orderStatus;
-    	$retCode = $this->m_order->modOrderInfo($order_no, array("logistics_no" => $logistics_no, "orderStatus" => ORDER_STATUS_WAIT_RECEIVE));
+    	$retCode = $this->m_order->modOrderInfo($order_no, $modInfo);
         //创建发货信息
         //user id ,msg type, href id=> order id
         if ($retCode == ERROR_OK) 
