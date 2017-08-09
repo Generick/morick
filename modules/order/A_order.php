@@ -128,7 +128,8 @@ class A_order extends Admin_Controller
         if ($logistics_no)
         {
             $modInfo['logistics_no'] = $logistics_no;
-        } else
+        }
+        if ($note) 
         {
             $modInfo['note'] = $note;
         }

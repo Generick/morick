@@ -53,3 +53,12 @@ ERROR - 2017-08-09 14:28:02 --> [methodError]:[]:F:\work\program\server\applicat
 ERROR - 2017-08-09 14:31:50 --> [methodError]:[]:F:\work\program\server\application\controllers/customerService/S_customService.php:deliverOrder:{"logistics_no":"","order_no":"wx20170809311465","userId":"56"}
 ERROR - 2017-08-09 14:32:47 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:confirmReceipt:{"order_no":"wx20170809339530"}
 ERROR - 2017-08-09 16:31:37 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":"41"}
+ERROR - 2017-08-09 17:15:05 --> [methodError]:[用户未找到！]:F:\work\program\server\application\controllers/account.php:login:{"userType":"3","platform":"1","platformId":"18255001111","password":"admin"}
+ERROR - 2017-08-09 17:44:08 --> user:15balance change. the transactionType:12before:6821.50 after:6821.50
+ERROR - 2017-08-09 17:44:08 --> Update user failed: 15
+ERROR - 2017-08-09 17:44:08 --> Save user failed: 15
+ERROR - 2017-08-09 18:17:11 --> [methodError]:[用户未找到！]:F:\work\program\server\application\controllers/account.php:login:{"userType":"3","platform":"1","platformId":"18255001111","password":"admin"}
+ERROR - 2017-08-09 18:18:08 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/x_mch.php:getSelfInfo:[]
+ERROR - 2017-08-09 18:18:08 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/merchant/U_merchant.php:getMCHUnReadNum:{"userId":""}
+ERROR - 2017-08-09 18:25:26 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/x_mch.php:getSelfInfo:[]
+ERROR - 2017-08-09 18:25:26 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/merchant/U_merchant.php:getMCHUnReadNum:{"userId":""}

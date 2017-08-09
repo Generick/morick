@@ -924,12 +924,13 @@ class M_order extends My_Model
 
     function otherCallBack()
     {
+        ob_clean();
         log_message('error', '-------r-eceived data-------:'.json_encode($_REQUEST));
         $order_no = isset($_REQUEST['userOrderNo'])?$_REQUEST['userOrderNo']:'';
         log_message('error', '-|-|-|-|receive order_no-----------:'.$order_no);
         if (empty($order_no))
         {
-            echo "1";
+            echo 1;
             return;
         } 
         $this->wxPaySuccess($order_no);
@@ -941,12 +942,12 @@ class M_order extends My_Model
         $orderInfo = $this->getOrderAll($orderId);
         if (empty($orderInfo))
         {
-            echo "1";
+            echo 1;
             return;
         }
         if ($orderInfo->orderStatus > 1)
         {
-            echo "1";
+            echo 1;
             return;
         }
         $this->modOrderInfo($orderId, array('orderStatus'=>2));
@@ -958,7 +959,7 @@ class M_order extends My_Model
             $this->m_messagePush->createUserMsg($mchCommodityObj->userId, MP_MSG_TYPE_MCH_C_ORDER, $commodityObj->CID, $mchCommodityObj->mch_commodity_name);
         }
         $this->m_promoter->updateUserOrderStatistics($orderInfo->userId);
-        echo "1";
+        echo 1;
     }
 
     //支付失败处理

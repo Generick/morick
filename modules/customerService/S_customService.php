@@ -147,7 +147,8 @@ class S_customService extends Srv_Controller
         if ($logistics_no)
         {
             $modInfo['logistics_no'] = $logistics_no;
-        } else
+        } 
+        if ($note) 
         {
             $modInfo['note'] = $note;
         }
