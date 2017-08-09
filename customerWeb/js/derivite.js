@@ -17,7 +17,7 @@ app.directive('uploadMap', function() {
         {
         	scope.$watch('url', function(newValue)
             {    
-            
+               
             	scope.url = newValue;
             
             });
@@ -77,7 +77,7 @@ app.directive('uploadMap', function() {
 	        }
 	        
 	        var uploadMulImage = function(files , i)
-	        {  
+	        {   
 	        	if(i < 0)
 	        	{
 	        		document.getElementById("file-form").reset();
@@ -209,6 +209,8 @@ app.directive('uploadSep', function() {
 	        
 	        var uploadMulImage = function(files , i)
 	        {  
+//	        	alert(JSON.stringify(files))
+	        	
 	        	if(i < 0)
 	        	{
 	        		document.getElementById("file-form-1").reset();
@@ -264,3 +266,68 @@ app.directive('uploadSep', function() {
 
 
 
+/**
+ * 自定义上传视频文件
+ */
+app.directive('uploadVideo', function() { 
+    return { 
+        restrict : 'AE', 
+        templateUrl : 'module/uploadmul/upload-video.html', 
+        replace : true,
+        scope : {
+        	url : "=url"
+        },
+        link : function(scope, element, attrs)
+        {
+        	scope.$watch('url', function(newValue)
+            {   
+            	scope.url = newValue;
+            	
+            });
+	        
+	       
+        	scope.videoUpload = function(files)
+        	{  
+        		$(".fixed-chrysanthemum").css("display","block")
+        		uploadMulVideo(files);
+        		
+        	};
+        	
+        	
+	        var uploadMulVideo = function(files)
+	        { 
+	        	
+	        	if(JSON.stringify(files)  == "{}"){
+	        		
+	        		$(".fixed-chrysanthemum").css("display","none")
+	        		return;
+	        	}
+	        	var xhr = new XMLHttpRequest();
+				var data = new FormData();
+				
+				data.append("file", files[0]);
+		        xhr.open("post",apiUrl.API_UP_FILE,true);
+		        xhr.send(data);	 
+		      
+		        xhr.onload = function (){ 
+		            var tex = xhr.responseText;	
+		           
+		            var dataUrl = JSON.parse(tex).data.file[0].url;	
+		            
+		            element.find("video").attr("src",dataUrl);
+		            
+		            setTimeout(function(){
+		            	
+		            	$dialog.msg("视频上传成功！", {time: 1600, anim: 5});
+		            	$(".fixed-chrysanthemum").css("display","none")
+		            },2000);
+                    
+		            scope.$apply(function(){
+					    scope.url = dataUrl;
+		            });
+		           
+		        };
+	        }
+        }
+    }; 
+}); 

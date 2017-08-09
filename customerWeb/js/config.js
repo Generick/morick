@@ -12,6 +12,7 @@ if(location.href.indexOf("yawan365") == -1)
 //	BASE_PAGE_URL = "http://192.168.0.163/customerWeb/";  
 	BASE_PAGE_URL = "http://192.168.0.163/commercialTenant/";
     API_BASE_URL =  "http://192.168.0.121:8088/auction/index.php/";//苗佳亮接口
+//  API_BASE_URL =  "http://192.168.0.110:8082/auction/index.php/";
 }
 else{
 	
@@ -45,7 +46,6 @@ else{
 var apiUrl = 
 {
 	API_UPLOAD_IMG : API_BASE_URL + "upload/uploadImages",//上传照片
-	API_UP_FILE : API_BASE_URL + "upload/uploadImages",
 	API_USER_LOGIN : API_BASE_URL + "account/login",//登录
 	API_UP_FILE : API_BASE_URL + "upload/uploadImages",
     API_GET_HAS_READ_MESSAGE : API_BASE_URL + "messagePush/U_messagePush/getHasReadMsg",//获取已读消息 
@@ -60,7 +60,7 @@ var apiUrl =
     API_GET_UNREAD_MESS : API_BASE_URL + "merchant/U_merchant/getUnReadMSGList",//获取未读消息
     API_GET_HAS_READ_MESS : API_BASE_URL + "merchant/U_merchant/getHasReadMSGList",//获取已读消息
     API_TELL_HAS_READ : API_BASE_URL + "merchant/U_merchant/viewMSG",//阅读消息接口
-   
+ 
 };
 
 var localStorageKey =

@@ -39,4 +39,36 @@
      <script src="js/app.js"></script>
     <script type="text/javascript" src="js/fastclick.js" ></script>
     <script src="controller/myMessDetail.js"></script>
+     <script>
+    	$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		
+		    		
+		    		location.href = pageUrl.MESSAGE_LIST_PAGE;
+		    		
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+    	
+    	
+    </script>
 </html>

@@ -388,6 +388,9 @@ var orderInfoCtrl = {
        
         self.scope = $scope;
      
+        self.orderInfoModel.logisticsNum = null;
+     
+      
         self.orderInfoModel.info = data;
     
         
@@ -450,17 +453,17 @@ var orderInfoCtrl = {
                 logistics_no: self.orderInfoModel.logisticsNum
             };
           
-            if(_utility.isEmpty(self.orderInfoModel.logisticsNum))
-            {   
-                $dialog.msg(CN_TIPS.ORDER_NUM_BLANK, 1.6)
-            }
-            else
-            {   
+//          if(_utility.isEmpty(self.orderInfoModel.logisticsNum))
+//          {   
+//              $dialog.msg(CN_TIPS.ORDER_NUM_BLANK, 1.6)
+//          }
+//          else
+//          {   
                 $data.httpRequest("post", api.API_DELIVER_ORDER, params, function(){
                     
                     self.scope.orderModel.isRelease = false;
                     self.scope.orderModel.modelArr[self.scope.orderModel.curOrderIdx].isRelease = false;
-                  
+                    
                      
                     $dialog.msg(CN_TIPS.DELIVER_GOODS_OK, 2);
                     self.init(self.scope, self.orderInfoModel.info);
@@ -469,7 +472,7 @@ var orderInfoCtrl = {
                     self.scope.$apply();
                     
                 })
-            }
+//          }
             
         }
     }

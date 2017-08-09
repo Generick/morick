@@ -253,6 +253,14 @@ var specialSellController =
 			}
 
     		self.scope.specialNumber = self.specialNumber;
+    		
+    		data.info.commodity_detail.trim().replace(/<iframe.*?src="(.*?)"[^>]*>/ig, function(a,b) {       
+				          
+				    alert(a)  
+		    });
+    		
+    		
+    		
     		$("#special-sell-detail-content").html(data.info.commodity_detail);
     		self.scope.specilSellPictureArr = self.specilSellPictureArr;
     		document.title = "商品详情";

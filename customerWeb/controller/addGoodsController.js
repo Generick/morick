@@ -10,9 +10,13 @@ var addGoodsCtr = {
 	
 	scope:null,
 	
+	videoSrc : '',
+	
 	isAgainUp : false,
 	
 	goodsModel : {
+		videoUrl : '',
+		
 		goodsName : '',
 	
 		goodsDes : '',
@@ -154,27 +158,76 @@ var addGoodsCtr = {
 //					var str = data.commodityInfo.mch_commodity_detail;
 //					var re = new RegExp("src","g");
 //					var arr = str.match(re);
-				     
 				    
-                    
-		    	    var imgarrs = [];
-	    	   
-		    	    var reg = /src=\"([^\"]*?)\"/gi;
-		    		var cont = data.commodityInfo.mch_commodity_detail.trim().match(reg);
-    			   
-    			    if(cont != null)
-    			    {
-    			    	for(var j= 0;j<cont.length;j++)
-		    			{   
-		    				var srcs = '';
-		    				srcs = cont[j].split("src=")[1].replace(/\"/g, "");
-	    			    	imgarrs.push(srcs);
-		    			}
-    			    }
-
+				    
+				    
+				    
+				    
+				    
+				    
+				    
+				    
+			
+				    
+//				    
+				    var imgarrs = [];
+				    data.commodityInfo.mch_commodity_detail.trim().replace(/<img.*?src="(.*?)"[^>]*>/ig, function(a,b) {       
+				          
+				          imgarrs.push(b)
+//				          alert(a);//a为img对象
+//				
+//				          alert(b);//b为img对象的url值
+//				          alert(imgArr.length)
+				    });
+				
+				//提取video对象及url
+//				alert(data.commodityInfo.mch_commodity_detail.trim());
+                               
+//				data.commodityInfo.mch_commodity_detail.trim().replace(/<video.*>.*video>/ig, function(a,b) {
+////				         alert(a);//a为video对象
+////				       alert(a)
+////				        alert('sss'+self.videoSrc)
+////						alert(a)
+////					   <video id="uplo-videos" controls="controls" poster="img/default.png" preload="auto"><source src=http://meeno.f3322.net:8082/auction/uploads/video/1502165139_5989389353758.mp4></source></video>
+//				       a.replace(/<source.*?src="(.*?)"[^>]*>/ig, function(a,b) {
+//				       //获取视频的url
+////				          alert(b);
+//						 
+////                           self.videoSrc = b;
+//                              
+//                           self.goodsModel.videoUrl = b;
+//                          
+//                           $("#uplo-videos source").attr("src",self.goodsModel.videoUrl)
+////                            alert(self.goodsModel.videoUrl);
+//				         });
+//				      });
+				     
+				     data.commodityInfo.mch_commodity_detail.trim().replace(/<iframe.*?src="(.*?)"[^>]*>/ig, function(a,b) {       
+				          
+				          self.goodsModel.videoUrl = b;
+				          $("#uplo-videos").attr("src",self.goodsModel.videoUrl)
+                         $("#uplo-videos source").attr("src",self.goodsModel.videoUrl)
+				    });
+				    
+				   
+//		    	    var imgarrs = [];
+//	    	   
+//		    	    var reg = /src=\"([^\"]*?)\"/gi;
+//		    		var cont = data.commodityInfo.mch_commodity_detail.trim().match(reg);
+//  			   
+//  			    if(cont != null)
+//  			    {
+//  			    	for(var j= 0;j<cont.length;j++)
+//		    			{   
+//		    				var srcs = '';
+//		    				srcs = cont[j].split("src=")[1].replace(/\"/g, "");
+//	    			    	imgarrs.push(srcs);
+//		    			}
+//  			    }
+//                  
 	    			self.detImg = imgarrs;
 	    			self.scope.detImg = self.detImg;
-
+                   
 					self.scope.imgsbox = self.imgsbox;
 					self.scope.$apply();
 					for(var i = 0; i < self.imgsbox.length; i++)
@@ -197,7 +250,8 @@ var addGoodsCtr = {
 			    		$("#upload-icon2").css("display","none");
 			    		$("input").attr("disabled",true);
 			    		$("input").css("background","#FFFFFF");
-//			    		$("#goods-detail-div").attr("contentEditable",false)
+			    		$("#unload-videos").css("display","none");
+//			    		$("#goods-detail-div").attr("contentEditable",false);
 			    	}
 			    	
 
@@ -335,8 +389,20 @@ var addGoodsCtr = {
 					}
 				}
 				
+				if(self.goodsModel.videoUrl != null && self.goodsModel.videoUrl != '')
+				{        
+//					    alert(self.goodsModel.videoUrl);
+						var videoHtml = '<iframe frameborder="0" width="100%" height="auto"  src="'+ self.goodsModel.videoUrl+'" controls="controls" poster="img/default.png" preload="auto"></iframe>'
+//						var videoHtml = '<video id="uplo-videos" controls="controls" poster="img/default.png" preload="auto">'+'<source src="'+ self.goodsModel.videoUrl+'"></source>'+'</video>';
+				    var allHtml = wordHtml + imgBox + videoHtml;
+				}
+                else{
+                	
+                	var allHtml = wordHtml + imgBox;
+                }
+//				var videoHtml = '<video id="uplo-videos" controls="controls" poster="img/default.png" preload="auto"><source src='+self.videoSrc+'></source></video>'  ;
 //				alert(imgBox)
-				var allHtml = wordHtml + imgBox;
+//				var allHtml = wordHtml + imgBox + videoHtml;
 //				if(self.goodsModel.goods_attr == 0)
 //				{
 //					self.goodsModel.goodsNumber = 1;
@@ -418,7 +484,18 @@ var addGoodsCtr = {
 					var imgHtml = '<img style="width:100%;height:auto;" src="'+self.detImg[i]+'" />';
 					imgBox = imgBox + imgHtml;
 				}
-				var allHtml = wordHtml + imgBox;
+				if(self.goodsModel.videoUrl != null && self.goodsModel.videoUrl != '')
+				{    
+//					alert(self.goodsModel.videoUrl);
+//					var videoHtml = '<video id="uplo-videos" controls="controls" poster="img/default.png" preload="auto">'+'<source src="'+ self.goodsModel.videoUrl+'"></source>'+'</video>';
+					var videoHtml = '<iframe frameborder="0" width="100%" height="320px"  src="'+ self.goodsModel.videoUrl+'" controls="controls" poster="img/default.png" preload="auto"></iframe>';
+				    var allHtml = wordHtml + imgBox + videoHtml;
+				}
+                else{
+                	var allHtml = wordHtml + imgBox;
+                }
+//				alert(imgBox)
+				
 				
 				param.modInfo.mch_commodity_detail = allHtml;//商品详情
 				

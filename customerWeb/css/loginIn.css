@@ -1349,3 +1349,12 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 	font-size:16px;
 	font-weight: 500;
 }
+
+
+.up-vide-div>video{
+	border:1px solid #E1E1E1;
+	margin-left:10px;
+	margin-top:5px;
+	width:90px;
+	height:85px;
+}

@@ -121,7 +121,7 @@
 				</li>
 			</div>
 			<!--物流信息-->
-			<ul class="logistics-container" ng-show="orderDetailModel.showLogistics && orderDetailModel.orderInfo.payType != 3">
+			<ul id="wuliu-div" class="logistics-container" ng-show="orderDetailModel.showLogistics && orderDetailModel.orderInfo.payType != 3 && isShowIt">
 				<span style="font-size: 16px;color: #656565;">物流信息</span>
 				<div style="padding: 6px 0;color: #656565;">承运来源: <span>顺丰快递</span></div>
 				<div style="padding-bottom: 10px;color: #656565;">运单编号: <span ng-bind="orderDetailModel.orderInfo.logistics_no"></span></div>

@@ -1,0 +1,21 @@
+<div class="goods-pics-box fix">
+    <div class="goods-img f up-vide-div">
+        <!--<video id="uplo-videos" controls="controls" poster="img/default.png" preload="auto">
+        	<source src=''></source>
+        </video>-->
+         <video id="uplo-videos" controls="controls" preload="auto">
+        	<source src=''></source>
+        </video>
+    </div>
+     
+    <div class="upload-icon f" id="unload-videos" style="margin-top:15px">
+        <div class="upload-goods-form">
+            <!--<i class="ti-plus"></i>-->
+            <img src="img/add-icicon.png" class="plus-add" />
+            <form id="file-form-4">
+            	<input type="file" name="file" accept="video/mp4,video/mpeg"  onchange="angular.element(this).scope().videoUpload(this.files)">
+            </form>
+        </div>
+      
+    </div>
+</div>

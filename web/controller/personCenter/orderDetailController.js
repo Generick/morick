@@ -10,6 +10,8 @@ var OrderDetailCtrl = {
     
     openId : null,
     
+    isShowIt : true,
+    
     isShowPayWay : true,
     orderDetailModel: {
         balance: null,   //用户余额
@@ -46,6 +48,8 @@ var OrderDetailCtrl = {
         this.scope.orderDetailModel = this.orderDetailModel;
         
         this.scope.isShowPayWay = this.isShowPayWay;
+        
+        this.scope.isShowIt = this.isShowIt;
         
         this.initData();
        
@@ -98,7 +102,16 @@ var OrderDetailCtrl = {
 //            console.log(JSON.stringify(data))
             self.orderDetailModel.orderInfo = {};
             self.orderDetailModel.orderInfo = data.orderInfo;
-            
+            if(self.orderDetailModel.orderInfo.logistics_no != null && self.orderDetailModel.orderInfo.logistics_no != '')
+            {
+            	self.isShowIt = true;
+    			self.scope.isShowIt = self.isShowIt;
+    			
+            }
+            else{
+            	self.isShowIt = false;
+    			self.scope.isShowIt = self.isShowIt;
+            }
             self.goodsOrderType = self.orderDetailModel.orderInfo.orderType;
             if(self.orderDetailModel.orderInfo.acceptName == "")
             {
@@ -202,10 +215,6 @@ var OrderDetailCtrl = {
             
             self.scope.$apply();
 
-            	$('.animation').css('display','none');
-            	$('.container').css('opacity','1');
-
-            
             self.setTimeToSeeOrDer();
         })
     },
@@ -310,7 +319,8 @@ var OrderDetailCtrl = {
     		self.traces = data.traces;
     		
     		if (!commonFu.isEmpty(self.traces) && self.traces.length > 0)
-    		{
+    		{   
+    			
     			self.traces[0].lastLogStyle = "logistics-active";
     			self.traces[0].logisticsPic = "img/personCenter/logistics_active.png";
     			for (var i = 1 ; i < self.traces.length; i ++)
@@ -318,11 +328,20 @@ var OrderDetailCtrl = {
 	    			self.traces[i].lastLogStyle = '';
 	    			self.traces[i].logisticsPic = "img/personCenter/logistics_noactive.png";
 	    		}
+	    		
 	    		self.scope.traces = self.traces;
+	    		
     			self.scope.$apply();
     		}
-    		
-    		
+    		else{
+    			
+    		    self.scope.$apply();
+    		}
+    	    
+            	$('.animation').css('display','none');
+            	$('.container').css('opacity','1');
+
+            
     	})
     },
     

@@ -179,8 +179,8 @@ var erWeiCtr = {
 			    self.scope.logNumber = self.logNumber;
 			}
 			else{
-				if(self.scope.logNumber != null && self.scope.logNumber != '')
-				{
+//				if(self.scope.logNumber != null && self.scope.logNumber != '')
+//				{
 					var params = {};
 					params.logistics_no  =  self.scope.logNumber;
 					params.order_no = self.orderNum;
@@ -198,10 +198,10 @@ var erWeiCtr = {
 						self.logNumber = null;
 						self.scope.logNumber = self.logNumber;
 					})
-				}
-				else{
-					$dialog.msg("请输入订单号！")
-				}
+//				}
+//				else{
+//					$dialog.msg("请输入订单号！")
+//				}
 			}
 			
 		};

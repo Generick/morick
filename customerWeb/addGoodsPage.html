@@ -51,6 +51,15 @@
 					</div>
 				</div>
 				
+				
+				
+				<div class="items-goods-imgs-box">
+					<div class="items-goods-cover-title">
+						商品视频：
+					</div>
+					<upload-video url="goodsModel.videoUrl"></upload-video> 
+				</div>
+				
 				<!--<div class="add-goods-items">
 					<div class="items-goods-tille2">
 					      库存类型 ：
@@ -144,5 +153,37 @@
      <script type="text/javascript" src="js/fastclick.js" ></script>
      <script type="text/javascript" src="js/angular-ui-router.js" ></script>
     <script src="controller/addGoodsController.js"></script>
+    <script>
+    	$(function() {
+			
+			//监听微信返回按钮
+			pushHistory();
+			var bool=false;
+
+            setTimeout(function(){
+                bool=true;
+            },1000);
+		    window.addEventListener("popstate", function(e) {
+		    	if (bool)
+		    	{   
+		    		
+		    		
+		    		location.href = pageUrl.HOME_PAGE;
+		    		
+		    	}
+		    	pushHistory();
+
+		    }, false);
+		    function pushHistory() {
+		        var state = {
+		            title: "title",
+		            url: "#"
+		        };
+		        window.history.pushState(state, "title", "#");
+		    }
+		})
+    	
+    	
+    </script>
     
 </html>

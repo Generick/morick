@@ -289,6 +289,8 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 	width:100%;
 	overflow: hidden;
 	margin-bottom: 2.5vw;
+	float:left;
+	border-bottom: 1px solid #E9E9E9;
 }
 
 
@@ -394,7 +396,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 }
 
 .cus-order-item-bottom-down{
-	height:14vw;
+	line-height:14vw;
 	width:100%;
 	float:left;
 	padding:0 3vw;
@@ -413,6 +415,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 	/*font-size: 16px;*/
 	font-size: 4.2vw;
 	color:#999999;
+	margin-bottom: 3.3vw;
 }
 
 .add-color-btn{
