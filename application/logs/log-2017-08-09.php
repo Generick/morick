@@ -22,3 +22,34 @@ ERROR - 2017-08-09 11:05:02 --> user:15balance change. the transactionType:1befo
 ERROR - 2017-08-09 11:05:02 --> user:15balance change. the transactionType:1before:6634.5 after:6679.5
 ERROR - 2017-08-09 11:05:02 --> user:15balance change. the transactionType:1before:6679.5 after:6710.5
 ERROR - 2017-08-09 11:05:03 --> user:15balance change. the transactionType:1before:6710.5 after:6821.5
+ERROR - 2017-08-09 11:23:24 --> [methodError]:[]:F:\work\program\server\application\controllers/order/A_order.php:deliverOrder:{"order_no":"wx20170809101436","logistics_no":"2222222"}
+ERROR - 2017-08-09 11:24:56 --> [methodError]:[]:F:\work\program\server\application\controllers/order/A_order.php:deliverOrder:{"order_no":"wx20170809736132","logistics_no":"5435"}
+ERROR - 2017-08-09 11:25:08 --> [methodError]:[]:F:\work\program\server\application\controllers/order/A_order.php:deliverOrder:{"order_no":"20170609763600","logistics_no":"345353534"}
+ERROR - 2017-08-09 11:25:24 --> [methodError]:[]:F:\work\program\server\application\controllers/order/A_order.php:deliverOrder:{"order_no":"20170609403990","logistics_no":"345345353"}
+ERROR - 2017-08-09 11:37:53 --> user:15balance change. the transactionType:12before:6821.5 after:6821.5
+ERROR - 2017-08-09 11:37:54 --> Update user failed: 15
+ERROR - 2017-08-09 11:37:54 --> Save user failed: 15
+ERROR - 2017-08-09 11:38:10 --> user:15balance change. the transactionType:12before:6821.5 after:6821.5
+ERROR - 2017-08-09 11:38:11 --> Update user failed: 15
+ERROR - 2017-08-09 11:38:11 --> Save user failed: 15
+ERROR - 2017-08-09 11:38:14 --> user:15balance change. the transactionType:12before:6821.5 after:6821.5
+ERROR - 2017-08-09 11:38:14 --> Update user failed: 15
+ERROR - 2017-08-09 11:38:14 --> Save user failed: 15
+ERROR - 2017-08-09 11:38:19 --> user:15balance change. the transactionType:12before:6821.5 after:6821.5
+ERROR - 2017-08-09 11:38:19 --> Update user failed: 15
+ERROR - 2017-08-09 11:38:19 --> Save user failed: 15
+ERROR - 2017-08-09 11:38:23 --> user:15balance change. the transactionType:12before:6821.5 after:6821.5
+ERROR - 2017-08-09 11:38:23 --> Update user failed: 15
+ERROR - 2017-08-09 11:38:23 --> Save user failed: 15
+ERROR - 2017-08-09 11:38:26 --> user:15balance change. the transactionType:12before:6821.5 after:6821.5
+ERROR - 2017-08-09 11:38:26 --> Update user failed: 15
+ERROR - 2017-08-09 11:38:26 --> Save user failed: 15
+ERROR - 2017-08-09 11:39:48 --> [methodError]:[]:F:\work\program\server\application\controllers/order/A_order.php:deliverOrder:{"order_no":"wx20170809567677","logistics_no":""}
+ERROR - 2017-08-09 11:54:00 --> [methodError]:[]:F:\work\program\server\application\controllers/order/A_order.php:deliverOrder:{"order_no":"wx20170809669698","logistics_no":"21321323"}
+ERROR - 2017-08-09 11:54:34 --> [methodError]:[]:F:\work\program\server\application\controllers/order/A_order.php:deliverOrder:{"order_no":"wx20170809132945","logistics_no":"345345345345"}
+ERROR - 2017-08-09 14:18:21 --> [methodError]:[用户未找到！]:F:\work\program\server\application\controllers/account.php:login:{"userType":"5","platform":"1","platformId":"18255001111","password":"admin","PMTID":""}
+ERROR - 2017-08-09 14:18:44 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/customerService/S_customService.php:getOrders:{"orderStatus":"","num":"10","startIndex":"0"}
+ERROR - 2017-08-09 14:28:02 --> [methodError]:[]:F:\work\program\server\application\controllers/customerService/S_customService.php:deliverOrder:{"logistics_no":"eqwqweqweqweqwe","order_no":"wx20170809339530","userId":"56"}
+ERROR - 2017-08-09 14:31:50 --> [methodError]:[]:F:\work\program\server\application\controllers/customerService/S_customService.php:deliverOrder:{"logistics_no":"","order_no":"wx20170809311465","userId":"56"}
+ERROR - 2017-08-09 14:32:47 --> [methodError]:[]:F:\work\program\server\application\controllers/order/U_order.php:confirmReceipt:{"order_no":"wx20170809339530"}
+ERROR - 2017-08-09 16:31:37 --> [methodError]:[会话不存在！]:F:\work\program\server\application\controllers/promoter/P_promoter.php:getPromoterInfo:{"userId":"41"}

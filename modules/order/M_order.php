@@ -929,6 +929,7 @@ class M_order extends My_Model
         log_message('error', '-|-|-|-|receive order_no-----------:'.$order_no);
         if (empty($order_no))
         {
+            echo "1";
             return;
         } 
         $this->wxPaySuccess($order_no);
@@ -938,8 +939,16 @@ class M_order extends My_Model
     function wxPaySuccess($orderId)
     {
         $orderInfo = $this->getOrderAll($orderId);
-        if (empty($orderInfo)) return;
-        if ($orderInfo->orderStatus > 1) return;
+        if (empty($orderInfo))
+        {
+            echo "1";
+            return;
+        }
+        if ($orderInfo->orderStatus > 1)
+        {
+            echo "1";
+            return;
+        }
         $this->modOrderInfo($orderId, array('orderStatus'=>2));
         $commodityObj = $this->m_saleMeeting->getCommodityInfo($orderInfo->orderGoods[0]->id);
         $this->m_messagePush->createUserMsg($orderInfo->userId, MP_MSG_TYPE_PAY_SUCCESS, $orderId, $commodityObj->commodity_name);
@@ -949,6 +958,7 @@ class M_order extends My_Model
             $this->m_messagePush->createUserMsg($mchCommodityObj->userId, MP_MSG_TYPE_MCH_C_ORDER, $commodityObj->CID, $mchCommodityObj->mch_commodity_name);
         }
         $this->m_promoter->updateUserOrderStatistics($orderInfo->userId);
+        echo "1";
     }
 
     //支付失败处理
