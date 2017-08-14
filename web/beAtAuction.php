@@ -68,14 +68,14 @@
 							
 						</div>
 						<div style="width:100%;overflow: hidden;" class="bottom-item-add">
-							<div class="bottom-item-add-left">
+							<span class="bottom-item-add-left">
 								<img src="img/add-icon-img_1.png"  />
-								<span ng-bind="item.initialPrice"></span>
-							</div>
-							<div style="margin-left:3vw" class="bottom-item-add-left">
+								<div ng-bind="item.initialPrice"></div>
+							</span>
+							<span style="margin-left:3vw" class="bottom-item-add-left">
 								<img src="img/start-icon-img_1.png"/>
-								<span  ng-bind="item.lowestPremium"></span>
-							</div>
+								<div  ng-bind="item.lowestPremium"></div>
+							</span>
 						</div>
 					</li>
 				</ul>

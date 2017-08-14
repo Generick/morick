@@ -16,6 +16,35 @@
         <style>
         	form{
         		display: none;
+        		
+        	}
+        	#weixinback{
+        		position: relative;
+        		
+        		line-height:37px;
+        		/*height:35px;*/
+        		padding-bottom: 15px;
+        		line-height:37px;
+        		background: #FFFFFF;
+        		float:left;
+        		overflow: hidden;
+        		/*background: url(img/btn3.png) no-repeat left top;*/
+        		/*background-size: 100% 100%;*/
+        	}
+        	#weixinback div{
+        		position: absolute;
+        		z-index: 1;
+        		width:100%;
+        		line-height:37px;
+        		text-align: center;
+        		color:#FFFFFF;
+        		font-size:16px;
+        		letter-spacing: 1px;
+        	}
+        	#weixinback img{
+        		width:70%;
+        		margin-left:15%;
+        		height:37px;
         	}
         </style>
         <link rel="stylesheet" href="css/ui.base.css" />
@@ -136,8 +165,13 @@
 					</div>
 				</li>
 			</ul>
-			
+			<div id="weixinback" ng-show="isNeedBtn" ng-click="toAuctionList()">
+				
+			<div>返回商城首页</div>
+			<img src="img/btn3.png" /> 
 		</div>
+		</div>
+		
 		<div id="shenqing" ng-click="hideIt()">
 			<div class="shenqing-content">
 				<p class="cancleITt">X</p>
@@ -147,6 +181,7 @@
 			</div>
 			
 		</div>
+		
 		<!--<form name="fm" action="http://api.99epay.net/h5Pay/pub/toAcquireOrder.htm" method="post">
 					<table>
 						<tbody>

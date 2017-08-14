@@ -13,6 +13,9 @@ var specialSellController =
     
      trueNumber: null,
      
+     richData : '',
+     
+     imgeasList : [],
       
     isReallyBuy : false,
     
@@ -253,15 +256,50 @@ var specialSellController =
 			}
 
     		self.scope.specialNumber = self.specialNumber;
-    		
+    		var arrsVideos = [];
     		data.info.commodity_detail.trim().replace(/<iframe.*?src="(.*?)"[^>]*>/ig, function(a,b) {       
-				          
-				    alert(a)  
+//				          
+//				alert(b)  
+				arrsVideos.push(b);
+//				alert("srcs"+ arrsVideos)
 		    });
+    		if(arrsVideos.length>0)
+    		{
+    			var videohtmlArr = [];
     		
-    		
-    		
-    		$("#special-sell-detail-content").html(data.info.commodity_detail);
+    			for(var k = 0; k < arrsVideos.length; k++)
+    			{
+    				var videohtml =  '<video id="uplo-videos" style="margin-bottom:5px" src="'+arrsVideos[k]+'" controls="controls" preload="auto"><source src="'+arrsVideos[k]+'"></source></video>';
+    			    videohtmlArr.push(videohtml);
+    			   
+    			    self.imgeasList = deepCopy(videohtmlArr);
+    			}
+    			self.richData = data.info.commodity_detail.trim();
+    			
+//  			alert("videos"+ self.imgeasList)
+//  			var copyStr = '';
+//  			for(var m = 0; m < self.imgeasList.length; m ++)
+//  			{
+//  				alert(typeof self.richData)
+//  				alert()
+//  				var copyStr = self.richData.replace(/<iframe\/?.*?iframe>/,self.imgeasList[m])
+//				    alert(copyStr)
+//				    self.richData = copyStr;
+//
+//                  
+//          
+//  			}
+                var dataStr = self.regString();
+    			
+    		}
+
+    		if(self.imgeasList.length ==0)
+    		{
+    			$("#special-sell-detail-content").html(data.info.commodity_detail);
+    		}
+    		else{
+    			$("#special-sell-detail-content").html(dataStr);
+    		}
     		self.scope.specilSellPictureArr = self.specilSellPictureArr;
     		document.title = "商品详情";
     		
@@ -289,6 +327,37 @@ var specialSellController =
     	}
     },
     
+    
+    
+    regString : function(){
+    	var self = this;
+    	var dataStr = self.richData;
+    	
+    	for(var b = 0;b < self.imgeasList.length;b ++)
+				{
+					
+					var str = dataStr;
+					var reg1 = "iframe";
+					var reg2 = "/iframe";
+					var index1 = str.indexOf(reg1);        
+					var index2 = str.indexOf(reg2);
+					var strPre = str.substring(0,index1-1);
+					var strcur = str.substring(index1-1,index2 + reg2.length + 1);
+					var strnex = str.substring(index2+ reg2.length + 1,str.length);
+					var strAll = strPre +self.imgeasList[b]+ strnex;
+					dataStr = strAll;
+//					alert(index1)
+//					alert(index2)
+//					alert("以前"+strPre)
+//					alert("现在"+strcur)
+//					alert("以后"+strnex)
+//					alert(dataStr)
+			      
+				}
+    			
+    	return dataStr;
+    	
+    },
 //  setNewPrice : function(data){
 //  	
 //  	var self =this;
@@ -487,15 +556,28 @@ var specialSellController =
     
     ngRepeatFinish: function() {
         var self = this;
-
+        
         self.scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
-            var swiper = new Swiper('.swiper-container', {
-                pagination: '.swiper-pagination',
-                paginationClickable: true,
-                autoplay: 3000,
-                loop:true,
-                autoplayDisableOnInteraction: false
-            });
+        	
+        	if(self.specilSellPictureArr.length == 1)
+        	{
+        		var swiper = new Swiper('.swiper-container', {
+	                pagination: '.swiper-pagination',
+	                paginationClickable: true,
+	                autoplay: 3000,
+	                loop:false,
+	                autoplayDisableOnInteraction: false
+                });
+        	}
+            else{
+            	var swiper = new Swiper('.swiper-container', {
+	                pagination: '.swiper-pagination',
+	                paginationClickable: true,
+	                autoplay: 3000,
+	                loop:true,
+	                autoplayDisableOnInteraction: false
+                });
+            }
         });
     }
    

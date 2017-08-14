@@ -26,8 +26,9 @@ app.directive('uploadMap', function() {
         	scope.imgUpload = function(files)
         	{   
         		$(".fixed-chrysanthemum2").css("display","block")
-        		var lastIndex = files.length - 1;
-        		uploadMulImage(files, lastIndex);
+//      		var lastIndex = files.length - 1;
+				var startIndex = 0;
+        		uploadMulImage(files, startIndex);
         	};
         	
         	scope.delPic = function(idx){
@@ -78,7 +79,7 @@ app.directive('uploadMap', function() {
 	        
 	        var uploadMulImage = function(files , i)
 	        {   
-	        	if(i < 0)
+	        	if(i > files.length-1)
 	        	{
 	        		document.getElementById("file-form").reset();
 	        		return;
@@ -123,7 +124,7 @@ app.directive('uploadMap', function() {
 					    $(".goods-img-2").children(".select-round-2").eq(0).addClass("round-has-select").parent().siblings().find(".select-round-2").removeClass("round-has-select");
 					    $(".goods-img-2").children(".set-face-img-2").eq(0).html("封面").parent().siblings().find(".set-face-img-2").html("设为封面");
 					}
-		            uploadMulImage(files,--i);
+		            uploadMulImage(files,++i);
 		          
 		        };
 	        }
@@ -158,8 +159,9 @@ app.directive('uploadSep', function() {
         	scope.imgUpload = function(files)
         	{   
         		$(".fixed-chrysanthemum2").css("display","block")
-        		var lastIndex = files.length - 1;
-        		uploadMulImage(files, lastIndex);
+//      		var lastIndex = files.length - 1;
+        		var startIndex = 0;
+        		uploadMulImage(files, startIndex);
         	};
         	
         	scope.delPic = function(idx){
@@ -211,7 +213,7 @@ app.directive('uploadSep', function() {
 	        {  
 //	        	alert(JSON.stringify(files))
 	        	
-	        	if(i < 0)
+	        	if(i > files.length -1)
 	        	{
 	        		document.getElementById("file-form-1").reset();
 	        		return;
@@ -255,7 +257,7 @@ app.directive('uploadSep', function() {
 					{
 					    $(".goods-img-1").children(".select-round-1").eq(0).addClass("round-has-select").parent().siblings().find(".select-round-1").removeClass("round-has-select")
 					}  
-		            uploadMulImage(files,--i);
+		            uploadMulImage(files,++i);
 		          
 		        };
 	        }

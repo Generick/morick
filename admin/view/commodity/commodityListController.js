@@ -474,9 +474,9 @@ var commodityListController = {
 				 $dialog.msg("请输入商品价格", 1.6);
 				  return;
 			}
-			if(parseInt(self.scope.CommodityPrice) >= 10000000)
+			if(parseInt(self.scope.CommodityPrice) >= 900000)
 			{
-				 $dialog.msg("商品价格应小于一千万", 1.6);
+				 $dialog.msg("商品价格应小于九十万", 1.6);
 				  return;
 			}
 			if(!_utility.isEmpty(self.scope.CommodityYearYield) && (self.scope.CommodityYearYield <= 0))

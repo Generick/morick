@@ -479,14 +479,9 @@ var AuctionHistoryCtrl =
             		self.auctionHistoryModel.TMHList[a].info.viewPrice = (Math.floor(10000 * self.auctionHistoryModel.TMHList[a].info.commodity_price *(1 +  ((self.auctionHistoryModel.TMHList[a].info.sold_time - self.auctionHistoryModel.TMHList[a].add_time)/60) * (self.auctionHistoryModel.TMHList[a].info.annualized_return*0.01/(commonFu.isSmoothYear()*1440)))))/10000;
                    
                     self.auctionHistoryModel.TMHList[a].info.viewPrice = self.auctionHistoryModel.TMHList[a].info.viewPrice.toFixed(4);
-//          	    if(self.auctionHistoryModel.TMHList[a].info.commodity_id == 94)
-//          	    {
-//          	    	alert("pric" + self.auctionHistoryModel.TMHList[a].info.viewPrice)
-//          	    	alert("sold_time" + self.auctionHistoryModel.TMHList[a].info.sold_time)
-//          	    	alert("pric" + self.auctionHistoryModel.TMHList[a].info.viewPrice)
-//          	    }
+
             	}
-//          	 console.log(self.auctionHistoryModel.TMHList[a].info.viewPrice);
+
             }
             
             /*
@@ -512,23 +507,15 @@ var AuctionHistoryCtrl =
     	    $("#changing-words").css("display","inline-block");
 //  	    self.initClock();
 
-    		self.setNewPrice();
-    	  
-    	   	 for (var p =0; p < self.auctionHistoryModel.TMHList.length; p ++)
-		     {
-		   	        
-		   	        
-		   	    
-		   	         if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 13)
-		   	        {
-		   	        	
-		   	        	if(parseFloat(document.body.clientWidth) <= 320 ){
+    		   self.setNewPrice();
+    	       if(parseFloat(document.body.clientWidth) <= 320 ){
 				    	  
-				    	   	$(".price-div").eq(p).find(".h-k,.t-k,.k,.h,.t,.single").css({"width":"8px","font-size":"13px"});
+				    $(".price-div").eq(p).find(".h-k,.t-k,.k,.h,.t,.single").css({"width":"8px","font-size":"13px"});
 				    	   	   
-				    	}
-		   	        	    
-//		   	        	self.auctionHistoryModel.TMHList[p].info.viewPrice = self.auctionHistoryModel.TMHList[p].info.viewPrice.substring(self.auctionHistoryModel.TMHList[p].info.viewPrice.length - 9,self.auctionHistoryModel.TMHList[p].info.viewPrice.length);
+				} 
+    	   	    for (var p =0; p < self.auctionHistoryModel.TMHList.length; p ++)
+		        {
+		   	             
 //				   	        var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k"); // Ê®Íò
 //							var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k"); // Íò
 				   	        var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k"); // Ê®Íò
@@ -577,426 +564,66 @@ var AuctionHistoryCtrl =
 							  },
 							  numbersTmp: ""
 						};
-		   	        }
 		   	        
-		   	         if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 12)
-		   	        {
-		   	        	if(parseFloat(document.body.clientWidth) <= 320 ){
-				    	  
-				    	   	$(".price-div").eq(p).find(".q-k,.h-k,.t-k,.k,.h,.t,.single").css({"width":"7px","font-size":"13px"});
-				    	   	   
-				    	}
-		   	        	    
-		   	        	
-//		   	        	self.auctionHistoryModel.TMHList[p].info.viewPrice = self.auctionHistoryModel.TMHList[p].info.viewPrice.substring(self.auctionHistoryModel.TMHList[p].info.viewPrice.length - 9,self.auctionHistoryModel.TMHList[p].info.viewPrice.length);
-//				   	        var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//							var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k"); // Íò
-				   	        var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k"); // Ê®Íò
-							var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k"); // Íò
-							var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
-							var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h"); // °Ù
-							var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
-							var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
-							var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
-							var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
-							var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
-							var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
-		//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
-							var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
-		//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
-							
-							var data = {
-							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
-							  targetClass: {
-//							  	"wk":$wk,
-//							  	"qk":$qk,
-							    "hk": $hk,
-							    "tk": $tk,
-							    "k": $k,
-							    "h": $h,
-							    "t": $t,
-							    "single": $single,
-							    "td": $td,
-							    "hd": $hd,
-							    "qd":$qd,
-							    "wd":$wd
-							  },
-							  zero: {
-//							  	wk:0,
-//							  	qk:0,
-							    hk: 0,
-							    tk: 0,
-							    k: 0,
-							    h: 0,
-							    t: 0,
-							    single: 0,
-							    td: 0,
-							    hd: 0,
-							    qd:0,
-							    wd:0
-							  },
-							  numbersTmp: ""
-						};
-		   	        }
-		   	        if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 11)
-		   	        {
-		   	        	
-		   	        	if(parseFloat(document.body.clientWidth) <= 320 ){
-				    	  
-				    	   	$(".price-div").eq(p).find(".h-k,.t-k,.k,.h,.t,.single").css({"width":"8px","font-size":"13px"});
-				    	   	   
-				    	}
-		   	        	    
-		   	        	
-				    	   
-//		   	        	self.auctionHistoryModel.TMHList[p].info.viewPrice = self.auctionHistoryModel.TMHList[p].info.viewPrice.substring(self.auctionHistoryModel.TMHList[p].info.viewPrice.length - 9,self.auctionHistoryModel.TMHList[p].info.viewPrice.length);
-//				   	        var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//							var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
-				   	        var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k"); // Ê®Íò
-							var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k"); // Íò
-							var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
-							var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h"); // °Ù
-							var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
-							var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
-							var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
-							var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
-							var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
-							var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
-		//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
-							var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
-		//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
-							
-							var data = {
-							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
-							  targetClass: {
-//							  	"wk":$wk,
-//							  	"qk":$qk,
-							    "hk": $hk,
-							    "tk": $tk,
-							    "k": $k,
-							    "h": $h,
-							    "t": $t,
-							    "single": $single,
-							    "td": $td,
-							    "hd": $hd,
-							    "qd":$qd,
-							    "wd":$wd
-							  },
-							  zero: {
-//							  	wk:0,
-//							  	qk:0,
-							    hk: 0,
-							    tk: 0,
-							    k: 0,
-							    h: 0,
-							    t: 0,
-							    single: 0,
-							    td: 0,
-							    hd: 0,
-							    qd:0,
-							    wd:0
-							  },
-							  numbersTmp: ""
-						};
-		   	        }
-		   	        else if (self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 10)
-		   	        {
-		   	        	if(parseFloat(document.body.clientWidth) <= 320 ){
-				    	  
-				    	   	$(".price-div").eq(p).find(".h-k,.t-k,.k,.h,.t,.single").css({"width":"8px","font-size":"13px"});
-				    	   	   
-				    	}
-//		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
-		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
-						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k"); // Íò
-						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
-						var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h"); // °Ù
-						var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
-						var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
-						var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
-						var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
-						var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
-						var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
-	//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
-						var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
-	//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
-						
-					   var data = {
-							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
-							  targetClass: {
-//							  	"wk":$wk,
-//							  	"qk":$qk,
-							    "hk": $hk,
-							    "tk": $tk,
-							    "k": $k,
-							    "h": $h,
-							    "t": $t,
-							    "single": $single,
-							    "td": $td,
-							    "hd": $hd,
-							    "qd":$qd,
-							    "wd":$wd
-							  },
-							  zero: {
-//							  	wk:0,
-//							  	qk:0,
-							    hk: 0,
-							    tk: 0,
-							    k: 0,
-							    h: 0,
-							    t: 0,
-							    single: 0,
-							    td: 0,
-							    hd: 0,
-							    qd:0,
-							    wd:0
-							  },
-							  numbersTmp: ""
-						};
-		   	        }
-		   	        else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 9)
-		   	        {
-//		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
-		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
-						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
-						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k"); // Ç§
-						var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h"); // °Ù
-						var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
-						var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
-						var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
-						var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
-						var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
-						var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
-	//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
-						var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
-	//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
-						
-						var data = {
-							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
-							  targetClass: {
-//							  	"wk":$wk,
-//							  	"qk":$qk,
-							    "hk": $hk,
-							    "tk": $tk,
-							    "k": $k,
-							    "h": $h,
-							    "t": $t,
-							    "single": $single,
-							    "td": $td,
-							    "hd": $hd,
-							    "qd":$qd,
-							    "wd":$wd
-							  },
-							  zero: {
-//							  	wk:0,
-//							  	qk:0,
-							    hk: 0,
-							    tk: 0,
-							    k: 0,
-							    h: 0,
-							    t: 0,
-							    single: 0,
-							    td: 0,
-							    hd: 0,
-							    qd:0,
-							    wd:0
-							  },
-							  numbersTmp: ""
-						};
-		   	        }
+		   	         if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 11 ){
+//		   	         	$hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
+//						$tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
+		   	         }
+                    else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 10 ){
+		   	         	$hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
+//						$tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
+		   	         }
+                    else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 9 ){
+		   	         	$hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
+						$tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
+		   	         }
+		   	       
 		   	        else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 8)
 		   	        {
-//		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
-		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
-						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
-						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k").css("display","none"); // Ç§
-						var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h"); // °Ù
-						var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
-						var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
-						var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
-						var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
-						var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
-						var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
-	//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
-						var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
-	//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
+
+		   	        	$hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
+						$tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
+						$k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k").css("display","none"); // Ç§
 						
-						var data = {
-							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
-							  targetClass: {
-//							  	"wk":$wk,
-//							  	"qk":$qk,
-							    "hk": $hk,
-							    "tk": $tk,
-							    "k": $k,
-							    "h": $h,
-							    "t": $t,
-							    "single": $single,
-							    "td": $td,
-							    "hd": $hd,
-							    "qd":$qd,
-							    "wd":$wd
-							  },
-							  zero: {
-//							  	wk:0,
-//							  	qk:0,
-							    hk: 0,
-							    tk: 0,
-							    k: 0,
-							    h: 0,
-							    t: 0,
-							    single: 0,
-							    td: 0,
-							    hd: 0,
-							    qd:0,
-							    wd:0
-							  },
-							  numbersTmp: ""
-						};
 		   	        }
 		   	        else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 7)
 		   	        {
-//		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
-		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
-						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
-						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k").css("display","none"); // Ç§
-						var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h").css("display","none"); // °Ù
-						var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t"); // Ê®
-						var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
-						var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
-						var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
-						var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
-						var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
-	//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
-						var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
-	//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
+
+		   	        	$hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
+						$tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
+						$k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k").css("display","none"); // Ç§
+						$h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h").css("display","none"); // °Ù
 						
-						var data = {
-							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
-							  targetClass: {
-//							  	"wk":$wk,
-//							  	"qk":$qk,
-							    "hk": $hk,
-							    "tk": $tk,
-							    "k": $k,
-							    "h": $h,
-							    "t": $t,
-							    "single": $single,
-							    "td": $td,
-							    "hd": $hd,
-							    "qd":$qd,
-							    "wd":$wd
-							  },
-							  zero: {
-//							  	wk:0,
-//							  	qk:0,
-							    hk: 0,
-							    tk: 0,
-							    k: 0,
-							    h: 0,
-							    t: 0,
-							    single: 0,
-							    td: 0,
-							    hd: 0,
-							    qd:0,
-							    wd:0
-							  },
-							  numbersTmp: ""
-						};
 		   	        }
 		   	        else if(self.auctionHistoryModel.TMHList[p].info.viewPrice.length == 6)
 		   	        {
-//		   	        	var $wk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-k").css("display","none");; // Ê®Íò
-//						var $qk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-k").css("display","none");; // Íò
-		   	        	var $hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
-						var $tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
-						var $k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k").css("display","none"); // Ç§
-						var $h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h").css("display","none"); // °Ù
-						var $t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t").css("display","none"); // Ê®
-						var $single = $("." + self.auctionHistoryModel.TMHList[p].newName + " .single"); // ¸ö
-						var $td = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-d"); // Ê®·ÖÎ»
-						var $hd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-d"); // °Ù·ÖÎ»
-						var $qd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .q-d"); // Ê®·ÖÎ»
-						var $wd = $("." + self.auctionHistoryModel.TMHList[p].newName + " .w-d"); // °Ù·ÖÎ»
-	//					var $comma = $("." + self.auctionHistoryModel.TMHList[p].newName + " .comma.sign");
-						var $dot = $("." + self.auctionHistoryModel.TMHList[p].newName + " .dot.sign");
-	//					var $bigMap = $("." + self.auctionHistoryModel.TMHList[p].newName + " .big-map");
-						
-						var data = {
-							  numbers: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
-							  targetClass: {
-//							  	"wk":$wk,
-//							  	"qk":$qk,
-							    "hk": $hk,
-							    "tk": $tk,
-							    "k": $k,
-							    "h": $h,
-							    "t": $t,
-							    "single": $single,
-							    "td": $td,
-							    "hd": $hd,
-							    "qd":$qd,
-							    "wd":$wd
-							  },
-							  zero: {
-//							  	wk:0,
-//							  	qk:0,
-							    hk: 0,
-							    tk: 0,
-							    k: 0,
-							    h: 0,
-							    t: 0,
-							    single: 0,
-							    td: 0,
-							    hd: 0,
-							    qd:0,
-							    wd:0
-							  },
-							  numbersTmp: ""
-						};
+
+		   	        	$hk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h-k").css("display","none"); // Ê®Íò
+						$tk = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t-k").css("display","none"); // Íò
+						$k = $("." + self.auctionHistoryModel.TMHList[p].newName + " .k").css("display","none"); // Ç§
+						$h = $("." + self.auctionHistoryModel.TMHList[p].newName + " .h").css("display","none"); // °Ù
+						$t = $("." + self.auctionHistoryModel.TMHList[p].newName + " .t").css("display","none"); // Ê®
+					
 		   	        }
 		   	       
 				  for(var k = 0; k < 10; k ++) {
 				    data.numbersTmp += "<div class='" + data.numbers[k] + "'>" + k + "</div>";
 				  };
-//                $(".flip").eq(p).empty();
-//                var html = '';
-//                html += '<div class="price-div">';
-//                html += '<div class="w-k number"></div>';
-//                html += '<div class="q-k number"></div>';
-//                html += '<div class="h-k number"></div>';
-//                html += '<div class="t-k number"></div>';
-//                html += '<div class="k number"></div>';
-//                html += '<div class="h number"></div>';
-//                html += '<div class="t number"></div>';
-//                html += '<div class="single number"></div>';
-//                html += '<div class="sign dot">.</div>';
-//                html += '<div class="t-d number" style="width:8px;-webkit-transform: scaleX(0.8);font-size:12px"></div>';
-//                html += '<div class="h-d number" style="width:8px;-webkit-transform: scaleX(0.8);font-size:12px;"></div>';
-//                html += '<div class="q-d number" style="width:8px;-webkit-transform: scaleX(0.8);font-size:12px"></div>';
-//                html += '<div class="w-d number" style="width:8px;-webkit-transform: scaleX(0.8);font-size:12px"></div>';
-//                html += '</div>';
-//                $(".flip").eq(1).html(html);
-//				  console.log($(".flip").eq(1))		        
+
                   $("." + self.auctionHistoryModel.TMHList[p].newName + " .price-div .number").empty();
 				  $("." + self.auctionHistoryModel.TMHList[p].newName + " .price-div .number").append("<div class='numbers-view'>" + data.numbersTmp + "</div>");
 		          
 				  self.auctionHistoryModel.TMHList[p]["data"] = data;
-	
-//				display: inline-flex; display: -webkit-inline-flex; flex-direction:  row; justify-content:flex-end;align-items: flex-end ;
+
 		    }
     	   	 
     	   
     	   	for(var c = 0; c < self.auctionHistoryModel.TMHList.length; c++)
             {   
-//          	      console.log(self.auctionHistoryModel.TMHList[c].info.viewPrice)
+
             		var priceStr = parseFloat(self.auctionHistoryModel.TMHList[c].info.viewPrice) ;
             		priceStr = parseFloat(priceStr.toFixed(4));
-//          	    $(".numbers-view").stop(true, true);
+
 	 		    	$.animateToPrice2(priceStr, c,self.auctionHistoryModel.TMHList);
             	
             }
@@ -1050,7 +677,7 @@ var AuctionHistoryCtrl =
 		                         }
                              	
                              }
-//                          console.log(self.auctionHistoryModel.TMHList[s].info.viewPrice)
+
 					}
           	           
 		    		
@@ -1066,26 +693,7 @@ var AuctionHistoryCtrl =
 	  
     },
     
-    
-//  initClock : function(){
-//  	 
-//  	clearInterval(self.timer2);
-//  	
-//  	var numberDiv = $("#changing-number");
-//  	 
-//  	var num = 10;
-//  	numberDiv.html(num);
-//  	self.timer2 =  setInterval(function(){
-//  		num -- ;
-//  		if(num == 0)
-//  		{
-//  			num = 10;
-//  		}
-//  		numberDiv.html(num);
-//  	},1000)
-//  	 
-//  
-//  },
+
  
       //设置总页数
     setTotalPage : function(count)
@@ -1262,18 +870,7 @@ var AuctionHistoryCtrl =
     	
     	self.scope.toChooseTab = function(type){
     		
-//  		if(self.isAgainUp)
-//			{   
-//				$dialog.msg("不能在1秒内连续提交商品！");
-//				return;
-//			}
-//			self.isAgainUp = true;
-//			
-//			setTimeout(function(){
-//				
-//				self.isAgainUp = false;
-//				
-//			},1000);
+
     		$(".animation66").css("display","block")
     		
     		$(".tab-choose-hundred-item").eq(type).addClass("add-hundre-tab").siblings().removeClass("add-hundre-tab");
@@ -1381,8 +978,6 @@ var AuctionHistoryCtrl =
 		    			
 		    			sessionStorage.setItem("stampTime",stampTime);
 
-//		    			viewPrice = (Math.floor(100 * item.info.commodity_price *(1 +  ((stampTime- item.add_time)/60) * (item.info.annualized_return*0.01/(commonFu.isSmoothYear()*1440)))))/100;
-//		    			viewPrice = commonFu.toDecimals(viewPrice);
 		    			
 		    			var obj = new Base64();
 						 	
@@ -1393,42 +988,13 @@ var AuctionHistoryCtrl =
 						var str = pageUrl.AUCTION_HISTORY_INFO + "?id=" + id_base64  + "&thisAcPage=" + thisPage_base64;
 						    
 						location.href = encodeURI(str);
-//		    			
-//		    			location.href = pageUrl.AUCTION_HISTORY_INFO + "?id=" + id  + "&thisAcPage=" + thisAcPage;
-//					
+			
 
     	};
     },
    
      
-//   changeTabColor : function(type){
-//   	
-//   	var self = this;
-//   	$(".tab-choose-hundred-item").eq(type).addClass("add-hundre-tab").siblings().removeClass("add-hundre-tab");
-//  		if(type == 0)
-//  		{  
-//  			self.priceRange = 0;
-//  			$(".tab-under-line").css({"left":"5vw"});
-//  		}
-//  		else if(type == 1)
-//  		{
-//  			self.priceRange = 1;
-//  			$(".tab-under-line").css({"left":"30vw"});
-//  		}
-//  		else if(type == 2)
-//  		{
-//  			self.priceRange = 2;
-//  			$(".tab-under-line").css({"left":"55vw"});
-//  		}
-//  		else if(type == 3){
-//  			
-//  			self.priceRange = 3;
-//  			$(".tab-under-line").css({"left":"80vw"});
-//  		}
-//  		else{}
-//  		
-//   },
-     
+
     //设置当前点击的id所在的页面数
     getInterPage : function(id){
     	
@@ -1587,13 +1153,6 @@ var AuctionHistoryCtrl =
 			    	
 			    	if((AuctionHistoryCtrl.page.currentPage < AuctionHistoryCtrl.page.totalPage) && (AuctionHistoryCtrl.auctionHistoryModel.TMHList.length < AuctionHistoryCtrl.totalCount))
 					{   
-//						$(".sell-list-item-price-word").find(".numbers-view").stop(true, true);
-//						$(".sell-list-item-price-word").find(".numbers-view div").removeClass("temp");
-//                      $this.find(".numbers-view").stop(true, true);
-//                      clearInterval(AuctionHistoryCtrl.timer);
-//                      clearInterval(AuctionHistoryCtrl.timer2);
-//                      AuctionHistoryCtrl.initClock();
-//                      $(".temp").css("display","none")
 
             	        AuctionHistoryCtrl.initData(1);
 					}

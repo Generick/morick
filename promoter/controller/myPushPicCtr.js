@@ -421,14 +421,9 @@ var myPushPicCtr = {
 		    },1200)
 		}
 		else{
-			   var  parameter = urlstr.split("PMTID=")[1];
-				var  stra = urlstr.split("?PMTID=")[0];
-				
-				var obj =new Base64();
-				var para = obj.encode(parameter);
-				var str = stra +"?PMTID=" + para;
-				str = encodeURI(str);
-	
+			     var name = decodeURI(localStorage.getItem("personPushName"));
+//			    name = self.changeCode(name);
+				var str = decodeURI(urlstr) + "&name=" + name;
 		   	   if(str != '' && str != null)
 		   	   {    
 			   	   	if($("canvas").length > 0)

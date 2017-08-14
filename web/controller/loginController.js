@@ -22,11 +22,19 @@ var LoginCtrl =
     	status : true
     },
     
+    name : '',
+    
     PMTID : null,
     
     init: function ($scope)
     {
+    	
+    	$(".animation").css("display","block");
+    	$(".container").css("opacity",0);
+    	
         this.scope = $scope;
+        
+        this.scope.name = this.name;
         
         this.initUrlData();
         
@@ -42,13 +50,17 @@ var LoginCtrl =
     	var self = this;
     	if(location.href.indexOf("?") > 0)
     	{    
-    		var obj = new Base64();
     		
-		    self.PMTID = obj.decode(commonFu.getQueryStringByKey("PMTID"));
-		 
+		    self.PMTID = commonFu.getQueryStringByKey("PMTID");
+		    if(commonFu.getQueryStringByKey("name") != null && commonFu.getQueryStringByKey("name") != "")
+		    {  
+		    	self.name = decodeURI(commonFu.getQueryStringByKey("name")); 
+		    	self.scope.name = self.name;
+		    }
     	}
-    	
-		
+        $(".animation").css("display","none");
+		$(".container").css("opacity",1);
+		$("#isfromErwei").css("color","#C4996D");
     },
     
     //检查参数

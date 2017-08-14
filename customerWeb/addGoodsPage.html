@@ -53,12 +53,7 @@
 				
 				
 				
-				<div class="items-goods-imgs-box">
-					<div class="items-goods-cover-title">
-						商品视频：
-					</div>
-					<upload-video url="goodsModel.videoUrl"></upload-video> 
-				</div>
+				
 				
 				<!--<div class="add-goods-items">
 					<div class="items-goods-tille2">
@@ -117,7 +112,8 @@
 					<div class="items-goods-cover-title">
 						商品详情：（文字 + 插图）
 					</div>
-					<div class="items-goods-describe-words">
+					<!--<div style="overflow: hidden;float:left;border:1px solid #e6e6e6;width:100%;padding-top:3%">-->
+						    <div class="items-goods-describe-words">
 						<textarea id="goods-detail-div" ></textarea>
 					   
 					</div>
@@ -127,7 +123,20 @@
 								<img src="img/add-goods-pl.png" /> 
 						</div>
 					</div>-->
+					<div class="items-goods-cover-title">
+						图片：
+					</div>
 					<upload-sep url="detImg"></upload-sep>
+					
+					<div class="items-goods-imgs-box" style="padding-left: 0;">
+					<div class="items-goods-cover-title">
+						商品视频：
+					</div>
+					<upload-video url="goodsModel.videoUrl"></upload-video> 
+				    </div>
+						
+					<!--</div>-->
+					
 				</div>
 				
 				<div class="btn-to-sub" ng-click="addGoods()">

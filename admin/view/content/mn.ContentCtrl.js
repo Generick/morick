@@ -3,7 +3,9 @@ var ContentCtrl = {
     
     
     isAbleToSend : false,
-   
+    
+    isShowIndexPageInfo : false,
+    
     contentModel: {
         adminNum: null,
         userNum: null,
@@ -20,7 +22,9 @@ var ContentCtrl = {
         this.scope = $scope;
        
         this.scope.contentModel = this.contentModel;
-
+        
+        this.scope.isShowIndexPageInfo = this.isShowIndexPageInfo;
+        
         this.getData();
         
         this.getStatics();
@@ -67,6 +71,8 @@ var ContentCtrl = {
     		if(_utility.isEmpty(data.userInfo.entries))
     		{
     			self.isAbleToSend = true;
+    			self.isShowIndexPageInfo = true;
+    		   
     		}
     		else{
     			
@@ -88,7 +94,13 @@ var ContentCtrl = {
     		}
     		
     		localStorage.setItem("isAbleToSend",self.isAbleToSend);
-    
+            self.scope.isShowIndexPageInfo = self.isShowIndexPageInfo;
+            if(self.isShowIndexPageInfo)
+            {
+            	$(".mn-show-info").removeClass("hidden")
+            	
+            }
+            self.scope.$apply();
     	})
     	
     },
@@ -96,7 +108,7 @@ var ContentCtrl = {
     
     changgeFontSize :function(){
     	$(".bg-4").css({"padding-left":"10px"});
-    	$(".bg-4-h").css({"font-size":"18px"});
+    	$(".bg-4-h").css({"font-size":"17px"});
     },
     getData: function(){
         var self = this,

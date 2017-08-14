@@ -31,7 +31,8 @@ class S_customService extends Srv_Controller
     	$likeStr = '';
     	if ($orderStatus != null && $orderStatus != '') $whr['orderStatus'] = $orderStatus;
     	//需求更改 只需要商品订单，不需要拍品订单
-        $whr['orderType'] = 2;//2商品订单 1拍品订单
+    	//又需要改回原来需求
+        //$whr['orderType'] = 2;//2商品订单 1拍品订单
     	$data = array();
     	$count = 0;
     	$this->m_order->getOrderList($startIndex, $num, $whr, $likeStr, $data, $count);

@@ -243,8 +243,8 @@
 
 .bottom-item-add-left{
 	/*display: inline-block;*/
-	float:left;
-	height:8.3vw;
+	/*float:left;*/
+	line-height:8.3vw;
 	overflow: hidden;
 	/*padding-left:0.3vw;*/
 }
@@ -256,9 +256,14 @@
 	margin:0.5vw 2vw !important;
 }
 
-.bottom-item-add-left span{
+.bottom-item-add-left div{
+	display: inline-block;
+	line-height:20px;
+	height:8.2vw;
 	line-height:8.3vw;
 	color:#c4996d;
+	/*color:#000000;*/
+	float:left;
 	font-size:13px;
 	letter-spacing: 1px;
 }

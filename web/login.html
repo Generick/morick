@@ -8,16 +8,43 @@
         <link rel="stylesheet" href="css/loginIn.css" />
         <link rel="stylesheet" href="popUpModal/popUp.css" />
         <link href="plugin/layerMobile/need/layer.css">
+        <style>
+        	.animation{
+	
+				height: 100%;
+				width: 100%;
+				display: none;
+			}
+			
+			.animation img{
+				width: 25px;
+				height: 25px;
+				margin-left: auto;
+				margin-right: auto;
+				position: absolute;
+				left: 45%;
+				top: 45%;
+			}
+            #isfromErwei{
+            	color:#FFFFFF;
+            }
+        </style>
 	</head>
 
 	<body ng-controller="ctrl" style="background-color: #fff;">
+		<div class="animation" style="position: fixed;z-index: 66;left:0;top:0;width:100%;height:100%;background: #FFFFFF;">
+			<img src="img/loading.gif" />
+		</div>
 		<div class="container">
-			<div class="log">
+			<div class="log" style="float:left;">
 				<img src="img/logo.png" />
 				<br />
 				<img src="img/titles.png" />
 			</div>
-			<div class="user-input">
+			<div id="isfromErwei" ng-show="name != '' && name != null" style="padding:0 13%;margin-top:3vw;float:left;width:100%;text-align: left;overflow: hidden;">
+				您的朋友 @<span ng-bind="name" style="line-height:22px;text-align: center;word-break: break-all;"></span> 邀您加入雅玩之家
+			</div>
+			<div class="user-input" style="float:left;margin-top:3vw;">
 				<div class="login-input">
 					<input type="telephone" class="input-tel-shade" ng-change="toShadeTel()" ng-model="loginModel.platformId" placeholder="请输入手机号"
                     onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11" />
@@ -66,7 +93,7 @@
 	<script type="text/javascript" src="controller/loginController.js" ></script>
 	<script>
 		if(window.screen.width < 375){
-			$('.user-input').css('margin-top','5vh');
+			$('.user-input').css('margin-top','3vw');
 		}
 		
 		

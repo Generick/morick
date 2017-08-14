@@ -297,8 +297,44 @@ var JUMP_URL = {
     ACTION_USERINFO : BASE_JUMP_URL + "userInfo",//跳到个人详情
 };
 
+////权限2级
+//var adminPermission = [{id: '101', val: '管理员列表'}],
+//  userPermission = [{id: '201', val: '用户信息'}],
+//  goodsPermission = [{id: '301', val: '藏品列表'}],
+//  auctionPermission = [{id: '401', val: '拍品列表'}],
+//  offerPricePermission = [{id: '501', val: '出价列表'}],
+//  orderPermission = [{id: '601', val: '订单列表'}],
+//  widthDrawPermission = [{id: '701', val: '提现列表'}],
+//  guessPermission = [{id: '801', val: '竞猜列表'}],
+//  
+//  dataPermission = [{id: '901', val: '销售记录'},{id: '902', val: '充值记录'},{id: '903', val: '拍品上拍记录'},{id: '904', val: '余额修改记录'},{id: '905', val: '藏品删除记录'},{id: '906', val: '拍品删除记录'}],
+//  
+//  elegantPermission = [{id: '1001', val: '雅学院发布'},{id: '1002', val: '雅学院编辑'}];
+//
+////权限1级
+//var permissionArr = [
+//  {id: '1', val: '管理员管理', secPermission: adminPermission},
+//  {id: '2', val: '用户管理', secPermission: userPermission},
+//  {id: '3', val: '藏品管理', secPermission: goodsPermission},
+//  {id: '4', val: '拍品管理', secPermission: auctionPermission},
+//  {id: '5', val: '出价管理', secPermission: offerPricePermission},
+//  {id: '6', val: '订单管理', secPermission: orderPermission},
+//  {id: '7', val: '提现管理', secPermission: widthDrawPermission},
+//  {id: '8', val: '有奖竞猜', secPermission: guessPermission},
+//  {id: '9', val: '数据统计', secPermission: dataPermission},
+//  {id: '10', val: '雅学院', secPermission: elegantPermission}
+//];
+
+
+
+
+
+
+
+
+
 //权限2级
-var adminPermission = [{id: '101', val: '管理员列表'}],
+var adminPermission = [{id: '101', val: '管理员列表'},{id: '102', val: '商户账号列表'},{id: '103', val: '推广员账号列表'},{id: '104', val: '客服账号列表'}],
     userPermission = [{id: '201', val: '用户信息'}],
     goodsPermission = [{id: '301', val: '藏品列表'}],
     auctionPermission = [{id: '401', val: '拍品列表'}],
@@ -307,10 +343,11 @@ var adminPermission = [{id: '101', val: '管理员列表'}],
     widthDrawPermission = [{id: '701', val: '提现列表'}],
     guessPermission = [{id: '801', val: '竞猜列表'}],
     
-    dataPermission = [{id: '901', val: '销售记录'},{id: '902', val: '充值记录'},{id: '903', val: '拍品上拍记录'},{id: '904', val: '余额修改记录'},{id: '905', val: '藏品删除记录'},{id: '906', val: '拍品删除记录'}],
+    dataPermission = [{id: '901', val: '拍品销售记录'},{id: '902', val: '充值记录'},{id: '903', val: '拍品上拍记录'},{id: '904', val: '余额修改记录'},{id: '905', val: '藏品删除记录'},{id: '906', val: '拍品删除记录'},{id: '907', val: '商品删除记录'},{id: '908', val: '商品销售记录'},{id: '909', val: '订单操作记录'}],
     
-    elegantPermission = [{id: '1001', val: '雅学院发布'},{id: '1002', val: '雅学院编辑'}];
-
+    elegantPermission = [{id: '1001', val: '雅学院发布'},{id: '1002', val: '雅学院编辑'}],
+    commodityPermission = [{id: '1101', val: '商品列表'},{id: '1102', val: '商户商品申请列表'}],
+    choicePermission = [{id: '1201', val: '精选列表'}];
 //权限1级
 var permissionArr = [
     {id: '1', val: '管理员管理', secPermission: adminPermission},
@@ -322,8 +359,13 @@ var permissionArr = [
     {id: '7', val: '提现管理', secPermission: widthDrawPermission},
     {id: '8', val: '有奖竞猜', secPermission: guessPermission},
     {id: '9', val: '数据统计', secPermission: dataPermission},
-    {id: '10', val: '雅学院', secPermission: elegantPermission}
+    {id: '10', val: '雅学院', secPermission: elegantPermission},
+    {id: '11', val: '商品管理', secPermission: commodityPermission},
+    {id: '12', val: '精选店管理', secPermission: choicePermission}
 ];
+
+
+
 
 var defaultImage = "assets/images/public/default.png";
 

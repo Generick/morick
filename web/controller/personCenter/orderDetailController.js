@@ -27,6 +27,8 @@ var OrderDetailCtrl = {
         deliveryType :0
     },
     
+    isNeedBtn : false,
+    
     timer6 : null,
     
     everyGoosPrice : null,
@@ -50,6 +52,8 @@ var OrderDetailCtrl = {
         this.scope.isShowPayWay = this.isShowPayWay;
         
         this.scope.isShowIt = this.isShowIt;
+        
+        this.scope.isNeedBtn = this.isNeedBtn;
         
         this.initData();
        
@@ -111,6 +115,11 @@ var OrderDetailCtrl = {
             else{
             	self.isShowIt = false;
     			self.scope.isShowIt = self.isShowIt;
+            }
+            if((self.orderDetailModel.orderInfo.payType == 5 || self.orderDetailModel.orderInfo.payType == 15) && self.orderDetailModel.orderInfo.orderStatus == 2)
+            {
+            	self.isNeedBtn = true;
+            	self.scope.isNeedBtn = self.isNeedBtn;
             }
             self.goodsOrderType = self.orderDetailModel.orderInfo.orderType;
             if(self.orderDetailModel.orderInfo.acceptName == "")
@@ -377,6 +386,11 @@ var OrderDetailCtrl = {
         
         };
        
+       
+        self.scope.toAuctionList = function(){
+        	
+        	location.href = pageUrl.AUCTION_HISTORY;
+        };
         
         self.scope.hideIt = function(){
         	

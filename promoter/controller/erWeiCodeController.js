@@ -30,15 +30,12 @@ var erWeiCtr = {
 		    },1200)
 		}
 		else{
-			   var  parameter = urlstr.split("PMTID=")[1];
-				var  stra = urlstr.split("?PMTID=")[0];
-				
-				var obj =new Base64();
-				var para = obj.encode(parameter);
-		//		str = "192.168.0.163/auction/login.html";
-				var str = stra +"?PMTID=" + para;
-				str = encodeURI(str);
-		//		alert(str)
+			   
+			    var name = decodeURI(localStorage.getItem("personPushName"));
+//			    name = self.changeCode(name);
+				var str = decodeURI(urlstr) + "&name=" + name;
+	            
+	            
 		   	   if(str != '' && str != null)
 		   	   {    
 			   	   	if($("canvas").length > 0)
@@ -76,4 +73,30 @@ var erWeiCtr = {
 		}
 		
 	},
+	
+	
+	
+//	changeCode : function(str){
+//		
+//		var self = this;
+//		  
+//		    var out, i, len, c;     
+//		    out = "";     
+//		    len = str.length;     
+//		    for(i = 0; i < len; i++) {     
+//		    c = str.charCodeAt(i);     
+//		    if ((c >= 0x0001) && (c <= 0x007F)) {     
+//		        out += str.charAt(i);     
+//		    } else if (c > 0x07FF) {     
+//		        out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));     
+//		        out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));     
+//		        out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));     
+//		    } else {     
+//		        out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));     
+//		        out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));     
+//		    }     
+//		    }    
+//		    return out;     
+//
+//	},
 }

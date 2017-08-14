@@ -1353,7 +1353,7 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 
 .up-vide-div>video{
 	border:1px solid #E1E1E1;
-	margin-left:10px;
+	margin-left:8px;
 	margin-top:5px;
 	width:90px;
 	height:85px;

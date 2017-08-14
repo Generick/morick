@@ -47,7 +47,7 @@ var adminLogin = function(){
         };
 
     if(ret)
-    {
+    {   
         localStorage.setItem(strKey.K_PHP_SESSION_ID, "");
         $data.httpRequest("post", api.API_ADMIN_LOGIN, params,
             /**
@@ -58,7 +58,7 @@ var adminLogin = function(){
              * @param data.userInfo.entries 权限
              */
             function(data){
-
+            	
                 $(".btn-item").hide().eq(1).show(); //显示登录中...
 
                 //存储session，admin类型，用户名

@@ -252,8 +252,9 @@ app.directive('uploadMul', function() {
         	{   
         		
         		$(".fixed-chrysanthemum2").css("display","block")
-        		var lastIndex = files.length - 1;
-        		uploadMulImage(files, lastIndex);
+//      		var lastIndex = files.length - 1;
+                var startIndex = 0;
+        		uploadMulImage(files, startIndex);
         	
         	};
         	
@@ -298,7 +299,7 @@ app.directive('uploadMul', function() {
 	        
 	        var uploadMulImage = function(files , i)
 	        {  
-	        	if(i < 0)
+	        	if(i > files.length-1)
 	        	{
 	        		document.getElementById("file-form-2").reset();
 	        		return;
@@ -338,7 +339,7 @@ app.directive('uploadMul', function() {
 					{  
 					    $(".goods-img").children(".select-round").eq(0).addClass("round-has-select").parent().siblings().find(".select-round").removeClass("round-has-select")
 					}
-		            uploadMulImage(files,--i);
+		            uploadMulImage(files,++i);
 		           
 		        };
 	        }
@@ -373,8 +374,10 @@ app.directive('uploadSpe', function() {
         	scope.imgUpload = function(files)
         	{
         		$(".fixed-chrysanthemum2").css("display","block")
-        		var lastIndex = files.length - 1;
-        		uploadMulImage(files, lastIndex);
+//      		var lastIndex = files.length - 1;
+//      		uploadMulImage(files, lastIndex);
+        		var startIndex = 0;
+        		uploadMulImage(files, startIndex);
         	};
         	
         	scope.delPic = function(idx){
@@ -422,7 +425,7 @@ app.directive('uploadSpe', function() {
 	        
 	        var uploadMulImage = function(files , i)
 	        {  
-	        	if(i < 0)
+	        	if(i > files.length -1)
 	        	{
 	        		document.getElementById("file-form-14").reset();
 	        		return;
@@ -463,7 +466,7 @@ app.directive('uploadSpe', function() {
 					{
 					    $(".goods-img-14").children(".select-round-14").eq(0).addClass("round-has-select").parent().siblings().find(".select-round-14").removeClass("round-has-select")
 					}  
-		            uploadMulImage(files,--i);
+		            uploadMulImage(files,++i);
 		          
 		        };
 	        }
@@ -501,8 +504,10 @@ app.directive('uploadAsk', function() {
         	scope.imgUpload = function(files)
         	{
         		$(".fixed-chrysanthemum2").css("display","block")
-        		var lastIndex = files.length - 1;
-        		uploadMulImage(files, lastIndex);
+//      		var lastIndex = files.length - 1;
+//      		uploadMulImage(files, lastIndex);
+        		var startIndex = 0;
+        		uploadMulImage(files, startIndex);
         	};
         	
         	scope.delPic = function(idx){
@@ -552,7 +557,7 @@ app.directive('uploadAsk', function() {
 	        
 	        var uploadMulImage = function(files , i)
 	        {  
-	        	if(i < 0)
+	        	if(i > files.length -1)
 	        	{
 	        		document.getElementById("file-form-22").reset();
 	        		return;
@@ -593,7 +598,7 @@ app.directive('uploadAsk', function() {
 					{
 					    $(".goods-img-22").children(".select-round-22").eq(0).addClass("round-has-select").parent().siblings().find(".select-round-22").removeClass("round-has-select")
 					}  
-		            uploadMulImage(files,--i);
+		            uploadMulImage(files,++i);
 		          
 		        };
 	        }
@@ -629,8 +634,10 @@ app.directive('uploadCom', function() {
         	scope.imgUpload = function(files)
         	{
         		$(".fixed-chrysanthemum2").css("display","block")
-        		var lastIndex = files.length - 1;
-        		uploadMulImage(files, lastIndex);
+//      		var lastIndex = files.length - 1;
+//      		uploadMulImage(files, lastIndex);
+        		var startIndex = 0;
+        		uploadMulImage(files, startIndex);
         	};
         	
         	scope.delPic = function(idx){
@@ -680,7 +687,7 @@ app.directive('uploadCom', function() {
 	        
 	        var uploadMulImage = function(files , i)
 	        {  
-	        	if(i < 0)
+	        	if(i > files.length -1)
 	        	{
 	        		document.getElementById("file-form-10").reset();
 	        		return;
@@ -721,7 +728,7 @@ app.directive('uploadCom', function() {
 					{
 					    $(".goods-img-10").children(".select-round-10").eq(0).addClass("round-has-select").parent().siblings().find(".select-round-10").removeClass("round-has-select")
 					}  
-		            uploadMulImage(files,--i);
+		            uploadMulImage(files,++i);
 		          
 		        };
 	        }
@@ -759,8 +766,10 @@ app.directive('uploadMap', function() {
         	scope.imgUpload = function(files)
         	{
         		$(".fixed-chrysanthemum2").css("display","block")
-        		var lastIndex = files.length - 1;
-        		uploadMulImage(files, lastIndex);
+//      		var lastIndex = files.length - 1;
+//      		uploadMulImage(files, lastIndex);
+        		var startIndex = 0;
+        		uploadMulImage(files, startIndex);
         	};
         	
         	scope.delPic = function(idx){
@@ -808,7 +817,7 @@ app.directive('uploadMap', function() {
 	        
 	        var uploadMulImage = function(files , i)
 	        {  
-	        	if(i < 0)
+	        	if(i > files.length -1)
 	        	{
 	        		document.getElementById("file-form").reset();
 	        		return;
@@ -849,7 +858,7 @@ app.directive('uploadMap', function() {
 					{
 					    $(".goods-img-2").children(".select-round-2").eq(0).addClass("round-has-select").parent().siblings().find(".select-round-2").removeClass("round-has-select")
 					}  
-		            uploadMulImage(files,--i);
+		            uploadMulImage(files,++i);
 		          
 		        };
 	        }
