@@ -276,6 +276,8 @@
             'promoter/P_promoter/getPromptUserInfo':{'userId':'1','friendUserId':15,'startIndex':0,'num':10,"说明":"获取推荐的用户详情"},
             'promoter/P_promoter/getWaitCheckBill':{'userId':'1','startIndex':0,'num':10,"说明":"获取待结账金额详情"},
             'promoter/P_promoter/setRemark':{'userId':1,'remark':'这是备注内容',"说明":"推广员给用户设置备注 userId为用户id"},
+            'promoter/P_promoter/setSelfSlogan':{'userId':1,'slogan':'这是口号',"说明":"推广员给自己设置口号 userId为推广员自己的id"},
+            'promoter/Promoter/getPMTSlogan':{'userId':1,"说明":"获取推广员的口号 userId为推广员的id"},
 
             //客服
             'customerService/A_customService/getServices':{'startIndex':0,'num':10,'说明':'获取客服账号列表'},

@@ -19,6 +19,7 @@ class CPmtBaseInfo extends IExtractInfo {
             "is_delete",
             "telephone",
             "qrcode",
+            "slogan",
         );
     }
 
@@ -45,6 +46,7 @@ class CPmtInfo extends IExtractInfo {
             "telephone",
             "qrcode",
             "registerTime",
+            "slogan",
         );
     }
 
@@ -79,6 +81,7 @@ class CPmt extends IUserBase {
             "telephone" =>       new CField(FIELD_TYPE_NORMAL),
             "registerTime" =>  new CField(FIELD_TYPE_NORMAL),
             "qrcode" =>  new CField(FIELD_TYPE_NORMAL),
+            "slogan" =>  new CField(FIELD_TYPE_NORMAL),
         );
 
         // 可被修改的字段，对应到用户身上的哪个字段（这里的数值主要用于modInfo，还有一些数据的修改和相应的逻辑有关）

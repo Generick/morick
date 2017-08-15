@@ -114,4 +114,25 @@ class P_promoter extends Pmt_Controller
     	}
     	$this->responseSuccess(ERROR_OK);
     }
+
+    //推广员给自己设置口号
+    function setSelfSlogan()
+    {
+    	if (!$this->checkParam(array('userId', 'slogan'))) 
+    	{
+    		$this->responseError(ERROR_PARAM);
+    		return;
+    	}
+    	$userId = $this->input->post('userId');
+    	$slogan = $this->input->post('slogan');
+    	$pmt = $this->m_user->getUserObj(USER_TYPE_PMT, $userId);
+    	if (!$pmt) 
+    	{
+    		$this->responseError(ERROR_NO_PROMOTER);
+    		return;
+    	}
+    	$modInfo = array('slogan' => $slogan);
+    	$pmt->modInfoWithPrivilege($modInfo);
+    	$this->responseSuccess(ERROR_OK);
+    }
 }
