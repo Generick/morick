@@ -1,4 +1,5 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');/**
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
  * Created by PhpStorm.
  * User: MXL
  * Date: 7/17/2017
