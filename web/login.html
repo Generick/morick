@@ -41,7 +41,7 @@
 				<br />
 				<img src="img/titles.png" />
 			</div>
-			<div id="isfromErwei" ng-show="name != '' && name != null" style="padding:0 13%;margin-top:3vw;float:left;width:100%;text-align: left;overflow: hidden;">
+			<div id="isfromErwei" ng-show="name != '' && name != null" style="padding:0 13%;margin-top:3vw;float:left;width:100%;text-align: left;overflow: hidden;max-height: 44px;overflow: hidden;">
 				<span ng-bind="name" style="line-height:22px;text-align: center;word-break: break-all;"></span>
 			</div>
 			<div class="user-input" style="float:left;margin-top:3vw;">
@@ -49,14 +49,14 @@
 					<input type="telephone" class="input-tel-shade" ng-change="toShadeTel()" ng-model="loginModel.platformId" placeholder="请输入手机号"
                     onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="11" />
 				</div>
-				<div class="code-input clear">
+				<div class="code-input clear" style="margin-top:1vw" >
 					<div class="code-wrap fix">
 					    <input id="login-pass-input" type="text" ng-change="toShadePass()" maxlength="4" ng-model="loginModel.password" placeholder="请输入验证码"
                         onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 						<div class="mobile-code" ng-bind="loginModel.codeCount" ng-click="onClickGetCode()"></div>
 					</div>
 				</div>
-				<button id="download-btn" ng-click="onClickLogin()">登 录</button>
+				<button id="download-btn" style="margin-top:2vw" ng-click="onClickLogin()">登 录</button>
 			</div>
 		</div>
 	</body>

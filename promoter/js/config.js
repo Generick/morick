@@ -51,7 +51,10 @@ var apiUrl =
 	API_GET_PUSH_LIST : API_BASE_URL + "promoter/P_promoter/myPromptUsers",//获取自己推荐的用户列表
 	API_GET_PUSH_USER_DETAIL : API_BASE_URL + "promoter/P_promoter/getPromptUserInfo",//获取自己用户的详情
     API_GET_WAIT_PAY : API_BASE_URL + "promoter/P_promoter/getWaitCheckBill",//获取待结账金额详情
-    ADD_REMARK : API_BASE_URL +"promoter/P_promoter/setRemark",
+    ADD_REMARK : API_BASE_URL +"promoter/P_promoter/setRemark",//设置用户备注
+    SET_PROMOTIONAL : API_BASE_URL + "promoter/P_promoter/setSelfSlogan",//设置推广口号
+    GET_PROMOTIONAL : API_BASE_URL + "promoter/Promoter/getPMTSlogan",//获取推广口号
+
 };
 
 var localStorageKey =
@@ -79,5 +82,6 @@ var pageUrl =
 	PUSHER_DETAIL : BASE_PAGE_URL + "pusherDetail.html",//推荐人详情页
 	PUSH_LIST : BASE_PAGE_URL + "pushPersonList.html",//推荐人列表页
     MY_PUSH_PIC : BASE_PAGE_URL + "myPushPic.html",//我的推广图片
-    MOD_REMARK : BASE_PAGE_URL + "remarksPage.html"
+    MOD_REMARK : BASE_PAGE_URL + "remarksPage.html",//个人备注
+    PROMOTIONAL : BASE_PAGE_URL + "promotionalPage.html",//推广语
 };

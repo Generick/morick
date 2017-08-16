@@ -60,7 +60,7 @@ var AuctionHistoryCtrl =
     page : {
 		currentPage : 1,
 		totalPage : null,
-		timeNum : 20,
+		timeNum : 40,
 	},
 	
 	totalCount : 0,//数据的总条数
