@@ -115,7 +115,7 @@ class P_promoter extends Pmt_Controller
     	$this->responseSuccess(ERROR_OK);
     }
 
-    //推广员给自己设置口号
+    //推广员给自己设置口号，用户在扫码注册登录时可以看到该口号
     function setSelfSlogan()
     {
     	if (!$this->checkParam(array('userId', 'slogan'))) 
